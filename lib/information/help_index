@@ -862,7 +862,7 @@ monster in a room.
 ===========================================================================
 
 #
-ASTRAL AFFINITY (Innate)
+"ASTRAL AFFINITY" (Innate)
 ===========================================================================
 As the Psycheporter progresses in power, the inhabitants of his native 
 plane become enamoured with him, and therefore resist the urge to attack.
@@ -2843,7 +2843,7 @@ See also: ETHERMANCER, "COSMIC VACUUM", "ETHEREAL DISCHARGE", COMET,
 	  "PLANETARY ALIGNMENT", SUPERNOVA
 
 #
-CRAFT CRAFTING
+CRAFTING
 ===========================================================================
 Crafting is one of the primary skills of the Alchemist Class. By collecting
 material pieces	from the corpses of dead mobs an alchemist can craft a wide 
@@ -3646,7 +3646,7 @@ could result in the possibility of an irretrievable corpse.
 See also: INSTRUMENT, WAIL, PIPER, SKILL_PIPER
 
 #
-DIRTTOSS DIRT TOSS (Skill)
+DIRTTOSS TOSS (Skill)
 ===========================================================================
 Although anyone is able to grab a clump of dirt, tossing it, it requires a
 thieves' skills as an acrobat to properly hit an opponents eyes during
@@ -4060,7 +4060,7 @@ NOTE: Items left on the ground will not be there after reboots.
 See also: GET, TAKE, BURY, HIDE, SELL
 
 #
-DROW "DROW ELF" (General Information)
+"DROW ELF" (General Information)
 ===========================================================================
 Living far beneath the surface, deep within the bowels of the Underdark,
 drow elves are a swift-moving, crafty, remorselessly wicked people ruled by
@@ -4150,7 +4150,7 @@ with a secondary weapon is very unlikely.
 ===========================================================================
 
 #
-DUERGAR "DUERGAR DWARF"
+"DUERGAR DWARF"
 ===========================================================================
 The duergar are an evil race of gray dwarves that live deep under the
 surface of the world, within the depths of the Underdark.  Extremely
@@ -5720,7 +5720,7 @@ latest news on the MUD. They are located at: www.durismud.org
 See also: WEBSITE
 
 #
-FRAG FRAGS (General Information)
+FRAGS (General Information)
 ===========================================================================
 Syntax:     frag 
             frag <classname>
@@ -6319,7 +6319,7 @@ See also: "GOD, GSHOUT", "GOD, ECHO", "GOD, ECHOA"
 ===========================================================================
 
 #
-&+m"GOD, FORCE"&n
+"GOD, FORCE"
 ===========================================================================
 &+mSyntax:  force <victim> <argument>&n
 
@@ -7052,7 +7052,7 @@ much more powerful creatures than it's "Summon Beast" counterpart.
 See also: ANIMALIST, "SUMMON BEAST"
 
 #
-"GREY ELF" GREY (General Information)
+"GREY ELF" (General Information)
 ===========================================================================
 Unlike their cousins the drow, grey elves live on the surface and prefer to
 dwell in forests. They are exceptionally intelligent and swift, but are
@@ -9751,7 +9751,7 @@ proficiency of the caster. It cannot be combined with "Bearstrength" or
 See also: BEARSTRENGTH, ELEPHANTSTRENGTH
 
 #
-"MULTI-CLASS" (General Information)
+"MULTI-CLASS" MULTICLASS (General Information)
 ===========================================================================
 Upon reaching level 50, you may "multi-class" your character, meaning to
 add a second class choice to your character. This is not without its drawbacks
@@ -9974,7 +9974,7 @@ used.
 ===========================================================================
 
 #
-NAME NAMES (General Information)
+NAMES (General Information)
 ===========================================================================
 This is a medieval based fantasy mud, if you pick a name that is NOT suited
 to a mud of that theme, you will be asked to change it. Common names like
@@ -10192,7 +10192,7 @@ See also: TOGGLE, DISPLAY, COMMANDS, WEBSITE, FORUMS, INDEX, NCHAT
 
 #
 NEW-COMBAT "NEW COMBAT" "GROUP RANKS" RANKS "FRONT RANK" "BACK RANK"
-
+===========================================================================
 The biggest, most important change with the new combat stuff is the
 new, increased importance of group ranks.  Group ranking is now critical
 to the success of PvP engagements.
@@ -10240,6 +10240,7 @@ changes.
 Expect damages, spell chant times, and just about any other facet of this to
 be tweaked as it's used.  Of great use to me will be battle logs that show
 problems you may run across.  
+===========================================================================
 
 #
 NEWS
@@ -10402,7 +10403,7 @@ is NOT easy.
 See also: RACES, INNATE, ULTRAVISION, INFRAVISION, "SUMMON HORDE"
 
 #
-ORDER "ORDER FOLLOWERS" (Command)
+"ORDER FOLLOWERS" (Command)
 ===========================================================================
 Syntax:         order <petname> <command>
                 order followers <command>
@@ -10561,7 +10562,7 @@ on the continent surfaces.
 See also: INNATE, "BOUNTY HUNTER", HARPY
 
 #
-PETS PET (General Information)
+PETS (General Information)
 ===========================================================================
 "Pets" are creatures who will permanently follow you and your orders unless 
 you attack them or rent them off. You can aquire them in several different 
@@ -12321,7 +12322,7 @@ You must be 25th level minimum to sack a guildhall.
 ===========================================================================
 
 #
-SAFE FALL (Skill)
+"SAFE FALL" (Skill)
 ===========================================================================
 Safe Fall is a skill granted to rogues and all rogue types. When skilled at
 it, the falling victim can fall for a distance and not sustain significant
@@ -12857,7 +12858,7 @@ period of time.
 See also: GUARDIAN
 
 #
-SHIP SHIPS 
+SHIPS 
 ===========================================================================
 
 Table of Contents for Ships -Type "Help <Ship_category>" to view 
@@ -14693,7 +14694,7 @@ causing considerable damage.
 ===========================================================================
 
 #
-SONG SONGS
+SONGS
 ===========================================================================
 These are the basic skills of the bard and spectral piper, and have various 
 magical
@@ -15150,7 +15151,7 @@ taking the potency for its own.
 See also: DEATHLORD
 
 #
-SPACIAL FOCUS (Innate)
+"SPACIAL FOCUS" (Innate)
 ===========================================================================
 With the power of this ability, the Psycheporter can open his mind to a
 much wider range of wormhole targets within a certain distance. They have 
@@ -15227,7 +15228,7 @@ NOTE: Use help <specname> for information on a specific specialization.
 See also: SPECIALIZATIONS, SKILLS, INNATE
 
 #
-SPECALIZATION SPECIALIZATIONS SPECIALIZE SPEC (General Information)
+SPECIALIZATIONS SPECIALIZE (General Information)
 ===========================================================================
 Upon reaching level 30, you may "specialize" you character, meaning to 
 choose a path or skill-set. After you have decided what specialization you
@@ -16108,7 +16109,7 @@ system works.
 See also: AC
 
 #
-THARN THARNADIA
+THARNADIA
 ===========================================================================
 The sprawling metropolis of Tharnadia is the most active city in all of
 Duris. It is the cornerstone of the human economy and the jewel of their
@@ -16354,7 +16355,7 @@ the victim dies or the illusion has taken enough damage!
 ===========================================================================
 
 #
-TITLE (General Information)
+TITLES (General Information)
 ===========================================================================
 Duris is a fantasy based mud and as such we expect the players to have 
 fantasy based titles, if they have them at all. What a proper title is
@@ -17047,7 +17048,7 @@ have nasty side effects.
 See also: "HOLY WORD", BLINDNESS
 
 #
-UNIQUE UNIQUES (General Information)
+UNIQUES (General Information)
 ===========================================================================
 Uniques vary in that they can be weapons, armor, and other items. Each
 unique is one of a kind and therefore artifacts by nature. No unique is
