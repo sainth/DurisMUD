@@ -8969,7 +8969,7 @@ To see what's inside a container (e.g., a corpse), use the syntax "look IN
 "Look" is also used when utilizing one of Duris's many ships, although with
 different syntax.
 ===========================================================================
-See also: EXAMINE, GLANCE, READ, SHIP
+See also: EXAMINE, GLANCE, READ, SHIPS
 
 #
 LORE (Skill)
@@ -9971,7 +9971,7 @@ to use them.
   SAVE                  SEARCH                  SHOPS  
                  
 ===========================================================================
-See also: NEWBIE, COMMANDS
+See also: NEWBIE, COMMANDS, SHIPS
 
 #
 MYSTICS (General Information)
@@ -12855,7 +12855,7 @@ period of time.
 See also: GUARDIAN
 
 #
-SHIPS
+SHIP SHIPS
 ===========================================================================
 
 Table of Contents for Ships -Type "Help <Ship_category>" to view
@@ -12894,7 +12894,7 @@ hull.  You are PERMANENTLY stuck with that shipname for this character.
 Next suggested reading: "help SHIP_LIST" 
 
 ===========================================================================
-See also: ANSI, TESTCOLOR, SHIP_LIST, SHIP
+See also: ANSI, TESTCOLOR, SHIP_LIST, SHIPS
 
 #
 SHIP_CREWS
@@ -12992,7 +12992,7 @@ items.
 Next suggested reading: "help SHIP_MOVEMENT" 
 
 ===========================================================================
-See also: SHIP_COMBAT, SHIP_COMMANDS, SHIP
+See also: SHIP_COMBAT, SHIP_COMMANDS, SHIPS
 
 #
 SHIP_MOVEMENT
@@ -13049,7 +13049,7 @@ simply sail alongside the square, slow to 10 speed or less, and attempt to
 maneuver onto the shore. If it works, you found it, if not, DON'T CRASH! :) 
          
 ===========================================================================
-See also: SHIP_COMMNDS, SHIP
+See also: SHIP_COMMNDS, SHIPS
 
 #
 SHIP_COMBAT SHIP_BATTLE 
@@ -13121,7 +13121,7 @@ After Sinking a ship, use the command "Get Money" to collect the prize
 money for sinking your enemy.
 
 ===========================================================================
-See also: SHIP_LOOKS, SHIP_COMMANDS, SHIP
+See also: SHIP_LOOKS, SHIP_COMMANDS, SHIPS
 
 #
 SHIP_CARGO 
@@ -13188,7 +13188,7 @@ type "order jettison cargo" and your actual top speed will now match your
 listed top speed, allowing you to escape. 
 
 ===========================================================================
-See also: SHIP_COMMANDS, SHIP
+See also: SHIP_COMMANDS, SHIPS
 
 #
 SHIP_COMMANDS DISEMBARK REPAIR RELOAD
@@ -13241,7 +13241,7 @@ Frag Ship
 Get Money
 Disembark -only from the edge of a ship for large ships
 ===========================================================================
-See also: SHIP
+See also: SHIPS
 
 #
 SHIP_LOOKS 
@@ -13334,7 +13334,7 @@ Norgdog.
 Next suggested reading: "help SHIP_COMMANDS" 
 
 ===========================================================================
-See also: SHIP_COMMANDS, SHIP
+See also: SHIP_COMMANDS, SHIPS
 
 # 
 "SHOCKING GRASP" (Spell)
