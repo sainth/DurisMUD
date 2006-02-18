@@ -1,314 +1,315 @@
-05/13/04
-
+02/18/06
                           &+L*****************
-                          &+L* &+YC R E D I T S &+L*
+                          &+L* &+RC R E D I T S &+L*
                           &+L*****************
 
 
 
-&+YZONE NAME                       LEVEL           CREATOR
+&+RZONE NAME                       LEVEL           CREATOR
 
-&+b************************************************************
+&+L***************************************************************
 
-&+CThe Abandoned Ruins            &+m*  &+C1-20      &+b-&+c=&+C  Jera
-&+BThe Accursed Realm of Khul'lor &+m* &+B45-50      &+b-&+c=&+C  Scip
-&+Balrik's Inn                    &+m* &+B20-50      &+b-&+c=&+C  Guidrich
-&+CAlterian Mountains             &+m* &+C 1-30      &+b-&+c=&+C  Miax
-&+CAlterian Wilderness            &+m* &+C 1-30      &+b-&+c=&+C  Miax
-&+mAnt Forest                     &+m* &+m15-30      &+b-&+c=&+C  Akyura
-&+BAracdrathos Guildhouses        &+m* &+B45-50      &+b-&+c=&+C  Xyzom
-&+BAracdrathos Wilds              &+m* &+m15-50      &+b-&+c=&+C  Xyzom
-&+WAstral Plane (Areas)           &+m*    &+W50+     &+b-&+c=&+C  Ilienze
-&+BAstral Plane (Main Grid)       &+m* &+B30-50      &+b-&+c=&+C  Miax
-&+WAstral Plane (Tiamat)          &+m*    &+W50+     &+b-&+c=&+C  Miax
-&+CArbre's Forest                 &+m*  &+C1-20      &+b-&+c=&+C  Clavados
-&+mArcium, the Plagued Kingdom    &+m* &+m15-50      &+b-&+c=&+C  Sizan
-&+WBahamut                        &+m*    &+W50+     &+b-&+c=&+C  Ekoc
-&+mThe Bandit Camp                &+m* &+m10-30      &+b-&+c=&+C  Phreak
-&+mThe Bandit Settlement          &+m* &+m10-50      &+b-&+c=&+C  Unknown
-&+mBarrow of the Quiosho          &+m* &+m 5-50      &+b-&+c=&+C  Athelea
-&+mThe Basin Wastes               &+m* &+m20-40      &+b-&+c=&+C  Shadowy
-&+mBastine's Lair                 &+m*  &+m3-50      &+b-&+c=&+C  Unknown
-&+BThe Battlefields               &+m* &+B40-50      &+b-&+c=&+C  Scip
-&+mThe Black Thorne Mountains     &+m* &+B20-50      &+b-&+c=&+C  Sniktiorg
-&+mThe Black Tunnels              &+m* &+m25-45      &+b-&+c=&+C  Dryzkul
-&+W* The Bloody Plains            &+m* &+B20-50      &+b-&+c=&+C  Ilienze
-&+CBraddistock Mansion            &+m* &+C 1-15      &+b-&+c=&+C  Rand
-&+mThe Broken Blade Tavern        &+m* &+m10-50      &+b-&+c=&+C  Unknown
-&+BThe Bronze Citadel             &+m* &+B45-50      &+b-&+c=&+C  Mabort
-&+CBugentolen                     &+m*  &+C1-20      &+b-&+c=&+C  Clavados
-&+mCaves of Mt. Skelenak, upper   &+m* &+C 1-10      &+b-&+c=&+C  Miax
-&+mCaves of Mt. Skelenak, lover   &+m* &+C10-20      &+b-&+c=&+C  Miax
-&+WCelestia                       &+m*    &+W50+     &+b-&+c=&+C  Alachest
-&+BCeothia                        &+m* &+B45-50      &+b-&+c=&+C  Cy
-&+BCeothia - the past             &+m* &+B45-50      &+b-&+c=&+C  Cy
-&+BCeothia - the future           &+m* &+B45-50      &+b-&+c=&+C  Cy
-&+mCity of Breale                 &+m* &+m 5-50      &+b-&+c=&+C  Unknown
-&+BCity of Brass (Effreeti)       &+m* &+B45-50      &+b-&+c=&+C  Cython
-&+mCity of BogenTok               &+m* &+m10-50      &+b-&+c=&+C  Clavados
-&+BCity of Torrhan                &+m* &+B20-50      &+b-&+c=&+C  Denel
-&+BCity of Verspin                &+m*  &+m3-50      &+b-&+c=&+C  Zepline
-&+mCity of Wemics                 &+m* &+m10-50      &+b-&+c=&+C  Clavados
-&+mConnection Zones               &+m* &+m10-50      &+b-&+c=&+C  Clavados/Fotenak
-&+CThe Clawed Caverns             &+m* &+C 5-20      &+b-&+c=&+C  Xueqin
-&+mCrossroads of Arvandor         &+m* &+B20-50      &+b-&+c=&+C  Zxa
-&+BThe Crystalspyre Mountains     &+m* &+B20-50      &+b-&+c=&+C  Xyzom
-&+CThe Dark Forest                &+m*  &+C1-20      &+b-&+c=&+C  Zith
-&+mDarkfall Forest                &+m* &+C10-20      &+b-&+c=&+C  Clavados
-&+WDarkmore Forest                &+m* &+W 1-50      &+b-&+c=&+C  Unknown
-&+BDeathwood Forest               &+m* &+B30-50      &+b-&+c=&+C  Sulkus
-&+CThe Defense of Longhollow      &+m* &+C 1-15      &+b-&+c=&+C  Ilshadrial/Drevarr
-&+WThe Demi-Plane, Imprisonment   &+m*    &+W50+     &+b-&+c=&+C  Ilienze
-&+mDesolate                       &+m* &+B20-50      &+b-&+c=&+C  Alachest
-&+mDirk'NSpire                    &+m* &+m 7-35      &+b-&+c=&+C  Sniktiorg
-&+mDivine Home                    &+m* &+B20-50      &+b-&+c=&+C  Alachest
-&+BThe Domain of Lost Souls       &+m* &+B30-50      &+b-&+c=&+C  Sniktiorg/Beretorn
-&+WDragonnia                      &+m*   &+W 51+     &+b-&+c=&+C  Ilie
-&+mDragonsfall Forest             &+m*  &+m1-50      &+b-&+c=&+C  Unknown
-&+BDreggan Wood                   &+m* &+B30-50      &+b-&+c=&+C  Cyric
-&+CD&+Wr&+cif&+Cting &+WR&+Cea&+cl&+Wm&n                 &+m* &+B40-50      &+b-&+c=&+C  Sizan
-&+BDu'Maathe Castle               &+m* &+B 1-50      &+b-&+c=&+C  Cy
-&+mThe Dusty Highway              &+m* &+m 1-50      &+b-&+c=&+C  Unknown
-&+mThe Elemental Glades           &+m* &+m20-30      &+b-&+c=&+C  Shadowy
-&+BElemental Plane of Air         &+m* &+B46-50      &+b-&+c=&+C  Cython
-&+BElemental Plane of Earth       &+m* &+B46-50      &+b-&+c=&+C  Cython
-&+BElemental Plane of Fire        &+m* &+B46-50      &+b-&+c=&+C  Cython
-&+BElemental Plane of Water       &+m* &+B46-50      &+b-&+c=&+C  Cython
-&+CElvengrove Forest              &+m*  &+C1-50      &+b-&+c=&+C  Unknown
-&+BThe Ethereal Plane             &+m* &+B46-50      &+b-&+c=&+C  Ilienze
-&+mThe Faerie Realms              &+m* &+m 1-50      &+b-&+c=&+C  Vaprak
-&+BThe Fallen Tower               &+m* &+B25-50      &+b-&+c=&+C  Unknown
-&+CFisherman Pond                 &+m* &+C 1-15      &+b-&+c=&+C  Clavados
-&+mThe Fields Between             &+m* &+m15-50      &+b-&+c=&+C  Kolut
-&+mThe Flind Settlement           &+m* &+m10-40      &+b-&+c=&+C  Unknown
-&+mThe Fog Enshrouded Woods       &+m* &+m15-40      &+b-&+c=&+C  Zarland
-&+mThe Forest City of Aravne      &+m* &+m10-50      &+b-&+c=&+C  Aretan
-&+CThe Forest of Mir              &+m* &+C 1-30      &+b-&+c=&+C  Miax
-&+mThe Forest of Lylrstas         &+m* &+m15-50      &+b-&+c=&+C  Kaelia
-&+mThe Forest of Tribals          &+m* &+m30-50      &+b-&+c=&+C  Truposz
-&+WThe Kingdom of Torg            &+m* &+W40-50      &+b-&+c=&+C  Kolut
-&+mThe Forgotten Forest           &+m* &+B30-50      &+b-&+c=&+C  Oraks
-&+BForgotten Mansion              &+m* &+B40-50      &+b-&+c=&+C  Trask
-&+BFort Boyard                    &+m* &+B45-50      &+b-&+c=&+C  Melkivar
-&+WThe Four Horsemen, Apocolypse  &+m*    &+W50+     &+b-&+c=&+C  Trask
-&+mGargantuan Purple Worm Track   &+m* &+B20-50      &+b-&+c=&+C  Clavados
-&+mGibberlings                    &+m* &+B30-50      &+b-&+c=&+C  Zalt
-&+WThe Githyanki Fortress         &+m*    &+W50+     &+b-&+c=&+C  Zod
-&+BThe Githzerai Outpost/Fortress &+m* &+B45-50      &+b-&+c=&+C  Krzzn
-&+mThe Ghore Torture Compound     &+m* &+m 5-40      &+b-&+c=&+C  Unknown
-&+BGigantic Worm Crater           &+m* &+B40-50      &+b-&+c=&+C  Unknown
-&+mThe Glacier Zone               &+m* &+B15-30      &+b-&+c=&+C  Vareena
-&+mThe Golden Halls of the Crown  &+m* &+m25-50      &+b-&+c=&+C  Krzzn
-&+mThe Great Mushroom Forest      &+m* &+m35-50      &+b-&+c=&+C  Clavados
-&+mThe Graveyard                  &+m* &+m10-40      &+b-&+c=&+C  Trask
-&+mHalfcut Hills                  &+m* &+m15-50      &+b-&+c=&+C  Unknown
-&+WHall of Ancients               &+m*    &+W50+     &+b-&+c=&+C  Akyura
-&+mThe Haunted Woods              &+m*  &+m1-35      &+b-&+c=&+C  Clavados
-&+WThe Plane of Avernus           &+m*    &+W50+     &+b-&+c=&+C  Mabort
-&+BHigh Moors                     &+m* &+B45-50      &+b-&+c=&+C  Unknown
-&+BThe Hunt                       &+m* &+B45-50      &+b-&+c=&+C  Alachest
-&+BThe Ice Tower                  &+m* &+B25-50      &+b-&+c=&+C  Trask
-&+mIcecrag Castle                 &+m* &+B20-50      &+b-&+c=&+C  Tempus
-&+WInterspace                     &+m*    &+W50+     &+b-&+c=&+C  Ilienze
-&+mJenna's Wayhouse               &+m*  &+m1-50      &+b-&+c=&+C  Miax
-&+mJindonium                      &+m* &+B30-50      &+b-&+c=&+C  Scip
-&+BJotunheim                      &+m* &+B40-50      &+b-&+c=&+C  Talos
-&+mJungle                         &+m*  &+m5-40      &+b-&+c=&+C  Unknown
-&+W* The Killing Fields           &+m* &+B20-50      &+b-&+c=&+C  Ilienze
-&+BKnights Test                   &+m* &+B40-50      &+b-&+c=&+C  Unknown
-&+CThe Kobold Village             &+m* &+C 1-30      &+b-&+c=&+C  Vaprak
-&+BKrethik Keep                   &+m* &+B40-50      &+b-&+c=&+C  Uklor
-&+WThe Labyrinth of No Return     &+m*    &+W50+     &+b-&+c=&+C  Bjorte
-&+mLair of The Asunwa Jaguar      &+m* &+m20-40      &+b-&+c=&+C  Moriana
-&+mLava Springs                   &+m* &+C 1-30      &+b-&+c=&+C  Sizan
-&+mLava Tubes                     &+m* &+m10-30      &+b-&+c=&+C  Dbra
-&+CLlyrath Forest                 &+m*  &+C1-35      &+b-&+c=&+C  Unknown
-&+WLong John Silver's Sunken Ship &+m*    &+W50+     &+b-&+c=&+C  Raxxel
-&+BLord Krimeneha's Mansion       &+m* &+B25-40      &+b-&+c=&+C  Xueqin
-&+BThe Lost Realms of Shadowfall  &+m* &+B35-50      &+b-&+c=&+C  Zaeru
-&+mMazzolin                       &+m* &+B20-50      &+b-&+c=&+C  Xyzom
-&+CMenden on the Deep             &+m*  &+C1-20      &+b-&+c=&+C  Oghma
-&+mMinotaur Burial Chamber        &+m*  &+m1-45      &+b-&+c=&+C  Unknown
-&+BThe Misty Chasm                &+m* &+B25-50      &+b-&+c=&+C  Sniktiorg
-&+mMistywood Forest               &+m* &+m15-22      &+b-&+c=&+C  Rylar
-&+mMoria                          &+m* &+m10-50      &+b-&+c=&+C  Miax
-&+mMoonshae Islands               &+m*  &+m1-50      &+b-&+c=&+C  Lathander
-&+WMount Banishment               &+m*    &+W45+     &+b-&+c=&+C  Kolut
-&+mMount Olympus                  &+m*  &+m1-50      &+b-&+c=&+C  Zod
-&+BMt. Sknak                      &+m* &+B30-50      &+b-&+c=&+C  Phreak
-&+CMyconid Mushroom Forest        &+m* &+C 1-10      &+b-&+c=&+C  Sabrae
-&+mMyrabolus                      &+m* &+m10-50      &+b-&+c=&+C  Alachest
-&+BMyrloch Vale                   &+m* &+B40-50      &+b-&+c=&+C  Lathander
-&+WThe Negative Material Plane    &+m*    &+W50+     &+b-&+c=&+C  Zileas/Wug
-&+BNakral's Crypt                 &+m* &+B35-50      &+b-&+c=&+C  Tavril
-&+WNew Cave City                  &+m*    &+W50+     &+b-&+c=&+C  Ilienze
-&+mNewhaven                       &+m* &+m20-40      &+b-&+c=&+C  Drevarr/Ilshadrial
-&+mNeverwind Valley               &+m* &+B15-30      &+b-&+c=&+C  Halcyon
-&+mNhavan Island                  &+m* &+m10-30      &+b-&+c=&+C  Oghma
-&+mNizari                         &+m* &+m20-40      &+b-&+c=&+C  Shadowy
-&+mNorthern Lakes and Settlements &+m* &+m20-40      &+b-&+c=&+C  Melkivar
-&+mNorthern Tundra                &+m*  &+m1-40      &+b-&+c=&+C  Clavados
-&+CNorthern Wilderness            &+m*  &+C1-25      &+b-&+c=&+C  Miax
-&+WNy'Neth Stronghold             &+m*    &+W50+     &+b-&+c=&+C  Aretan
-&+BThe Obsidian Citadel           &+m* &+B40-50      &+b-&+c=&+C  Zileas
-&+BThe Old Citadel                &+m* &+B30-50      &+b-&+c=&+C  Shadowy
-&+BOutcast Tower                  &+m* &+B25-50      &+b-&+c=&+C  Clavados
-&+BThe Outpost                    &+m* &+B30-50      &+b-&+c=&+C  Phreak
-&+WPalace of the Sultan           &+m*    &+W50+     &+b-&+c=&+C  Cython
-&+BThe Peasant Village of Ako     &+m*  &+B1-50      &+b-&+c=&+C  Arylin
-&+CPhantasmagoric Caverns         &+m*  &+C1-25      &+b-&+c=&+C  Beretorn
-&+CThe Pharr Valley               &+m*  &+C1-10      &+b-&+c=&+C  Shadowy
-&+CThe Pharr Valley Swamp         &+m*  &+m1-40      &+b-&+c=&+C  Mahm
-&+CPine Hollows                   &+m*  &+C5-25      &+b-&+c=&+C  Xueqin
-&+WPit of Dragons                 &+m*    &+W50+     &+b-&+c=&+C  Cy
-&+mPits of Cerberus               &+m* &+B20-50      &+b-&+c=&+C  Alachest
-&+WPoseidon's Sea Kingdom         &+m*    &+W50+     &+b-&+c=&+C  Krzzn
-&+mPragtog's Domain               &+m* &+m15-45      &+b-&+c=&+C  Dryzkul
-&+BPrison of Despair              &+m* &+B25-50      &+b-&+c=&+C  Zod
-&+BPrisons of Fort Boyard         &+m* &+B40-50      &+b-&+c=&+C  Melkivar
-&+CRaiders                        &+m*  &+C1-10      &+b-&+c=&+C  Zaeru
-&+WRa`Tutirama                    &+m*    &+W50+     &+b-&+c=&+C  Falari
-&+BThe Realms of Thetis           &+m* &+B30-50      &+b-&+c=&+C  Falari
-&+mThe Rift Valley Jungle         &+m* &+m15-50      &+b-&+c=&+C  Xueqin
-&+BThe River Styx                 &+m* &+B40-50      &+b-&+c=&+C  Zarland
-&+BRogue Plains                   &+m* &+B40-50      &+b-&+c=&+C  Alachest
-&+BThe Ruins of Old Tharnadia     &+m* &+B40-50      &+b-&+c=&+C  Phreak
-&+BThe Ruins of Turolopolis       &+m* &+B40-50      &+b-&+c=&+C  Kuldrim
-&+BSarmiz'Duul                    &+m*  &+B1-50      &+b-&+c=&+C  Zaeru
-&+WThe Scorched Valley            &+m*    &+W50+     &+b-&+c=&+C  Kolut
-&+BSettlement of Clan Stoutdwarf  &+m* &+B25-50      &+b-&+c=&+C  Clavados
-&+CThe Seacaves                   &+m*  &+C1-10      &+b-&+c=&+C  Kelarian
-&+WShaboath                       &+m*    &+W50+     &+b-&+c=&+C  Timken
-&+mShadow Swamp                   &+m* &+B20-50      &+b-&+c=&+C  Spuddog
-&+mShadowclave                    &+m* &+m20-40      &+b-&+c=&+C  Clavados
-&+mShafts of the Underdark        &+m* &+m25-50      &+b-&+c=&+C  Ilienze
-&+WShadamehr Keep                 &+m*    &+W50+     &+b-&+c=&+C  Cyric
-&+BShipyards                      &+m* &+B 1-50      &+b-&+c=&+C  Melkivar
-&+WShrine of the Orrak            &+m*    &+W50+     &+b-&+c=&+C  Unknown
-&+WSkrentherlog's Temple          &+m*    &+W50+     &+b-&+c=&+C  Xueqin
-&+CSkulldrach Lake                &+m*  &+C1-20      &+b-&+c=&+C  Unknown
-&+BSmokeveil  Forest              &+m*  &+B1-50      &+b-&+c=&+C  Berethorn
-&+CSplit Shield Slave Encampment  &+m*  &+C1-20      &+b-&+c=&+C  Truposz
-&+CSplit Shield Village           &+m*  &+C1-20      &+b-&+c=&+C  Aki
-&+BThe Stone Tower of Teka        &+m* &+B45-50      &+b-&+c=&+C  Melkivar
-&+mStorm Port                     &+m* &+B20-50      &+b-&+c=&+C  Alachest
-&+mStorm Port Stronghold          &+m* &+B20-50      &+b-&+c=&+C  Alachest
-&+BThe Temple of Arkan'non        &+m* &+B45-50      &+b-&+c=&+C  Orthaz
-&+mThe Temple of Cloister         &+m* &+B30-50      &+b-&+c=&+C  Krzzn
-&+BThe Temple of Fire             &+m* &+B30-50      &+b-&+c=&+C  Akyura
-&+BThe Temple of Lizizania        &+m* &+m20-40      &+b-&+c=&+C  Ssseri
-&+BThe Temple of the Sun          &+m* &+B40-50      &+b-&+c=&+C  Gnosha
-&+BTemple of the Earth            &+m* &+B40-50      &+b-&+c=&+C  Teruaf
-&+WTezcatlipoca                   &+m* &+B45-50+     &+b-&+c=&+C  Beretorn
-&+BTikitzopl                      &+m* &+B30-50      &+b-&+c=&+C  Orthaz
-&+mThe Town of Miaeril            &+m*  &+m1-40      &+b-&+c=&+C  Sizan
-&+BThe Town of Sevenoaks          &+m* &+B45-50      &+b-&+c=&+C  Melkivar
-&+WThe Transparent Tower          &+m*    &+W50+     &+b-&+c=&+C  Xueqin
-&+mTraoul's Lair                  &+m* &+m20-35      &+b-&+c=&+C  Unknown
-&+BThe Tribal Oasis               &+m* &+B45-50      &+b-&+c=&+C  Trask
-&+mThe Troll Caves                &+m* &+m10-30      &+b-&+c=&+C  Phreak
-&+BThe Troll Hills                &+m* &+B 1-50      &+b-&+c=&+C  Unknown
-&+CTroll Caves                    &+m*  &+C1-20      &+b-&+c=&+C  Galmin
-&+mTruktakyagyo                   &+m* &+m10-30      &+b-&+c=&+C  Dryzkul
-&+mThe Tunnels of Cyric           &+m* &+m15-50      &+b-&+c=&+C  Krzzn
-&+mThe Twin Towers                &+m* &+m10-30      &+b-&+c=&+C  Clavados
-&+CThe Twin Towers Forest         &+m* &+C 1-15      &+b-&+c=&+C  Sehanine
-&+CThe Twisted Wood               &+m* &+C 1-15      &+b-&+c=&+C  Xueqin
-&+mUndead Fog                     &+m* &+m30-40      &+b-&+c=&+C  Truposz
-&+CThe Undead Outpost             &+m*  &+C1-25      &+b-&+c=&+C  Dakta
-&+CThe Undead Village             &+m*  &+C1-10      &+b-&+c=&+C  Unknown
-&+mThe Underground Lava Caves     &+m* &+B30-50      &+b-&+c=&+C  Oraks
-&+WThe Undersea                   &+m*  &+W1-50      &+b-&+c=&+C  Unknown
-&+mUndermountain                  &+m* &+m10-40      &+b-&+c=&+C  Corellon
-&+mUltarium, Sky City             &+m* &+m20-50      &+b-&+c=&+C  Alachest
-&+mValinhaven                     &+m* &+m10-30      &+b-&+c=&+C  Clavados
-&+CValley of Crushk               &+m* &+C10-20      &+b-&+c=&+C  Valkur
-&+BThe Valoisian Castle           &+m* &+B40-50      &+b-&+c=&+C  Scip
-&+mVarathorn Keep                 &+m* &+m10-30      &+b-&+c=&+C  Beretorn
-&+mVargan Dungeon                 &+m* &+m20-40      &+b-&+c=&+C  Zith
-&+mVella's Bordello               &+m* &+m10-30      &+b-&+c=&+C  Clavados
-&+BVenan'Trut                     &+m* &+B10-50      &+b-&+c=&+C  Scip
-&+BVillage of the Damned          &+m* &+B45-50      &+b-&+c=&+C  Xueqin
-&+mWerrun Village                 &+m* &+B30-50      &+b-&+c=&+C  Krzzn
-&+mThe Wildlands Trails           &+m* &+m15-35      &+b-&+c=&+C  Zarland
-&+mThe Worm Nest                  &+m* &+m10-40      &+b-&+c=&+C  Truposz
-&+CWorms                          &+m* &+C 1-30      &+b-&+c=&+C  Zaeru
-
-
-                     &+L<&+m<&+L<   &+mHOMETOWNS  &+L>&+m>&+L>
-    &+CHometowns = Good&N &+cHometowns = Evil &+mHometowns = Neutral&N
-&+b*************************************************************
-
-&+CTharnadia               &+m* &+b<&+CHumans&+b>                &+b-&+c=&+C  Sniktiorg
-&+CCharing                 &+m* &+b<&+cGrey Elves&+L\&+CHalf&+c-Elves&+b> &+b-&+c=&+C  Melkivar
-&+CWoodseer                &+m* &+b<&+yHalflings&+b>             &+b-&+c=&+C  Xueqin
-&+CKimordril               &+m* &+b<&+YMountain Dwarves&+b>      &+b-&+c=&+C  Dryzkul
-&+CAshrumite Village       &+m* &+b<&+RGnomes&+b>                &+b-&+c=&+C  Fafhrd
-&+CUgta                    &+m* &+b<&+BBarbarians&+b>            &+b-&+c=&+C  Tavril
-&+CFort Marigot            &+m* &+b<&+gCen&+Ltaur&+b>            &+b-&+c=&+C  Melkivar
-&+CStrathor                &+m* &+b<&+WS&+wt&+Wo&+wr&+Wm&+wG&+Wi&+wa&+Wnt&+b>           &+b-&+c=&+C  Terauf
-&+cGith                    &+m* &+b<&+GGith&+Wyanki&+b>          &+b-&+c=&+C  Jera
-&+cFaang                   &+m* &+b<&+bOgres&+b>                 &+b-&+c=&+C  Tripod
-&+cFaang Chasm             &+m* &+b<&+bOgres&+b>                 &+b-&+c=&+C  Crul
-&+cGhore                   &+m* &+b<&+gSwamp Trolls&+b>          &+b-&+c=&+C  Tripod
-&+cArachdrathos            &+m* &+b<&+mDrow Elves&+b>            &+b-&+c=&+C  Xyzom
-&+cKhildarak               &+m* &+b<&+rDuergar Dwarves&+b>       &+b-&+c=&+C  Tripod
-&+cMoregeeth               &+m* &+b<&+GGoblin&+b>                &+b-&+c=&+C  Aethia
-&+cShady Grove             &+m* &+b<&+LOrcs&+b>                  &+b-&+c=&+C  Melkivar
-&+cIxarkon                 &+m* &+b<&+MIllithids&+b>             &+b-&+c=&+C  Talos
-&+mKhhiytik                &+m* &+b<&+GThri-&+YKreen&+b>         &+b-&+c=&+C  Uklor
-&+mNax'Varan               &+m* &+b<&+wMino&+rtaur&+b>           &+b-&+c=&+C  Scipio
-&+mHarpy Settlement        &+m* &+b<&n&+yHarpy&+b>               &+b-&+c=&+C  Alachest
-&+mBloodstone              &+m* &+b<&+GGoblins&+b>               &+b-&+c=&+C  Glantor
+&+gThe Abandoned Ruins            &+L*  &+g1-20      &+w-&+L=&+C  Jera
+&+rThe Accursed Realm of Khul'lor &+L* &+r45-50      &+w-&+L=&+C  Scip
+&+YAlrik's Inn                    &+L* &+Y20-50      &+w-&+L=&+C  Guidrich
+&+gAlterian Mountains             &+L* &+g 1-30      &+w-&+L=&+C  Miax
+&+gAlterian Wilderness            &+L* &+g 1-30      &+w-&+L=&+C  Miax
+&+gAnt Forest                     &+L* &+g15-30      &+w-&+L=&+C  Akyura
+&+rAracdrathos Guildhouses        &+L* &+r45-50      &+w-&+L=&+C  Xyzom
+&+gAracdrathos Wilds              &+L* &+g15-50      &+w-&+L=&+C  Xyzom
+&+rAstral Plane (Areas)           &+L*    &+r50+     &+w-&+L=&+C  Ilienze
+&+rAstral Plane (Main Grid)       &+L* &+R30-50      &+w-&+L=&+C  Miax
+&+RAstral Plane (Tiamat)          &+L*    &+R50+     &+w-&+L=&+C  Miax
+&+gArbre's Forest                 &+L*  &+g1-20      &+w-&+L=&+C  Clavados
+&+gArcium, the Plagued Kingdom    &+L* &+g15-50      &+w-&+L=&+C  Sizan
+&+RBahamut                        &+L*    &+R50+     &+w-&+L=&+C  Ekoc
+&+gThe Bandit Camp                &+L* &+g10-30      &+w-&+L=&+C  Phreak
+&+gThe Bandit Settlement          &+L* &+g10-50      &+w-&+L=&+C  Unknown
+&+gBarrow of the Quiosho          &+L* &+g 5-50      &+w-&+L=&+C  Athelea
+&+YThe Basin Wastes               &+L* &+Y20-40      &+w-&+L=&+C  Shadowy
+&+gBastine's Lair                 &+L*  &+g3-50      &+w-&+L=&+C  Unknown
+&+YThe Battlefields               &+L* &+Y40-50      &+w-&+L=&+C  Scip
+&+YThe Black Thorne Mountains     &+L* &+Y20-50      &+w-&+L=&+C  Sniktiorg
+&+YThe Black Tunnels              &+L* &+Y25-45      &+w-&+L=&+C  Dryzkul
+&+YThe Bloody Plains              &+L* &+Y20-50      &+w-&+L=&+C  Ilienze
+&+gBraddistock Mansion            &+L* &+g 1-15      &+w-&+L=&+C  Rand
+&+gThe Broken Blade Tavern        &+L* &+g10-50      &+w-&+L=&+C  Unknown
+&+rThe Bronze Citadel             &+L* &+r45-50      &+w-&+L=&+C  Mabort
+&+gBugentolen                     &+L*  &+g1-20      &+w-&+L=&+C  Clavados
+&+gCaves of Mt. Skelenak, upper   &+L* &+g 1-10      &+w-&+L=&+C  Miax
+&+gCaves of Mt. Skelenak, lover   &+L* &+g10-20      &+w-&+L=&+C  Miax
+&+RCelestia                       &+L*    &+R50+     &+w-&+L=&+C  Alachest
+&+rCeothia                        &+L* &+r45-50      &+w-&+L=&+C  Cy
+&+rCeothia - the past             &+L* &+r45-50      &+w-&+L=&+C  Cy
+&+rCeothia - the future           &+L* &+r45-50      &+w-&+L=&+C  Cy
+&+gCity of Breale                 &+L* &+g 5-50      &+w-&+L=&+C  Unknown
+&+RCity of Brass (Effreeti)       &+L* &+R45-50      &+w-&+L=&+C  Cython
+&+YCity of BogenTok               &+L* &+Y10-50      &+w-&+L=&+C  Clavados
+&+YCity of Torrhan                &+L* &+Y20-50      &+w-&+L=&+C  Denel
+&+gCity of Verspin                &+L*  &+g3-50      &+w-&+L=&+C  Zepline
+&+gCity of Wemics                 &+L* &+g10-50      &+w-&+L=&+C  Clavados
+&+YConnection Zones               &+L* &+Y10-50      &+w-&+L=&+C  Clavados/Fotenak
+&+gThe Clawed Caverns             &+L* &+g 5-20      &+w-&+L=&+C  Xueqin
+&+gCrossroads of Arvandor         &+L* &+g20-50      &+w-&+L=&+C  Zxa
+&+gThe Crystalspyre Mountains     &+L* &+g20-50      &+w-&+L=&+C  Xyzom
+&+gThe Dark Forest                &+L*  &+g1-20      &+w-&+L=&+C  Zith
+&+gDarkfall Forest                &+L* &+g10-20      &+w-&+L=&+C  Clavados
+&+gDarkmore Forest                &+L* &+g 1-50      &+w-&+L=&+C  Unknown
+&+YDeathwood Forest               &+L* &+Y30-50      &+w-&+L=&+C  Sulkus
+&+gThe Defense of Longhollow      &+L* &+g 1-15      &+w-&+L=&+C  Ilshadrial/Drevarr
+&+RThe Demi-Plane, Imprisonment   &+L*    &+R50+     &+w-&+L=&+C  Ilienze
+&+YDesolate                       &+L* &+Y20-50      &+w-&+L=&+C  Alachest
+&+gDirk'NSpire                    &+L* &+g 7-35      &+w-&+L=&+C  Sniktiorg
+&+YDivine Home                    &+L* &+Y20-50      &+w-&+L=&+C  Alachest
+&+rThe Domain of Lost Souls       &+L* &+r30-50      &+w-&+L=&+C  Beretorn/Sniktiorg
+&+RDragonnia                      &+L*   &+R 51+     &+w-&+L=&+C  Ilie
+&+gDragonsfall Forest             &+L*  &+g1-50      &+w-&+L=&+C  Unknown
+&+rDreggan Wood                   &+L* &+r30-50      &+w-&+L=&+C  Cyric
+&+YDrifting Realm&n               &+L* &+Y40-50      &+w-&+L=&+C  Sizan
+&+rDrustl's Yerdonia Enslaved     &+L* &+r30-50      &+w-&+L=&+C  Beretorn
+&+gDu'Maathe Castle               &+L* &+g 1-50      &+w-&+L=&+C  Cy
+&+gThe Dusty Highway              &+L* &+g 1-50      &+w-&+L=&+C  Unknown
+&+YThe Elemental Glades           &+L* &+Y20-30      &+w-&+L=&+C  Shadowy
+&+rElemental Plane of Air         &+L* &+R46-50      &+w-&+L=&+C  Cython
+&+rElemental Plane of Earth       &+L* &+R46-50      &+w-&+L=&+C  Cython
+&+rElemental Plane of Fire        &+L* &+R46-50      &+w-&+L=&+C  Cython
+&+rElemental Plane of Water       &+L* &+R46-50      &+w-&+L=&+C  Cython
+&+gElvengrove Forest              &+L*  &+g1-50      &+w-&+L=&+C  Unknown
+&+rThe Ethereal Plane             &+L* &+r46-50      &+w-&+L=&+C  Ilienze
+&+gThe Faerie Realms              &+L* &+g 1-50      &+w-&+L=&+C  Vaprak
+&+YThe Fallen Tower               &+L* &+Y25-50      &+w-&+L=&+C  Unknown
+&+gFisherman Pond                 &+L* &+g 1-15      &+w-&+L=&+C  Clavados
+&+gThe Fields Between             &+L* &+g15-50      &+w-&+L=&+C  Kolut
+&+gThe Flind Settlement           &+L* &+g10-40      &+w-&+L=&+C  Unknown
+&+gThe Fog Enshrouded Woods       &+L* &+g15-40      &+w-&+L=&+C  Zarland
+&+gThe Forest City of Aravne      &+L* &+g10-50      &+w-&+L=&+C  Aretan
+&+gThe Forest of Mir              &+L* &+g 1-30      &+w-&+L=&+C  Miax
+&+gThe Forest of Lylrstas         &+L* &+g15-50      &+w-&+L=&+C  Kaelia
+&+YThe Forest of Tribals          &+L* &+Y30-50      &+w-&+L=&+C  Truposz
+&+YThe Kingdom of Torg            &+L* &+Y40-50      &+w-&+L=&+C  Kolut
+&+YThe Forgotten Forest           &+L* &+Y30-50      &+w-&+L=&+C  Oraks
+&+YForgotten Mansion              &+L* &+Y40-50      &+w-&+L=&+C  Trask
+&+rFort Boyard                    &+L* &+r45-50      &+w-&+L=&+C  Melkivar
+&+RThe Four Horsemen, Apocolypse  &+L*    &+R50+     &+w-&+L=&+C  Trask
+&+YGargantuan Purple Worm Track   &+L* &+Y20-50      &+w-&+L=&+C  Clavados
+&+YGibberlings                    &+L* &+Y30-50      &+w-&+L=&+C  Zalt
+&+RThe Githyanki Fortress         &+L*    &+R50+     &+w-&+L=&+C  Zod
+&+rThe Githzerai Outpost/Fortress &+L* &+r45-50      &+w-&+L=&+C  Krzzn
+&+gThe Ghore Torture Compound     &+L* &+g 5-40      &+w-&+L=&+C  Unknown
+&+rGigantic Worm Crater           &+L* &+Y40-50      &+w-&+L=&+C  Unknown
+&+gThe Glacier Zone               &+L* &+g15-30      &+w-&+L=&+C  Vareena
+&+YThe Golden Halls of the Crown  &+L* &+Y25-50      &+w-&+L=&+C  Krzzn
+&+gThe Great Mushroom Forest      &+L* &+g35-50      &+w-&+L=&+C  Clavados
+&+gThe Graveyard                  &+L* &+g10-40      &+w-&+L=&+C  Trask
+&+gHalfcut Hills                  &+L* &+g15-50      &+w-&+L=&+C  Unknown
+&+RHall of Ancients               &+L*    &+R50+     &+w-&+L=&+C  Akyura
+&+gThe Haunted Woods              &+L*  &+g1-35      &+w-&+L=&+C  Clavados
+&+RThe Plane of Avernus           &+L*    &+R50+     &+w-&+L=&+C  Mabort
+&+rHigh Moors                     &+L* &+r45-50      &+w-&+L=&+C  Unknown
+&+rThe Hunt                       &+L* &+r45-50      &+w-&+L=&+C  Alachest
+&+YThe Ice Tower                  &+L* &+Y25-50      &+w-&+L=&+C  Trask
+&+YIcecrag Castle                 &+L* &+Y20-50      &+w-&+L=&+C  Tempus
+&+RInterspace                     &+L*    &+R50+     &+w-&+L=&+C  Ilienze
+&+gJenna's Wayhouse               &+L*  &+g1-50      &+w-&+L=&+C  Miax
+&+YJindonium                      &+L* &+Y30-50      &+w-&+L=&+C  Scip
+&+rJotunheim                      &+L* &+r40-50      &+w-&+L=&+C  Talos
+&+gJungle                         &+L*  &+g5-40      &+w-&+L=&+C  Unknown
+&+YThe Killing Fields             &+L* &+r20-50      &+w-&+L=&+C  Ilienze
+&+rKnights Test                   &+L* &+r40-50      &+w-&+L=&+C  Unknown
+&+gThe Kobold Village             &+L* &+g 1-30      &+w-&+L=&+C  Vaprak
+&+rKrethik Keep                   &+L* &+r40-50      &+w-&+L=&+C  Uklor
+&+rThe Labyrinth of No Return     &+L* &+r40-50      &+w-&+L=&+C  Bjorte
+&+YLair of The Asunwa Jaguar      &+L* &+Y20-40      &+w-&+L=&+C  Moriana
+&+gLava Springs                   &+L* &+g 1-30      &+w-&+L=&+C  Sizan
+&+YLava Tubes                     &+L* &+Y10-50      &+w-&+L=&+C  Dbra/Beretorn
+&+gLlyrath Forest                 &+L*  &+g1-35      &+w-&+L=&+C  Unknown
+&+YLord Krimeneha's Mansion       &+L* &+Y25-40      &+w-&+L=&+C  Xueqin
+&+YThe Lost Realms of Shadowfall  &+L* &+Y35-50      &+w-&+L=&+C  Zaeru/Sniktiorg
+&+gMazzolin                       &+L* &+g20-50      &+w-&+L=&+C  Xyzom
+&+gMenden on the Deep             &+L*  &+g1-20      &+w-&+L=&+C  Oghma
+&+gMinotaur Burial Chamber        &+L*  &+g1-45      &+w-&+L=&+C  Unknown
+&+gThe Misty Chasm                &+L* &+g25-50      &+w-&+L=&+C  Sniktiorg/Beretorn
+&+gMistywood Forest               &+L* &+g15-22      &+w-&+L=&+C  Rylar
+&+gMoria                          &+L* &+g10-50      &+w-&+L=&+C  Miax
+&+gMoonshae Islands               &+L*  &+g1-50      &+w-&+L=&+C  Lathander
+&+rMount Banishment               &+L*    &+r45+     &+w-&+L=&+C  Kolut
+&+gMount Olympus                  &+L*  &+g1-50      &+w-&+L=&+C  Zod
+&+YMt. Sknak                      &+L* &+Y30-50      &+w-&+L=&+C  Phreak
+&+gMyconid Mushroom Forest        &+L* &+g 1-10      &+w-&+L=&+C  Sabrae
+&+gMyrabolus                      &+L* &+g10-50      &+w-&+L=&+C  Alachest
+&+rMyrloch Vale                   &+L* &+r40-50      &+w-&+L=&+C  Lathander
+&+RThe Negative Material Plane    &+L*    &+R50+     &+w-&+L=&+C  Zileas/Wug
+&+YNakral's Crypt                 &+L* &+Y35-50      &+w-&+L=&+C  Tavril
+&+rNew Cave City                  &+L*    &+R50+     &+w-&+L=&+C  Ilienze
+&+gNewhaven                       &+L* &+g20-40      &+w-&+L=&+C  Drevarr/Ilshadrial
+&+gNeverwind Valley               &+L* &+g15-30      &+w-&+L=&+C  Halcyon
+&+gNhavan Island                  &+L* &+g10-30      &+w-&+L=&+C  Oghma
+&+YNizari                         &+L* &+Y20-40      &+w-&+L=&+C  Shadowy
+&+YNorthern Lakes and Settlements &+L* &+Y20-40      &+w-&+L=&+C  Melkivar
+&+gNorthern Tundra                &+L*  &+g1-40      &+w-&+L=&+C  Clavados
+&+gNorthern Wilderness            &+L*  &+g1-25      &+w-&+L=&+C  Miax
+&+RNy'Neth Stronghold             &+L*    &+R50+     &+w-&+L=&+C  Aretan
+&+rThe Obsidian Citadel           &+L* &+r40-50      &+w-&+L=&+C  Zileas
+&+rThe Old Citadel                &+L* &+r30-50      &+w-&+L=&+C  Shadowy
+&+YOutcast Tower                  &+L* &+Y25-50      &+w-&+L=&+C  Clavados
+&+YThe Outpost                    &+L* &+Y30-50      &+w-&+L=&+C  Phreak
+&+RPalace of the Sultan           &+L*    &+R50+     &+w-&+L=&+C  Cython
+&+gThe Peasant Village of Ako     &+L*  &+g1-50      &+w-&+L=&+C  Arylin
+&+gPhantasmagoic Caverns          &+L*  &+g1-35      &+w-&+L=&+C  Beretorn
+&+gThe Pharr Valley               &+L*  &+g1-10      &+w-&+L=&+C  Shadowy
+&+gThe Pharr Valley Swamp         &+L*  &+g1-40      &+w-&+L=&+C  Mahm
+&+gPine Hollows                   &+L*  &+g5-25      &+w-&+L=&+C  Xueqin
+&+RPit of Dragons                 &+L*    &+R50+     &+w-&+L=&+C  Cy
+&+rPits of Cerberus               &+L* &+r20-50      &+w-&+L=&+C  Alachest
+&+RPoseidon's Sea Kingdom         &+L*    &+R50+     &+w-&+L=&+C  Krzzn
+&+rPragtog's Domain               &+L* &+r15-45      &+w-&+L=&+C  Dryzkul
+&+YPrison of Despair              &+L* &+Y25-50      &+w-&+L=&+C  Zod
+&+rPrisons of Fort Boyard         &+L* &+r40-50      &+w-&+L=&+C  Melkivar
+&+gRaiders                        &+L*  &+g1-10      &+w-&+L=&+C  Zaeru
+&+RRa`Tutirama                    &+L*    &+R50+     &+w-&+L=&+C  Falari
+&+rThe Realms of Thetis           &+L* &+r30-50      &+w-&+L=&+C  Falari
+&+gThe Rift Valley Jungle         &+L* &+g15-50      &+w-&+L=&+C  Xueqin
+&+rThe River Styx                 &+L* &+r40-50      &+w-&+L=&+C  Zarland
+&+rRogue Plains                   &+L* &+r40-50      &+w-&+L=&+C  Alachest
+&+rThe Ruins of Old Tharnadia     &+L* &+r40-50      &+w-&+L=&+C  Phreak
+&+rThe Ruins of Turolopolis       &+L* &+r40-50      &+w-&+L=&+C  Kuldrim
+&+gSarmiz'Duul                    &+L*  &+g1-50      &+w-&+L=&+C  Zaeru
+&+RThe Scorched Valley            &+L*    &+R50+     &+w-&+L=&+C  Kolut
+&+rSettlement of Clan Stoutdwarf  &+L* &+r25-50      &+w-&+L=&+C  Clavados
+&+gThe Seacaves                   &+L*  &+g1-10      &+w-&+L=&+C  Kelarian
+&+RShaboath                       &+L*    &+R50+     &+w-&+L=&+C  Timken
+&+gShadow Swamp                   &+L* &+g20-50      &+w-&+L=&+C  Spuddog
+&+YShadowclave                    &+L* &+Y20-40      &+w-&+L=&+C  Clavados
+&+YShafts of the Underdark        &+L* &+Y25-50      &+w-&+L=&+C  Ilienze
+&+RShadamehr Keep                 &+L*    &+R50+     &+w-&+L=&+C  Cyric
+&+gShipyards                      &+L* &+g 1-50      &+w-&+L=&+C  Melkivar
+&+RShrine of the Orrak            &+L*    &+R50+     &+w-&+L=&+C  Unknown
+&+RSkrentherlog's Temple          &+L*    &+R50+     &+w-&+L=&+C  Xueqin
+&+gSkulldrach Lake                &+L*  &+g1-20      &+w-&+L=&+C  Unknown
+&+gSmokeveil Forest               &+L*  &+g1-50      &+w-&+L=&+C  Berethorn&+L(Beretorn)
+&+gSplit Shield Slave Encampment  &+L*  &+g1-20      &+w-&+L=&+C  Truposz
+&+gSplit Shield Village           &+L*  &+g1-20      &+w-&+L=&+C  Aki
+&+rThe Stone Tower of Teka        &+L* &+r45-50      &+w-&+L=&+C  Melkivar
+&+YStorm Port                     &+L* &+Y20-50      &+w-&+L=&+C  Alachest
+&+YStorm Port Stronghold          &+L* &+Y20-50      &+w-&+L=&+C  Alachest
+&+rThe Temple of Arkan'non        &+L* &+r45-50      &+w-&+L=&+C  Orthaz
+&+rThe Temple of Cloister         &+L* &+r30-50      &+w-&+L=&+C  Krzzn
+&+rThe Temple of Fire             &+L* &+r30-50      &+w-&+L=&+C  Akyura
+&+YThe Temple of Lizizania        &+L* &+Y20-40      &+w-&+L=&+C  Ssseri
+&+rThe Temple of the Sun          &+L* &+r40-50      &+w-&+L=&+C  Gnosha
+&+rTemple of the Earth            &+L* &+r40-50      &+w-&+L=&+C  Teruaf
+&+LTezcatlipoca                   &+L* &+R45-50+     &+w-&+L=&+C  Beretorn
+&+rTikitzopl                      &+L* &+r30-50      &+w-&+L=&+C  Orthaz
+&+gThe Town of Miaeril            &+L*  &+g1-40      &+w-&+L=&+C  Sizan
+&+rThe Town of Sevenoaks          &+L* &+r45-50      &+w-&+L=&+C  Melkivar
+&+RThe Transparent Tower          &+L*    &+R50+     &+w-&+L=&+C  Xueqin
+&+YTraoul's Lair                  &+L* &+Y20-35      &+w-&+L=&+C  Unknown
+&+rThe Tribal Oasis               &+L* &+r45-50      &+w-&+L=&+C  Trask
+&+gThe Troll Caves                &+L* &+g10-30      &+w-&+L=&+C  Phreak
+&+gThe Troll Hills                &+L* &+g 1-50      &+w-&+L=&+C  Unknown
+&+gTroll Caves                    &+L*  &+g1-20      &+w-&+L=&+C  Galmin
+&+gTruktakyagyo                   &+L* &+g10-30      &+w-&+L=&+C  Dryzkul
+&+gThe Tunnels of Cyric           &+L* &+g15-50      &+w-&+L=&+C  Krzzn
+&+gThe Twin Towers                &+L* &+g10-30      &+w-&+L=&+C  Clavados
+&+gThe Twin Towers Forest         &+L* &+g 1-15      &+w-&+L=&+C  Sehanine
+&+gThe Twisted Wood               &+L* &+g 1-15      &+w-&+L=&+C  Xueqin
+&+YUndead Fog                     &+L* &+Y30-40      &+w-&+L=&+C  Truposz
+&+YThe Undead Outpost             &+L*  &+Y1-25      &+w-&+L=&+C  Dakta
+&+YThe Undead Village             &+L*  &+Y1-10      &+w-&+L=&+C  Unknown
+&+rThe Underground Lava Caves     &+L* &+r30-50      &+w-&+L=&+C  Oraks
+&+gThe Undersea                   &+L*  &+g1-50      &+w-&+L=&+C  Unknown
+&+YTower of High Sorcery          &+L* &+Y30-50      &+w-&+L=&+C  Prodigy/Miax/Beretorn
+&+gTwilight Tower of Illusion     &+L*  &+g1-50      &+w-&+L=&+C  Beretorn
+&+YUndermountain                  &+L* &+Y10-40      &+w-&+L=&+C  Corellon
+&+gUltarium, Sky City             &+L* &+g20-50      &+w-&+L=&+C  Alachest
+&+gValinhaven                     &+L* &+g10-30      &+w-&+L=&+C  Clavados
+&+gValley of Crushk               &+L* &+g10-20      &+w-&+L=&+C  Valkur
+&+rThe Valoisian Castle           &+L* &+r40-50      &+w-&+L=&+C  Scip
+&+YVarathorn Keep                 &+L* &+Y10-30      &+w-&+L=&+C  Beretorn
+&+YVargan Dungeon                 &+L* &+Y20-40      &+w-&+L=&+C  Zith
+&+gVella's Bordello               &+L* &+g10-30      &+w-&+L=&+C  Clavados
+&+gVenan'Trut                     &+L* &+g10-50      &+w-&+L=&+C  Scip
+&+rVillage of the Damned          &+L* &+r45-50      &+w-&+L=&+C  Xueqin
+&+rWerrun Village                 &+L* &+r30-50      &+w-&+L=&+C  Krzzn
+&+gThe Wildlands Trails           &+L* &+g15-35      &+w-&+L=&+C  Zarland
+&+gThe Worm Nest                  &+L* &+g10-40      &+w-&+L=&+C  Truposz
+&+gWorms                          &+L* &+g 1-30      &+w-&+L=&+C  Zaeru
 
 
-                           &+BOriginal Diku Creators:
+                     &+L<&+m<&+L<   &+CHOMETOWNS  &+L>&+m>&+L>
+    &+BHometowns = Good&N &+rHometowns = Evil &+gHometowns = Neutral&N
+&+L****************************************************************
+
+&+BTharnadia               &+L* &+w<&+CHumans&+w>                &+w-&+L=&+CSniktiorg
+&+BCharing                 &+L* &+w<&+cGrey Elves&+L\&+CHalf&+c-Elves&+w> &+w-&+L=&+CMelkivar
+&+BWoodseer                &+L* &+w<&+yHalflings&+w>             &+w-&+L=&+CXueqin
+&+BKimordril               &+L* &+w<&+YMountain Dwarves&+w>      &+w-&+L=&+CDryzkul
+&+BAshrumite Village       &+L* &+w<&+RGnomes&+w>                &+w-&+L=&+CFafhrd
+&+BUgta                    &+L* &+w<&+BBarbarians&+w>            &+w-&+L=&+CTavril
+&+BFort Marigot            &+L* &+w<&+gCen&+Ltaur&+w>               &+w-&+L=&+CMelkivar
+&+BStrathor                &+L*&+w<&+WS&+wt&+Wo&+wr&+Wm&+wG&+Wi&+wa&+Wnt&+w>            &+w-&+L=&+C  Terauf
+&+rGith                    &+L* &+w<&+GGith&+Wyanki&+w>             &+w-&+L=&+CJera
+&+rFaang                   &+L* &+w<&+bOgres&+w>                 &+w-&+L=&+CTripod
+&+rFaang Chasm             &+L* &+w<&+bOgres&+w>                 &+w-&+L=&+CCrul
+&+rGhore                   &+L* &+w<&+gSwamp Trolls&+w>          &+w-&+L=&+CTripod
+&+mArachdrathos            &+L* &+w<&+mDrow Elves&+w>            &+w-&+L=&+CXyzom
+&+rKhildarak               &+L* &+w<&+rDuergar Dwarves&+w>       &+w-&+L=&+CTripod
+&+rMoregeeth               &+L* &+w<&+GGoblin&+w>                &+w-&+L=&+CAethia
+&+rShady Grove             &+L* &+w<&+LOrcs&+w>                  &+w-&+L=&+CMelkivar
+&+mIxarkon                 &+L* &+w<&+MIllithids&+w>             &+w-&+L=&+CTalos
+&+rKhhiytik                &+L* &+w<&+GThri-&+YKreen&+w>            &+w-&+L=&+CUklor
+&+gNax'Varan               &+L* &+w<&+LMino&+rtaur&+w>              &+w-&+L=&+CScipio
+&+gHarpy Settlement        &+L* &+w<&n&+yHarpy&+w>                 &+w-&+L=&+CAlachest
+&+rBloodstone              &+L* &+w<&+GGoblins&+w>               &+w-&+L=&+C Glantor
+
+
+                           &+WOriginal Diku Creators:
                            &+L***********************
 
             &+WSebastian Hammer &+L<email quinn@freja.diku.dk&+L>
-                &+WMichael Seifert &+L<email&+Lseifert@freja.diku.dk&+L> 
+                &+WMichael Seifert &+L<email&+Lseifert@freja.diku.dk&+L>
                     &+WHans Henrik Staerfeldt &+L<email &+Lbombman@freja.diku.dk&+L>
-                        &+WTom Madsen &+L<email noop@freja.diku.dk&+L> 
+                        &+WTom Madsen &+L<email noop@freja.diku.dk&+L>
                            &+WKatja Nyboe &+L<email katz@freja.diku.dk&+L>
 
-   &+WPre-Split SojournI Code: &+bGond, Nebelun, Brandobarius, Proteus, Torm, Mookie,
-                               &+bPizza, Rillifane, Miax, Cython, Requiem.
-                    Copyright  1994, 1995 - Sojourn Systems ltd.
+             &+WPre-Split SojournI Code: &+bGond, Nebelun, Brandobarius, Proteus, 
+                  &+bTorm, Mookie,Pizza, Rillifane, Miax, Cython, Requiem.
+                    &+bCopyright  1994, 1995 - Sojourn Systems ltd.
 
                                   &+BOLD DURIS
                                   &+L*********
 
       &+WDuris Code: &+BTavril, Foo, Fafhrd, Io, Stravag, Primus, Cython, Timken,
-                         &+BAlyx, Krov, Tasfalen, Ilienze
-          &+WDuris Areas: &+CTripod, Orcus, Cython, Ilienze, Jera, Paradox
-                        &+WHelp Files: &+cOsrell, Lowkie
-         &+WDuris web site: &+bParadox &+L<updates by Cython, Kvark and Kelemon>&+L
+                     &+BAlyx, Krov, Tasfalen, Ilienze
+      &+WDuris Areas: &+CTripod, Orcus, Cython, Ilienze, Clavados, Jera, Paradox, Sniktiorg
+      &+WHelp Files: &+COsrell, Lowkie
+      &+WDuris web site: &+CParadox 
 
                     Copyright  1995, 1996 - Duris Systems Ltd.
-                       Creator of Custom DE Editor: &+BTavril
+                       Creator of Custom DE Editor: &+cTavril
 
                                 &+RCURRENT DURIS
                                 &+L*************
 
-              &+WDuris Coders: &+CIo, Tharkun, Tavril, Ilienze, Kvark
-     &+WDuris Areas Group: &+BAstansus, Railand, Ilienze, Melkivar, Clavados
-                &+WCaretakers of Custom DE Editor: &+cTharkun, Io
-                 &+WDuris server and Machine: &+bKvark (thank you!)
-            &+WDuris site provided by: &+BKvark (big round of applause!)
-                    &+WDuris Quest Creators: &+CKotil, Aceldama
+      &+rDuris Currently Run By: &+cTharkun, Railand, Clavados
 
-        &+BDuris Website: &+Wwww.durismud.com      &+WWebsite run by: &+BClavados
+      &+rDuris Coders: &+cTharkun, Clavados, Kvark, Zion, Sev, Phirae
+      &+rDuris Areas &+rGroup: &+cClavados, Railand, Beretorn, Fotenak, Melkivar, Astansus
+      &+rCaretakers of Custom DE Editor: &+cTharkun
+      &+rDuris Server and Machine: &+cKvark (&+Wthank you!&+c)
+      &+rDuris Site provided by: &+cKvark 
+      &+rDuris Quest Creators: &+cKotil, Aceldama
+      &+rDuris Help Files: &+cWeebler, Illuminati
+      &+rDuris Zone Credits: &+cBeretorn
 
-                    &+CCopyright 2000, 2001 - Duris Mud Project&N
+      &+rDuris Website: &+Wduris.game-host.org      
+         &+rWebsite run by: &+cClavados
 
-
-        Zones created for Duris: Land of BloodLust become the sole property of:
-                Duris: Land of BloodLust and The Duris Mud Project
-
-          DurisMUD and Duris: Land of Bloodlust are registered trademarks of:
-                           &+BThe Duris Mud project.&N
+      &+bCopyright 2000 - 2006 - Duris Mud Project&N
 
 
+      Zones created for Duris: Land of BloodLust become the sole property of:
+           Duris: Land of BloodLust and The Duris Mud Project
 
-
-
+      DurisMUD and Duris: Land of BloodLust are registered trademarks of:
+           The Duris Mud project.&N
