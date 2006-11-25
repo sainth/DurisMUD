@@ -39,7 +39,7 @@ while [ $RESULT != 0 ]; do
   cp /duris/mud/lib/information/news /var/www/html/duris_files/
 
   echo "Creating svn log file.."
-  /usr/local/bin/svn2cl -f lib/information/changelog.svn src
+  /usr/local/bin/svn2cl -f lib/information/changelog.src src
 
   echo "Generating list of functions.."
   nm --demangle dms | grep " T " | sed -e 's/[(].*[)]//g' > lib/event_names
