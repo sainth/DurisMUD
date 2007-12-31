@@ -9,8 +9,7 @@
 &+gA: Hell yes!  Duris is a FULL pkill MUD, this includes all of those things.&n 
 
 &+RQ: Are we allowed to multiplay or create robot characters?&n
-&+gA: No, and if you get caught doing it, you and all your chars. will be
-&+g   instantly deleted.&n 
+&+gA: No, and you will be subject to punishment when you are caught.
 
 &+RQ: What is a "Mob"?&n
 &+gA: "Mob" is short for "Mobile", which refers to any monster or NPC (non 
@@ -18,7 +17,8 @@
 
 &+RQ: What if I find a bug?&n
 &+gA: You MUST report it via petition at ONCE.  If you do not get a response,
-&+g   post it on the forums or email one of the gods.&n  
+&+g   post it on the forums or email one of the gods.  Most can be reached at
+&+g   <godname>@durismud.com&n  
 
 &+RQ: Are there death traps on Duris?&n
 &+gA: No, there are no rooms that instantly kill you and then take all your 
@@ -36,7 +36,7 @@
 &+g   zone that would never get approved.  After the zone is written, you
 &+g   must submit it, wait for it to be reviewed, wait for it to be tweaked/
 &+g   balanced, and wait for it to be connected to the MUD.  The zone you
-&+g   submit will almost certainly NOT be identical to the zone that wings up
+&+g   submit will almost certainly NOT be identical to the zone that winds up
 &+g   on the MUD (mobs and equipment always inevitably get changed for a 
 &+g   variety of reasons).
 
@@ -55,9 +55,9 @@
 &+g   yes they can help you.&n
    
 &+RQ: What if I feel something is out of balance?&n
-&+gA: Ah, well then leave a message in the Forums or email it to a high ranking
-&+g   god.  You are our eyes and ears and we take your messages very seriously,
-&+g   please write your opinions.&n
+&+gA: Ah, well then leave a message in the bug, idea or typo commands or email
+&+g   it to a high ranking god.  You are our eyes and ears and we take your
+&+g   messages very seriously, please write your opinions and suggestions.&n
    
 &+RQ: What if I think a god is cheating?
 &+gA: Duris is run by regular people who have all played as mortals sometime
@@ -76,7 +76,7 @@
 &+RQ: Trips are long and I get tired.  Can I increase my movement?&n
 &+gA: Duris is a HUGE world, and getting tired on long trips from zone to zone
 &+g   is a normal part of life.  Get yourself a mount, bum a fly spell off a 
-&+g   mage, or take a cleric/druid with you.&n
+&+g   mage, or take a cleric/druid/bard with you.&n
 
 &+RQ: Why are people shown as anonymous in the who list?&n
 &+gA: Well these folks do not want others knowing their class or level
@@ -118,8 +118,8 @@
 
 &+RQ: I have an item, how do I find out what it does?
 &+gA: There are many shops in the Realms which sell scrolls of identification
-&+g   which you can use.  You can type "RECITE SCROLL <Item name>.  If you're
-&+g   buddies with a conjurer, get him to identify it for you.
+&+g   which you can use.  You can type "recite scroll  <item name>.  If you're
+&+g   buddies with a conjurer, get her to identify it for you.
 
 &+RQ: How can I find areas in which to adventure?
 &+gA: Type credits to see a semi-complete list of zones on the mud.  White 
@@ -130,9 +130,9 @@
 &+g   idea to get back to it ASAP! 
 
 &+RQ: How do I change what channels I can hear or the display I see?
-&+gA: You can see which things you can change type "TOGGLE" or "DISPLAY".
+&+gA: You can see which things you can change by typing "toggle" or "display".
 
 &+RQ: What is GCC?
-&+gA: Its how guilds members talk to each other, type gcc then whatever you
+&+gA: It's how guilds members talk to each other, type gcc then whatever you
 &+g   want to say, and if any of your fellow guild members are on (assuming
 &+g   you are level 25 and in a guild) they will hear it.
