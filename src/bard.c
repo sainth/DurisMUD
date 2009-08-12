@@ -138,20 +138,17 @@ int SINGING(P_char ch)
 {
   /*if(IS_NPC(ch))
     return 0;*/
-  if(!ch)
+  if(!(ch) ||
+     !IS_ALIVE(ch))
   {
-    logit(LOG_EXIT, "SINGING in bard.c called without ch");
-    raise(SIGSEGV);
+    return 0;
   }
-  if(ch &&
-    IS_ALIVE(ch))
+
+  if(!IS_AFFECTED3(ch, AFF3_SINGING))
   {
-    if(!IS_AFFECTED3(ch, AFF3_SINGING))
-    {
-      return 0;
-    }
-    return 1;
+    return 0;
   }
+  return 1;
 }
 
 void stop_singing(P_char ch)
@@ -159,30 +156,29 @@ void stop_singing(P_char ch)
   struct affected_type *af, *next_af;
   P_char   tch;
   
-  if(!ch)
+  if(!(ch) ||
+     !IS_ALIVE(ch))
   {
     logit(LOG_EXIT, "stop_singing in bard.c called without ch");
     raise(SIGSEGV);
   }
-  if(ch)
+
+  for (af = ch->affected; af; af = next_af)
   {
-    for (af = ch->affected; af; af = next_af)
-    {
-      next_af = af->next;
-      if(af &&
-        af->bitvector3 == AFF3_SINGING)
-        {
-          affect_remove(ch, af);
-        }
-    }
-    while (tch = get_linking_char(ch, LNK_SONG))
-    {
-      unlink_char(tch, ch, LNK_SONG);
-    }
-    if(get_scheduled(ch, event_bardsong))
-    {
-      disarm_char_events(ch, event_bardsong);
-    }
+    next_af = af->next;
+    if(af &&
+      af->bitvector3 == AFF3_SINGING)
+      {
+        affect_remove(ch, af);
+      }
+  }
+  while (tch = get_linking_char(ch, LNK_SONG))
+  {
+    unlink_char(tch, ch, LNK_SONG);
+  }
+  if(get_scheduled(ch, event_bardsong))
+  {
+    disarm_char_events(ch, event_bardsong);
   }
 }
 
@@ -247,22 +243,22 @@ P_obj has_instrument(P_char ch)
    * level a person has to be to get a skill to 40... this seems
    * reasonable
    */
-  if(!ch)
+  if(!(ch) ||
+     !IS_ALIVE(ch))
   {
     logit(LOG_EXIT, "has_instrument in bard.c called without ch");
     raise(SIGSEGV);
   }
-  if(ch) // Just making sure.
-  {
-    for (i = WIELD; i <= HOLD; i++)
-      if(ch->equipment[i] && (ch->equipment[i]->type == ITEM_INSTRUMENT) &&
-         (CAN_SEE_OBJ(ch, ch->equipment[i]) ||
-         (has_innate(ch, INNATE_BLINDSINGING) &&
-         GET_CHAR_SKILL(ch, ch->equipment[i]->value[0] + INSTRUMENT_OFFSET) >= 70)))
-      {
-        return ch->equipment[i];
-      }
-  }
+
+  for (i = WIELD; i <= HOLD; i++)
+    if(ch->equipment[i] && (ch->equipment[i]->type == ITEM_INSTRUMENT) &&
+       (CAN_SEE_OBJ(ch, ch->equipment[i]) ||
+       (has_innate(ch, INNATE_BLINDSINGING) &&
+       GET_CHAR_SKILL(ch, ch->equipment[i]->value[0] + INSTRUMENT_OFFSET) >= 70)))
+    {
+      return ch->equipment[i];
+    }
+
   return NULL;
 }
 
@@ -287,83 +283,77 @@ int bard_calc_chance(P_char ch, int song)
   /*if(IS_NPC(ch))
     return 0;*/
   
-  if(!ch)
+  if(!(ch) ||
+     !IS_ALIVE(ch))
+        return 0;
+  
+  if(IS_TRUSTED(ch) ||
+    IS_NPC(ch))
   {
-    logit(LOG_EXIT, "bard_calc_chance in bard.c called without ch");
-    raise(SIGSEGV);
+    return 101;
   }
-  if(!IS_ALIVE(ch))
+  
+  if(!CAN_SING(ch))
   {
     return 0;
   }
-  if(ch) // Just making sure.
+
+  c = GET_CHAR_SKILL(ch, song);
+  instrument = has_instrument(ch);
+  if(!instrument)
   {
-    if(IS_TRUSTED(ch) ||
-      IS_NPC(ch))
-    {
-      return 101;
-    }
-    if(!CAN_SING(ch))
-    {
-      return 0;
-    }
-
-    c = GET_CHAR_SKILL(ch, song);
-    instrument = has_instrument(ch);
-    if(!instrument)
-    {
-      return 0;
-    }
-    else if(IS_ARTIFACT(instrument))
-    {
-      c = 101;
-    }
-    else if(bard_get_type(song) == instrument->value[0] + INSTRUMENT_OFFSET)
-    {
-      c = MAX(c * 3 / 2,
-              ((bard_get_type(song) == instrument->value[0] + INSTRUMENT_OFFSET)
-               && (GET_LEVEL(ch) >=
-                   instrument->value[3])) ? c * GET_CHAR_SKILL(ch,
-                                                               instrument->
-                                                               value[0] +
-                                                               INSTRUMENT_OFFSET)
-              / 2 : 0);
-    }
-    else
-    {
-      return 0;
-    }
-    // level out the chance to between 80 and 110% (extra 10 for +max stat)
-    c = BOUNDED(80, c, 110);
-
-    // modify chance by other 'distractions' the bard might be experiencing
-    if(IS_CASTING(ch))
-    {
-      c = c * 85 / 100;           // 15% chance reduction for casting
-    }
-    else if(IS_FIGHTING(ch))
-    {
-      c = c * 93 / 100;           // 7% chance reduction while fighting...
-    }
-
-    if(GET_LEVEL(ch) > 46)
-    {
-      c = (int) (c * 1.2);
-    }
-    if(GET_C_AGI(ch) > number(0, 70))
-    {
-      c = (int) (c * 1.3);
-    }
-    if(GET_C_DEX(ch) > number(0, 85))
-    {
-      c = (int) (c * 1.3);
-    }
-    if(GET_C_LUCK(ch) > number(0, 100))
-    {
-      c = (int) (c * 1.1);
-    }
-    return IS_ARTIFACT(instrument) ? 101 : BOUNDED(80, c, 99);
+    return 0;
   }
+  else if(IS_ARTIFACT(instrument))
+  {
+    c = 101;
+  }
+  else if(bard_get_type(song) == instrument->value[0] + INSTRUMENT_OFFSET)
+  {
+    c = MAX(c * 3 / 2,
+            ((bard_get_type(song) == instrument->value[0] + INSTRUMENT_OFFSET)
+             && (GET_LEVEL(ch) >=
+                 instrument->value[3])) ? c * GET_CHAR_SKILL(ch,
+                                                             instrument->
+                                                             value[0] +
+                                                             INSTRUMENT_OFFSET)
+            / 2 : 0);
+  }
+  else
+  {
+    return 0;
+  }
+  // level out the chance to between 80 and 110% (extra 10 for +max stat)
+  c = BOUNDED(80, c, 110);
+
+  // modify chance by other 'distractions' the bard might be experiencing
+  if(IS_CASTING(ch))
+  {
+    c = c * 85 / 100;           // 15% chance reduction for casting
+  }
+  else if(IS_FIGHTING(ch))
+  {
+    c = c * 93 / 100;           // 7% chance reduction while fighting...
+  }
+
+  if(GET_LEVEL(ch) > 46)
+  {
+    c = (int) (c * 1.2);
+  }
+  if(GET_C_AGI(ch) > number(0, 70))
+  {
+    c = (int) (c * 1.3);
+  }
+  if(GET_C_DEX(ch) > number(0, 85))
+  {
+    c = (int) (c * 1.3);
+  }
+  if(GET_C_LUCK(ch) > number(0, 100))
+  {
+    c = (int) (c * 1.1);
+  }
+  return IS_ARTIFACT(instrument) ? 101 : BOUNDED(80, c, 99);
+
   return 0;
 }
 
@@ -768,8 +758,9 @@ void bard_revelation(int l, P_char ch, P_char victim, int song)
       flag = TRUE;
     }
   }
-  if((l > 15) &&
-  !IS_AFFECTED(victim, AFF_DETECT_INVISIBLE))
+  if((l > 30) &&
+  !IS_AFFECTED(victim, AFF_DETECT_INVISIBLE) &&
+  ch == victim)
   {
     bzero(&af, sizeof(af));
     af.type = song;
@@ -779,9 +770,9 @@ void bard_revelation(int l, P_char ch, P_char victim, int song)
     flag = TRUE;
     act("&+cYour eyes start to tingle.", FALSE, victim, 0, 0, TO_CHAR);
   }
-  if((l > 18) &&
+  if((l > 30) &&
     !IS_AFFECTED(victim, AFF_SENSE_LIFE) &&
-    !number(0, 1))
+    ch == victim)
   {
     bzero(&af, sizeof(af));
     af.type = song;
@@ -803,19 +794,6 @@ void bard_revelation(int l, P_char ch, P_char victim, int song)
     act("&+yYour pupils contract and expand. Your vision is enhanced.", FALSE,
       victim, 0, 0, TO_CHAR);
   }
-  // if(empower > number(60, 100) &&
-  // !IS_AFFECTED(victim, AFF4_DETECT_ILLUSION) &&
-  // !number(0, 5))
-  // {
-    // bzero(&af, sizeof(af));
-    // af.type = song;
-    // af.duration = x;
-    // af.bitvector4 = AFF4_DETECT_ILLUSION;
-    // affect_to_char(victim, &af);
-    // flag = TRUE;
-    // act("&+LReality becomes &+ccrystal clear.", FALSE,
-      // victim, 0, 0, TO_CHAR);
-  // }
 }
 
 void bard_harming(int l, P_char ch, P_char victim, int song)
@@ -891,7 +869,7 @@ void bard_flight(int l, P_char ch, P_char victim, int song)
   if(IS_NPC(ch))
     empower += 100;
 
-  if(!IS_AFFECTED(victim, AFF_FLY) && number(0, 2))
+  if(!IS_AFFECTED(victim, AFF_FLY))
   {
     bzero(&af, sizeof(af));
     af.type = song;
@@ -923,32 +901,31 @@ void bard_protection(int l, P_char ch, P_char victim, int song)
   if(IS_NPC(ch))
 	empower += 100;
 
-  if(GET_LEVEL(ch) > 51 && !IS_AFFECTED2(victim, AFF2_GLOBE))
-    spell_globe(l, ch, 0, 0, victim, NULL);
-  
-  if(GET_LEVEL(ch) > 50 && (!has_skin_spell(victim)) && (empower > number(50, 100)))
-    spell_stone_skin(l, ch, 0, 0, victim, NULL);
-
-  if(!affected_by_spell(victim, SPELL_ARMOR))
+  if(GET_LEVEL(ch) > 51 &&
+    !IS_AFFECTED2(victim, AFF2_GLOBE))
   {
-    bzero(&af, sizeof(af));
-    af.type = SPELL_ARMOR;
-    af.duration = 25;
-    af.bitvector = AFF_ARMOR;
-    af.modifier = - (l / 10) - (empower / 10);
-    af.location = APPLY_ARMOR;
-    affect_to_char(victim, &af);
+    if(ch == victim)
+      spell_globe(l, ch, 0, 0, victim, NULL);
+    else if(!number(0, 9))
+      spell_globe(l, ch, 0, 0, victim, NULL);
   }
+  else if(GET_LEVEL(ch) > 31 &&
+          !IS_AFFECTED(victim, AFF_MINOR_GLOBE))
+              spell_minor_globe(l, ch, 0, 0, victim, NULL);
+  
+  if(GET_LEVEL(ch) > 50 &&
+    (!has_skin_spell(victim)) &&
+    ch == victim)
+      spell_stone_skin(l, ch, 0, 0, victim, NULL);
 
   if(!affected_by_spell(victim, song))
   {
     memset(&af, 0, sizeof(af));
     af.type = song;
     af.location = APPLY_ARMOR;
-    af.modifier = - l * 2 - (empower / 10);
+    af.modifier = - l - (empower / 2);
     linked_affect_to_char(victim, &af, ch, LNK_SONG);
-    send_to_char("&+WBands of AMAZINGLY strong armor wrap around you.\r\n&N",
-                 victim);
+    send_to_char("&+WBands of AMAZINGLY strong armor wrap around you.\r\n", victim);
   }
 }
 
@@ -960,20 +937,25 @@ void bard_heroism(int l, P_char ch, P_char victim, int song)
   if(IS_NPC(ch))
 	empower += 100;
 
-  if(GET_LEVEL(ch) > 21 && !IS_AFFECTED(victim, AFF_HASTE))
-    spell_haste(l, ch, 0, 0, victim, NULL);
+  if(GET_LEVEL(ch) > 21 &&
+    !IS_AFFECTED(victim, AFF_HASTE) &&
+    ch == victim)
+      spell_haste(l, ch, 0, 0, victim, NULL);
 
   if(!affected_by_spell(victim, song))
   {
     memset(&af, 0, sizeof(af));
     af.type = song;
     af.location = APPLY_COMBAT_PULSE;
-    af.modifier = -1 * l / 18;
+    af.modifier = -1 * l / 20;
     linked_affect_to_char(victim, &af, ch, LNK_SONG);
     af.location = APPLY_SPELL_PULSE;
-    af.modifier = -1 * l / 18;
+    af.modifier = -1 * l / 20;
     linked_affect_to_char(victim, &af, ch, LNK_SONG);
-    send_to_char("&+WA sense of &+yheroism &+Wgrows in your &+rheart.\r\n&N", victim);
+    if(IS_MELEE_CLASS(victim))
+      send_to_char("&+yYour combat maneuvers seem faster...", victim);
+    else
+      send_to_char("&+cYour spell casting seems faster...", victim);
   }
 
   if(!affected_by_spell(victim, SKILL_HEROISM))
@@ -982,33 +964,35 @@ void bard_heroism(int l, P_char ch, P_char victim, int song)
     af.duration = l / 3;
     af.type = SKILL_HEROISM;
     af.location = APPLY_DAMROLL;
-    af.modifier = (l / 10) + 1 + (empower / 15);
+    af.modifier = (l / 10) + (empower / 15);
     affect_to_char(victim, &af);
 
     af.location = APPLY_HITROLL;
-    af.modifier = (l / 10) + 1 + (empower / 15);
+    af.modifier = (l / 10) + (empower / 15);
     affect_to_char(victim, &af);
+    send_to_char("&+WA sense of &+yheroism &+Wgrows in your &+rheart.\r\n&N", victim);
   }
 }
 
 void bard_cowardice(int l, P_char ch, P_char victim, int song)
 {
   struct affected_type af;
+  int empower = GET_CHAR_SKILL(ch, SKILL_EMPOWER_SONG);
 
   if(affected_by_spell(victim, song))
     return;
 
   bzero(&af, sizeof(af));
   af.type = song;
-  af.modifier = 0 - MAX(2, l / 4);
+  af.modifier = 0 - MAX(2, (l / 8) + (empower / 10));
   af.location = APPLY_HITROLL;
   linked_affect_to_char(victim, &af, ch, LNK_SONG);
-  af.modifier = 0 - MAX(2, l / 4);
+  af.modifier = 0 - MAX(2, (l / 8) + (empower / 10));
   af.location = APPLY_DAMROLL;
   linked_affect_to_char(victim, &af, ch, LNK_SONG);
   send_to_char
-    ("&+rA sense of terrible &+Lweakness &+rfills you! They're out there to get you!\r\n",
-     victim);
+    ("&+rA sense of terrible &+Lweakness &+rfills you!\r\n", victim);
+    act("$N looks visibly shakened!", TRUE, ch, 0, victim, TO_ROOM);
 }
 
 void bard_forgetfulness(int l, P_char ch, P_char victim, int song)
@@ -1028,7 +1012,7 @@ void bard_peace(int l, P_char ch, P_char victim, int song)
     return;
   bzero(&af, sizeof(af));
   af.type = song;
-  af.duration = 3;
+  af.duration = 1;
   affect_to_char(victim, &af);
   send_to_char("A sense of serenity and peace fills your heart.\r\n", victim);
 }
@@ -1084,13 +1068,10 @@ void bard_chaos(int l, P_char ch, P_char victim, int song)
 {
   int room = ch->in_room, random;
 
-  if(!ch)
-  {
-    return;
-  }
-
-  if(!IS_ALIVE(victim) ||
-    !IS_ALIVE(ch))
+  if(!(ch) ||
+     !(victim) ||
+     !IS_ALIVE(victim) ||
+     !IS_ALIVE(ch))
   {
     return;
   }
@@ -1099,9 +1080,9 @@ void bard_chaos(int l, P_char ch, P_char victim, int song)
   {
     if(GET_CHAR_SKILL(ch, SONG_CHAOS) >= 70 )
     {
-      if(!number(0, 9))
+      if(!number(0, 2))
       {
-        random = number(0, 8);
+        random = number(0, 7);
 
         if(random == 0)
         {
@@ -1130,14 +1111,9 @@ void bard_chaos(int l, P_char ch, P_char victim, int song)
         }
         if(random == 6)
         {
-          for (int i = 0; i < 5 && is_char_in_room(victim, room); i++)
-            spell_shocking_grasp(l, ch, 0, SPELL_TYPE_SPELL, victim, 0);
-        }
-        if(random == 7)
-        {
           spell_curse(l, ch, 0, SPELL_TYPE_SPELL, victim, 0);
         }
-        if(random == 8)
+        if(random == 7)
         {
           spell_wither(l, ch, 0, SPELL_TYPE_SPELL, victim, 0);
         }
@@ -1146,13 +1122,13 @@ void bard_chaos(int l, P_char ch, P_char victim, int song)
   }
 
   if(is_char_in_room(victim, room) &&
-    !damage(ch, victim, dice(l, 5), song))
+     spell_damage(ch, victim, dice(5, 20), SPLDAM_SOUND, SPLDAM_NODEFLECT, 0) != DAM_NONEDEAD)
+      return;
+
+  if(!bard_saves(ch, victim, song) &&
+     number(0, 3) == 3)
   {
-    if(!bard_saves(ch, victim, song) &&
-       number(0, 3) == 3)
-    {
-      spell_teleport(30, ch, 0, 0, victim, 0);
-    }
+    spell_teleport(30, ch, 0, 0, victim, 0);
   }
 }
 
@@ -1514,158 +1490,150 @@ void event_bardsong(P_char ch, P_char victim, P_obj obj, void *data)
   struct song_description *sd;
   P_char tch, next;
 
-  if(!(ch))
+  if(!(ch) ||
+     !IS_ALIVE(ch))
   {
-    logit(LOG_EXIT, "event_bardsong called in bard.c without ch");
-    raise(SIGSEGV);
+    return;
   }
-  if(ch) // Just making sure.
+
+  song = *((int *) data);
+  
+  if(!SINGING(ch))
   {
-    song = *((int *) data);
+    return;
+  }
+  for (cld = ch->linked; cld; cld = next_cld)
+  {
+    next_cld = cld->next_linked;
+    if(cld->type == LNK_SONG && cld->affect &&
+        (cld->affect->type != song || ch->in_room != cld->linking->in_room))
+    {
+      affect_remove(cld->linking, cld->affect);
+    }
+  }
+  if(!CAN_SING(ch))
+  {
+    stop_singing(ch);
+    return;
+  }
+  if(number(1, 90) > bard_calc_chance(ch, song))
+  {
+    act("Uh oh.. how did the song go, anyway?", FALSE, ch, 0, 0, TO_CHAR);
+    act("$n stutters in $s song, and falls silent.", FALSE, ch, 0, 0,
+        TO_ROOM);
+    set_short_affected_by(ch, FIRST_INSTRUMENT,  PULSE_VIOLENCE);
+    do_action(ch, 0, CMD_BLUSH);
+    stop_singing(ch);
+    return;
+  }
+  
+  if(CHAR_IN_NO_MAGIC_ROOM(ch))
+  {
+    send_to_char("&+BThe power of song has no effect here.\r\n", ch);
+    stop_singing(ch);
+    return;
+  }
+
+  sing_verses(ch, song);
+
+  l = bard_song_level(ch, song) + number(-2, 2);
+
+  if(l <= 0)
+  {
+    l = 1;
+  }
+  for (i = 0; songs[i].name; i++)
+  {
+    if(songs[i].song == song)
+    {
+      sd = &songs[i];
+      break;
+    }
+  }
+  room = ch->in_room;
+
+  for (tch = world[room].people; tch; tch = next)
+  {
+    next = tch->next_in_room;
+
+    if(IS_TRUSTED(tch))
+    {
+      continue;
+    }
     
-    if(!SINGING(ch))
+    if((ch == tch &&
+      !(sd->flags & SONG_AGGRESSIVE)) ||
+      (grouped(ch, tch) && !(sd->flags & SONG_AGGRESSIVE)) ||
+      (ch != tch &&
+      !grouped(ch, tch) &&
+      !(sd->flags & SONG_ALLIES)))
     {
-      return;
-    }
-    for (cld = ch->linked; cld; cld = next_cld)
-    {
-      next_cld = cld->next_linked;
-      if(cld->type == LNK_SONG && cld->affect &&
-          (cld->affect->type != song || ch->in_room != cld->linking->in_room))
+      if((sd->flags & SONG_AGGRESSIVE) &&
+        bard_saves(ch, tch, song))
       {
-        affect_remove(cld->linking, cld->affect);
-      }
-    }
-    if(!CAN_SING(ch))
-    {
-      stop_singing(ch);
-      return;
-    }
-    if(number(1, 90) > bard_calc_chance(ch, song))
-    {
-      act("Uh oh.. how did the song go, anyway?", FALSE, ch, 0, 0, TO_CHAR);
-      act("$n stutters in $s song, and falls silent.", FALSE, ch, 0, 0,
-          TO_ROOM);
-      set_short_affected_by(ch, FIRST_INSTRUMENT,  PULSE_VIOLENCE);
-      do_action(ch, 0, CMD_BLUSH);
-      stop_singing(ch);
-      return;
-    }
-    
-    if(CHAR_IN_NO_MAGIC_ROOM(ch))
-    {
-      send_to_char("&+BThe power of song has no effect here.\r\n", ch);
-      stop_singing(ch);
-      return;
-    }
-
-    sing_verses(ch, song);
-
-    l = bard_song_level(ch, song) + number(-2, 2);
-
-    if(l <= 0)
-    {
-      l = 1;
-    }
-    for (i = 0; songs[i].name; i++)
-    {
-      if(songs[i].song == song)
-      {
-        sd = &songs[i];
-        break;
-      }
-    }
-    room = ch->in_room;
-
-    for (tch = world[room].people; tch; tch = next)
-    {
-      next = tch->next_in_room;
-
-      if(IS_TRUSTED(tch))
-      {
-        continue;
-      }
-      
-      if((ch == tch &&
-        !(sd->flags & SONG_AGGRESSIVE)) ||
-        (grouped(ch, tch) && !(sd->flags & SONG_AGGRESSIVE)) ||
-        (ch != tch &&
-        !grouped(ch, tch) &&
-        !(sd->flags & SONG_ALLIES)))
-      {
-        if((sd->flags & SONG_AGGRESSIVE) &&
-          bard_saves(ch, tch, song))
+        if(!IS_FIGHTING(tch))
         {
-          if(!IS_FIGHTING(tch))
-          {
-            bard_aggro(tch, ch);
-          }
-        }
-        if(is_char_in_room(tch, room))
-        {
-          (sd->funct) (l, ch, tch, song);
+          bard_aggro(tch, ch);
         }
       }
-    }
-
-    notch_skill(ch, song, 50);
-    if((instrument = has_instrument(ch)))
-    {
-      if(bard_get_type(song) == instrument->value[0] + INSTRUMENT_OFFSET)
-        notch_skill(ch, instrument->value[0] + INSTRUMENT_OFFSET, 50);
-    }
-    for (af = ch->affected; af; af = af2)
-    {
-      af2 = af->next;
-      if(af->bitvector3 == AFF3_SINGING && af->duration == 1)
+      if(is_char_in_room(tch, room))
       {
-        act("&+BYou finish your song.", FALSE, ch, 0, 0, TO_CHAR);
-        act("&+B$n finishes $s song.", FALSE, ch, 0, 0, TO_ROOM);
-        affect_remove(ch, af);
-        return;
+        (sd->funct) (l, ch, tch, song);
       }
     }
-    if(ch &&
-      IS_ALIVE(ch))
-    {
-      add_event(event_bardsong, get_bard_pulse(ch), ch, 0, 0, 0, &song, sizeof(song));
-    }
+  }
 
-    terrainType = world[ch->in_room].sector_type;
-
-    // cannot echo underwater
-    if(IS_UNDERWATER(ch))
+  notch_skill(ch, song, 50);
+  if((instrument = has_instrument(ch)))
+  {
+    if(bard_get_type(song) == instrument->value[0] + INSTRUMENT_OFFSET)
+      notch_skill(ch, instrument->value[0] + INSTRUMENT_OFFSET, 50);
+  }
+  for (af = ch->affected; af; af = af2)
+  {
+    af2 = af->next;
+    if(af->bitvector3 == AFF3_SINGING && af->duration == 1)
     {
+      act("&+BYou finish your song.", FALSE, ch, 0, 0, TO_CHAR);
+      act("&+B$n finishes $s song.", FALSE, ch, 0, 0, TO_ROOM);
+      affect_remove(ch, af);
       return;
     }
-    // whether they like it or not, Disharmonists get an echo to their songs
-    if(has_innate(ch, INNATE_ECHO))
-    {
-      echoChance = 20;
+  }
 
-      if(terrainType == SECT_MOUNTAIN)
+  add_event(event_bardsong, get_bard_pulse(ch), ch, 0, 0, 0, &song, sizeof(song));
+  terrainType = world[ch->in_room].sector_type;
+
+  // cannot echo underwater
+  if(IS_UNDERWATER(ch))
+  {
+    return;
+  }
+  // whether they like it or not, Disharmonists get an echo to their songs
+  if(has_innate(ch, INNATE_ECHO))
+  {
+    echoChance = 20;
+
+    if(terrainType == SECT_MOUNTAIN)
+    {
+      echoChance += 10;
+    }
+    else if(terrainType == SECT_HILLS)
+    {
+      echoChance += 5;
+    }
+    else if(terrainType == SECT_FOREST)
+    {
+      echoChance -= 5;
+    }
+    if(echoChance >= number(1, 100))
+    {
+      echoDetails.song = song;
+      echoDetails.room = ch->in_room;
+      if(!get_scheduled(ch, event_echosong))
       {
-        echoChance += 10;
-      }
-      else if(terrainType == SECT_HILLS)
-      {
-        echoChance += 5;
-      }
-      else if(terrainType == SECT_FOREST)
-      {
-        echoChance -= 5;
-      }
-      if(echoChance >= number(1, 100))
-      {
-        echoDetails.song = song;
-        echoDetails.room = ch->in_room;
-        if(ch &&
-          IS_ALIVE(ch) &&
-          !get_scheduled(ch, event_echosong))
-        {
-          add_event(event_echosong, (get_bard_pulse(ch) / 6), ch, 0, 0, 0,
-                    &echoDetails, sizeof(echoDetails));
-        }
+        add_event(event_echosong, (get_bard_pulse(ch) / 6), ch, 0, 0, 0,
+                  &echoDetails, sizeof(echoDetails));
       }
     }
   }
@@ -1750,18 +1718,19 @@ void do_play(P_char ch, char *arg, int cmd)
   instrument = has_instrument(ch);
   if(!instrument && (!IS_NPC(ch)))
   {
-    act("You start singing aloud, but that wont make any effect.", FALSE, ch,
-        0, 0, TO_CHAR);
-    act("$n starts to sing aloud.", FALSE, ch, 0, 0, TO_ROOM);
+    act("You start singing aloud, but that wont make any effect.",
+      FALSE, ch, 0, 0, TO_CHAR);
+    act("$n starts to sing aloud.",
+      FALSE, ch, 0, 0, TO_ROOM);
     return;
   }
   if(IS_TRUSTED(ch) ||
     IS_NPC(ch))
   {
-    act("&+GYou start singing aloud with a beautiful voice.", FALSE, ch, instrument,
-        0, TO_CHAR);
-    act("&+G$n starts singing aloud with a beautiful voice.", FALSE, ch, instrument,
-        0, TO_ROOM);
+    act("&+GYou start singing aloud with a beautiful voice.",
+      FALSE, ch, instrument, 0, TO_CHAR);
+    act("&+G$n starts singing aloud with a beautiful voice.",
+     FALSE, ch, instrument, 0, TO_ROOM);
     level = GET_LEVEL(ch);
   }
   else
@@ -1772,26 +1741,27 @@ void do_play(P_char ch, char *arg, int cmd)
       act
         ("&+rYou start playing your $q, but this instrument won't work for this song.",
          FALSE, ch, instrument, 0, TO_CHAR);
-      act("$n starts playing $p and singing aloud.", FALSE, ch, instrument, 0,
-          TO_ROOM);
+      act("$n starts playing $p and singing aloud.",
+        FALSE, ch, instrument, 0, TO_ROOM);
 //        play_sound(SOUND_HARP, NULL, ch->in_room, TO_ROOM);
       return;
     }
     else
     {
-      act("&+WYou start playing your $q &+Wand singing aloud.", FALSE, ch,
-        instrument, 0, TO_CHAR);
-      act("&+W$n starts playing $p &+Wand singing aloud.", FALSE, ch,
-        instrument, 0, TO_ROOM);
+      act("&+WYou start playing your $q &+Wand singing aloud.",
+        FALSE, ch, instrument, 0, TO_CHAR);
+      act("&+W$n starts playing $p &+Wand singing aloud.",
+        FALSE, ch, instrument, 0, TO_ROOM);
       level = GET_LEVEL(ch) / 2;
 //        play_sound(SOUND_HARP, NULL, ch->in_room, TO_ROOM);
     }
   }
   if(number(1, 101) > bard_calc_chance(ch, s))
   {
-    act("Uh oh.. how did the song go, anyway?", FALSE, ch, 0, 0, TO_CHAR);
-    act("$n stutters in $s song, and falls silent.", FALSE, ch, 0, 0,
-        TO_ROOM);
+    act("Uh oh.. how did the song go, anyway?",
+      FALSE, ch, 0, 0, TO_CHAR);
+    act("$n stutters in $s song, and falls silent.",
+      FALSE, ch, 0, 0, TO_ROOM);
     set_short_affected_by(ch, FIRST_INSTRUMENT, 3 * PULSE_VIOLENCE);
     do_action(ch, 0, CMD_BLUSH);
     return;
@@ -1807,9 +1777,7 @@ void do_play(P_char ch, char *arg, int cmd)
 
   disarm_char_events(ch, event_bardsong);
 
-  if(ch &&
-    IS_ALIVE(ch) &&
-    !(get_scheduled(ch, event_bardsong)))
+  if(!(get_scheduled(ch, event_bardsong)))
   {
     add_event(event_bardsong, get_bard_pulse(ch), ch, 0, 0, 0, &s, sizeof(s));
   }
