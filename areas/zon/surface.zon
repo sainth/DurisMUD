@@ -599,13 +599,13 @@ M 0 500058 17 558093 100 0 0 0     * an elite highwayman
 M 0 500058 17 559293 100 0 0 0     * an elite highwayman
 M 0 500225 1 560075 100 0 0 0      * Taa, the human magician
 M 0 500058 17 560493 100 0 0 0     * an elite highwayman
+M 0 500222 1 561318 100 0 0 0      * Nival
+E 1 500116 1 16 100 0 0 0          *   a thin steel dagger
 M 0 500058 17 561693 100 0 0 0     * an elite highwayman
 M 0 500059 8 562444 100 0 0 0      * a highwayman
 M 0 500058 17 562493 100 0 0 0     * an elite highwayman
 M 0 500200 1 562892 100 0 0 0      * Ghiran, the grand wizard
 E 1 500104 1 14 100 0 0 0          *   a thick bronze bracelet
-M 0 500222 1 563317 100 0 0 0      * Nival
-E 1 500116 1 16 100 0 0 0          *   a thin steel dagger
 M 0 500058 17 563693 100 0 0 0     * an elite highwayman
 M 0 500058 17 564893 100 0 0 0     * an elite highwayman
 M 0 500221 1 564899 100 0 0 0      * Favi
