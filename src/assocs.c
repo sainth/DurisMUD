@@ -2879,6 +2879,7 @@ void member_list(P_char member)
   }
   
   sprintf(buf + strlen(buf), "Prestige points: %d\r\n", get_assoc_prestige(asc_number));
+
   if (IS_TRUSTED(member))
     //sprintf(buf + strlen(buf), "Outpost resources: Wood(%d) Stone(%d) asc# %d\r\n", get_guild_resources(asc_number, WOOD), get_guild_resources(asc_number, STONE), asc_number);
   sprintf(buf + strlen(buf), "Maximum members: %d\r\n", max_assoc_size(asc_number));
@@ -3789,6 +3790,7 @@ void insert_guild_transaction(int soc_id, char* buff)
 #endif
 
 #ifdef __NO_MYSQL__
+
 int get_assoc_prestige(int assoc_id)
 {
   return 0;
@@ -4177,8 +4179,8 @@ int max_assoc_size(int asc_number)
   int max_size = 1;
   int prestige = get_assoc_prestige(asc_number);  
 
-// Allowing 50 players per guild. Jan08 -Lucrot
-  return 50;
+// Allowing 20 players per guild. Aug09 -Lucrot
+  return 20;
 
 
   /* Commenting out kingdom code guild size for now. Jan08 -Lucrot

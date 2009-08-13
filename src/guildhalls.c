@@ -3577,10 +3577,7 @@ void do_sack(P_char ch, char *arg, int cmd)
 
   if(!(ch))
     return;
-  
-  send_to_char("Guildhall sacking is disabled until further notice!\r\n", ch);
-    return;
-/*
+
   arg = one_argument(arg, buf);
   if ((buf[0] != '\000') && is_abbrev(buf, "off"))
   {
@@ -3668,7 +3665,6 @@ void do_sack(P_char ch, char *arg, int cmd)
 
   logit(LOG_HOUSE, "House %d started sacking by %s", house->vnum,
         GET_NAME(ch));
-*/
 }
 
 P_char get_char_online(char *name)
