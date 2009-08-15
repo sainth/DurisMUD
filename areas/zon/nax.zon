@@ -161,6 +161,7 @@ G 1 37707 999 0 100 0 0 0          *    some venison strips
 G 1 37708 999 0 100 0 0 0          *    an iron ration
 G 1 37724 999 0 100 0 0 0          *    a large oak barrel
 G 1 37723 999 0 100 0 0 0          *    a leather waterskin
+G 1 338 999 0 100 0 0 0            *    (object type not in this .obj file)
 M 0 37736 5 37720 100 0 0 0        * an agitated minotaur
 M 0 37737 2 37726 100 0 0 0        * a fluffy bunny
 M 0 37753 3 37727 100 0 0 0        * an commoner
