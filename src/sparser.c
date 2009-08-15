@@ -2239,16 +2239,15 @@ void event_spellcast(P_char ch, P_char victim, P_obj obj, void *data)
     }
     if (IS_PC(ch)) // no point in sending messages to mobs  -Odorf
     {
-      if (GET_CLASS(ch, CLASS_PSIONICIST | CLASS_DRUID | CLASS_ETHERMANCER))
-        skl = 100;
-      else if (GET_CHAR_SKILL(ch, SKILL_SPELL_KNOWLEDGE_SHAMAN))
+      if (GET_CHAR_SKILL(ch, SKILL_SPELL_KNOWLEDGE_SHAMAN))
         skl = SKILL_SPELL_KNOWLEDGE_SHAMAN;
       else if (GET_CHAR_SKILL(ch, SKILL_SPELL_KNOWLEDGE_CLERICAL))
         skl = SKILL_SPELL_KNOWLEDGE_CLERICAL;
       else
         skl = SKILL_SPELL_KNOWLEDGE_MAGICAL;
      
-      if (number(1, 100) <= GET_CHAR_SKILL(ch, skl))
+      if (GET_CLASS(ch, CLASS_PSIONICIST | CLASS_DRUID | CLASS_ETHERMANCER) ||
+          number(1, 100) <= GET_CHAR_SKILL(ch, skl))
       {
         sprintf(buf, "Casting: %s ", skills[arg->spell].name);
         for (i = 0; i < (arg->timeleft / 4); i++)
