@@ -7523,23 +7523,23 @@ void do_scan(P_char ch, char *argument, int cmd)
         basemod += 50;
       break;                  /* block ones view     */
     case SECT_MOUNTAIN:
-      basemod += 500;
+      basemod += 100;
       break;
     case SECT_UNDERWATER:
       basemod += 80;
       break;
     case SECT_UNDRWLD_MOUNTAIN:
-      basemod += 500;
+      basemod += 100;
       break;
     default:
       break;
   }
 
-//  basemod -= (int)((GET_C_WIS(ch) - 80) / 2);
+  basemod -= (int)((GET_C_WIS(ch) - 80) / 2);
 
   for (dir = 0; dir < NUMB_EXITS; dir++)
   {
-    visibility = 0;
+    visibility = 2;
     dirmod = 0;
 
     if (IS_SURFACE_MAP(ch->in_room))
@@ -7553,7 +7553,7 @@ void do_scan(P_char ch, char *argument, int cmd)
     else
     {
       // catch any other cases
-      visibility += 0;
+      visibility += 3;
     }
 
     for (distance = 1; distance <= visibility; distance++)
