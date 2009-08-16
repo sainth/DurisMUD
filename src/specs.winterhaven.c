@@ -1445,7 +1445,7 @@ int newbie_spellup_mob(P_char ch, P_char victim, int cmd, char *arg)
   
   // find what class the mob is. a bit of randomness 
   // so that multiclass mobs will cast from all of their spells
-  if(number(0, 1))
+  if(number(0, 3))
   {
     if( GET_CLASS(ch, CLASS_CLERIC) && !number(0, 1) )
     {
