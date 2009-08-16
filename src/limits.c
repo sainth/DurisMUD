@@ -1029,6 +1029,8 @@ int gain_exp(P_char ch, P_char victim, const int value, int type)
   }
 
   XP = check_nexus_bonus(ch, (int)(XP), NEXUS_BONUS_EXP);
+  
+  XP *= (get_property("gain.exp.mod.TotalOverall", 1.00));
 
   // increase exp only to some limit (comulative exp till 61)
   if (XP < 0 || GET_EXP(ch) < global_exp_limit)
