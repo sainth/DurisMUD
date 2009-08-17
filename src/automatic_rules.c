@@ -139,11 +139,11 @@ int hasRequriedSlots(P_char ch)
   
   lvl = GET_LEVEL(ch);  
                         //  Added some slightly more intelligent 
-  if(lvl > 35)          //  rules to the equation figuring on how much
+  if(lvl >= 41)          //  rules to the equation figuring on how much
     mod = 0;            //  equipment a character must be wearing to
-  else if(lvl > 30)     //  be raidable based upon level.  It is somewhat
+  else if(lvl >= 36)     //  be raidable based upon level.  It is somewhat
     mod = 4;            //  foolish to believe a level 30 character is
-  else if(lvl > 20)     //  going to have more than 1-1.5 sets of eq
+  else if(lvl >= 31)     //  going to have more than 1-1.5 sets of eq
     mod = 6;            //  on hand for CR's or such - Jexni  6/1/09
 
   if(found + mod > (int) (get_property("raid.min.slots", 12) - 1))
