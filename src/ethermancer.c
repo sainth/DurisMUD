@@ -1044,6 +1044,13 @@ void spell_purge(int level, P_char ch, char *arg, int type, P_char victim,
     "$N is simply overwhelmed by the incredible power of $n's purge, and vanishes.",
     ""
   };
+  
+  if(!(ch) ||
+     !IS_ALIVE(ch) ||
+     !(victim) ||
+     !IS_ALIVE(victim) ||
+     ch == victim)
+        return;
 
   if (!GET_MASTER(victim) || GET_EXP(victim))
   {
