@@ -4911,3 +4911,30 @@ sign~
 
 &+WWelcome to Deramuth Port
 ~
+#83414
+bloody head helgor~
+&+rthe bloody head of General &+RHel&N&+rgor&N~
+&+rThe bloody head of a duergar has been left here.~
+~
+8 2 3 0 7 0 8392704 16385 0 0 0
+0 0 0 0 0 0 0 0
+2 10 100
+E
+bloody head helgor~
+   &+rThis bloody, decapitated head is that of the legendary duergar
+&+rwarlord-turned-general Helgor.  His face is frozen in a terrified
+&+ropen-mouthed visage.
+~
+#83415
+bloody head borhad khoralator~
+&+rthe bloody head of Borhad &+WKhor&N&+calator&N~
+&+rThe bloody head of Borhad &+WKhor&N&+calator&N has been left here.~
+~
+8 2 3 0 7 0 4096 16385 0 0 0
+0 0 0 0 0 0 0 0
+2 10 100
+E
+bloody head borhad khoralator~
+   &+rThis is the disembodied head of Borhad Khoralator, the legendary
+&+rmountain dwarf lord and battlemaster.
+~
