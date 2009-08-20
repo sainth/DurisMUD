@@ -4245,19 +4245,19 @@ pm 0 1 -1
 0.0.0.0 0
 8 8 2
 #83368
-traveling bard~
-&+ma traveling bard&N~
-&+mA traveling bard relaxes here.
+traveling gypsy~
+&+ma traveling &+Mg&n&+my&+Mp&N&+ms&+My&N~
+&+cA curious elven &+Mg&N&+my&+Mp&N&+ms&+My &N&+mtravels the streets.
 ~
    &+mThis traveling bard wears fine silken garments.  He appears to
 &+me of some sort of elven descent, judging by his long ears and
 &+mother sylvan features.
 ~
-2250 0 0 0 0 0 0 600 S
+2248 0 0 0 0 0 0 600 S
 p2 0 32768 -1
-40 0 0 1d1+1 1d1+1
+47 0 0 1d1+1 1d1+1
 0.0.0.0 0
-4 8 1
+8 8 1
 #83369
 relaxing barbarian~
 &+Ba relaxing barbarian&N~
@@ -4285,5 +4285,84 @@ tohr kreen tohr-kreen patron~
 2250 0 0 0 0 0 0 10 S
 tk 0 1 4
 49 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 1
+#83371
+burly dwarf bartender~
+&+Ya &Nburly &+Ydwarf bartender&N~
+&NA wide, muscular &+Ymountain dwarf &Nbartender works here, wiping out a mug.
+~
+   &+YThis older dwarf has a large, muscular frame far above
+&+Ythe average dwarf's size.  He has a flowing blonde beard
+&+Yfilled with wisps of gray and white.  Wearing stained
+&+ycloth aprons over a thick pair of leather overalls, he
+&+Ydiligently serves his patrons.
+~
+2250 0 0 0 0 0 0 800 S
+pm 0 67108864 -1
+50 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 1
+#83372
+short monk~
+&Na short &+Ymonk&N~
+&NA short &+Ymonk &nsits here, focusing his chi.
+~
+   &nThis short human monk is only about four and a half feet tall.  He moves
+&Nwith tenacious speed, however, and posesses great strength.  While meditating,
+&Nhe remains completely motionless.  He is dressed in loose-fitting monks robes.
+~
+2250 0 0 0 0 0 0 300 S
+PH 0 0 2
+44 0 0 1d1+1 1d1+1
+0.0.0.0 0
+6 6 1
+#83373
+alatorin captain shield dwarf~
+&+Lan &N&+cAlatorin &N&+Ccaptain&N~
+&+LA &+Ccaptain &+Lof the &N&+cAlatorin &+Wg&+Lu&+Wa&+Lr&+Wd&+Ls&n&+g leads his patrol.
+~
+   &+LThis proud, noble &Nsh&+Wie&Nld &+Ydwarf &+Lis similar to its
+&+rduergar &+Land &N&+Ymountain dwarf &+Lcousins, but is slightly
+&+Lstockier and not quite as strong as mountain dwarf.  Not really
+&+Lknown for their proficiencies in any schools of magic, the &Nsh&+Wie&Nld
+&+Ydwarves &+Lare a race of miners and warriors; although &Nsh&+Wie&Nld
+&+Ydwarf &N&+cpriests &+Lare not unheard of.
+   &+LCurrently, this &+Ccaptain &+Lhas been sent here with a platoon
+&+Lof soldiers to patrol and protect &+WDeramuth Port&+L.
+~
+1140852936 0 0 24 0 0 0 700 S
+pm 0 1 -1
+57 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 1
+#83374
+soldier alatorin~
+&+ga soldier of &+cAlatorin&N~
+&+gA dwarven &+csoldier &N&+gof &+cAlatorin &+gpatrols the mountainside.
+~
+   &+LThis &Ns&+Whiel&Nd &+Ydwarf&+L, a distant cousin of both &+rduergar &+Land
+&+ymountain &+Ldwarves, stands here wearing the standard issue sword and shield
+&+Lof the &+cAlatorin &+Lcity guard.  This &+Ydwarf &+Lhas a long beard
+&+Land &+Rfire &+Lin his eyes.
+~
+67110986 0 0 0 0 0 0 0 S
+pm 0 1 -1
+53 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 1
+#83375
+shield dwarf~
+&+La &Nsh&+Wie&Nld &+Ydwarf&N~
+&+LA wandering &Nsh&+Wie&Nld &+Ydwarf &Nmeanders through the port.
+~
+   This sh&+Wie&Nld &+Ydwarf&N walks through the area, curiously looking
+at such a small humble town after being born and raised in the extravagant
+city of &+cAlatorin&n.  In fact, it is from the nearby sh&+Wie&Nld &+Ydwarf&N city
+that this particular &+Ydwarf &Nhas embarked through the realm of &N&+yShanatar&+L.
+~
+1073743944 0 0 24 0 0 0 600 S
+pm 0 1 -1
+45 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 1
