@@ -775,33 +775,57 @@ int gain_exp(P_char ch, P_char victim, const int value, int type)
   int      i, range;
   double   new_xp, XP;
   bool pvp = FALSE;
-
-  if (GET_LEVEL(ch) >= MINLVLIMMORTAL || CHAR_IN_ARENA(ch))
-    return 0;
-
-  if (victim)
-    victim = GET_PLYR(victim);
-
-  if (type == EXP_DAMAGE)
+  
+  if(!(ch))
   {
-    if (!victim || IS_PC(victim) || ch == victim)
+    return 0; // Probably just crash due to null pointer.
+  }
+  
+  if(GET_LEVEL(ch) >= MINLVLIMMORTAL ||
+     CHAR_IN_ARENA(ch) ||
+     IS_SET(world[ch->in_room].room_flags, SAFE_ZONE))
+  {
+    return 0;
+  }
+
+  if(victim)
+  {
+    victim = GET_PLYR(victim);
+  }
+  
+  if(type == EXP_DAMAGE)
+  {
+    if(!(victim) ||
+       IS_PC(victim) ||
+       ch == victim)
     {
       return 0;      
     }
     else
     {
-      new_xp = (int) ( GET_LEVEL(ch) * GET_LEVEL(victim) * (float) get_property("exp.factor.damage", 2.0) );
+      new_xp = (int)(GET_LEVEL(ch) * GET_LEVEL(victim) * (float)(get_property("exp.factor.damage", 0.850)));
     }
   }
-  else if (type == EXP_HEALING)
+  else if(type == EXP_HEALING)
   {
-    if (!victim || IS_PC(victim))
+    if(!(victim) ||
+       IS_PC(victim))
     {
       return 0;      
     }
+    
+    if(IS_PC_PET(victim))
+    {
+      new_xp *= get_property("exp.factor.healing.pets", 0.500);
+    }
     else
     {
-      new_xp = (int) ( GET_LEVEL(ch) * GET_LEVEL(victim) * (float) get_property("exp.factor.healing", 4.0) );      
+      new_xp = (int) ( GET_LEVEL(ch) * GET_LEVEL(victim) * (float) get_property("exp.factor.healing", 1.000) );      
+    }
+    
+    if(GET_CLASS(ch, CLASS_PALADIN | CLASS_ANTIPALADIN | CLASS_DRUID))
+    {
+      new_xp *= get_property("exp.factor.healing.class.penalty", 0.250);
     }
   }
   else if (type == EXP_MELEE)
@@ -810,27 +834,30 @@ int gain_exp(P_char ch, P_char victim, const int value, int type)
   }
   else if (type == EXP_DEATH)
   {
-    if( RACE_GOOD(ch) && GET_LEVEL(ch) < (int) get_property("exp.goodieDeathExpLossLevelThreshold", 30) )
+    if(RACE_GOOD(ch) &&
+       GET_LEVEL(ch) < (int) get_property("exp.goodieDeathExpLossLevelThreshold", 30))
     {      
       new_xp = 0;
     }
-    else if (GET_LEVEL(ch) >= 51)
+    else if(GET_LEVEL(ch) >= 51)
     {
-      new_xp = -(new_exp_table[GET_LEVEL(ch) + 1] * (get_property("gain.exp.mod.player.death.level.51.andOver", 0.12)));      
+      new_xp = -(new_exp_table[GET_LEVEL(ch) + 1] >> 5);
+      //(get_property("gain.exp.mod.player.death.level.51.andOver", 0.12)));      
     }
     else
     {
-      new_xp = -(new_exp_table[GET_LEVEL(ch) + 1] * (get_property("gain.exp.mod.player.death.level.50.andUnder", 0.10) ));          
+      new_xp = -(new_exp_table[GET_LEVEL(ch) + 1] >> 6);
+      // (get_property("gain.exp.mod.player.death.level.50.andUnder", 0.10)));          
     }
   }
   else if (type == EXP_KILL)
   {
-    if( IS_PC(ch) && IS_PC(victim) )
+    if(IS_PC(ch) && IS_PC(victim))
     {
       pvp = TRUE;
       
-      if ( (RACE_EVIL(ch) && RACE_EVIL(victim)) ||
-           (RACE_GOOD(ch) && RACE_GOOD(victim)) )
+      if((RACE_EVIL(ch) && RACE_EVIL(victim)) ||
+         (RACE_GOOD(ch) && RACE_GOOD(victim)))
         new_xp = 0;
       else if (GET_LEVEL(victim) < 20)    //check if victim is higher then 20
         new_xp = 0;
@@ -839,8 +866,8 @@ int gain_exp(P_char ch, P_char victim, const int value, int type)
       else                        //else give this..
         new_xp = value; //GET_LEVEL(victim) * (int) get_property("exp.racewar.perLevel", 100000);
       
-      debug("pvp exp (%s [%d] killed %s [%d]): %d", GET_NAME(ch), GET_LEVEL(ch), GET_NAME(victim), GET_LEVEL(victim), (int) new_xp);
-      logit(LOG_DEBUG, "pvp exp (%s [%d] killed %s [%d]): %d", GET_NAME(ch), GET_LEVEL(ch), GET_NAME(victim), GET_LEVEL(victim), (int) new_xp);
+    //  debug("pvp exp (%s [%d] killed %s [%d]): %d", GET_NAME(ch), GET_LEVEL(ch), GET_NAME(victim), GET_LEVEL(victim), (int) new_xp);
+    //  logit(LOG_DEBUG, "pvp exp (%s [%d] killed %s [%d]): %d", GET_NAME(ch), GET_LEVEL(ch), GET_NAME(victim), GET_LEVEL(victim), (int) new_xp);
     }
     else
     {
@@ -853,7 +880,9 @@ int gain_exp(P_char ch, P_char victim, const int value, int type)
     new_xp = value;    
   }
 
-  if (victim && IS_NPC(victim) && affected_by_spell(victim, TAG_REDUCED_EXP))
+  if(victim &&
+     IS_NPC(victim) &&
+     affected_by_spell(victim, TAG_REDUCED_EXP))
   {
     new_xp *= 0.5;
   }
@@ -861,16 +890,18 @@ int gain_exp(P_char ch, P_char victim, const int value, int type)
   XP = (int) new_xp;
   ch = GET_PLYR(ch);
     
-  if (IS_NPC(ch))
+  if(IS_NPC(ch))
     return 0;
  
-  if (XP > 0 && victim)
+  if((XP > 0) &&
+     (victim) &&
+     !(pvp) &&
+     (type == EXP_MELEE || type == EXP_KILL))
   {
  
 // Non multi-class mobs exp modifiers are below.
     if(!IS_MULTICLASS_NPC(victim) &&
-        GET_LEVEL(victim) > 20 &&
-        !IS_PC(victim))
+        GET_LEVEL(victim) > 20)
     {
       if(GET_CLASS(victim, CLASS_WARRIOR))
         XP *= (get_property("gain.exp.mod.warrior", 1.00));
@@ -994,18 +1025,14 @@ int gain_exp(P_char ch, P_char victim, const int value, int type)
     }
   }  
 
-  if (XP > 0 && type != EXP_RESURRECT)
+  if(XP > 0 &&
+    type != EXP_RESURRECT)
   {
     if( pvp )
-    {
       XP = MIN(XP, (new_exp_table[GET_LEVEL(ch) + 1] / 4));
-    }
     else
-    {
-      XP = MIN(XP, (new_exp_table[GET_LEVEL(ch) + 1] /
-                    (1 + (GET_LEVEL(ch) / 3))));
-    }
-    
+      XP = MIN(XP, (new_exp_table[GET_LEVEL(ch) + 1] / (1 + (GET_LEVEL(ch) / 3))));
+        
     if (RACE_GOOD(ch))
       XP = (int) (XP * (float) get_property("exp.factor.racewar.good", 1.0));
     else if (RACE_EVIL(ch))
@@ -1023,16 +1050,19 @@ int gain_exp(P_char ch, P_char victim, const int value, int type)
     logit(LOG_DEBUG, "pvp exp gain: %d", XP);    
   }
   
-  if (XP < 0 && type != EXP_DEATH)
-    return 0;
+  if(XP < 0 &&
+    type != EXP_DEATH)
+      return 0;
 
-  if( !pvp )
+  if(!(pvp) &&
+     type != EXP_DEATH)
   {
     XP = modify_exp_by_zone_trophy(ch, type, (int)(XP));    
   }
 
   if(XP > 0 &&
-     type != EXP_WORLD_QUEST)
+     type != EXP_WORLD_QUEST &&
+     type != EXP_DEATH)
   {
     XP = check_nexus_bonus(ch, (int)(XP), NEXUS_BONUS_EXP);
   
@@ -1051,7 +1081,8 @@ int gain_exp(P_char ch, P_char victim, const int value, int type)
     XP *= (get_property("gain.exp.mod.TotalOverall", 1.00));
   
   // increase exp only to some limit (cumulative exp till 61)
-  if (XP < 0 || GET_EXP(ch) < global_exp_limit)
+  if(XP < 0 ||
+     GET_EXP(ch) < global_exp_limit)
   {
     GET_EXP(ch) += (int)(XP);
   }
@@ -1079,7 +1110,6 @@ int gain_exp(P_char ch, P_char victim, const int value, int type)
       lose_level(ch);
     }
   }
-
   return (int)(XP);
 }
 
