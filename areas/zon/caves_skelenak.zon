@@ -81,9 +81,6 @@ O 0 4018 1 4067 100 0 0 0          * some gold coins
 O 0 4020 1 4107 100 0 0 0          * a skeletal corpse
 P 1 4010 2 4020 100 0 0 0          *   a double-bladed battleaxe
 P 1 4021 1 4020 100 0 0 0          *   a small silver disc
-O 0 4017 1 4120 100 0 0 0          * a glowing amber bracelet
-O 0 4019 1 4120 100 0 0 0          * gold coins
-O 0 4016 1 4120 100 0 0 0          * a polished silver bracelet
 *
 M 0 4014 20 4002 100 0 0 0         * a kobold
 M 0 4014 20 4003 100 0 0 0         * a kobold
@@ -192,6 +189,9 @@ M 0 4033 1 4116 100 0 0 0          * a three-headed hydra
 M 0 4036 1 4117 100 0 0 0          * a five-headed hydra
 M 0 4037 1 4118 100 0 0 0          * a seven-headed cryohydra
 M 0 4034 1 4119 100 0 0 0          * a nine-headed pyrohydra
+G 1 4017 1 0 100 0 0 0             *    a glowing amber bracelet
+G 1 4016 1 0 100 0 0 0             *    a polished silver bracelet
+G 1 4024 1 0 100 0 0 0             *    a pile of platinum&m
 M 0 4002 2 4121 100 0 0 0          * a large green snake
 M 0 4002 2 4121 100 0 0 0          * a large green snake
 M 0 4003 2 4122 100 0 0 0          * a large green snake
