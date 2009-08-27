@@ -193,7 +193,7 @@ do any further work on it.
 #80012
 spear~
 &+ya hunting spear&N~
-&+yA huntin spear has fallen here.&N~
+&+yA hunting spear has fallen here.&N~
 ~
 5 6 3 0 7 0 4203536 24577 0 96071707 0
 8 1 5 11 0 0 0 0
@@ -383,7 +383,7 @@ armor tigerskin~
 E
 armor tigerskin~
 This fine leather armor is far more valuable than a standard suit of armor.
-Not really because it is better armor, but becuase it is extremely distinctive.
+Not really because it is better armor, but because it is extremely distinctive.
 The craftsman that made it has done an excellent job of keeping the tiger's
 stripes in line with the form of the armor making it even more attractive to
 gaze upon.
@@ -616,7 +616,7 @@ A
 A
 13 5
 #80038
-medallion mithral~
+medallion mithril~
 &+Wa strange mithral medallion&N~
 &+WSomeone has left behind an odd-looking mithral medallion.&N~
 ~
@@ -1057,7 +1057,7 @@ The pale green scales shimmer showing that even though the couatl they came
 from is dead, they still contain a great deal of magic.  It is unfortunate that
 this particular piece is not terribly well-made.  Although it does give the
 wearer the advantages offered by the small, hard scales of the couatl,
-slightly better craftsmanship would have made it a truely awesome wrist guard.
+slightly better craftsmanship would have made it a truly awesome wrist guard.
 ~
 A
 24 -2
@@ -1090,7 +1090,7 @@ egg couatl~
 E
 egg couatl~
 The egg is quite large and somewhat elongated in shape.  It appears to be the
-egg of one of the magificent couatls that lives in the jungle.
+egg of one of the magnificent couatls that lives in the jungle.
 ~
 #80068
 vine flower~
@@ -1127,7 +1127,7 @@ flower rielikki~
 E
 flower rielikki~
 This rare and delicate flower is one of the many epiphytic flowers found in the
-jungle.  This particular flower is especially attractive and declicate, as
+jungle.  This particular flower is especially attractive and delicate, as
 well as sweet-smelling.  These flowers only grow in the wild though, any
 effort to pick them or grow them elsewhere has always ended in failure.
 ~
@@ -1358,7 +1358,7 @@ armor skin~
 10 2000 100
 E
 armor skin gorilla gorilla-skin~
-This heavy gorilla skin has been carefully cured and stiched together to
+This heavy gorilla skin has been carefully cured and stitched together to
 create a very effective piece of armor.  Whatever process was used to cure
 the skin has left it with an acrid odor that is hard to identify.
 ~
@@ -1773,7 +1773,7 @@ desk cracked~
 E
 desk cracked~
 A long crack runs along one side of the desk down to the left front leg.  The
-leg itself has been broken off and the desk has been proped up with a rough
+leg itself has been broken off and the desk has been propped up with a rough
 piece of wood.  One of the drawers is missing, but the other two drawers
 remain.  Though it must be valued by its owner, this desk is of absolutely no
 value to anyone else.
@@ -1835,7 +1835,7 @@ fish smoked~
 0 3 100
 E
 fish smoked~
-This black pirahna meat has been smoked to add a bit of flavor to it and
+This black piranha meat has been smoked to add a bit of flavor to it and
 make it last a bit longer.  Black piranha are fruit eaters, quite unlike their
 bloodthirsty cousins, and grow quite large.  This slab of smoked fish
 would probably last an entire day for the average person.
@@ -1935,7 +1935,7 @@ card blood ten~
 E
 card blood ten 10~
 Though a numbered card, the blood ten is still one of the highest cards in
-the deck, depending on what game is being played ofcourse.  The only higher
+the deck, depending on what game is being played of course.  The only higher
 suit is black, green and yellow are far below blood in almost every card
 game.
 ~
@@ -1951,7 +1951,7 @@ E
 card blood prince~
 The blood prince is the highest card of the blood suit.  Only the black
 prince and black queen can trump it.  The card itself is poorly made, it looks
-as if the orginal card in the deck was lost and replaced with this poorly done
+as if the original card in the deck was lost and replaced with this poorly done
 copy.
 ~
 #80123
@@ -2163,7 +2163,7 @@ petals flower~
 1 4500 100
 E
 petals flower~
-An astounding, almost flourescent, red pigment makes these flower petals stand
+An astounding, almost fluorescent, red pigment makes these flower petals stand
 out like a beacon anyplace they happen to fall.
 ~
 #80138
@@ -2290,7 +2290,7 @@ E
 tool brass~
 This odd-looking tool must have some sort of purpose, though what it might be
 is a mystery.  Odd flanges and points stick out of it at various points, when
-it is manipulated properly it almost looks like an armless man with moveable
+it is manipulated properly it almost looks like an armless man with movable
 legs.  However, it is definitely not a toy of any sort.
 ~
 #80146
@@ -2495,7 +2495,7 @@ staff~
 This massive staff is far to large for any but a giant to even hold.  Despite
 its massive size, it is fairly light, though a tree might be easier to carry.
 The crystal glows with a faint light, sometimes the light it shines seems to
-encompass the staff and make it dissappear, only to fade back into view a few
+encompass the staff and make it disappear, only to fade back into view a few
 moments later.  Strange runes and inscriptions have been made all along the
 length of the staff but they are completely uninterpretable, as if they were
 written in a language never known or spoken in the vast world of Duris.
@@ -2683,7 +2683,7 @@ medallion flaming fire~
 0 1000 100
 E
 medallion flaming fire~
-This fiery medallion seems to fold in on itself at times, dissappearing and
+This fiery medallion seems to fold in on itself at times, disappearing and
 then reappearing.  The flames it breathes are cool to the touch, yet are
 clearly real, it seems that whoever holds the amulet can not feel the heat of
 its fire.
@@ -2846,7 +2846,7 @@ soup turtle~
 E
 soup turtle~
 Just the right amount of spices and vegetables have been added to the soup so
-that it not only tastes wonderful, but is also wonderfully nutricious.
+that it not only tastes wonderful, but is also wonderfully nutritious.
 ~
 #80183
 stew tapir~
@@ -2871,8 +2871,8 @@ roast quetzel~
 0 100 100
 E
 roast quetzel~
-Harsh spices and a gamey flavor mark this as a dish that one either loves or
-hates.  True gormands rave about its glorious mixture of flavors, but many of
+Harsh spices and a gamy flavor mark this as a dish that one either loves or
+hates.  True gourmands rave about its glorious mixture of flavors, but many of
 the more normal' diners stick to more regular fare.
 ~
 #80185
@@ -2932,7 +2932,7 @@ A
 A
 26 5
 #80189
-katana green mithral~
+katana green mithril~
 &+ga green-hued &+Cmithril katana&N~
 &+CSomeone has dropped a katana made of &+ggreen-hued&+C mithril.&N~
 ~
@@ -2940,7 +2940,7 @@ katana green mithral~
 5 1 7 3 0 0 0 0
 20 35000 100
 E
-katana green mithral~
+katana green mithril~
 Fine dwarven craftsmanship and elven magic have created an expensive, but high
 quality sword that any warrior would be proud to own.
 ~
@@ -2957,7 +2957,7 @@ armor scalemail scale mithril~
 20 3 1 1 0 0 0 0
 20 45000 100
 E
-armor scalemail scale mithral~
+armor scalemail scale mithril~
 This mithril body armor is expensive, extremely expensive, but it is well worth
 the money spent on it.  Elven magic has helped make the armor more flexible,
 and even lightened it a bit.
@@ -2971,7 +2971,7 @@ sleeves scalemail scale mithril~
 8 8 1 1 0 0 0 0
 4 10000 100
 E
-sleeves scalemail scale mithral~
+sleeves scalemail scale mithril~
 All mithril armor is expensive, extremely expensive, but it is well worth the
 cost.  Elven magic has helped make the armor more flexible, and even lightened
 it a bit, at the same time as adding the faint green hue that cuts down on the
@@ -2984,7 +2984,7 @@ A
 #80192
 leggings scalemail scale mithril~
 &+Csome mithril scalemail leggings&N~
-&+CSome mitril scalemail leggings have foolishly been left behind.&N~
+&+CSome mithril scalemail leggings have foolishly been left behind.&N~
 ~
 9 18 3 0 14 0 134217728 33 0 4173708868 0
 8 5 1 1 0 0 0 0
@@ -3004,14 +3004,14 @@ A
 #80193
 bracelet mithril gem gems~
 &+Ca mithril bracelet studded with &+Rgems&N~
-&+CA &+Gg&+Re&+Ym&+C-encrusted mithral bracelet lies here.&N~
+&+CA &+Gg&+Re&+Ym&+C-encrusted mithril bracelet lies here.&N~
 ~
 8 18 3 0 9 0 0 20481 0 0 0
 0 0 0 0 0 0 0 0
 3 45000 100
 E
 bracelet mithril gem gems~
-Mithral is valuable alone, this bracelet adds valuable gems to an already
+Mithril is valuable alone, this bracelet adds valuable gems to an already
 valuable metal.  Though quite valuable, the workmanship is relatively poor.  It
 almost seems as if it was designed as a method for storing and carrying wealth
 rather than as jewelry.
@@ -3055,7 +3055,7 @@ E
 bow crystal shard~
 It first appears to be a fine, long crystal, but closer inspection shows that
 it is as tough as dragon scales but surprisingly flexible.  The bow has a
-beauty and magic that are unmatched, and an unmistakeable hum of power.  Few
+beauty and magic that are unmatched, and an unmistakable hum of power.  Few
 warriors would have the skill to use such an item, though many rangers or
 archers would certainly be able to benefit.
 ~
@@ -3095,7 +3095,7 @@ hammer mithril~
 E
 hammer mithril~
 This mithril hammer is heavy for its size, yet perfectly balanced for throwing.
-There is a magical glow to it that is unmistakeable, only a truely masterful
+There is a magical glow to it that is unmistakable, only a truly masterful
 craftsman could have made such a beautiful item.  Along the head of the hammer
 the symbol of a forge and hammer has been engraved.
 ~
@@ -3202,7 +3202,7 @@ E
 silver flask~
 This tiny flask has been imbued with a great magic that allows it to
 contain far more liquid than it should.  Its light weight and small size
-would make it very easy to lose, it would be wize to keep close track of
+would make it very easy to lose, it would be wise to keep close track of
 it.
 ~
 A
@@ -3316,7 +3316,7 @@ mortar stone~
 30 1 100
 E
 mortar stone~
-This massive mortar has bits of broken bone imbedded in its working end, a
+This massive mortar has bits of broken bone embedded in its working end, a
 clear indication of what it is used for.  It is far to big for most to
 hold, but for a giant it would be a relatively small weapon.
 ~
