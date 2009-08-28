@@ -1399,8 +1399,7 @@ int random_eq_proc(P_obj obj, P_char ch, int cmd, char *argument)
          obj->value[6] == 999 &&
          IS_SET(obj->wear_flags, ITEM_WIELD) &&
          !number(0, 10) &&
-         IS_FIGHTING(ch)) &&
-         CheckMultiProcTiming(ch))
+         IS_FIGHTING(ch)))
     {
       kala = ch->specials.fighting;;
       act

@@ -7730,7 +7730,6 @@ void do_springleap(P_char ch, char *argument, int cmd)
     return;
   }
 
-  set_short_affected_by(ch, SKILL_SPRINGLEAP, (int) (2.8 * PULSE_VIOLENCE));
   percent_chance = BOUNDED(1, percent_chance, 95);
   
   if(IS_PC(ch) &&
@@ -7769,7 +7768,8 @@ void do_springleap(P_char ch, char *argument, int cmd)
     (int) (percent_chance *
            ((double) BOUNDED(80, 100 + GET_LEVEL(ch) - GET_LEVEL(vict), 125))
            / 100);
-
+ 
+  set_short_affected_by(ch, SKILL_SPRINGLEAP, (int) (2.8 * PULSE_VIOLENCE));
   if(RANGED_LEAP)
   {
     act("$n dives in from nearby into a forward roll and leaps into $N!\nwho groans as $n spins around kicking $M in the chest.",
