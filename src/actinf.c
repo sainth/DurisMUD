@@ -2813,15 +2813,17 @@ void show_exits_to_char(P_char ch, int room_no, int mode)
         if (!IS_SET(EXIT(ch, i)->exit_info, EX_CLOSED))
         {
           if(!IS_TWILIGHT_ROOM(EXIT(ch, i)->to_room) &&
-            (IS_SUNLIT(EXIT(ch, i)->to_room) ||
-            IS_SET(world[EXIT(ch, i)->to_room].room_flags, MAGIC_LIGHT)) &&
-            IS_AFFECTED2(ch, AFF2_ULTRAVISION))
+             (IS_SUNLIT(EXIT(ch, i)->to_room) ||
+             IS_SET(world[EXIT(ch, i)->to_room].room_flags, MAGIC_LIGHT)) &&
+             IS_AFFECTED2(ch, AFF2_ULTRAVISION) &&
+             !RACE_GOOD(ch))
               strcat(buffer, "&+WToo bright to tell.&n.");
           else if(!IS_TWILIGHT_ROOM(EXIT(ch, i)->to_room) &&
                   (IS_SET(world[EXIT(ch, i)->to_room].room_flags,
                   MAGIC_DARK) ||
                   (IS_DARK(EXIT(ch, i)->to_room) &&
-                  !IS_AFFECTED2(ch, AFF2_ULTRAVISION))))
+                  !IS_AFFECTED2(ch, AFF2_ULTRAVISION))) &&
+                  !RACE_EVIL(ch))
                     strcat(buffer, "&+LToo dark to tell.&n.");
           else
             strcat(buffer, world[EXIT(ch, i)->to_room].name);
