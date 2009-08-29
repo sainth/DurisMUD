@@ -4090,11 +4090,13 @@ void check_contraband(P_ship ship, int to_room)
             else*/ 
             if (ship->frags >= cargo_data[type].frag_threshold)
             {
-                conf_chance = 30.0 + (float)crates; // the more contraband you have, the bigger confiscation chance
+                conf_chance = 25.0 + (float)crates; // the more contraband you have, the bigger confiscation chance
                 conf_chance -= sqrt(ship->frags) / 5.0;
                 conf_chance += (100.0 - conf_chance) * (1.0 - total_load); // the more total cargo onboard, the less confiscation chance
                 if (conf_chance > 100) conf_chance = 100;
             }
+            sptrinf(buf, "COnf chance: %d", conf_chance);
+	    act_to_all_in_ship(ship, buf);
 
             int confiscated = 0;
             for (int i = 0; i < crates; i++)
@@ -4493,7 +4495,7 @@ int reload_ammo(P_char ch, P_ship ship, char* arg)
 
 int rename_ship(P_char ch, P_ship ship, char* new_name)
 {
-    if (!arg2 || !*arg2)
+    if (!new_name || !*new_name)
     {
         send_to_char("Invalid syntax.\r\n", ch);
         return TRUE;
@@ -4510,7 +4512,7 @@ int rename_ship(P_char ch, P_ship ship, char* new_name)
     }
     /* count money end */
 
-    if( !rename_ship(ch, GET_NAME(ch), arg2) == TRUE)
+    if( !rename_ship(ch, GET_NAME(ch), new_name) == TRUE)
     {
         return TRUE;
     }
