@@ -259,7 +259,7 @@ carp crispy fritters~
 10 0 0 0 0 0 0 0
 0 0 100
 #55024
-decayed heart powerful dragon~
+decayed heart powerful dragon _noquest_~
 &+Wthe &+Ldecayed &+rheart &+Wof a powerful &+rdragon&n~
 &+WThe &+Ldecayed &+rheart &+Wof a powerful &+rdragon &+Wlies here.&n~
 ~
@@ -360,7 +360,7 @@ vial bodyrush~
 40 41 0 0 0 0 0 0
 0 0 100
 #55033
-gnomish shopkeepers token~
+gnomish shopkeepers token _noquest_~
 &+La &+Rgn&+romi&+Rsh &+Lshopkeepers token&n~
 &+LA &+Rgn&+romi&+Rsh &+Lshopkeepers token lies in the dust here.&n~
 ~
@@ -378,7 +378,7 @@ essence auril~
 A
 13 15
 #55035
-potion elements gnomish~
+potion elements gnomish _noquest_~
 &+La &+Rgn&+romi&+Rsh &+mpotion &+Lof the &+Melements&n~
 &+LA &+Mstrange &+Llooking &+mpotion &+Lfloats in the air.&n~
 ~
@@ -394,7 +394,7 @@ pouch planar dust~
 0 0 0 0 0 0 0 0
 0 0 100
 #55037
-skull bloody seasoned warrior~
+skull bloody seasoned warrior _noquest_~
 &+Lthe &+Wskull &+Lof a &+rseasoned &+Lwarrior&n~
 &+LA &+rbloody &+Wskull &+Llies on the floor here.&n~
 ~
@@ -775,7 +775,7 @@ note small _noquest_~
 10 0 0 0 0 0 0 0
 0 0 100
 #55079
-potion disguised charming~
+potion disguised charming _noquest_~
 &+Wa &+rcleverly &+Wdisguised &+cpotion &+Wof &+rcharming&n~
 &+WA &+rdelicious &+Wlooking &+cpotion &+Wlies here.~
 ~
@@ -1855,7 +1855,7 @@ mark death~
 0 0 0 0 0 0 0 0
 0 0 100 0 1024 0 0
 #55146
-bloody middle finger~
+bloody middle finger _noquest_~
 &+La &+rbl&+Roo&+rd&+Ry &+Lmiddle finger&n~
 &+LA &+rbl&+Roo&+rd&+Ry &+Lmiddle finger lies here.&n~
 ~
@@ -2931,7 +2931,7 @@ remains corpse centaur~
 0 0 0 0 0 0 0 0
 0 0 100
 #55235
-key snow ogre~
+key snow ogre _noquest_~
 &+wa key forged by a &+Wsnow &+bogre&n~
 &+wa key forged by a &+Wsnow &+bogre &+wlies here.&n~
 ~
@@ -3065,7 +3065,7 @@ super secret invitation _noquest_~
 0 0 0 0 0 0 0 0
 0 0 100
 #55249
-key hideout rogue~
+key hideout rogue _noquest_~
 &+La key to the rogue's &+rhideout&n~
 &+La shady looking &+rkey &+Llies on the floor.&n~
 ~
@@ -3514,7 +3514,7 @@ A
 T
 2 0 0 0
 #55281
-decaying femur euronymous~
+decaying femur euronymous _noquest_~
 &+wthe &+Ldecaying &+wfemur of &+rEuronymous&n~
 &+wthe &+Ldecaying &+wfemur of &+rEuronymous &+wlies here.&n~
 ~
@@ -3524,7 +3524,7 @@ decaying femur euronymous~
 T
 2 0 0 0
 #55282
-decaying femur bel~
+decaying femur bel _noquest_~
 &+wthe &+Ldecaying &+wfemur of &+rBel&n~
 &+wThe &+Ldecaying &+wfemur of &+rBel &+wlies here.&n~
 ~
@@ -3877,7 +3877,7 @@ scale leviathan _noquest_~
 T
 2 0 0 0
 #55314
-blank expression~
+blank expression _noquest_~
 &+La &+wb&+Llan&+wk e&+Lxpr&+we&+Lssio&+wn&n~
 &+LA &+wb&+Llan&+wk e&+Lxpr&+we&+Lssio&+wn &+Llies here.&n~
 ~
@@ -4037,17 +4037,17 @@ key gnomish secrets~
 T
 2 0 0 0
 #55328
-mold key gnomish secrets~
+mold key gnomish secrets _noquest_~
 &+Lthe first mold of the key of &+Rgn&+romi&+Rsh &+Lsecrets&n~
 &+LA mold of a key lies here.&n~
 ~
-13 1 2 0 7 0 8200 1 64 0 0
+13 1 2 0 7 0 8200 1 72 0 0
 0 0 0 0 0 0 0 0
 0 0 100
 T
 2 0 0 0
 #55329
-mold key gnomish secrets~
+mold key gnomish secrets _noquest_~
 &+Lthe second mold of the key of &+Rgn&+romi&+Rsh &+Lsecrets&n~
 &+LA mold of a key lies here.&n~
 ~
@@ -4057,7 +4057,7 @@ mold key gnomish secrets~
 T
 2 0 0 0
 #55330
-mold key gnomish secrets~
+mold key gnomish secrets _noquest_~
 &+Lthe third mold of the key of &+Rgn&+romi&+Rsh &+Lsecrets&n~
 &+LA mold of a key lies here.&n~
 ~
@@ -4067,7 +4067,7 @@ mold key gnomish secrets~
 T
 2 0 0 0
 #55331
-rare fabrics jade empire roll~
+rare fabrics jade empire roll _noquest_~
 &+La small &+groll &+Lof &+Grare &+Lfabrics from &+gThe &+GJade &+gEmpire&n~
 &+LA small &+groll &+Lof &+Grare &+Lfabrics from &+gThe &+GJade &+gEmpire &+Llies here.&n~
 ~
@@ -4077,7 +4077,7 @@ rare fabrics jade empire roll~
 T
 2 0 0 0
 #55332
-rare fabrics venan'trut roll~
+rare fabrics venan'trut roll _noquest_~
 &+La small &+Yroll &+Lof &+yrare &+Yfabrics &+Lfrom &+YVenan'Trut&n~
 &+LA small &+Yroll &+Lof &+yrare &+Yfabrics &+Lfrom &+YVenan'Trut &+Llies here.&n~
 ~
@@ -4509,7 +4509,7 @@ small grate~
 55536 7 -1 0 0 0 0 0
 0 0 100
 #55375
-mark badge dagger~
+mark badge dagger _noquest_~
 &+Lthe mark of the &+Rdagger~
 &+LA strange looking &+Rbadge &+Llies here.&n~
 ~
@@ -4529,11 +4529,11 @@ A
 A
 19 3
 #55377
-gladius backstabber~
+gladius backstabber _noquest_~
 a &+Lgladius &+Wcalled '&+LBac&+wks&+Wta&+Rbb&+rer&+W'&n~
 &+LA peculiar gladius has been left behind here.&n~
 ~
-5 16 2 0 7 0 9217 8193 64 126976 0
+5 16 2 0 7 0 9217 8193 72 126976 0
 2 2 8 0 0 0 0 0
 0 0 100 16 0 0 0
 A
@@ -4541,7 +4541,7 @@ A
 A
 32 5
 #55378
-virulent herpes simplex~
+virulent herpes simplex _noquest_~
 &+La &+Rvirulent &+Lcase of &+cherpes &+Csimplex&n~
 &+La &+Rserious &+Lcase of &+cherpes &+Llies here.&n~
 ~
@@ -4553,7 +4553,7 @@ A
 A
 35 5
 #55379
-mark badge dagger~
+mark badge dagger _noquest_~
 &+Lthe mark of the &+mdagger&n~
 &+LA strange looking &+Mbadge &+Llies here.&n~
 ~
@@ -4561,7 +4561,7 @@ mark badge dagger~
 0 0 0 0 0 0 0 0
 0 0 100
 #55380
-soiled dirty leather breeches~
+soiled dirty leather breeches _noquest_~
 &+La pair of &+ysoiled &+Yleather &+Lbreeches&n~
 &+LA pair of &+ydirty &+Yleather &+Lbreeches lies here.&n~
 ~
@@ -4573,7 +4573,7 @@ A
 A
 34 3
 #55381
-pair silk penny loafers~
+pair silk penny loafers _noquest_~
 &+La &+Mpa&+mir &+Lof &+Msi&+mlk &+Lpenny &+Mloa&+mfers&n~
 &+LA &+Mpa&+mir &+Lof really nice penny &+Mloa&+mfers &+Llies here.&n~
 ~
