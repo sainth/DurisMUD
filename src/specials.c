@@ -272,8 +272,19 @@ void npc_steal(P_char ch, P_char vict)
   int      percent, roll, loc, gold, chance;
   bool     failed, caught;
 
-  if (IS_NPC(vict))
+  if(!(ch) ||
+     !IS_ALIVE(ch) ||
+     !(vict) ||
+     !IS_ALIVE(vict))
+        return;
+  
+  if(IS_NPC(vict))
     return;
+  
+  if(IS_SET(ch->specials.act, ACT_TEACHER) ||
+     IS_SET(ch->specials.act, ACT_SPEC_TEACHER))
+      return;
+  
   if (IS_TRUSTED(vict))
     return;
   if (world[ch->in_room].room_flags & SAFE_ZONE)
