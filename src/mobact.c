@@ -7203,6 +7203,14 @@ int handle_npc_assist(P_char ch)
   P_char   tmp_ch, Victim, foe;
   char     Gbuf1[MAX_STRING_LENGTH];
   struct follow_type *fol;
+  
+  if(!(ch) ||
+     !IS_ALIVE(ch))
+      return false;
+      
+  if(IS_NPC(ch) &&
+     GET_VNUM(ch) == IMAGE_RELFECTION_VNUM)
+      return false;
 
   /*
    * Expanded NPC assistance added below.  Assumes one NPC following another as
@@ -7210,7 +7218,7 @@ int handle_npc_assist(P_char ch)
    * leader. - SKB 19 May 1995
    */
    
-  if(!IS_IMMOBILE(ch) ||
+  if(IS_IMMOBILE(ch) ||
      GET_STAT(ch) <= STAT_SLEEPING ||
      !CAN_ACT(ch))
       return FALSE;
