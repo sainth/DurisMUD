@@ -8729,7 +8729,7 @@ void gaze(P_char ch, P_char victim)
   if(notch_skill(ch, SKILL_GAZE, get_property("skill.notch.offensive", 15)) ||
       percent_chance > number(0, 100))
   {
-    if(SET_BIT(victim->specials.affected_by4, AFF4_NOFEAR))
+    if(IS_SET(victim->specials.affected_by4, AFF4_NOFEAR))
     {
       act("You &+Lgaze&n upon $N, and $E looks right back at you with &+Wno fear!&n",
         FALSE, ch, 0, victim, TO_CHAR);
@@ -8750,7 +8750,7 @@ void gaze(P_char ch, P_char victim)
             "The guilt is obvious for there are so few true of heart. You strip\n"
             "the body of the soul and let the dead husk topple to the ground.",
             FALSE, ch, 0, victim, TO_CHAR);
-        act("As you stare into $N's bottomless eyes you loose yourself\n"
+        act("As you stare into&n $N's bottomless eyes you loose yourself\n"
             "in the endless void. Powers beyond your understanding probe your soul\n"
             "judging your deeds. The verdict is one - guilty. Your soul is ripped\n"
             "from your body and the now dead husk topples to the ground.",
@@ -8783,20 +8783,20 @@ void gaze(P_char ch, P_char victim)
     {
       if(GET_CLASS(ch, CLASS_AVENGER))
       {
-        act("You stare at $N forcing $M into submission.",
+        act("&+WYou stare at&n $N &+Wforcing $M into &+wsubmission.&n",
           FALSE, ch, 0, victim, TO_CHAR);
-        act("$N is lost in thought as $E meets $n's gaze.",
+        act("$N &+wis lost in thought as $E meets&n $n's &+wgaze.",
           FALSE, ch, 0, victim, TO_NOTVICT);
-        act("Calming visions sweep over you as you gaze into $n's eyes.",
+        act("&+WCalming visions sweep over you as you gaze into&n $n's &+Weyes.&n",
           FALSE, ch, 0, victim, TO_VICT);
       }
       else
       {
         act("You turn your &+Leyeless stare&n toward $N freezing $M with your gaze.",
            FALSE, ch, 0, victim, TO_CHAR);
-        act("$N turns ashen and struggles to turn away as $n stares into $S eyes.",
+        act("$N &+Lturns ashen and struggles to turn away as&n $n &+Lstares into $S eyes.&n",
            FALSE, ch, 0, victim, TO_NOTVICT);
-        act("The world ceases to be as $n turns $s &+Leyeless gaze&n at you.",
+        act("&+yThe world ceases to be as&n $n &+yturns $s &+Leyeless gaze&n at you.",
             FALSE, ch, 0, victim, TO_VICT);
       }
       
@@ -8819,11 +8819,11 @@ void gaze(P_char ch, P_char victim)
   }
   else
   {
-    act("You try to lock $N with your gaze but $E turns away.",
+    act("&+wYou try to lock&n $N &+wwith your gaze but $E turns away.&n",
       FALSE, ch, 0, victim, TO_CHAR);
-    act("$N shivers slightly, but turns away as $n looks at $M.",
+    act("$N &+wshivers slightly, but turns away as&n $n &+wlooks at $M.&n",
       FALSE, ch, 0, victim, TO_NOTVICT);
-    act("You avert your eyes as $n tries to lock you with $s gaze.",
+    act("&+wYou avert your eyes as&n $n &+wtries to lock you with $s gaze.&n",
       FALSE,  ch, 0, victim, TO_VICT);
   }
 
