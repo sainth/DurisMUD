@@ -11028,22 +11028,22 @@ void spell_endurance(int level, P_char ch, char *arg, int type, P_char victim,
 {
   struct affected_type af;
   char     Gbuf1[100];
-  int      skl_lvl;
-
-  skl_lvl = MAX(3, ((level / 10) - 1));
+  double skl_lvl;
 
   if(affected_by_spell(victim, SPELL_ENDURANCE))
   {
     send_to_char("You can't possibly regain movement any faster.\n", victim);
     return;
   }
-
+  
+  skl_lvl = MAX(3, ((level / 4) - 1)) * get_property("spell.endurance.modifiers", 1.000);
+  
   sprintf(Gbuf1, "You feel energy begin to surge through your limbs.\n");
 
   bzero(&af, sizeof(af));
   af.type = SPELL_ENDURANCE;
   af.location = APPLY_MOVE_REG;
-  af.duration = 2 * skl_lvl;
+  af.duration = skl_lvl;
   af.modifier = 2 * skl_lvl;
   send_to_char(Gbuf1, victim);
   affect_to_char(victim, &af);
