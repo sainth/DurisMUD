@@ -241,23 +241,12 @@ int char_deserves_helping(const P_char ch, const P_char candidate,
 
   if(IS_MORPH(candidate))
     return FALSE;
-    
-  if(ch->in_room != candidate->in_room)
-    return false;
-    
-  if(ch->specials.z_cord != candidate->specials.z_cord)
-    return false;
-    
+
   if(candidate->following && IS_PC(candidate->following))
     return FALSE;
 
   if(IS_PC_PET(ch))
     return FALSE;
-    
-  if((IS_NPC(ch) &&
-      GET_VNUM(ch) == IMAGE_RELFECTION_VNUM) ||
-      GET_VNUM(candidate) == IMAGE_RELFECTION_VNUM)
-        return false;
 
   if((ch->specials.fighting == candidate) ||
       (candidate->specials.fighting == ch))
@@ -281,25 +270,10 @@ int char_deserves_helping(const P_char ch, const P_char candidate,
 
   /* don't spell up non-followers/groupees under level 15 */
 
-  if(!((candidate->following == ch) ||
-       (ch->following == candidate) ||
-       (ch->group && (ch->group == candidate->group))))
+  if((GET_LEVEL(candidate) < 15) &&
+      !((candidate->following == ch) || (ch->following == candidate) ||
+        (ch->group && (ch->group == candidate->group))))
     return FALSE;
-    
-// This is a hack to prevent the Winterhaven high priest from spelling up
-// anything other than players. Aug09 -Lucrot
-  if((IS_NPC(ch) && 
-     GET_VNUM(ch) == WH_HIGH_PRIEST_VNUM) ||
-     GET_VNUM(candidate) == WH_HIGH_PRIEST_VNUM)
-        return false;
-  
-// The following prevents mobs from buffing non-guard mobs in hometowns.
-// This has a desired effect: do not buff low level exp mobs.
-// At the moment, mobs 20th level and higher in hometowns have a
-// negative exp modifier. Aug09 -Lucrot
-  if(IS_HOMETOWN(ch->in_room) &&
-     !isname("guard", GET_NAME(candidate)))
-        return false;
 
   return TRUE;
 }
@@ -342,10 +316,6 @@ int room_has_evil_enemy(const P_char ch)
 
   for (temp = world[room].people; temp; temp = temp->next_in_room)
   {
-    if(IS_NPC(temp) &&
-       GET_VNUM(temp) == IMAGE_RELFECTION_VNUM)
-          continue;
-          
     if(!char_deserves_helping(ch, temp, TRUE))
     {
       if(IS_PC(temp))
@@ -376,10 +346,6 @@ int room_has_good_enemy(const P_char ch)
 
   for (temp = world[room].people; temp; temp = temp->next_in_room)
   {
-    if(IS_NPC(temp) &&
-       GET_VNUM(temp) == IMAGE_RELFECTION_VNUM)
-          continue;
-    
     if(!char_deserves_helping(ch, temp, TRUE))
     {
       if(IS_PC(temp))
@@ -1036,14 +1002,14 @@ bool CastIllusionistSpell(P_char ch, P_char victim, int helping)
                  npc_has_spell_slot(ch, SPELL_NIGHTMARE) &&
                  !(tmp == ch) && 
                  number(0, 1))
-          spl = SPELL_NIGHTMARE;
+                    spl = SPELL_NIGHTMARE;
 
         else if(!spl &&
                  npc_has_spell_slot(ch, SPELL_DELIRIUM) &&
                  !(tmp == ch) &&
                  number(0, 1) &&
                  !affected_by_spell(tmp, SPELL_DELIRIUM))
-          spl = SPELL_DELIRIUM;
+                    spl = SPELL_DELIRIUM;
 
         else if(!spl &&
                 npc_has_spell_slot(ch, SPELL_BLINDNESS) &&
@@ -1051,8 +1017,7 @@ bool CastIllusionistSpell(P_char ch, P_char victim, int helping)
                 number(0, 1) &&
                 !IS_BLIND(tmp) &&
                 !EYELESS(tmp))
-          spl = SPELL_BLINDNESS;
-
+                    spl = SPELL_BLINDNESS;
       }
     }
     if(spl && ch && tmp)
@@ -1397,11 +1362,12 @@ bool CastMageSpell(P_char ch, P_char victim, int helping)
   {
   spl = SPELL_VITALIZE_UNDEAD;
   }
-  if(!spl && npc_has_spell_slot(ch, SPELL_MINOR_GLOBE) &&
+  if(!spl &&
+     npc_has_spell_slot(ch, SPELL_MINOR_GLOBE) &&
      !IS_ANIMAL(target) &&
      GET_RACE(target) != RACE_PLANT &&
-      !(IS_AFFECTED2(target, AFF2_GLOBE) ||
-        IS_AFFECTED(target, AFF_MINOR_GLOBE)))
+     !(IS_AFFECTED2(target, AFF2_GLOBE) ||
+      IS_AFFECTED(target, AFF_MINOR_GLOBE)))
   {
     spl = SPELL_MINOR_GLOBE;
   }
@@ -2980,15 +2946,10 @@ bool CastShamanSpell(P_char ch, P_char victim, int helping)
     {
       sect = world[ch->in_room].sector_type;
 
-      if(((sect == SECT_FIELD) ||
-          (sect == SECT_FOREST) ||
-          (sect == SECT_HILLS) ||
-          (sect == SECT_MOUNTAIN) ||
-          (sect == SECT_UNDRWLD_CITY) ||
-          (sect == SECT_UNDRWLD_INSIDE) ||
-          (sect == SECT_UNDRWLD_WILD)) &&
-          can_summon_beast(ch, lvl) &&
-          GET_VNUM(ch) != WH_HIGH_PRIEST_VNUM) // Winterhaven high priest
+      if(((sect == SECT_FIELD) || (sect == SECT_FOREST) ||
+          (sect == SECT_HILLS) || (sect == SECT_MOUNTAIN) ||
+          (sect == SECT_UNDRWLD_CITY) || (sect == SECT_UNDRWLD_INSIDE) ||
+          (sect == SECT_UNDRWLD_WILD)) && can_summon_beast(ch, lvl))
       {
         if(npc_has_spell_slot(ch, SPELL_GREATER_SUMMON_BEAST))
           spl = SPELL_GREATER_SUMMON_BEAST;
@@ -3596,7 +3557,7 @@ bool CastEtherSpell(P_char ch, P_char victim, int helping)
 
 bool CastClericSpell(P_char ch, P_char victim, int helping)
 {
-  P_char   target = NULL, tempch, tmp;
+  P_char   target = NULL, tempch;
   int      dam = 0, lvl = 0, spl = 0;
 
   /* make sure I'm even able to cast in this room! */
@@ -3625,32 +3586,25 @@ bool CastClericSpell(P_char ch, P_char victim, int helping)
    * my birthplace, get home!
    */
 
-  if(!spl &&
-     IS_FIGHTING(ch) &&
-     ch == target &&
-     (GET_HIT(ch) < (GET_MAX_HIT(ch) >> 2)) &&
-     (world[ch->in_room].number != GET_BIRTHPLACE(ch)) &&
-     npc_has_spell_slot(ch, SPELL_WORD_OF_RECALL) &&
-     !IS_SET(world[ch->in_room].room_flags, NORECALL) &&
-     !IS_SET(world[real_room0(GET_BIRTHPLACE(ch))].room_flags, NORECALL))
-        spl = SPELL_WORD_OF_RECALL;
+  if(!spl && IS_FIGHTING(ch) && (GET_HIT(ch) < (GET_MAX_HIT(ch) >> 2)) &&
+      (world[ch->in_room].number != GET_BIRTHPLACE(ch)) &&
+      npc_has_spell_slot(ch, SPELL_WORD_OF_RECALL) &&
+      !IS_SET(world[ch->in_room].room_flags, NORECALL) &&
+      !IS_SET(world[real_room0(GET_BIRTHPLACE(ch))].room_flags, NORECALL))
+    spl = SPELL_WORD_OF_RECALL;
 
-  if(!spl &&
-     (ch == target) &&
-     !IS_AFFECTED2(ch, AFF2_SOULSHIELD) &&
-     !affected_by_spell(ch, SPELL_SOULSHIELD) &&
-     !IS_AFFECTED4(ch, AFF4_NEG_SHIELD) &&
-     ((GET_ALIGNMENT(ch) <= -950) ||
-     (GET_ALIGNMENT(ch) >= 950)) &&
-     npc_has_spell_slot(ch, SPELL_SOULSHIELD) &&
-     (!IS_FIGHTING(ch) || number(0, 2)))
-        spl = SPELL_SOULSHIELD;
+  if(!spl && (ch == target) && !IS_AFFECTED2(ch, AFF2_SOULSHIELD) &&
+      !affected_by_spell(ch, SPELL_SOULSHIELD) && !IS_AFFECTED4(ch, AFF4_NEG_SHIELD) &&
+      ((GET_ALIGNMENT(ch) <= -950) ||
+      (GET_ALIGNMENT(ch) >= 950)) &&
+      npc_has_spell_slot(ch, SPELL_SOULSHIELD) &&
+      (!IS_FIGHTING(ch) || number(0, 2)))
+  spl = SPELL_SOULSHIELD;
 
   if(!spl &&
     (affected_by_spell(target, SPELL_POISON) ||
     IS_AFFECTED2(target, AFF2_POISONED)) &&
-    (!IS_FIGHTING(ch) ||
-    !number(0, 3)))
+    (!IS_FIGHTING(ch) || !number(0, 3)))
   {
     if(npc_has_spell_slot(ch, SPELL_PURIFY_SPIRIT))
     {
@@ -3666,27 +3620,21 @@ bool CastClericSpell(P_char ch, P_char victim, int helping)
     }
   }
 
-  if(!spl &&
-     affected_by_spell(target, SPELL_CURSE) &&
-     npc_has_spell_slot(ch, SPELL_REMOVE_CURSE) &&
-     (!IS_FIGHTING(ch) || !number(0, 5)))
-        spl = SPELL_REMOVE_CURSE;
+  if(!spl && affected_by_spell(target, SPELL_CURSE) &&
+      npc_has_spell_slot(ch, SPELL_REMOVE_CURSE) &&
+      (!IS_FIGHTING(ch) || !number(0, 5)))
+    spl = SPELL_REMOVE_CURSE;
 
   if(!spl && IS_AFFECTED(target, AFF_BLIND) &&
-     npc_has_spell_slot(ch, SPELL_CURE_BLIND) &&
-     (!IS_FIGHTING(ch) || !number(0, 2)))
-    if(npc_has_spell_slot(ch, SPELL_PURIFY_SPIRIT))
-      spl = SPELL_PURIFY_SPIRIT;
-    else
-      spl = SPELL_CURE_BLIND;
+      npc_has_spell_slot(ch, SPELL_CURE_BLIND) &&
+      (!IS_FIGHTING(ch) || !number(0, 2)))
+    spl = SPELL_CURE_BLIND;
   else if(!spl && IS_AFFECTED(target, AFF_BLIND) &&
            npc_has_spell_slot(ch, SPELL_HEAL) &&
            (!IS_FIGHTING(ch) || !number(0, 2)))
-              spl = SPELL_HEAL;
-  else if(!spl &&
-          IS_AFFECTED(ch, AFF_BLIND) &&
-          room_has_valid_exit(ch->in_room) &&
-          !fear_check(ch) )
+    spl = SPELL_HEAL;
+  else if(!spl && IS_AFFECTED(ch, AFF_BLIND) &&
+           room_has_valid_exit(ch->in_room) && !fear_check(ch) )
   {
     do_flee(ch, 0, 0);
     return FALSE;
@@ -3725,38 +3673,35 @@ bool CastClericSpell(P_char ch, P_char victim, int helping)
         spl = SPELL_MASS_HEAL;
     }
 
-    if(!spl &&
-       lvl >= 46 && // Low level vitality has a short duration.
-       npc_has_spell_slot(ch, SPELL_VITALITY) &&
-       !affected_by_spell(target, SPELL_VITALITY) &&
-       (number(0, 1) || !IS_FIGHTING(ch)))
-          spl = SPELL_VITALITY;
+    if(!spl && npc_has_spell_slot(ch, SPELL_VITALITY) &&
+        !affected_by_spell(target, SPELL_VITALITY) && (number(0, 1) ||
+                                                       !IS_FIGHTING(ch)))
+      spl = SPELL_VITALITY;
 
     // if not fighting, might as well cast the shit heal spells
 
-    else if(!spl &&
-            !IS_FIGHTING(ch) &&
-            (dam > 0))
+    else if(!spl && !IS_FIGHTING(ch) && (dam > 0))
     {
       if(npc_has_spell_slot(ch, SPELL_CURE_CRITIC))
         spl = SPELL_CURE_CRITIC;
       else if(npc_has_spell_slot(ch, SPELL_CURE_SERIOUS))
         spl = SPELL_CURE_SERIOUS;
+      else if(npc_has_spell_slot(ch, SPELL_CURE_LIGHT))
+        spl = SPELL_CURE_LIGHT;
     }
   }
 
-  if(!spl &&
-    (!IS_FIGHTING(ch) || (number(0, 4) == 2)))
+  if(!spl && (!IS_FIGHTING(ch) || (number(0, 4) == 2)))
   {
     if(!affected_by_spell(target, SPELL_ARMOR) &&
         npc_has_spell_slot(ch, SPELL_ARMOR) &&
         GET_RACE(target) != RACE_ANIMAL)
-            spl = SPELL_ARMOR;
+      spl = SPELL_ARMOR;
     else
       if(!affected_by_spell(target, SPELL_BLESS) &&
           npc_has_spell_slot(ch, SPELL_BLESS) &&
           GET_RACE(target) != RACE_ANIMAL)
-            spl = SPELL_BLESS;
+      spl = SPELL_BLESS;
   }
 
   /* this stuff is all of limited usefulness in combat (the prot spells are nice,
@@ -3765,11 +3710,9 @@ bool CastClericSpell(P_char ch, P_char victim, int helping)
 
   if(!IS_FIGHTING(ch) || (number(0, 10) == 3))
   {
-    if(!spl &&
-       !affected_by_spell(ch, SPELL_TRUE_SEEING) &&
-        npc_has_spell_slot(ch, SPELL_TRUE_SEEING) &&
-        (ch == target))
-           spl = SPELL_TRUE_SEEING;
+    if(!spl && !affected_by_spell(ch, SPELL_TRUE_SEEING)
+        && npc_has_spell_slot(ch, SPELL_TRUE_SEEING) && (ch == target))
+      spl = SPELL_TRUE_SEEING;
 
     if(!spl && !IS_AFFECTED4(ch, AFF4_SANCTUARY) &&
         npc_has_spell_slot(ch, SPELL_LESSER_SANCTUARY) && (ch == target))
@@ -3857,6 +3800,8 @@ bool CastClericSpell(P_char ch, P_char victim, int helping)
             return (CastClericSpell(ch, tch, TRUE));
         }
       }
+
+      send_to_char("error in random number crap\r\n", ch);
     }
   }
   if((victim == ch) || helping)
@@ -3874,34 +3819,16 @@ bool CastClericSpell(P_char ch, P_char victim, int helping)
      group */
 
   if(!spl &&
-     number(0, 1) &&
+     number(0,1) &&
      !affected_by_spell(target, SPELL_PLAGUE) &&
      npc_has_spell_slot(ch, SPELL_PLAGUE))
   {
     spl = SPELL_PLAGUE;
   }
-  
-  if(!spl &&
-     npc_has_spell_slot(ch, SPELL_SILENCE) &&
-     !IS_AFFECTED2(target, AFF2_SILENCED) &&
-     number(0, 2) &&
-     GET_CLASS(target, CLASS_SORCERER | CLASS_NECROMANCER | CLASS_CONJURER | CLASS_CLERIC | CLASS_DRUID | CLASS_ETHERMANCER))
-        spl = SPELL_SILENCE;
 
   if(!spl &&
-     !number(0, 9) &&
-     npc_has_spell_slot(ch, SPELL_DISPEL_MAGIC))
-  {
-    tmp = FindDispelTarget(ch, lvl);
-    if(tmp && !(tmp == ch))
-      spl = SPELL_DISPEL_MAGIC;
-    else
-      tmp = NULL;
-  }
-  
-  if(!spl &&
      npc_has_spell_slot(ch, SPELL_DISPEL_MAGIC) &&
-     number(0, 3) == 3)
+     number(0, 9) == 9)
   {
     spl = SPELL_DISPEL_MAGIC;
   }
@@ -3923,11 +3850,7 @@ bool CastClericSpell(P_char ch, P_char victim, int helping)
     }
   }
 
-  if(!spl &&
-     npc_has_spell_slot(ch, SPELL_BANISH) &&
-     number(0, 1) &&
-     IS_PC_PET(target) &&
-     GET_LEVEL(ch) >= GET_LEVEL(target))
+  if(!spl && npc_has_spell_slot(ch, SPELL_BANISH) && number(0,1))
   {
     P_char tch;
     for (tch = world[ch->in_room].people; tch; tch = tch->next_in_room)
@@ -3950,6 +3873,12 @@ bool CastClericSpell(P_char ch, P_char victim, int helping)
   if(spl && ch)
     return (MobCastSpell(ch, target, 0, spl, lvl));
 
+  if(!spl &&
+    npc_has_spell_slot(ch, SPELL_SUNRAY))
+  {
+    spl = SPELL_SUNRAY;
+  }
+  
   if(!spl &&
      npc_has_spell_slot(ch, SPELL_DESTROY_UNDEAD) &&
      (GET_HIT(target) > 5) &&
@@ -3985,42 +3914,34 @@ bool CastClericSpell(P_char ch, P_char victim, int helping)
     case 3:
       if(!spl && npc_has_spell_slot(ch, SPELL_FEAR))
         spl = SPELL_FEAR;
-    
-    default:
-      break;
     }
   }
-  if(!spl &&
-     npc_has_spell_slot(ch, SPELL_FULL_HARM) &&
-     (GET_HIT(target) > 10))
-        spl = SPELL_FULL_HARM;
+  if(!spl && npc_has_spell_slot(ch, SPELL_FULL_HARM) &&
+      (GET_HIT(target) > 10))
+    spl = SPELL_FULL_HARM;
 
-  if(!spl &&
-     npc_has_spell_slot(ch, SPELL_FLAMESTRIKE))
-        spl = SPELL_FLAMESTRIKE;
+  if(!spl && OUTSIDE(ch) && !IS_GLOBED(target) && npc_has_spell_slot(ch, SPELL_CALL_LIGHTNING))
+  {
+    spl = SPELL_CALL_LIGHTNING;
+  }
 
-  if(!spl &&
-     npc_has_spell_slot(ch, SPELL_DISPEL_EVIL) &&
-     !IS_EVIL(ch) &&
-     IS_EVIL(target) &&
-     (!IS_GLOBED(target) || !IS_MINGLOBED(target)))
+  if(!spl && npc_has_spell_slot(ch, SPELL_FLAMESTRIKE) && !IS_GLOBED(target))
+    spl = SPELL_FLAMESTRIKE;
+
+  if(!spl && npc_has_spell_slot(ch, SPELL_DISPEL_EVIL) && !IS_EVIL(ch) && IS_EVIL(target)
+     && (!IS_GLOBED(target) || !IS_MINGLOBED(target)))
   {
     spl = SPELL_DISPEL_EVIL;
   }
 
-  if(!spl &&
-    npc_has_spell_slot(ch, SPELL_DISPEL_GOOD) &&
-    !IS_GOOD(ch) &&
-    IS_GOOD(target) &&
-    (!IS_GLOBED(target) || !IS_MINGLOBED(target)))
+  if(!spl && npc_has_spell_slot(ch, SPELL_DISPEL_GOOD) && !IS_GOOD(ch) && IS_GOOD(target)
+     && (!IS_GLOBED(target) || !IS_MINGLOBED(target)))
   {
     spl = SPELL_DISPEL_GOOD;
   }
 
-  if(!spl &&
-     npc_has_spell_slot(ch, SPELL_HARM) &&
-     !IS_GLOBED(target))
-        spl = SPELL_HARM;
+  if(!spl && npc_has_spell_slot(ch, SPELL_HARM) && !IS_GLOBED(target))
+    spl = SPELL_HARM;
 
   /* cause crit etc are only any good if barehand damage sucks */
 
@@ -7203,25 +7124,16 @@ int handle_npc_assist(P_char ch)
   P_char   tmp_ch, Victim, foe;
   char     Gbuf1[MAX_STRING_LENGTH];
   struct follow_type *fol;
-  
-  if(!(ch) ||
-     !IS_ALIVE(ch))
-      return false;
-      
+
   if(IS_NPC(ch) &&
      GET_VNUM(ch) == IMAGE_RELFECTION_VNUM)
       return false;
-
+  
   /*
    * Expanded NPC assistance added below.  Assumes one NPC following another as
    * sufficient for assistance of attacked NPC by the unattacked follower or
    * leader. - SKB 19 May 1995
    */
-   
-  if(IS_IMMOBILE(ch) ||
-     GET_STAT(ch) <= STAT_SLEEPING ||
-     !CAN_ACT(ch))
-      return FALSE;
 
   if((GET_POS(ch) > POS_SITTING) &&
      (ch->following) &&
@@ -7322,8 +7234,8 @@ int handle_npc_assist(P_char ch)
   }
 
 
-  if(GET_POS(ch) > POS_SITTING &&
-     IS_SET(ch->specials.act, ACT_PROTECTOR))
+  if(CAN_ACT(ch) && (GET_POS(ch) > POS_SITTING) &&
+      IS_SET(ch->specials.act, ACT_PROTECTOR))
   {
     Victim = find_protector_target(ch);
     if(Victim)
@@ -7378,7 +7290,7 @@ int handle_npc_assist(P_char ch)
       }
     }
   }
-  return FALSE;
+  return false;
 }
 
 bool MobSpellUp(P_char ch)
@@ -7852,7 +7764,8 @@ void event_mob_mundane(P_char ch, P_char victim, P_obj object, void *data)
 
   if(IS_FIGHTING(ch) &&
       MIN_POS(ch, POS_STANDING + STAT_RESTING) &&
-      !IS_IMMOBILE(ch))
+      !IS_AFFECTED2(ch, AFF2_MINOR_PARALYSIS) &&
+      !IS_AFFECTED2(ch, AFF2_MAJOR_PARALYSIS))
   { // 0%
     tmp_ch = ch->specials.fighting;
     if(IS_NPC(tmp_ch) && GET_MASTER(tmp_ch) &&
@@ -9208,9 +9121,9 @@ void mob_hunt_event(P_char ch, P_char victim, P_obj obj, void *d)
   }
 
 
-  if(!CAN_ACT(ch) ||
-     IS_IMMOBILE(ch) ||
-     IS_CASTING(ch))
+  if(!CAN_ACT(ch) || IS_AFFECTED2(ch, AFF2_MAJOR_PARALYSIS) ||
+      IS_CASTING(ch) || IS_AFFECTED2(ch, AFF2_MINOR_PARALYSIS) ||
+      affected_by_spell(ch, SONG_SLEEP) || affected_by_spell(ch, SPELL_SLEEP))
   {
     /*
      * Okay.. if anything falls in here, they can't move right now, but
@@ -9332,7 +9245,7 @@ void mob_hunt_event(P_char ch, P_char victim, P_obj obj, void *d)
   {
     if(npc_has_spell_slot(ch, SPELL_INVIGORATE))
     {
-      MobCastSpell(ch, ch, 0, SPELL_VIGORIZE_CRITIC, GET_LEVEL(ch));
+      MobCastSpell(ch, ch, 0, SPELL_INVIGORATE, GET_LEVEL(ch));
       add_event(mob_hunt_event, PULSE_MOB_HUNT, ch, NULL, NULL, 0, data, sizeof(hunt_data));
       return;
     }
@@ -9455,14 +9368,13 @@ void mob_hunt_event(P_char ch, P_char victim, P_obj obj, void *d)
    * (which will keep them from looping in un forseen circumstances)
    */
 
-// Do not want mage mobs dimming into a trap such as a no magic room.
   if((cur_room != targ_room) &&
      (dummy > 5) &&
      number(0, 10))
     if((IS_MAGE(ch) ||
        GET_CLASS(ch, CLASS_SHAMAN)) &&
-       !IS_SET(world[cur_room].room_flags, (NO_TELEPORT | NO_MAGIC | ROOM_SILENT)) &&
-       !IS_SET(world[targ_room].room_flags, (NO_TELEPORT | NO_MAGIC | ROOM_SILENT)))
+       !IS_SET(world[cur_room].room_flags, NO_TELEPORT | NO_MAGIC | ROOM_SILENT) &&
+       !IS_SET(world[targ_room].room_flags, NO_TELEPORT | NO_MAGIC | ROOM_SILENT))
     {
 
       /*
@@ -9471,38 +9383,47 @@ void mob_hunt_event(P_char ch, P_char victim, P_obj obj, void *d)
        */
       if(!vict)
         for (vict = world[targ_room].people; vict; vict = vict->next_in_room)
-          if(!IS_TRUSTED(vict) &&
-             IS_PC(vict) &&
-             number(0, 4))
-                break;
+          if(!IS_TRUSTED(vict) && IS_PC(vict))
+            break;
 
-      if(vict &&
-         world[cur_room].zone == world[vict->in_room].zone)
+      if(vict)
       {
-        if(npc_has_spell_slot(ch, SPELL_DIMENSION_DOOR))
+        if(world[cur_room].zone == world[vict->in_room].zone &&
+           npc_has_spell_slot(ch, SPELL_DIMENSION_DOOR))
         {
           MobCastSpell(ch, vict, 0, SPELL_DIMENSION_DOOR, GET_LEVEL(ch));
           add_event(mob_hunt_event, PULSE_MOB_HUNT, ch, NULL, NULL, 0,
             data, sizeof(hunt_data));
           return;
         }
-        else if(npc_has_spell_slot(ch, SPELL_SPIRIT_JUMP))
+        else if(world[cur_room].zone != world[vict->in_room].zone &&
+                npc_has_spell_slot(ch, SPELL_SPIRIT_JUMP))
         {
           MobCastSpell(ch, vict, 0, SPELL_SPIRIT_JUMP, GET_LEVEL(ch));
           add_event(mob_hunt_event, PULSE_MOB_HUNT, ch, NULL, NULL, 0,
             data, sizeof(hunt_data));
           return;
         }
-        else if(npc_has_spell_slot(ch, SPELL_RELOCATE))
+        else if(world[cur_room].zone != world[vict->in_room].zone
+                 && npc_has_spell_slot(ch, SPELL_RELOCATE))
         {
           MobCastSpell(ch, vict, 0, SPELL_RELOCATE, GET_LEVEL(ch));
           add_event(mob_hunt_event, PULSE_MOB_HUNT, ch, NULL, NULL, 0,
             data, sizeof(hunt_data));
           return;
         }
-        else if(npc_has_spell_slot(ch, SPELL_SHADOW_TRAVEL))
+        else if(world[cur_room].zone != world[vict->in_room].zone &&
+                 npc_has_spell_slot(ch, SPELL_SHADOW_TRAVEL))
         {
           MobCastSpell(ch, vict, 0, SPELL_SHADOW_TRAVEL, GET_LEVEL(ch));
+          add_event(mob_hunt_event, PULSE_MOB_HUNT, ch, NULL, NULL, 0,
+            data, sizeof(hunt_data));
+          return;
+        }
+        else if(world[cur_room].zone != world[vict->in_room].zone &&
+                 npc_has_spell_slot(ch, SPELL_ETHER_WARP))
+        {
+          MobCastSpell(ch, vict, 0, SPELL_ETHER_WARP, GET_LEVEL(ch));
           add_event(mob_hunt_event, PULSE_MOB_HUNT, ch, NULL, NULL, 0,
             data, sizeof(hunt_data));
           return;
@@ -9556,7 +9477,6 @@ void mob_hunt_event(P_char ch, P_char victim, P_obj obj, void *d)
      !IS_AFFECTED2(ch, AFF2_PASSDOOR))
   {
     /* animals don't open doors! */
-// but greater races can figure out how to open a door.
     if(!CAN_SPEAK(ch) &&
        !IS_GREATER_RACE(ch))
     {
@@ -9575,6 +9495,27 @@ void mob_hunt_event(P_char ch, P_char victim, P_obj obj, void *d)
     add_event(mob_hunt_event, PULSE_MOB_HUNT, ch, NULL, NULL, 0, data, sizeof(hunt_data));
     return;
   }
+
+  // Why duplicate the above written code? Apr09 -Lucrot
+  // if(IS_SET(world[(cur_room)].dir_option[(int) next_step]->exit_info,
+             // EX_CLOSED))
+  // {
+    // /* animals don't open doors! */
+    // if(!CAN_SPEAK(ch))
+    // {
+      // justice_hunt_cancel(ch);
+      // return;
+    // }
+    // /*
+     // * okay.. closed door in the way.. just open it :)
+     // */
+    // sprintf(buf, "%s %s", EXIT(ch, (int) next_step)->keyword ?
+            // FirstWord(EXIT(ch, (int) next_step)->keyword) : "door",
+            // dirs[(int) next_step]);
+    // do_open(ch, buf, 0);
+    // add_event(mob_hunt_event, PULSE_MOB_HUNT, ch, NULL, NULL, 0, data, sizeof(hunt_data));
+    // return;
+  // }
   
   if(IS_WALLED(cur_room, next_step))
   {
