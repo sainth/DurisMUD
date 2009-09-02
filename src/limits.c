@@ -153,7 +153,7 @@ int mana_regen(P_char ch)
   }
   else if (!IS_PUNDEAD(ch))
   {
-    gain = graf(ch, age(ch).year, 12, 18, 22, 21, 14, 10, 6);
+    gain = graf(ch, age(ch).year, 10, 12, 14, 14, 10, 10, 6);
   }
   else
     gain = 20;
@@ -350,7 +350,7 @@ int move_regen(P_char ch)
   }
   else
   {
-    gain = graf(ch, age(ch).year, 22, 25, 25, 22, 20, 16, 14);
+    gain = graf(ch, age(ch).year, 12, 15, 15, 12, 10, 8, 6);
   }
 
   if (GET_COND(ch, FULL) == 0)
