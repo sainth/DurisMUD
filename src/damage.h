@@ -58,7 +58,9 @@
 #define DF_RAGED               42
 #define DF_SWASHBUCKLER_OFFENSE        43
 #define DF_ENERGY_CONTAINMENT  44
-#define LAST_DF                45
+#define DF_PROTECTION_TROLL    45
+#define  DF_ELSHIELDRED_TROLL   46
+#define LAST_DF                47
 
 #define SPLDAM_GENERIC   1
 #define SPLDAM_FIRE      2

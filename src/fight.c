@@ -314,6 +314,10 @@ void update_dam_factors()
     get_property("damage.reduction.protAnimal", 0.8);
   dam_factor[DF_PROTECTION] =
     get_property("damage.reduction.protElement", 0.75);
+  dam_factor[DF_PROTECTION_TROLL] =
+    get_property("damage.reduction.protFire.Troll", 0.95);
+  dam_factor[DF_ELSHIELDRED_TROLL] =
+    get_property("damage.reduction.fireColdShield.Troll", 0.80);
   dam_factor[DF_ELSHIELDRED] =
     get_property("damage.reduction.fireColdShield", 0.55);
   dam_factor[DF_IRONWILL] =get_property("damage.reduction.towerOfIronWill", 0.5);
@@ -3717,18 +3721,51 @@ int spell_damage(P_char ch, P_char victim, double dam, int type, uint flags,
       dam *= 0.85;
       break;
     case SPLDAM_FIRE:
-      if (IS_AFFECTED2(victim, AFF2_FIRESHIELD))
+      if(has_innate(victim, INNATE_VULN_FIRE))
+      {
+        dam *= dam_factor[DF_VULNFIRE];
+        
+        if(IS_AFFECTED2(victim, AFF2_FIRESHIELD))
+          dam *= dam_factor[DF_ELSHIELDRED_TROLL];
+        else if (IS_AFFECTED(victim, AFF_PROT_FIRE))
+          dam *= dam_factor[DF_PROTECTION_TROLL];
+        
+        struct affected_type af;
+        
+        int regeneration = hit_regen(ch) * 2;
+        if(hit_regen < 0)
+          regeneration = 0;
+
+        send_to_char("&+RThe flames cause your flesh to smoke!\r\n", victim);
+        act("&+rThe intense &+Rflames &+rcause&n $n's skin to &+rsmolder and &+Yburn!&n",
+          FALSE, victim, 0, 0, TO_CHAR);
+        act("&+rThe intense &+Rflames &+rcause&n $n's skin to &+rsmolder and &+Yburn!&n",
+          FALSE, victim, 0, 0, TO_NOTVICT);
+
+          
+        if(!affected_by_spell(ch, TAG_TROLL_BURN))
+        {
+          bzero(&af, sizeof(af));
+          af.type = TAG_TROLL_BURN;
+          af.flags = AFFTYPE_SHORT | AFFTYPE_NOSHOW | AFFTYPE_NODISPEL;
+          af.duration = WAIT_SEC * 30;
+          affect_to_char(victim, &af);
+        }
+      }
+      else if(IS_AFFECTED2(victim, AFF2_FIRESHIELD))
         dam *= dam_factor[DF_ELSHIELDRED];
       else if (IS_AFFECTED(victim, AFF_PROT_FIRE))
         dam *= dam_factor[DF_PROTECTION];
+
       if (IS_AFFECTED3(victim, AFF3_COLDSHIELD))
         dam *= dam_factor[DF_ELSHIELDINC];
-      if (has_innate(victim, INNATE_VULN_FIRE))
-        dam *= dam_factor[DF_VULNFIRE];
+
       if (IS_AFFECTED(victim, AFF_BARKSKIN))
         dam *= dam_factor[DF_BARKFIRE];
+
       if (affected_by_spell(victim, SPELL_IRONWOOD))
         dam *= dam_factor[DF_IRONWOOD];
+
       if (IS_AFFECTED5(victim, AFF5_WET))
       {
         dam *= dam_factor[DF_WETFIRE];
@@ -3900,8 +3937,7 @@ int spell_damage(P_char ch, P_char victim, double dam, int type, uint flags,
       {
         struct affected_type af;
 
-        send_to_char("&+CThe intense cold causes your entire body to freeze!\n",
-                     victim);
+        send_to_char("&+CThe intense cold causes your entire body to freeze!\n", victim);
         act("&+CThe intense cold causes&n $n&+C's entire body to freeze!&n",
           FALSE, victim, 0, 0, TO_ROOM);
         act("$n &+Mceases to move... frozen in place, still and lifeless.&n",

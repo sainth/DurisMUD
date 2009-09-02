@@ -3448,12 +3448,19 @@ int attuned_to_terrain(P_char ch)
 
 int get_innate_regeneration(P_char ch)
 {
-  switch (GET_RACE(ch))
+  switch(GET_RACE(ch))
   {
-  case RACE_TROLL:
-    return GET_LEVEL(ch) * 7;
-  case RACE_REVENANT:
-    return GET_LEVEL(ch) * 4;
+    case RACE_TROLL:
+    {
+      if(affected_by_spell(ch, TAG_TROLL_BURN))
+        return 1;
+      else
+        return GET_LEVEL(ch) * 7;
+    }
+    case RACE_REVENANT:
+      return GET_LEVEL(ch) * 4;
+    default:
+      break;
   }
   
   if (GET_SPEC(ch, CLASS_CONJURER, SPEC_WATER))

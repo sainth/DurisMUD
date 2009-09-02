@@ -1018,6 +1018,7 @@
 #define TAG_TRANSMUTE_ROOM           2056 // mark room transmute is in progress
 #define TAG_ARROW_BLEED              2057
 #define TAG_STOP_PROC                2058 
+#define TAG_TROLL_BURN               2059
 
 #define DAMAGE_FALLING               2100       /* From falling to the ground */
 
