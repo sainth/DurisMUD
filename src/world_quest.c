@@ -197,10 +197,17 @@ void quest_reward(P_char ch, P_char quest_mob, int type)
                   if(!reward)
                         reward = create_random_eq_new(ch, ch, -1, -1);
     
-    if(reward){
-      REMOVE_BIT(reward->extra_flags, ITEM_SECRET);
-      SET_BIT(reward->extra_flags, ITEM_NOREPAIR);
+    if(reward)
+    {
+      if(IS_SET(reward->extra_flags, ITEM_SECRET))
+        REMOVE_BIT(reward->extra_flags, ITEM_SECRET);
+      if(IS_SET(reward->extra_flags, ITEM_INVISIBLE))
+        REMOVE_BIT(reward->extra_flags, ITEM_INVISIBLE);
+      if(!IS_SET(reward->extra_flags, ITEM_NOREPAIR))
+        SET_BIT(reward->extra_flags, ITEM_NOREPAIR);      
+        
       wizlog(56, "%s reward was: %s", GET_NAME(ch), reward->short_description);
+    
       act("$n gives you $q ", TRUE, quest_mob, reward, ch, TO_VICT);
       act("$n gives $N $q.", FALSE, quest_mob, reward, ch, TO_NOTVICT);
       obj_to_char(reward, ch);
