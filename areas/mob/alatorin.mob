@@ -2409,7 +2409,7 @@ pf 0 512 -1
 0.0.0.0 0
 8 8 0
 #83251
-gnomish tinkerer~
+gnomish gnome tinkerer~
 &N&+ga &+Rgnomish &n&+gtinkerer&N~
 &+gA &+Rgnomish &n&+gtinkerer &+yworks &N&+gin the workshop.
 ~
@@ -4472,7 +4472,7 @@ skull ancient demi lich demilich~
 &+Wmany years of mummification.
 ~
 1074813064 1 0 671613080 276672 524288 0 -1000 S
-u 0 1536 1
+ud 0 1540 1
 60 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 0
@@ -4927,3 +4927,54 @@ pf 0 16384 -1
 40 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 1
+#83412
+old dwarven trapper shopkeeper~
+&Nan old &+Ydwarven trapper&N~
+&NAn old &+Ydwarven trapper&N sits here, peddling his hand-made &+Ytraps&N.
+~
+   This &+Wshopkeeper&N is of dwarven blood, but has aged beyond
+his years physically and emotionally and no longer feels the innate
+&+rblood&+Rrage &Ntowards his duergar cousins and &+Ggoblin&N adversaries.
+He currently sits here, beard &+Wwhite&N with age, selling his hand-made
+&+Ctraps&N to turn a profit in the &+Lshady undergoings&N of &+cAlatorin&N.
+~
+2250 0 0 24 0 0 0 1000 S
+pm 0 16385 -1
+51 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 1
+#83413
+artukin dwarven dwarf ragelord~
+&+rArtukin &+Ythe dwarven &N&+rr&+Ra&N&+rge&+Rlo&N&+rr&+Rd&N~
+&+rArtukin &+Ythe dwarven &N&+rr&+Ra&N&+rge&+Rlo&N&+rr&+Rd &+Ywalks the hallways, a &+Rc&N&+rr&+Ra&N&+rz&+Re&N&+rd &+Ylook in his eye.
+~
+   &+rArtukin is a massive, ferociously-well built dwarf.  His teeth
+&+roften &Nclenched&N&+r, Artukin has taken into the ancient dwarven
+&+r'art' of the berserker, focusing his raw anger into new levels of
+&+rbrutal combat for the purposes of &+Rwarfare&N&+r.  He has massive
+&+rogreish arms and a chest the size of two dwarven kegs of ale.  A
+&+rwirey, twisted black beard hangs from his broad boney chin; his eyes
+&+rripe with &+RBloodLust&N&+r.
+~
+1073744074 128 0 939524120 14528 0 0 -500 S
+pm 0 1048576 -1
+60 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 1
+#83414
+shield dwarf doctor alatorin~
+&+ythe &Nsh&+Wie&Nld &+Ydwarf &+Wdoctor&N&+y of &+cAlatorin&N~
+&+yThe &Nsh&+Wie&Nld &+Ydwarf &+Wdoctor&N&+y of &+cAlatorin &+yprepares her equipment for her next patient.
+~
+   &+yThis shield dwarf is a very friendly woman and long-standing doctor
+&+yof &+cAlatorin&+y.  Acting as head physiciation - the same profession
+&+ythat the mother of this &Nsh&+Wie&Nld &+Ydwarf &N&+yheld - this woman
+&+yis responsible for caring for and treating the illnesses of those in
+&+yneed within the great city of Alatorin.  It is not uncommon to see
+&+yassistants beside this woman, who is dressed in dwarf-sized cloth linens.
+~
+2250 0 0 24 14552 0 0 1000 S
+pm 0 32 -1
+56 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 2

@@ -2575,7 +2575,7 @@ D4
 0 0 121314
 S
 #83222
-&+CThe Messenger's &+cStand~
+&+RA Messenger's &+CStand&N~
    &+LThis open hall is somewhat dismal compared to the other more-
 &+Ldecorated halls found in Alatorin.  There are huge stone and marble
 &+Lblocked pillars supporting this grand court.  This chamber is
@@ -5657,7 +5657,7 @@ D3
 0 0 83362
 S
 #83364
-&+LA Dark Tunnel Before a &+bSecret Lair&N~
+&+LA Dark Tunnel~
    &+LThis dark tunnel, deep within the shield dwarf city of Alatorin, opens
 &+Lup to a secret entrance of some sort of lair to the north of here.  A
 &+Lstepped stone landing opens to a rocky dead end.  However, just before
@@ -5676,7 +5676,7 @@ secret~
 1 0 83544
 S
 #83365
-&+LA Rocky Dead-End, &+bWest of a Lair~
+&+LA Rocky Dead-End~
    &+LThis dark tunnel, deep within the shield dwarf city of Alatorin, opens
 &+Lup to a secret entrance of some sort of lair to the north of here.  A
 &+Lstepped stone landing opens to a rocky dead end.  However, just before
@@ -5688,7 +5688,7 @@ D1
 &+LA door is built into the stone wall.
 ~
 door~
-1 0 83366
+5 0 83366
 D2
 ~
 ~
@@ -8289,7 +8289,7 @@ D3
 0 0 83502
 S
 #83502
-&+LA &+YTorch-Lit &+LHallway&N~
+&+WA Glorious Doorway &+LIn a &+YTorch-Lit &+LHallway~
    &+LThis deep staircase through the depths of &N&+cAlatorin &+Lwrap around
 &+La massive natural &+Yl&N&+ra&+Yv&N&+ra &+Lflow.  A huge double-railed adamantite-barred
 &+Lpicketed fence surrounds this natural phenomenon, having been designed around
@@ -9276,6 +9276,11 @@ D1
 ~
 ~
 8 0 83812
+D2
+&+LA &N&+yra&+mgg&+bedy &+rold curtain &+Lleads to a shop named &N&+ythe Trapper's &+BKeepers&N&+y.
+~
+curtain~
+1 0 83862
 D3
 ~
 ~
@@ -11833,7 +11838,7 @@ secret door~
 5 0 83702
 S
 #83682
-&+LStart of a Rocky Pass&N~
+&+LBeginning of a Rocky Pass~
    &+LThis rocky mountain pass descends the further westward, being overlooked
 &+Lby numerous shelves of rocky bluff.  The air has a scent of the sea to it as
 &+Lthe ocean is close.  This part of the Shanatar mountains begins to descend
@@ -14564,7 +14569,7 @@ S
 #83814
 &+WDemilich Load Room~
 ~
-831 1107296256 15
+831 1107296384 15
 D0
 ~
 ~
@@ -15016,4 +15021,498 @@ D1
 ~
 ~
 0 0 83836
+D2
+~
+~
+0 0 83838
+S
+#83838
+&n&+yA Junction of Tunnels Around a &+mF&+ge&+mc&+gu&+ml&+ge&+mn&+gt &+YPit&N~
+   &+LThis long, twisting tunnel violates nearly all of the senses.
+&+LA terrible &N&+yrank smell&+L wafts through the dark cavern air.
+&+LAn echoing mix of roars, grunts, and screams barrels through the
+&+Ldepths of these tunnels.  The cavern walls are &N&+gslimey&+L and
+&+Lliterally covered in &N&+ymushrooms&+L and &N&+gfungus&+L.  This
+&+Ltunnel curls sporadically through the deep inner rock of Shanatar.
+~
+831 33587200 13
+D0
+~
+~
+0 0 83837
+D1
+~
+~
+0 0 83840
+D2
+~
+~
+0 0 83854
+D3
+~
+~
+0 0 83839
+S
+#83839
+&+LA Filthy, &N&+yRank Tunnel~
+   &+LThis long, twisting tunnel violates nearly all of the senses.
+&+LA terrible &N&+yrank smell&+L wafts through the dark cavern air.
+&+LAn echoing mix of roars, grunts, and screams barrels through the
+&+Ldepths of these tunnels.  The cavern walls are &N&+gslimey&+L and
+&+Lliterally covered in &N&+ymushrooms&+L and &N&+gfungus&+L.  This
+&+Ltunnel curls sporadically through the deep inner rock of Shanatar.
+~
+831 33587200 13
+D1
+~
+~
+0 0 83838
+D3
+~
+~
+0 0 83841
+S
+#83840
+&+LA Filthy, &N&+yRank Tunnel~
+   &+LThis long, twisting tunnel violates nearly all of the senses.
+&+LA terrible &N&+yrank smell&+L wafts through the dark cavern air.
+&+LAn echoing mix of roars, grunts, and screams barrels through the
+&+Ldepths of these tunnels.  The cavern walls are &N&+gslimey&+L and
+&+Lliterally covered in &N&+ymushrooms&+L and &N&+gfungus&+L.  This
+&+Ltunnel curls sporadically through the deep inner rock of Shanatar.
+~
+831 33587200 13
+D1
+~
+~
+0 0 83843
+D3
+~
+~
+0 0 83838
+S
+#83841
+&+LA Filthy, &N&+yRank Tunnel~
+   &+LThis long, twisting tunnel violates nearly all of the senses.
+&+LA terrible &N&+yrank smell&+L wafts through the dark cavern air.
+&+LAn echoing mix of roars, grunts, and screams barrels through the
+&+Ldepths of these tunnels.  The cavern walls are &N&+gslimey&+L and
+&+Lliterally covered in &N&+ymushrooms&+L and &N&+gfungus&+L.  This
+&+Ltunnel curls sporadically through the deep inner rock of Shanatar.
+~
+831 33587200 13
+D0
+~
+~
+0 0 83859
+D1
+~
+~
+0 0 83839
+D2
+~
+~
+0 0 83842
+S
+#83842
+&+LA Filthy, &N&+yRank Tunnel~
+   &+LThis long, twisting tunnel violates nearly all of the senses.
+&+LA terrible &N&+yrank smell&+L wafts through the dark cavern air.
+&+LAn echoing mix of roars, grunts, and screams barrels through the
+&+Ldepths of these tunnels.  The cavern walls are &N&+gslimey&+L and
+&+Lliterally covered in &N&+ymushrooms&+L and &N&+gfungus&+L.  This
+&+Ltunnel curls sporadically through the deep inner rock of Shanatar.
+~
+831 33587200 13
+D0
+~
+~
+0 0 83841
+D3
+~
+~
+0 0 83846
+S
+#83843
+&+LA Filthy, &N&+yRank Tunnel~
+   &+LThis long, twisting tunnel violates nearly all of the senses.
+&+LA terrible &N&+yrank smell&+L wafts through the dark cavern air.
+&+LAn echoing mix of roars, grunts, and screams barrels through the
+&+Ldepths of these tunnels.  The cavern walls are &N&+gslimey&+L and
+&+Lliterally covered in &N&+ymushrooms&+L and &N&+gfungus&+L.  This
+&+Ltunnel curls sporadically through the deep inner rock of Shanatar.
+~
+831 33587200 13
+D2
+~
+~
+0 0 83844
+D3
+~
+~
+0 0 83840
+S
+#83844
+&+LA Filthy, &N&+yRank Tunnel~
+   &+LThis long, twisting tunnel violates nearly all of the senses.
+&+LA terrible &N&+yrank smell&+L wafts through the dark cavern air.
+&+LAn echoing mix of roars, grunts, and screams barrels through the
+&+Ldepths of these tunnels.  The cavern walls are &N&+gslimey&+L and
+&+Lliterally covered in &N&+ymushrooms&+L and &N&+gfungus&+L.  This
+&+Ltunnel curls sporadically through the deep inner rock of Shanatar.
+~
+831 33587200 13
+D0
+~
+~
+0 0 83843
+D1
+~
+~
+0 0 83860
+D2
+~
+~
+0 0 83845
+S
+#83845
+&+LA Filthy, &N&+yRank Tunnel~
+   &+LThis long, twisting tunnel violates nearly all of the senses.
+&+LA terrible &N&+yrank smell&+L wafts through the dark cavern air.
+&+LAn echoing mix of roars, grunts, and screams barrels through the
+&+Ldepths of these tunnels.  The cavern walls are &N&+gslimey&+L and
+&+Lliterally covered in &N&+ymushrooms&+L and &N&+gfungus&+L.  This
+&+Ltunnel curls sporadically through the deep inner rock of Shanatar.
+~
+831 33587200 13
+D0
+~
+~
+0 0 83844
+D3
+~
+~
+0 0 83853
+S
+#83846
+&+LA Filthy, &N&+yRank Tunnel~
+   &+LThis long, twisting tunnel violates nearly all of the senses.
+&+LA terrible &N&+yrank smell&+L wafts through the dark cavern air.
+&+LAn echoing mix of roars, grunts, and screams barrels through the
+&+Ldepths of these tunnels.  The cavern walls are &N&+gslimey&+L and
+&+Lliterally covered in &N&+ymushrooms&+L and &N&+gfungus&+L.  This
+&+Ltunnel curls sporadically through the deep inner rock of Shanatar.
+~
+831 33587200 13
+D1
+~
+~
+0 0 83842
+D2
+~
+~
+0 0 83847
+S
+#83847
+&+LA Filthy, &N&+yRank Tunnel~
+   &+LThis long, twisting tunnel violates nearly all of the senses.
+&+LA terrible &N&+yrank smell&+L wafts through the dark cavern air.
+&+LAn echoing mix of roars, grunts, and screams barrels through the
+&+Ldepths of these tunnels.  The cavern walls are &N&+gslimey&+L and
+&+Lliterally covered in &N&+ymushrooms&+L and &N&+gfungus&+L.  This
+&+Ltunnel curls sporadically through the deep inner rock of Shanatar.
+~
+831 33587200 13
+D0
+~
+~
+0 0 83846
+D1
+~
+~
+0 0 83848
+D3
+~
+~
+0 0 83861
+S
+#83848
+&+LA Filthy, &N&+yRank Tunnel~
+   &+LThis long, twisting tunnel violates nearly all of the senses.
+&+LA terrible &N&+yrank smell&+L wafts through the dark cavern air.
+&+LAn echoing mix of roars, grunts, and screams barrels through the
+&+Ldepths of these tunnels.  The cavern walls are &N&+gslimey&+L and
+&+Lliterally covered in &N&+ymushrooms&+L and &N&+gfungus&+L.  This
+&+Ltunnel curls sporadically through the deep inner rock of Shanatar.
+~
+831 33587200 13
+D2
+~
+~
+0 0 83849
+D3
+~
+~
+0 0 83847
+S
+#83849
+&+LA Filthy, &N&+yRank Tunnel~
+   &+LThis long, twisting tunnel violates nearly all of the senses.
+&+LA terrible &N&+yrank smell&+L wafts through the dark cavern air.
+&+LAn echoing mix of roars, grunts, and screams barrels through the
+&+Ldepths of these tunnels.  The cavern walls are &N&+gslimey&+L and
+&+Lliterally covered in &N&+ymushrooms&+L and &N&+gfungus&+L.  This
+&+Ltunnel curls sporadically through the deep inner rock of Shanatar.
+~
+831 33587200 13
+D0
+~
+~
+0 0 83848
+D1
+~
+~
+0 0 83850
+S
+#83850
+&+LA Filthy, &N&+yRank Tunnel~
+   &+LThis long, twisting tunnel violates nearly all of the senses.
+&+LA terrible &N&+yrank smell&+L wafts through the dark cavern air.
+&+LAn echoing mix of roars, grunts, and screams barrels through the
+&+Ldepths of these tunnels.  The cavern walls are &N&+gslimey&+L and
+&+Lliterally covered in &N&+ymushrooms&+L and &N&+gfungus&+L.  This
+&+Ltunnel curls sporadically through the deep inner rock of Shanatar.
+~
+831 33587200 13
+D0
+~
+~
+0 0 83858
+D1
+~
+~
+0 0 83851
+D3
+~
+~
+0 0 83849
+S
+#83851
+&+LA Filthy, &N&+yRank Tunnel~
+   &+LThis long, twisting tunnel violates nearly all of the senses.
+&+LA terrible &N&+yrank smell&+L wafts through the dark cavern air.
+&+LAn echoing mix of roars, grunts, and screams barrels through the
+&+Ldepths of these tunnels.  The cavern walls are &N&+gslimey&+L and
+&+Lliterally covered in &N&+ymushrooms&+L and &N&+gfungus&+L.  This
+&+Ltunnel curls sporadically through the deep inner rock of Shanatar.
+~
+831 33587200 13
+D0
+~
+~
+0 0 83852
+D3
+~
+~
+0 0 83850
+S
+#83852
+&+LA Filthy, &N&+yRank Tunnel~
+   &+LThis long, twisting tunnel violates nearly all of the senses.
+&+LA terrible &N&+yrank smell&+L wafts through the dark cavern air.
+&+LAn echoing mix of roars, grunts, and screams barrels through the
+&+Ldepths of these tunnels.  The cavern walls are &N&+gslimey&+L and
+&+Lliterally covered in &N&+ymushrooms&+L and &N&+gfungus&+L.  This
+&+Ltunnel curls sporadically through the deep inner rock of Shanatar.
+~
+831 33587200 13
+D1
+~
+~
+0 0 83853
+D2
+~
+~
+0 0 83851
+S
+#83853
+&+LA Tunnel Before a &+WSkull-Lined Staircase&N~
+   &+LThis long, twisting tunnel violates nearly all of the senses.
+&+LA terrible &N&+yrank smell&+L wafts through the dark cavern air.
+&+LAn echoing mix of roars, grunts, and screams barrels through the
+&+Ldepths of these tunnels.  The cavern walls are &N&+gslimey&+L and
+&+Lliterally covered in &N&+ymushrooms&+L and &N&+gfungus&+L.  This
+&+Ltunnel curls sporadically through the deep inner rock of Shanatar.
+~
+831 33587200 13
+D0
+~
+~
+0 0 83856
+D1
+~
+~
+0 0 83845
+D3
+~
+~
+0 0 83852
+S
+#83854
+&+GA Wretched Slime Pool&N~
+   &+gThe repulsiveness of this feculent pool rivals that of
+&+gthe slime lair of &+yO&+Lbox-&N&+yO&+Lb&N&+g himself.  This deep, smooth
+&+gpit is full of a thick &+Ggreen&N&+g slime with &N&+ybrown chunks.
+&+gThe jagged rocks surrounding the pool veer off below, where a
+&+gslippery slope sees a steep drop below.
+~
+831 33587200 13
+D0
+~
+~
+0 0 83838
+D5
+~
+~
+0 0 83855
+S
+#83855
+&+LA &N&+ySli&+Gpp&N&+yery &N&+gSlope&N~
+   &+LThe jagged rocks on the slides of this slippery sluice
+&+Lcradle the slide, which has weakened into a smoothened
+&+Lstate after endless erosion by the feculence filling the
+&+Lpool.  Chunks of flesh, &N&+yshit&+L, and &+Wbones&+L cling
+&+Lto the edges of the slope.  The narrow, jagged ceiling sits
+&+Ltight above the slide.
+~
+831 33587200 13
+D4
+~
+~
+0 0 83854
+F
+100
+S
+#83856
+&+LAtop a &+WSkull-Lined Staircase&N~
+   &+LThese crude stone stairs are actually just massive rocks
+&+Lthat have been arranged into place to provide a stepping
+&+Lground into the deep inner depths of the &N&+ytrog&+Llo&N&+ydyte
+&+Llair.  Along the massive rocky cavern walls there have been
+&+Lvarious humanoid &+Wskulls &+Lmounted on pikes ever so often,
+&+Lwhich one can consider a sign of royal decoration when considering
+&+Lthe minds that have occupied this place.
+~
+831 33587200 13
+D2
+~
+~
+0 0 83853
+D5
+~
+~
+0 0 83857
+S
+#83857
+&+LBottom of a &+WSkull-Lined Staircase&N~
+   &+LThese crude stone stairs are actually just massive rocks
+&+Lthat have been arranged into place to provide a stepping
+&+Lground into the deep inner depths of the &N&+ytrog&+Llo&N&+ydyte
+&+Llair.  Along the massive rocky cavern walls there have been
+&+Lvarious humanoid &+Wskulls &+Lmounted on pikes ever so often,
+&+Lwhich one can consider a sign of royal decoration when considering
+&+Lthe minds that have occupied this place.
+~
+831 33587200 13
+D4
+~
+~
+0 0 83856
+S
+#83858
+&N&+mA Vile Sleeping and Eating Cavern&N~
+   &+LVarious &+Wbones&+L with bits of &N&+rrotting flesh&+L sit swarming
+&+Lwith flies in insects in one corner, while on the opposite are several
+&+Lhuge, soiled piles of fur, hide, and tattered rags.  This horrible
+&+Lsleeping cave has a small fire pit at the center for which food is
+&+Loccasionally roasted and dark rituals are performed.
+~
+831 33587200 13
+D2
+~
+~
+0 0 83850
+S
+#83859
+&+LA &N&+yDisgusting &+LSleeping Cave&N~
+   &+LVarious &+Wbones&+L with bits of &N&+rrotting flesh&+L sit swarming
+&+Lwith flies in insects in one corner, while on the opposite are several
+&+Lhuge, soiled piles of fur, hide, and tattered rags.  This horrible
+&+Lsleeping cave has a small fire pit at the center for which food is
+&+Loccasionally roasted and dark rituals are performed.
+~
+831 33587200 13
+D2
+~
+~
+0 0 83841
+S
+#83860
+&+LA &NFoul-Smelling &+LCavern&N~
+   &+LVarious &+Wbones&+L with bits of &N&+rrotting flesh&+L sit swarming
+&+Lwith flies in insects in one corner, while on the opposite are several
+&+Lhuge, soiled piles of fur, hide, and tattered rags.  This horrible
+&+Lsleeping cave has a small fire pit at the center for which food is
+&+Loccasionally roasted and dark rituals are performed.
+~
+831 33587200 13
+D3
+~
+~
+0 0 83844
+S
+#83861
+&+LA &+WShaman's &n&+gMou&N&+ynd&N~
+   &+LThis deep, set off cavern slopes down over a western hump
+&+Linto a deep cave, &N&+gfertile &+Lwith underworld vegetation.
+&+LA massive mound, filled with bones, earth, soil, fragments of
+&+Lsacrifices earthly remains, as well as many other 'artifacts'
+&+Lfrom which this shaman draws its power.  There is a terrible
+&N&+ystench &+Lrising from this fetid, feculent cavern.
+~
+831 33587200 13
+D1
+~
+~
+0 0 83847
+S
+#83862
+&+yThe Trapper's &+BKeepers&N~
+   &+yThis store, the Trapper's &+BKeepers&N&+y is a set in a small
+&+ydug-out niche in the deep undercity rock of Alatorin.  Although
+&+ythe shop itself is covered with filth, seperated from the rest of
+&+ythe rogue's hideout by a simple curtain, and in general dissaray,
+&+ythe &+Ytrap &N&+yselection hanging from the walls and the rotting
+&+ywooden stall are of &+Cexquisite&N&+y quality.
+~
+831 33587200 13
+D0
+&+LA &N&+yrag&+mge&+rdy &N&&+bold curtain&+L.
+~
+curtain~
+1 0 83549
+S
+#83863
+&+LThe &+WDoctor's Sanctum&+L of &N&+cAlatorin&N~
+   &+LThis small chamber is quaint, tidy, very well organized, and
+&+Lextremely-well stocked.  Much of the same bandages, anti-venoms,
+&+Land potions that are being sold outside are stored on various
+&+Lclearly-labeled shelves in this small hut.  A small dwarf-sized
+&+Lexamination table sits at the center of this chamber.
+~
+831 33587200 0
+D8
+~
+~
+0 0 123314
 S

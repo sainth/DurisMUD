@@ -111,6 +111,7 @@ G 1 74210 1 0 100 0 0 0            *    (object type not in this .obj file)
 G 1 74211 1 0 100 0 0 0            *    (object type not in this .obj file)
 G 1 74212 1 0 100 0 0 0            *    (object type not in this .obj file)
 G 1 11562 999 0 100 0 0 0          *    (object type not in this .obj file)
+G 1 6508 999 0 100 0 0 0           *    (object type not in this .obj file)
 M 0 120028 5 121115 100 0 0 0      * an Alatorin noble
 G 1 94336 5 0 100 0 0 0            *    (object type not in this .obj file)
 M 0 120051 23 121123 80 0 0 0      * an osquip
@@ -442,7 +443,6 @@ M 0 120016 1 123133 100 0 0 0      * Mystardala the prophet
 M 0 120011 11 123135 100 0 0 0     * a hooded dwarf
 E 1 120007 11 6 100 0 0 0          *   a silver-lined purple silk hood
 M 0 120015 12 123137 100 0 0 0     * a gloomwing
-M 0 120054 1 123148 100 0 0 0      * Gurk the shadowmage
 M 0 120057 1 123164 100 0 0 0      * a rampaging cyclops
 E 1 120027 2 16 100 0 0 0          *   a battered tree trunk
 M 0 53642 23 123165 100 0 0 0      * (mob type not in this .mob file)
@@ -467,6 +467,7 @@ G 1 3055 999 0 100 0 0 0           *    (object type not in this .obj file)
 G 1 2679 999 0 100 0 0 0           *    (object type not in this .obj file)
 G 1 2679 999 0 100 0 0 0           *    (object type not in this .obj file)
 G 1 2679 999 0 100 0 0 0           *    (object type not in this .obj file)
+G 1 189 999 0 100 0 0 0            *    (object type not in this .obj file)
 M 0 120017 5 123314 100 0 0 0      * a wandering shield dwarf common man
 M 0 120017 5 123314 100 0 0 0      * a wandering shield dwarf common man
 M 0 43152 1 123315 100 0 0 0       * (mob type not in this .mob file)

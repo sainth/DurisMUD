@@ -1,6 +1,6 @@
 #831
 &+CAlatorin &+L- the &N&+rForge &+LCity~
-83837 2 0 40 50 1
+83863 2 0 40 50 1
 *
 * Zone edited with durisEdit v2.99de
 *
@@ -558,20 +558,20 @@ D 0 83361 0 1 100 0 0 0
 *     "The Alatorin Stables" - closed
 *
 D 0 83364 3 1 100 0 0 0
-*     west exit from "A Dark Tunnel Before a Secret Lair" to
+*     west exit from "A Dark Tunnel" to
 *     "A Cluttered Cornice" - closed
 *
 D 0 83544 1 9 100 0 0 0
 *     east exit from "A Cluttered Cornice" to
-*     "A Dark Tunnel Before a Secret Lair" - closed/blocked
+*     "A Dark Tunnel" - closed/blocked
 *
-D 0 83365 1 1 100 0 0 0
-*     east exit from "A Rocky Dead-End, West of a Lair" to
-*     "A Red Hallway" - closed
+D 0 83365 1 5 100 0 0 0
+*     east exit from "A Rocky Dead-End" to
+*     "A Red Hallway" - closed/secret
 *
 D 0 83366 3 5 100 0 0 0
 *     west exit from "A Red Hallway" to
-*     "A Rocky Dead-End, West of a Lair" - closed/secret
+*     "A Rocky Dead-End" - closed/secret
 *
 D 0 83366 0 2 100 0 0 0
 *     north exit from "A Red Hallway" to
@@ -702,12 +702,12 @@ D 0 83489 2 0 100 0 0 0
 *     "A Crumbling Spire Approach" - open
 *
 D 0 83502 0 2 100 0 0 0
-*     north exit from "A Torch-Lit Hallway" to
+*     north exit from "A Glorious Doorway In a Torch-Lit Hallway" to
 *     "Atop the Steps of Honour" - closed/locked
 *
 D 0 83554 2 2 100 0 0 0
 *     south exit from "Atop the Steps of Honour" to
-*     "A Torch-Lit Hallway" - closed/locked
+*     "A Glorious Doorway In a Torch-Lit Hallway" - closed/locked
 *
 D 0 83504 3 1 100 0 0 0
 *     west exit from "A Torch-Lit Hallway" to
@@ -820,6 +820,14 @@ D 0 83549 1 8 100 0 0 0
 D 0 83812 3 0 100 0 0 0
 *     west exit from "Entrance to a Contraband Storage Cave" to
 *     "A Shady Dead-End" - open
+*
+D 0 83549 2 1 100 0 0 0
+*     south exit from "A Shady Dead-End" to
+*     "The Trapper's Keepers" - closed
+*
+D 0 83862 0 1 100 0 0 0
+*     north exit from "The Trapper's Keepers" to
+*     "A Shady Dead-End" - closed
 *
 D 0 83582 0 1 100 0 0 0
 *     north exit from "The Iron Gates of Helgor Outpost" to
@@ -2674,11 +2682,13 @@ M 0 120051 7 83488 80 0 0 0        * (mob type not in this .mob file)
 M 0 83317 3 83488 100 0 0 0        * a miner
 M 0 120051 7 83501 80 0 0 0        * (mob type not in this .mob file)
 M 0 120051 7 83503 100 0 0 0       * (mob type not in this .mob file)
-M 0 83294 2 83507 100 0 0 0        * a dwarf miner
-M 0 83294 2 83507 100 0 0 0        * a dwarf miner
+M 0 83294 3 83507 100 0 0 0        * a dwarf miner
+M 0 83294 3 83507 100 0 0 0        * a dwarf miner
+M 0 83294 3 83507 100 0 0 0        * a dwarf miner
 M 0 83317 3 83508 100 0 0 0        * a miner
-M 0 83290 2 83509 100 0 0 0        * a dwarf miner
-M 0 83290 2 83509 100 0 0 0        * a dwarf miner
+M 0 83290 3 83509 100 0 0 0        * a dwarf miner
+M 0 83290 3 83509 100 0 0 0        * a dwarf miner
+M 0 83290 3 83509 100 0 0 0        * a dwarf miner
 M 0 83317 3 83510 100 0 0 0        * a miner
 M 0 83296 1 83511 100 0 0 0        * Harmon, the smeltmaster
 M 0 83101 2 83512 100 0 0 0        * a burly bouncer
@@ -2902,6 +2912,7 @@ E 1 83396 5 5 100 0 0 0            *   a full suit of mithril plate
 E 1 83400 5 6 100 0 0 0            *   a full-headed mithril helmet
 E 1 83399 4 16 100 0 0 0           *   a mithril two-handed warhammer
 M 0 83346 4 83645 100 0 0 0        * a fearless guard of Khoralator Fort
+R 1 83351 3 83645 100 0 0 0        * a huge boar (being ridden)
 M 0 83346 4 83649 100 0 0 0        * a fearless guard of Khoralator Fort
 M 0 83342 1 83655 100 0 0 0        * Mundorno the blacksmith
 M 0 83344 4 83656 100 0 0 0        * an elite Khoralator watchman
@@ -2920,20 +2931,23 @@ M 0 83344 4 83659 100 0 0 0        * an elite Khoralator watchman
 F 1 83345 12 83659 100 0 0 0       * a dwarven archer (following)
 F 1 83345 12 83659 100 0 0 0       * a dwarven archer (following)
 F 1 83345 12 83659 100 0 0 0       * a dwarven archer (following)
+M 0 83413 1 83665 100 0 0 0        * Artukin the dwarven ragelord
+F 1 83349 4 83665 100 0 0 0        * a dwarven battlerager (following)
+F 1 83349 4 83665 100 0 0 0        * a dwarven battlerager (following)
 M 0 83346 4 83666 100 0 0 0        * a fearless guard of Khoralator Fort
-R 1 83351 2 83666 100 0 0 0        * a huge boar (being ridden)
+R 1 83351 3 83666 100 0 0 0        * a huge boar (being ridden)
 M 0 83346 4 83667 100 0 0 0        * a fearless guard of Khoralator Fort
-R 1 83351 2 83667 100 0 0 0        * a huge boar (being ridden)
+R 1 83351 3 83667 100 0 0 0        * a huge boar (being ridden)
 M 0 83347 8 83670 100 0 0 0        * an elite dwarven guard
 E 1 83394 18 16 100 0 0 0          *   a mithril-bladed battle-axe
 E 1 83394 18 17 100 0 0 0          *   a mithril-bladed battle-axe
 M 0 83347 8 83670 100 0 0 0        * an elite dwarven guard
 E 1 83394 18 16 100 0 0 0          *   a mithril-bladed battle-axe
 E 1 83394 18 17 100 0 0 0          *   a mithril-bladed battle-axe
-M 0 83349 2 83670 100 0 0 0        * a dwarven battlerager
+M 0 83349 4 83670 100 0 0 0        * a dwarven battlerager
 E 1 83389 4 16 100 0 0 0           *   a mithril-headed morningstar
 E 1 83389 4 17 100 0 0 0           *   a mithril-headed morningstar
-M 0 83349 2 83670 100 0 0 0        * a dwarven battlerager
+M 0 83349 4 83670 100 0 0 0        * a dwarven battlerager
 E 1 83389 4 16 100 0 0 0           *   a mithril-headed morningstar
 E 1 83389 4 17 100 0 0 0           *   a mithril-headed morningstar
 M 0 83354 1 83672 100 0 0 0        * an officer of Khoralator
@@ -2975,6 +2989,10 @@ G 1 500 999 0 100 0 0 0            *    (object type not in this .obj file)
 G 1 368 999 0 100 0 0 0            *    (object type not in this .obj file)
 G 1 53 999 0 100 0 0 0             *    (object type not in this .obj file)
 G 1 377 999 0 100 0 0 0            *    (object type not in this .obj file)
+M 0 53642 4 83686 100 0 0 0        * (mob type not in this .mob file)
+M 0 53642 4 83686 100 0 0 0        * (mob type not in this .mob file)
+M 0 53642 4 83690 100 0 0 0        * (mob type not in this .mob file)
+M 0 53642 4 83690 100 0 0 0        * (mob type not in this .mob file)
 M 0 83380 8 83699 100 0 0 0        * a human smuggler
 M 0 83380 8 83699 100 0 0 0        * a human smuggler
 M 0 83381 1 83699 100 0 0 0        * Metlan the smuggler leader
@@ -3208,5 +3226,13 @@ M 0 83390 4 83830 100 0 0 0        * a meditative halfling mage
 M 0 83390 4 83830 100 0 0 0        * a meditative halfling mage
 M 0 83390 4 83830 100 0 0 0        * a meditative halfling mage
 M 0 83390 4 83830 100 0 0 0        * a meditative halfling mage
+M 0 83412 1 83862 100 0 0 0        * an old dwarven trapper
+G 1 54 999 0 100 0 0 0             *    (object type not in this .obj file)
+G 1 73 999 0 100 0 0 0             *    (object type not in this .obj file)
+G 1 77 999 0 100 0 0 0             *    (object type not in this .obj file)
+G 1 96 999 0 100 0 0 0             *    (object type not in this .obj file)
+G 1 97 999 0 100 0 0 0             *    (object type not in this .obj file)
+G 1 53 999 0 100 0 0 0             *    (object type not in this .obj file)
+M 0 83414 1 83863 100 0 0 0        * the shield dwarf doctor of Alatorin
 *
 S

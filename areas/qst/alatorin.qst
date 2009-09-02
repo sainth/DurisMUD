@@ -2009,7 +2009,7 @@ alatorin city dwarf dwarves shield interest interests~
 ~
 MA
 sslitheran melbe birch scruden gru'dank jenk~
-&N$n nods at $N and says 'Birch Scruden, Gru'dank, Jenk, Melbe, and Sslitheran are currently being hunted by my deputies.  A reward of 1500 platinum is available to he who returns the heads or hearts of these five outcasts!'
+&N$n nods at $N and says 'Birch Scruden, Gru'dank, Jenk, Melbe, and Sslitheran are currently being hunted by my deputies.  A reward of 500 platinum is available to he who returns the heads or hearts of these five outcasts!'
 ~
 MA
 outcasts~
@@ -2023,7 +2023,7 @@ QA
 &N$n applauds $N and says 'Excellent work, $N!'
 Gathering the heads, he continues 'Please, as a token of service to Alatorin, take this medal of honor and your reward money.'
 ~
-R C 1500000
+R C 500000
 R I 83250
 G I 83255
 G I 83300
