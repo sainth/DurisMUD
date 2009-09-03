@@ -103,23 +103,24 @@ void spell_phantom_armor(int level, P_char ch, char *arg, int type,
   {
     bzero(&af, sizeof(af));
     af.type = SPELL_PHANTOM_ARMOR;
-    af.duration = 25;
-    af.modifier = - (level / 10);
+    af.duration = 15;
+    af.modifier = -(level);
     af.bitvector = AFF_ARMOR;
     af.location = APPLY_AC;
     affect_to_char(victim, &af);
     send_to_char
-      ("&+LShadowy &+Wphantoms&N blur your image to the outside!\r\n",
-       victim);
+      ("&+LShadowy &+Wphantoms&N blur your image to the outside!\r\n", victim);
   }
   else
   {
     struct affected_type *af1;
 
     for (af1 = victim->affected; af1; af1 = af1->next)
-      if (af1->type == SPELL_ARMOR)
+      if (af1->type == SPELL_PHANTOM_ARMOR)
       {
-        af1->duration = 25;
+      send_to_char
+        ("&+LShadowy &+Wphantoms&N blur your image to the outside!\r\n", victim);
+        af1->duration = 15;
       }
   }
 }
