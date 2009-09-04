@@ -8390,9 +8390,10 @@ void spell_vitality(int level, P_char ch, char *arg, int type, P_char victim,
      GET_VNUM(victim) == IMAGE_RELFECTION_VNUM)
       return;
       
-  if(affected_by_spell(ch, SPELL_MIELIKKI_VITALITY))
+  if(affected_by_spell(victim, SPELL_MIELIKKI_VITALITY))
   {
     send_to_char("&+WThe vitality spell fails.\r\n", ch);
+    send_to_char("&+GThe Goddess blocks the vitality spell.\r\n", ch);
     return;
   }
       
