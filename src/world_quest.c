@@ -648,6 +648,7 @@ int createQuest(P_char ch, P_char giver)
       QUEST_TYPE = 2;
     else
       QUEST_TYPE = 1;
+      
     quest_mob = suggestQuestMob(quest_zone,ch, QUEST_TYPE);
 
   }
@@ -860,8 +861,8 @@ int getQuestZone(P_char ch)
         zone_table[zone_count].avg_mob_level < 0 )
      continue;
     
-    if((zone_table[zone_count].avg_mob_level + 10) < (GET_LEVEL(ch)) &&
-        zone_table[zone_count].avg_mob_level > (GET_LEVEL(ch) - 5))
+    if((zone_table[zone_count].avg_mob_level) < (GET_LEVEL(ch) + 5) &&
+        zone_table[zone_count].avg_mob_level > (GET_LEVEL(ch) - 7))
     {
       //debug("%d %s " , zone_count, zone_table[zone_count].name);
 
