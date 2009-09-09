@@ -15588,6 +15588,10 @@ S
 &+Lpushing up against each other and others seperating.
 ~
 831 33587200 13
+D0
+~
+~
+0 0 83873
 D3
 ~
 ~
@@ -15602,8 +15606,96 @@ S
 &+Lthemselves oer perhaps by some of their more advanced slaves.
 ~
 831 33587200 13
+D0
+~
+~
+0 0 83869
 D1
 ~
 ~
 0 0 83866
+S
+#83869
+&+rThe Cavernous Lair of the Troglodyte Leader&N~
+   &+LThis massive lair opens from a depressed cavern, opening
+&+Lat a gradual descent into the vast domain - claimed by the
+&+Lleader of these &N&+rtroglodytes&+L.  There are strange
+&N&+ytotems&+L and &+Yidols&+L located on random locations
+&+Lthroughout this lair, suggesting that this tribe of
+&+Ltroglodyte has taken into some form of religious or ritual-
+&+Listic practice.
+~
+831 33587200 13
+D0
+~
+~
+0 0 83870
+D1
+~
+~
+0 0 83871
+D2
+~
+~
+0 0 83868
+S
+#83870
+&+LThe &N&+WBone &+YThrone &+Lof &+YKe&+Gre&+gghaktis&N~
+   &+LThis foul, disturbing throne room is characterized by the brutal
+&+Ltrophies encircling the chamber - the gored bodies of unfortunate
+&+Ltroglodtyte raid victims lay lifelessly in displays of inhuman
+&+Lcrucifiction.  The throne at the northern end of this massive cavern
+&+Lhas been made of an array of bones, bound together into a massive
+&+Larmed chair.
+~
+831 33587200 13
+D2
+~
+~
+0 0 83869
+S
+#83871
+&NBefore a Small &+LGated Cell&N~
+   &NThis awkward cavern extension leads off behind a massive stone
+&+Lshelf before a large &N&+cgated &N&+Lentry, crude in design and
+&+Lvery-poorly maintained.
+~
+831 33587200 13
+D0
+&N&+cThis rusty, poorly-kept gate was either built by a more-brilliant
+&+ytroglodyte&N&+c, or stolen from a village and merely forced into its
+&+ccurrent position.
+~
+gate~
+2 0 83872
+D3
+~
+~
+0 0 83869
+S
+#83872
+&+LA Filthy, &N&+yRank &+LPrison Cave~
+   &+LA river of &N&+yshit&+L and watery &N&+mrefuge &+Lflows through this
+&+Lcave via a huge crack running through the center of the cavern floor.
+&+LThis crude drainage system makes this, among the rest of the exposed=
+&+Lcaves and tunnels, makes the entire den quite a disgusting place.
+~
+831 33587200 13
+D2
+~
+~
+2 0 83871
+S
+#83873
+&+LA Dark Cavern Covered With &+WWhite Handprints&N~
+   &+LThis dark cavern is full of &+Wwhite handprints&+L, covering the
+&+Lcavern walls and floors.  This chaotic, distrubing obsession is
+&+Lcult-like within the inner circle of the ritualistic religion
+&+Lcarried by their species.
+~
+831 33587200 13
+D2
+~
+~
+0 0 83867
 S

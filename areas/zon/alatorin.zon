@@ -1,6 +1,6 @@
 #831
 &+CAlatorin &+L- the &N&+rForge &+LCity~
-83868 2 0 40 50 1
+83873 2 0 40 50 1
 *
 * Zone edited with durisEdit v2.99de
 *
@@ -1196,6 +1196,14 @@ D 0 83832 5 2 100 0 0 0
 D 0 83833 4 2 100 0 0 0
 *     up exit from "A Rocky Tunnel Opening" to
 *     "Entrance of a Fetid Tunnel" - closed/locked
+*
+D 0 83871 0 2 100 0 0 0
+*     north exit from "Before a Small Gated Cell" to
+*     "A Filthy, Rank Prison Cave" - closed/locked
+*
+D 0 83872 2 2 100 0 0 0
+*     south exit from "A Filthy, Rank Prison Cave" to
+*     "Before a Small Gated Cell" - closed/locked
 *
 *
 O 0 83100 1 83103 100 0 0 0        * a giant statue of a dwarven warrior
