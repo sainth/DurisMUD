@@ -5014,15 +5014,6 @@ int raw_damage(P_char ch, P_char victim, double dam, uint flags,
         dam = MIN(dam, 800);
       }
 
-      /*
-      if (GET_CLASS(victim, CLASS_BERSERKER))
-      {
-        hpperc = (float)GET_HIT(victim)/(float)GET_MAX_HIT(victim);
-        zerkmod = (float)get_property("berserker.takedam.mod", .5);
-        dam *= (int)(zerkmod+2*(1-zerkmod)*hpperc);
-      }
-      */
-
       if (IS_HARDCORE(ch))
         dam = (int) dam *1.09;
 
@@ -5170,7 +5161,6 @@ int raw_damage(P_char ch, P_char victim, double dam, uint flags,
         return (DAM_NONEDEAD);
     }
 
-    //!!!
     if(!IS_TRUSTED(victim))
       if(flags & RAWDAM_NOKILL)
       {
@@ -5192,7 +5182,8 @@ int raw_damage(P_char ch, P_char victim, double dam, uint flags,
     if(dam > 5 &&
       !(flags & RAWDAM_NOEXP))
     {
-      gain_exp(ch, victim, 0, EXP_DAMAGE);
+      debug("EXP fight.c: Ch:(%s) Victim:(%s) Dam:(%d).", GET_NAME(ch), GET_NAME(victim), (int)(dam));
+      gain_exp(ch, victim, dam, EXP_DAMAGE);
     }
 
     sprintf(buffer, "Damage: %d\n", (int) dam);
@@ -5277,9 +5268,10 @@ int raw_damage(P_char ch, P_char victim, double dam, uint flags,
       {
         /* ok char if free */
         REMOVE_BIT(victim->specials.affected_by, AFF_BOUND);
-        act("$N's bindings are cut free!", FALSE, ch, 0, victim, TO_NOTVICT);
-        act("Your blow cuts through $N's bindings.", FALSE, ch, 0, victim,
-            TO_CHAR);
+        act("$N's bindings are cut free!",
+          FALSE, ch, 0, victim, TO_NOTVICT);
+        act("Your blow cuts through $N's bindings.",
+          FALSE, ch, 0, victim, TO_CHAR);
         send_to_char("Your bindings are cut from the damage, you're free!\n",
                      victim);
       }

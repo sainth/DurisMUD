@@ -752,7 +752,7 @@ debug("Gain exp race (%d) Start.", XP);
   {
     prop_buf[0];
     sprintf(prop_buf, "exp.factor.%s", race_names_table[GET_RACE(ch)].no_spaces);
-    XP = (int)(XP * (float) get_property(prop_buf, 1.0));
+    XP = (int)(XP * get_property(prop_buf, 1.000));
   }
 debug("Gain exp ch (%d) Start.", XP);  
   if(victim &&
@@ -943,7 +943,7 @@ int exp_mod(P_char k, P_char victim)
 
 int gain_exp(P_char ch, P_char victim, const int value, int type)
 {
-  int i, range, XP;
+  int i, range, XP = 0;
   bool pvp = FALSE;
   
   if(!(ch))
@@ -960,14 +960,14 @@ int gain_exp(P_char ch, P_char victim, const int value, int type)
   {
     return 0;
   }
-debug("check 1");  
+debug("check 1 exp (%d).", XP);  
   if(GET_LEVEL(ch) >= MINLVLIMMORTAL ||
      CHAR_IN_ARENA(ch) ||
      IS_SET(world[ch->in_room].room_flags, GUILD_ROOM | ROOM_HOUSE | SAFE_ZONE))
   {
     return 0;
   }
-debug("check 2");   
+debug("check 2 exp (%d).", XP);   
   if(victim &&
      type != EXP_RESURRECT)
   {
@@ -978,29 +978,35 @@ debug("check 2");
       return 0;
     }
   }
-debug("check 3");   
+debug("check 3 exp (%d).", XP);   
   if(ch &&
      victim &&
      IS_PC(ch) &&
      IS_PC(victim))
   {
-    if((RACE_EVIL(ch) && RACE_EVIL(victim)) ||
-       (RACE_GOOD(ch) && RACE_GOOD(victim)))
+    if((RACE_EVIL(ch) && RACE_GOOD(victim)) ||
+       (RACE_GOOD(ch) && RACE_EVIL(victim)))
+    {
+      pvp = true;
+    }
+    
+    if(GET_MASTER(ch) &&
+      ((RACE_EVIL(GET_MASTER(ch)) && RACE_GOOD(victim)) ||
+      (RACE_GOOD(GET_MASTER(ch)) && RACE_EVIL(victim))))
     {
       pvp = true;
     }
   }
   
-  XP = (int)(value);
+  XP = MAX(1, (int)(value));
 debug("check 4 xp (%d).", XP);  
   if(type == EXP_RESURRECT)
   {
-    
+    ;
   }
   else if(type == EXP_DAMAGE)
   {
-    if(!(victim) ||
-       ch == victim)
+    if(ch == victim)
     {
       return 0;
     }
@@ -1012,21 +1018,29 @@ debug("damage 1 exp gain (%d)", XP);
        IS_PC(victim) &&
        !(pvp))
     {
+debug("Not pvp damage exp gain returning 0", XP);
       return 0;
     }
 
 debug("damage 2 exp gain (%d)", XP);    
     
-    XP = (int)(GET_LEVEL(ch) *
+    XP = (int)(XP *
+               GET_LEVEL(ch) *
                GET_LEVEL(victim) *
-               (get_property("exp.factor.damage", 0.850)));
-    
-    XP = (int)((XP * exp_mod(ch, victim)) / 100);    
-    XP = (int)(modify_exp_by_zone_trophy(ch, type, XP));
-    XP = (int)(gain_exp_modifiers(ch, victim, XP, NULL));
-    XP = (int)(gain_exp_modifiers_race_only(ch, victim, XP, NULL));
-    XP = (int)(check_nexus_bonus(ch, XP, NEXUS_BONUS_EXP));
+               (get_property("exp.factor.damage", 0.050)));
 debug("damage 3 exp gain (%d)", XP);    
+    // XP = (int)(XP / 100);
+// debug("damage 4 exp gain (%d)", XP);    
+    XP = (int)((XP * exp_mod(ch, victim)) / 100);    
+debug("damage 5 exp gain (%d)", XP);    
+    XP = (int)(modify_exp_by_zone_trophy(ch, type, XP));
+debug("damage 6 exp gain (%d)", XP);    
+    XP = (int)(gain_exp_modifiers(ch, victim, XP, NULL));
+debug("damage 7 exp gain (%d)", XP);    
+    XP = (int)(gain_exp_modifiers_race_only(ch, victim, XP, NULL));
+debug("damage 8 exp gain (%d)", XP);    
+    XP = (int)(check_nexus_bonus(ch, XP, NEXUS_BONUS_EXP));
+debug("damage 9 exp gain EXIT (%d)", XP);    
   }
   else if(type == EXP_HEALING)
   {
@@ -1043,7 +1057,8 @@ debug("damage 3 exp gain (%d)", XP);
       return 0;
     }
 
-    XP = (int)(GET_LEVEL(ch) *
+    XP = (int)(XP *
+               GET_LEVEL(ch) *
                GET_LEVEL(victim) *
                get_property("exp.factor.healing", 1.000));
     
@@ -1063,8 +1078,7 @@ debug("damage 3 exp gain (%d)", XP);
   }
   else if(type == EXP_MELEE)
   {
-    if(!(victim) ||
-       ch == victim)
+    if(ch == victim)
     {
       return 0;
     }
@@ -1077,7 +1091,8 @@ debug("melee 1 exp gain (%d)", XP);
       return 0;
     }
 debug("melee 2 exp gain (%d)", XP);     
-    XP = (int)(GET_LEVEL(ch) *
+    XP = (int)(XP *
+               GET_LEVEL(ch) *
                GET_LEVEL(victim) *
                get_property("exp.factor.melee", 0.1));
 
@@ -1105,8 +1120,7 @@ debug("melee 7 exp gain (%d)", XP);
   }
   else if(type == EXP_KILL)
   {
-    if(!(victim) ||
-       ch == victim)
+    if(ch == victim)
     {
       return 0;
     }
@@ -1118,7 +1132,7 @@ debug("melee 7 exp gain (%d)", XP);
     {
       return 0;
     }
-    
+debug("kill 1 exp gain (%d)", XP);     
     XP = (int)((XP * exp_mod(ch, victim)) / 100);     
     XP = (int)(XP * get_property("exp.factor.kill", 1.000));
     XP = (int)(modify_exp_by_zone_trophy(ch, type, XP));
@@ -1129,18 +1143,27 @@ debug("melee 7 exp gain (%d)", XP);
           "KILL EXP: %s (%d) killed by %s (%d): old exp: %d, new exp: %d, +exp: %d",
           GET_NAME(victim), GET_LEVEL(victim), GET_NAME(ch),
           GET_LEVEL(ch), GET_EXP(ch), GET_EXP(ch) + XP, XP);
+          
+    if(pvp)
+    {
+      XP = (int)(XP * get_property("gain.exp.mod.pvp", 1.250));
+    }
+    
+debug("melee 1 exp gain final (%d)", XP);     
   }
   else if(type == EXP_WORLD_QUEST)
   {
-    XP = (int)(gain_exp_modifiers_race_only(ch, NULL, XP, NULL)); 
+    XP = (int)(XP *
+               gain_exp_modifiers_race_only(ch, NULL, XP, NULL)); 
   }
   else if(type == EXP_QUEST)
   {
-    XP = (int)(gain_exp_modifiers_race_only(ch, NULL, XP, NULL)); 
+    XP = (int)(XP *
+               gain_exp_modifiers_race_only(ch, NULL, XP, NULL)); 
   }
-
+debug("check 5 xp (%d).", XP);  
   range = (int) (new_exp_table[GET_LEVEL(ch) + 1] / 3);
-  
+debug("check 6 xp (%d).", XP);  
   XP = BOUNDED(-range, XP, range);
   
   // increase exp only to some limit (cumulative exp till 61)
@@ -1149,7 +1172,7 @@ debug("melee 7 exp gain (%d)", XP);
   {
     GET_EXP(ch) += (int)(XP);
   }
-
+debug("check 7 xp (%d).", XP); 
   display_gain(ch, (int)(XP));
 
   if (XP > 0)

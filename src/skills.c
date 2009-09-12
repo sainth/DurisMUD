@@ -3122,7 +3122,8 @@ SPELL_ADD(CLASS_NONE, 1);
                 TAR_SELF_ONLY,
                 spell_wind_rage, "&+cYour mind begins to slow as the winds subside.");
   SPEC_SPELL_ADD(CLASS_ETHERMANCER, 10, SPEC_FROST_MAGUS);
-
+  SPEC_SPELL_ADD(CLASS_ETHERMANCER, 10, SPEC_WINDTALKER);
+  
   SPELL_CREATE("polar vortex", SPELL_POLAR_VORTEX, PULSE_SPELLCAST * 4,
 	            TAR_IGNORE | TAR_AGGRO, spell_polar_vortex);
   SPEC_SPELL_ADD(CLASS_ETHERMANCER, 12, SPEC_FROST_MAGUS);
