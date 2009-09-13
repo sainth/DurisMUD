@@ -20,7 +20,7 @@ QA
 R I 83223
 G C 13000
 D
-&n$n dissapears into the city.
+&n$n disappears into the city.
 ~
 S
 #120014
@@ -102,12 +102,12 @@ miboli snoblsniz~
 ~
 QA
 &+LWith a smile on her face, $n says 'Excellent work $N, now I have an even more daunting mission for you..'
-&+'Take this dagger,' she says 'it is yours to keep.  If you should accept your next task then it will be plunged into the heart of an evil adversary corrupt to the cause of the seers.  There are two great wizards that can still pose a threat to the seers that we must have eliminated.  The legendary human &n&+bGhiran&+L and the ancient drow &N&+gOfnil&+L.  Bring me the &N&+ybracelet&+L of the human and the staff of the drow.. plunge the dagger of &+Cseers &+Linto &N&+bGhiran &+Land &N&+gOfnil&+L's &N&+rhearts&+L and return to me with their private posessions and the dagger of &+Cseers&+L.  With these three items in my posession, you will receive your &+Yeternal &+Lreward.'
+&+'Take this dagger,' she says 'it is yours to keep.  If you should accept your next task then it will be plunged into the heart of an evil adversary corrupt to the cause of the seers.  There are two great wizards that can still pose a threat to the seers that we must have eliminated.  The legendary human &n&+bGhiran&+L and the ancient drow &N&+gOfnil&+L.  Bring me the &N&+ybracelet&+L of the human and the staff of the drow.. plunge the dagger of &+Cseers &+Linto &N&+bGhiran &+Land &N&+gOfnil&+L's &N&+rhearts&+L and return to me with their private possessions and the dagger of &+Cseers&+L.  With these three items in my possession, you will receive your &+Yeternal &+Lreward.'
 ~
 R I 120038
 G I 83340
 QA
-&N$n says 'Excellent work $N!  You did it!  We will now be safe from the prying &+Wclairvoyance&+L of these trecherous mystics.. but for how long..'
+&N$n says 'Excellent work $N!  You did it!  We will now be safe from the prying &+Wclairvoyance&+L of these treacherous mystics.. but for how long..'
 ~
 R I 120039
 G I 120038
@@ -168,7 +168,7 @@ qc_action 150~
 ~
 M
 qc_action 200~
-&+L$n says &+W'There are objects so peculiar they are not to be believed!! All around things to tantilize my brain.  It's a world unlike anything I'd ever seen and as hard as I try, I can't seem to describe.. to a most-elaborate dream.  But you must believe when I tell you this.. it's as real as my skull and it does it exist!'
+&+L$n says &+W'There are objects so peculiar they are not to be believed!! All around things to tantalize my brain.  It's a world unlike anything I'd ever seen and as hard as I try, I can't seem to describe.. to a most-elaborate dream.  But you must believe when I tell you this.. it's as real as my skull and it does it exist!'
 ~
 M
 qc_action 150~
@@ -178,8 +178,8 @@ qc_action 150~
 M
 qc_action 150~
 &N$n says '&+YAye, you look like someone who enjoys great power, $N.'
-&N$n grins and continus '&+YI'd say you would love to get your hands on everlasting magic, eh?'
-&n$n leans in a bit closer and says '&+YThere is a mysterious, old but powerful &+GWi&N&+gt&+Gch &+Ythat has been seen very randoly walking along the ridges of the Shanatar mountains.'
+&N$n grins and continues '&+YI'd say you would love to get your hands on everlasting magic, eh?'
+&n$n leans in a bit closer and says '&+YThere is a mysterious, old but powerful &+GWi&N&+gt&+Gch &+Ythat has been seen very randomly walking along the ridges of the Shanatar mountains.'
 ~
 MA
 shanatar~
@@ -197,7 +197,7 @@ qc_action 350~
 ~
 M
 qc_action 250~
-&N$n leans in close and says with a low voice 'There's a smuggler, err uh. an entrapaneur I know named Granat.  He will sell you a new identity.. for a price.'
+&N$n leans in close and says with a low voice 'There's a smuggler, err uh. an entrepreneur I know named Granat.  He will sell you a new identity.. for a price.'
 ~
 M
 granat~
@@ -288,7 +288,7 @@ shanatar mountains mountain~
 ~
 MA
 shield dwarves dwarf alatorin king taark shanat~
-&+B$n &+Bsays 'Alatorin big place, many shield dwaves, and strong king!'
+&+B$n &+Bsays 'Alatorin big place, many shield dwarves, and strong king!'
 &+Bgrins and continues 'Ungalen favorite thing in Alatorin?'
 &+BWith a cheerful grunt he says 'Besides the money?  The ale!'
 &+BWith a sigh, Ungalen says 'Ungalen been on last hunt for days!  Cannot kill dragon alone.'
@@ -398,7 +398,7 @@ Tok licks his lips, &+cdrooling &Na bit.
 ~
 MA
 trapping osquips osquip tooth rat rats~
-&N$n grins, &+Wsalivitating&N, then says to $N 'Tok trap rats for dwarves.  Tok love osquips, but not like big city and duergars!  $N, you will help Tok collect tooth rats?  Bring me freshly-killed tooth rat corpses, Tok repay you with silly metal bits!'
+&N$n grins, &+Wsalivating&N, then says to $N 'Tok trap rats for dwarves.  Tok love osquips, but not like big city and duergars!  $N, you will help Tok collect tooth rats?  Bring me freshly-killed tooth rat corpses, Tok repay you with silly metal bits!'
 ~
 QA
 &N$n smiles, &+Rtongue &Nhanging out.

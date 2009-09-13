@@ -36,7 +36,7 @@ statue~
    &+RThis large statue is made of forged, chiseled and blasted, then re-polished
 &+Rfigures.  Three dwarves, a Duergar, a Mountain Dwarf, and a Shield Dwarf
 &+Rstand atop a pile of dead orc bodies.
-   &+RThis huge statue, a gorey scene of ancient dwarves uniting regardless
+   &+RThis huge statue, a gory scene of ancient dwarves uniting regardless
 &+Rof their race, but rather binding over their true adversaries.
 ~
 #120003
@@ -79,7 +79,7 @@ black bladed dagger black-bladed~
 1 7439 100
 E
 black bladed dagger black-bladed~
-   &+LThis average-looking dagger has a dyed black blade, and is surprizingly
+   &+LThis average-looking dagger has a dyed black blade, and is surprisingly
 &+Llight and easily-hidden.
 ~
 A
@@ -96,7 +96,7 @@ sign muntz's goods~
 0 0 100
 E
 object unnamed~
-   &+yThis sign raads &+W'Muntz's Goods'&+y and hangs just next to the
+   &+yThis sign reads &+W'Muntz's Goods'&+y and hangs just next to the
 &+ysteps to the western building.
 ~
 #120007
@@ -300,7 +300,7 @@ iron shield alatorin~
    &+LThis strange shield has a squared-off, right-angled corner shield with
 &+La smooth, rounded off top-half.  Used by the dwarves to stack up and line
 &+Lacross one another another on the ground, these shields prove to provide
-&+Lideal support to large numers of shield dwarves in a technique by which
+&+Lideal support to large numbers of shield dwarves in a technique by which
 &+Lthe ancient and rare dwarven race exists.
 ~
 A
@@ -499,7 +499,7 @@ tattered old hooded sage cloak sages _noquest_~
 E
 tattered old hooded sage cloak sages~
    &+mThis old, hooded cloak bears a silver lining and numerous runes throughout.
-&+mTattered and worn, this garment has sween quite a bit of action.
+&+mTattered and worn, this garment has seen quite a bit of action.
 ~
 A
 24 -4
@@ -524,7 +524,7 @@ A
 A
 24 -3
 #120033
-hand stitced ram-hide ram hide backpack bp~
+hand stitched ram-hide ram hide backpack bp~
 &+Wa hand-stitched &+Yram&+W-hide backpack&N~
 &+yA hand-stitched backpack of thick, &+Wfurry &+Yram-hide has been left here.~
 ~
@@ -532,8 +532,8 @@ hand stitced ram-hide ram hide backpack bp~
 300 5 0 50 0 0 0 0
 0 15334 100
 E
-hand stitced ram-hide ram hide backpack bp~
-   &+WThis large furry backpack has been hand-stitced with thick, now-blackened
+hand stitched ram-hide ram hide backpack bp~
+   &+WThis large furry backpack has been hand-stitched with thick, now-blackened
 &+Wsinew cordage through lengths of white, furry &+Yram &+Wpelt.
 ~
 #120034
