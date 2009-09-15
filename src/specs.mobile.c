@@ -11764,7 +11764,7 @@ int world_quest(P_char ch, P_char pl, int cmd, char *arg)
 
       // }
 
-      temp = (int)(get_property("worldQuest.abandon.mod", 3) * GET_LEVEL(pl) * GET_LEVEL(pl) * GET_LEVEL(pl));
+      temp = (int)((get_property("worldQuest.abandon.mod", 0.5) * GET_LEVEL(pl) * GET_LEVEL(pl) * GET_LEVEL(pl)));
 
       sprintf(money_string, "OH NO, you've cost me alot of time and money, but toss me %s and I'll take care of your task!", coin_stringv(temp) );
 
