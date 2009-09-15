@@ -391,7 +391,7 @@ int move_regen(P_char ch)
       break;
   }
 
-  if (gain)
+  if (gain || ch->points.move_reg < 0)
     gain += ch->points.move_reg;
 
   if(gain > 0 &&
@@ -529,7 +529,7 @@ void githyanki_weapon(P_char ch)
          FALSE, ch, 0, 0, TO_ROOM);
     }
   }
-	else
+        else
       send_to_char("&+CYou should have gotten a special item.  Let a god know.\r\n",
                    ch);
 }
@@ -590,7 +590,7 @@ void advance_level(P_char ch)
           gl->ch != ch &&
           ( (GET_A_NUM(gl->ch) == GET_A_NUM(ch)) || is_allied_with(GET_A_NUM(ch), GET_A_NUM(gl->ch)) ) &&
          gl->ch->in_room == ch->in_room )
-	group_size++;
+        group_size++;
     }
     
     if( group_size >= (int) get_property("guild.prestige.groupSizeMinimum", 3) )
