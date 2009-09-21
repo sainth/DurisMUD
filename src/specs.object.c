@@ -2605,16 +2605,28 @@ void event_dragonlord_check(P_char ch, P_char victim, P_obj obj, void *data)
     add_event(event_dragonlord_check, (int)(0.5 * PULSE_VIOLENCE), ch, 0, 0, 0, 0, 0); 
     return;
   }
-  
-  ch->player.race = af->modifier;
-  
-  affect_remove(ch, af);
-  
-  GET_AGE(ch) = (int) (racial_data[(int) GET_RACE(ch)].base_age * 2.25);
-  
-  send_to_char
-    ("&+LThe dragon flesh is absorbed and your body returns to normal.&n\r\n", ch);
-  return;
+  else
+  {
+    ch->player.race = af->modifier;
+    affect_remove(ch, af);
+    GET_AGE(ch) = racial_data[(int) GET_RACE(ch)].base_age*2;
+    send_to_char
+      ("The curse of the dark powers fade and your soul restores the body.\r\n",
+       ch);
+    int k = 0;
+    P_obj temp_obj;
+    for (k = 0; k < MAX_WEAR; k++)
+    {
+      temp_obj = ch->equipment[k];
+      if(temp_obj)
+        obj_to_char(unequip_char(ch, k), ch);
+    }
+    send_to_char
+      ("Brr, you suddenly feel very naked.\r\n",
+       ch);
+
+    return;
+  }
   // int k = 0;
   // P_obj temp_obj;
   // for (k = 0; k < MAX_WEAR; k++)
