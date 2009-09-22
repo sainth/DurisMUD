@@ -401,6 +401,12 @@ spiked mace vampire~
 &+Wonly be found deep within the &+LForest of Mir&+W. I will also require payment in
 &+Wthe form of three &+Rgn&+romi&+Rsh &+Lshopkeeper tokens&+W.'&n
 ~
+M
+elixir potent drugs~
+&+GMugflog&+g, the &+yshaman &+gsays to you, '&+WThese are lovely potions that give you quite a
+&+Wpick-me-up. If you brimg me a small &+wplastic &+Wbag filled with &+gdr&+Gu&+ggs&+W, as well as 25
+&+Wplatinum coins, I will be happy to mix you up a batch of these &+gel&+Gix&+girs&+W.&+g'&n
+~
 Q
 ~
 R I 97934
@@ -432,4 +438,12 @@ G I 41916
 G I 55033
 G I 55033
 G I 55033
+Q
+~
+R I 97937
+R I 97937
+R I 97937
+R I 97937
+G I 55247
+G C 25000
 S
