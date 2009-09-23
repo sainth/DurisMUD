@@ -7796,7 +7796,6 @@ PROFILE_END(mundane6);
       else
         do_action(ch, 0, CMD_CURSE);
     }
-PROFILE_END(mundane6);
 /* sadly, dispel magic no longer works on self, so this code doesn't work */
 
 /*
@@ -7810,6 +7809,7 @@ PROFILE_END(mundane6);
    }
  */
   }
+PROFILE_END(mundane6);
   /* remove blocking walls */
   // annoying, but not much to do here. Maybe should add a room flag WALLED?  -Odorf
 PROFILE_START(mundane7);
