@@ -520,16 +520,16 @@ int remove_mine_content(P_obj mine)
 
 int random_ore(int mine_quality)
 {
-  int x = number(0, 100) + mine_quality;
+  int x = number(1, 100) + mine_quality;
     
-  if(x >= 110)
+  if(x >= 105)
     return LARGE_MITHRIL_ORE;
-  if(x >= 108) 
+  if(x >= 104) 
     return MEDIUM_MITHRIL_ORE;	
-  if(x >= 106)
+  if(x >= 103)
     return SMALL_MITHRIL_ORE;
 
-  if(x >= 103)
+  if(x >= 102)
     return LARGE_PLATINUM_ORE; 
   if(x >= 100)
     return MEDIUM_PLATINUM_ORE; 
