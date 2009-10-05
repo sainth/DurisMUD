@@ -2326,7 +2326,7 @@ void spell_intellect_fortress(int level, P_char ch, char *arg, int type,
   bzero(&af, sizeof(af));
   af.type = SPELL_INTELLECT_FORTRESS;
   af.duration = dur;
-  af.location = APPLY_POW;
+  af.location = APPLY_INT;
   af.modifier = (int)(1 + level/5);
   affect_to_char(ch, &af);
 
