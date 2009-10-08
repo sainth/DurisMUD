@@ -6574,7 +6574,7 @@ bool hit(P_char ch, P_char victim, P_obj weapon)
   if (vs_skill > 0 &&
       (notch_skill(ch, SKILL_VICIOUS_STRIKE,
                   get_property("skill.notch.offensive.vicious.strike", 5)) ||
-      vs_skill < number(1, 1000))) // PC 15% max per attack with 100 anatomy.
+      vs_skill > number(1, 1000))) // PC 15% max per attack with 100 anatomy.
   {
     if(IS_PC(ch))
     {
