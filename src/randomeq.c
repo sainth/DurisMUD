@@ -30,6 +30,7 @@
 #include "weather.h"
 #include "sound.h"
 #include "objmisc.h"
+#include "defines.h"
 /*
  * external variables
  */
@@ -469,6 +470,7 @@ void create_randoms()
   FILE    *f;
   P_obj    fountain;
 
+#ifndef RANDOM_ZONES
   fprintf(stderr, "Boot random zones -- BEGIN.\r\n");
 
   time_before = clock();
@@ -540,6 +542,7 @@ void create_randoms()
   time_after = clock();
   fprintf(stderr, "Boot random zones -- DONE in: %d milliseconds\n",
           (int) ((time_after - time_before) * 1E3 / CLOCKS_PER_SEC));
+#endif 
 
 }
 
