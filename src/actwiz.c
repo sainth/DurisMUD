@@ -3543,6 +3543,12 @@ void do_nchat(P_char ch, char *argument, int cmd)
   int      all = 0;
   char     Gbuf1[MAX_STRING_LENGTH];
   char     Gbuf2[MAX_STRING_LENGTH];
+  
+  if (!(ch) ||
+      !IS_ALIVE(ch))
+  {
+    return;
+  }
 
   if (!IS_SET(ch->specials.act2, PLR2_NCHAT))
   {
@@ -3569,6 +3575,14 @@ void do_nchat(P_char ch, char *argument, int cmd)
     return;
   }
 
+  if (IS_DISGUISE_PC(ch) ||
+      IS_DISGUISE_ILLUSION(ch) ||
+      IS_DISGUISE_SHAPE(ch))
+  {
+    send_to_char("&+WYou are not in your true shape!\r\n", ch);
+    return;
+  }  
+  
   while (*argument == ' ' && *argument != '\0')
     argument++;
 
@@ -3655,7 +3669,8 @@ void do_nchat(P_char ch, char *argument, int cmd)
     if (((racewar(ch, i->character) && !IS_TRUSTED(ch)) ||
          (!all && evil && !RACE_EVIL(i->character)) ||
          (!all && undead && !RACE_PUNDEAD(i->character)) ||
-         (!all && goodie && !RACE_GOOD(i->character))) || i->character == ch)
+         (!all && goodie && !RACE_GOOD(i->character))) ||
+         i->character == ch)
       continue;
     if (!IS_SET(i->character->specials.act2, PLR2_NCHAT))
       continue;

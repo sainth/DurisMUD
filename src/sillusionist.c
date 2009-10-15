@@ -806,8 +806,7 @@ void spell_mask(int level, P_char ch, char *arg, int type, P_char victim,
       send_to_char("You're too small for that!\r\n", ch);
       CharWait(ch, PULSE_VIOLENCE);
     }
-    else
-      if ((GET_ALT_SIZE(ch) > (GET_ALT_SIZE(target) + 1)) && !IS_TRUSTED(ch))
+    else if ((GET_ALT_SIZE(ch) > (GET_ALT_SIZE(target) + 1)) && !IS_TRUSTED(ch))
     {
       send_to_char("You're too big for that!\r\n", ch);
       CharWait(ch, PULSE_VIOLENCE);
