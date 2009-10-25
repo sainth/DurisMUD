@@ -2166,6 +2166,7 @@ void assign_objects(void)
   obj_index[real_object0(55081)].func.obj = dragon_heart_decay; 
   obj_index[real_object0(55082)].func.obj = dragon_heart_decay; 
   obj_index[real_object0(55420)].func.obj = lancer_gift; 
+  obj_index[real_object0(55077)].func.obj = splinter;
   
 /* Same problem as with the func.mob, no dice! */
 
