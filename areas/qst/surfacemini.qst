@@ -412,7 +412,7 @@ cleansing~
 &+GMugflog&+g, the &+yshaman &+gsays to you, '&+WThese potions come in handy to adventurers
 &+Wwho are often on the go. It's a simple potion that cures many ailments that might
 &+Wcause you illness and strife.. If you would like to a pair of these, you must bring
-&+Wme any one of the &+CIncarnate &+Wpieces.&+g'&n
+&+Wme any one of the &+CIncarnate &+Wpieces and 10 platinum coins.&+g'&n
 ~
 M
 potion~
@@ -462,24 +462,29 @@ Q
 R I 97938
 R I 97938
 G I 55554
+G C 10000
 Q
 ~
 R I 97938
 R I 97938
 G I 55553
+G C 10000
 Q
 ~
 R I 97938
 R I 97938
 G I 55552
+G C 10000
 Q
 ~
 R I 97938
 R I 97938
 G I 55551
+G C 10000
 Q
 ~
 R I 97938
 R I 97938
 G I 55550
+G C 10000
 S
