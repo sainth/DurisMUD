@@ -305,7 +305,7 @@ blood guard bloodguard demon legion~
 &+rinto this occupied area. Utterly ruthless and cunning, the demons make
 &+rthe bloodthirsty undead above look like saints.&n
 ~
-1073743882 1 0 0 0 0 0 -1000 S
+1073743882 1 0 402653208 0 0 536875008 -1000 S
 X 0 1 -1
 51 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -567,7 +567,7 @@ blood guard bloodguard demon~
 &+rinto this occupied area. Utterly ruthless and cunning, the demons make
 &+rthe bloodthirsty undead above look like saints.&n
 ~
-1073743882 1 0 8 0 0 0 -1000 S
+1073743882 1 0 24 0 0 603983872 -1000 S
 X 0 1 -1
 50 0 0 1d1+1 1d1+1
 0.0.0.0 0
