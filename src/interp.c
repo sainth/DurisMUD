@@ -1925,6 +1925,13 @@ bool special(P_char ch, int cmd, char *arg)
   register P_obj i;
   register P_char k;
   int      j;
+  
+  if(!(ch) ||
+	 !IS_ALIVE(ch) ||
+	  ch->in_room != NOWHERE)
+  {
+	return false;
+  }
 
   /*
    * special in room?
@@ -1960,10 +1967,24 @@ bool special(P_char ch, int cmd, char *arg)
      * special in mobile present?
      */
     for (k = world[ch->in_room].people; k; k = k->next_in_room)
-      if ((k != ch) && IS_NPC(k) && AWAKE(k) && mob_index[GET_RNUM(k)].func.mob)
+	{
+	  if(!IS_ALIVE(k) ||
+	     k->in_room != NOWHERE)
+	  {
+	    continue;
+	  }
+      if ((k != ch) &&
+	       IS_NPC(k) &&
+		   AWAKE(k) &&
+		   mob_index[GET_RNUM(k)].func.mob &&
+		   !IS_IMMOBILE(k))
+	  {
         if ((*mob_index[GET_RNUM(k)].func.mob) (k, ch, cmd, arg))
+		{
           return (1);
-
+		}
+	  }
+    }
     /*
      * quest mobile present?
      */
