@@ -10856,6 +10856,10 @@ S
 &+Cimmovable behind the desk, looking outward onto the shackling posts.
 ~
 831 32768 14
+D2
+~
+~
+0 0 83880
 D3
 &+LA large wooden door.
 ~
@@ -14771,6 +14775,7 @@ D4
 trapdoor~
 3 83430 83823
 D5
+&+yThe staircase spirals &+Ldownwards.
 ~
 ~
 0 0 83825
@@ -14790,10 +14795,12 @@ S
 ~
 831 33587200 0
 D4
+&+LThe &N&+ystaircase spirals upwards.
 ~
 ~
 0 0 83824
 D5
+&+LA tight &N&+yspiral staircase &+Lleads down the tower.
 ~
 ~
 0 0 83826
@@ -14828,6 +14835,7 @@ D3
 door~
 1 0 83828
 D4
+&+LA tight &N&+yspiral staircase &+Lleads up the tower.
 ~
 ~
 0 0 83825
@@ -14919,7 +14927,7 @@ D1
 &+LA large stone door to the east.
 ~
 door~
-2 83436 83182
+6 83436 83182
 S
 #83832
 &N&+yEntrance of a &N&+mFetid &N&+yTunnel&N~
@@ -15814,4 +15822,19 @@ D2
 ~
 ~
 0 0 83874
+S
+#83880
+&+RThe Brig&N~
+   &+RThis small, one-man cell sits within the confines of &+CAlatorin&+R and
+&+Rthe watchful eye of its constable.  The room is completely cubicle in shape,
+&+Rwith one small shelf on the far eastern side used for sleeping.  The walls
+&+Rare made of the same &N&+mmithril bricks &+Rused on the floors and other
+&+Rbasic &N&+mload-bearing structures &+Rof &N&+cAlatorin&+R.  The floor is
+&+Rdirty and there are heavy scents of waste in the air.
+~
+831 32768 14
+D0
+~
+~
+0 0 83627
 S

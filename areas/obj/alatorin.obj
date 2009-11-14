@@ -3222,7 +3222,7 @@ gold-rimmed ruby goggles~
 ~
 9 31 3 0 14 0 262144 131073 64 0 0
 4 0 0 3 0 0 0 0
-1 255433 100
+1 255433 100 0 28 0 0
 E
 gold-rimmed ruby goggles~
    &+LThese goggles have been crafted with total perfection.  The rims of the
@@ -4132,13 +4132,21 @@ runed adamantite key~
 &+Lvery faint, but noticable &+Mglow&+L.
 ~
 #83366
-object unnamed~
+antiquated silver dragon egg~
 &+Wan antiquated &+Csilver dragon egg&N~
-An unnamed object lies here, looking lonely and forelorn.~
+&+WAn antiquated &+Csilver dragon egg&N has been left here.~
 ~
-13 15 3 0 7 0 0 0 0 0 0
+8 8 2 0 7 0 4096 16385 64 0 0
 0 0 0 0 0 0 0 0
-0 0 100
+1 78332 100
+E
+antiquated silver dragon egg~
+   &+LThis large &+Cdragon egg &+Lis quite old and from an ancient
+&+Lspecies of wyrm.  The entire egg is covered in crystalline, making
+&+Lit shine and seem quite luxorious.
+~
+A
+23 -3
 #83367
 display case~
 &+Wa display case&N~
@@ -5558,7 +5566,7 @@ collar razor-sharp mithril blades sharp~
    &+LThis thick, collar has several huge &+mmithril blades &+Ljutting outwards.
 ~
 A
-18 2
+18 3
 A
 19 4
 #83455
@@ -5633,3 +5641,102 @@ golden miner's helmet~
 ~
 A
 14 20
+#83458
+tinkerer's tinkerer token~
+&+La &+Rtinkerer's &+Ytoken&N~
+&+LA &+Rtinkerer's &+Ytoken&+L has been left here.~
+~
+8 16 0 0 13 0 0 8404993 0 0 0
+0 0 0 0 0 0 0 0
+0 1000 100
+E
+tinkerer's tinkerer token~
+   &+RThis tiny, steel token is hexagonal in shape, with a square
+&+Rspace at its center.  There are intricate etchings along the
+&+Rinner ring of the token, signifying this as a gnomish token
+&+Rcollected by Dweefniggle's tinkerers in &N&+cAlatorin&+R.
+~
+#83459
+pair gold rimmed gold-rimmed tinted spectacles~
+&+Ya pair of gold-rimmed &N&+mtinted spectacles&N~
+&+mA pair of &+Ygold-rimmed &N&+mtinted spectacles has been left here.~
+~
+9 24 2 0 13 0 0 131073 0 0 0
+3 0 0 0 0 0 0 0
+0 222222 100
+E
+pair gold rimmed gold-rimmed tinted spectacles~
+   &+mThese spectacles appear to be fashioned from extraordinarily-thin
+&+mslides of cooled mithril, perhaps the result of drawing out the metal
+&+min its liquid state and adding glass.  These tinted glasses are framed
+&+mby an intricate woven array of super-thin strands of &+Ypure gold.
+&+mCloser examination reveals that the patterns made in these gold frames
+&+mare completely &+Ysymmetrical&N&+m.
+~
+A
+28 7
+A
+30 7
+#83460
+whitestone cudgel~
+&+Wa whi&Ntest&+Wone &+rcudgel&N~
+&+WA whitestone &N&+rcudgel has been left here.~
+~
+5 39 4 0 8 0 0 8396801 67 0 0
+10 3 6 0 0 0 0 0
+1 20322 100
+E
+whitestone cudgel~
+   &+WThis cudgel, made entirely out of whitestone, is long and heavy.
+&+WA huge club that comes to a smoothed-off head, this cudgel has some
+&+Wfaint signs of &+Mpink &+Wstreaked across its body, dyed over time
+&+Wfrom &N&+rblood &+Win earlier encounters.  The &N&+rcudgel &+Whas a
+&+wsmooth handle that has been secured by &+Wwhite leather &+Wending in
+&+Wa large &N&+yloop &+Wfor easy carrying.
+~
+A
+18 4
+A
+19 5
+#83461
+marble statue of taark shanat~
+&+Wa ma&nrb&+Ll&+We st&+La&Nt&+Wu&Ne &+Wof &NT&+Waa&+Lr&Nk &+WSha&Nn&+La&+Wt~
+&+WPoised centrally upon the vestibule, a &+Lm&Na&+Wrb&+Ll&Ne &+Wsta&+Lt&Nu&+We of &+WTaa&Nr&+Lk &+WSh&+La&Nn&+Wat stands poised in combat.~
+~
+8 38 6 0 15 0 0 0 2 0 0
+0 0 0 0 0 0 0 0
+800 0 100
+E
+marble statue of taark shanat~
+   &+WThis exquisite statue is crafted of the purest ma&Nr&+Lb&Nl&+We.  Taark
+&+WShanat stands tall in combat, holding his warhammer high over his head in
+&+Wa moment of utter fury just as he is about to smash it into the doomed
+&+Wrecipient unlucky enough to receive such a blow.
+~
+#83462
+suit spiked platemail bearing symbol alatorin~
+&+Wa suit of spiked platemail bearing the symbol of &N&+cAlatorin&N~
+&+WA suit of spiked platemail bearing the symbol of &n&+cAlatorin &+Whas been left here.~
+~
+9 16 4 0 14 0 0 9 64 0 0
+20 0 0 5 1 0 0 0
+8 150233 100
+E
+suit spiked platemail bearing symbol alatorin~
+   &+WThis large suit of platemail is made of huge, thick scales.
+&+WMassive &N&+mmithril spikes &+Wjust out from the shoulders and
+&+Welbows, as well as the knees.  A huge crest of a &+csword &+Wcrossed
+&+Wwith a &+Chammer &+Wover a &+Bshield &+W - the symbol of &N&+cAlatorin&+W graces the brest.
+~
+A
+17 -60
+A
+19 3
+#83463
+object unnamed~
+an unnamed object~
+An unnamed object lies here, looking lonely and forelorn.~
+~
+13 15 3 0 7 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 100

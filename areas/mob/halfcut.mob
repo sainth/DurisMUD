@@ -443,8 +443,8 @@ A Large earth elemental stands here looking angry.
 ~
 This large earth elemental seams to like this harsh climate, but not you.
 ~
-10 1 0 33554432 0 0 0 -100 S
-EE 0 0 -1
+2058 1 0 33554432 0 0 0 -100 S
+EE 0 1 -1
 45 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 0
@@ -653,8 +653,8 @@ A Large &+CAir&N Elemental seems to be glaring across the plateau at someone.
 This large whirl wind is noticeable looking across the plateau at something.
 Looks as if he is a bit miffed at the earth elemental across the way.
 ~
-14 1 0 33554440 0 0 0 0 S
-EA 0 0 -1
+2062 1 0 33554440 0 0 0 0 S
+EA 0 1 -1
 47 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 0

@@ -414,17 +414,17 @@ favor~
 QA
 &N$n grins and says 'Thanks!  Remember, just give me ten of those pieces and I'll give ya a whole token!'
 ~
-R I 83245
+R I 83458
 G I 1252
 QA
 &N$n says 'Thanks!  Remember, just give me ten of those pieces and I'll give ya a whole token!'
 ~
-R I 83245
+R I 83458
 G I 1250
 QA
 &n$n says 'Thanks!  Remember, just give me ten of those pieces and I'll give ya a whole token!'
 ~
-R I 83245
+R I 83458
 G I 1254
 QA
 &N$n says 'Excellent work $N!  All ten pieces!  Here is your token!  Now you know where you take these right?  All commendation tokens to &+CCourt Hall.&+W'
@@ -452,6 +452,21 @@ G I 83274
 G I 83274
 G I 83274
 G I 83274
+QA
+&+W'Well done!'&N an exuberant $n exclaims.
+&+W'Take this token fragment of commendation.  Return to me with ten and I shall fuse them.'
+~
+R I 83245
+G I 83458
+G I 83458
+G I 83458
+G I 83458
+G I 83458
+G I 83458
+G I 83458
+G I 83458
+G I 83458
+G I 83458
 S
 #83151
 M
@@ -1410,7 +1425,8 @@ QA
 &nWith a large smile on his face, $n says 'Well done $N.  You have proven your honour.'
 'This key will unlock the gate to the stairs of virtue' he says with a solemn bow.
 ~
-R I 83371
+R I 83338
+R E 250000
 G I 83250
 G I 83250
 G I 83250

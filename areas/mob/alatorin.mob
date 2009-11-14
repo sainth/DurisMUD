@@ -4538,14 +4538,17 @@ pf 0 4194816 -1
 0.0.0.0 0
 8 8 1
 #83387
-mob unnamed~
-an unnamed mob~
-An unnamed mob stands here, looking lonely and forelorn.
+gust black smoke appirition~
+&+La black appirition&N~
+&+LA swirling gust of black smokes zips sporadically through the tower.
 ~
+&+L   This strange puff of black smoke swirls and zips sporadically
+&+Lthroughout the tower.  It appears to be sentient, but lacks any
+&+Ltrance of physical existence other then its color.
 ~
-8 0 0 0 0 0 0 0 S
-PH 0 0 -1
-1 0 0 1d1+1 1d1+1
+1073770696 0 0 134217728 0 0 0 -1000 S
+an 0 128 -1
+41 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 0
 #83388
@@ -4559,7 +4562,7 @@ massive flesh golem _spec1_ _ignore_~
 2250 0 0 134217880 2048 0 0 -1000 S
 u 0 1 7
 51 -4 -80 400d30+5000 6d6+6
-5.12.17.22 220500
+5.12.17.22 1250000
 8 8 0
 #83389
 halfling scribe~
@@ -4578,7 +4581,7 @@ pf 0 512 -1
 #83390
 meditative halfling mage~
 &+ya &+Wmeditative &N&+yhalfling &n&+mm&+Mag&N&+me&N~
-&+LA &+Wmeditative &N&+yhalfling &N&+mm&+Mag&N&+me &+Lrests on a pillow.
+&+LA &N&+yhalfling &N&+mmage &+Lrests here, his &+Weyes &+Lrolled back in a trance.
 ~
    &+LThis halfling &+Mmage &+Lis clearly one of the rare and
 &+Lpriviledged young halflings that has been granted the opportunity
@@ -4590,7 +4593,7 @@ pf 0 2560 -1
 0.0.0.0 0
 8 8 1
 #83391
-xamora halfling master magician~
+xamora halfling master magician _spec1_~
 &+CX&N&+ca&+Bmo&N&+cr&+Ca &N&+ythe halfling &+Wmaster &N&+bma&+Yg&n&+bic&+Yi&N&+ban&N~
 &+CX&N&+ca&+Bmo&N&+cr&+Ca &N&+ythe halfling &+Wmaster &N&+bma&+Yg&N&+bi&+Yc&N&+bian &+Wflies here.
 ~
@@ -4600,8 +4603,8 @@ a powerful magic, legendary amongst her people.  She has taken her craft to the
 far mountains of Shanatar and erected this very stone pillar.  She wears loose,
 but elegant silk robes and flies through her tower having the time of her life.
 ~
-1073776842 0 0 0 14528 64 0 1000 S
-pf 0 2560 -1
+1342228682 0 0 2550136856 14528 524416 0 1000 S
+pf 0 4194304 -1
 60 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 2
@@ -4995,3 +4998,18 @@ pd 0 548 2
 60 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 1
+#83416
+white appirition~
+&+Wa white appirition&N~
+&+WA brilliant white appirition floats through the tower.
+~
+   &+WThis brilliant, white appirition floats through the tower
+&+Wof Xamora, possibly existing only as this moving light-source.
+&+WIt seems to be aware of anyone who approaches it, reacting
+&+Wtimidly and cautious.
+~
+1073893576 0 0 134217728 0 0 0 1000 S
+an 0 128 -1
+41 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 0

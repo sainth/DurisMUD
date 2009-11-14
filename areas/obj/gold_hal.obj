@@ -72,7 +72,7 @@ blue orb~
 &+Ba blue orb&N~
 &+BA blue orb sits here glistening with light.~
 ~
-4 7 3 0 8 0 3149833 16385 64 0 0
+4 7 3 0 8 0 3145737 16385 64 0 0
 35 3 3 15 0 0 0 0
 0 17000 100
 E
@@ -1127,9 +1127,9 @@ spellbook book bound silver~
 &+La spellbook bound in &+Csilver&N~
 &+LA spellbook bound in &+Csilver&N is here.&N~
 ~
-33 15 3 0 7 0 1 16385 64 0 0
+33 22 2 0 7 0 1 16385 64 0 0
 0 0 150 0 0 0 0 0
-4 99999 100
+4 15000 100
 E
 spellbook book bound silver~
    &+LThis book is simply that, a standard spellbook bound in a silver

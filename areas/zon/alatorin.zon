@@ -1,6 +1,6 @@
 #831
 &+CAlatorin &+L- the &N&+rForge &+LCity~
-83879 2 0 40 50 1
+83880 2 0 40 50 1
 *
 * Zone edited with durisEdit v2.99de
 *
@@ -209,9 +209,9 @@ D 0 83182 3 2 100 0 0 0
 *     west exit from "The Mystic Ward" to
 *     "A Shimmering Portal" - closed/locked
 *
-D 0 83831 1 1 100 0 0 0
+D 0 83831 1 5 100 0 0 0
 *     east exit from "A Shimmering Portal" to
-*     "The Mystic Ward" - closed
+*     "The Mystic Ward" - closed/secret
 *
 D 0 83194 2 1 100 0 0 0
 *     south exit from "A Hall of Brewing Stills" to
@@ -1242,6 +1242,7 @@ P 1 58336 5 83199 100 0 0 0        *   (object type not in this .obj file)
 O 0 83212 3 83213 100 0 0 0        * a stone hearth
 O 0 83212 3 83215 100 0 0 0        * a stone hearth
 O 0 361 2 83218 100 0 0 0          * (object type not in this .obj file)
+O 0 83461 1 83225 100 0 0 0        * a marble statue of Taark Shanat
 O 0 83139 7 83227 100 0 0 0        * a small wooden desk
 P 1 58335 5 83139 100 0 0 0        *   (object type not in this .obj file)
 P 1 5 1 83139 100 0 0 0            *   (object type not in this .obj file)
@@ -1642,8 +1643,18 @@ O 0 83359 1 83600 100 0 0 0        * the wall
 O 0 83360 1 83616 100 0 0 0        * the wall
 O 0 6603 1 83617 100 0 0 0         * (object type not in this .obj file)
 O 0 1460 3 83618 100 0 0 0         * (object type not in this .obj file)
+O 0 83366 10 83618 60 0 0 0        * an antiquated silver dragon egg
+O 0 83366 10 83618 100 0 0 0       * an antiquated silver dragon egg
+O 0 83366 10 83618 35 0 0 0        * an antiquated silver dragon egg
+O 0 83366 10 83618 10 0 0 0        * an antiquated silver dragon egg
+O 0 83366 10 83619 20 0 0 0        * an antiquated silver dragon egg
+O 0 83366 10 83620 85 0 0 0        * an antiquated silver dragon egg
+O 0 83366 10 83620 40 0 0 0        * an antiquated silver dragon egg
+O 0 83366 10 83620 15 0 0 0        * an antiquated silver dragon egg
 O 0 1460 3 83623 100 0 0 0         * (object type not in this .obj file)
+O 0 83366 10 83624 15 0 0 0        * an antiquated silver dragon egg
 O 0 1460 3 83625 100 0 0 0         * (object type not in this .obj file)
+O 0 83366 10 83626 15 0 0 0        * an antiquated silver dragon egg
 O 0 83139 7 83627 100 0 0 0        * a small wooden desk
 P 1 58335 5 83139 100 0 0 0        *   (object type not in this .obj file)
 P 1 83385 1 83139 100 0 0 0        *   a hide-bound notebook
@@ -1749,7 +1760,7 @@ E 1 83119 999 16 100 0 0 0         *   a polished iron broadsword
 M 0 83126 1 83121 100 0 0 0        * Brudo 'Short Stack' MacFuggens
 E 1 83119 999 16 100 0 0 0         *   a polished iron broadsword
 E 1 83344 1 17 100 0 0 0           *   a magical emerald shortsword
-F 1 83157 18 83121 100 0 0 0       * an Alatorin peacekeeper (following)
+F 1 83157 19 83121 100 0 0 0       * an Alatorin peacekeeper (following)
 E 1 83111 999 16 100 0 0 0         *   an iron broadsword
 E 1 83111 999 17 100 0 0 0         *   an iron broadsword
 M 0 83121 6 83122 100 0 0 0        * a shield dwarf explorer
@@ -1775,7 +1786,7 @@ M 0 83124 2 83128 100 0 0 0        * a retired guard
 M 0 83227 1 83133 100 0 0 0        * Farbash the dwarven inquisitor
 E 1 83214 2 16 100 0 0 0           *   an old heavy mithril hammer
 E 1 83215 1 17 3 0 0 0             *   an old heavy mithril hammer
-F 1 83157 18 83133 100 0 0 0       * an Alatorin peacekeeper (following)
+F 1 83157 19 83133 100 0 0 0       * an Alatorin peacekeeper (following)
 E 1 83119 999 16 100 0 0 0         *   a polished iron broadsword
 M 0 83228 1 83133 100 0 0 0        * an aspiring paladin
 M 0 83229 1 83134 100 0 0 0        * Ugort, the guardian
@@ -1875,16 +1886,16 @@ E 1 83192 999 8 100 0 0 0          *   some tempered mithril boots
 E 1 83190 999 10 100 0 0 0         *   some tempered mithril arm plates
 E 1 83341 1 16 100 0 0 0           *   the mithril axe of the dwarven lords
 E 1 83261 3 17 100 0 0 0           *   a mammoth stone dwarven warhammer
-F 1 83157 18 83159 100 0 0 0       * an Alatorin peacekeeper (following)
+F 1 83157 19 83159 100 0 0 0       * an Alatorin peacekeeper (following)
 E 1 83111 999 16 100 0 0 0         *   an iron broadsword
 E 1 83111 999 17 100 0 0 0         *   an iron broadsword
-F 1 83157 18 83159 100 0 0 0       * an Alatorin peacekeeper (following)
+F 1 83157 19 83159 100 0 0 0       * an Alatorin peacekeeper (following)
 E 1 83111 999 16 100 0 0 0         *   an iron broadsword
 E 1 83111 999 17 100 0 0 0         *   an iron broadsword
-F 1 83157 18 83159 100 0 0 0       * an Alatorin peacekeeper (following)
+F 1 83157 19 83159 100 0 0 0       * an Alatorin peacekeeper (following)
 E 1 83111 999 16 100 0 0 0         *   an iron broadsword
 E 1 83111 999 17 100 0 0 0         *   an iron broadsword
-F 1 83157 18 83159 100 0 0 0       * an Alatorin peacekeeper (following)
+F 1 83157 19 83159 100 0 0 0       * an Alatorin peacekeeper (following)
 E 1 83111 999 16 100 0 0 0         *   an iron broadsword
 E 1 83111 999 17 100 0 0 0         *   an iron broadsword
 M 0 83167 4 83164 100 0 0 0        * a hungry soldier
@@ -1997,7 +2008,7 @@ E 1 83334 1 9 100 0 0 0            *   some rugged gloves of thick hide
 E 1 83335 1 21 100 0 0 0           *   an electrum hoop
 E 1 83273 10 16 100 0 0 0          *   a heavy oaken mallet
 E 1 83273 10 17 100 0 0 0          *   a heavy oaken mallet
-F 1 83157 18 83197 100 0 0 0       * an Alatorin peacekeeper (following)
+F 1 83157 19 83197 100 0 0 0       * an Alatorin peacekeeper (following)
 E 1 83111 999 16 100 0 0 0         *   an iron broadsword
 E 1 83111 999 17 100 0 0 0         *   an iron broadsword
 M 0 83221 2 83203 100 0 0 0        * a common man
@@ -2045,10 +2056,12 @@ G 1 369 999 0 100 0 0 0            *    (object type not in this .obj file)
 G 1 189 999 0 100 0 0 0            *    (object type not in this .obj file)
 M 0 16695 1 83222 100 0 0 0        * (mob type not in this .mob file)
 M 0 83252 1 83227 100 0 0 0        * Modan Shanat the Clerk
-F 1 83157 18 83227 100 0 0 0       * an Alatorin peacekeeper (following)
+E 1 83460 1 16 100 0 0 0           *   a whitestone cudgel
+E 1 83459 1 19 100 0 0 0           *   a pair of gold-rimmed tinted spectacles
+F 1 83157 19 83227 100 0 0 0       * an Alatorin peacekeeper (following)
 E 1 83111 999 16 100 0 0 0         *   an iron broadsword
 E 1 83111 999 17 100 0 0 0         *   an iron broadsword
-F 1 83157 18 83227 100 0 0 0       * an Alatorin peacekeeper (following)
+F 1 83157 19 83227 100 0 0 0       * an Alatorin peacekeeper (following)
 E 1 83111 999 16 100 0 0 0         *   an iron broadsword
 E 1 83111 999 17 100 0 0 0         *   an iron broadsword
 M 0 83198 1 83228 100 0 0 0        * a young and impressionable guard
@@ -2254,7 +2267,7 @@ E 1 83207 4 17 100 0 0 0           *   a steel cutlass
 F 1 83216 2 83286 100 0 0 0        * a rugged mercenary (following)
 E 1 83207 4 16 100 0 0 0           *   a steel cutlass
 E 1 83207 4 17 100 0 0 0           *   a steel cutlass
-F 1 83157 18 83286 100 0 0 0       * an Alatorin peacekeeper (following)
+F 1 83157 19 83286 100 0 0 0       * an Alatorin peacekeeper (following)
 E 1 83119 999 16 100 0 0 0         *   a polished iron broadsword
 E 1 83111 999 17 100 0 0 0         *   an iron broadsword
 M 0 83213 1 83287 100 0 0 0        * a faerie sprite
@@ -2262,16 +2275,16 @@ E 1 83205 1 21 100 0 0 0           *   a sparkling golden hoop earring
 G 1 500013 3 0 100 0 0 0           *    (object type not in this .obj file)
 G 1 500013 3 0 100 0 0 0           *    (object type not in this .obj file)
 G 1 500013 3 0 100 0 0 0           *    (object type not in this .obj file)
-F 1 83157 18 83287 100 0 0 0       * an Alatorin peacekeeper (following)
+F 1 83157 19 83287 100 0 0 0       * an Alatorin peacekeeper (following)
 E 1 83119 999 16 100 0 0 0         *   a polished iron broadsword
 E 1 83119 999 17 100 0 0 0         *   a polished iron broadsword
 M 0 83214 1 83288 100 0 0 0        * a gnomish master craftsman
 E 1 83206 1 13 100 0 0 0           *   a gnomish harm prevention belt
-F 1 83157 18 83288 100 0 0 0       * an Alatorin peacekeeper (following)
+F 1 83157 19 83288 100 0 0 0       * an Alatorin peacekeeper (following)
 E 1 83119 999 16 100 0 0 0         *   a polished iron broadsword
 M 0 83217 1 83289 100 0 0 0        * a chromium dragon
 G 1 83313 1 0 100 0 0 0            *    some chromium dragonscales
-F 1 83157 18 83289 100 0 0 0       * an Alatorin peacekeeper (following)
+F 1 83157 19 83289 100 0 0 0       * an Alatorin peacekeeper (following)
 G 1 83119 999 0 100 0 0 0          *    a polished iron broadsword
 M 0 83218 7 83293 100 0 0 0        * a citadel summoner
 M 0 83287 6 83293 100 0 0 0        * a half-visible dwarf
@@ -2311,10 +2324,10 @@ G 1 94336 5 0 100 0 0 0            *    (object type not in this .obj file)
 M 0 83185 1 83295 30 0 0 0         * Mishanen, the centaur herbalist
 E 1 83186 1 37 100 0 0 0           *   a tail ring of gilded sunpetals
 G 1 83187 1 0 100 0 0 0            *    a gnarled wooden wand
-M 0 83157 18 83295 100 0 0 0       * an Alatorin peacekeeper
+M 0 83157 19 83295 100 0 0 0       * an Alatorin peacekeeper
 E 1 83112 999 11 100 0 0 0         *   an iron shield bearing the crest of Alatorin
 E 1 83111 999 16 100 0 0 0         *   an iron broadsword
-M 0 83157 18 83295 100 0 0 0       * an Alatorin peacekeeper
+M 0 83157 19 83295 100 0 0 0       * an Alatorin peacekeeper
 E 1 83112 999 11 100 0 0 0         *   an iron shield bearing the crest of Alatorin
 E 1 83111 999 16 100 0 0 0         *   an iron broadsword
 M 0 83276 1 83300 100 0 0 0        * Meshadan the recruiter
@@ -2495,7 +2508,7 @@ E 1 83216 5 16 100 0 0 0           *   a green longsword
 E 1 83216 5 17 100 0 0 0           *   a green longsword
 M 0 83234 2 83401 100 0 0 0        * a young fighter
 M 0 83234 2 83401 100 0 0 0        * a young fighter
-M 0 83157 18 83401 100 0 0 0       * an Alatorin peacekeeper
+M 0 83157 19 83401 100 0 0 0       * an Alatorin peacekeeper
 E 1 83119 999 16 100 0 0 0         *   a polished iron broadsword
 M 0 83255 1 83410 100 0 0 0        * a spirit avatar of Dumathoin
 G 1 83253 1 0 100 0 0 0            *    an ancient cracked stone key
@@ -2556,7 +2569,7 @@ M 0 83242 1 83428 100 0 0 0        * Fergulton the inventor
 E 1 83232 1 8 100 0 0 0            *   some gnomish rocket boots
 E 1 83231 1 18 100 0 0 0           *   a gnomish explosive-launcher prototype
 E 1 83233 1 19 100 0 0 0           *   some catseye inventor's goggles
-F 1 83157 18 83428 100 0 0 0       * an Alatorin peacekeeper (following)
+F 1 83157 19 83428 100 0 0 0       * an Alatorin peacekeeper (following)
 E 1 83111 999 16 100 0 0 0         *   an iron broadsword
 E 1 83111 999 17 100 0 0 0         *   an iron broadsword
 M 0 83243 7 83429 100 0 0 0        * a strong, noble minotaur diplomat
@@ -2917,10 +2930,14 @@ M 0 83333 1 83618 100 0 0 0        * an ancient white dragon
 G 1 83376 1 0 100 0 0 0            *    the disembodied head of a white dragon
 G 1 83377 1 0 100 0 0 0            *    some silver dragonscales
 M 0 83348 1 83627 100 0 0 0        * Ulster Stonehammer the constable
+E 1 83462 1 5 100 0 0 0            *   a suit of spiked platemail bearing the symbol of Alatorin
 E 1 83261 3 16 100 0 0 0           *   a mammoth stone dwarven warhammer
-M 0 83157 18 83627 100 0 0 0       * an Alatorin peacekeeper
+F 1 83157 19 83627 100 0 0 0       * an Alatorin peacekeeper (following)
 E 1 83111 999 16 100 0 0 0         *   an iron broadsword
 E 1 83111 999 17 100 0 0 0         *   an iron broadsword
+F 1 83157 19 83627 100 0 0 0       * an Alatorin peacekeeper (following)
+E 1 83142 999 16 100 0 0 0         *   a huge warhammer
+E 1 83142 999 17 100 0 0 0         *   a huge warhammer
 M 0 83340 1 83641 100 0 0 0        * Barny Taskgulch the watcher
 E 1 83397 1 24 100 0 0 0           *   a war banner of Khoralator
 E 1 83396 5 5 100 0 0 0            *   a full suit of mithril plate
@@ -3233,18 +3250,21 @@ G 1 83431 1 0 100 0 0 0            *    a large rusty gate key
 M 0 83391 1 83823 100 0 0 0        * Xamora the halfling master magician
 E 1 83437 1 5 100 0 0 0            *   a beautiful blue silk robe
 E 1 83438 1 19 100 0 0 0           *   some sun-glasses with pink-painted frames
+G 1 83430 2 0 100 0 0 0            *    a thick elemental key
+M 0 83416 1 83824 100 0 0 0        * a white appirition
+M 0 83387 1 83825 100 0 0 0        * a black appirition
 M 0 83389 4 83827 100 0 0 0        * a halfling scribe
 M 0 83389 4 83827 100 0 0 0        * a halfling scribe
 M 0 83389 4 83827 100 0 0 0        * a halfling scribe
 M 0 83389 4 83827 100 0 0 0        * a halfling scribe
 M 0 83386 1 83828 100 0 0 0        * a halfling magician
 G 1 83145 3 0 100 0 0 0            *    a tiny key
-G 1 83430 1 0 100 0 0 0            *    a thick elemental key
-M 0 55551 1 83829 35 0 0 0         * (mob type not in this .mob file)
-M 0 55550 1 83829 35 0 0 0         * (mob type not in this .mob file)
-M 0 55552 1 83829 35 0 0 0         * (mob type not in this .mob file)
-M 0 55553 1 83829 35 0 0 0         * (mob type not in this .mob file)
-M 0 55554 1 83829 35 0 0 0         * (mob type not in this .mob file)
+G 1 83430 2 0 100 0 0 0            *    a thick elemental key
+M 0 55551 1 83829 40 0 0 0         * (mob type not in this .mob file)
+M 0 55550 1 83829 40 0 0 0         * (mob type not in this .mob file)
+M 0 55552 1 83829 40 0 0 0         * (mob type not in this .mob file)
+M 0 55553 1 83829 40 0 0 0         * (mob type not in this .mob file)
+M 0 55554 1 83829 40 0 0 0         * (mob type not in this .mob file)
 M 0 83390 4 83830 100 0 0 0        * a meditative halfling mage
 M 0 83390 4 83830 100 0 0 0        * a meditative halfling mage
 M 0 83390 4 83830 100 0 0 0        * a meditative halfling mage
