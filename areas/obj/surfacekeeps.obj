@@ -767,6 +767,20 @@ A
 55 2
 A
 24 -4
+#120048
+small ore deposit~
+&+La small &+Yore&+L deposit&N~
+&+LA small &+Yore &+Ldeposit has been unearthed amongst the &N&+yrocks.~
+~
+15 11 3 0 7 0 4096 0 0 0 0
+500 0 0 500 0 0 0 0
+0 0 100
+E
+small ore deposit~
+&N&+yThe jagged rocks of the Shanatar valley floor in this narrow cornice
+&+yreach a rough, broken area where a small rockpile has gathered.
+&+yWithin this cornice a small &+Yore &N&+ydeposit is nested.
+~
 #120051
 freshly killed osquip remains~
 &n&+ya fr&+re&+yshl&+ry-&+ykil&+rl&+ye&+rd &+Yosquip&N~

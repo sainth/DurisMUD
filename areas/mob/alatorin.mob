@@ -3890,7 +3890,7 @@ mountain dwarf archer dwarven _spec4_~
 &+Ymaneuverability from afar.  His beard is tied into three long braids, and
 &+Yhis &+Bblue&+Y eye carry a determined, precise stare.
 ~
-2250 0 0 0 0 0 0 200 S
+1073744074 0 0 0 0 0 0 200 S
 pm 0 65536 -1
 51 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -5044,5 +5044,37 @@ sambisam gnome trickster~
 2250 0 0 0 0 0 0 0 S
 pg 0 4227072 -1
 60 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 1
+#83419
+modo dwarven treasure hunter~
+&+YM&+Bo&+Yd&+Bo &+Ythe dwarven &n&+ytreasure hunter&N~
+&+YM&+Bo&+Yd&+Bo &+Ythe dwarven &N&+ytreasure hunter&N readies himself for another expedition.
+~
+   &+BM&+Yo&+Bd&+Yo is a very well fit northland mountain dwarf.  He has
+&+Ybrilliant blonde hair and a glorious beard braided into four huge
+&+Ydread locks.  Piercing &+Bblue &+Yeyes sit under a deep brow.  A large
+&+Rred &+Ynose sprouts forth between &+Rrosy &+Ycheekbones, kissed by the
+&+Wchill &+Yof the &N&+yShanatar &+Ywinds.
+~
+1073743880 0 0 134217752 0 0 0 800 S
+pm 0 16384 -1
+54 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 1
+#83420
+dezik goblin hunter~
+&+RD&N&+re&+Rz&N&+ri&+Rk&N&+r the &N&+ggoblin &N&+rhunter&N~
+&N&+rA spry, sneaky &+ggoblin &+rnamed &+RD&N&+re&+Rz&N&+ri&+Rk &+Rwalks through here, preparing to brave the mountains.
+~
+   &+rDezik is a spry, cunning &+ggoblin &+rwho had been outcasted from his
+&+rnative &+GGruneegth&N&+r after rumoring to have led a band of &+WWasephius'
+&N&+rmen into the streets of &+GGruneegth&N&+r, resulting in the assassination
+&+rof &+GGalban&n&+r.  Nowadays, however, Dezik finds himself immersed in
+&+rthe great lore of &N&+yShanatar&N&+r and the beasts that dwell within.
+~
+1073744072 0 0 134217752 0 0 0 -1000 S
+hg 0 20480 -1
+54 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 1

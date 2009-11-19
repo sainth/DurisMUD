@@ -2234,6 +2234,7 @@ QA
 &N$n says 'Well done, $n!'
 ~
 R I 38779
+R I 83450
 G I 31538
 S
 #83394
@@ -2274,5 +2275,78 @@ G I 20253
 G I 42948
 D
 &n&+r'Take this ring,'&N he says, before disappearing into the shadows.
+~
+S
+#83419
+M
+qc_action 150~
+&N$n &+Churridly walks through here, quickly padding down his chest and pants pockets.
+~
+MA
+hi hello modo~
+&N$n smiles at $N and bows.
+'&+WGreetings $N.  I am Modo, formerly of Winterhaven.  I have taken to these mountains in search of the riches that lie beneath.  Have you been to Shanatar?'
+~
+MA
+no~
+&N$n nods at $N and says &+W'Ahhh.  It is a violent place; I suggest you prepare.'
+~
+MA
+prepare~
+&N$n nods at $N and continues '&+WYou must prepare for Shanatar!  Such an unforgiving mountain.  There are many beasts, including a dragon!'
+~
+MA
+shanatar yes~
+&N$n nods at $N and says &+W'The shield dwarves live in Alatorin up to the northwest, while us mountain dwarves are welcome there - visiting our cousins is not my purpose here.  You see $N, there is a dragon...'
+~
+MA
+dragon dragons~
+&N$n blinks at $N and nods.
+He says &+W'Every now and again you'll see it flying ahead!  It killed thirteen of my men, $N.. a great white dragon that stalks these mountains.  We ventured into its cave one night when it was not there.  That's when we saw them.. crystalized eggs!'
+$N gulps, and continues &+W'That's also when it came back.  It was ruthless, $N.  I have not found any dwarves daring enough to go back!  Please $N, return back to me with one of those &+Cdragon eggs&+W and I will be eternally grateful.'
+~
+QA
+&N$n says &+W'Ahh yes!  You did it!  Well done, $N!'
+~
+R C 100000
+R E 80000
+G I 83366
+D
+&N$n says &+W'I'm afraid I have nothing more I can give you right now, but you can find me at Khoralator Fort in the future.'
+~
+S
+#83420
+M
+qc_action 150~
+&N$n &N&+gpeaks through the area.
+&N$n quickly coils a bunch of rope and throws it over his shoulder.
+~
+MA
+hi hello~
+&N$n snorts at $N and goes back to preparing to brave &N&+yShanatar&+r.
+~
+MA
+wasephius gold halls gruneegth~
+&N$n glares at $N upon hearing about his former life..
+&+r'You will do best to hold your tongue..' he whispers in $N's ear.
+&+r'We are in Shanatar now.'
+~
+MA
+shanatar~
+&N$n nods at $N and says &+r'Shanatar is a very unforgiving place.  Many beasts and treasures lie hidden between the rocks of the valley, even a great white dragon with immense power.'
+~
+MA
+dragon~
+&N$n nods at $N and says &+r'Return to me with a &+Cdragon egg &N&+rfrom the nest of these vicious beasts, and I shall reward you.'
+~
+QA
+&N$n grins at $N showing his &+Wtoothy &N&+rsmile.
+&+r'Well done, $N.'
+~
+R C 100000
+R E 80000
+G I 83366
+D
+&N$n sneaks off into the &+Ldarkness.
 ~
 S

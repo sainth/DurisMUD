@@ -326,6 +326,34 @@ QA
 ~
 R I 83377
 G I 83377
+QA
+&N$n grunts '&+WGreat, $N!'
+$n opens the $q and chugs away.
+Licking his lips, $n belches out 'Del-ici-ous!'
+~
+R C 28000
+R E 7000
+G I 83118
+QA
+&N$n grins and his eyes light up as he sees the barrel marked &+y'Barlows'
+&nWith an un-hesitant tapping of the keg, he quickly sucks the &N&+yale &Nfrom its container.
+With a hearty *bELcH*!!  $n says '&+WAhh some of that Barlow ale really hits the spot!  Ya done well!&N'
+~
+R C 30000
+R E 5000
+G I 83172
+QA
+&N$n excitedly pops open $q and begins to chug down the &+Wfrothy &N&+ydwarven &+Ybrew&N.
+&NAfter letting out a large belch, he smiles and nods.
+~
+R C 25000
+R E 5000
+G I 83428
+Q
+~
+R C 28750
+R E 8750
+G I 83417
 S
 #120041
 M

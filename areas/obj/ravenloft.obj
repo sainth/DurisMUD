@@ -2037,7 +2037,7 @@ sword scourging~
 &+LThe sword of scourging has been left here, &+rhumming &+Lwith &+Revil&+L.~
 ~
 5 19 4 0 7 0 37748736 8193 66 0 0
-13 4 3 0 0 327016 56 30
+13 4 6 0 0 327016 56 25
 11 44930 100 0 0 0 536870912
 E
 _room_msg~
@@ -2056,7 +2056,7 @@ E
 sword scourging~
 ~
 A
-19 4
+19 5
 A
 18 5
 #58427

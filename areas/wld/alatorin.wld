@@ -5695,7 +5695,7 @@ D2
 0 0 83364
 S
 #83366
-&+RA Red Hallway&N~
+&+RA Red Hallway Vestibule&N~
    &+RThis secret, narrow hallway reaches throughout the &+bRogue Lair&+R and
 &+Rthrough the depths of &+cAlatorin&+R.  There are numerous stolen pieces
 &+Rof artwork, including brilliant &+Ypa&+Wi&+Bnt&+gin&+Lg&+gs &+Rseperated by burning &+Ytorches&+L.
@@ -13514,6 +13514,11 @@ D3
 ~
 ~
 0 0 83759
+D5
+&+LA &N&+ywooden trapdoor&+L is behind the bar.
+~
+trapdoor~
+5 0 83881
 S
 #83761
 &+LA Shady Corner of the Tavern&N~
@@ -15844,4 +15849,20 @@ D0
 ~
 brig~
 3 83472 83627
+S
+#83881
+&+LA Small &N&+yLiquor Hutch&N~
+   &+LThis small liquor hutch made of four rows of solid &N&+rjodani &+Lwood
+&+Lshelves lined up are filled with old bottles, mostly expired, of wine and
+&+Lother spirits.  The ceiling is quite low and the floor is dirty.  There
+&+Lare several spider webs around the ceiling and on many of the bottles.
+&+LClearly thus liquor hutch is no longer used for the tavern and has gone
+&+Luntouched for some time.
+~
+831 0 0
+D4
+&+LA &N&+ywooden &+Ltrapdoor leads back up to the bar.
+~
+trapdoor~
+5 0 83760
 S

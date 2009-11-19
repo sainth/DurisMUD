@@ -5505,13 +5505,29 @@ A
 A
 24 -1
 #83450
-object unnamed~
-an unnamed object~
-An unnamed object lies here, looking lonely and forelorn.~
+horned ritualistic mask moregeeth~
+&+La &+Yhorned &N&+cr&+mi&+ct&+mu&+ca&+ml&+ci&+ms&+ct&+mi&+cc &+Lmask of &+GMo&N&+gre&+Gg&N&+ge&+Ge&N&+gth&N~
+&+LA strange &+Yhorned &+Lmask has been left here.~
 ~
-13 15 3 0 7 0 0 0 0 0 0
-0 0 0 0 0 0 0 0
-0 0 100
+9 50 2 0 2 0 1 262145 64 0 0
+5 0 0 3 0 0 0 0
+0 603 100 8 28 0 0
+E
+horned ritualistic mask moregeeth~
+   &+yThis poorly-made, yet ancient mask of the &N&+gMoregeeth &N&+ygoblins
+&+yis infused with generations of dark withcery.  The mask is made of several
+&+ylong feathers, most likely local &+Wstorks &n&+yor &+Lcrows&N&+y, attached to
+&+ya center wooden cross-piece, from which other feathers are bent around one
+&+yanother to form eye-holes.  The entire thing is painted with stripes of
+&+rdark red&+y, which one can only assume to be &+rblood&+y, and &+Lblack&N&+y from an
+&+yunknown origin.  This tattered, old feather mask may seem flimsy and even
+&+ymistaken as garbage, however it resonante with a deep strange magic passed
+&+yon from its former users.
+~
+A
+34 2
+A
+33 2
 #83451
 hooded flowing black robe~
 &+La hooded flowing black robe&N~
@@ -5884,7 +5900,7 @@ dangling bloodstone earring~
 &+Lsome value that they may otherwise be aesthetially lacking.
 ~
 A
-13 20
+13 22
 A
 19 3
 #83472
@@ -5900,3 +5916,51 @@ brig key~
    &+RThis large mithril key has been completed painted red, much like the
 &+Rlocks and cell interior of the Alatorin Brig for which it grants access.
 ~
+#83473
+keg beer golden pearl~
+&N&+ya keg of beer from &N'the &+YGolden Pearl&N'~
+&+yA large keg of beer marked with the symbol of &N'The &+YGolden Pearl&N' is sitting here upright.~
+~
+8 6 4 0 5 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+8 6332 100
+E
+keg beer golden pearl~
+   &+yThis large &+rjodani wood &+ykeg is made to be very long-lasting,
+&+yand thankfully so.  It is quite old, but the markings on the front
+&+yread as freshly as ever &N&+y'The &+YGolden Pearl&N'
+~
+#83474
+huge spiked bloody dwarven hammer~
+&N&+ma huge spiked &N&+rbloody &N&+mdwarven hammer&N~
+&+mA bloody mithril dwarven battle hammer has been left here.~
+~
+5 18 4 0 7 0 4194304 8193 64 0 0
+4 4 7 0 0 0 0 0
+2 32119 100
+E
+huge spiked bloody dwarven hammer~
+   &+mThis huge dwarven mithril battle hammer has massive spikes surrounding
+&+mthe head.  There are various bloodstains from numerous victims that this
+&+mhammer has surely dismantled over the years.
+~
+A
+18 6
+A
+19 6
+#83475
+dangling whitestone earring~
+&+La dangling &Nw&+Wh&Ni&+Wtest&No&+Wn&Ne&+L earring&N~
+&+LA dangling &Nwhite&+Wstone&+L earring has been left here.~
+~
+9 39 1 0 7 0 0 524289 64 0 0
+5 0 0 0 0 0 0 0
+0 9332 100
+E
+dangling whitestone earring~
+   &+WA tiny whitestone cross hangs from a &+Ygolden chain.
+~
+A
+18 4
+A
+19 2
