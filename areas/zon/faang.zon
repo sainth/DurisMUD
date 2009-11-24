@@ -298,7 +298,7 @@ M 0 15231 6 15357 100 0 0 0        * a tribal warrior
 M 0 15231 6 15357 100 0 0 0        * a tribal warrior
 M 0 15231 6 15357 100 0 0 0        * a tribal warrior
 M 0 15207 5 15364 100 0 0 0        * a small lizard
-M 0 15226 1 15366 100 0 0 0        * (mob type not in this .mob file)
+M 0 15226 1 15366 100 0 0 0        * an ogre merchant
 G 1 101 9999 0 100 0 0 0           *    (object type not in this .obj file)
 G 1 612 9999 0 100 0 0 0           *    (object type not in this .obj file)
 G 1 633 9999 0 100 0 0 0           *    (object type not in this .obj file)
@@ -319,10 +319,10 @@ M 0 15229 3 15385 100 0 0 0        * a tribal mercenary
 M 0 15229 3 15385 100 0 0 0        * a tribal mercenary
 M 0 15229 3 15385 100 0 0 0        * a tribal mercenary
 M 0 15224 7 15386 100 0 0 0        * a black bat
-M 0 15219 4 15402 100 0 0 0        * a pirahna
-M 0 15219 4 15402 100 0 0 0        * a pirahna
-M 0 15219 4 15402 100 0 0 0        * a pirahna
-M 0 15219 4 15402 100 0 0 0        * a pirahna
+M 0 15219 4 15402 100 0 0 0        * a piranha
+M 0 15219 4 15402 100 0 0 0        * a piranha
+M 0 15219 4 15402 100 0 0 0        * a piranha
+M 0 15219 4 15402 100 0 0 0        * a piranha
 M 0 15603 5 15500 100 0 0 0        * a black lizard
 M 0 15592 4 15501 100 0 0 0        * a hairy spider
 M 0 15506 12 15503 100 0 0 0       * a common bat
