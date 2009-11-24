@@ -1278,7 +1278,7 @@ void spell_shadow_rift(int level, P_char ch, char *arg, int type,
         return;
 
   if(GET_SPEC(ch, CLASS_ILLUSIONIST, SPEC_DARK_DREAMER))
-    CharWait(ch, 8);
+    CharWait(ch, number(8, 16));
   else if(IS_PC(ch))
     CharWait(ch, 80);
   else

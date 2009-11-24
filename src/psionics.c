@@ -2963,7 +2963,7 @@ void spell_ether_warp(int level, P_char ch, char *arg, int type,
         return;
 
   if(GET_SPEC(ch, CLASS_PSIONICIST, SPEC_PSYCHEPORTER))
-    CharWait(ch, 4);
+    CharWait(ch, number(4, 10));
   else if(IS_PC(ch))
     CharWait(ch, 80);
   else
