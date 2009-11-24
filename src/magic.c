@@ -2354,9 +2354,9 @@ void spell_conjour_greater_elemental(int level, P_char ch, char *arg,
   MonkSetSpecialDie(mob);       /* 2d6 to 4d5 */
   mob->points.damsizedice = (int)(0.8 * mob->points.damsizedice);
 
-  if(IS_PC(ch) &&              /*(GET_LEVEL(mob) > number((level - i * 4), level * 3 / 2)) */
+  if(IS_PC(ch) &&              
     !has_air_staff_arti(ch) &&
-    charisma < number(10, (int) (get_property("summon.greater.elemental.charisma", 140.000))) &&
+    (charisma + number(0, GET_LEVEL(ch)) < number(10, (int) (get_property("summon.greater.elemental.charisma", 140.000)))) &&
     !IS_TRUSTED(ch))
   {
     act("$N is NOT pleased at being suddenly summoned against $S will!",
