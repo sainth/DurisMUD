@@ -25,9 +25,9 @@ D 0 44407 1 2 100 0 0 0
 *     east exit from "An Adamantite Corridor" to
 *     "A Strangely Lit Corridor" - closed/locked
 *
-D 0 44465 3 2 100 0 0 0
+D 0 44465 3 1 100 0 0 0
 *     west exit from "A Strangely Lit Corridor" to
-*     "An Adamantite Corridor" - closed/locked
+*     "An Adamantite Corridor" - closed
 *
 D 0 44410 0 1 100 0 0 0
 *     north exit from "An Adamantite Corridor" to
@@ -41,9 +41,9 @@ D 0 44413 3 2 100 0 0 0
 *     west exit from "An Adamantite Corridor" to
 *     "A Strangely Lit Corridor" - closed/locked
 *
-D 0 44463 1 2 100 0 0 0
+D 0 44463 1 1 100 0 0 0
 *     east exit from "A Strangely Lit Corridor" to
-*     "An Adamantite Corridor" - closed/locked
+*     "An Adamantite Corridor" - closed
 *
 D 0 44416 1 1 100 0 0 0
 *     east exit from "An Adamantite Corridor" to
