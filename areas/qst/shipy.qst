@@ -512,14 +512,17 @@ QA
 &+RMartinek takes the clams and throws them in the cauldron.
 &+RThank you very much, here is your reward!
 ~
-R E 45000
-R C 52500
+R E 2000
+R C 2500
 G I 334
 G I 334
 G I 334
 G I 334
 G I 334
 G I 334
+D
+I must leave for a while.
+~
 S
 #43154
 M
