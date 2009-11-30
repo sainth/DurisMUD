@@ -134,12 +134,13 @@ M 0 87957 3 88156 100 0 0 0        * a mountain dwarf elite guard
 E 1 87951 1 16 100 0 0 0           *   a silver-bladed reaver
 M 0 87956 1 88157 100 0 0 0        * a dwarven cleric
 E 1 87950 1 16 100 0 0 0           *   a titanium warhammer called Deliverer
-M 0 87959 3 88158 100 0 0 0        * the agonized spirit
-M 0 87959 3 88159 100 0 0 0        * the agonized spirit
+M 0 87959 4 88158 100 0 0 0        * the agonized spirit
+M 0 87959 4 88159 100 0 0 0        * the agonized spirit
+M 0 87959 4 88160 100 0 0 0        * the agonized spirit
 M 0 87958 1 88161 100 0 0 0        * the lich of a long dead mage
 E 1 87953 1 8 100 0 0 0            *   a pair of black leather boots lined with metal
 G 1 87959 1 0 100 0 0 0            *    a crystalline key
-M 0 87959 3 88161 100 0 0 0        * the agonized spirit
+M 0 87959 4 88161 100 0 0 0        * the agonized spirit
 M 0 87955 1 88162 100 0 0 0        * the Wraith-Lord, Kelek
 E 1 87952 1 12 100 0 0 0           *   a fur-lined silk robe
 G 1 359 1 0 100 0 0 0              *    (object type not in this .obj file)
