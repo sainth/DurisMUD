@@ -2,4 +2,7 @@
 /dms_new
 /dms.*
 /nohup.out
+/Duris.xcodeproj
+/build
+/gmon.out
 *.o
