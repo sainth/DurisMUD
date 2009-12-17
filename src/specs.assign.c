@@ -1042,6 +1042,7 @@ void assign_mobiles(void)
   mob_index[real_mobile0(19730)].func.mob = guild_guard;
   mob_index[real_mobile0(19740)].func.mob = guild_guard;
   mob_index[real_mobile0(19880)].func.mob = astral_succubus;
+  mob_index[real_mobile0(19600)].func.mob = block_dir;
 
   /* Shabo shouts */
 
@@ -2295,7 +2296,7 @@ void assign_rooms(void)
   }
 
   world[real_room0(19890)].funct = GithyankiCave;
-  world[real_room0(19617)].funct = TiamatThrone;
+ // world[real_room0(19617)].funct = TiamatThrone;
   
   /* inns */
   world[real_room0(18729)].funct = inn;
