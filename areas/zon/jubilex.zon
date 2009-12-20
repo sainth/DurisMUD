@@ -215,9 +215,9 @@ O 0 87547 1 87589 100 0 0 0        * a wobbling portal
 O 0 87516 1 87623 100 0 0 0        * a large green switch
 O 0 87518 1 87624 100 0 0 0        * a cleansed lake of slime
 O 0 87528 1 87627 50 0 0 0         * the spiked circles of bloodletting
-O 0 87539 1 87627 5 0 0 0          * the mask of stone form
+O 0 87539 1 87627 10 0 0 0         * the mask of stone form
 O 0 87540 1 87627 33 0 0 0         * the slippers of rot and decay
-O 0 87564 1 87627 5 0 0 0          * the quiver of the ages
+O 0 87564 1 87627 15 0 0 0         * the quiver of the ages
 O 0 360 1 87627 100 0 0 0          * (object type not in this .obj file)
 O 0 67274 1 87627 100 0 0 0        * (object type not in this .obj file)
 O 0 55336 1 87627 100 0 0 0        * (object type not in this .obj file)
