@@ -5776,7 +5776,7 @@ void do_users(P_char ch, char *argument, int cmd)
     return;
   }
   
-  send_to_char("\r\n Character   | State       | Idle | Hostname\r\n-----------------------------------------------------------\r\n", ch);
+  send_to_char("\r\n Character   | State       | Idle | Hostname\r\n-----------------------------------------------------------------------------------\r\n", ch);
   for (P_desc d = descriptor_list; d; d = d->next)
   {
     // don't show admins of higher level who are invisible
@@ -5787,13 +5787,33 @@ void do_users(P_char ch, char *argument, int cmd)
    
     if( d->host )
     {
+      if (!*d->host2)
+      {
+        sprintf(hostbuf, "lib/etc/hosts/%d", d->descriptor);
+        FILE *f = fopen(hostbuf, "r");
+        
+        if (f != NULL)
+        {
+          if (fscanf(f, "%s\n", hostbuf) == 1)
+          {
+            strncpy(d->host2, hostbuf, 128);
+          }
+          else
+          {
+            strncpy(d->host2, d->host, 128);            
+          }
+
+          fclose(f);
+        }        
+      }
+
       if( got_dupe_host(d) )
       {
-        sprintf(hostbuf, "&+R%s&n", d->host);
+        sprintf(hostbuf, "&+R%s (%s)&n", d->host2, d->host);
       }
       else 
       {
-        sprintf(hostbuf, "%s", d->host);
+        sprintf(hostbuf, "%s (%s)", d->host2, d->host);
       }      
     }
     else
