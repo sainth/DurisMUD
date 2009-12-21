@@ -815,7 +815,7 @@ extern unsigned int game_locked;
 #define CMD_GATHER      788
 #define CMD_NAFK        789
 #define CMD_GRIMACE     790
-#define CMD_NEWB_SPELLUP 791
+#define CMD_NEWBSU      791
 #define CMD_GIVEPET     792
 #define CMD_OUTPOST     793
 #define CMD_OFFENSIVE   794

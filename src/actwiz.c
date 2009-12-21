@@ -9787,11 +9787,11 @@ void do_newb_spellup(P_char ch, char *arg, int cmd)
 
   if( *arg )
   {
-    P_char victim = get_char_room_vis(ch, buf);
+    P_char victim = get_char_vis(ch, buf);
 
     if( !victim )
     {
-      send_to_char("Nobody with that name here.\n", ch);
+      send_to_char("Nobody with that name.\n", ch);
       return;
     }
     
