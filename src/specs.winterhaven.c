@@ -2041,7 +2041,7 @@ int demon_slayer(P_obj obj, P_char ch, int cmd, char *arg)
 
       break;
       case 2:
-        act("&+LYour $q &+ggl&+Go&+gws &+Las it channels the powers of &+rJubliex &+Lupon your foe!&n", TRUE, ch, obj, vict, TO_CHAR);
+        act("&+LYour $q &+ggl&+Go&+gws &+Las it channels the powers of &+rJubilex &+Lupon your foe!&n", TRUE, ch, obj, vict, TO_CHAR);
         act("&+L$n's $q &+ggl&+Go&+gws &+Las it channels the powers of &+rJubilex &+Lupon you!&n", TRUE, ch, obj, vict, TO_VICT);
         act("&+L$n's $q &+ggl&+Go&+gws &+Las it channels the powers of &+rJubilex &+Lupon $N!&n", TRUE, ch, obj, vict, TO_NOTVICT);
 
@@ -4592,6 +4592,93 @@ int lancer_gift(P_obj obj, P_char ch, int cmd, char *arg)
         return TRUE;
       }
     }
+  }
+  return FALSE;
+}
+
+int cerberus_load(P_char ch, P_char pl, int cmd, char *arg)
+{
+  if (cmd == -1)
+  {
+    P_obj    obj;
+
+    switch(number(0,15))
+    {
+      case 0:
+        obj = read_object(22031, VIRTUAL);
+        break;
+      case 1:
+        obj = read_object(22049, VIRTUAL);
+        break;
+      case 2:
+        obj = read_object(22036, VIRTUAL);
+        break;
+      case 3:
+        obj = read_object(22053, VIRTUAL);
+        break;
+      case 4:
+        obj = read_object(22050, VIRTUAL);
+        break;
+      case 5:
+        obj = read_object(22056, VIRTUAL);
+        break;
+      case 6:
+        obj = read_object(22035, VIRTUAL);
+        obj = read_object(22035, VIRTUAL);
+        obj = read_object(22035, VIRTUAL);
+        obj = read_object(22035, VIRTUAL);
+        break;
+      case 7:
+        obj = read_object(22037, VIRTUAL);
+        break;
+    }
+
+    switch(number(8,15))
+    {
+      case 8:
+        obj = read_object(22063, VIRTUAL);
+        break;
+      case 9:
+        obj = read_object(22054, VIRTUAL);
+        break;
+      case 10:
+        obj = read_object(22057, VIRTUAL);
+        break;
+      case 11:
+        obj = read_object(22066, VIRTUAL);
+        break;
+      case 12:
+        obj = read_object(22058, VIRTUAL);
+        break;
+      case 13:
+        obj = read_object(22051, VIRTUAL);
+        break;
+      case 14:
+        obj = read_object(22032, VIRTUAL);
+        break;
+      case 15:
+        obj = read_object(22065, VIRTUAL);
+        obj = read_object(22065, VIRTUAL);
+        obj = read_object(22064, VIRTUAL);
+        obj = read_object(22064, VIRTUAL);
+        obj = read_object(22035, VIRTUAL);
+        break;
+    }
+
+    if (!(obj))
+    {
+      logit(LOG_EXIT, "cerberus_object: death object for mob %d doesn't exist",
+            GET_VNUM(ch));
+      raise(SIGSEGV);
+    }
+
+    obj_to_room(obj, ch->in_room);
+
+    act("&+yA HUGE rockworm gasps and begins to turn to dust.&n", FALSE, ch, obj, obj, TO_ROOM);
+
+    obj->value[0] = SECS_PER_MUD_DAY / PULSE_MOBILE * WAIT_SEC;
+
+    return FALSE;
   }
   return FALSE;
 }

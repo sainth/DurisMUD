@@ -42,5 +42,6 @@ int dragonnia_heart(P_char, P_char, int, char *);
 int dragon_heart_decay(P_obj, P_char, int, char *);
 int lanella_heart(P_char, P_char, int, char *);
 int lancer_gift(P_obj, P_char, int, char *);
+int cerberus_load(P_char, P_char, int, char *);
 
 #endif
