@@ -2693,6 +2693,8 @@ void event_mirage(P_char, P_char,P_obj, void *);
 void spell_razor_wind(int, P_char, char *, int, P_char, P_obj);
 void spell_single_razor_wind(int, P_char, char *, int, P_char, P_obj);
 void event_razor_wind(P_char, P_char, P_obj, void *);
+void spell_conjure_void_elemental(int, P_char, char *, int, P_char, P_obj);
+void spell_conjure_ice_elemental(int, P_char, char *, int, P_char, P_obj);
 
 /* sspells.c */
 

@@ -845,7 +845,7 @@ void spell_conjure_air(int level, P_char ch, char *arg, int type,
   if (GET_SPEC(ch, CLASS_ETHERMANCER, SPEC_WINDTALKER))
   {
         GET_MAX_HIT(mob) = GET_HIT(mob) = mob->points.base_hit =
-    dice(GET_LEVEL(mob) / 2, 40) + GET_LEVEL(mob) + charisma;
+    dice(GET_LEVEL(mob) / 2, 45) + GET_LEVEL(mob) + charisma;
   }
   else
   {
@@ -2351,4 +2351,214 @@ void spell_razor_wind(int level, P_char ch, char *arg, int type, P_char victim, 
   add_event(event_razor_wind, PULSE_VIOLENCE * 2, ch, 0, 0, 0, &room, sizeof(room));
 
   CharWait(ch,(int) 1 * PULSE_VIOLENCE);
+}
+
+void spell_conjure_void_elemental(int level, P_char ch, char *arg, int type,
+                       P_char victim, P_obj tar_obj)
+{
+  P_char   mob;
+  int      sum, mlvl, lvl;
+  int      i, j;
+  int      charisma = GET_C_CHA(ch) + (GET_LEVEL(ch) / 5);
+  struct follow_type *k;
+
+  if (CHAR_IN_SAFE_ZONE(ch))
+  {
+    send_to_char("A mysterious force blocks your conjuring!\r\n", ch);
+    return;
+  }
+
+  for (k = ch->followers, i = 0, j = 0; k; k = k->next)
+  {
+    victim = k->follower;
+    if (IS_ELEMENTAL(victim))
+      if (GET_LEVEL(victim) < 50)
+        i++;
+      else
+        j++;
+  }
+
+  if (i >= 1 || j >= 1)
+  {
+    send_to_char("You cannot control any more elementals!\r\n", ch);
+    return;
+  }
+
+  if (number(0, 100) < 15 || GET_SPEC(ch, CLASS_ETHERMANCER, SPEC_COSMOMANCER))
+    sum = 1;
+  else
+    sum = 0;
+
+  mob = read_mobile(real_mobile(76), REAL);
+
+  if (!mob)
+  {
+    send_to_char("Bug in conjure elemental.  Tell a god!\r\n", ch);
+    return;
+  }
+
+  GET_SIZE(mob) = SIZE_MEDIUM;
+  mob->player.m_class = CLASS_WARRIOR;
+  char_to_room(mob, ch->in_room, 0);
+
+  act("&+LNegative energies coalesce and form a Voi&+wd Elemen&+Ltal!&n", TRUE, mob, 0, 0, TO_ROOM);
+  justice_witness(ch, NULL, CRIME_SUMMON);
+
+  mlvl = (level / 5) * 2;
+  lvl = number(mlvl, mlvl * 3);
+
+  if (GET_SPEC(ch, CLASS_ETHERMANCER, SPEC_COSMOMANCER))
+          mob->player.level = BOUNDED(10, level, 51);
+  else
+      mob->player.level = BOUNDED(10, lvl, 45);
+
+  if (GET_SPEC(ch, CLASS_ETHERMANCER, SPEC_COSMOMANCER))
+  {
+        GET_MAX_HIT(mob) = GET_HIT(mob) = mob->points.base_hit =
+    dice(GET_LEVEL(mob) / 2, 40) + GET_LEVEL(mob) + charisma;
+  }
+  else
+  {
+    GET_MAX_HIT(mob) = GET_HIT(mob) = mob->points.base_hit =
+    dice(GET_LEVEL(mob) / 2, 10) + GET_LEVEL(mob) + charisma;
+  }
+
+  SET_BIT(mob->specials.affected_by, AFF_INFRAVISION);
+
+
+  mob->points.base_hitroll = mob->points.hitroll = GET_LEVEL(mob) / 3;
+  mob->points.base_damroll = mob->points.damroll = GET_LEVEL(mob) / 3;
+  MonkSetSpecialDie(mob);       /* 2d6 to 4d5 */
+
+  if (IS_PC(ch) &&              /*(GET_LEVEL(mob) > number((level - i * 4), level * 3 / 2)) */
+      (GET_LEVEL(mob) > GET_LEVEL(ch)) && charisma < number(10, 100))
+  {
+    act("$N is NOT pleased at being suddenly summoned against $S will!", TRUE,
+        ch, 0, mob, TO_ROOM);
+    act("$N is NOT pleased with you at all!", TRUE, ch, 0, mob, TO_CHAR);
+    MobStartFight(mob, ch);
+
+  }
+  else
+  {                             /* Under control */
+    act("$N sulkily says 'Your wish is my command, $n!'", TRUE, ch, 0, mob,
+        TO_ROOM);
+    act("$N sulkily says 'Your wish is my command, master!'", TRUE, ch, 0,
+        mob, TO_CHAR);
+
+    int duration = setup_pet(mob, ch, 400 / STAT_INDEX(GET_C_INT(mob)), PET_NOCASH);
+    add_follower(mob, ch);
+    /* if the pet will stop being charmed after a bit, also make it suicide 1-10 minutes later */
+    if (duration >= 0)
+    {
+      duration += number(1,10);
+      add_event(event_pet_death, (duration+1) * 60 * 4, mob, NULL, NULL, 0, NULL, 0);
+    }    
+
+  }
+}
+
+void spell_conjure_ice_elemental(int level, P_char ch, char *arg, int type,
+                       P_char victim, P_obj tar_obj)
+{
+  P_char   mob;
+  int      sum, mlvl, lvl;
+  int      i, j;
+  int      charisma = GET_C_CHA(ch) + (GET_LEVEL(ch) / 5);
+  struct follow_type *k;
+
+  if (CHAR_IN_SAFE_ZONE(ch))
+  {
+    send_to_char("A mysterious force blocks your conjuring!\r\n", ch);
+    return;
+  }
+
+  for (k = ch->followers, i = 0, j = 0; k; k = k->next)
+  {
+    victim = k->follower;
+    if (IS_ELEMENTAL(victim))
+      if (GET_LEVEL(victim) < 50)
+        i++;
+      else
+        j++;
+  }
+
+  if (i >= 1 || j >= 1)
+  {
+    send_to_char("You cannot control any more elementals!\r\n", ch);
+    return;
+  }
+
+  if (number(0, 100) < 15 || GET_SPEC(ch, CLASS_ETHERMANCER, SPEC_FROST_MAGUS))
+    sum = 1;
+  else
+    sum = 0;
+
+  mob = read_mobile(real_mobile(1157), REAL);
+
+  if (!mob)
+  {
+    send_to_char("Bug in conjure elemental.  Tell a god!\r\n", ch);
+    return;
+  }
+
+  GET_SIZE(mob) = SIZE_MEDIUM;
+  mob->player.m_class = CLASS_WARRIOR;
+  char_to_room(mob, ch->in_room, 0);
+
+  act("&+WAn Ice Elemental forms from a cold gust of air.&n", TRUE, mob, 0, 0, TO_ROOM);
+  justice_witness(ch, NULL, CRIME_SUMMON);
+
+  mlvl = (level / 5) * 2;
+  lvl = number(mlvl, mlvl * 3);
+
+  if (GET_SPEC(ch, CLASS_ETHERMANCER, SPEC_FROST_MAGUS))
+          mob->player.level = BOUNDED(10, level, 51);
+  else
+      mob->player.level = BOUNDED(10, lvl, 45);
+
+  if (GET_SPEC(ch, CLASS_ETHERMANCER, SPEC_FROST_MAGUS))
+  {
+        GET_MAX_HIT(mob) = GET_HIT(mob) = mob->points.base_hit =
+    dice(GET_LEVEL(mob) / 2, 50) + GET_LEVEL(mob) + charisma;
+  }
+  else
+  {
+    GET_MAX_HIT(mob) = GET_HIT(mob) = mob->points.base_hit =
+    dice(GET_LEVEL(mob) / 2, 10) + GET_LEVEL(mob) + charisma;
+  }
+
+  SET_BIT(mob->specials.affected_by, AFF_INFRAVISION);
+
+
+  mob->points.base_hitroll = mob->points.hitroll = GET_LEVEL(mob) / 3;
+  mob->points.base_damroll = mob->points.damroll = GET_LEVEL(mob) / 3;
+  MonkSetSpecialDie(mob);       /* 2d6 to 4d5 */
+
+  if (IS_PC(ch) &&              /*(GET_LEVEL(mob) > number((level - i * 4), level * 3 / 2)) */
+      (GET_LEVEL(mob) > GET_LEVEL(ch)) && charisma < number(10, 100))
+  {
+    act("$N is NOT pleased at being suddenly summoned against $S will!", TRUE,
+        ch, 0, mob, TO_ROOM);
+    act("$N is NOT pleased with you at all!", TRUE, ch, 0, mob, TO_CHAR);
+    MobStartFight(mob, ch);
+
+  }
+  else
+  {                             /* Under control */
+    act("$N sulkily says 'Your wish is my command, $n!'", TRUE, ch, 0, mob,
+        TO_ROOM);
+    act("$N sulkily says 'Your wish is my command, master!'", TRUE, ch, 0,
+        mob, TO_CHAR);
+
+    int duration = setup_pet(mob, ch, 400 / STAT_INDEX(GET_C_INT(mob)), PET_NOCASH);
+    add_follower(mob, ch);
+    /* if the pet will stop being charmed after a bit, also make it suicide 1-10 minutes later */
+    if (duration >= 0)
+    {
+      duration += number(1,10);
+      add_event(event_pet_death, (duration+1) * 60 * 4, mob, NULL, NULL, 0, NULL, 0);
+    }    
+
+  }
 }

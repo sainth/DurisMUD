@@ -636,7 +636,9 @@
 #define SPELL_CELERITY               587
 #define SPELL_MIELIKKI_VITALITY      588
 #define SPELL_RAZOR_WIND             589
-#define LAST_SPELL SPELL_RAZOR_WIND
+#define SPELL_CONJURE_VOID           590
+#define SPELL_CONJURE_ICE            591
+#define LAST_SPELL     SPELL_CONJURE_ICE
 
 #define FIRST_SKILL                  1000  /* should be a decent split point */
 #define SKILL_SNEAK                  1000
