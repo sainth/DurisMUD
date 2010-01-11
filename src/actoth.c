@@ -29,6 +29,7 @@
 #include "map.h"
 #include "specializations.h"
 #include "guard.h"
+#include "specs.winterhaven.h"
 /*
  * external variables
  */
@@ -4927,7 +4928,7 @@ void try_to_hide(P_char ch, P_obj obj_object)
 *                                                        *
 *********************************************************/
 
-#define IN_WELL_ROOM(x) ((world[(x)->in_room].number == 55126) || (world[(x)->in_room].number == 8003))
+#define IN_WELL_ROOM(x) (world[(x)->in_room].number == WELL_ROOM)
 
 void do_donate(P_char ch, char *argument, int cmd)
 {
@@ -5127,6 +5128,12 @@ void try_to_donate(P_char ch, P_obj obj_to_put)
      wizlog(GET_LEVEL(ch), "%s donated %s into %s [%d]", J_NAME(ch), obj_to_put->short_description, sub_object->short_description, world[ch->in_room].number);
      logit(LOG_WIZ, "%s donated %s into %s [%d]",J_NAME(ch), obj_to_put->short_description, sub_object->short_description, world[ch->in_room].number);
      sql_log(ch, WIZLOG, "Donated %s into %s", obj_to_put->short_description, sub_object->short_description);
+  }
+  else
+  {
+    wizlog(MINLVLIMMORTAL, "%s donated %s into %s [%d]", J_NAME(ch), obj_to_put->short_description, sub_object->short_description, world[ch->in_room].number);
+    logit(LOG_PLAYER, "%s donated %s into %s [%d]",J_NAME(ch), obj_to_put->short_description, sub_object->short_description, world[ch->in_room].number);
+    sql_log(ch, PLAYERLOG, "Donated %s into %s", obj_to_put->short_description, sub_object->short_description);
   }
 
   act("You donate $p - thank you!", FALSE, ch, obj_to_put, 0, TO_CHAR);

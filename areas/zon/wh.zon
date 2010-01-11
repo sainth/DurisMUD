@@ -515,6 +515,7 @@ O 0 55090 1 55113 100 0 0 0        * a pleasant sign
 O 0 55089 1 55113 100 0 0 0        * a small sign
 O 0 55007 1 55126 100 0 0 0        * the fountain
 O 0 55144 1 55126 100 0 0 0        * an ornate oak sign
+O 0 100 1 55126 100 0 0 0          * (object type not in this .obj file)
 O 0 55005 1 55127 100 0 0 0        * the guillotine
 O 0 55093 1 55161 100 0 0 0        * No Show - Book - Switch
 O 0 55419 1 55161 100 0 0 0        * an oddly placed bookcase

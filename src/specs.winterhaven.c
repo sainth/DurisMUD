@@ -1621,11 +1621,11 @@ int wh_janitor(P_char ch, P_char pl, int cmd, char *arg)
 
     if (!found_well)
     {
-#ifndef TEST_MUD
-      wizlog(MINLVLIMMORTAL, "Winterhaven donation well not present in its room!");
-#endif
-      return FALSE;
-}
+      debug("wh_janitor(): can't find donation well [%d] in its room [%d] - loading a new one.", WELL, WELL_ROOM);
+
+      well = read_object(WELL, VIRTUAL);
+      obj_to_room(well, real_room(WELL_ROOM));
+    }
     
     if (!well)
     {
