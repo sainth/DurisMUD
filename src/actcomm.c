@@ -298,7 +298,7 @@ void do_petition(P_char ch, char *argument, int cmd)
           act(Gbuf2, 0, ch, 0, i->character, TO_VICT | ACT_PRIVATE);
       }
       
-    CharWait(ch, PULSE_VIOLENCE);
+   //CharWait(ch, PULSE_VIOLENCE);
   }
 }
 
