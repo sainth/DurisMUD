@@ -975,7 +975,7 @@ bool load_one_mine(int map)
     mine->value[1] = number(30, 50);
     mine->description = str_dup("&+LThe &+yearth &+Lhere is &+cbr&+Lim&+Cm&+Ling with &+Yore&+L - it's the &+GMother &+LLode!&n");
   }
-  if( random < 3 )
+  else if( random < 3 )
   {
     mine->value[0] = number( 3,  7);
     mine->value[1] = number(50, 60);
