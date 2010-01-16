@@ -168,12 +168,10 @@ int vecnas_fight_proc(P_char ch, P_char tch, int cmd, char *arg)
         act("&+LThe arch-lich &+rVecna &+Lbegins to chant and hum.\r\n&+LSuddenly his right hand glows &+Cbri&+Bght bl&+Cue&+L and he lurches forward to grab you!\r\n&+WYou suddenly feel preserved!&n", FALSE, ch, 0, victim, TO_VICT);
         char_from_room(victim);
         char_to_room(victim, real_room(130069), 0);
-	return FALSE;
       }
       else
       {
         spell_damage(ch, victim, 400, SPLDAM_COLD, 0, &messages);
-	return FALSE;
       }
     }
   }
@@ -311,7 +309,7 @@ int vecna_ghosthands(P_obj obj, P_char ch, int cmd, char *arg)
       return FALSE;
     }
   }
-return FALSE;
+  return FALSE;
 }
 
 int vecna_gorge(P_obj obj, P_char ch, int cmd, char *arg)
@@ -1148,7 +1146,7 @@ int vecna_death_mask(P_obj obj, P_char ch, int cmd, char *arg)
   if(IS_NPC(ch) &&
      !IS_PC_PET(ch) &&
      strstr(ch->player.name, "vecna"))
-       num = number(0, 9); // 10% for vecna.
+       num = number(0, 19); // 5% for vecna.
   else
     num = number(0, 99); // 1% for players
 
@@ -1169,8 +1167,8 @@ int vecna_death_mask(P_obj obj, P_char ch, int cmd, char *arg)
     else
       random = number(1, GET_LEVEL(ch));
       
-    if(random == 65 &&
-       !number(0, 2) &&
+    if(random >= 56 &&
+       !number(0, 19) &&
        !IS_CASTING(ch))
     {
       spell_acidimmolate(65, ch, 0, SPELL_TYPE_SPELL, victim, 0);
@@ -1236,6 +1234,7 @@ int vecna_death_mask(P_obj obj, P_char ch, int cmd, char *arg)
 }
 
 // Lucrot June09
+// Lucrot updated Jan10 - downgraded the damage and affects. The zone was too hard.
 int mob_vecna_procs(P_obj obj, P_char ch, int cmd, char *arg)
 {
   struct proc_data *data;
@@ -1257,7 +1256,7 @@ int mob_vecna_procs(P_obj obj, P_char ch, int cmd, char *arg)
   if(cmd != CMD_GOTHIT)
     return false;
     
-  if(!number(0, 19) &&
+  if(!number(0, 50) &&
      !IS_PC(ch)  &&
      !IS_PC_PET(ch))
   {
@@ -1270,7 +1269,7 @@ int mob_vecna_procs(P_obj obj, P_char ch, int cmd, char *arg)
         
     if(!number(0, 32) ||
        (strstr(ch->player.name, "lich") &&
-       !number(0, 9)))
+       !number(0, 19)))
     {
       act("&+LVecna makes his presence known by channeling his decrepit ancient power through&n $n!&n",
         true, ch, 0, 0, TO_ROOM);
@@ -1297,7 +1296,8 @@ int mob_vecna_procs(P_obj obj, P_char ch, int cmd, char *arg)
       }
       return true;
     }
-      
+     
+// Insta-kill undead PC pets.
     if(IS_PC_PET(victim) &&
        IS_UNDEADRACE(victim))
     {
@@ -1312,6 +1312,8 @@ int mob_vecna_procs(P_obj obj, P_char ch, int cmd, char *arg)
       
       return true;
     }
+
+// Undead PC loses 50% of their hitpoints.
     
     if(IS_PC(victim) &&
        IS_UNDEADRACE(victim))
@@ -1325,6 +1327,7 @@ int mob_vecna_procs(P_obj obj, P_char ch, int cmd, char *arg)
       return true;
     }
     
+// A nasty curse that affects all stats, combat and spell pulse.
     if(strstr(ch->player.name, "ghast") &&
       !affected_by_spell(victim, SPELL_DISEASE))
     {
@@ -1341,38 +1344,44 @@ int mob_vecna_procs(P_obj obj, P_char ch, int cmd, char *arg)
 
       af.type = SPELL_DISEASE;
       af.duration = 5;
-      af.modifier = (-1 * 35);
+      af.modifier = (-1 * number(12, 20));
       af.flags = AFFTYPE_NODISPEL;
       
       af.location = APPLY_STR;
+      af.modifier = (-1 * number(12, 20));
       affect_to_char(victim, &af);
       
       af.location = APPLY_DEX;
+      af.modifier = (-1 * number(12, 20));
       affect_to_char(victim, &af);
       
       af.location = APPLY_AGI;
+      af.modifier = (-1 * number(12, 20));
       affect_to_char(victim, &af);
       
       af.location = APPLY_CON;
+      af.modifier = (-1 * number(12, 20));
       affect_to_char(victim, &af);
       
       af.location = APPLY_WIS;
+      af.modifier = (-1 * number(12, 20));
       affect_to_char(victim, &af);
       
       af.location = APPLY_INT;
+      af.modifier = (-1 * number(12, 20));
       affect_to_char(victim, &af);
       
-      af.modifier = (-1 * 50);
+      af.modifier = (-1 * number(10, 40));
       af.location = APPLY_CHA;
       affect_to_char(victim, &af);
     
       af.duration = 4;
-      af.modifier = 10;
+      af.modifier = 5;
       af.location = APPLY_COMBAT_PULSE;
       affect_to_char(victim, &af);
       
       af.duration = 4;
-      af.modifier = 3;
+      af.modifier = 2;
       af.location = APPLY_SPELL_PULSE;
       affect_to_char(victim, &af);
     }
@@ -1383,14 +1392,20 @@ int mob_vecna_procs(P_obj obj, P_char ch, int cmd, char *arg)
         true, ch, 0, victim, TO_CHAR);
       act("$n's &+Ldark eyes&n lock on to something within you. You feel your life rush from your body!&n",
         true, ch, 0, victim, TO_VICT);      
-      act("$n's &+Ldark eyes &+yburn&n into $N's soul!   $N staggers and shudder!!!&n",
+      act("$n's &+Ldark eyes &+yburn&n into $N's soul!&n",
         true, ch, 0, victim, TO_NOTVICT);
         
       if(IS_AFFECTED2(victim, AFF2_SOULSHIELD))
+      {
         send_to_char("Your soul is shielded!\r\n", victim);
+        act("$N seems unaffected...&n",
+          true, ch, 0, victim, TO_NOTVICT);
+	  }
       else
       {
-        dam = number(1600, 2400);
+        act("$N staggers and shudders!!!&n",
+          true, ch, 0, victim, TO_NOTVICT);
+        dam = number(120, 600);
         spell_damage(ch, victim, dam, SPLDAM_GENERIC, SPLDAM_NOSHRUG | SPLDAM_NODEFLECT, 0);
       }
       
@@ -1406,8 +1421,9 @@ int mob_vecna_procs(P_obj obj, P_char ch, int cmd, char *arg)
       act("$n's massive claw shreds $N!&n",
         true, ch, 0, victim, TO_NOTVICT);
         
-      dam = number(1200, 1600);
+      dam = number(600, 800);
       melee_damage(ch, victim, dam,  PHSDAM_TOUCH | PHSDAM_NOREDUCE | PHSDAM_NOPOSITION, 0);
+      CharWait(victim, PULSE_VIOLENCE * 2);
       
       return true;
     }
@@ -1442,8 +1458,8 @@ int mob_vecna_procs(P_obj obj, P_char ch, int cmd, char *arg)
       if(IS_FIGHTING(victim))
         stop_fighting(victim);
         
-      CharWait(victim, PULSE_VIOLENCE * 4);
-      berserk(victim, 50);
+      CharWait(victim, PULSE_VIOLENCE * 2);
+      berserk(victim, 5);
    
       return true;
     }
@@ -1459,7 +1475,7 @@ int mob_vecna_procs(P_obj obj, P_char ch, int cmd, char *arg)
       act("Something sinister, &+Lblack&n, and deathly flows from $n into $N!&n",
         true, ch, 0, victim, TO_NOTVICT);
 
-      dam = (int)(GET_HIT(victim) * 0.50);
+      dam = (int)(GET_HIT(victim) * 0.85);
       spell_damage(ch, victim, dam, SPLDAM_GENERIC, SPLDAM_NOSHRUG | SPLDAM_NODEFLECT, 0);
       CharWait(victim, PULSE_VIOLENCE * 1);
    
@@ -1477,14 +1493,14 @@ int mob_vecna_procs(P_obj obj, P_char ch, int cmd, char *arg)
       act("$n bears $s large fangs, growls, and leap at $N!&n",
         true, ch, 0, victim, TO_NOTVICT);
 
-      dam = number(400, 1200);
+      dam = number(200, 400);
       melee_damage(ch, victim, dam,  PHSDAM_TOUCH | PHSDAM_NOREDUCE | PHSDAM_NOPOSITION, 0);
       
       if(GET_POS(victim) == POS_STANDING &&
         GET_SIZE(ch) >= GET_SIZE(victim))
           SET_POS(victim, POS_KNEELING + GET_STAT(victim));
         
-      CharWait(victim, PULSE_VIOLENCE * 4);
+      CharWait(victim, PULSE_VIOLENCE * 1);
    
       return true;
     }
