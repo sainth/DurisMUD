@@ -689,15 +689,14 @@ void apply_affs(P_char ch, int mode)
     ch->points.hitroll += GET_LEVEL(ch) / 6;
     ch->points.damroll += GET_LEVEL(ch) / 6;
   }
-
+   
   if (GET_CLASS(ch, CLASS_RANGER) && ch->equipment[PRIMARY_WEAPON] &&
      ch->equipment[SECONDARY_WEAPON])
 
   {
-    ch->points.hitroll += GET_LEVEL(ch) / 6;
-    ch->points.damroll += GET_LEVEL(ch) / 6;
+    ch->points.hitroll += GET_LEVEL(ch) / 5;
   }
-
+  
   if(has_innate(ch, INNATE_HAMMER_MASTER) &&
      ch->equipment[PRIMARY_WEAPON] &&
      ch->equipment[PRIMARY_WEAPON]->value[0] == WEAPON_HAMMER)
