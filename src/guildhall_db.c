@@ -111,7 +111,7 @@ int next_guildhall_room_vnum()
 void load_guildhalls(vector<Guildhall*>& guildhalls)
 {
 #ifndef __NO_MYSQL__
-  if(!qry("select id, assoc_id, type, outside_vnum from guildhalls order by id asc"))
+  if(!qry("select id, assoc_id, type, outside_vnum, racewar from guildhalls order by id asc"))
   {
     logit(LOG_GUILDHALLS, "load_guildhalls(): query failed");
     return;
@@ -127,6 +127,7 @@ void load_guildhalls(vector<Guildhall*>& guildhalls)
     gh->assoc_id = atoi(row[1]);
     gh->type = atoi(row[2]);
     gh->outside_vnum = atoi(row[3]);
+    gh->racewar = atoi(row[4]);
     
     guildhalls.push_back(gh);
   }
@@ -150,7 +151,7 @@ void load_guildhall(int id, Guildhall *gh)
   }  
 
 #ifndef __NO_MYSQL__
-  if(!qry("select id, assoc_id, type, outside_vnum from guildhalls where id = %d", id))
+  if(!qry("select id, assoc_id, type, outside_vnum, racewar from guildhalls where id = %d", id))
   {
     logit(LOG_GUILDHALLS, "load_guildhall(%d): query failed", id);
     return;
@@ -170,6 +171,7 @@ void load_guildhall(int id, Guildhall *gh)
   gh->assoc_id = atoi(row[1]);
   gh->type = atoi(row[2]);
   gh->outside_vnum = atoi(row[3]);
+  gh->racewar = atoi(row[4]);
     
   mysql_free_result(res);  
 #endif  
@@ -225,6 +227,9 @@ void load_guildhall_rooms(Guildhall *guildhall)
         break;
       case GH_ROOM_TYPE_BANK:
         room = new BankRoom();
+        break;        
+      case GH_ROOM_TYPE_TOWN_PORTAL:
+        room = new TownPortalRoom();
         break;        
       default:
         room = new GuildhallRoom();
@@ -282,8 +287,8 @@ bool save_guildhall(Guildhall *gh)
 #ifdef __NO_MYSQL__
   return TRUE;
 #else  
-  if(!qry("replace into guildhalls (id, assoc_id, type, outside_vnum) values (%d, %d, %d, %d)",
-          gh->id, gh->assoc_id, gh->type, gh->outside_vnum))
+  if(!qry("replace into guildhalls (id, assoc_id, type, outside_vnum, racewar) values (%d, %d, %d, %d, %d)",
+          gh->id, gh->assoc_id, gh->type, gh->outside_vnum, gh->racewar))
   {
     logit(LOG_GUILDHALLS, "save_guildhall(): replace query failed!");
     return FALSE;

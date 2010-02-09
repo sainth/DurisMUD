@@ -199,6 +199,7 @@ CREATE TABLE `guildhalls` (
   `assoc_id` int(11) NOT NULL DEFAULT '0',
   `type` int(11) NOT NULL DEFAULT '0',
   `outside_vnum` int(11) NOT NULL DEFAULT '0',
+  `racewar` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `assoc_id` (`assoc_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;

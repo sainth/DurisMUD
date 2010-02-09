@@ -25,6 +25,13 @@ using namespace std;
 
 #define IN_GH_ZONE(r_room) ( world[r_room].number >= GH_START_VNUM && world[r_room].number <= GH_END_VNUM )
 
+#define WH_MAP_VNUM 545733
+#define SHADY_MAP_VNUM 583894
+#define WH_INN_VNUM 55160
+#define SHADY_INN_VNUM 97663
+#define MAX_GH_HOMETOWN_RADIUS 30
+#define MAX_GH_PROXIMITY_RADIUS 3
+
 #define GH_DOOR_VNUM        48000
 #define GH_BOARD_START      48100
 #define GH_PORTAL_VNUM      48001
@@ -32,6 +39,7 @@ using namespace std;
 #define GH_HEARTSTONE_VNUM  48009
 #define GH_FOUNTAIN_VNUM    48004
 #define GH_BANK_COUNTER_VNUM 48010
+#define GH_TOWN_PORTAL_VNUM 48011
 
 #define GH_ROOM_TEMPLATE_ENTRANCE 48000
 #define GH_ROOM_TEMPLATE_HEARTSTONE 48001
@@ -43,6 +51,7 @@ using namespace std;
 #define GH_ROOM_TEMPLATE_WINDOW 48007
 #define GH_ROOM_TEMPLATE_HEAL 48003
 #define GH_ROOM_TEMPLATE_BANK 48008
+#define GH_ROOM_TEMPLATE_TOWN_PORTAL 48009
 
 #define GH_GOLEM_WARRIOR    48001
 #define GH_GOLEM_CLERIC     48002
@@ -60,7 +69,8 @@ using namespace std;
 #define GH_ROOM_TYPE_WINDOW 5
 #define GH_ROOM_TYPE_HEAL 6
 #define GH_ROOM_TYPE_BANK 7
-#define GH_ROOM_NUM_TYPES 8
+#define GH_ROOM_TYPE_TOWN_PORTAL 8
+#define GH_ROOM_NUM_TYPES 9
 
 /*
  rooms values are type-specific
@@ -234,6 +244,16 @@ struct BankRoom : public GuildhallRoom
   BankRoom() : GuildhallRoom(GH_ROOM_TEMPLATE_BANK), counter(NULL) {}
 };
 
+struct TownPortalRoom : public GuildhallRoom
+{
+  bool init();
+  bool deinit();
+  
+  P_obj portal;
+  
+  TownPortalRoom() : GuildhallRoom(GH_ROOM_TEMPLATE_TOWN_PORTAL), portal(NULL) {}
+};
+
 //
 // Main Guildhall class
 //
@@ -263,6 +283,7 @@ struct Guildhall {
   int assoc_id;  
   int type;
   int outside_vnum;
+  int racewar;
 
   bool init();
   bool save();
@@ -282,7 +303,7 @@ struct Guildhall {
   PortalRoom* portal_room;
   HeartstoneRoom* heartstone_room;
     
-  Guildhall() : id(0), assoc_id(0), type(0), outside_vnum(0), entrance_room(NULL), inn_room(NULL), portal_room(NULL), heartstone_room(NULL) {}
+  Guildhall() : id(0), assoc_id(0), type(0), outside_vnum(0), racewar(RACEWAR_NONE), entrance_room(NULL), inn_room(NULL), portal_room(NULL), heartstone_room(NULL) {}
   
   ~Guildhall()
   {

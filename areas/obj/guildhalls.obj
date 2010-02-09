@@ -86,6 +86,14 @@ A wooden bank counter stands here.~
 8 22 4 0 14 0 65537 0 1 0 0
 0 0 0 0 0 0 0 0
 0 0 100
+#48011
+town portal~
+a town portal~
+A portal to %s&n is here.~
+~
+25 15 3 0 7 0 0 0 0 0 0
+0 7 -1 0 0 0 0 0
+0 0 100
 #48100
 board~
 &+ya board&N~

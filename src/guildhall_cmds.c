@@ -20,11 +20,6 @@
 
 // TODO: block flashing ansi in room rename?
 
-#define WH_MAP_VNUM 545733
-#define SHADY_MAP_VNUM 583894
-#define MAX_GH_HOMETOWN_RADIUS 30
-#define MAX_GH_PROXIMITY_RADIUS 3
-
 #define CAN_CONSTRUCT_CMD(ch) ( GET_A_NUM(ch) && (IS_LEADER(GET_M_BITS(GET_A_BITS(ch), A_RK_MASK)) || GT_LEADER(GET_M_BITS(GET_A_BITS(ch), A_RK_MASK))) )
 #define CAN_GUILDHALL_CMD(ch) ( GET_A_NUM(ch) && (IS_OFFICER(GET_M_BITS(GET_A_BITS(ch), A_RK_MASK)) || GT_OFFICER(GET_M_BITS(GET_A_BITS(ch), A_RK_MASK))) )
 
@@ -49,7 +44,7 @@ void do_guildhall_info(P_char ch, char *arg);
 void do_guildhall_move(P_char ch, char *arg);
 
 void guildhall_info(Guildhall *gh, P_char ch);
-bool construct_main_guildhall(int assoc_id, int outside_vnum);
+bool construct_main_guildhall(int assoc_id, int outside_vnum, int racewar);
 bool construct_new_guildhall_room(int id, int from_vnum, int dir);
 bool construct_golem(Guildhall *gh, int slot, int type);
 bool upgrade_room(GuildhallRoom *room, int type);
@@ -216,7 +211,7 @@ void do_construct_guildhall(P_char ch, char *arg)
     }
   }
   
-  if( construct_main_guildhall(GET_A_NUM(ch), world[ch->in_room].number) )
+  if( construct_main_guildhall(GET_A_NUM(ch), world[ch->in_room].number, GET_RACEWAR(ch)) )
   {
     if(!IS_TRUSTED(ch))
     {
@@ -511,18 +506,12 @@ void do_construct_upgrade(P_char ch, char *arg)
     return;
   }
   
-  if(!room->can_upgrade())
-  {
-    send_to_char("This room cannot be upgraded.\r\n", ch);
-    return;
-  }
-  
   if(!*arg)
   {
     // just 'construct upgrade' without arguments, so show list of possible upgrades
     
     send_to_char(
-                 "&+BAvailable upgrades for this room\r\n"
+                 "&+BAvailable room upgrades\r\n"
                  "&+b-----------------------------------------\r\n", ch);
     
     
@@ -540,10 +529,21 @@ void do_construct_upgrade(P_char ch, char *arg)
             coin_stringv(get_property("guildhalls.construction.platinum.upgrade.bank", 0) * 1000), 
             get_property("guildhalls.construction.points.upgrade.bank", 0));
     send_to_char(buff, ch);
+
+    sprintf(buff, "&+W%s&n) %s (%s and %d &+Wconstruction points&n)\r\n", "town", "a portal to your local hometown", 
+            coin_stringv(get_property("guildhalls.construction.platinum.upgrade.town_portal", 0) * 1000), 
+            get_property("guildhalls.construction.points.upgrade.town_portal", 0));
+    send_to_char(buff, ch);
     
     send_to_char("\r\n", ch);
     send_to_char("To upgrade this room, type 'construct upgrade <type>'\r\n", ch);
     
+    return;
+  }
+
+  if(!room->can_upgrade())
+  {
+    send_to_char("This room cannot be upgraded.\r\n", ch);
     return;
   }
   
@@ -569,6 +569,12 @@ void do_construct_upgrade(P_char ch, char *arg)
     plat_cost = get_property("guildhalls.construction.platinum.upgrade.bank", 0) * 1000;
     cp_cost = get_property("guildhalls.construction.points.upgrade.bank", 0);
   }  
+  else if( isname(buff, "town") )
+  {
+    type = GH_ROOM_TYPE_TOWN_PORTAL;    
+    plat_cost = get_property("guildhalls.construction.platinum.upgrade.town_portal", 0) * 1000;
+    cp_cost = get_property("guildhalls.construction.points.upgrade.town_portal", 0);
+  }    
   else
   {
     send_to_char("Please enter a valid type of room to upgrade to.\r\n", ch);
@@ -952,13 +958,14 @@ void do_guildhall_move(P_char ch, char *arg)
  
  South from entrance leads back to outside guildhall
  */
-bool construct_main_guildhall(int assoc_id, int outside_vnum)
+bool construct_main_guildhall(int assoc_id, int outside_vnum, int racewar)
 {
   Guildhall *gh = new Guildhall();
   gh->id = next_guildhall_id();
   gh->assoc_id = assoc_id;
   gh->type = GH_TYPE_MAIN;
   gh->outside_vnum = outside_vnum;
+  gh->racewar = racewar;
   
   // add rooms
   GuildhallRoom *entrance = new GuildhallRoom();

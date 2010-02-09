@@ -164,8 +164,6 @@ bool EntranceRoom::init()
   
   this->guildhall->entrance_room = this;
   
-//  world[real_room0(this->vnum)].funct = guildhall_entrance_room;
-
   // connect entrance room to outside room
   connect_rooms(this->vnum, this->guildhall->outside_vnum, this->value[GH_VALUE_ENTRANCE_DIR], -1);
   
@@ -330,10 +328,10 @@ bool BankRoom::init()
 {
   GuildhallRoom::init();
   
-  // set inn proc
+  // set room proc
   world[real_room0(this->vnum)].funct = guildhall_bank_room;
   
-  // set up guild board
+  // set up bank counter
   if( this->counter = read_object(GH_BANK_COUNTER_VNUM, VIRTUAL) )
   {
     obj_to_room(this->counter, real_room0(this->vnum));
@@ -341,6 +339,40 @@ bool BankRoom::init()
   
   return TRUE;
 }
+
+bool TownPortalRoom::init()
+{
+  GuildhallRoom::init();
+  
+  // set up town portal
+  if( this->portal = read_object(GH_TOWN_PORTAL_VNUM, VIRTUAL) )
+  {
+    if( this->guildhall->racewar == RACEWAR_GOOD )
+    {
+      char buff[MAX_STRING_LENGTH];
+      sprintf(buff, this->portal->description, "Winterhaven");
+      this->portal->description = str_dup(buff);
+      this->portal->str_mask = STRUNG_DESC1;
+      this->portal->value[0] = WH_INN_VNUM;      
+      obj_to_room(this->portal, real_room0(this->vnum));
+    }
+    else if( this->guildhall->racewar == RACEWAR_EVIL )
+    {
+      char buff[MAX_STRING_LENGTH];
+      sprintf(buff, this->portal->description, "Shady Grove");
+      this->portal->description = str_dup(buff);
+      this->portal->str_mask = STRUNG_DESC1;
+      this->portal->value[0] = SHADY_INN_VNUM;      
+      obj_to_room(this->portal, real_room0(this->vnum));
+    }
+  }
+  
+  return TRUE;
+}
+
+//
+//
+//
 
 bool EntranceRoom::deinit()
 {
@@ -457,6 +489,20 @@ bool BankRoom::deinit()
   {
     obj_from_room(this->counter);
     this->counter = NULL;
+  }
+  
+  return TRUE;
+}
+
+bool TownPortalRoom::deinit()
+{
+  GuildhallRoom::init();
+  
+  // deinit portal obj
+  if( this->portal )
+  {
+    obj_from_room(this->portal);
+    this->portal = NULL;
   }
   
   return TRUE;
