@@ -30,6 +30,8 @@
 #include "specializations.h"
 #include "guard.h"
 #include "specs.winterhaven.h"
+#include "guildhall.h"
+
 /*
  * external variables
  */
@@ -1471,22 +1473,20 @@ void do_no_buy(P_char ch, char *argument, int cmd)
 int test_atm_present(P_char ch)
 {
   P_obj    atm;
-  int      atmnum = -1;
 
-  atmnum = real_object(3097);
-  if (atmnum == -1)
+  if( (atm = get_obj_in_list_num(real_object(3097), world[ch->in_room].contents)) && CAN_SEE_OBJ(ch, atm) )
   {
-    fprintf(stderr, "Could not find ATM object (3097)!\n");
-    return 0;
-  }
-  if (!(atm = get_obj_in_list_num(atmnum, world[ch->in_room].contents)))
-  {
-    atmnum = real_object(6081);
-    if (atmnum != -1)
-      atm = get_obj_in_list_num(atmnum, world[ch->in_room].contents);
-  }
-  if (atm && CAN_SEE_OBJ(ch, atm))
     return 1;
+  }
+  else if( (atm = get_obj_in_list_num(real_object(6081), world[ch->in_room].contents)) && CAN_SEE_OBJ(ch, atm) )
+  {
+    return 1;
+  }
+  else if( (atm = get_obj_in_list_num(real_object(GH_BANK_COUNTER_VNUM), world[ch->in_room].contents)) && CAN_SEE_OBJ(ch, atm) )
+  {
+    return 1;
+  }
+
   return 0;
 }
 
