@@ -2276,9 +2276,6 @@ int claim_coffer(P_char ch, P_ship ship)
 
 int newship_proc(P_obj obj, P_char ch, int cmd, char *arg)
 {
-    //if(!get_property("ship.toggle.master", 1.000));
-    //    return false;
-
     if (!ch && !cmd)
         return TRUE;
 
@@ -3034,9 +3031,6 @@ void newship_activity()
     int        j, k, loc;
     float        rad;
 
-    //if(!get_property("ship.toggle.master", 1.000));
-    //    return;
-        
     ShipVisitor svs;
     for (bool fn = shipObjHash.get_first(svs); fn; fn = shipObjHash.get_next(svs))
     {
@@ -4136,6 +4130,9 @@ void check_contraband(P_ship ship, int to_room)
                 conf_chance += (100.0 - conf_chance) * (1.0 - total_load); // the more total cargo onboard, the less confiscation chance
                 if (conf_chance > 100) conf_chance = 100;
             }
+          
+            conf_chance *= get_property("ship.contraband.confiscationChanceModifier", 1.000);
+          
             debug("SHIP: (%s) confiscation chance (%d).", SHIPOWNER(ship), conf_chance);
 
             int confiscated = 0;
@@ -5150,9 +5147,6 @@ int swap_slots(P_char ch, P_ship ship, char* arg1, char* arg2)
 
 int newship_shop(int room, P_char ch, int cmd, char *arg)
 {
-    //if(!get_property("ship.toggle.master", 1.000));
-    //    return false;
-
     if (!ch)
         return FALSE;
 
