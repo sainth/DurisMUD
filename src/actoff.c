@@ -4272,7 +4272,11 @@ bool single_stab(P_char ch, P_char victim, P_obj weapon)
   spinal_tap = get_property("backstab.SpinalTap", 0.150);
   critical_stab = get_property("backstab.CriticalStab", 0.200);
   critical_stab_multiplier = get_property("backstab.CriticalStab.Multiplier", 1.000);
-  
+ 
+  if(GET_STAT(victim) <= STAT_INCAP ||
+     GET_STAT(victim) >= STAT_DYING)
+     dam = MAX(100, dam);
+ 
   if(GET_CHAR_SKILL(ch, SKILL_SPINAL_TAP) &&
     (notch_skill(ch, SKILL_SPINAL_TAP, get_property("skill.notch.offensive", 15)) ||
     (spinal_tap * GET_CHAR_SKILL(ch, SKILL_SPINAL_TAP)) > number(1, 100)))
