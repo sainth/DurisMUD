@@ -8055,7 +8055,8 @@ void spell_haste(int level, P_char ch, char *arg, int type, P_char victim,
       af.duration = (int)(level/2);
     else if(GET_CLASS(ch, CLASS_RANGER) ||
              GET_CLASS(ch, CLASS_REAVER) ||
-             GET_CLASS(ch, CLASS_CONJURER))
+             GET_CLASS(ch, CLASS_CONJURER) ||
+             GET_CLASS(ch, CLASS_SORCERER))
       af.duration = 15;
     else
       af.duration = 4;
