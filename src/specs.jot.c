@@ -610,50 +610,89 @@ int reliance_pegasus(P_obj obj, P_char ch, int cmd, char *arg)
   if (cmd == CMD_SET_PERIODIC)
     return FALSE;
 
-  if (!ch || !OBJ_WORN(obj))
+  if (!(ch) ||
+      !(obj) ||
+ 	  !OBJ_WORN_BY(obj, ch))
     return (FALSE);
-
+	
   if (arg && (cmd == CMD_SAY))
   {
     if (strstr(arg, "reliance"))
     {
-      curr_time = time(NULL);
-      for (cld = ch->linked; cld; cld = cld->next_linked)
-        if (IS_NPC(cld->linking) && GET_VNUM(cld->linking) == 40429) {
-          act("You say 'reliance' to your $q...", FALSE, ch, obj, 0, TO_CHAR);
-          act("$n says 'reliance' to $q...&N", TRUE, ch, obj, NULL, TO_ROOM);
-          if (ch->in_room != cld->linking->in_room) {
-            act("&+WA magnificent pegasus descends from the heavens to your aid.&n",
-                FALSE, ch, obj, obj, TO_CHAR);
-            act("&+WA magnificent pegasus descends from the heavens to $n's &+Waid.&n",
-                TRUE, ch, obj, NULL, TO_ROOM);
-            char_from_room(cld->linking);
-            char_to_room(cld->linking, ch->in_room, -1);
-          }
-          act("$n whinnies loudly.", FALSE, cld->linking, 0, 0, TO_ROOM);
-          return TRUE;
-        }
+	  if(IS_RIDING(ch))
+	  {
+		send_to_char("While mounted? I don't think so...\r\n", ch);
+		return false;
+	  }
+	  
+	  if(IS_FIGHTING(ch))
+	  {
+	    send_to_char("Try again whenever you are NOT fighting something.\r\n", ch);
+		return false;
+	  }		
 
-      if (curr_time >= obj->timer[0] + SECS_PER_MUD_DAY)
-      {
-        act("You say 'reliance' to your $q...", FALSE, ch, obj, 0, TO_CHAR);
-        act("$n says 'reliance' to $q...&N", TRUE, ch, obj, NULL, TO_ROOM);
-        act("&+WA glorious white light pours forth from $p&+W, answering your call.&n", 
-            FALSE, ch, obj, obj, TO_CHAR);
-        act("&+WA magnificent pegasus descends from the heavens to your aid.&n",
-            FALSE, ch, obj, obj, TO_CHAR);
-        act("&+WA glorious white light pours from from &N$n's $q&+W, answering his call.&n",
-            TRUE, ch, obj, NULL, TO_ROOM);
-        act("&+WA magnificent pegasus descends from the heavens to $n's &+Waid.&n",
-            TRUE, ch, obj, NULL, TO_ROOM);
-        mount = read_mobile(40429, VIRTUAL);
-        char_to_room(mount, ch->in_room, -1);
-        setup_pet(mount, ch, -1, PET_NOCASH);
-        add_follower(mount, ch);
-        SET_BIT(mount->specials.act, ACT_MOUNT);
-        obj->timer[0] = curr_time;
-        return TRUE;
-      }
+	  if(!is_prime_plane(ch->in_room))
+	  {
+		send_to_char("&+WThe pegasus cannot be called here.\r\n", ch);
+		return false;
+	  }
+	  
+	  if (IS_SET(world[ch->in_room].room_flags, LOCKER) ||
+		  IS_SET(world[ch->in_room].room_flags, SINGLE_FILE) )
+	  {
+		send_to_char("A pegasus couldn't fit in here!\r\n", ch);
+		return false;
+	  }
+
+      curr_time = time(NULL);
+	  
+	  if (obj->timer[0] + 200 <= curr_time)
+	  {
+		act("You say 'reliance' to your $q...", FALSE, ch, obj, 0, TO_CHAR);
+		act("$n says 'reliance' to $q...&N", TRUE, ch, obj, NULL, TO_ROOM);
+
+		for (cld = ch->linked; cld; cld = cld->next_linked)
+		{
+			if (IS_NPC(cld->linking) && GET_VNUM(cld->linking) == 40429)
+			{
+			    if (GET_RIDER(cld->linking))
+				{
+				   send_to_char("The pegasus fails to answer the call.\r\n", ch);
+				   return true;
+				}
+				
+				if (ch->in_room != cld->linking->in_room)
+				{
+					act("&+WA magnificent pegasus descends from the heavens to your aid.&n",
+						FALSE, ch, obj, obj, TO_CHAR);
+					act("&+WA magnificent pegasus descends from the heavens to $n's &+Waid.&n",
+						TRUE, ch, obj, NULL, TO_ROOM);
+					char_from_room(cld->linking);
+					char_to_room(cld->linking, ch->in_room, -1);
+				}
+				act("$n whinnies loudly.", FALSE, cld->linking, 0, 0, TO_ROOM);
+				CharWait(ch, PULSE_VIOLENCE * 4);
+				send_to_char("You feel slighting drained.\r\n", ch);
+				return TRUE;
+			}
+		}
+
+		act("&+WA glorious white light pours forth from $p&+W, answering your call.&n", 
+			FALSE, ch, obj, obj, TO_CHAR);
+		act("&+WA magnificent pegasus descends from the heavens to your aid.&n",
+			FALSE, ch, obj, obj, TO_CHAR);
+		act("&+WA glorious white light pours from from &N$n's $q&+W, answering his call.&n",
+			TRUE, ch, obj, NULL, TO_ROOM);
+		act("&+WA magnificent pegasus descends from the heavens to $n's &+Waid.&n",
+			TRUE, ch, obj, NULL, TO_ROOM);
+		mount = read_mobile(40429, VIRTUAL);
+		char_to_room(mount, ch->in_room, -1);
+		setup_pet(mount, ch, -1, PET_NOCASH);
+		add_follower(mount, ch);
+		SET_BIT(mount->specials.act, ACT_MOUNT);
+		obj->timer[0] = curr_time;
+		return TRUE;
+	  }
     }
   }
   return (FALSE);
