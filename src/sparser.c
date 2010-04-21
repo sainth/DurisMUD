@@ -322,7 +322,8 @@ int get_number_allies_within_range(P_char ch)
       troom = world[ch->in_room].dir_option[i]->to_room;
       if (troom != -1 && troom != ch->in_room)
       {
-        allies += get_number_allies_in_room(ch, troom);
+        if(IS_PC(ch))
+          allies += get_number_allies_in_room(ch, troom);
       }
     }
   }
