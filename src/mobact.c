@@ -534,7 +534,8 @@ int IS_MAGE(P_char ch)
     CLASS_RANGER |
     CLASS_ILLUSIONIST |
     CLASS_REAVER |
-    CLASS_ANTIPALADIN));
+    CLASS_ANTIPALADIN |
+    CLASS_PSIONICIST));
 }
 
 int IS_THIEF(P_char ch)
@@ -9856,6 +9857,10 @@ void MobRetaliateRange(P_char ch, P_char vict)
     if(is_casting_aggr_spell(ch))
     {
 /*      wizlog(56,"We've just detected an aggro spell being cast and thus do not break spellcasting upon being ranged.");*/
+      return;
+    }
+    else if(IS_FIGHTING(ch))
+    {
       return;
     }
     else
