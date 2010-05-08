@@ -1047,3 +1047,25 @@ VT 0 1 -1
 55 -5 -101 52d131+4420 7d6+30
 7.9.5.6 210600
 8 8 0
+#14073
+jamfluul legendary blacksmith svirfneblin cantankerous~
+&nJamfluul, the &+Lle&+wgenda&+Lry blacksmith &nof &+BDirk'nspire &+bStronghold&n~
+&nA cantankerous &+ysvirfneblin&n searches for his forge.&n
+~
+~
+1073743880 0 0 8 0 0 0 1000 S
+pg 0 1 -1
+62 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 1
+#14074
+dopplepopper scrawny gnome tinker~
+&nDopplepopper the &+MTinker &+RGnome&n~
+&nA scrawny &+Rgnome &nwanders here, in search of his forge.&n
+~
+~
+1073743880 0 0 8 0 0 0 0 S
+pg 0 1 -1
+62 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 1

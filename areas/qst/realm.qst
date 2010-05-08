@@ -107,3 +107,56 @@ D
 With that, Celriya disappears into the brush.
 ~
 S
+#14073
+M
+hi hello~
+Jamfluul says in svirfneblin 'Yee hai! Who you, where you, what you! MY FORGE!'
+~
+M
+forge~
+Jamfluul says in svirfneblin 'MY FORGE MY FORGE! My forge lost!'
+~
+M
+lost~
+Jamfluul screams in frustration!
+Jamfluul says in svirfneblin 'A powerful wizard man, he scatter my forge five planes!'
+Jamfluul says 'Me broke, need five thousand platinum!'
+~
+Q
+~
+R I 14126
+G I 14121
+G I 14122
+G I 14123
+G I 14124
+G I 14125
+G C 5000000
+S
+#14074
+M
+hi hello~
+Dopplepopper sizes you up with a quick glance.
+Dopplepopper says 'Hello there, I seem to have misplaced the
+effects for my forge. Should you take the time to assist me
+you will not regret it.'
+~
+M
+forge assist~
+Dopplepopper says 'Yes, yes, right then.'
+Dopplepopper says 'Imix stole my fire'
+Dopplepopper says 'Olhydra stole my water'
+Dopplepopper says 'Yan-c-Bin stole my air'
+Dopplepopper says 'Ogremoch stole my hammer'
+Dopplepopper says 'And last but not least, Demogorgon stole my forge'
+Dopplepopper says 'Lastly, I need 5000 platinum coins!'
+~
+Q
+~
+R I 14126
+G I 14121
+G I 14122
+G I 14123
+G I 14124
+G I 14125
+G C 5000000
+S

@@ -59,6 +59,7 @@ E 1 23202 2 21 100 0 0 0           *   a black pearl earring
 G 1 23202 2 0 100 0 0 0            *    a black pearl earring
 G 1 55202 1 0 100 0 0 0            *    (object type not in this .obj file)
 G 1 359 1 0 100 0 0 0              *    (object type not in this .obj file)
+G 1 14125 1 0 100 0 0 0            *    (object type not in this .obj file)
 M 0 23210 20 23251 100 0 0 0       * a water elemental
 M 0 23250 10 23255 100 0 0 0       * an elemental whale
 M 0 23220 7 23255 100 0 0 0        * a marid noble
