@@ -1850,7 +1850,7 @@ void NPCShipAI::normalize_direction(int &dir)
     while (dir < 0) dir = dir + 360;
 }
 
-void NPCShipAI::send_message_to_debug_char(char *fmt, ... )
+void NPCShipAI::send_message_to_debug_char(const char *fmt, ... )
 {
     va_list args;
 

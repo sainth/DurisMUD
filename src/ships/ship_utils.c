@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
+#include <math.h>
+#include <stdarg.h> 
 
-#include "ships.h"
 #include "comm.h"
 #include "db.h"
 #include "graph.h"
@@ -13,7 +14,8 @@
 #include "structs.h"
 #include "utils.h"
 #include "events.h"
-#include <math.h>
+#include "map.h"
+#include "ships.h"
 
 
 extern char buf[MAX_STRING_LENGTH];
@@ -192,64 +194,70 @@ void everyone_get_out_newship(P_ship ship)
   }
 }
 
-
-
-void act_to_all_in_ship(P_ship ship, const char *msg)
+static char local_buf[MAX_STRING_LENGTH];
+void act_to_all_in_ship(P_ship ship, const char *msg, ... )
 {
   if (ship == NULL)
-  {
     return;
-  }
+
+  va_list args;
+  va_start(args, msg);
+  vsnprintf(local_buf, sizeof(local_buf) - 1, msg, args);
+  va_end(args);
+
   for (int i = 0; i < MAX_SHIP_ROOM; i++)
   {
-    if ((SHIPROOMNUM(ship, i) != -1) &&
-        world[real_room(SHIPROOMNUM(ship, i))].people)
+    if ((SHIPROOMNUM(ship, i) != -1) && world[real_room(SHIPROOMNUM(ship, i))].people)
     {
-      act(msg, FALSE, world[real_room(SHIPROOMNUM(ship, i))].people, 0, 0, TO_ROOM);
-      act(msg, FALSE, world[real_room(SHIPROOMNUM(ship, i))].people, 0, 0, TO_CHAR);
+      act(local_buf, FALSE, world[real_room(SHIPROOMNUM(ship, i))].people, 0, 0, TO_ROOM);
+      act(local_buf, FALSE, world[real_room(SHIPROOMNUM(ship, i))].people, 0, 0, TO_CHAR);
     }
   }
 }
 
-void act_to_outside(P_ship ship, const char *msg)
+void act_to_outside(P_ship ship, const char *msg, ... )
 {
-  int      i, j;
+  va_list args;
+  va_start(args, msg);
+  vsnprintf(local_buf, sizeof(local_buf) - 1, msg, args);
+  va_end(args);
 
   getmap(ship);
-  for (i = 0; i < 100; i++)
+  for (int i = 0; i < 100; i++)
   {
-    for (j = 0; j < 100; j++)
+    for (int j = 0; j < 100; j++)
     {
-      if ((range(50, 50, ship->z, j, i, 0) < 35) &&
-          world[tactical_map[j][i].rroom].people)
+      if ((range(50, 50, ship->z, j, i, 0) < 35) && world[tactical_map[j][i].rroom].people)
       {
-        act(msg, FALSE, world[tactical_map[j][i].rroom].people, 0, 0, TO_ROOM);
-        act(msg, FALSE, world[tactical_map[j][i].rroom].people, 0, 0, TO_CHAR);
+        act(local_buf, FALSE, world[tactical_map[j][i].rroom].people, 0, 0, TO_ROOM);
+        act(local_buf, FALSE, world[tactical_map[j][i].rroom].people, 0, 0, TO_CHAR);
       }
     }
   }
 }
 
-void act_to_outside_ships(P_ship ship, const char *msg, P_ship target)
+void act_to_outside_ships(P_ship ship, P_ship target, const char *msg, ... )
 {
-  int      i, j;
-  P_obj    obj;
+  va_list args;
+  va_start(args, msg);
+  vsnprintf(local_buf, sizeof(local_buf) - 1, msg, args);
+  va_end(args);
 
   getmap(ship);
-  for (i = 0; i < 100; i++)
+  for (int i = 0; i < 100; i++)
   {
-    for (j = 0; j < 100; j++)
+    for (int j = 0; j < 100; j++)
     {
       if ((range(50, 50, ship->z, j, i, 0) < 35) && world[tactical_map[j][i].rroom].contents)
       {
-        for (obj = world[tactical_map[j][i].rroom].contents; obj; obj = obj->next_content)
+        for (P_obj obj = world[tactical_map[j][i].rroom].contents; obj; obj = obj->next_content)
         {
           if ((GET_ITEM_TYPE(obj) == ITEM_SHIP) && (obj->value[6] == 1) && (obj != ship->shipobj))
           {
             if (target != NULL && obj == target->shipobj)
               continue;
 
-            act_to_all_in_ship(shipObjHash.find(obj), msg);
+            act_to_all_in_ship(shipObjHash.find(obj), local_buf);
           }
         }
       }
@@ -574,37 +582,27 @@ int bearing(float x1, float y1, float x2, float y2)
 
 void ShipData::show(P_char ch) const
 {  
-  char buf[MAX_STRING_LENGTH];
-
   send_to_char("Ship Information\r\n-----------------------------------\r\n", ch);
   
-  sprintf(buf, "Name: %s\r\n", this->name);
-  send_to_char(buf, ch);
+  send_to_char_f(ch, "Name: %s\r\n", this->name);
 
-  sprintf(buf, "Owner: %s\r\n", this->ownername);
-  send_to_char(buf, ch);
+  send_to_char_f(ch, "Owner: %s\r\n", this->ownername);
 
-  sprintf(buf, "ID: %s\r\n", this->id);
-  send_to_char(buf, ch);
+  send_to_char_f(ch, "ID: %s\r\n", this->id);
 
-  sprintf(buf, "Heading: %d, Set Heading: %d\r\n", this->heading, this->setheading);
-  send_to_char(buf, ch);
+  send_to_char_f(ch, "Heading: %d, Set Heading: %d\r\n", this->heading, this->setheading);
   
-  sprintf(buf, "Speed: %d, Set Speed: %d, Max Speed: %d, Sailcond: %d\r\n", this->speed, this->setspeed, this->maxspeed, this->mainsail);
-  send_to_char(buf, ch);
+  send_to_char_f(ch, "Speed: %d, Set Speed: %d, Max Speed: %d, Sailcond: %d\r\n", this->speed, this->setspeed, this->maxspeed, this->mainsail);
   
-  sprintf(buf, "Hull weight: %d, Max load: %d, Slot weight: %d, Available weight: %d\r\n", SHIPHULLWEIGHT(this), SHIPMAXWEIGHT(this), slot_weight(-1), SHIPAVAILWEIGHT(this));
-  send_to_char(buf, ch);
+  send_to_char_f(ch, "Hull weight: %d, Max load: %d, Slot weight: %d, Available weight: %d\r\n", SHIPHULLWEIGHT(this), SHIPMAXWEIGHT(this), slot_weight(-1), SHIPAVAILWEIGHT(this));
   
-  sprintf(buf, "Max cargo: %d, Current cargo: %d, Available cargo: %d\r\n", SHIPMAXCARGO(this), SHIPCARGO(this), SHIPAVAILCARGOLOAD(this) );
-  send_to_char(buf, ch);
+  send_to_char_f(ch, "Max cargo: %d, Current cargo: %d, Available cargo: %d\r\n", SHIPMAXCARGO(this), SHIPCARGO(this), SHIPAVAILCARGOLOAD(this) );
   
   send_to_char("\r\nSlots:\r\n---------------------------------------------------\r\n", ch);
   
   for( int i = 0; i < MAXSLOTS; i++ )
   {
-    sprintf(buf, "%-2d) ", i);
-    send_to_char(buf, ch);
+    send_to_char_f(ch, "%-2d) ", i);
     this->slot[i].show(ch);
     send_to_char("\r\n", ch);
   }
@@ -612,8 +610,6 @@ void ShipData::show(P_char ch) const
 
 void ShipSlot::show(P_char ch) const
 {
-  char buf[MAX_STRING_LENGTH];
-
   switch( this->type )
   {
     case SLOT_EMPTY:
@@ -664,11 +660,9 @@ void ShipSlot::show(P_char ch) const
       break;
   }
 
-  sprintf(buf, "%-3d  ", this->get_weight());
-  send_to_char(buf, ch);
+  send_to_char_f(ch, "%-3d  ", this->get_weight());
   
-  sprintf(buf, "%-5d %-7d %-5d %-5d %-5d  ", this->val0, this->val1, this->val2, this->val3, this->val4);
-  send_to_char(buf, ch);
+  send_to_char_f(ch, "%-5d %-7d %-5d %-5d %-5d  ", this->val0, this->val1, this->val2, this->val3, this->val4);
 }
 
 int ShipData::slot_weight(int type) const
@@ -1013,3 +1007,24 @@ float range(float x1, float y1, float z1, float x2, float y2, float z2)
   return range;
 }
 
+bool is_valid_sailing_location(P_ship ship, int room)
+{
+    if (world[room].number < 110000)
+        return false;
+
+    if (IS_SET(ship->flags, AIR))
+    {
+        if (!IS_MAP_ROOM(room) || world[room].sector_type == SECT_MOUNTAIN)
+        {
+            return false;
+        }
+    }
+    else
+    {
+        if (!IS_MAP_ROOM(room) || world[room].sector_type != SECT_OCEAN)
+        {
+            return false;
+        }
+    }
+    return true;
+}

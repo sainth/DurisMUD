@@ -26,7 +26,7 @@ Updated with warships. Nov08 -Lucrot
 #include "map.h"
 #include "limits.h"
 
-char buf[MAX_STRING_LENGTH], buf2[MAX_STRING_LENGTH];
+char buf[MAX_STRING_LENGTH];
 
 struct ContactData contacts[MAXSHIPS];
 struct ShipMap tactical_map[101][101];
@@ -208,13 +208,13 @@ void name_ship(const char *name, P_ship ship)
       ship->keywords = NULL;
 
    ship->name = str_dup(name);
-   sprintf(buf2, "&+yThe %s&N %s&n &+yfloats here.", SHIPCLASSNAME(ship), name);
-   ship->shipobj->description = str_dup(buf2);
-   sprintf(buf2, "&+yThe %s&N %s&n", SHIPCLASSNAME(ship), name);
-   ship->shipobj->short_description = str_dup(buf2);
-   sprintf(buf2, "ship %s %s", SHIPCLASSNAME(ship), ship->ownername);
-   ship->shipobj->name = str_dup(buf2);
-   ship->keywords = str_dup(buf2);
+   sprintf(buf, "&+yThe %s&N %s&n &+yfloats here.", SHIPCLASSNAME(ship), name);
+   ship->shipobj->description = str_dup(buf);
+   sprintf(buf, "&+yThe %s&N %s&n", SHIPCLASSNAME(ship), name);
+   ship->shipobj->short_description = str_dup(buf);
+   sprintf(buf, "ship %s %s", SHIPCLASSNAME(ship), ship->ownername);
+   ship->shipobj->name = str_dup(buf);
+   ship->keywords = str_dup(buf);
 
    // name ship rooms
    for (i = 0; i < MAX_SHIP_ROOM; i++)
@@ -284,8 +284,7 @@ bool rename_ship(P_char ch, char *owner_name, char *new_name)
       }
       else
       {
-         sprintf(buf, "%s does not own a ship!\n", owner_name);
-         send_to_char(buf, ch);
+         send_to_char_f(ch, "%s does not own a ship!\n", owner_name);
       }
 
       return FALSE;
@@ -886,8 +885,7 @@ int ship_room_proc(int room, P_char ch, int cmd, char *arg)
                    send_to_char("You're in no position to disembark!\r\n", ch);
                    return(TRUE);
                 }
-                act("You step off the docking bay of this ship.", FALSE, ch, 0, 0,
-                   TO_CHAR);
+                act("You step off the docking bay of this ship.", FALSE, ch, 0, 0, TO_CHAR);
                 act("$n steps off the ship.", TRUE, ch, 0, 0, TO_ROOM);
                 char_from_room(ch);
                 char_to_room(ch, ship->shipobj->loc.room, 0);
@@ -917,9 +915,7 @@ int ship_room_proc(int room, P_char ch, int cmd, char *arg)
           k = 1;
        }
        if (!k) {
-          send_to_char
-          ("You are not close enough to the edge of the ship to jump out!\r\n",
-           ch);
+          send_to_char ("You are not close enough to the edge of the ship to jump out!\r\n", ch);
           return TRUE;
        }
        if (!MIN_POS(ch, POS_STANDING + STAT_NORMAL) || IS_FIGHTING(ch)) {
@@ -1020,9 +1016,7 @@ int ship_obj_proc(P_obj obj, P_char ch, int cmd, char *arg)
       }
 //            else
 //            {
-//                send_to_char
-//                ("This ship's hatches are tightly shut and the armor is too tough to break through!\r\n",
-//                 ch);
+//                send_to_char("This ship's hatches are tightly shut and the armor is too tough to break through!\r\n", ch);
 //                return TRUE;
 //            }
     }
@@ -1089,8 +1083,7 @@ bool check_undocking_conditions(P_ship ship, P_char ch)
             arc_weapon_weight[ship->slot[sl].position] += weapon_data[ship->slot[sl].index].weight;
             if (!ship_allowed_weapons[ship->m_class][ship->slot[sl].index])
             {
-                sprintf(buf, "Remove weapon [%d], it is not allowed with this hull!\r\n", sl);
-                send_to_char(buf, ch);
+                send_to_char_f(ch, "Remove weapon [%d], it is not allowed with this hull!\r\n", sl);
                 return FALSE;
             }
         }
@@ -1099,24 +1092,22 @@ bool check_undocking_conditions(P_ship ship, P_char ch)
     {
       if (arc_weapons[a] > ship_arc_properties[ship->m_class].max_weapon_slots[a])
       {
-          sprintf(buf, 
+          send_to_char_f(ch, 
               "Your have too many weapons at one side!\r\nMaximum allowed weapons for this ship is:\r\nFore: %d  Starboard: %d  Port: %d  Rear: %d\r\n",
               ship_arc_properties[ship->m_class].max_weapon_slots[SIDE_FORE], 
               ship_arc_properties[ship->m_class].max_weapon_slots[SIDE_STAR], 
               ship_arc_properties[ship->m_class].max_weapon_slots[SIDE_PORT], 
               ship_arc_properties[ship->m_class].max_weapon_slots[SIDE_REAR]);
-          send_to_char(buf, ch);
           return FALSE;
       }
       if (arc_weapon_weight[a] > ship_arc_properties[ship->m_class].max_weapon_weight[a])
       {
-          sprintf(buf, 
+          send_to_char_f(ch, 
               "Your have overloaded one side with weapons!\r\nMaximum allowed weapon weight for this ship is:\r\nFore: %d  Starboard: %d  Port: %d  Rear: %d\r\n",
               ship_arc_properties[ship->m_class].max_weapon_weight[SIDE_FORE], 
               ship_arc_properties[ship->m_class].max_weapon_weight[SIDE_STAR], 
               ship_arc_properties[ship->m_class].max_weapon_weight[SIDE_PORT], 
               ship_arc_properties[ship->m_class].max_weapon_weight[SIDE_REAR]);
-          send_to_char(buf, ch);
           return FALSE;
       }
     }
@@ -1270,8 +1261,7 @@ void ship_activity()
                                 ship->slot[j].val2--;
                                 if (!SHIPWEAPONDAMAGED(ship, j))
                                 {
-                                    sprintf(buf, "&+W%s &+Ghas been repaired!&N", weapon_data[ship->slot[j].index].name);
-                                    act_to_all_in_ship(ship, buf);
+                                    act_to_all_in_ship(ship, "&+W%s &+Ghas been repaired!&N", weapon_data[ship->slot[j].index].name);
                                     ship->slot[j].timer = (int)((float)weapon_data[j].reload_time * (1.0 - ship->guncrew.skill_mod * 0.15));
                                 }
                                 if (!number(0, 4))
@@ -1412,57 +1402,48 @@ void ship_activity()
                 if ((ship->y >= 51.000) || (ship->x >= 51.000) || (ship->y < 50.000) || (ship->x < 50.000)) 
                 {
                     getmap(ship);
-                    loc = ship->location;
-                    ship->location = tactical_map[(int) ship->x][100 - (int) ship->y].rroom;
-                    if (world[ship->location].sector_type == SECT_OCEAN || IS_SET(ship->flags, AIR)) 
+                    loc = tactical_map[(int) ship->x][100 - (int) ship->y].rroom;
+                    if (is_valid_sailing_location(ship, loc))
                     {
                         if (ship->x > 50.999) 
                         {
                             ship->x -= 1.000;
-                            sprintf(buf, "%s sails east.\r\n", ship->name);
-                            send_to_room(buf, tactical_map[50][50].rroom);
-                            sprintf(buf, "%s sails in from the west.\r\n", ship->name);
-                            send_to_room(buf, ship->location);
+                            send_to_room_f(ship->location, "%s sails east.\r\n", ship->name);
+                            send_to_room_f(loc, "%s sails in from the west.\r\n", ship->name);
                         } 
                         else if (ship->x < 50.000) 
                         {
                             ship->x += 1.000;
-                            sprintf(buf, "%s sails west.\r\n", ship->name);
-                            send_to_room(buf, tactical_map[50][50].rroom);
-                            sprintf(buf, "%s sails in from the east.\r\n", ship->name);
-                            send_to_room(buf, ship->location);
+                            send_to_room_f(ship->location, "%s sails west.\r\n", ship->name);
+                            send_to_room_f(loc, "%s sails in from the east.\r\n", ship->name);
                         }
 
                         if (ship->y > 50.999) 
                         {
                             ship->y -= 1.000;
-                            sprintf(buf, "%s sails north.\r\n", ship->name);
-                            send_to_room(buf, tactical_map[50][50].rroom);
-                            sprintf(buf, "%s sails in from the south.\r\n", ship->name);
-                            send_to_room(buf, ship->location);
+                            send_to_room_f(ship->location, "%s sails north.\r\n", ship->name);
+                            send_to_room_f(loc, "%s sails in from the south.\r\n", ship->name);
                         } 
                         else if (ship->y < 50.000) 
                         {
                             ship->y += 1.000;
-                            sprintf(buf, "%s sails south.\r\n", ship->name);
-                            send_to_room(buf, tactical_map[50][50].rroom);
-                            sprintf(buf, "%s sails in from the north.\r\n", ship->name);
-                            send_to_room(buf, ship->location);
+                            send_to_room_f(ship->location, "%s sails south.\r\n", ship->name);
+                            send_to_room_f(loc, "%s sails in from the north.\r\n", ship->name);
                         }
                         if (SHIPOBJ(ship) && (loc != ship->location)) 
                         {
+                            ship->location = loc;
                             obj_from_room(SHIPOBJ(ship));
-                            obj_to_room(SHIPOBJ(ship), ship->location);
+                            obj_to_room(SHIPOBJ(ship), loc);
                             everyone_look_out_newship(ship);
                         }
                     } 
-                    else if (loc != ship->location) 
+                    else
                     {
                         ship->setspeed = 0;
                         ship->speed = 0;
                         ship->x = 50.500;
                         ship->y = 50.500;
-                        SHIPLOCATION(ship) = ship->shipobj->loc.room;
 
                         if (ship->autopilot) 
                             stop_autopilot(ship);
@@ -1525,8 +1506,7 @@ void ship_activity()
                             ship->slot[j].timer--;
                             if (ship->slot[j].timer == 0) 
                             {
-                                    sprintf(buf, "Weapon &+W[%d]&N: [%s] has finished reloading.", j, ship->slot[j].get_description());
-                                    act_to_all_in_ship(ship, buf);
+                                act_to_all_in_ship(ship, "Weapon &+W[%d]&N: [%s] has finished reloading.", j, ship->slot[j].get_description());
                             }
                         }
                     }
@@ -1576,8 +1556,7 @@ void dock_ship(P_ship ship, int to_room)
 void crash_land(P_ship ship)
 {
     act_to_all_in_ship(ship, "&+yCRUNCH!! Your ship crashes into land!&N");
-    sprintf(buf, "&+W[%s]&N:%s&N crashes into land!", SHIPID(ship), ship->name);
-    act_to_outside_ships(ship, buf, NULL);
+    act_to_outside_ships(ship, NULL, "&+W[%s]&N:%s&N crashes into land!", SHIPID(ship), ship->name);
     int hits = (SHIPHULLWEIGHT(ship) / 25) + 1;
     for (int k = 0; k < hits; k++) 
     {
@@ -1587,18 +1566,10 @@ void crash_land(P_ship ship)
             int dam = number(1, 9);
             if (arc < 4)
             {
-                /*sprintf(buf, " Your ship is hit for %d points of damage on the %s side!", dam, arc_name[arc]);
-                act_to_all_in_ship(ship, buf);
-                sprintf(buf, " &+W[%s]&N:%s&N has been hit for %d points of damage on the %s side!", SHIPID(ship), ship->name, dam, arc_name[arc]);
-                act_to_outside_ships(ship, buf, NULL);*/
                 damage_hull(NULL, ship, dam, arc, 0);
             }
             else  // sails
             {
-                /*sprintf(buf, " &+WYour sails are hit for %d points of damage!", dam);
-                act_to_all_in_ship(ship, buf);
-                sprintf(buf, " &+W[%s]&N:%s&N sails has been hit for %d points of damage!", SHIPID(ship), ship->name, dam);
-                act_to_outside_ships(ship, buf, NULL);*/
                 damage_sail(NULL, ship, dam);
             }
         }
@@ -1610,8 +1581,7 @@ void finish_sinking(P_ship ship)
 {
     act_to_all_in_ship(ship, "&+yYour ship sinks and you swim out in time!\r\n");
     act_to_outside(ship, "&+yA ship has sunk to the depths of the ocean!\r\n");
-    sprintf(buf, "&+W[%s]:&N %s&N&+y sinks under the ocean.\r\n", ship->id, ship->name);
-    act_to_outside_ships(ship, buf, ship);
+    act_to_outside_ships(ship, ship, "&+W[%s]:&N %s&N&+y sinks under the ocean.\r\n", ship->id, ship->name);
     everyone_get_out_newship(ship);
 
     if (!ISNPCSHIP(ship))
@@ -1683,34 +1653,32 @@ void summon_ship_event(P_char ch, P_char victim, P_obj obj, void *data)
     ShipVisitor svs;
     for (bool fn = shipObjHash.get_first(svs); fn; fn = shipObjHash.get_next(svs))
     {
-      P_ship temp = svs;
-      if (isname(buf, temp->ownername) && temp->timer[T_BSTATION] == 0 && !SHIPSINKING(temp))
+      P_ship ship = svs;
+      if (isname(buf, ship->ownername) && ship->timer[T_BSTATION] == 0 && !SHIPSINKING(ship))
       {
         if( !is_trusted )
         {
           for (i = 0; i < MAXSLOTS; i++)
           {
-            if (temp->slot[i].type == SLOT_CARGO || temp->slot[i].type == SLOT_CONTRABAND)
+            if (ship->slot[i].type == SLOT_CARGO || ship->slot[i].type == SLOT_CONTRABAND)
             {
-              temp->slot[i].type = SLOT_EMPTY;
+              ship->slot[i].type = SLOT_EMPTY;
             }
           }
         }
         
-        everyone_get_out_newship(temp);
-        sprintf(buf, "&+y%s is called away elsewhere.&N\r\n", temp->name);
-        send_to_room(buf, temp->location);
-        temp->location = to_room;
-        obj_from_room(temp->shipobj);
-        obj_to_room(temp->shipobj, to_room);
-        sprintf(buf, "&+y%s arrives at port.\r\n&N", temp->name);
-        send_to_room(buf, to_room);
-        dock_ship(temp, to_room);
-        check_contraband(temp, SHIPLOCATION(temp));
-        REMOVE_BIT(temp->flags, SUMMONED);
-        temp->speed = 0;
-        temp->setspeed = 0;
-        write_ship(temp);
+        everyone_get_out_newship(ship);
+        send_to_room_f(ship->location, "&+y%s is called away elsewhere.&N\r\n", ship->name);
+        ship->location = to_room;
+        obj_from_room(ship->shipobj);
+        obj_to_room(ship->shipobj, to_room);
+        send_to_room_f(to_room, "&+y%s arrives at port.\r\n&N", ship->name);
+        dock_ship(ship, to_room);
+        check_contraband(ship, ship->location);
+        REMOVE_BIT(ship->flags, SUMMONED);
+        ship->speed = 0;
+        ship->setspeed = 0;
+        write_ship(ship);
         return;
       }
     }
@@ -1831,12 +1799,12 @@ int read_ships()
     ret = fread_string(f);
     while (*ret != '$') 
     {
-        sprintf(buf2, "Ships/%s", ret);
+        sprintf(buf, "Ships/%s", ret);
         ret = fread_string(f);
-        f2 = fopen(buf2, "r");
+        f2 = fopen(buf, "r");
         if (!f2) 
         {
-            logit(LOG_FILE, "error reading ship file (couldn't open file %s)!\r\n", buf2);
+            logit(LOG_FILE, "error reading ship file (couldn't open file %s)!\r\n", buf);
             continue;
         }
         if ((k = fscanf(f2, "version:%d\n", &ver)) != 1)
@@ -1854,17 +1822,17 @@ int read_ships()
         
         if (ver == 2)
         {
-            fgets(buf2, MAX_STRING_LENGTH, f2);
-            for (int i = 0; buf2[i] != '\0'; i++) 
-                if (buf2[i] == '\n') { buf2[i] = '\0'; break; }
+            fgets(buf, MAX_STRING_LENGTH, f2);
+            for (int i = 0; buf[i] != '\0'; i++) 
+                if (buf[i] == '\n') { buf[i] = '\0'; break; }
 
-            ship->ownername = str_dup(buf2);
+            ship->ownername = str_dup(buf);
 
-            fgets(buf2, MAX_STRING_LENGTH, f2);
-            for (int i = 0; buf2[i] != '\0'; i++) 
-                if (buf2[i] == '\n') { buf2[i] = '\0'; break; }
+            fgets(buf, MAX_STRING_LENGTH, f2);
+            for (int i = 0; buf[i] != '\0'; i++) 
+                if (buf[i] == '\n') { buf[i] = '\0'; break; }
 
-            ship->name = str_dup(buf2);
+            ship->name = str_dup(buf);
 
             fscanf(f2, "%d\n", &(ship->frags));
             fscanf(f2, "%d %d\n", &(ship->anchor), &(ship->time));
@@ -1987,9 +1955,7 @@ void update_shipfrags()
 void display_shipfrags(P_char ch)
 {
   send_to_char("&+L10 most dangerous ships\r\n", ch);
-  send_to_char
-    ("&+L-======================================================-&N\r\n\r\n",
-     ch);
+  send_to_char("&+L-======================================================-&N\r\n\r\n", ch);
   for (int i = 0; i < 10; i++)
   {
     if (shipfrags[i].ship == NULL)
@@ -2020,11 +1986,10 @@ void display_shipfrags(P_char ch)
         break;
       }
     }
-    sprintf(buf,
+    send_to_char_f(ch,
             "&+W%d:&N %s\r\n&+LCaptain: &+W%-20s &+LClass: &+y%-15s&+R Tonnage Sunk: &+W%d&N\r\n\r\n",
             i + 1, shipfrags[i].ship->name, shipfrags[i].ship->ownername,
             SHIPTYPENAME(SHIPCLASS(shipfrags[i].ship)),
             shipfrags[i].ship->frags);
-    send_to_char(buf, ch);
   }
 }

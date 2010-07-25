@@ -167,7 +167,7 @@ struct NPCShipAI
     float calc_land_dist(float x, float y, float dir, float max_range);
     static void normalize_direction(int &dir);
     bool inside_map(float x, float y);
-    void send_message_to_debug_char(char *fmt, ... );
+    void send_message_to_debug_char(const char *fmt, ... );
 };
 
 #endif // _SHIP_NPC_AI_H_

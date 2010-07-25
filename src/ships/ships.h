@@ -453,7 +453,6 @@ extern const char *ship_symbol[NUM_SECT_TYPES];
 #define ISNPCSHIP(shipdata) ((shipdata)->race == NPCSHIP)
 #define ISMERCHANT(shipdata) (SHIPTYPEKIND((shipdata)->m_class) == SHK_MERCHANT)
 #define ISWARSHIP(shipdata) (SHIPTYPEKIND((shipdata)->m_class) == SHK_WARSHIP)
-#define SHIPLOCATION(shipdata) (shipdata)->location
 
 //Cargo related stuff
 #define SHIPMAXCARGO(shipdata) SHIPTYPECARGO(SHIPCLASS(shipdata))
@@ -591,11 +590,12 @@ int num_people_in_ship(P_ship ship);
 P_char captain_is_aboard(P_ship ship);
 int get_turning_speed(P_ship ship);
 
-void act_to_all_in_ship(P_ship ship, const char *msg);
-void act_to_outside_ships(P_ship ship, const char *msg, P_ship notarget);
-void act_to_outside(P_ship ship, const char *msg);
+void act_to_all_in_ship(P_ship ship, const char *msg, ... );
+void act_to_outside_ships(P_ship ship, P_ship notarget, const char *msg, ... );
+void act_to_outside(P_ship ship, const char *msg, ... );
 void everyone_get_out_newship(P_ship ship);
 void everyone_look_out_newship(P_ship ship);
+bool is_valid_sailing_location(P_ship ship, int room);
 
 
 // Externals

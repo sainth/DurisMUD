@@ -19,6 +19,7 @@
 #include <sys/wait.h>
 #include <zlib.h>
 #include <unistd.h>
+#include <stdarg.h> 
 
 #include "comm.h"
 #include "db.h"
@@ -2553,6 +2554,18 @@ void coma(int s)
  * ****************************************************************
  */
 
+static char send_to_char_f_buf[MAX_STRING_LENGTH];
+void send_to_char_f(P_char ch, const char *fmt, ... )
+{
+    va_list args;
+
+    va_start(args, fmt);
+    vsnprintf(send_to_char_f_buf, sizeof(send_to_char_f_buf) - 1, fmt, args);
+    va_end(args);
+
+    send_to_char(send_to_char_f_buf, ch);
+}
+
 void send_to_char(const char *messg, P_char ch)
 {
   send_to_char(messg, ch, LOG_PUBLIC);
@@ -2673,6 +2686,17 @@ void send_to_except(const char *messg, P_char ch)
           write_to_q(messg, &i->output, 2);
 }
 
+static char send_to_room_f_buf[MAX_STRING_LENGTH];
+void send_to_room_f(int room, const char *fmt, ... )
+{
+    va_list args;
+
+    va_start(args, fmt);
+    vsnprintf(send_to_room_f_buf, sizeof(send_to_room_f_buf) - 1, fmt, args);
+    va_end(args);
+
+    send_to_room(send_to_room_f_buf, room);
+}
 void send_to_room(const char *messg, int room)
 {
   P_char   i;

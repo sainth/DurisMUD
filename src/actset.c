@@ -744,12 +744,13 @@ static void setbit_ship(P_char ch, char *name, char *flag, char *val,
     {"money", OFFSET(money), NULL, ac_intCopy},
     {"frags", OFFSET(frags), NULL, ac_intCopy},
     // entries below are just for help, they arent used in parsetable
-    {"maxspeed", OFFSET(maxspeed_bonus), NULL, ac_intCopy},
-    {"capacity", OFFSET(capacity_bonus), NULL, ac_intCopy},
-    {"crew", OFFSET(sailcrew), NULL, ac_intCopy},
-    {"sailskill", OFFSET(sailcrew), NULL, ac_intCopy},
-    {"gunskill", OFFSET(sailcrew), NULL, ac_intCopy},
-    {"repairskill", OFFSET(sailcrew), NULL, ac_intCopy},
+    {"maxspeed", NULL, NULL, ac_intCopy},
+    {"capacity", NULL, NULL, ac_intCopy},
+    {"air", NULL, NULL, ac_intCopy},
+    {"crew", NULL, NULL, ac_intCopy},
+    {"sailskill", NULL, NULL, ac_intCopy},
+    {"gunskill", NULL, NULL, ac_intCopy},
+    {"repairskill", NULL, NULL, ac_intCopy},
   };
     
 
@@ -773,6 +774,15 @@ static void setbit_ship(P_char ch, char *name, char *flag, char *val,
           ship_gain_frags(ship, new_frags - ship->frags);
       return;
   }*/
+  if (SAME_STRING(flag, "air"))
+  {
+      if (IS_SET(ship->flags, AIR))
+          REMOVE_BIT(ship->flags, AIR);
+      else
+          SET_BIT(ship->flags, AIR);
+      update_ship_status(ship);
+      return;
+  }
   if (SAME_STRING(flag, "crew"))
   {
       setcrew(ship, atoi(val), 0);
