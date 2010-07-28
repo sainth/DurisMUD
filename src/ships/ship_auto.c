@@ -359,7 +359,7 @@ void autopilot_activity(P_ship ship)
           x = i;
           y = j;
           b = bearing(50, 50, i, j);
-          if (ship->setheading != b && ai->t_room != ship->location)
+          if ((int)ship->setheading != b && ai->t_room != ship->location)
           {
             ship->setheading = b;
             announceheading(ship, b);

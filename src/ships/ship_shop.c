@@ -1096,7 +1096,7 @@ int rename_ship(P_char ch, P_ship ship, char* new_name)
         send_to_char("Invalid syntax.\r\n", ch);
         return TRUE;
     }
-    if (!check_ship_name(0, ch, new_name))
+    if (!check_ship_name(ship, ch, new_name))
         return TRUE;
 
 

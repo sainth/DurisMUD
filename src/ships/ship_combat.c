@@ -116,7 +116,7 @@ void scan_target(P_ship ship, P_ship target, P_char ch)
                 SHIPINTERNALCOND(SHIPMAXRINTERNAL(target), SHIPRINTERNAL(target)),
                 SHIPRINTERNAL(target), 
                 SHIPMAXRINTERNAL(target),
-                target->heading);
+                (int)target->heading);
 
         send_to_char_f(ch,
                 "Port       %s%3d&N/&+G%-3d&N  %s%2d&N/&+g%-2d&N     Bearing:&+W%-3d&N Arc:&+W%s&N\r\n",
@@ -125,7 +125,7 @@ void scan_target(P_ship ship, P_ship target, P_char ch)
                 SHIPINTERNALCOND(SHIPMAXPINTERNAL(target), SHIPPINTERNAL(target)),
                 SHIPPINTERNAL(target), 
                 SHIPMAXPINTERNAL(target),
-                contacts[i].bearing,
+                (int)contacts[i].bearing,
                 get_arc_name(get_arc(ship->heading, contacts[i].bearing)));
 
         send_to_char_f(ch, 
@@ -447,7 +447,7 @@ void volley_hit_event(P_char ch, P_char victim, P_obj obj, void *data)
     if (dice(2, 50) >= 100 - hit_chance) 
     { // we have a hit!
         // calculating your bearing relative to target
-        int your_bearing = 0;
+        float your_bearing = 0;
         float range = 35.0;
         int k = getcontacts(target);
         for (int j = 0; j < k; j++) 
@@ -483,7 +483,7 @@ void volley_hit_event(P_char ch, P_char victim, P_obj obj, void *data)
                 }
                 else
                 {// hitting hull
-                    int hit_dir = your_bearing + number(-(weapon_data[w_index].hit_arc / 2), (weapon_data[w_index].hit_arc / 2));
+                    float hit_dir = your_bearing + number(-(weapon_data[w_index].hit_arc / 2), (weapon_data[w_index].hit_arc / 2));
                     if (hit_dir >= 360)    hit_dir -= 360;
                     else if (hit_dir < 0)  hit_dir = 360 + hit_dir;
                     int hit_arc = get_arc(target->heading, hit_dir);
@@ -730,7 +730,7 @@ void update_ship_status(P_ship ship, P_ship attacker)
 }
 
 
-int check_ram_arc(int heading, int bearing, int size)
+int check_ram_arc(float heading, float bearing, float size)
 {
     size /= 2;
 
@@ -745,10 +745,10 @@ int check_ram_arc(int heading, int bearing, int size)
     return FALSE;
 }
 
-int try_ram_ship(P_ship ship, P_ship target, int tbearing)
+int try_ram_ship(P_ship ship, P_ship target, float tbearing)
 {
-    int theading = target->heading, sheading = ship->heading;
-    int sbearing = tbearing + 180;
+    float theading = target->heading, sheading = ship->heading;
+    float sbearing = tbearing + 180;
     if (sbearing > 360) sbearing -= 360;
 
     if (!check_ram_arc(sheading, tbearing, 120))
@@ -767,9 +767,9 @@ int try_ram_ship(P_ship ship, P_ship target, int tbearing)
 
 
     // Calculating relative speed 
-    int heading_angle = abs(sheading - theading);
+    float heading_angle = abs(sheading - theading);
     if (heading_angle > 180) heading_angle = 360 - heading_angle;
-    float rad = ((float) heading_angle * M_PI / 180);
+    float rad = heading_angle * M_PI / 180.0;
 
     int ram_speed = ship->speed;
     int counter_speed = (-1) * (int) ((float)target->speed * cos(rad));
@@ -844,7 +844,7 @@ int try_ram_ship(P_ship ship, P_ship target, int tbearing)
 
         counter_damage += SHIPHULLWEIGHT(target) / SHIPHULLWEIGHT(ship);
 
-        //act_to_all_in_ship(ship, "SBearing = %d, TBearing = %d, RSpeed = %d, CSpeed = %d, RDam = %d, CDam = %d\r\n", sbearing, tbearing, ram_speed, counter_speed, ram_damage, counter_damage);
+        //act_to_all_in_ship(ship, "SBearing = %f, TBearing = %f, RSpeed = %d, CSpeed = %d, RDam = %d, CDam = %d\r\n", sbearing, tbearing, ram_speed, counter_speed, ram_damage, counter_damage);
 
         // Applying damage
         int split = (int)(100.0 * (float)ram_damage / (float)(ram_damage + counter_damage));
@@ -865,7 +865,7 @@ int try_ram_ship(P_ship ship, P_ship target, int tbearing)
                 }
                 else
                 {
-                    int hit_dir = sbearing + number(-90, 90);
+                    float hit_dir = sbearing + number(-90, 90);
                     if (hit_dir >= 360)    hit_dir -= 360;
                     else if (hit_dir < 0)  hit_dir = 360 + hit_dir;
                     damage_hull(ship, target, dam, get_arc(target->heading, hit_dir), 2);
@@ -881,7 +881,7 @@ int try_ram_ship(P_ship ship, P_ship target, int tbearing)
                 }
                 else
                 {
-                    int hit_dir = ship->heading + number(-90, 90);
+                    float hit_dir = ship->heading + number(-90, 90);
                     if (hit_dir >= 360)    hit_dir -= 360;
                     else if (hit_dir < 0)  hit_dir = 360 + hit_dir;
                     damage_hull(NULL, ship, dam, get_arc(ship->heading, hit_dir), 0);
@@ -967,63 +967,37 @@ int weaponsight(P_ship ship, int slot, int t_contact, P_char ch)
   P_ship target = contacts[t_contact].ship;
 
   // first, calculating 'normal' ortogonal speed of target
-  int tr_heading = target->heading - contacts[t_contact].bearing;
+  float tr_heading = target->heading - contacts[t_contact].bearing;
   if (tr_heading < 0) tr_heading += 360;
-  float tr_rad = (float) ((float) (tr_heading) * M_PI / 180.000);
+  float tr_rad = tr_heading * M_PI / 180.000;
   float ortogonal_speed = sin(tr_rad) * (float)target->speed; // targets ortogonal speed in 'ship units'
 
   // second, calculating projected change in relative position/heading
-  int t_curr_bearing = contacts[t_contact].bearing - ship->heading;   // target relative bearing this turn
+  float t_curr_bearing = contacts[t_contact].bearing - ship->heading;   // target relative bearing this turn
   if (t_curr_bearing < 0) t_curr_bearing += 360;
  
   // calculating next position of the ship
-  int s_next_turn = 0;
-  if (ship->heading != ship->setheading)
-  {
-    s_next_turn = get_turning_speed(ship);
-    int diff = ship->setheading - ship->heading;
-    if (diff > 180)
-      diff -= 360;
-    if (diff < -180)
-      diff += 360;
-
-    if (diff > 0)
-      s_next_turn = MIN(diff, s_next_turn);
-    else
-      s_next_turn = MAX(diff, -s_next_turn);
-  }
-  int s_next_heading = ship->heading + s_next_turn;
-  float rad = (float) ((float) (s_next_heading) * M_PI / 180.000);
+  float s_next_turn = get_next_heading_change(ship);
+  float s_next_heading = ship->heading + s_next_turn;
+  normalize_direction(s_next_heading);
+  float rad = s_next_heading * M_PI / 180.000;
   float s_next_x = ship->x + (float) ((float) ship->speed * sin(rad)) / 150.000;
   float s_next_y = ship->y + (float) ((float) ship->speed * cos(rad)) / 150.000;
 
   // calculating next position of the target
-  int t_next_turn = 0;
-  if (target->heading != target->setheading)
-  {
-    t_next_turn = get_turning_speed(target);
-    int diff = target->setheading - target->heading;
-    if (diff > 180)
-      diff -= 360;
-    if (diff < -180)
-      diff += 360;
-
-    if (diff > 0)
-      t_next_turn = MIN(diff, t_next_turn);
-    else
-      t_next_turn = MAX(diff, -t_next_turn);
-  }
-  int t_next_heading = target->heading + t_next_turn;
-  rad = (float) (t_next_heading) * M_PI / 180.000;
+  float t_next_turn = get_next_heading_change(target);
+  float t_next_heading = target->heading + t_next_turn;
+  normalize_direction(t_next_heading);
+  rad = t_next_heading * M_PI / 180.000;
   float t_next_x = (float) contacts[t_contact].x + (target->x - 50.0) + ((float) target->speed * sin(rad)) / 150.000;
   float t_next_y = (float) contacts[t_contact].y + (target->y - 50.0) + ((float) target->speed * cos(rad)) / 150.000;
 
-  int t_next_bearing = bearing(s_next_x, s_next_y, t_next_x, t_next_y);
+  float t_next_bearing = bearing(s_next_x, s_next_y, t_next_x, t_next_y);
   t_next_bearing -= s_next_heading;                                                       // target relative bearing next turn
   if (t_next_bearing < 0) t_next_bearing += 360;
   float t_next_range = range(s_next_x, s_next_y, ship->z, t_next_x, t_next_y, target->z); // target range next turn
 
-  //send_to_char_f(ch, "snt=%d,snx=%5.2f,sny=%5.2f,snh=%d,tnt=%d,tnx=%5.2f,tny=%5.2f,tnh=%d   tcb=%d,tcr=%5.2f,tnb=%d,tnr=%5.2f", s_next_turn, s_next_x, s_next_y, s_next_heading, t_next_turn, t_next_x, t_next_y, t_next_heading, t_curr_bearing, t_curr_range, t_next_bearing, t_next_range);
+  //send_to_char_f(ch, "snt=%5.2f,snx=%5.2f,sny=%5.2f,snh=%5.2f,tnt=%5.2f,tnx=%5.2f,tny=%5.2f,tnh=%5.2f   tcb=%5.2f,tcr=%5.2f,tnb=%5.2f,tnr=%5.2f", s_next_turn, s_next_x, s_next_y, s_next_heading, t_next_turn, t_next_x, t_next_y, t_next_heading, t_curr_bearing, t_curr_range, t_next_bearing, t_next_range);
 
   float closing_speed = ABS(t_next_range - t_curr_range) * 150.0; // in 'ship units'
   float angle_speed = ABS(t_next_bearing - t_curr_bearing);       // in degrees
@@ -1081,16 +1055,20 @@ int weaponsight(P_ship ship, int slot, int t_contact, P_char ch)
   return (int)(hit_chance * 100);
 }
 
-
-
 int fire_weapon(P_ship ship, int w_num, int t_contact, P_char ch)
+{
+    int hit_chance = weaponsight(ship, w_num, t_contact, ch);
+    return fire_weapon(ship, w_num, t_contact, hit_chance, ch);
+}
+
+
+int fire_weapon(P_ship ship, int w_num, int t_contact, int hit_chance, P_char ch)
 {
     P_ship target = contacts[t_contact].ship;
     float range = contacts[t_contact].range;
     int w_index = ship->slot[w_num].index;
 
-    // calculating hit chance/displaying firing messages
-    int hit_chance = weaponsight(ship, w_num, t_contact, ch);
+    // displaying firing messages
     act_to_all_in_ship(ship, "Your ship fires &+W%s&N at &+W[%s]&N:%s! Chance to hit: &+W%d%%&N", ship->slot[w_num].get_description(), target->id, target->name, hit_chance);
     act_to_all_in_ship(target, "&+W[%s]&N:%s&N fires %s at your ship!", SHIPID(ship), ship->name, ship->slot[w_num].get_description());
     act_to_outside(ship, "%s&N fires %s at %s!", ship->name, ship->slot[w_num].get_description(), target->name);

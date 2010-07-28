@@ -319,21 +319,36 @@ int num_people_in_ship(P_ship ship)
   return (num);
 }
 
-int get_turning_speed(P_ship ship)
+float get_turning_speed(P_ship ship)
 {
     if (SHIPIMMOBILE(ship))
-    {
-        return 2;
-    }
-    int tspeed = (int) (ship->speed / 10);
-    tspeed += (int) ((280 - SHIPHULLWEIGHT(ship)) / 10);
+        return 1;
 
-    if (tspeed < 5)
-        tspeed = 5;
-
-    float turn_mod = 1.0 + ship->sailcrew.skill_mod;
-    tspeed = (int) ((float)tspeed * turn_mod);
+    float tspeed = (float)SHIPTYPEHDDC(SHIPCLASS(ship));
+    tspeed *= 0.75 + 0.25 * (float)(ship->speed - BOARDING_SPEED) / (float)(SHIPTYPESPEED(SHIPCLASS(ship)) - BOARDING_SPEED); // only 3/4 turn at boarding speed, even less if slower
+    tspeed *= (1.0 + ship->sailcrew.skill_mod);
     return tspeed;
+}
+
+float get_next_heading_change(P_ship ship)
+{
+    if (ship->heading == ship->setheading)
+        return 0;
+
+    float hdspeed = get_turning_speed(ship);
+
+    float diff = ship->setheading - ship->heading;
+    if (diff > 180)
+      diff -= 360;
+    if (diff < -180)
+      diff += 360;
+
+    float change = 0;
+    if (diff >= 0)
+      change = MIN(diff, hdspeed);
+    else
+      change = MAX(diff, -hdspeed);
+    return change;
 }
 
 void update_maxspeed(P_ship ship)
@@ -459,7 +474,7 @@ int getmap(P_ship ship)
   return TRUE;
 }
 
-int get_arc(int heading, int bearing)
+int get_arc(float heading, float bearing)
 {
   bearing -= heading;
   normalize_direction(bearing);
@@ -554,9 +569,9 @@ int getcontacts(P_ship ship, bool limit_range)
 }
 
 
-int bearing(float x1, float y1, float x2, float y2)
+float bearing(float x1, float y1, float x2, float y2)
 {
-    int      val;
+    float val;
 
     if (y1 == y2) {
         if (x1 > x2)
@@ -569,7 +584,7 @@ int bearing(float x1, float y1, float x2, float y2)
         else
             return 0;
     }
-    val = (int) (atan((x2 - x1) / (y2 - y1)) * 180 / 3.14);
+    val = atan((x2 - x1) / (y2 - y1)) * 180 / M_PI;
     if (y1 < y2) {
         if (val >= 0)
             return val;
@@ -590,7 +605,7 @@ void ShipData::show(P_char ch) const
 
   send_to_char_f(ch, "ID: %s\r\n", this->id);
 
-  send_to_char_f(ch, "Heading: %d, Set Heading: %d\r\n", this->heading, this->setheading);
+  send_to_char_f(ch, "Heading: %d, Set Heading: %d\r\n", (int)this->heading, (int)this->setheading);
   
   send_to_char_f(ch, "Speed: %d, Set Speed: %d, Max Speed: %d, Sailcond: %d\r\n", this->speed, this->setspeed, this->maxspeed, this->mainsail);
   
@@ -961,7 +976,7 @@ float WeaponData::average_sail_damage() const
     ((float)sail_hit / 100.0);
 }
 
-void normalize_direction(int &dir)
+void normalize_direction(float &dir)
 {
     while (dir >= 360) dir = dir - 360;
     while (dir < 0) dir = dir + 360;

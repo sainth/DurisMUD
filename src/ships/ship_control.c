@@ -367,7 +367,7 @@ int order_heading(P_char ch, P_ship ship, char* arg)
     int      heading;
     if (!*arg) 
     {
-        send_to_char_f(ch, "Current heading: &+W%d&N\r\nSet heading: &+W%d&N\r\n", ship->heading, ship->setheading);
+        send_to_char_f(ch, "Current heading: &+W%d&N\r\nSet heading: &+W%d&N\r\n", (int)ship->heading, (int)ship->setheading);
         return TRUE;
     } 
     else 
@@ -402,7 +402,7 @@ int order_heading(P_char ch, P_ship ship, char* arg)
     if (is_number(arg)) 
     {
         heading = atoi(arg);
-        if ((0 <= heading) && (heading <= 360)) 
+        if (heading >= 0 && heading <= 360) 
             ship->setheading = heading;
         else 
         {
@@ -410,7 +410,7 @@ int order_heading(P_char ch, P_ship ship, char* arg)
             return TRUE;
         }
     }
-    act_to_all_in_ship(ship, "Heading set to &+W%d&N.", ship->setheading);
+    act_to_all_in_ship(ship, "Heading set to &+W%d&N.", (int)ship->setheading);
     return TRUE;
 }
 
@@ -589,7 +589,7 @@ int do_fire_weapon(P_ship ship, P_char ch, int w_num)
 
     int w_index = ship->slot[w_num].index;
     float range = contacts[j].range;
-    int bearing = contacts[j].bearing;
+    float bearing = contacts[j].bearing;
     if (range > (float) weapon_data[w_index].max_range)
     {
         if (ch) send_to_char("Out of Range!\r\n", ch);
@@ -1043,8 +1043,8 @@ int look_contacts(P_char ch, P_ship ship)
     }
 
     int k = getcontacts(ship);
-    send_to_char_f (ch, "&+WContact listing                                               H:%-3d S:%-3d&N\r\n", ship->heading, ship->speed);
-    send_to_char_f (ch, "=============================================================================&N\r\n");
+    send_to_char_f (ch, "&+WContact listing                                               H:%-3d S:%-3d&N\r\n", (int)ship->heading, ship->speed);
+    send_to_char_f (ch, "=========================================================================&N\r\n");
     for (int i = 0; i < k; i++) 
     {
         if (SHIPISDOCKED(contacts[i].ship)) 
@@ -1076,8 +1076,8 @@ int look_contacts(P_char ch, P_ship ship)
           contacts[i].x, 
           contacts[i].y, 
           contacts[i].range, 
-          contacts[i].bearing, 
-          contacts[i].ship->heading,
+          (int)contacts[i].bearing, 
+          (int)contacts[i].ship->heading,
           contacts[i].ship->speed, 
           contacts[i].arc,
           SHIPSINKING(contacts[i].ship) ? "&+RS&N" :
@@ -1162,19 +1162,35 @@ char* generate_slot(P_ship ship, int sl)
   return slot_desc;
 }
 
+const char* get_ship_status(P_ship ship)
+{
+    return
+    SHIPSINKING(ship)  ? "&=LRSINKING&N" :
+    SHIPIMMOBILE(ship) ? "&+RIMMOBILE&N" : 
+    SHIPANCHORED(ship) ? "&+yANCHORED&N" : 
+    SHIPISDOCKED(ship) ? "&+yDOCKED&N" : 
+                         "&+yUNDOCKED&N"; 
+}
+
 int look_ship(P_char ch, P_ship ship)
 {
+    char name_format[20];
+    sprintf(name_format, "%%-%ds", strlen(ship->name) + (20 - strlen(strip_ansi(ship->name).c_str())));
+
     char target_str[100];
     P_ship target = ship->target;
     if (target != NULL && SHIPISLOADED(target))
-        sprintf(target_str, "Target: &+W[%s]&N: %s", target->id, target->name);
+        sprintf(target_str, "&+GTarget: &+W[%s]&N: %s", target->id, target->name);
     else
         sprintf(target_str, " ");
-    
-    send_to_char_f(ch, "%s\r\n", ship->name);
+
+    send_to_char_f(ch, "&+GName:&N ");
+    send_to_char_f(ch, name_format, ship->name);
+    send_to_char_f(ch, "               %s\r\n", target_str);
     send_to_char(      "&+L-========================================================================-&N\r\n", ch);
-    send_to_char_f(ch, "&+LCaptain: &+W%-20s &+rFrags: &+W%-31d&+LID[&+Y%s&+L]\r\n\r\n",
-            SHIPOWNER(ship), ship->frags, SHIPID(ship));
+    send_to_char_f(ch, "&+LCaptain: &+W%-20s &+rFrags: &+W%-5d     &+LStatus: %-13s     &+LID[&+Y%s&+L]&N\r\n",
+            SHIPOWNER(ship), ship->frags, get_ship_status(ship), SHIPID(ship));
+    send_to_char_f(ch, "\r\n");
     send_to_char_f(ch, "        %s%3d&N/&+G%-3d      &+LSpeed Range: &+W0-%-3d&+L            Sails: &+W%-20s&N\r\n",
             SHIPARMORCOND(SHIPMAXFARMOR(ship), SHIPFARMOR(ship)),
             SHIPFARMOR(ship), SHIPMAXFARMOR(ship),
@@ -1183,12 +1199,8 @@ int look_ship(P_char ch, P_ship ship)
             SHIPHULLWEIGHT(ship), ship_crew_data[ship->guncrew.index].name);
     send_to_char_f(ch, "           &+y||&N               &+LLoad: &+W%3d/&+W%3d&+L         Repair: &+W%-20s&N\r\n",
             SHIPSLOTWEIGHT(ship), SHIPMAXWEIGHT(ship), ship_crew_data[ship->repaircrew.index].name);
-    send_to_char_f(ch, "          &+y/..\\&N        &+LPassengers: &+W%2d/%2d&N\r\n",
-            num_people_in_ship(ship), ship->get_capacity());
-
-    send_to_char_f(ch, "         &+y/.%s%2d&+y.\\        &N\r\n",
-            SHIPINTERNALCOND(SHIPMAXFINTERNAL(ship), SHIPFINTERNAL(ship)),
-            SHIPFINTERNAL(ship));
+    send_to_char_f(ch, "          &+y/..\\&N        &+LPassengers: &+W%2d/%2d&N\r\n", num_people_in_ship(ship), ship->get_capacity());
+    send_to_char_f(ch, "         &+y/.%s%2d&+y.\\        &N\r\n", SHIPINTERNALCOND(SHIPMAXFINTERNAL(ship), SHIPFINTERNAL(ship)), SHIPFINTERNAL(ship));
     send_to_char(      "        &+y/..&N--&+y..\\        &+LNum  Name                 Position   Ammo   Status&N\r\n", ch);
     send_to_char_f(ch, "        &+y|..&+g%2d&+y..|        %s&N\r\n", SHIPMAXFINTERNAL(ship), generate_slot(ship, 0));
     send_to_char_f(ch, "        &+y|......| &+g%3d    %s&N\r\n", ship->mainsail, generate_slot(ship, 1));
@@ -1201,34 +1213,23 @@ int look_ship(P_char ch, P_ship ship)
             SHIPARMORCOND(SHIPMAXPARMOR(ship), SHIPPARMOR(ship)), SHIPPARMOR(ship),
             SHIPINTERNALCOND(SHIPMAXPINTERNAL(ship), SHIPPINTERNAL(ship)), SHIPPINTERNAL(ship),
             SHIPINTERNALCOND(SHIPMAXSINTERNAL(ship), SHIPSINTERNAL(ship)), SHIPSINTERNAL(ship), 
-            SHIPARMORCOND(SHIPMAXSARMOR(ship), SHIPSARMOR(ship)), SHIPSARMOR(ship), 
-            generate_slot(ship, 7));
+            SHIPARMORCOND(SHIPMAXSARMOR(ship), SHIPSARMOR(ship)), SHIPSARMOR(ship),  generate_slot(ship, 7));
     send_to_char_f(ch, "    &N--- &+y|&N--&+Y/\\&N--&+y| &N---    %s&N\r\n", generate_slot(ship, 8));
     send_to_char_f(ch, "    &+G%3d &N&+y|&+g%2d&+Y\\/&N&+g%2d&+y| &+G%3d    %s&N\r\n",
-            SHIPMAXPARMOR(ship), SHIPMAXPINTERNAL(ship),
-            SHIPMAXSINTERNAL(ship), SHIPMAXSARMOR(ship), generate_slot(ship, 9));
+            SHIPMAXPARMOR(ship), SHIPMAXPINTERNAL(ship), SHIPMAXSINTERNAL(ship), SHIPMAXSARMOR(ship), generate_slot(ship, 9));
     send_to_char_f(ch, "        &+y|......|        %s&N\r\n", generate_slot(ship, 10));
     send_to_char_f(ch, "        &+y|__||__|        %s&N\r\n", generate_slot(ship, 11));
     send_to_char_f(ch, "        &+y/......\\        %s&N\r\n", generate_slot(ship, 12));
     send_to_char_f(ch, "        &+y|......|        %s&N\r\n", generate_slot(ship, 13));
-    send_to_char_f(ch, "        &+y|..%s%2d&+y..|      %s&N\r\n",
-            SHIPINTERNALCOND(SHIPMAXRINTERNAL(ship), SHIPRINTERNAL(ship)),
-            SHIPRINTERNAL(ship), target_str);
-    send_to_char_f(ch, "        &+y|..&N--&+y..|&N        %s&N\r\n",
-            SHIPSINKING(ship) ? "&=LRSINKING!!&N" :
-            SHIPIMMOBILE(ship) ? "&+RIMMOBILE&N" : 
-            SHIPISDOCKED(ship) ? "&+yDOCKED&N" : "");
-    send_to_char_f(ch, "        &+y|..&+g%2d&+y..|   &NCrew Stamina: %s%-3d&N Repair Materials: &+W%d&N\r\n",
-            SHIPMAXRINTERNAL(ship), 
-            SHIPARMORCOND(ship->guncrew.max_stamina, ship->guncrew.stamina), ship->guncrew.stamina, 
-            ship->repair);
-    send_to_char_f(ch, "        &+y\\______/    &NSet Heading: &+W%-3d   &NSet Speed: &+W%-4d&N\r\n",
-            ship->setheading, ship->setspeed);
-    send_to_char_f(ch, "                        &NHeading: &+W%-3d       &NSpeed: &+W%-4d&N\r\n", 
-            ship->heading, ship->speed);
-    send_to_char_f(ch, "        %s%3d&N/&+G%-3d&N\r\n",
-            SHIPARMORCOND(SHIPMAXRARMOR(ship), SHIPRARMOR(ship)),
-            SHIPRARMOR(ship), SHIPMAXRARMOR(ship));
+    send_to_char_f(ch, "        &+y|..%s%2d&+y..|        %s&N\r\n", 
+            SHIPINTERNALCOND(SHIPMAXRINTERNAL(ship), SHIPRINTERNAL(ship)), SHIPRINTERNAL(ship), generate_slot(ship, 14));
+    send_to_char_f(ch, "        &+y|..&N--&+y..|        %s&N\r\n", generate_slot(ship, 15));
+    send_to_char_f(ch, "        &+y|..&+g%2d&+y..|\r\n", SHIPMAXRINTERNAL(ship));
+    send_to_char_f(ch, "        &+y\\______/    &NSet Heading: &+W%-3d  &NSet Speed: &+W%-4d&N  Crew Stamina: %s%d&N\r\n",
+            (int)ship->setheading, ship->setspeed, SHIPARMORCOND(ship->guncrew.max_stamina, ship->guncrew.stamina), ship->guncrew.stamina);
+    send_to_char_f(ch, "                        &NHeading: &+W%-3d      &NSpeed: &+W%-4d&N  Repair Stock: &+W%d&N\r\n", 
+            (int)ship->heading, ship->speed, ship->repair);
+    send_to_char_f(ch, "        %s%3d&N/&+G%-3d&N\r\n", SHIPARMORCOND(SHIPMAXRARMOR(ship), SHIPRARMOR(ship)), SHIPRARMOR(ship), SHIPMAXRARMOR(ship));
     return TRUE;
 }
 

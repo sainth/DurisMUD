@@ -49,9 +49,9 @@ struct NPCShipAI
     
     // General combat
     int t_contact;
-    int t_bearing;
+    float t_bearing;
     int t_arc;
-    int s_bearing;
+    float s_bearing;
     int s_arc;
     float t_range;
     int t_x, t_y;
@@ -61,7 +61,7 @@ struct NPCShipAI
     bool is_heavy_ship;
     bool is_multi_target;
     bool out_of_ammo;
-    int new_heading;
+    float new_heading;
     int speed_restriction;
 
     bool find_current_target();
@@ -70,7 +70,7 @@ struct NPCShipAI
     bool is_valid_target(P_ship t);
     void run_away();
     bool chase();
-    int calc_intercept_heading(int h1, int h2);
+    float calc_intercept_heading(float h1, float h2);
     bool go_around_land();
     bool check_ammo();
     void set_new_dir();
@@ -96,7 +96,7 @@ struct NPCShipAI
     bool b_turn_reloading_weapon();
     bool b_make_distance(float distance);
     void b_check_weapons();
-    void b_set_arc_priority(int current_bearing, int current_arc, int* arc_priority);
+    void b_set_arc_priority(float current_bearing, int current_arc, int* arc_priority);
 
 
 
@@ -106,13 +106,13 @@ struct NPCShipAI
     int since_last_fired_right;
     float prev_hd;
     float curr_x, curr_y;
-    int curr_angle[4];
+    float curr_angle[4];
     
     float proj_x, proj_y;
-    int proj_angle[4];
+    float proj_angle[4];
     float proj_range;
-    int proj_sb;
-    int proj_tb;
+    float proj_sb;
+    float proj_tb;
 
     float hd_change;
 
@@ -141,7 +141,7 @@ struct NPCShipAI
 
     int target_side;
     bool within_target_side;
-    int cw_cw, cw_ccw, ccw_cw, ccw_ccw;
+    float cw_cw, cw_ccw, ccw_cw, ccw_ccw;
 
     int chosen_side;
     int chosen_rot;
@@ -161,12 +161,11 @@ struct NPCShipAI
 
 
     // Utils
-    int check_dir_for_land_from(float x, float y, int heading, float range);
-    int get_room_in_direction_from(float x, float y, int dir, float range);
+    int check_dir_for_land_from(float x, float y, float heading, float range);
+    int get_room_in_direction_from(float x, float y, float dir, float range);
     int get_room_at(float x, float y);
-    bool get_coord_in_direction_from(float x, float y, int dir, float range, float& rx, float& ry);
+    bool get_coord_in_direction_from(float x, float y, float dir, float range, float& rx, float& ry);
     float calc_land_dist(float x, float y, float dir, float max_range);
-    static void normalize_direction(int &dir);
     bool inside_map(float x, float y);
     void send_message_to_debug_char(const char *fmt, ... );
 };

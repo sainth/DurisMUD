@@ -1399,36 +1399,39 @@ void ship_activity()
                 }
             }
 
-            //    SetHeading to Heading
+            // SetHeading to Heading
             if(ship->setheading != ship->heading && ship->timer[T_MINDBLAST] == 0) 
             {
-                j = get_turning_speed(ship);
+                float hd_change = get_next_heading_change(ship);
+                ship->heading += hd_change;
+                normalize_direction(ship->heading);
 
-                k = ship->heading;
+
+                /*float h = ship->heading;
                 if (ship->heading < ship->setheading)
-                    k = ship->heading + 360;
-                if ((ship->setheading + 180) < k) 
+                    h = ship->heading + 360;
+                if ((ship->setheading + 180) < h) 
                 {
-                    ship->heading = (ship->heading + j);
-                    if (ship->heading > 359)
+                    ship->heading = (ship->heading + hdspeed);
+                    if (ship->heading >= 360)
                         ship->heading -= 360;
-                    if ((k + j) > (ship->setheading + 360))
+                    if ((h + hdspeed) > (ship->setheading + 360))
                         ship->heading = ship->setheading;
                 } 
                 else 
                 {
-                    ship->heading = (ship->heading - j);
+                    ship->heading = (ship->heading - hdspeed);
                     if (ship->heading < 0)
                         ship->heading += 360;
-                    if ((k - j) < ship->setheading)
+                    if ((h - hdspeed) < ship->setheading)
                         ship->heading = ship->setheading;
-                }
+                }*/
             }
 
             // Movement Goes here
             if (ship->speed != 0) 
             {
-                rad = (float) ((float) (ship->heading) * M_PI / 180.000);
+                rad = ship->heading * M_PI / 180.000;
                 ship->x += (float) ((float) ship->speed * sin(rad)) / 150.000;
                 ship->y += (float) ((float) ship->speed * cos(rad)) / 150.000;
                 if ((ship->y >= 51.000) || (ship->x >= 51.000) || (ship->y < 50.000) || (ship->x < 50.000)) 
@@ -1887,12 +1890,16 @@ int read_ships()
             reset_crew_stamina(ship);
 
             for (int i = 0; i < MAXSLOTS; i++)  
-            {
                 ship->slot[i].clear();
 
-                fscanf(f2, "%d %d\n",
+            for (int i = 0; i < MAXSLOTS; i++)  
+            {
+                if (fscanf(f2, "%d %d\n",
                     &(ship->slot[i].type),
-                    &(ship->slot[i].index));
+                    &(ship->slot[i].index)) != 2)
+                {
+                    break;
+                }
                 fscanf(f2, "%d %d\n",
                     &(ship->slot[i].position),
                     &(ship->slot[i].timer));

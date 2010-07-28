@@ -775,10 +775,10 @@ P_ship try_load_npc_ship(P_ship target, P_char ch, NPC_AI_Type type, int level)
 {
     getmap(target);
 
-    int dir = target->heading + number(-45, 45);
-    NPCShipAI::normalize_direction(dir);
+    float dir = target->heading + number(-45, 45);
+    normalize_direction(dir);
 
-    float rad = (float) ((float) (dir) * M_PI / 180.000);
+    float rad = dir * M_PI / 180.000;
     float ship_x = 50 + sin(rad) * LOAD_RANGE;
     float ship_y = 50 + cos(rad) * LOAD_RANGE;
 
@@ -801,8 +801,8 @@ P_ship try_load_npc_ship(P_ship target, P_char ch, NPC_AI_Type type, int level)
         ship->npc_ai->advanced = 1;
 
     ship->target = target;
-    int ship_heading = dir + 180;
-    NPCShipAI::normalize_direction(ship_heading);
+    float ship_heading = dir + 180;
+    normalize_direction(ship_heading);
     ship->setheading = ship_heading;
     ship->heading = ship_heading;
     int ship_speed = ship->get_maxspeed();

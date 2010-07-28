@@ -51,7 +51,7 @@ static bool weapon_ready_to_fire(P_ship ship, int w_num)
     return true;
 }
 
-static int get_arc_central_bearing(int arc)
+static float get_arc_central_bearing(int arc)
 {
     switch (arc)
     {
@@ -106,7 +106,7 @@ NPCShipAI::NPCShipAI(P_ship s, P_char ch)
     speed_restriction = -1;
     since_last_fired_right = 0;
 
-    if (SHIPHULLWEIGHT(ship) > 250)
+    if (SHIPHULLWEIGHT(ship) > 200)
     {
         is_heavy_ship = true;
         is_multi_target = true;
@@ -367,11 +367,15 @@ bool NPCShipAI::find_new_target()
     for (int i = 0; i < contacts_count; i++) 
     {
         if (ship == npc_dreadnought)
-        {
+        { // chance to ignore if not too close
             if (contacts[i].range > 30)
                 continue;
-            if (contacts[i].range > 10 && (contacts[i].ship->m_class == SH_SLOOP || contacts[i].ship->m_class == SH_YACHT))
+            if (contacts[i].range > 10 
+                && (contacts[i].ship->m_class == SH_SLOOP || contacts[i].ship->m_class == SH_YACHT ||
+                number(0, (int)contacts[i].range - 10) > 0))
+            {
                 continue;
+            }
         }
         if (is_valid_target(contacts[i].ship))
         {
@@ -594,7 +598,7 @@ void NPCShipAI::run_away()
     set_new_dir();
 }
 
-int NPCShipAI::calc_intercept_heading(int tb, int th)
+float NPCShipAI::calc_intercept_heading(float tb, float th)
 {
     if (tb >= th)
     {
@@ -611,7 +615,7 @@ int NPCShipAI::calc_intercept_heading(int tb, int th)
     else if (tb - th < - 90)
         th -= (-(tb - th) - 90) * 2;
 
-    int new_h = (tb + th) / 2;
+    float new_h = (tb + th) / 2;
     normalize_direction(new_h);
     return new_h;
 }
@@ -634,7 +638,7 @@ bool NPCShipAI::worth_ramming()
     return true;
 }
 
-int check_ram_arc(int heading, int bearing, int size);
+int check_ram_arc(float heading, float bearing, float size);
 bool NPCShipAI::check_ram()
 {
     if (ship->timer[T_RAM] != 0) 
@@ -825,7 +829,7 @@ bool NPCShipAI::b_circle_around_arc(int arc)
             best_dir = i;
         }
     }
-    int dst_dir = ship->target->heading + get_arc_central_bearing(best_dir);
+    float dst_dir = ship->target->heading + get_arc_central_bearing(best_dir);
     normalize_direction(dst_dir);
     int dst_loc = get_room_in_direction_from(t_x, t_y, dst_dir, max_dist);
 
@@ -870,7 +874,7 @@ bool NPCShipAI::b_turn_active_weapon()
         if (active_arc[arc_priority[i]] < 4) // there is weapon ready or almost ready to fire, turning
         {
             if (advanced < 0) arc_priority[i] &= -2;
-            int n_h = t_bearing - get_arc_central_bearing(arc_priority[i]);
+            float n_h = t_bearing - get_arc_central_bearing(arc_priority[i]);
             if (is_heavy_ship && arc_priority[i] == SLOT_REAR &&  ((n_h - ship->heading) > 60 || (n_h - ship->heading) < -60))
                 continue; // not turning heavy ship's rear (TODO: check if rear is the only remaining side)
             new_heading = n_h;
@@ -888,7 +892,7 @@ bool NPCShipAI::b_turn_reloading_weapon()
     {
         if (active_arc[i] < best_time)
         {
-            int n_h = t_bearing - get_arc_central_bearing(i);
+            float n_h = t_bearing - get_arc_central_bearing(i);
             if (is_heavy_ship && i == SLOT_REAR && ((n_h - ship->heading) > 60 || (n_h - ship->heading) < -60))
                 continue; // not turning heavy ship's rear (TODO: check if rear is the only remaining side)
             best_time = active_arc[i];
@@ -1009,7 +1013,7 @@ void NPCShipAI::set_new_dir()
 
     if (advanced == 1)
     {
-        int delta = (int)abs(ship->heading - new_heading);
+        float delta = abs(ship->heading - new_heading);
         if (delta > 180) delta = 360 - delta;
         if (delta >= 90)
             ship->setspeed = BOARDING_SPEED + 1;
@@ -1022,13 +1026,13 @@ void NPCShipAI::set_new_dir()
     if (speed_restriction != -1)
         ship->setspeed = MIN(ship->setspeed, speed_restriction);
 
-    send_message_to_debug_char("heading=%d, speed=%d\r\n", ship->setheading, ship->setspeed);
+    send_message_to_debug_char("heading=%d, speed=%d\r\n", (int)ship->setheading, ship->setspeed);
 }
 
 
 
 
-void NPCShipAI::b_set_arc_priority(int current_bearing, int current_arc, int* arc_priority)
+void NPCShipAI::b_set_arc_priority(float current_bearing, int current_arc, int* arc_priority)
 {
     switch(current_arc)
     {
@@ -1141,7 +1145,7 @@ void NPCShipAI::advanced_combat_maneuver()
         a_predict_target(3);
         a_update_target_side_props();
         a_choose_target_side();
-        send_message_to_debug_char("t_r=(%5.2f-%5.2f),t_ld={%5.2f,%5.2f,%5.2f,%5.2f},c_a={%d,%d,%d,%d},p_a={%d,%d,%d,%d},c_p={%5.2f,%5.2f},p_p={%5.2f,%5.2f},p_r=%5.2f,p_sb=%d,p_tb=%d,hdc=%5.2f\r\n", t_min_range, t_max_range, tside_props[0].land_dist, tside_props[1].land_dist, tside_props[2].land_dist, tside_props[3].land_dist, curr_angle[0], curr_angle[1], curr_angle[2], curr_angle[3], proj_angle[0], proj_angle[1], proj_angle[2], proj_angle[3], curr_x, curr_y, proj_x, proj_y, proj_range, proj_sb, proj_tb, hd_change);
+        send_message_to_debug_char("t_r=(%5.2f-%5.2f),t_ld={%5.2f,%5.2f,%5.2f,%5.2f},c_a={%5.2f,%5.2f,%5.2f,%5.2f},p_a={%5.2f,%5.2f,%5.2f,%5.2f},c_p={%5.2f,%5.2f},p_p={%5.2f,%5.2f},p_r=%5.2f,p_sb=%d,p_tb=%d,hdc=%5.2f\r\n", t_min_range, t_max_range, tside_props[0].land_dist, tside_props[1].land_dist, tside_props[2].land_dist, tside_props[3].land_dist, curr_angle[0], curr_angle[1], curr_angle[2], curr_angle[3], proj_angle[0], proj_angle[1], proj_angle[2], proj_angle[3], curr_x, curr_y, proj_x, proj_y, proj_range, proj_sb, proj_tb, hd_change);
 
         a_calc_rotations();
         a_choose_rotation();
@@ -1172,36 +1176,36 @@ void NPCShipAI::a_attack()
             {
                 can_fire_but_not_right = 1;
 
-                int hit_arc = weapon_data[w_index].hit_arc;
+                float hit_arc = weapon_data[w_index].hit_arc;
                 if (w_index == W_FRAG_CAN)
                     hit_arc = 360; // doesnt matter where to fire from
-                int arc_width = get_arc_width(target_side);
-                int min_intersect = MIN(MIN(hit_arc, (hit_arc / 2 + 10)), arc_width / 2);
+                float arc_width = get_arc_width(target_side);
+                float min_intersect = MIN(MIN(hit_arc, (hit_arc / 2 + 10)), arc_width / 2);
 
-                int intersect = 0;
+                float intersect = 0;
                 {
-                    int rbearing = s_bearing - ship->target->heading; // how target sees you, relatively to direction
+                    float rbearing = s_bearing - ship->target->heading; // how target sees you, relatively to direction
                     normalize_direction(rbearing);
 
-                    int arc_center = get_arc_central_bearing(target_side);
-                    int arc_cw = arc_center + arc_width / 2;
+                    float arc_center = get_arc_central_bearing(target_side);
+                    float arc_cw = arc_center + arc_width / 2;
                     normalize_direction(arc_cw);
-                    int arc_ccw = arc_center - arc_width / 2;
+                    float arc_ccw = arc_center - arc_width / 2;
                     normalize_direction(arc_ccw);
 
                     if ((arc_cw >= arc_ccw && (rbearing > arc_ccw && rbearing < arc_cw)) || (arc_cw < arc_ccw && (rbearing > arc_ccw || rbearing < arc_cw)))
                     { // center inside arc
-                        int ccw_diff = rbearing - arc_ccw;
+                        float ccw_diff = rbearing - arc_ccw;
                         if (ccw_diff < 0) ccw_diff += 360;
-                        int cw_diff = arc_cw - rbearing;
+                        float cw_diff = arc_cw - rbearing;
                         if (cw_diff < 0) cw_diff += 360;
                         intersect = MIN(ccw_diff, hit_arc / 2) + MIN(cw_diff, hit_arc / 2);
                     }
                     else
                     {
-                        int ccw_diff = arc_ccw - rbearing;
+                        float ccw_diff = arc_ccw - rbearing;
                         if (ccw_diff < 0) ccw_diff += 360;
-                        int cw_diff = rbearing - arc_cw;
+                        float cw_diff = rbearing - arc_cw;
                         if (cw_diff < 0) cw_diff += 360;
                         intersect = MAX(hit_arc / 2 - ccw_diff, 0) + MAX(hit_arc / 2 - cw_diff, 0);
                     }
@@ -1216,7 +1220,7 @@ void NPCShipAI::a_attack()
                     send_message_to_debug_char("!");
                 }
 
-                if (is_heavy_ship || (intersect == 0 && since_last_fired_right > number(30, 180)))
+                if (intersect== 0 && (is_heavy_ship || since_last_fired_right > number(30, 180))) // if intersect not zero, we should try a bit more
                 {
                     if ((ship->target->armor[s_arc] + ship->target->internal[s_arc]) > 0 || weapon_data[w_index].hit_arc > 180)
                     {
@@ -1237,7 +1241,9 @@ void NPCShipAI::a_attack()
         if (to_fire[w_num])
         {
             ship->setheading = ship->heading;
-            fire_weapon(ship, w_num, t_contact, debug_char);
+            int hit_chance = weaponsight(ship, w_num, t_contact, debug_char);
+            if (hit_chance > 50)
+                fire_weapon(ship, w_num, t_contact, hit_chance, debug_char);
         }
     }
     if (can_fire_but_not_right)
@@ -1252,10 +1258,10 @@ void NPCShipAI::a_predict_target(int steps)
     float hd = ship->target->heading;
     curr_x = (float)t_x + (ship->target->x - 50.0);
     curr_y = (float)t_y + (ship->target->y - 50.0);
-    curr_angle[SLOT_FORE] = (int)hd;
-    curr_angle[SLOT_STAR] = (int)hd + 90;
-    curr_angle[SLOT_PORT] = (int)hd - 90;
-    curr_angle[SLOT_REAR] = (int)hd + 180;
+    curr_angle[SLOT_FORE] = hd;
+    curr_angle[SLOT_STAR] = hd + 90;
+    curr_angle[SLOT_PORT] = hd - 90;
+    curr_angle[SLOT_REAR] = hd + 180;
     for (int i = 0; i < 4; i++) normalize_direction(curr_angle[i]);
 
     hd_change = hd - prev_hd;
@@ -1275,16 +1281,16 @@ void NPCShipAI::a_predict_target(int steps)
     proj_x = x;
     proj_y = y;
 
-    proj_angle[SLOT_FORE] = (int)hd;
-    proj_angle[SLOT_STAR] = (int)hd + 90;
-    proj_angle[SLOT_PORT] = (int)hd - 90;
-    proj_angle[SLOT_REAR] = (int)hd + 180;
+    proj_angle[SLOT_FORE] = hd;
+    proj_angle[SLOT_STAR] = hd + 90;
+    proj_angle[SLOT_PORT] = hd - 90;
+    proj_angle[SLOT_REAR] = hd + 180;
     for (int i = 0; i < 4; i++) normalize_direction(proj_angle[i]);
 
     float proj_delta_x = ship->x - proj_x;
     float proj_delta_y = ship->y - proj_y;
     proj_range = sqrt(proj_delta_x * proj_delta_x + proj_delta_y * proj_delta_y);
-    proj_sb = (int)(acos(proj_delta_y / proj_range) / M_PI * 180.0);
+    proj_sb = acos(proj_delta_y / proj_range) / M_PI * 180.0;
     if (proj_delta_x < 0) proj_sb = 360 - proj_sb;
     proj_tb = proj_sb - 180;
     if (proj_tb < 0) proj_tb += 360;
@@ -1431,9 +1437,9 @@ void NPCShipAI::a_choose_target_side() // TODO: choose another one if too close 
 void NPCShipAI::a_calc_rotations()
 {
     int delta = (target_side == SLOT_FORE || target_side == SLOT_REAR) ? 30 : 40;
-    int cw = proj_angle[target_side] + delta;
+    float cw = proj_angle[target_side] + delta;
     if (cw > 360) cw -= 360;
-    int ccw = proj_angle[target_side] - delta;
+    float ccw = proj_angle[target_side] - delta;
     if (ccw < 0) ccw += 360;
 
     if ((proj_sb <= cw  && proj_sb >= ccw) || ((cw < ccw) && (proj_sb <= cw || proj_sb >=ccw)))
@@ -1454,7 +1460,7 @@ void NPCShipAI::a_calc_rotations()
 
 void NPCShipAI::a_choose_rotation()
 {
-    int proj_tb_rel = proj_tb - ship->heading;
+    float proj_tb_rel = proj_tb - ship->heading;
     if (proj_tb_rel < 0) proj_tb_rel += 360;
     int star_count, star_dir;
     int port_count, port_dir;
@@ -1590,9 +1596,9 @@ void NPCShipAI::a_choose_rotation()
 bool NPCShipAI::a_immediate_turn()
 {
     int delta = (target_side == SLOT_FORE || target_side == SLOT_REAR) ? 30 : 40;
-    int cw = curr_angle[target_side] + delta;
+    float cw = curr_angle[target_side] + delta;
     if (cw > 360) cw -= 360;
-    int ccw = curr_angle[target_side] - delta;
+    float ccw = curr_angle[target_side] - delta;
     if (ccw < 0) ccw += 360;
 
     bool within_target_side = false;
@@ -1634,9 +1640,9 @@ bool NPCShipAI::a_immediate_turn()
 
 void NPCShipAI::a_choose_dest_point()
 {
-    int dest_angle = proj_sb + ((chosen_rot == 1) ? 30 : -30);
+    float dest_angle = proj_sb + ((chosen_rot == 1) ? 30 : -30);
     normalize_direction(dest_angle);
-    float rad = ((float)dest_angle * M_PI / 180.000);
+    float rad = dest_angle * M_PI / 180.000;
 
     // TODO: base it on next arc's properties, not general
     float chosen_range = side_props[chosen_side].good_range;
@@ -1680,7 +1686,7 @@ void NPCShipAI::a_choose_dest_point()
     }
     else
     {
-        new_heading = (int)(atan((dest_x - ship->x) / (dest_y - ship->y)) / M_PI * 180.0);
+        new_heading = atan((dest_x - ship->x) / (dest_y - ship->y)) / M_PI * 180.0;
         if (dest_y < ship->y)
             new_heading += 180;
     }
@@ -1798,9 +1804,9 @@ float NPCShipAI::calc_land_dist(float x, float y, float dir, float max_range)
 }
 
 // returns the distance to land or 0 if none
-int NPCShipAI::check_dir_for_land_from(float cur_x, float cur_y, int heading, float range)
+int NPCShipAI::check_dir_for_land_from(float cur_x, float cur_y, float heading, float range)
 { // tactical_map is supposed to be filled already
-    float rad = (float) ((float) (heading) * M_PI / 180.000);
+    float rad = heading * M_PI / 180.000;
     float delta_x = sin(rad);
     float delta_y = cos(rad);
 
@@ -1824,7 +1830,7 @@ bool NPCShipAI::inside_map(float x, float y)
     return true;
 }
 
-int NPCShipAI::get_room_in_direction_from(float x, float y, int dir, float range)
+int NPCShipAI::get_room_in_direction_from(float x, float y, float dir, float range)
 {
     float rx, ry;
     if (get_coord_in_direction_from(x, y, dir, range, rx, ry))
@@ -1837,7 +1843,7 @@ int NPCShipAI::get_room_at(float x, float y)
     return tactical_map[(int) x][100 - (int) y].rroom;
 }
 
-bool NPCShipAI::get_coord_in_direction_from(float x, float y, int dir, float range, float& rx, float& ry)
+bool NPCShipAI::get_coord_in_direction_from(float x, float y, float dir, float range, float& rx, float& ry)
 {
     float rad = (float) ((float) (dir) * M_PI / 180.000);
     rx = x + sin(rad) * range;
@@ -1847,12 +1853,6 @@ bool NPCShipAI::get_coord_in_direction_from(float x, float y, int dir, float ran
         return false;
     
     return true;
-}
-
-void NPCShipAI::normalize_direction(int &dir)
-{
-    while (dir >= 360) dir = dir - 360;
-    while (dir < 0) dir = dir + 360;
 }
 
 void NPCShipAI::send_message_to_debug_char(const char *fmt, ... )

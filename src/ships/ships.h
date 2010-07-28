@@ -31,7 +31,7 @@
 #define DEFAULTREPAIR    200
 #define BSTATION         180
 
-#define MAXSLOTS          14
+#define MAXSLOTS          16
 #define MAXWEAPON         12
 #define NUM_PORTS          9
 #define MINCAPFRAG      2000
@@ -300,8 +300,8 @@ struct ShipData
     int num; //Ship Number
     int location;  //Current room ship is in might remove and make
     int hashcode;
-    int heading;  //current heading
-    int setheading; //set heading
+    float heading;  //current heading
+    float setheading; //set heading
     int maxspeed;
     int speed;
     int setspeed; // speeds
@@ -325,7 +325,8 @@ struct ShipData
 
 struct ContactData
 {
-    int x,y,z, bearing;
+    int x,y,z; 
+    float bearing;
     float range;
     struct ShipData *ship;
     char arc[10];
@@ -524,9 +525,10 @@ void clear_autopilot(P_ship ship);
 void autopilot_activity(P_ship ship);
 
 // combat
-int try_ram_ship(P_ship ship, P_ship target, int contact_j);
+int try_ram_ship(P_ship ship, P_ship target, float t_bearing);
 int weaponsight(P_ship ship, int slot, int t_contact, P_char ch);
 int fire_weapon(P_ship ship, int w_num, int t_contact, P_char ch);
+int fire_weapon(P_ship ship, int w_num, int t_contact, int hit_chance, P_char ch);
 void volley_hit_event(P_char ch, P_char victim, P_obj obj, void *data);
 void stun_all_in_ship(P_ship ship, int timer);
 int damage_sail(P_ship ship, P_ship target, int dam);
@@ -575,10 +577,10 @@ void update_maxspeed(P_ship ship);
 
 void assignid(P_ship ship, char *id, bool npc = false);
 
-int bearing(float x1, float y1, float x2, float y2);
+float bearing(float x1, float y1, float x2, float y2);
 float range(float x1, float y1, float z1, float x2, float y2, float z2);
-void normalize_direction(int &dir);
-int  get_arc(int heading, int bearing);
+void normalize_direction(float &dir);
+int  get_arc(float heading, float bearing);
 const char* get_arc_indicator(int arc);
 const char* get_arc_name(int arc);
 const char* condition_prefix(int maxhp, int curhp, bool light);
@@ -588,7 +590,8 @@ P_ship get_ship_from_char(P_char ch);
 int anchor_room(int room);
 int num_people_in_ship(P_ship ship);
 P_char captain_is_aboard(P_ship ship);
-int get_turning_speed(P_ship ship);
+float get_turning_speed(P_ship ship);
+float get_next_heading_change(P_ship ship);
 
 void act_to_all_in_ship(P_ship ship, const char *msg, ... );
 void act_to_outside_ships(P_ship ship, P_ship notarget, const char *msg, ... );
