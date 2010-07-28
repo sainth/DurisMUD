@@ -26,7 +26,7 @@ Updated with warships. Nov08 -Lucrot
 #include "map.h"
 #include "limits.h"
 
-char buf[MAX_STRING_LENGTH];
+extern char buf[MAX_STRING_LENGTH];
 
 struct ContactData contacts[MAXSHIPS];
 struct ShipMap tactical_map[101][101];

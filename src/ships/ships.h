@@ -178,6 +178,8 @@ struct ShipTypeData
     int _freeweapon;
     int _freecargo;
     int _kind;
+
+    float get_hull_mod() const;
 };
 extern const ShipTypeData ship_type_data[MAXSHIPCLASS];
 extern const int ship_allowed_weapons[MAXSHIPCLASS][MAXWEAPON];
@@ -188,6 +190,7 @@ extern const int ship_allowed_weapons[MAXSHIPCLASS][MAXWEAPON];
 #define SHIPTYPECOST(index) ship_type_data[(index)]._cost
 #define SHIPTYPEEPICCOST(index) ship_type_data[(index)]._epiccost
 #define SHIPTYPEHULLWEIGHT(index) ship_type_data[(index)]._hull
+#define SHIPTYPEHULLMOD(index) ship_type_data[(index)].get_hull_mod()
 #define SHIPTYPEMAXWEIGHT(index) ship_type_data[(index)]._mxweight
 #define SHIPTYPEMAXSAIL(index) ship_type_data[(index)]._mxsail
 #define SHIPTYPESLOTS(index) ship_type_data[(index)]._slots
@@ -424,6 +427,7 @@ extern const char *ship_symbol[NUM_SECT_TYPES];
 #define SHIPPINTERNAL(shipdata) (shipdata)->internal[SIDE_PORT]
 #define SHIPSINTERNAL(shipdata) (shipdata)->internal[SIDE_STAR]
 #define SHIPHULLWEIGHT(shipdata) SHIPTYPEHULLWEIGHT((shipdata)->m_class)
+#define SHIPHULLMOD(shipdata) SHIPTYPEHULLMOD((shipdata)->m_class)
 #define SHIPSLOTWEIGHT(shipdata) (shipdata)->slot_weight(-1)
 #define SHIPMAXWEIGHT(shipdata)  SHIPTYPEMAXWEIGHT((shipdata)->m_class)
 #define SHIPMAXSAIL(shipdata)  SHIPTYPEMAXSAIL((shipdata)->m_class)
@@ -616,6 +620,7 @@ extern int shiperror;
 #define BEG_HASH 23346
 #define END_HASH 23402
 #define isverge(ship) (ship->hashcode == BEG_HASH || ship->hashcode == END_HASH)
+#define ABS(x) ((x) < 0 ? -(x) : (x)) // to go around mainbox issue with math library
 
 class ShipObjHash
 {

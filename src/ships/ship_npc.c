@@ -561,8 +561,81 @@ void setup_npc_frigate_02(P_ship ship, NPC_AI_Type type) // level 3
     load_npc_ship_crew(ship, 18, 3);
 }
 
-
 void setup_npc_dreadnought_01(P_ship ship, NPC_AI_Type type) // level 4
+{
+    set_weapon(ship, 0, W_LONGTOM, SIDE_FORE);
+    set_weapon(ship, 1, W_FRAG_CAN, SIDE_FORE);
+    set_weapon(ship, 2, W_LARGE_CAT, SIDE_FORE);
+    set_weapon(ship, 3, W_LARGE_BAL, SIDE_STAR);
+    set_weapon(ship, 4, W_HEAVY_BAL, SIDE_STAR);
+    set_weapon(ship, 5, W_LARGE_BAL, SIDE_STAR);
+    set_weapon(ship, 6, W_HEAVY_BAL, SIDE_STAR);
+    set_weapon(ship, 7, W_LARGE_BAL, SIDE_STAR);
+    set_weapon(ship, 8, W_LARGE_BAL, SIDE_PORT);
+    set_weapon(ship, 9, W_HEAVY_BAL, SIDE_PORT);
+    set_weapon(ship,10, W_LARGE_BAL, SIDE_PORT);
+    set_weapon(ship,11, W_HEAVY_BAL, SIDE_PORT);
+    set_weapon(ship,12, W_LARGE_BAL, SIDE_PORT);
+    set_weapon(ship,13, W_MINDBLAST, SIDE_REAR);
+    set_weapon(ship,14, W_SMALL_CAT, SIDE_REAR);
+    set_weapon(ship,15, W_SMALL_CAT, SIDE_REAR);
+    setcrew(ship, sail_crew_list[3], 10000000);
+    setcrew(ship, gun_crew_list[4], 10000000);
+    setcrew(ship, repair_crew_list[2], 10000000);
+    ship->frags = number(3000, 4000);
+    load_npc_ship_crew(ship, 20, 4);
+}
+
+void setup_npc_dreadnought_02(P_ship ship, NPC_AI_Type type) // level 4
+{
+    set_weapon(ship, 0, W_LONGTOM, SIDE_FORE);
+    set_weapon(ship, 1, W_LARGE_CAT, SIDE_FORE);
+    set_weapon(ship, 2, W_LARGE_CAT, SIDE_FORE);
+    set_weapon(ship, 3, W_LARGE_BAL, SIDE_STAR);
+    set_weapon(ship, 4, W_LARGE_BAL, SIDE_STAR);
+    set_weapon(ship, 5, W_HEAVY_BEAM, SIDE_STAR);
+    set_weapon(ship, 6, W_LARGE_BAL, SIDE_STAR);
+    set_weapon(ship, 7, W_LARGE_BAL, SIDE_STAR);
+    set_weapon(ship, 8, W_LARGE_BAL, SIDE_PORT);
+    set_weapon(ship, 9, W_LARGE_BAL, SIDE_PORT);
+    set_weapon(ship,10, W_HEAVY_BEAM, SIDE_PORT);
+    set_weapon(ship,11, W_LARGE_BAL, SIDE_PORT);
+    set_weapon(ship,12, W_LARGE_BAL, SIDE_PORT);
+    set_weapon(ship,13, W_SMALL_CAT, SIDE_REAR);
+    set_weapon(ship,14, W_SMALL_CAT, SIDE_REAR);
+    set_weapon(ship,15, W_SMALL_CAT, SIDE_REAR);
+    setcrew(ship, sail_crew_list[3], 10000000);
+    setcrew(ship, gun_crew_list[4], 10000000);
+    setcrew(ship, repair_crew_list[2], 10000000);
+    ship->frags = number(3000, 4000);
+    load_npc_ship_crew(ship, 20, 4);
+}
+void setup_npc_dreadnought_03(P_ship ship, NPC_AI_Type type) // level 4
+{
+    set_weapon(ship, 0, W_LARGE_CAT, SIDE_FORE);
+    set_weapon(ship, 1, W_LARGE_CAT, SIDE_FORE);
+    set_weapon(ship, 2, W_LARGE_CAT, SIDE_FORE);
+    set_weapon(ship, 3, W_MINDBLAST, SIDE_STAR);
+    set_weapon(ship, 4, W_LARGE_BAL, SIDE_STAR);
+    set_weapon(ship, 5, W_LARGE_BAL, SIDE_STAR);
+    set_weapon(ship, 6, W_LARGE_BAL, SIDE_STAR);
+    set_weapon(ship, 7, W_LARGE_BAL, SIDE_STAR);
+    set_weapon(ship, 8, W_MINDBLAST, SIDE_PORT);
+    set_weapon(ship, 9, W_LARGE_BAL, SIDE_PORT);
+    set_weapon(ship,10, W_LARGE_BAL, SIDE_PORT);
+    set_weapon(ship,11, W_LARGE_BAL, SIDE_PORT);
+    set_weapon(ship,12, W_LARGE_BAL, SIDE_PORT);
+    set_weapon(ship,13, W_MINDBLAST, SIDE_REAR);
+    set_weapon(ship,14, W_SMALL_CAT, SIDE_REAR);
+    set_weapon(ship,15, W_SMALL_CAT, SIDE_REAR);
+    setcrew(ship, sail_crew_list[3], 10000000);
+    setcrew(ship, gun_crew_list[4], 10000000);
+    setcrew(ship, repair_crew_list[2], 10000000);
+    ship->frags = number(3000, 4000);
+    load_npc_ship_crew(ship, 20, 4);
+}
+
+/*void setup_npc_dreadnought_01(P_ship ship, NPC_AI_Type type) // level 4
 {
     set_weapon(ship, 0, W_LONGTOM, SIDE_FORE);
     set_weapon(ship, 1, W_FRAG_CAN, SIDE_FORE);
@@ -606,7 +679,7 @@ void setup_npc_dreadnought_02(P_ship ship, NPC_AI_Type type) // level 4
     setcrew(ship, repair_crew_list[2], 10000000);
     ship->frags = number(3000, 4000);
     load_npc_ship_crew(ship, 20, 4);
-}
+}*/
 
 
 NPCShipSetup npcShipSetup [] = {
@@ -646,6 +719,7 @@ NPCShipSetup npcShipSetup [] = {
     { SH_FRIGATE,     3, &setup_npc_frigate_02 },
     { SH_DREADNOUGHT, 4, &setup_npc_dreadnought_01 },
     { SH_DREADNOUGHT, 4, &setup_npc_dreadnought_02 },
+    { SH_DREADNOUGHT, 4, &setup_npc_dreadnought_03 },
 };
 
 
@@ -856,6 +930,7 @@ bool load_npc_dreadnought()
         if (!IS_MAP_ROOM(room) || world[room].sector_type != SECT_OCEAN)
             continue;
         if ((npc_dreadnought = try_load_npc_ship(room, 0, 0, NPC_AI_HUNTER, 4)) != 0)
+        //if ((npc_dreadnought = try_load_npc_ship(room, 0, 0, NPC_AI_HUNTER, 4)) != 0)
         {
             int name_index = number(0, sizeof(dreadnoughtShipNames)/sizeof(char*) - 1);
             name_ship(dreadnoughtShipNames[name_index], npc_dreadnought);

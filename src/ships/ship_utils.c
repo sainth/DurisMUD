@@ -18,7 +18,15 @@
 #include "ships.h"
 
 
-extern char buf[MAX_STRING_LENGTH];
+char buf[MAX_STRING_LENGTH];
+
+float hull_mod[MAXSHIPCLASS] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+float ShipTypeData::get_hull_mod() const
+{
+    if (hull_mod[_classid - 1]) return hull_mod[_classid - 1];
+    hull_mod[_classid - 1] = sqrt(_hull);
+    return hull_mod[_classid - 1];
+}
 
 
 ShipObjHash shipObjHash;
@@ -121,6 +129,7 @@ bool ShipObjHash::erase(visitor& vs)
     erase(curr, t_index);
     return res;
 }
+
 
 //--------------------------------------------------------------------
 P_ship get_ship_from_owner(char *ownername)
@@ -896,6 +905,7 @@ void reset_crew_stamina(P_ship ship)
     ship->repaircrew.reset_stamina();
     ship->rowingcrew.reset_stamina();
 }
+
 
 P_char captain_is_aboard(P_ship ship)
 {

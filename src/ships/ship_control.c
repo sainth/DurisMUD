@@ -1044,7 +1044,7 @@ int look_contacts(P_char ch, P_ship ship)
 
     int k = getcontacts(ship);
     send_to_char_f (ch, "&+WContact listing                                               H:%-3d S:%-3d&N\r\n", (int)ship->heading, ship->speed);
-    send_to_char_f (ch, "=========================================================================&N\r\n");
+    send_to_char_f (ch, "=========================================================================|&N\r\n");
     for (int i = 0; i < k; i++) 
     {
         if (SHIPISDOCKED(contacts[i].ship)) 

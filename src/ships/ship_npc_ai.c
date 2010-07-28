@@ -741,25 +741,23 @@ void NPCShipAI::b_attack()
     {
         for (int w_num = 0; w_num < MAXSLOTS; w_num++) 
         {
-            if (ship->slot[w_num].type == SLOT_WEAPON) 
+            if (ship->slot[w_num].type != SLOT_WEAPON) 
+                continue;
+            if (!weapon_ready_to_fire(ship, w_num))
+                continue;
+            int w_index = ship->slot[w_num].index;
+            for (int i = 0; i < contacts_count; i++) 
             {
-                if (!weapon_ready_to_fire(ship, w_num))
+                if (contacts[i].ship == ship->target || !is_valid_target(contacts[i].ship))
                     continue;
-                int w_index = ship->slot[w_num].index;
-                for (int i = 0; i < contacts_count; i++) 
+                int t_a = get_arc(ship->heading, contacts[i].bearing);
+                if (ship->slot[w_num].position == t_a &&
+                    contacts[i].range > (float)weapon_data[w_index].min_range && 
+                    contacts[i].range < (float)weapon_data[w_index].max_range &&
+                    ship->guncrew.stamina > weapon_data[w_index].reload_stamina)
                 {
-                    if (contacts[i].ship != ship->target && is_valid_target(contacts[i].ship))
-                    {
-                        int t_a = get_arc(ship->heading, contacts[i].bearing);
-                        if (ship->slot[w_num].position == t_a &&
-                            contacts[i].range > (float)weapon_data[w_index].min_range && 
-                            contacts[i].range < (float)weapon_data[w_index].max_range &&
-                            ship->guncrew.stamina > weapon_data[w_index].reload_stamina)
-                        {
-                            ship->setheading = ship->heading;
-                            fire_weapon(ship, w_num, i, debug_char);
-                        }
-                    }
+                    ship->setheading = ship->heading;
+                    fire_weapon(ship, w_num, i, debug_char);
                 }
             }
         }
@@ -1013,7 +1011,7 @@ void NPCShipAI::set_new_dir()
 
     if (advanced == 1)
     {
-        float delta = abs(ship->heading - new_heading);
+        float delta = ABS(ship->heading - new_heading);
         if (delta > 180) delta = 360 - delta;
         if (delta >= 90)
             ship->setspeed = BOARDING_SPEED + 1;
@@ -1250,6 +1248,50 @@ void NPCShipAI::a_attack()
     {
         since_last_fired_right++;
     }
+
+    /*if (is_multi_target) // ok now lets see if we should fire on something else
+    {
+        for (int w_num = 0; w_num < MAXSLOTS; w_num++) 
+        {
+            if (ship->slot[w_num].type != SLOT_WEAPON) 
+                continue
+            if (!weapon_ready_to_fire(ship, w_num))
+                continue;
+            int w_index = ship->slot[w_num].index;
+            for (int i = 0; i < contacts_count; i++) 
+            {
+                if (contacts[i].ship == ship->target || !is_valid_target(contacts[i].ship))
+                    continue;
+                int t_a = get_arc(ship->heading, contacts[i].bearing);
+                if (ship->slot[w_num].position != t_a)
+                    continue;
+
+                if (ship->guncrew.stamina > weapon_data[w_index].reload_stamina)
+                    continue;
+
+                int hit_chance = weaponsight(ship, w_num, i, debug_char);
+                if (hit_chance < 50)
+                    continue;
+
+                bool fire = false;
+                if (t_range > weapon_data[w_index].max_range) // main target is too far anyways, fire it
+                    fire = true;
+
+                if (t_range < weapon_data[w_index].min_range) // main target is too close anyways, fire it
+                    fire = true;
+
+                if ()
+
+                {
+
+
+
+                    ship->setheading = ship->heading;
+                    fire_weapon(ship, w_num, i, debug_char);
+                }
+            }
+        }
+    }*/
 }
 
 
@@ -1770,7 +1812,6 @@ float NPCShipAI::calc_land_dist(float x, float y, float dir, float max_range)
 
         if (dir_cos == 0)
         {
-            //loc_range = abs(delta_x);
             loc_range = delta_x;
             if (loc_range < 0.0) loc_range = loc_range * -1.0;
             x = next_x;
@@ -1782,7 +1823,6 @@ float NPCShipAI::calc_land_dist(float x, float y, float dir, float max_range)
             if (r1 < 0.0) r1 = r1 * -1.0;
             float r2 = delta_x / delta_y;
             if (r2 < 0.0) r2 = r2 * -1.0;
-            //if (abs(dir_sin / dir_cos) >  abs(delta_x / delta_y))  // w/e
             if (r1 >  r2)  // w/e
             {
                 loc_range = delta_x / dir_sin;

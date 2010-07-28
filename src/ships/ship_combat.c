@@ -169,8 +169,8 @@ int calc_salvage(P_ship target)
       k += (target->armor[j] + target->internal[j]);
       max += (target->maxarmor[j] + target->maxinternal[j]);
     }
-    k = abs(k);
-    max = abs(max);
+    k = ABS(k);
+    max = ABS(max);
     salvage = (int) (SHIPTYPECOST(SHIPCLASS(target)) * (float) ((float) k / (float) max));
     for (j = 0; j < MAXSLOTS; j++)
     {
@@ -192,7 +192,7 @@ int calc_salvage(P_ship target)
     }
     else
     {
-      salvage = abs((int)(salvage/get_property("ship.sinking.rewardDivider", 7.)));
+      salvage = MAX((int)(salvage/get_property("ship.sinking.rewardDivider", 7.)), 0);
     }
     return salvage;
 }
@@ -739,7 +739,7 @@ int check_ram_arc(float heading, float bearing, float size)
     if (bearing >= 360 - size && heading <= size)
         bearing -= 360;
 
-    if (abs(heading - bearing) <= size)
+    if (ABS(heading - bearing) <= size)
         return TRUE;
 
     return FALSE;
@@ -767,7 +767,7 @@ int try_ram_ship(P_ship ship, P_ship target, float tbearing)
 
 
     // Calculating relative speed 
-    float heading_angle = abs(sheading - theading);
+    float heading_angle = ABS(sheading - theading);
     if (heading_angle > 180) heading_angle = 360 - heading_angle;
     float rad = heading_angle * M_PI / 180.0;
 
@@ -953,8 +953,6 @@ int try_ram_ship(P_ship ship, P_ship target, float tbearing)
 }*/
 
 
-#define ABS(x) ((x) < 0 ? -(x) : (x))
-
 int weaponsight(P_ship ship, int slot, int t_contact, P_char ch)
 {
   float max = (float)weapon_data[ship->slot[slot].index].max_range;
@@ -1025,7 +1023,7 @@ int weaponsight(P_ship ship, int slot, int t_contact, P_char ch)
 
   //send_to_char_f(ch, " hit_1=%5.2f", hit_chance * 100);
 
-  float size_mod = sqrt(SHIPHULLWEIGHT(target)) - 3; // to compensate for sloops size (~0-17)
+  float size_mod = SHIPHULLMOD(target) - 3; // to compensate for sloops size (~0-17)
   float size_to_speed_mod = 1 + (size_mod / 100) / hit_chance; // the faster it goes, the more hullsize affects it
   hit_chance = hit_chance * size_to_speed_mod;
 
