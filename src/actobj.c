@@ -3603,7 +3603,7 @@ int wear(P_char ch, P_obj obj_object, int keyword, int showit)
           break;
         }
       }
-      if (ch->equipment[WEAR_BODY] || ch->equipment[WEAR_SPIDER_BODY])
+      if (ch->equipment[WEAR_BODY])
       {
         if (showit)
           send_to_char("You already wear something on your body.\r\n", ch);
@@ -4638,9 +4638,9 @@ int wear(P_char ch, P_obj obj_object, int keyword, int showit)
           send_to_char("You can't wear spider body armor.\r\n", ch);
         break;
       }
-      if (ch->equipment[WEAR_SPIDER_BODY] || ch->equipment[WEAR_BODY])
+      if (ch->equipment[WEAR_SPIDER_BODY])
       {
-        send_to_char("You're already wearing something on your body.\r\n", ch);
+        send_to_char("You're already wearing something on your spider body.\r\n", ch);
       }
       else
       {
