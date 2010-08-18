@@ -600,6 +600,7 @@ void do_emote(P_char ch, char *argument, int cmd)
 
 void do_echo(P_char ch, char *argument, int cmd)
 {
+  P_desc d;
   int      i;
   static char buf[MAX_STRING_LENGTH];
 
@@ -614,6 +615,15 @@ void do_echo(P_char ch, char *argument, int cmd)
   {
     sprintf(buf, "%s\n", argument + i);
     send_to_room(buf, ch->in_room);
+    
+    for (d = descriptor_list; d; d = d->next)
+    {
+      if (d->connected == CON_PLYNG && 
+	  ch->in_room == d->character->in_room)
+      {
+        write_to_pc_log(d->character, buf, LOG_PRIVATE);
+      }
+    }
   }
 }
 
@@ -3272,7 +3282,9 @@ void do_echoa(P_char ch, char *argument, int cmd)
   else
   {
     level = GET_LEVEL(ch);
-
+    
+    strcat(argument, "\n");
+    
     for (d = descriptor_list; d; d = d->next)
     {
       if (d->connected == CON_PLYNG)
@@ -3282,8 +3294,9 @@ void do_echoa(P_char ch, char *argument, int cmd)
           sprintf(Gbuf1, "A[%s]", GET_NAME(ch));
           send_to_char(Gbuf1, d->character);
         }
-        send_to_char(argument, d->character);
-        send_to_char("\n", d->character);
+	send_to_char(argument, d->character);
+        
+        write_to_pc_log(d->character, argument, LOG_PRIVATE);
       }
     }
   }
@@ -3310,6 +3323,9 @@ void do_echoz(P_char ch, char *arg, int cmd)
   else
   {
     level = GET_LEVEL(ch);
+    
+    strcat(arg, "\n");
+    
     for (d = descriptor_list; d; d = d->next)
     {
       if (d->connected == CON_PLYNG)
@@ -3322,7 +3338,7 @@ void do_echoz(P_char ch, char *arg, int cmd)
             send_to_char(Gbuf1, d->character);
           }
           send_to_char(arg, d->character);
-          send_to_char("\n", d->character);
+          write_to_pc_log(d->character, arg, LOG_PRIVATE);
         }
       }
     }
@@ -3351,6 +3367,9 @@ void do_echog(P_char ch, char *arg, int cmd)
   else
   {
     level = GET_LEVEL(ch);
+    
+    strcat(arg, "\n");
+    
     for (d = descriptor_list; d; d = d->next)
     {
       if (d->connected == CON_PLYNG)
@@ -3363,7 +3382,7 @@ void do_echog(P_char ch, char *arg, int cmd)
             send_to_char(Gbuf1, d->character);
           }
           send_to_char(arg, d->character);
-          send_to_char("\n", d->character);
+          write_to_pc_log(d->character, arg, LOG_PRIVATE);
         }
       }
     }
@@ -3392,6 +3411,9 @@ void do_echoe(P_char ch, char *arg, int cmd)
   else
   {
     level = GET_LEVEL(ch);
+    
+    strcat(arg, "\n");
+    
     for (d = descriptor_list; d; d = d->next)
     {
       if (d->connected == CON_PLYNG)
@@ -3405,7 +3427,7 @@ void do_echoe(P_char ch, char *arg, int cmd)
             send_to_char(Gbuf1, d->character);
           }
           send_to_char(arg, d->character);
-          send_to_char("\n", d->character);
+          write_to_pc_log(d->character, arg, LOG_PRIVATE);
         }
       }
     }
@@ -3434,6 +3456,9 @@ void do_echou(P_char ch, char *arg, int cmd)
   else
   {
     level = GET_LEVEL(ch);
+    
+    strcat(arg, "\n");
+    
     for (d = descriptor_list; d; d = d->next)
     {
       if (d->connected == CON_PLYNG)
@@ -3446,7 +3471,7 @@ void do_echou(P_char ch, char *arg, int cmd)
             send_to_char(Gbuf1, d->character);
           }
           send_to_char(arg, d->character);
-          send_to_char("\n", d->character);
+          write_to_pc_log(d->character, arg, LOG_PRIVATE);
         }
       }
     }
@@ -9421,7 +9446,9 @@ void do_echot(P_char ch, char *argument, int cmd)
       send_to_char("Ok.\n", ch);
     }
   }
+  strcat(message, "\n");
   send_to_char(message, vict);
+  write_to_pc_log(vict, message, LOG_PRIVATE);
 }
 
 int vnum_mobile(char *searchname, struct char_data *ch)
