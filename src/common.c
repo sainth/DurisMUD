@@ -596,7 +596,7 @@ flagDef  wear_bits[] = {
   {"WEAR_NOSE", "Worn in nose", 1, 0},
   {"WEAR_HORN", "Worn on horns", 1, 0},
   {"WEAR_IOUN", "Worn as ioun stone", 1, 0},
-  {"WEAR_SPIDER_BODY", "Worn on spider's body", 1, 0},
+  {"SPIDER_BODY", "Worn on spider's body", 1, 0},
   {0}
 };
 
