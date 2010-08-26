@@ -2982,6 +2982,8 @@ void spell_single_chain_lightning(int level, P_char ch, char *arg, int type,
   while (order--)
     dam = (int) (dam * 0.75);
 
+  dam = dam * get_property("spell.area.damage.factor.chainlightning", 1.000);
+
   spell_damage(ch, victim, dam, SPLDAM_LIGHTNING, 0,
                *((int *) arg) ? &secondary_messages : &primary_messages);
 }
