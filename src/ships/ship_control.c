@@ -254,7 +254,7 @@ int order_maneuver(P_char ch, P_ship ship, char* arg)
             ship->timer[T_MANEUVER] = 5;
             if (ship->target != NULL)
                 ship->target = NULL;
-            everyone_look_out_newship(ship);
+            everyone_look_out_ship(ship);
             if (IS_SET(world[ship->location].room_flags, DOCKABLE))
             {
                 dock_ship(ship, ship->location);
@@ -280,6 +280,12 @@ int order_anchor(P_char ch, P_ship ship)
     if (SHIPSINKING(ship)) 
     {
         send_to_char ("Anchor while sinking?! Your ship IS the anchor now!\r\n", ch);
+        return TRUE;
+    }
+
+    if (SHIPISFLYING(ship)) 
+    {
+        send_to_char ("You have to land your ship to anchor!\r\n", ch);
         return TRUE;
     }
 
