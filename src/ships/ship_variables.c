@@ -47,7 +47,7 @@ const ShipCrewData ship_crew_data[MAXCREWS] = {
     { "&+GStr&+go&+Gng&+ga&+Grms &+go&+Gf &+GGh&+go&+Gr&+ge ",             0,     0,       0,       0,    780,      0,     0,     0,   1000000,     0, { 43221, 0, 0, 0, 77 }, CF_NONE },
     { "&+GSarmiz'Duul &+BScallywags",                                      0,   150,     100,      80,    600,      1,     0,     0,   1600000,    80, {  9704, 0, 0, 0, 77 }, CF_NONE },
     { "&+WSto&+wrm&+bPort &+rBucaneers",                                   0,   100,     140,     100,    625,      0,     2,     0,   2000000,   100, { 22481, 0, 0, 0, 77 }, CF_NONE },
-    { "&+yJu&+wgg&+yer&+Wna&+wug&+Wh&+wt &+LDeserters",                    1,   500,     500,     350,    725,      1,     1,     0,   5000000,   360, {     0, 0, 0, 0, 77 }, CF_NONE },
+    { "&+yJu&+wgg&+yer&+Wna&+wug&+Wh&+wt &+LDeserters",                    1,   500,     500,     350,    725,      1,     1,     0,   5000000,   360, { 22648, 0, 0, 0, 77 }, CF_NONE },
     
     { "&+rQuietus &+WPo&+Lwd&+wer &+wMo&+Lnk&+wey&+Ls",                    1,   500,     800,     400,    750,      0,     2,     0,   6000000,   500, {  1734, 0, 0, 0, 77 }, CF_SCOUT_RANGE_1 },
     { "&+BTorrhan &+LBl&+wa&+Lck &+LG&+wa&+Lng",                           1,   550,     450,     750,    750,      0,     0,     2,   6000000,   450, { 66735, 0, 0, 0, 77 }, CF_HULL_REPAIR_2 },
