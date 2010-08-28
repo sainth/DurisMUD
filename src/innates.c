@@ -389,6 +389,12 @@ string list_innates(int race, int cls)
 
       return_str += "&+c";
       return_str += string(innates_data[innate].name);
+      if (racial_innates[innate][race - 1] > 1)
+      {
+        return_str += " &n(obtained at level &+c";
+        return_str += racial_innates[innate][race - 1];
+        return_str += "&n)";
+      }
       return_str += "&n\n";
     }
     if (cls)
