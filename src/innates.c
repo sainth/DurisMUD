@@ -373,16 +373,23 @@ const struct innate_data
   {"bulwark", 0}
 };
 
-string list_innates(int race, int cls)
+string list_innates(int race, int cls, int spec)
 {
   string return_str;
   char level[5];
-  int innate;
+  int innate, found = 0;
   
-  for (innate = 0; innate < LAST_INNATE; innate++)
+  if (!race && !cls)
   {
-    if (race && racial_innates[innate][race - 1])
+    debug("list_innates called with no race or class.");
+    return return_str;
+  }
+  for (innate = 0; innate <= LAST_INNATE; innate++)
+  {
+    if ((race && racial_innates[innate][race - 1]) ||
+	(cls && class_innates[innate][cls - 1][spec]))
     {
+      found = 1;
       if (innates_data[innate].func)
 	return_str += "*";
       else
@@ -390,19 +397,27 @@ string list_innates(int race, int cls)
 
       return_str += "&+c";
       return_str += string(innates_data[innate].name);
-      if (racial_innates[innate][race - 1] > 1)
+      if ((race && racial_innates[innate][race - 1] > 1) ||
+	  (cls && class_innates[innate][cls - 1][spec] > 1))
       {
         return_str += " &n(obtained at level &+c";
-        sprintf(level, "%d", racial_innates[innate][race - 1]);
+        if (race)
+	  sprintf(level, "%d", racial_innates[innate][race - 1]);
+	else if (cls)
+          sprintf(level, "%d", class_innates[innate][cls - 1][spec]);
 	return_str += string(level);
 	return_str += "&n)";
       }
       return_str += "&n\n";
     }
-    if (cls)
-    {
-    }
   }
+  if (!found)
+  {
+    return_str += "&nNone.\n";
+  }
+  else
+    return_str += "'*' Designates passive ability.\n";
+  
   return return_str;
 }
 

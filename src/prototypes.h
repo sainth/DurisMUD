@@ -1108,7 +1108,7 @@ int io_con_hitp(P_char);
 
 /* innates.c */
 void assign_innates();
-string list_innates(int, int);
+string list_innates(int, int, int);
 void do_innate_decrepify(P_char, P_char);
 bool has_divine_force(P_char);
 bool rapier_dirk_check(P_char);
