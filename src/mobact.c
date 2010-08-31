@@ -280,8 +280,8 @@ int char_deserves_helping(const P_char ch, const P_char candidate,
         return false;
         
   if((IS_NPC(ch) && 
-     GET_VNUM(ch) == IMAGE_RELFECTION_VNUM) || 
-     GET_VNUM(candidate) == IMAGE_RELFECTION_VNUM) 
+     GET_VNUM(ch) == IMAGE_REFLECTION_VNUM) || 
+     GET_VNUM(candidate) == IMAGE_REFLECTION_VNUM) 
       return false; 
 
   return TRUE;
@@ -7265,7 +7265,7 @@ int handle_npc_assist(P_char ch)
   struct follow_type *fol;
 
   if(IS_NPC(ch) &&
-     GET_VNUM(ch) == IMAGE_RELFECTION_VNUM)
+     GET_VNUM(ch) == IMAGE_REFLECTION_VNUM)
       return false;
   
   /*

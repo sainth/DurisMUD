@@ -8600,7 +8600,7 @@ void spell_vitality(int level, P_char ch, char *arg, int type, P_char victim,
       return;
   
   if(IS_NPC(victim) &&
-     GET_VNUM(victim) == IMAGE_RELFECTION_VNUM)
+     GET_VNUM(victim) == IMAGE_REFLECTION_VNUM)
       return;
       
   if(!IS_PC(ch) &&
