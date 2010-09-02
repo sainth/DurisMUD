@@ -339,7 +339,7 @@ int list_hulls (P_char ch, P_ship ship, int owned)
     return TRUE;
 }
 
-int summon_ship (P_char ch, P_ship ship)
+int summon_ship (P_char ch, P_ship ship, bool time_only)
 {
 
     if (ship->location == ch->in_room) {
@@ -348,10 +348,6 @@ int summon_ship (P_char ch, P_ship ship)
     }
     if (IS_SET(ship->flags, SINKING)) {
         send_to_char("We can't summon your ship.  Sorry.\r\n", ch);
-        return TRUE;
-    }
-    if (IS_SET(ship->flags, SUMMONED)) {
-        send_to_char ("There is already an order out on your ship.\r\n", ch);
         return TRUE;
     }
     if (ship->timer[T_BSTATION] > 0 && !IS_TRUSTED(ch)) 
@@ -364,31 +360,38 @@ int summon_ship (P_char ch, P_ship ship)
         send_to_char("\r\n&+RGET RAIDABLE!\r\n", ch);
         return TRUE;
     }
-    int summon_cost = SHIPTYPEHULLWEIGHT(ship->m_class) * 50;
-    if (GET_MONEY(ch) < summon_cost) 
-    {
-        send_to_char_f(ch, "It will cost %s to summon your ship!\r\n", coin_stringv(summon_cost));
+    if (IS_SET(ship->flags, SUMMONED)) {
+
+        send_to_char ("There is already an order out on your ship.\r\n", ch);
         return TRUE;
     }
+
+    if (!time_only)
+    {
+        int summon_cost = SHIPTYPEHULLWEIGHT(ship->m_class) * 50;
+        if (GET_MONEY(ch) < summon_cost) 
+        {
+            send_to_char_f(ch, "It will cost %s to summon your ship!\r\n", coin_stringv(summon_cost));
+            return TRUE;
+        }
     
-    if (ship->location == 31725) {
-        send_to_char("You start to call your ship back from &+LDavy Jones Locker...\r\n", ch);
+        if (ship->location == 31725) {
+            send_to_char("You start to call your ship back from &+LDavy Jones Locker...\r\n", ch);
+        }
+    
+        SUB_MONEY(ch, summon_cost, 0);
     }
-    
-    SUB_MONEY(ch, summon_cost, 0);
-
-
 
     int summontime, pvp = false;
     if( IS_TRUSTED(ch) )
         summontime = 0;
     else if (SHIPCLASS(ship) == SH_SLOOP && SHIPCLASS(ship) == SH_YACHT)
     {
-        summontime = (280 * 50) / MAX(ship->get_maxspeed(), 1);
+        summontime = (280 * 50) / MAX(get_maxspeed_without_cargo(ship), 1);
     }
     else
     {
-        summontime = (280 * 70) / MAX((ship->get_maxspeed() - 20), 1);
+        summontime = (280 * 70) / MAX((get_maxspeed_without_cargo(ship) - 20), 1);
         pvp = ocean_pvp_state();
         if (pvp) summontime *= 4;
     }
@@ -396,13 +399,26 @@ int summon_ship (P_char ch, P_ship ship)
 
     if (pvp)
         send_to_char_f(ch, "Due to dangerous conditions, it will take about %d hours for your ship to get here.\r\n", summontime / 280);
+    else if (time_only)
+        send_to_char_f(ch, "It will take %d hours for your ship to get here.\r\n", summontime / 280);
     else
         send_to_char_f(ch, "Thanks for your business, it will take %d hours for your ship to get here.\r\n", summontime / 280);
 
-    sprintf(buf, "%s %d %d", GET_NAME(ch), ch->in_room, IS_TRUSTED(ch));
+    if (!time_only)
+    {
+        if(!IS_TRUSTED(ch))
+        {
+            clear_cargo(ship);
+            write_ship(ship);
+        }
+        SET_BIT(ship->flags, SUMMONED);
+        everyone_get_out_ship(ship);
+        send_to_room_f(ship->location, "&+y%s is called away elsewhere.&N\r\n", ship->name);
+        obj_from_room(ship->shipobj);
 
-    SET_BIT(ship->flags, SUMMONED);
-    add_event(summon_ship_event, summontime, NULL, NULL, NULL, 0, buf, strlen(buf)+1);
+        sprintf(buf, "%s %d", GET_NAME(ch), ch->in_room);
+        add_event(summon_ship_event, summontime, NULL, NULL, NULL, 0, buf, strlen(buf)+1);
+    }
     return TRUE;
 }
 
@@ -1838,7 +1854,7 @@ int ship_shop_proc(int room, P_char ch, int cmd, char *arg)
     if ( cmd == CMD_BUY && isname(arg1, "ticket") )
         return FALSE;
 
-    if ( cmd == CMD_SUMMON && !isname(arg1, "ship") )
+    if ( cmd == CMD_SUMMON && !isname(arg1, "ship")  && !isname(arg1, "time"))
         return FALSE;
 
     int  owned = 0;
@@ -1912,7 +1928,10 @@ int ship_shop_proc(int room, P_char ch, int cmd, char *arg)
             send_to_char("You do not own a ship!\r\n", ch);
             return TRUE;
         }
-        return summon_ship(ch, ship);
+        if (isname(arg1, "ship"))
+            return summon_ship(ch, ship, false);
+        if (isname(arg1, "time"))
+            return summon_ship(ch, ship, true);
     }
 
     if (cmd == CMD_SELL) 

@@ -203,7 +203,7 @@ struct ShipTypeData
     int _headingchangedecrement;
     int _speedgain;
     int _minlevel;
-    int _freeweapon;
+    int _freeequip;
     int _freecargo;
     int _kind;
 
@@ -230,7 +230,7 @@ extern const int ship_allowed_equipment[MAXSHIPCLASS][MAXEQUIPMENT];
 #define SHIPTYPEHDDC(index) ship_type_data[(index)]._headingchangedecrement
 #define SHIPTYPESPGAIN(index) ship_type_data[(index)]._speedgain
 #define SHIPTYPEMINLEVEL(index) ship_type_data[(index)]._minlevel
-#define SHIPTYPEFREEWEAPON(index) ship_type_data[(index)]._freeweapon
+#define SHIPTYPEFREEEQUIPMENT(index) ship_type_data[(index)]._freeequip
 #define SHIPTYPEFREECARGO(index) ship_type_data[(index)]._freecargo
 #define SHIPTYPEKIND(index) ship_type_data[(index)]._kind
 
@@ -568,7 +568,7 @@ extern const char *ship_symbol[NUM_SECT_TYPES];
 #define SHIPMAXWEIGHT(shipdata)  SHIPTYPEMAXWEIGHT(SHIPCLASS(shipdata))
 #define SHIPMAXSAIL(shipdata)  SHIPTYPEMAXSAIL(SHIPCLASS(shipdata))
 #define SHIPAVAILWEIGHT(shipdata) ( SHIPMAXWEIGHT(shipdata) - SHIPSLOTWEIGHT(shipdata) )
-#define SHIPFREEWEAPON(shipdata) SHIPTYPEFREEWEAPON(SHIPCLASS(shipdata))
+#define SHIPFREEEQUIPMENT(shipdata) SHIPTYPEFREEEQUIPMENT(SHIPCLASS(shipdata))
 #define SHIPFREECARGO(shipdata) SHIPTYPEFREECARGO(SHIPCLASS(shipdata))
 #define SHIPSAIL(shipdata) (shipdata)->mainsail
 #define SHIPWEAPONDAMAGED(ship, i) (ship->slot[i].val2 > 0)
@@ -720,6 +720,7 @@ void reset_crew_stamina(P_ship ship);
 void set_weapon(P_ship ship, int slot, int w_num, int arc);
 void set_equipment(P_ship ship, int slot, int w_num);
 void update_maxspeed(P_ship ship, int breach_count);
+int get_maxspeed_without_cargo(P_ship ship);
 
 void assignid(P_ship ship, char *id, bool npc = false);
 
@@ -735,6 +736,7 @@ P_ship get_ship_from_owner(char *ownername);
 P_ship get_ship_from_char(P_char ch);
 int anchor_room(int room);
 int num_people_in_ship(P_ship ship);
+void clear_cargo(P_ship ship);
 P_char captain_is_aboard(P_ship ship);
 float get_turning_speed(P_ship ship);
 float get_next_heading_change(P_ship ship);

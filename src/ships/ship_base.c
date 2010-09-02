@@ -1812,11 +1812,8 @@ void finish_sinking(P_ship ship)
 
 void summon_ship_event(P_char ch, P_char victim, P_obj obj, void *data)
 {
-  int      i;
   int      to_room;
-  int      is_trusted;
-
-  if (sscanf((const char *) data, "%s %d %d", buf, &to_room, &is_trusted) == 3)
+  if (sscanf((const char *) data, "%s %d", buf, &to_room) == 2)
   {
     ShipVisitor svs;
     for (bool fn = shipObjHash.get_first(svs); fn; fn = shipObjHash.get_next(svs))
@@ -1824,21 +1821,7 @@ void summon_ship_event(P_char ch, P_char victim, P_obj obj, void *data)
       P_ship ship = svs;
       if (isname(buf, ship->ownername) && ship->timer[T_BSTATION] == 0 && !SHIPSINKING(ship))
       {
-        if( !is_trusted )
-        {
-          for (i = 0; i < MAXSLOTS; i++)
-          {
-            if (ship->slot[i].type == SLOT_CARGO || ship->slot[i].type == SLOT_CONTRABAND)
-            {
-              ship->slot[i].type = SLOT_EMPTY;
-            }
-          }
-        }
-        
-        everyone_get_out_ship(ship);
-        send_to_room_f(ship->location, "&+y%s is called away elsewhere.&N\r\n", ship->name);
         ship->location = to_room;
-        obj_from_room(ship->shipobj);
         obj_to_room(ship->shipobj, to_room);
         send_to_room_f(to_room, "&+y%s arrives at port.\r\n&N", ship->name);
         dock_ship(ship, to_room);

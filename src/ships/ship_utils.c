@@ -416,21 +416,39 @@ void update_maxspeed(P_ship ship, int breach_count)
         return;
     }
 
-    int weapon_weight = ship->slot_weight(SLOT_WEAPON);
-    int weapon_weight_mod = MIN(SHIPFREEWEAPON(ship), weapon_weight);
+    int equipment_weight = ship->slot_weight(SLOT_WEAPON) + ship->slot_weight(SLOT_EQUIPMENT);
+    int equipment_weight_mod = MIN(SHIPFREEEQUIPMENT(ship), equipment_weight);
     int cargo_weight = ship->slot_weight(SLOT_CARGO) + ship->slot_weight(SLOT_CONTRABAND);
     int cargo_weight_mod = MIN(SHIPFREECARGO(ship), cargo_weight);
 
-    float weight_mod = 1.0 - ( (float) (SHIPSLOTWEIGHT(ship) - weapon_weight_mod - cargo_weight_mod) / (float) SHIPMAXWEIGHT(ship) );
+    float weight_mod = 1.0 - ( (float) (SHIPSLOTWEIGHT(ship) - equipment_weight_mod - cargo_weight_mod) / (float) SHIPMAXWEIGHT(ship) );
 
-    int maxspeed = SHIPTYPESPEED(ship->m_class) + ship->crew.get_maxspeed_mod();
+    int ceil = SHIPTYPESPEED(ship->m_class) + ship->crew.get_maxspeed_mod();
+    float maxspeed = ceil;
     if (breach_count == 0 && SHIPISFLYING(ship)) maxspeed *= 1.2;
-    ship->maxspeed = maxspeed;
-    ship->maxspeed = (int)((float)ship->maxspeed * (1.0 + ship->crew.sail_mod_applied));
-    ship->maxspeed = (int) ((float)ship->maxspeed * weight_mod);
-    ship->maxspeed = (int) ((float)ship->maxspeed * (float)ship->mainsail / (float)SHIPMAXSAIL(ship)); // Adjust for sail condition
-    if (breach_count == 1 && SHIPISFLYING(ship)) ship->maxspeed *= 0.5;
-    ship->maxspeed = BOUNDED(1, ship->maxspeed, maxspeed);
+    maxspeed = maxspeed * (1.0 + ship->crew.sail_mod_applied);
+    maxspeed = maxspeed * weight_mod;
+    maxspeed = maxspeed * (float)ship->mainsail / (float)SHIPMAXSAIL(ship); // Adjust for sail condition
+    if (breach_count == 1 && SHIPISFLYING(ship)) maxspeed *= 0.5;
+    ship->maxspeed = BOUNDED(1, (int)maxspeed, ceil);
+}
+
+int get_maxspeed_without_cargo(P_ship ship)
+{
+    if (ship->get_maxspeed() == 0)
+        return 0;
+
+    int equipment_weight = ship->slot_weight(SLOT_WEAPON) + ship->slot_weight(SLOT_EQUIPMENT);
+    int equipment_weight_mod = MIN(SHIPFREEEQUIPMENT(ship), equipment_weight);
+
+    float weight_mod = 1.0 - ( (float) (equipment_weight - equipment_weight_mod) / (float) SHIPMAXWEIGHT(ship) );
+    
+    int ceil = SHIPTYPESPEED(ship->m_class) + ship->crew.get_maxspeed_mod();
+    float maxspeed = ceil;
+    maxspeed = maxspeed * (1.0 + ship->crew.sail_mod_applied);
+    maxspeed = maxspeed * weight_mod;
+    maxspeed = maxspeed * (float)ship->mainsail / (float)SHIPMAXSAIL(ship); // Adjust for sail condition
+    return BOUNDED(1, (int)maxspeed, ceil);
 }
 
 
@@ -1178,8 +1196,17 @@ void set_chief(P_ship ship, int chief_index)
 }
 
 
-
-
+void clear_cargo(P_ship ship)
+{
+  for (int i = 0; i < MAXSLOTS; i++)
+  {
+    if (ship->slot[i].type == SLOT_CARGO || ship->slot[i].type == SLOT_CONTRABAND)
+    {
+      ship->slot[i].type = SLOT_EMPTY;
+    }
+  }
+  write_ship(ship);
+}
 
 P_char captain_is_aboard(P_ship ship)
 {
