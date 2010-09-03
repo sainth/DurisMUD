@@ -687,15 +687,15 @@ NPCShipSetup npcShipSetup [] = {
 P_char dbg_char = 0;
 P_ship try_load_npc_ship(P_ship target)
 {
-    if (ISNPCSHIP(target))
+    if (IS_NPC_SHIP(target))
         return 0;
     if (target->m_class == SH_SLOOP || target->m_class == SH_YACHT)
         return 0;
 
     NPC_AI_Type type = NPC_AI_PIRATE;
     int level = 0;
-    int n = number(0, SHIPHULLWEIGHT(target)) + target->frags;
-    if (ISMERCHANT(target))
+    int n = number(0, SHIP_HULL_WEIGHT(target)) + target->frags;
+    if (IS_MERCHANT(target))
     {
         if(IS_SET(target->flags, ATTACKBYNPC)) 
             return 0;
@@ -811,7 +811,7 @@ P_ship try_load_npc_ship(P_ship target, NPC_AI_Type type, int level, int locatio
         return 0;
     }
 
-    int min_speed = target ? (SHIPTYPESPEED(target->m_class) - 10) : -1;
+    int min_speed = target ? (SHIPTYPE_SPEED(target->m_class) - 10) : -1;
     P_ship ship = load_npc_ship(level, type, min_speed, -1, location, ch);
     if (!ship)
         ship = load_npc_ship(level, type, 0, -1, location, ch);
@@ -832,7 +832,7 @@ P_ship load_npc_ship(int level, NPC_AI_Type type, int speed, int m_class, int ro
     int i = 0, ii = 0;
     while (true)
     {
-        if ((npcShipSetup[i].m_class == m_class || m_class == -1) && (SHIPTYPESPEED(npcShipSetup[i].m_class) >= speed || speed == -1) && npcShipSetup[i].level == level)
+        if ((npcShipSetup[i].m_class == m_class || m_class == -1) && (SHIPTYPE_SPEED(npcShipSetup[i].m_class) >= speed || speed == -1) && npcShipSetup[i].level == level)
         {
             if (ii == num)
                 break;
@@ -887,18 +887,18 @@ P_ship load_npc_ship(int level, NPC_AI_Type type, int speed, int m_class, int ro
 
 bool try_unload_npc_ship(P_ship ship)
 {
-    everyone_get_out_ship(ship);
+    clear_ship_content(ship);
     shipObjHash.erase(ship);
     delete_ship(ship, true);
     return TRUE;
 }
 
 
-P_ship npc_dreadnought = 0;
+P_ship cyrics_revenge = 0;
 
-bool load_npc_dreadnought()
+bool load_cyrics_revenge()
 {
-    if (npc_dreadnought != 0)
+    if (cyrics_revenge != 0)
         return false;
 
     for (int i = 0; i < 20; i++)
@@ -906,14 +906,13 @@ bool load_npc_dreadnought()
         int room = number (0, top_of_world);
         if (!IS_MAP_ROOM(room) || world[room].sector_type != SECT_OCEAN)
             continue;
-        if ((npc_dreadnought = try_load_npc_ship(0, NPC_AI_HUNTER, 4, room, 0)) != 0)
+        if ((cyrics_revenge = try_load_npc_ship(0, NPC_AI_HUNTER, 4, room, 0)) != 0)
         {
             int name_index = number(0, sizeof(dreadnoughtShipNames)/sizeof(char*) - 1);
-            name_ship(dreadnoughtShipNames[name_index], npc_dreadnought);
-            npc_dreadnought->npc_ai->advanced = 1;
-            npc_dreadnought->npc_ai->permanent = true;
-            SET_BIT(npc_dreadnought->flags, AIR);
-            fly_ship(npc_dreadnought);
+            name_ship(dreadnoughtShipNames[name_index], cyrics_revenge);
+            cyrics_revenge->npc_ai->advanced = 1;
+            cyrics_revenge->npc_ai->permanent = true;
+            SET_BIT(cyrics_revenge->flags, AIR);
             return true;
         }
     }
@@ -1064,11 +1063,11 @@ bool load_treasure_chest(P_ship ship, P_char captain, NPCShipCrewData* crew)
     int money = 0;
     switch (crew->level)
     {
-    case 0: money = number(200, 400); break;
-    case 1: money = number(500, 600); break;
-    case 2: money = number(800, 1000); break;
-    case 3: money = number(1200, 1500); break;
-    case 4: money = number(3000, 5000); break;
+    case 0: money = number(400, 800); break;
+    case 1: money = number(600, 1000); break;
+    case 2: money = number(1200, 1500); break;
+    case 3: money = number(1500, 3000); break;
+    case 4: money = number(5000,10000); break;
     };
 
     P_obj money_obj = create_money(0, 0, 0, money);
