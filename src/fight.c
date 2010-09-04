@@ -9189,6 +9189,9 @@ double orc_horde_dam_modifier(P_char ch, double dam, int attacking)
   if (!ch)
     return dam;
 
+  if (ch->in_room < 1)
+    return dam;
+
   for (horde = world[ch->in_room].people; horde; horde = next)
   {
     next = horde->next_in_room;
