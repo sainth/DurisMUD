@@ -9841,7 +9841,7 @@ void spell_shadow_breath_1(int level, P_char ch, char *arg, int type,
     "$n &+wtotally consumes&n $N &+Lwith blackness.&n", 0
   };
   save = calc_dragon_breath_save(ch, victim);
-  dam = (int) (dice(level + get_property("dragon.Breath.DamageMod", 1), 6) + level);
+  dam = (int) (dice(level + get_property("dragon.Breath.DamageMod", 1), 5) + level);
 
   if(!are_we_still_alive(ch , victim))
     return;
@@ -9871,7 +9871,7 @@ void spell_shadow_breath_2(int level, P_char ch, char *arg, int type,
     return;
 
   save = calc_dragon_breath_save(ch, victim);
-  dam = (int) (dice(level + get_property("dragon.Breath.DamageMod", 1), 8) + level);
+  dam = (int) (dice(level + get_property("dragon.Breath.DamageMod", 1), 7) + level);
 
   if(NewSaves(victim, SAVING_BREATH, save))
     dam = (int) (dam / get_property("dragon.Breath.savedDamage", 2));
