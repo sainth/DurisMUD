@@ -871,7 +871,7 @@ typedef unsigned int uint;
 #define RACE_FIRBOLG         36 /* mob race code: FB */
 #define RACE_AGATHINON       37 /* mob race code: AG */
 #define RACE_ELADRIN         38 /* mob race code: EL */
-#define RACE_PLAYER_MAX RACE_FIRBOLG
+#define RACE_PLAYER_MAX RACE_ELADRIN
 #define RACE_GARGOYLE        39 /* mob race code: MG */
 #define RACE_F_ELEMENTAL     40 /* mob race code: EF */
 #define RACE_A_ELEMENTAL     41 /* mob race code: EA */
