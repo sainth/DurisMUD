@@ -2848,7 +2848,7 @@ int spell_solbeeps_single_missile(int level, P_char ch, char *arg, int type, P_c
   if(resists_spell(ch, victim))
     return true;
 
-  int dam = dice (25, 15); // average ~50 per missile, so from 150 at 51 to 200 at 55 plus 25% chance of 250 at 56
+  int dam = dice (30, 11); // average ~45 per missile, so from 135+ at 51 to 180 at 55 plus 25% chance of 225 at 56
                            // made damage level-independent, since average number of missiles grows with level
 
   bool saved = true;
