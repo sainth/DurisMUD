@@ -13449,7 +13449,6 @@ void spell_solar_flare(int level, P_char ch, char *arg, int type,
 void spell_sunray(int level, P_char ch, char *arg, int type, P_char victim,
                   P_obj obj)
 {
-  int in_room, dam, dices, mod;
   struct damage_messages messages = {
     "&+WYou unleash &+Ylight&+W in a focused, searing &+Yray&+W at&n $N!",
     "$n&+W unleashes &+Ylight&+W in a focused, searing &+Yray&+W at you!",
@@ -13467,23 +13466,24 @@ void spell_sunray(int level, P_char ch, char *arg, int type, P_char victim,
      ch->in_room != victim->in_room)
         return;
   
-  mod = MAX(0, (int)((GET_LEVEL(ch) - GET_LEVEL(victim)), 20));
  
 // A little more than iceball and does less damage when not outside.
 // However, has a chance to blind victim for a while.
-  dam = dice((int)(level * 4), 6) + number(0, 5);
+  int dam = dice((int)(level * 3), 6) - number(0, 40);
   
-  if(IS_AFFECTED(victim, AFF_BLIND) ||
-     !IS_OUTSIDE(victim->in_room))
+  if(IS_AFFECTED(victim, AFF_BLIND))
+        dam = (int)(dam * 0.85);
+  else if(!IS_OUTSIDE(victim->in_room))
         dam = (int)(dam * 0.95);
     
+  int mod = MAX(0, (int)((GET_LEVEL(ch) - GET_LEVEL(victim)), 20));
   if(!NewSaves(victim, SAVING_SPELL, mod))
-      dam = (int)(dam * 1.20);
+      dam = (int)(dam * 1.30);
     
   if(!NewSaves(victim, SAVING_SPELL, (int)(mod / 3)) &&
      !IS_BLIND(victim))
         blind(ch, victim, number((int)(level / 3), (int)(level / 2)) * WAIT_SEC);
-  
+ 
   spell_damage(ch, victim, dam, SPLDAM_FIRE, 0, &messages);
 }
 
