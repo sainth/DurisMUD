@@ -2848,7 +2848,7 @@ int spell_solbeeps_single_missile(int level, P_char ch, char *arg, int type, P_c
   if(resists_spell(ch, victim))
     return true;
 
-  int dam = dice (25, 15); // average ~50 per missile, so from 150 at 51 to 200 at 55 plus 25% chance of 250 at 56
+  int dam = dice (30, 11); // average ~45 per missile, so from 135+ at 51 to 180 at 55 plus 25% chance of 225 at 56
                            // made damage level-independent, since average number of missiles grows with level
 
   bool saved = true;
@@ -4994,6 +4994,13 @@ void spell_bless(int level, P_char ch, char *arg, int type, P_char victim,
     {
       act("&+W$p briefly glows.", FALSE, ch, obj, 0, TO_CHAR);
       set_obj_affected_extra(obj, -1, SPELL_BLESS, 50, ITEM2_BLESS);
+      if (obj->type == ITEM_DRINKCON)
+      {
+	if (RACE_GOOD(ch))
+	  obj->value[2] = LIQ_HOLYWATER;
+	else if (RACE_EVIL(ch))
+	  obj->value[2] = LIQ_UNHOLYWAT;
+      }
     }
   }
   else
@@ -11250,12 +11257,13 @@ void spell_mend_soul(int level, P_char ch, char *arg, int type,
 {
   int      healpoints;
 
-  if(!IS_ANGEL(victim))
+  if(!IS_ANGEL(victim) &&
+      GET_RACE(victim) != RACE_GOLEM)
   {
     act
       ("$N chants something odd and takes a look at $n, a weird look in $S eyes.",
        TRUE, ch, 0, victim, TO_NOTVICT);
-    act("Um... $N isn't undead...", TRUE, ch, 0, victim, TO_CHAR);
+    act("Um... $N isn't angelic...", TRUE, ch, 0, victim, TO_CHAR);
     return;
   }
   spell_cure_blind(level, ch, NULL, SPELL_TYPE_SPELL, victim, obj);
@@ -11290,7 +11298,8 @@ void spell_heal_undead(int level, P_char ch, char *arg, int type,
 {
   int      healpoints;
 
-  if(!IS_UNDEADRACE(victim))
+  if(!IS_UNDEADRACE(victim) &&
+     GET_RACE(victim) != RACE_GOLEM)
   {
     act
       ("$N chants something odd and takes a look at $n, a weird look in $S eyes.",
@@ -11910,7 +11919,7 @@ void spell_turn_undead(int level, P_char ch, char *arg, int type, P_char tch,
   {
     next = victim->next_in_room;
 
-    if(IS_UNDEADRACE(victim) && should_area_hit(ch, victim))
+    if((IS_UNDEADRACE(victim) || IS_ANGEL(victim)) && should_area_hit(ch, victim))
     {
       diff = level - GET_LEVEL(victim);
       if(diff <= 0 && !IS_PC_PET(victim))
@@ -13449,7 +13458,6 @@ void spell_solar_flare(int level, P_char ch, char *arg, int type,
 void spell_sunray(int level, P_char ch, char *arg, int type, P_char victim,
                   P_obj obj)
 {
-  int in_room, dam, dices, mod;
   struct damage_messages messages = {
     "&+WYou unleash &+Ylight&+W in a focused, searing &+Yray&+W at&n $N!",
     "$n&+W unleashes &+Ylight&+W in a focused, searing &+Yray&+W at you!",
@@ -13467,23 +13475,26 @@ void spell_sunray(int level, P_char ch, char *arg, int type, P_char victim,
      ch->in_room != victim->in_room)
         return;
   
-  mod = MAX(0, (int)((GET_LEVEL(ch) - GET_LEVEL(victim)), 20));
  
 // A little more than iceball and does less damage when not outside.
 // However, has a chance to blind victim for a while.
-  dam = dice((int)(level * 4), 6) + number(0, 5);
+  int dam = dice((int)(level * 3), 6) - number(0, 40);
   
-  if(IS_AFFECTED(victim, AFF_BLIND) ||
-     !IS_OUTSIDE(victim->in_room))
+  if(IS_AFFECTED(victim, AFF_BLIND))
+        dam = (int)(dam * 0.85);
+  else if(!IS_OUTSIDE(victim->in_room))
         dam = (int)(dam * 0.95);
-    
+
+  int mod = BOUNDED(0, (GET_LEVEL(ch) - GET_LEVEL(victim)), 20);
   if(!NewSaves(victim, SAVING_SPELL, mod))
-      dam = (int)(dam * 1.20);
+  {
+      dam = (int)(dam * 1.30);
+  }
     
   if(!NewSaves(victim, SAVING_SPELL, (int)(mod / 3)) &&
      !IS_BLIND(victim))
         blind(ch, victim, number((int)(level / 3), (int)(level / 2)) * WAIT_SEC);
-  
+ 
   spell_damage(ch, victim, dam, SPLDAM_FIRE, 0, &messages);
 }
 
@@ -18799,7 +18810,8 @@ void spell_single_banish(int level, P_char ch, char *arg, int type, P_char victi
   if(chance > number(1,100))
   {
   
-    if(IS_UNDEADRACE(victim))
+    if(IS_UNDEADRACE(victim) ||
+	IS_ANGEL(victim))
     {
       act("You break the binding energies and watch as $N crumbles to dust.", FALSE, ch, 0, victim, TO_CHAR);
       act("$N &+Lsuddenly becomes lifeless once more and crumbles to dust.&n", FALSE, ch, 0, victim, TO_NOTVICT);
@@ -18859,7 +18871,7 @@ bool can_banish(P_char ch, P_char victim)
     if(mob_index[GET_RNUM(victim)].virtual_number == 250 || 
        mob_index[GET_RNUM(victim)].virtual_number == 63)
     {
-      return TRUE;
+      return true;
     }
     
     if(GET_RACE(victim) == RACE_E_ELEMENTAL &&
@@ -18888,6 +18900,19 @@ bool can_banish(P_char ch, P_char victim)
     {
       send_to_char("This is the water plane. Your banish spell fails!", ch);
       return false;
+    }
+    
+    if(IS_ANGEL(victim))
+    {
+      if(world[victim->in_room].sector_type == SECT_ETHEREAL)
+      {      
+        send_to_char("This is the ethereal plane. Your banish spell fails!", ch);
+        return false;
+      }
+      else
+      {
+        return true;
+      }
     }
     
     if(IS_UNDEADRACE(victim))

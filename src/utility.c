@@ -2445,7 +2445,8 @@ char    *PERS(P_char ch, P_char vict, int short_d, bool noansi)
       sprintf(GS_buf1, noansi ? "%s" : "%s %s", 
           noansi ? race_names_table[GET_DISGUISE_RACE(ch)].normal : 
           ((GET_DISGUISE_RACE(ch) == RACE_ILLITHID) ||
-           (GET_DISGUISE_RACE(ch) == RACE_ORC) ||
+           (GET_DISGUISE_RACE(ch) == RACE_PILLITHID) ||
+	   (GET_DISGUISE_RACE(ch) == RACE_ORC) ||
            (GET_DISGUISE_RACE(ch) == RACE_OGRE) ||
            (GET_DISGUISE_RACE(ch) == RACE_AGATHINON)) ? "An" : "A",
           race_names_table[GET_DISGUISE_RACE(ch)].ansi);
@@ -2460,6 +2461,7 @@ char    *PERS(P_char ch, P_char vict, int short_d, bool noansi)
       sprintf(GS_buf1, noansi ? "%s" : "%s %s", 
           noansi ?  race_names_table[GET_RACE(ch)].normal :
           ((GET_RACE(ch) == RACE_ILLITHID) ||
+	   (GET_RACE(ch) == RACE_PILLITHID) ||
            (GET_RACE(ch) == RACE_ORC) ||
            (GET_RACE(ch) == RACE_OROG) ||
            (GET_RACE(ch) == RACE_OGRE) ||
@@ -2492,7 +2494,8 @@ char    *PERS(P_char ch, P_char vict, int short_d, bool noansi)
         sprintf(GS_buf1, noansi ? "%s" : "%s %s", 
             noansi ?  race_names_table[GET_RACE(ch)].normal :
             ((GET_RACE(ch) == RACE_ILLITHID) ||
-             (GET_RACE(ch) == RACE_ORC) ||
+             (GET_RACE(ch) == RACE_PILLITHID) ||
+	     (GET_RACE(ch) == RACE_ORC) ||
 	     (GET_RACE(ch) == RACE_OROG) ||
              (GET_RACE(ch) == RACE_OGRE) ||
              (GET_RACE(ch) == RACE_AGATHINON)) ? "An" : "A",
@@ -2530,6 +2533,7 @@ char    *PERS(P_char ch, P_char vict, int short_d, bool noansi)
     sprintf(GS_buf1, noansi ? "%s" : "%s %s", 
         noansi ?  race_names_table[GET_RACE(ch)].normal :
         ((GET_RACE(ch) == RACE_ILLITHID) ||
+	 (GET_RACE(ch) == RACE_PILLITHID) ||
          (GET_RACE(ch) == RACE_ORC) ||
          (GET_RACE(ch) == RACE_OROG) ||
          (GET_RACE(ch) == RACE_OGRE) ||
