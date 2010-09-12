@@ -2342,7 +2342,7 @@ float get_epic_zone_alignment_mod(int zone_number, ubyte racewar)
   if( (alignment < 0 && racewar == RACEWAR_GOOD) || (alignment > 0 && racewar == RACEWAR_EVIL) )
   {
     // good alignment, evil racewar or evil alignment, good racewar
-    mod += ((float) abs(alignment)) * 0.5 * (float) get_property("epic.zone.alignmentMod", 0.10);
+    mod += ((float) abs(alignment)) * 0.3 * (float) get_property("epic.zone.alignmentMod", 0.10);
   }
   else if( (alignment > 0 && racewar == RACEWAR_GOOD) || (alignment < 0 && racewar == RACEWAR_EVIL) )
   {
