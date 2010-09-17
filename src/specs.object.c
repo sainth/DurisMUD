@@ -2995,11 +2995,53 @@ int vapor(P_obj obj, P_char ch, int cmd, char *arg)
         update_pos(vict);
 
         obj->timer[1] = curr_time;
-        return TRUE;
+        return FALSE;
       }
     }
   }
 // End normal proc.
+
+  if(cmd == CMD_SAY)
+  {
+    if (isname(arg, "ignite") &&
+	!affected_by_spell(ch, SPELL_FIRESHIELD))
+    {
+      act("$n says 'ignite' to $p.", FALSE, ch, obj, 0, TO_ROOM);
+      act("You say 'ignite'", FALSE, ch, 0, 0, TO_CHAR);
+      if (affected_by_spell(ch, SPELL_COLDSHIELD))
+      {
+	act("&+rYou let out a silence scream as the $p &+rfeeds on your life force.&n ",
+          FALSE, ch, obj, 0, TO_CHAR);
+        act("&+r$n lets out a silent scream as the $p &+rfeeds on $m!&n",
+            FALSE, ch, obj, 0, TO_ROOM);
+        GET_HIT(ch) = MAX(1, GET_HIT(ch) - 30);
+	affect_from_char(ch, SPELL_COLDSHIELD);
+      }
+      act("$p &+Yignites &+Linto a &+rf&+Ri&+rr&+Re&+ry &+Lshield of protection!", FALSE, ch, obj, 0, TO_ROOM);
+      act("$p &+Yignites &+Linto a &+rf&+Ri&+rr&+Re&+ry &+Lshield of protection!", FALSE, ch, obj, 0, TO_CHAR);
+      spell_fireshield(55, ch, NULL, SPELL_TYPE_SPELL, ch, 0);
+      return TRUE;
+    }
+    else if (isname(arg, "freeze") &&
+	     !affected_by_spell(ch, SPELL_COLDSHIELD))
+    {
+      act("$n says 'freeze' to $p.", FALSE, ch, obj, 0, TO_ROOM);
+      act("You say 'freeze'", FALSE, ch, 0, 0, TO_CHAR);
+      if (affected_by_spell(ch, SPELL_FIRESHIELD))
+      {
+	act("&+rYou let out a silence scream as the $p &+rfeeds on your life force.&n ",
+          FALSE, ch, obj, 0, TO_CHAR);
+        act("&+r$n lets out a silent scream as the $p &+rfeeds on $m!&n",
+            FALSE, ch, obj, 0, TO_ROOM);
+        GET_HIT(ch) = MAX(1, GET_HIT(ch) - 30);
+	affect_from_char(ch, SPELL_FIRESHIELD);
+      }
+      act("$p &+Cfreezes &+Linto a &+cc&+Ch&+ci&+Cl&+cl&+Ci&+cn&+Cg &+Lshield of protection!", FALSE, ch, obj, 0, TO_ROOM);
+      act("$p &+Cfreezes &+Linto a &+cc&+Ch&+ci&+Cl&+cl&+Ci&+cn&+Cg &+Lshield of protection!", FALSE, ch, obj, 0, TO_CHAR);
+      spell_coldshield(55, ch, NULL, SPELL_TYPE_SPELL, ch, 0);
+      return TRUE;
+    }
+  }
 
   if(cmd == CMD_GOTHIT)
   {
@@ -3010,7 +3052,7 @@ int vapor(P_obj obj, P_char ch, int cmd, char *arg)
     }
     // It's on body
     if(OBJ_WORN_BY(obj, ch) &&
-      !affected_by_spell(ch, SPELL_COLDSHIELD))
+      !affected_by_spell(ch, SPELL_GLOBE))
     {
       if(IS_PC(ch))
       {
@@ -3020,16 +3062,19 @@ int vapor(P_obj obj, P_char ch, int cmd, char *arg)
             FALSE, ch, obj, 0, TO_ROOM);
         GET_HIT(ch) = MAX(1, GET_HIT(ch) - 30);
       }
-      spell_coldshield(55, ch, NULL, SPELL_TYPE_SPELL, ch, 0);
-      return TRUE;
+      spell_globe(55, ch, NULL, SPELL_TYPE_SPELL, ch, 0);
+      return FALSE;
     }
 
     if(OBJ_CARRIED_BY(obj, ch))
     {
-      if(GET_RACE(ch) != RACE_CENTAUR)
+      if(GET_RACE(ch) != RACE_CENTAUR &&
+	 GET_RACE(ch) != RACE_DRIDER)
       {
         if (GET_RACE(ch) == RACE_CENTAUR)
           slot = WEAR_HORSE_BODY;
+	else if (GET_RACE(ch) == RACE_DRIDER)
+	  slot = WEAR_SPIDER_BODY;
         else
           slot = WEAR_LEGS;
         if (ch->equipment[slot])
@@ -3043,7 +3088,7 @@ int vapor(P_obj obj, P_char ch, int cmd, char *arg)
         act
           ("&+LSuddenly the &+ggreen vapor &+Lby&n $n's &+Lfeet starts to sw&+wi&+Wrl &+Las if&n&L&+Lcoming alive. Staring wide-eyed, as if trying to deny reality, he&n&L&+Lwatches as the &+wvapor &+Lslowly coils itself around his legs. &+WWr&+wi&+Wthing&n&L&+Wtentacles &+Lstart to probe $s body like the arms of a hungry octopus&n&L&+Land within seconds $e is encased in a &+bchilling &+Lcloud of vapor.&n",
            FALSE, ch, obj, 0, TO_ROOM);
-        return TRUE;
+        return FALSE;
       }
     }
   }
@@ -6998,46 +7043,46 @@ int wall_generic(P_obj obj, P_char ch, int cmd, char *arg)
     sprintf(buffer, "$n &+Ris surrounded by flames as $e goes to the %s.",
             dirs[dircmd]);
     act(buffer, TRUE, ch, obj, NULL, TO_ROOM);
-
-    if (GET_RACE(ch) != RACE_F_ELEMENTAL)
+/* XXX */
+    if (!ENJOYS_FIRE_DAM(ch))
+	{
       send_to_char("&+RYou enter into a wall of flames...OUCH!&n\n", ch);
 
-    if (IS_AFFECTED(ch, AFF_PROT_FIRE) && (GET_RACE(ch) != RACE_F_ELEMENTAL))
-      dam /= 3;
+      if (IS_AFFECTED(ch, AFF_PROT_FIRE))
+          dam /= 3;
 
-    if (IS_NPC(ch) && !IS_MORPH(ch))
-      dam = 1;
+      if (IS_NPC(ch) && !IS_MORPH(ch) && !IS_PC_PET(ch))
+        dam = 1;
 
-    if (((GET_HIT(ch) - 8) < dam) && (GET_RACE(ch) != RACE_F_ELEMENTAL))
-    {
-      send_to_char
-        ("&+RYou are overwhelmed by the heat and&n&+L fall into darkness...\n",
-         ch);
-      do_simple_move_skipping_procs(ch, dircmd, 0);
-      act("$n &+Rfalls through the flames burnt to a crisp!&n", FALSE, ch,
+      if (((GET_HIT(ch) - 8) < dam))
+      {
+        send_to_char
+          ("&+RYou are overwhelmed by the heat and&n&+L fall into darkness...\n", ch);
+        do_simple_move_skipping_procs(ch, dircmd, 0);
+        act("$n &+Rfalls through the flames burnt to a crisp!&n", FALSE, ch,
           obj, NULL, TO_NOTVICT);
-      die(ch, ch);
-      return TRUE;
-    }
+        die(ch, ch);
+        return TRUE;
+      }
 
-    if (IS_NPC(ch) && (GET_RACE(ch) == RACE_F_ELEMENTAL))
-    {
+      GET_HIT(ch) -= dam;
+      spell_blindness(obj->value[4], ch, 0, SPELL_TYPE_SPELL, ch, NULL);
+	  do_simple_move_skipping_procs(ch, dircmd, 0);
+	  act("$n &+Rsteps through the flames!&n", TRUE, ch, NULL, NULL, TO_ROOM);
+    }
+	else
+	{
       send_to_char("&+RYou feel the healing power of the flames!&n\n", ch);
       GET_HIT(ch) = MIN(GET_HIT(ch) + dam, GET_MAX_HIT(ch));
       do_simple_move_skipping_procs(ch, dircmd, 0);
-      act("$n &+Rsteps through the flames grinning!&n", TRUE, ch, NULL, NULL,
-          TO_ROOM);
-      return TRUE;
-    }
+      act("$n &+Rsteps through the flames grinning!&n", TRUE, ch, NULL, NULL, TO_ROOM);
+	}
 
-    GET_HIT(ch) -= dam;
-    spell_blindness(obj->value[4], ch, 0, SPELL_TYPE_SPELL, ch, NULL);
-    do_simple_move_skipping_procs(ch, dircmd, 0);
-    act("$n &+Rsteps through the flames!&n", TRUE, ch, NULL, NULL, TO_ROOM);
     update_pos(ch);
     StartRegen(ch, EVENT_HIT_REGEN);
     drag_followers = TRUE;
     break;
+/* XXX */
 
   case WALL_OF_ICE:
     act("Oof! You bump into $p...", TRUE, ch, obj, 0, TO_CHAR);

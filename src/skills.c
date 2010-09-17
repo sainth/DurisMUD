@@ -441,6 +441,10 @@ void initialize_skills()
     TAR_MENTAL, "The touch of the dragon leaves your soul.","");
   SPEC_SKILL_ADD(CLASS_MONK, 46, 100, SPEC_WAYOFDRAGON);
 
+  SKILL_CREATE_WITH_MESSAGES("tiger palm", SKILL_TIGER_PALM,
+    TAR_MENTAL, "Your tiger palm concentration leaves you.","");
+  SPEC_SKILL_ADD(CLASS_MONK, 46, 100, SPEC_WAYOFSNAKE);
+  
   SKILL_CREATE("flurry of blows", SKILL_FLURRY_OF_BLOWS, TAR_PHYS);
   SPEC_SKILL_ADD(CLASS_MONK, 31, 100, SPEC_WAYOFSNAKE);
 
@@ -2023,6 +2027,10 @@ SPELL_CREATE("vigorize light", SPELL_VIGORIZE_LIGHT, PULSE_SPELLCAST * 2,
   SPELL_CREATE("prismatic cube", SPELL_PRISMATIC_CUBE, PULSE_SPELLCAST * 4,
                 TAR_IGNORE | TAR_NOCOMBAT, cast_prismatic_cube);
   SPELL_ADD(CLASS_CONJURER, 11);
+
+  SPELL_CREATE_MSG("miners sight", SPELL_MINER, PULSE_SPELLCAST,
+               TAR_SELF_ONLY | TAR_NOCOMBAT, spell_miners_sight,
+	       "The glimmer in your eyes fades as your vision returns to normal.");
 
   SPELL_CREATE_MSG("haste", SPELL_HASTE, (PULSE_SPELLCAST * 3) / 2,
                TAR_CHAR_ROOM, spell_haste,

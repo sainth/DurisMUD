@@ -663,7 +663,8 @@
 #define SPELL_HOLY_BLADE             614
 #define SPELL_HOLY_LIGHT             615
 #define SPELL_CALL_ARCHON            616
-#define LAST_SPELL  SPELL_CALL_ARCHON
+#define SPELL_MINER                  617
+#define LAST_SPELL  SPELL_MINER
 
 #define FIRST_SKILL                  1000  /* should be a decent split point */
 #define SKILL_SNEAK                  1000
@@ -929,8 +930,9 @@
 #define SKILL_THROAT_CRUSHER         1260 // Just a bogus skill to prevent wrong wear off message to the attacker.
 #define SKILL_SHIP_DAMAGE_CONTROL    1261
 #define SKILL_RAGE_REORIENT          1262 // Added to handle reorient on rage skill
+#define SKILL_TIGER_PALM             1263
 
-#define LAST_SKILL                   SKILL_RAGE_REORIENT
+#define LAST_SKILL                   SKILL_TIGER_PALM
 
 #define FIRST_SECONDARY_SKILL        1501
 
