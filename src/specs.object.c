@@ -8388,7 +8388,6 @@ int church_door(P_obj obj, P_char ch, int cmd, char *arg)
         act
           ("$p &N&+rhums&+y briefly as $n is &+Wenveloped&N&+y in a &+Bmagical &+Cforce&+R field.&N ",
            TRUE, ch, obj, NULL, TO_ROOM);
-        CharWait(ch, PULSE_VIOLENCE * 5);
         spell_armor(50, temp_ch, 0, SPELL_TYPE_SPELL, temp_ch, 0);
         spell_bless(50, temp_ch, 0, SPELL_TYPE_SPELL, temp_ch, 0);
         act
