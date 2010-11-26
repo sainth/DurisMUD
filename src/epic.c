@@ -1089,7 +1089,10 @@ void epic_zone_balance()
     MYSQL_RES *res = mysql_store_result(DB);
 
     if (mysql_num_rows(res) < 1)
+    {
+      mysql_free_result(res);
       return;
+    }
 
     MYSQL_ROW row = mysql_fetch_row(res);
 
@@ -1109,7 +1112,7 @@ void epic_zone_balance()
     
     //debug("zone %d alignment %d", epic_zones[i].number, alignment);
 
-    if (time(NULL) - lt < ((int)get_property("epic.alignment.reset.hour", 7*24)*60*60))
+    if (time(NULL) - lt > ((int)get_property("epic.alignment.reset.hour", 7*24)*60*60))
     {
       if(alignment > 0)
         delta = -1;
