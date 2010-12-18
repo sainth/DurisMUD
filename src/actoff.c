@@ -4260,7 +4260,7 @@ bool single_stab(P_char ch, P_char victim, P_obj weapon)
       dam = MAX(40, dam);
   
   strdex = (double)(((GET_C_DEX(ch) + GET_C_STR(ch)) / 24) * strdex_multiplier); 
-  final_damage = (double)((1 + GET_LEVEL(ch) / 56) * 
+  final_damage = (double)(((1 + GET_LEVEL(ch)) / 56) *
                            strdex * 
                            final_multiplier * 
                            skil / 100); 
