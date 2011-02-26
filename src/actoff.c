@@ -8155,9 +8155,10 @@ int flank(P_char ch, P_char victim)
   }
 
   set_short_affected_by(ch, SKILL_FLANK, PULSE_VIOLENCE * 4);
-  CharWait(ch, PULSE_VIOLENCE / 2);
   
   appear(ch);
+
+  CharWait(ch, PULSE_VIOLENCE * 2);
 
   if(!notch_skill(ch, SKILL_FLANK,
                    get_property("skill.notch.offensive", 15)) &&
@@ -8503,6 +8504,7 @@ void gaze(P_char ch, P_char victim)
 {
   int percent_chance, anatomy_skill, standing = 1, battling = 1;
   bool death_door;
+  P_char temp_ch;
 
   if(!(ch))
   {
@@ -8519,6 +8521,12 @@ void gaze(P_char ch, P_char victim)
   }
   
   appear(ch);
+
+  if(victim == (temp_ch = get_linked_char(ch, LNK_FLANKING)))
+  {
+     send_to_char("How can you gaze into the eyes of someone that isn't facing you?\r\n", ch);
+     return;
+  }
  
   if(has_innate(victim, INNATE_EYELESS))
   {
@@ -8691,19 +8699,9 @@ void gaze(P_char ch, P_char victim)
   
   if(notch_skill(ch, SKILL_GAZE, get_property("skill.notch.offensive", 15)) ||
       percent_chance > number(0, 100))
-  {
-    if(IS_SET(victim->specials.affected_by4, AFF4_NOFEAR))
-    {
-      act("You &+Lgaze&n upon $N, and $E looks right back at you with &+Wno fear!&n",
-        FALSE, ch, 0, victim, TO_CHAR);
-      act("$N looks right into $n's gaze without any fear.",
-        FALSE, ch, 0, victim, TO_NOTVICT);
-      act("$n's &+Leyeless gaze&n does not seem to affect you.",
-        FALSE, ch, 0, victim, TO_VICT);
-      return;
-    }    
+  {    
     anatomy_skill = GET_CHAR_SKILL(ch, SKILL_ANATOMY) - 25; // returns -25 to 70 int
-    
+
     if(GET_HIT(victim) < (int)(((number(0,100) + anatomy_skill))/2))
     {
       if(GET_CLASS(ch, CLASS_AVENGER))
