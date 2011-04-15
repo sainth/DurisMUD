@@ -35,6 +35,7 @@ using namespace std;
 #include "utility.h"
 #include "guildhall.h"
 #include "alliances.h"
+#include "events.h"
 
 extern P_index mob_index;
 extern P_index obj_index;
@@ -327,6 +328,31 @@ int get_outpost_golems(Building *building)
   mysql_free_result(res);
 
   return golems;
+}
+
+int get_outpost_archers(Building *building)
+{
+  if (!qry("SELECT id, archers FROM outposts WHERE id = %d", building->id-1))
+  {
+    debug("get_outpost_archers() cant read from db");
+    return FALSE;
+  }
+
+  MYSQL_RES *res = mysql_store_result(DB);
+
+  if (mysql_num_rows(res) < 1)
+  {
+    mysql_free_result(res);
+    return FALSE;
+  }
+
+  MYSQL_ROW row = mysql_fetch_row(res);
+
+  int archers = atoi(row[1]);
+
+  mysql_free_result(res);
+
+  return archers;
 }
 
 int get_guild_resources(int id, int type)
@@ -638,9 +664,44 @@ void do_outpost(P_char ch, char *arg, int cmd)
   }
   // END GOLEM
 
+  // BEGIN ARCHERS
+  if (!str_cmp("archers", buff2))
+  {
+    int cost = (int)get_property("outpost.cost.archers", 0);
+
+    if (!CAN_CONSTRUCT_CMD(ch) && !IS_TRUSTED(ch))
+    {
+      send_to_char("You need to be the leader of the guild to use this command.\r\n", ch);
+      return;
+    }
+
+    if (!(building = get_building_from_room(ch->in_room)))
+    {
+      send_to_char("You need to be inside your outpost to use this command.\r\n", ch);
+      return;
+    }
+
+    if (get_outpost_archers(building))
+    {
+      send_to_char("You already own archers.\r\n", ch);
+      return;
+    }
+
+    if (!IS_TRUSTED(ch) && !sub_money_asc(building->guild_id, cost/1000, 0, 0, 0))
+    {
+      send_to_guild(building->guild_id, "The Guild Banker", "There are not enough guild funds to purchase outpost archers.");
+      return;
+    }
+    
+    db_query("UPDATE outposts SET archers = '1' WHERE id = '%d'", building->id-1);
+    send_to_char("You hire archers to defend your outpost.\r\n", ch);
+    return;
+  }
+  // END ARCHERS
+  
   if (!str_cmp("?", buff2) || !str_cmp("help", buff2))
   {
-    send_to_char("options available: repair, portal, golem, drop\r\n", ch);
+    send_to_char("options available: repair, portal, golem, archers, drop\r\n", ch);
     return;
   }
 
@@ -1370,6 +1431,48 @@ void outposts_upkeep()
       }
     }
   }
+}
+
+int outpost_archer_attack(P_char ch, P_char vict)
+{
+  char buf[MAX_STRING_LENGTH], buf1[MAX_STRING_LENGTH];
+  char buf2[MAX_STRING_LENGTH], buf3[MAX_STRING_LENGTH];
+
+  sprintf(buf, "You feel a sharp pain in your side as an arrow finds its mark!");
+  sprintf(buf1, "You hear a dull thud as an arrow pierces $n!");
+  sprintf(buf2, "An arrow whistles by your ear, barely missing you!");
+  sprintf(buf3, "An arrow narrowly misses $n!");
+
+  //if someone wants to add a stat based save here, you're welcome to.
+  if (number(1, 100) <= (int)get_property("outpost.archers.hit.chance", 60))
+  {
+    act(buf, 1, ch, 0, vict, TO_VICT);
+    act(buf1, 1, vict, 0, 0, TO_NOTVICT);
+    if (!IS_TRUSTED(vict))
+      GET_HIT(vict) -= dice((int)get_property("outpost.archers.dice.hit", 5), (int)get_property("outpost.archers.dice.dam", 5));
+    if (number(1, 100) < (int)(get_property("outpost.archers.hit.chance", 60)/4))
+    {
+      GET_HIT(vict) -= (int)((GET_HIT(vict) / 10) * get_property("outpost.archers.crit.multi", 1));
+      send_to_char("&+RThe arrow pierces extremely deep!&n\r\n", vict);
+    }
+    if (GET_HIT(vict) < -10)
+    {
+      send_to_char("Alas, your wounds prove too much for you...\r\n", vict);
+      die(vict, ch);
+      return TRUE;
+    }
+    StartRegen(vict, EVENT_HIT_REGEN);
+    update_pos(vict);
+    return TRUE;
+  }
+  else
+  {
+    act(buf2, 1, ch, 0, vict, TO_VICT);
+    act(buf3, 1, vict, 0, 0, TO_NOTVICT);
+    return 0;
+  }
+
+  return 0;
 }
 
 #endif
