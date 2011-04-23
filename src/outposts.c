@@ -1244,6 +1244,9 @@ int outpost_gateguard_proc(P_char ch, P_char pl, int cmd, char *arg)
     char_to_room(ch, real_room(ch->player.birthplace), -1);
     act("$n pops into existence.&n", FALSE, ch, 0, 0, TO_ROOM);
   }
+
+  if (ch->group && ch->group->ch && !IS_PC(ch->group->ch))
+    group_remove_member(ch);
   
   // Make sure the gate guards update with the new owner
   Building *building = get_building_from_gateguard(ch);
