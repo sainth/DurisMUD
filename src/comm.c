@@ -3116,7 +3116,7 @@ void act(const char *str, int hide_invisible, P_char ch, P_obj obj,
   P_char   to, vict;
   bool     found;
   char     buf[MAX_STRING_LENGTH], tbuf[MAX_STRING_LENGTH];
-  char     mybuf[MAX_STRING_LENGTH];
+  char     mybuf[MAX_STRING_LENGTH], tbuf2[MAX_STRING_LENGTH];
   int      mycheck;
   int      j, tbp, skip, which_z, sil = type & ACT_SILENCEABLE;
   bool ig_zc = type & ACT_IGNORE_ZCOORD;
@@ -3365,7 +3365,7 @@ void act(const char *str, int hide_invisible, P_char ch, P_obj obj,
                     skip = 2;
                   else if (*(i + 1) == '=')
                     skip = 3;
-                }
+		}
 
                 // a and an
 
@@ -3507,7 +3507,7 @@ void act(const char *str, int hide_invisible, P_char ch, P_obj obj,
           if (i)
 	  {
 	    // Making it so we don't get A or An in the middle of a sentence!
-            *tbuf = '\0';
+            *tbuf2 = '\0';
             tbp = 0;
 	    for (; *i; i++)
 	    {
@@ -3534,12 +3534,12 @@ void act(const char *str, int hide_invisible, P_char ch, P_obj obj,
 		  (LOWER(*(i + 4)) == ' '))
 		found = TRUE;
 	      if (found)
-		tbuf[tbp++] = LOWER(*i);
+		tbuf2[tbp++] = LOWER(*i);
 	      else
-		tbuf[tbp++] = *i;
+		tbuf2[tbp++] = *i;
             }
-            tbuf[tbp++] = 0;
-            i = tbuf;
+            tbuf2[tbp++] = 0;
+            i = tbuf2;
 	    
 	    while (*(i + j))
               *(point++) = *(i + j++);
