@@ -557,6 +557,9 @@ void convertMob(P_char ch)
         get_property("damage.eliteBonus", 1.2));
   }
 
+  if (IS_SET(ch->specials.act, ACT_TEACHER))
+    REMOVE_BIT(ch->specials.act, ACT_HUNTER); 
+
   affect_total(ch, FALSE);
 }
 
