@@ -108,8 +108,8 @@ void writeMobtoFile(FILE *mobFile, const mobType *mob)
   strcpy(speciesUp, mob->mobSpecies);
   upstrn(speciesUp);
 
-  fprintf(mobFile, "%s %d %u %d\n", mob->mobSpecies, mob->mobHometown,
-                                    mob->mobClass, mob->size);
+  fprintf(mobFile, "%s %d %u %u %d\n", mob->mobSpecies, mob->mobHometown,
+                                    mob->mobClass, mob->mobSpec, mob->size);
 
  // next, the level, thac0, ac, hit points and damage
 

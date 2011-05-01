@@ -53,11 +53,12 @@ extern room *g_currentRoom;
 // getClassString : return string of all of mob's classes
 //
 
-char *getClassString(const uint class_code, char *strn, const size_t intMaxLen)
+char *getClassString(const mobType *mob, char *strn, const size_t intMaxLen)
 {
   size_t len = 0;
   uint i;
 
+  const uint class_code = mob->mobClass;
 
   strn[0] = '\0';
 
@@ -66,6 +67,7 @@ char *getClassString(const uint class_code, char *strn, const size_t intMaxLen)
     if (class_code & (1 << i))
     {
       strncpy(strn + len, class_names_table[i + 1].ansi, intMaxLen - len);
+      
       strn[intMaxLen] = '\0';
 
       len += strlen(class_names_table[i + 1].ansi);
@@ -279,6 +281,7 @@ mob->aggro3Bits, getFlagStrn(mob->aggro3Bits, aggro3_bits, fstrn8, 1023));
   sprintf(strn,
 "\n\n"
 "&+YClass(es):&n %u (%s)\n"
+"&+YSpec:    :&n %u (%s)\n"
 "&+YSpecies  :&n %s (%s)\n"
 "&+YHometown :&n %d (%s)\n"
 "&+YAlignment:&n %d\n"
@@ -291,7 +294,8 @@ mob->aggro3Bits, getFlagStrn(mob->aggro3Bits, aggro3_bits, fstrn8, 1023));
 "&+YPos/Default Pos/Sex:&n %d (%s)/%d (%s)/%d (%s)\n"
 "\n",
 
-mob->mobClass, getClassString(mob->mobClass, fstrn, 1023),
+mob->mobClass, getClassString(mob, fstrn, 1023),
+mob->mobSpec, getMobSpecStrn(mob->mobSpec),
 mob->mobSpecies, getMobSpeciesStrn(mob->mobSpecies),
 mob->mobHometown, getMobHometownStrn(mob->mobHometown),
 mob->alignment,

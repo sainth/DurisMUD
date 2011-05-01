@@ -321,7 +321,7 @@ mobType *readMobFromFile(FILE *mobFile, const bool checkDupes, const bool incNum
 
  // read second line of misc mob info - species, hometown, class, size
 
-  const size_t intMiscArgs2[] = { 3, 4, 0 };
+  const size_t intMiscArgs2[] = { 3, 4, 5, 0 };
 
   if (!readAreaFileLine(mobFile, strn, 512, ENTITY_MOB, mobNumb, ENTITY_TYPE_UNUSED, ENTITY_NUMB_UNUSED,
                         "misc info 2", 0, intMiscArgs2, false, true))
@@ -336,13 +336,22 @@ mobType *readMobFromFile(FILE *mobFile, const bool checkDupes, const bool incNum
 
     mobPtr->size = MOB_SIZE_DEFAULT;
   }
-  else
+  else if (numbArgs(strn) == 4)
   {
     sscanf(strn, "%s%d%u%d",
            tempstrn,
            &(mobPtr->mobHometown),
            &(mobPtr->mobClass),
            &(mobPtr->size));
+  }
+  else
+  {
+    sscanf(strn, "%s%d%u%u%d",
+	   tempstrn,
+	   &(mobPtr->mobHometown),
+	   &(mobPtr->mobClass),
+	   &(mobPtr->mobSpec),
+	   &(mobPtr->size));
   }
 
  // check/upcase species string, check mob class

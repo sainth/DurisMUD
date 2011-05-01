@@ -146,6 +146,7 @@ typedef struct _mobType
   char mobSpecies[MAX_SPECIES_LEN + 1];
   int mobHometown;
   uint mobClass;
+  uint mobSpec;
 
   int level;
   int thac0;

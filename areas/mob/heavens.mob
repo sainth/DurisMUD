@@ -9,7 +9,7 @@ along the edges of its scales. This powerful beast has webbed feet with smooth, 
 scales and its glowing green eyes give off an eerie and fearful glow.
 ~
 201588746 0 0 0 721494168 266304 67108864 0 -1000 S
-UD 0 1 7
+UD 0 1 0 7
 56 193 -100 250d8+5500 10d10+90
 0.0.0.0 0
 8 8 0
@@ -24,7 +24,7 @@ struggling to free itself from the pure evil magics that have raised it from its
 its eyes glow with an eerie purple glow that delves deep into your soul.
 ~
 201590794 0 0 0 704717080 307264 67108864 0 -1000 S
-UD 0 1 7
+UD 0 1 0 7
 56 190 -100 250d7+6000 10d10+50
 0.0.0.0 0
 8 8 0
@@ -39,7 +39,7 @@ living to do its bidding for the time being. Its scales gleem with a golden tint
 as almost swirling molten gold that stare right through you.
 ~
 201590794 0 0 0 704717080 276544 0 512 -1000 S
-UD 0 1 7
+UD 0 1 0 7
 56 190 -100 200d10+7000 10d10+90
 0.0.0.0 0
 8 8 0
@@ -56,7 +56,7 @@ pupils that give off a fearful light that seems to reach deep within your very
 soul.
 ~
 201590794 0 0 0 704717208 309313 0 570425344 -1000 S
-UD 0 16777217 7
+UD 0 16777217 0 7
 56 190 -100 100d15+8000 10d10+70
 0.0.0.0 0
 8 8 0
@@ -67,7 +67,7 @@ raoul~
 ~
 ~
 10 0 0 0 0 0 0 0 0 S
-PH 0 0 -1
+PH 0 0 0 -1
 1 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 0
@@ -78,7 +78,7 @@ christine~
 ~
 ~
 10 0 0 0 0 0 0 0 0 S
-PH 0 0 -1
+PH 0 0 0 -1
 1 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 0
@@ -89,7 +89,7 @@ monster cookie~
 ~
 ~
 458778 0 0 0 3205081276 309470 85721280 43525936 0 S
-PH 0 1 -1
+PH 0 1 0 -1
 60 0 -100 100d100+30000 10d10+50
 0.0.0.0 0
 8 8 0
@@ -100,7 +100,7 @@ trap~
 ~
 ~
 65544 0 0 0 0 0 0 0 0 S
-PH 0 0 -1
+PH 0 0 0 -1
 60 0 0 6d6+30000 1d1+1
 0.0.0.0 0
 8 8 0
@@ -116,7 +116,7 @@ A mysterious looking &+GWi&+gtc&+Gh&n is here, selling magical &+Yelixirs&n.
 &+gto those wealthy enough to afford them.
 ~
 33777738 0 0 0 34152636 268744924 67633152 12583440 0 S
-PG 0 96 -1
+PG 0 96 0 -1
 60 0 0 29000d1+1000 75d1+50
 0.0.0.0 0
 8 8 1
@@ -132,7 +132,7 @@ skeleton ancient old~
 &+wapperence.&n
 ~
 2056 24 0 0 0 2 0 0 -1000 S
-sk 0 0 3
+sk 0 0 0 3
 12 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 0
@@ -152,7 +152,7 @@ Its dog-like head turns to look upon you as a wave of sheer terror sweeps
 across your body.
 ~
 8 0 0 0 0 0 0 0 -1000 S
-X 0 512 -1
+X 0 512 0 -1
 60 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 0
@@ -167,7 +167,7 @@ Super raider stands here in mid-air.
 &+Lwhat &+rbattlefield&+L capabilities or &+bmagical&+L prowess he possesses if any.
 ~
 1107298377 0 0 0 65588 0 0 0 0 S
-PH 12 1 -1
+PH 12 1 0 -1
 51 11 19 25d47+250 3d5+3
 6.2.6.1 22275
 8 8 1
@@ -182,7 +182,7 @@ fearsome warg~
 &+yin combat.
 ~
 134217736 0 0 0 0 0 0 0 -400 S
-A 0 1 3
+A 0 1 0 3
 30 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 0
@@ -196,7 +196,7 @@ majestic eagle~
 &+yof this glorious bird.
 ~
 131080 0 0 0 8 0 0 0 0 S
-B 0 1 2
+B 0 1 0 2
 30 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 0
@@ -211,7 +211,7 @@ powerful buffalo~
 &+ya large, muscular body gives this beast great speed and strength in combat.
 ~
 8 0 0 0 0 0 0 0 0 S
-A 0 1 4
+A 0 1 0 4
 30 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 0
@@ -226,7 +226,7 @@ tunnel worm~
 &+Lfilled with several rows of sharp &+Wteeth&+L.
 ~
 8 0 0 0 0 0 0 0 -50 S
-pw 0 1 -1
+pw 0 1 0 -1
 30 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 0
@@ -240,7 +240,7 @@ hook horror~
 &+Land glossy.
 ~
 8 0 0 0 8 0 0 0 0 S
-AC 0 1 3
+AC 0 1 0 3
 30 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 0
@@ -255,7 +255,7 @@ small roper~
 &+Ytentacles &N&+gwrithe with lives of their own.
 ~
 8 0 0 0 24 0 262144 0 0 S
-AC 0 1 3
+AC 0 1 0 3
 30 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 0
@@ -269,7 +269,7 @@ swarm rock beetles~
    &+Lchambered carapace.  This coloring pattern is very similar to the neighboring rocks.
 ~
 524296 0 0 0 0 0 0 0 0 S
-I 0 1 -1
+I 0 1 0 -1
 30 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 0
@@ -283,7 +283,7 @@ mountain lion~
 &+ythe proud face and a thick mane of a freshly-matured &+Ymountain lion.
 ~
 8 0 0 0 0 0 0 0 0 S
-A 0 1 4
+A 0 1 0 4
 30 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 1
@@ -297,7 +297,7 @@ small wyvern~
 &+yrazor-sharp talons.
 ~
 8 0 0 0 134217728 0 0 0 0 S
-DK 0 1 3
+DK 0 1 0 3
 30 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 0
@@ -311,7 +311,7 @@ young treant~
 &+gmighty trunk.
 ~
 8 0 0 0 16777216 0 0 0 0 S
-vt 0 1 6
+vt 0 1 0 6
 30 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 0
@@ -325,7 +325,7 @@ owlbear bear~
 &+yexpel loud shrieks.
 ~
 8 0 0 0 0 0 0 0 0 S
-AC 0 1 4
+AC 0 1 0 4
 30 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 0
@@ -336,7 +336,7 @@ demon cleric~
 ~
 ~
 65544 0 0 0 138 2048 0 0 0 S
-X 0 32 -1
+X 0 32 0 -1
 45 80 0 5000d1+1 4d4+30
 0.0.0.0 0
 8 8 0
@@ -347,7 +347,7 @@ demon warrior~
 ~
 ~
 65544 0 0 0 138 2048 0 0 0 S
-X 0 1 -1
+X 0 1 0 -1
 45 80 0 5000d1+1 4d8+45
 0.0.0.0 0
 8 8 0
@@ -358,7 +358,7 @@ demon sorcerer~
 ~
 ~
 65544 0 0 0 138 2048 0 0 0 S
-X 0 512 -1
+X 0 512 0 -1
 45 80 0 5000d1+1 4d3+20
 0.0.0.0 0
 8 8 0
@@ -369,7 +369,7 @@ bone golem _spec2_ _ignore_~
 ~
 ~
 2058 1 0 0 2147483800 0 0 0 0 S
-OG 0 1 -1
+OG 0 1 0 -1
 1 0 -350 1d1+1 5d5+1
 0.0.0.0 0
 8 8 0
@@ -380,7 +380,7 @@ flesh golem _spec2_ _ignore_~
 ~
 ~
 2058 1 0 0 152 0 0 0 0 S
-OG 0 1 5
+OG 0 1 0 5
 1 0 -275 1d1+1 4d5+1
 0.0.0.0 0
 8 8 0
@@ -391,7 +391,7 @@ blood golem undead _spec2_ _ignore_~
 ~
 ~
 2058 1 0 0 152 0 0 0 0 S
-OG 0 1 5
+OG 0 1 0 5
 1 0 -225 1d1+1 4d6+1
 0.0.0.0 0
 8 8 0
@@ -402,7 +402,7 @@ shadow~
 ~
 ~
 2058 1 0 0 0 0 0 4096 -1000 S
-U 0 4 -1
+U 0 4 0 -1
 1 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 0
@@ -420,7 +420,7 @@ ooklahsha winged beast _ignore_~
 &+Ltheir bloodline and will fight to the death to protect the ones they love.&N
 ~
 238712587 0 0 0 956309656 0 6291456 0 1000 S
-A 0 8192 6
+A 0 8192 0 6
 56 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 1
@@ -441,7 +441,7 @@ ooyahlasha feline _ignore_~
 &+Ldeath.&N
 ~
 238712586 0 0 0 285221272 15775937 0 0 1000 S
-A 0 1 6
+A 0 1 0 6
 56 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 2
@@ -456,7 +456,7 @@ warg~
 &+ycreatures appearence as a one bred for carnage.
 ~
 134219786 0 0 0 33554432 0 0 0 -800 S
-A 13 1 3
+A 13 1 0 3
 10 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 1
@@ -470,7 +470,7 @@ to get horny over anything with two legs. Him and his friend Butthead
 are morons, but we love em anyways.
 ~
 1 0 0 0 8 0 0 0 -1000 S
-B 0 0 -1
+B 0 0 0 -1
 1 20 96 1d15+4 1d5+0
 0.0.0.0 129
 8 8 0
@@ -483,7 +483,7 @@ large fire elemental~
 &+rlook to happy to be here, and seems a tad upset.
 ~
 65538 0 0 0 570425352 1 0 0 0 S
-EF 0 1 -1
+EF 0 1 0 -1
 51 1 -75 1d1+2500 1d7+10
 0.0.0.0 50544
 8 8 0
@@ -496,7 +496,7 @@ large earth elemental~
 &+ylook to happy to be here, and seems a tad upset.
 ~
 65538 0 0 0 33554568 0 0 0 0 S
-EE 0 1 -1
+EE 0 1 0 -1
 51 1 -100 1d1+2600 1d7+15
 0.0.0.0 50544
 8 8 0
@@ -509,7 +509,7 @@ large air elemental~
 &+Clook to happy to be here, and seems a tad upset.
 ~
 65538 0 0 0 167772184 192 0 0 0 S
-EA 0 1 -1
+EA 0 1 0 -1
 51 1 -120 1d1+2200 1d7+10
 0.0.0.0 50544
 8 8 0
@@ -522,7 +522,7 @@ large water elemental~
 &+band does not look to be ready to do anything other then fight.
 ~
 327682 0 0 0 33556488 128 0 0 0 S
-EW 1 1 -1
+EW 1 1 0 -1
 51 2 -110 1d1+2500 1d7+15
 0.0.0.0 50544
 8 8 0
@@ -533,12 +533,12 @@ devil huge red~
 ~
 ~
 2058 0 0 0 0 0 0 0 -1000 S
-Y 0 512 -1
+Y 0 512 0 -1
 51 -5 -113 51d88+4590 7d6+30
 6.9.5.8 206550
 8 8 0
 #46
-xena warrior princess~
+xena warrior princess _nospec_~
 &+RXena&+W, warrior princess&n~
 &+RXena&+W, warrior princess is here ready and willing to serve!&n
 ~
@@ -548,7 +548,7 @@ fitting leather garments can barely contain her awesome
 sensualality, or her bossom for that matter.
 ~
 235104330 0 0 0 34152636 309468 1141374976 528 0 S
-PH 0 1 -1
+PH 0 1 1 -1
 60 0 0 29000d1+1000 75d1+50
 0.0.0.0 0
 8 8 2
@@ -561,7 +561,7 @@ vicious kooshie~
 &+Gbeast whose only goal in life is to kill other creatures, preferably you!
 ~
 33949832 0 0 0 940050588 2048 0 8192 0 S
-A 0 1 -1
+A 0 1 0 -1
 51 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 0
@@ -574,7 +574,7 @@ vicious kooshie~
 &+Gbeast whose only goal in life is to kill other creatures, preferably you!
 ~
 33949832 0 0 0 940050588 2048 0 8192 0 S
-A 0 64 -1
+A 0 64 0 -1
 51 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 0
@@ -587,7 +587,7 @@ vicious kooshie~
 &+Gbeast whose only goal in life is to kill other creatures, preferably you!
 ~
 33949832 0 0 0 940050588 2048 0 8192 0 S
-A 0 128 -1
+A 0 128 0 -1
 51 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 0
@@ -600,7 +600,7 @@ vicious kooshie~
 &+Gbeast whose only goal in life is to kill other creatures, preferably you!
 ~
 33949832 0 0 0 940050588 2048 0 8192 0 S
-A 0 256 -1
+A 0 256 0 -1
 51 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 0
@@ -613,7 +613,7 @@ vicious kooshie~
 &+Gbeast whose only goal in life is to kill other creatures, preferably you!
 ~
 33949832 0 0 0 940050588 2048 0 8192 0 S
-A 0 512 -1
+A 0 512 0 -1
 51 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 0
@@ -626,7 +626,7 @@ vicious kooshie~
 &+Gbeast whose only goal in life is to kill other creatures, preferably you!
 ~
 33949832 0 0 0 940050588 2048 0 8192 0 S
-A 0 2048 -1
+A 0 2048 0 -1
 51 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 0
@@ -639,7 +639,7 @@ vicious kooshie~
 &+Gbeast whose only goal in life is to kill other creatures, preferably you!
 ~
 33949832 0 0 0 940050588 2048 0 8192 0 S
-HO 0 8192 3
+HO 0 8192 0 3
 51 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 0
@@ -653,7 +653,7 @@ imp cleric familiar~
 &+rhealing powers.&n
 ~
 67110920 0 0 0 134217728 0 0 0 0 S
-Y 0 32 -1
+Y 0 32 0 -1
 30 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 0
@@ -668,7 +668,7 @@ raven familiar~
 &+Lpets for familiars. &n
 ~
 131080 0 0 0 134217728 0 0 0 0 S
-B 0 512 -1
+B 0 512 0 -1
 28 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 0
@@ -685,7 +685,7 @@ A &+Wfa&nithf&+Wul&n &+ywise owl&n &+Lfamiliar&n stands here.
 &+yfamiliars. &n
 ~
 8 0 0 0 0 0 0 0 0 S
-B 0 8 -1
+B 0 8 0 -1
 28 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 0
@@ -700,7 +700,7 @@ black cat familiar~
 &+Ldarkness.&n
 ~
 8 0 0 0 167772160 2 0 0 0 S
-A 0 1 -1
+A 0 1 0 -1
 23 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 0
@@ -714,7 +714,7 @@ and can not see very well durin the daytime but makes up for it having
 excellent hearing and very sharp teeth.
 ~
 131080 0 0 0 0 0 0 0 0 S
-A 0 16384 -1
+A 0 16384 0 -1
 23 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 0
@@ -728,7 +728,7 @@ iguana familiar~
 &+ga familiar and therefore obedient to one master.&n
 ~
 8 0 0 0 0 0 0 0 0 S
-R 0 1 -1
+R 0 1 0 -1
 22 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 0
@@ -742,7 +742,7 @@ orc sailor frantic~
 &+Lget the attention of anyone who will listen. &n
 ~
 139274 16384 0 0 134217864 0 0 0 0 S
-HO 12 1048576 -1
+HO 12 1048576 0 -1
 55 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 1
@@ -756,7 +756,7 @@ captain kip trask~
 &+bback and the usual garb of a seafarer.&n
 ~
 1140981770 67108864 0 0 8 0 0 0 0 S
-PH 0 65536 -1
+PH 0 65536 0 -1
 52 0 0 1d1+1 1d1+1
 1.11.122.100 0
 8 8 1
@@ -770,7 +770,7 @@ seafarer human pirate~
 &+yto fight anything that stands in their way.&n
 ~
 67108874 67108864 0 0 134217728 4 0 0 0 S
-PH 0 1 -1
+PH 0 1 0 -1
 45 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 1
@@ -784,7 +784,7 @@ imp familiar _ignore_ _spec2_~
 &+rhealing powers.&n
 ~
 67127308 1 0 0 134217728 0 0 67108864 -1000 S
-Y 0 1 2
+Y 0 1 0 2
 30 0 -250 39d160+800 4d10+1
 0.0.0.0 0
 8 8 0
@@ -795,7 +795,7 @@ man architect~
 ~
 ~
 2147524618 0 0 0 0 0 0 0 0 S
-PH 0 33554948 -1
+PH 0 33554948 0 -1
 60 0 0 1d1+1 1d1+1
 0.0.0.0 0
 6 6 1
@@ -806,7 +806,7 @@ a &+Lne&+wx&+Lus&+L-s&+wt&+Lo&+Ln&+Le &+Wgu&+war&+Wdian&n~
 ~
 ~
 50755658 128 0 0 2583735032 47302 0 4096 1000 S
-mg 0 513 7
+mg 0 513 0 7
 57 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 0
@@ -817,7 +817,7 @@ mass energy guardian~
 ~
 ~
 50755658 64 0 0 2583735032 47302 0 4096 -1000 S
-mg 0 513 7
+mg 0 513 0 7
 57 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 0
@@ -830,7 +830,7 @@ sage strange nexus~
 &+Lforth to empower the forces of evil by way of his expert &+Wtraining&+L.
 ~
 1090550856 64 0 0 3087630750 4503744 83886080 67384320 -1000 S
-y 0 96 6
+y 0 96 0 6
 60 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 1
@@ -843,7 +843,7 @@ sage strange nexus~
 &+Wgoes forth to empower the forces of good by way of his expert &+Ltraining&+W.
 ~
 1090550856 128 0 0 3087630750 4503744 83886080 67384320 1000 S
-an 0 96 6
+an 0 96 0 6
 60 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 1
@@ -856,7 +856,7 @@ hulk earth earthen~
 &+ylook too happy to be here, and seems a tad upset.
 ~
 2 0 0 0 136 1048576 0 0 0 S
-EE 1 1 -1
+EE 1 1 0 -1
 39 2 -34 39d95+897 4d7+10
 0.0.0.0 50544
 8 8 0
@@ -869,7 +869,7 @@ fire hulk flaming elemental~
 &+rlook too happy to be here, and seems a tad upset.
 ~
 2 0 0 0 671088648 4194305 0 0 0 S
-EF 1 64 -1
+EF 1 64 0 -1
 39 2 -34 39d80+819 4d7+10
 0.0.0.0 50544
 8 8 0
@@ -882,7 +882,7 @@ ethereal hulk air~
 &+rlook too happy to be here, and seems a tad upset.
 ~
 2 0 0 0 671088664 8388609 0 0 0 S
-ea 1 1048576 -1
+ea 1 1048576 0 -1
 39 2 -34 39d80+819 4d7+10
 0.0.0.0 50544
 8 8 0
@@ -895,7 +895,7 @@ water hulk elemental~
 &+band does not look ready to do anything other then fight.
 ~
 262146 0 0 0 2056 2097280 0 8192 0 S
-EW 1 16384 -1
+EW 1 16384 0 -1
 39 2 -34 39d95+897 4d7+10
 0.0.0.0 50544
 8 8 0
@@ -909,7 +909,7 @@ whirrs, and chirps, organizing and delivering the mail for the gods
 of Duris.
 ~
 12618 0 0 0 0 0 0 0 0 S
-MG 0 0 -1
+MG 0 0 0 -1
 1 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 0
@@ -920,7 +920,7 @@ a &+Lne&+yx&+Lus&+L-s&+yt&+Lo&+Ln&+Le &+Lgu&+yar&+Wdian&n~
 ~
 ~
 50755658 1 0 0 2583735032 47302 0 4096 0 S
-mg 0 513 7
+mg 0 513 0 7
 57 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 0
@@ -933,7 +933,7 @@ Bound to the mystical warhammer, this spirit of an ancient dwarven battlerager
 has been summoned to aid the current master of the glorious artifact.
 ~
 33949706 0 0 0 939565368 70 0 0 1000 S
-UG 0 1048576 -1
+UG 0 1048576 0 -1
 55 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 1
@@ -946,7 +946,7 @@ void elemental~
 &+Ldoes not look to happy to be here, and seems a tad upset.
 ~
 2 0 0 0 134742024 0 0 537135104 0 S
-VE 1 0 -1
+VE 1 0 0 -1
 39 2 -34 39d80+819 4d7+10
 0.0.0.0 50544
 8 8 0
@@ -957,7 +957,7 @@ valorhammer valor hammer golem~
 ~
 ~
 2058 1 0 0 152 0 0 0 0 S
-OG 0 1 5
+OG 0 1 0 5
 1 0 -225 1d1+1 4d6+1
 0.0.0.0 0
 8 8 0
@@ -968,7 +968,7 @@ crimson titan~
 ~
 ~
 134219786 0 0 0 704708664 274624 0 0 -1000 S
-D 0 1 -1
+D 0 1 0 -1
 54 170 -100 5d10+2500 8d7+90
 0.0.0.0 0
 8 8 0
@@ -979,7 +979,7 @@ azure titan~
 ~
 ~
 134219786 0 0 0 704708664 274624 0 0 -1000 S
-D 0 1 -1
+D 0 1 0 -1
 54 170 -100 5d10+2500 8d7+90
 0.0.0.0 0
 8 8 0
@@ -990,7 +990,7 @@ jasper titan~
 ~
 ~
 134219786 0 0 0 704708664 274624 0 0 -1000 S
-D 0 1 -1
+D 0 1 0 -1
 54 170 -100 5d10+2500 8d7+90
 0.0.0.0 0
 8 8 0
@@ -1001,7 +1001,7 @@ basalt titan~
 ~
 ~
 134219786 0 0 0 704708664 274624 0 0 -1000 S
-D 0 1 -1
+D 0 1 0 -1
 54 170 -100 5d10+2500 8d7+90
 0.0.0.0 0
 8 8 0
@@ -1012,7 +1012,7 @@ war avatar archangel _spec2_~
 ~
 ~
 201588746 0 0 0 721494168 266304 67108864 0 -1000 S
-UD 0 1 7
+UD 0 1 0 7
 56 193 -100 250d8+5500 10d10+90
 0.0.0.0 0
 8 8 0
@@ -1023,7 +1023,7 @@ judgement avatar archangel _spec1_~
 ~
 ~
 201590794 0 0 0 704717080 307264 67108864 0 -1000 S
-UD 0 1 7
+UD 0 1 0 7
 56 190 -100 250d7+6000 10d10+50
 0.0.0.0 0
 8 8 0
@@ -1034,7 +1034,7 @@ vengeance avatar archangel _spec2_~
 ~
 ~
 201590794 0 0 0 704717080 276544 0 512 -1000 S
-UD 0 1 7
+UD 0 1 0 7
 56 190 -100 200d10+7000 10d10+90
 0.0.0.0 0
 8 8 0
@@ -1045,7 +1045,7 @@ justice avatar archangel~
 ~
 ~
 201590794 0 0 0 704717208 309313 0 570425344 -1000 S
-UD 0 16777217 7
+UD 0 16777217 0 7
 56 190 -100 100d15+8000 10d10+70
 0.0.0.0 0
 8 8 0
@@ -1056,7 +1056,7 @@ zombie pumpkin~
 ~
 ~
 133130 0 0 0 403243032 0 0 0 0 S
-zo 0 1 3
+zo 0 1 0 3
 30 120 -200 25d5+200 6d4+20
 0.0.0.0 0
 8 8 0
@@ -1067,10 +1067,21 @@ zombie~
 ~
 ~
 1074145352 1 0 0 134217736 0 0 0 0 S
-zo 0 1 3
+zo 0 1 0 3
 45 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 1
+#88
+mob unnamed~
+an unnamed mob~
+An unnamed mob stands here, looking lonely and forelorn.
+~
+~
+8 0 0 0 0 0 0 0 0 S
+PH 0 0 0 -1
+1 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 0
 #99
 (null)~
 something~
@@ -1078,7 +1089,7 @@ A vaporous, swirling mist enveloping you in ruthless terror.
 ~
 ~
 1116031052 1 0 0 857319676 309471 0 0 -1000 S
-X 0 128 -1
+X 0 128 0 -1
 60 -7 -143 59d132+6549 3d8+20
 4.5.4.9 358425
 8 8 0
@@ -1091,7 +1102,7 @@ The being is made entirely of shadow, and is here propably entirely
 by accident. It seems fairly mad at someone, tho.
 ~
 41945089 1 0 0 167772410 12352 0 0 -500 S
-sw 0 0 -1
+sw 0 0 0 -1
 30 8 -12 30d55+540 3d6+4
 0.5.3.2 40095
 11 11 0
@@ -1102,7 +1113,7 @@ mirror image~
 ~
 ~
 65626 0 0 0 0 0 0 0 0 S
-UG 0 0 -1
+UG 0 0 0 -1
 1 30 100 1d1+1 1d1+1
 0.0.0.0 0
 8 8 0
@@ -1123,7 +1134,7 @@ demon stallion horse steed~
 &+rFor now.&N
 ~
 134348866 0 0 0 167903480 24 0 0 -1000 S
-X 0 1 -1
+X 0 1 0 -1
 56 -7 -140 58d143+6496 7d6+35
 3.4.2.9 352350
 11 8 1
@@ -1137,7 +1148,7 @@ a &+WHUGE &+Lblack &+wand &+Wwhite &+Wc&+Lo&+Ww~
 &+wto be disturbed and seems to be much happier simply chewing on its hay.
 ~
 1241935994 0 0 0 973187516 47327 67371008 8192 1000 S
-D 0 58 5
+D 0 58 0 5
 61 0 0 1d1+1 1d1+1
 0.0.0.0 1
 8 8 2
@@ -1148,7 +1159,7 @@ dragon~
 ~
 ~
 134615050 0 0 0 975382716 14558 0 0 -1000 S
-D 0 1 -1
+D 0 1 0 -1
 60 -10 -152 60d143+6900 7d6+35
 6.6.9.22 486000
 8 8 0
@@ -1161,7 +1172,7 @@ chipmunk ds~
 &+ymammals have survived through the ages.
 ~
 2058 0 0 0 0 0 0 0 0 S
-A 0 0 1
+A 0 0 0 1
 6 18 80 6d18+21 2d3+1
 0.0.0.0 777
 8 8 0
@@ -1174,7 +1185,7 @@ ibex horned long ds~
 &+ya force to be reckoned with.
 ~
 2058 0 0 0 0 0 0 0 0 S
-A 0 0 3
+A 0 0 0 3
 21 11 32 21d40+168 3d5+3
 0.0.0.0 18711
 8 8 0
@@ -1187,7 +1198,7 @@ horse wild ds~
 &+ybut.
 ~
 10 0 0 0 0 0 0 0 0 S
-AE 0 0 3
+AE 0 0 0 3
 26 8 16 26d55+286 3d6+4
 0.0.0.0 23166
 8 8 0
@@ -1200,7 +1211,7 @@ hippopotamous hippo huge ds~
 &+Lappear rather harmless.
 ~
 10 0 0 0 0 0 0 0 0 S
-A 0 1 5
+A 0 1 0 5
 31 6 0 31d83+527 4d6+7
 0.0.0.0 40176
 8 8 0
@@ -1213,7 +1224,7 @@ elephant ds~
 &+Lis more than a match for a well-equipped warrior.
 ~
 10 0 0 0 0 0 0 0 0 S
-A 0 1 5
+A 0 1 0 5
 33 6 -5 33d83+561 4d6+7
 0.0.0.0 42768
 8 8 0
@@ -1227,7 +1238,7 @@ robin red bird ds~
 &+ba creature want?
 ~
 131082 0 0 0 0 0 0 0 0 S
-B 0 0 1
+B 0 0 0 1
 3 20 90 3d15+11 1d5+0
 0.0.0.0 388
 8 8 0
@@ -1239,7 +1250,7 @@ finch bird ds~
 &+ySmall and unassuming, the finch mainly lives off of seeds.
 ~
 131082 0 0 0 0 0 0 0 0 S
-B 0 0 1
+B 0 0 0 1
 2 20 93 2d15+7 1d5+0
 0.0.0.0 259
 8 8 0
@@ -1252,7 +1263,7 @@ crow large bird ds~
 &+Lto the dark color and huge beak.
 ~
 131082 0 0 0 0 0 0 0 0 S
-B 0 0 1
+B 0 0 0 1
 4 20 87 4d15+14 1d5+0
 0.0.0.0 518
 8 8 0
@@ -1267,7 +1278,7 @@ eagle bald bird ds~
 &+ythe animal kingdom.
 ~
 131082 0 0 0 16 0 0 0 0 S
-B 0 0 2
+B 0 0 0 2
 8 18 74 8d18+28 2d3+1
 0.0.0.0 1036
 8 8 0
@@ -1281,7 +1292,7 @@ bird dodo ds~
 &+Wsemi-intelligent mind.
 ~
 10 0 0 0 0 0 0 0 0 S
-B 0 0 1
+B 0 0 0 1
 7 18 77 7d18+24 2d3+1
 0.0.0.0 907
 8 8 0
@@ -1294,7 +1305,7 @@ lizard tiny ds~
 &+gas a button.
 ~
 10 0 0 0 33554432 0 0 0 0 S
-R 0 0 1
+R 0 0 0 1
 1 20 96 1d15+4 1d5+0
 0.0.0.0 129
 8 8 0
@@ -1307,7 +1318,7 @@ snake garter ds~
 &+gin any forested area.
 ~
 10 0 0 0 0 0 0 0 0 S
-RS 0 0 1
+RS 0 0 0 1
 3 20 90 3d15+11 1d5+0
 0.0.0.0 388
 8 8 0
@@ -1320,7 +1331,7 @@ turtle box small ds~
 &+yhard-shelled creature is slow, at best.
 ~
 10 0 0 0 0 0 0 0 0 S
-R 0 0 1
+R 0 0 0 1
 8 18 74 8d18+28 2d3+1
 0.0.0.0 1036
 8 8 0
@@ -1335,7 +1346,7 @@ lizard multi colored color multicolored ds~
 &+rallow the creature &+cto easily blend into lichen on rocks.
 ~
 10 0 0 0 33554432 0 0 0 0 S
-R 0 0 1
+R 0 0 0 1
 6 18 80 6d18+21 2d3+1
 0.0.0.0 777
 8 8 0
@@ -1350,7 +1361,7 @@ komodo dragon ds~
 &+yeven more fearsome.
 ~
 10 0 0 0 0 0 0 0 0 S
-R 0 0 2
+R 0 0 0 2
 13 15 58 13d23+52 2d5+2
 0.0.0.0 6318
 8 8 0
@@ -1362,7 +1373,7 @@ trout river fish ds~
 &+cSmall and fish-like, this animal is much like any other fish.
 ~
 262154 0 0 0 2048 0 0 0 0 S
-F 0 0 1
+F 0 0 0 1
 3 20 90 3d15+11 1d5+0
 0.0.0.0 388
 8 8 0
@@ -1374,7 +1385,7 @@ catfish fish ds~
 &+ySmall and fish-like, this animal is much like any other fish.
 ~
 262154 0 0 0 2048 0 0 0 0 S
-F 0 0 1
+F 0 0 0 1
 3 20 90 3d15+11 1d5+0
 0.0.0.0 388
 8 8 0
@@ -1386,7 +1397,7 @@ pike fish ds~
 &+ySmall and fish-like, this animal is much like any other fish.
 ~
 262154 0 0 0 2048 0 0 0 0 S
-F 0 0 1
+F 0 0 0 1
 3 20 90 3d15+11 1d5+0
 0.0.0.0 388
 8 8 0
@@ -1397,7 +1408,7 @@ treant huge ds~
 ~
 ~
 16394 0 0 0 16810016 0 0 0 0 S
-PH 0 1 -1
+PH 0 1 0 -1
 25 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 0
@@ -1408,7 +1419,7 @@ dryad beautiful ds~
 ~
 ~
 262154 0 0 0 2048 0 0 0 0 S
-PE 0 1 -1
+PE 0 1 0 -1
 25 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 0
@@ -1419,7 +1430,7 @@ assistant~
 ~
 ~
 159755 0 0 0 839461308 47324 1073741824 67109120 1000 S
-PH 0 8 3
+PH 0 8 0 3
 61 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 1
@@ -1430,7 +1441,7 @@ tharnadian patrolman patrol ranger~
 ~
 ~
 570568712 128 0 0 704643252 2124 0 0 1000 S
-P2 0 2 -1
+P2 0 2 0 -1
 41 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 1
@@ -1441,7 +1452,7 @@ tharnadian marshall ranger~
 ~
 ~
 570568714 128 0 0 973078580 2124 0 0 1000 S
-P2 0 2 -1
+P2 0 2 0 -1
 50 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 1
@@ -1453,7 +1464,7 @@ elephant pink~
 &+MSmall with little wings this elephant is very strange.
 ~
 134348810 0 0 0 16 0 0 0 0 S
-B 0 0 2
+B 0 0 0 2
 8 18 74 8d18+28 2d3+1
 0.0.0.0 1036
 8 8 0
@@ -1464,7 +1475,7 @@ wolf black~
 ~
 ~
 1107560457 1 0 0 33554728 0 0 0 0 S
-AC 0 1 4
+AC 0 1 0 4
 25 -10 -150 5d100+9000 6d6+35
 0.0.0.0 200000
 8 8 0
@@ -1475,7 +1486,7 @@ roc~
 ~
 ~
 1107429385 1 0 0 167772456 0 0 0 0 S
-AC 0 1 5
+AC 0 1 0 5
 30 -10 -150 5d100+9500 6d7+35
 0.0.0.0 200000
 8 8 0
@@ -1491,7 +1502,7 @@ titan prototype
 &+Ball but the &+Lfiercest warriors&n.
 ~
 8 0 0 0 134217728 0 0 0 0 S
-PH 0 0 -1
+PH 0 0 0 -1
 51 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 0
@@ -1503,7 +1514,7 @@ A seaman stands here, selling boats.
 Looks just like Popeye, the sailor man.
 ~
 2058 0 0 0 33554456 0 0 0 0 S
-PH 0 1 -1
+PH 0 1 0 -1
 35 6 -12 35d83+595 4d6+7
 9.9.1.2 45360
 8 8 1
@@ -1516,7 +1527,7 @@ A fairy dragon is fluttering around here looking for something to do...
 It gracefully dances around your head.
 ~
 64 0 0 0 24 0 0 0 500 S
-D 0 0 -1
+D 0 0 0 -1
 5 20 63 5d15+67 1d5+0
 3.1.0.0 1296
 8 8 0
@@ -1529,7 +1540,7 @@ A large black winged griffon swoops into an attack...
 for the fact it is hungry and is attacking you!
 ~
 64 1 0 0 0 0 0 0 300 S
-B 0 0 -1
+B 0 0 0 -1
 8 18 74 8d18+28 2d3+1
 0.0.0.0 1036
 8 8 1
@@ -1543,7 +1554,7 @@ and impossing, it four huge arms strech out like bands of iron
 capable of moving in a gracful fashion while deal out death.
 ~
 2193482 0 0 0 2684354712 264192 67633152 8396800 -1000 S
-TK 0 1 5
+TK 0 1 0 5
 60 140 -100 2d2+20000 6d6+100
 0.0.0.0 0
 8 8 1
@@ -1557,7 +1568,7 @@ and impossing, it four huge arms strech out like bands of iron
 capable of moving in a gracful fashion while deal out death.
 ~
 2193482 0 0 0 2684354712 264192 67633152 8396800 -1000 S
-TK 0 1 5
+TK 0 1 0 5
 60 150 -100 2d2+20000 6d6+100
 0.0.0.0 0
 8 8 1
@@ -1571,7 +1582,7 @@ and impossing, it four huge arms strech out like bands of iron
 capable of moving in a gracful fashion while deal out death.
 ~
 2193482 0 0 0 2684354712 264192 67633152 8396800 -1000 S
-TK 0 1 5
+TK 0 1 0 5
 60 140 -100 1d1+20000 6d6+100
 0.0.0.0 0
 8 8 1
@@ -1585,7 +1596,7 @@ and impossing, it four huge arms strech out like bands of iron
 capable of moving in a gracful fashion while deal out death.
 ~
 2193482 0 0 0 2684354712 264192 67633152 8396800 -1000 S
-TK 0 1 5
+TK 0 1 0 5
 60 150 -100 1d1+20000 6d6+100
 0.0.0.0 0
 8 8 1
@@ -1596,7 +1607,7 @@ fialas avatar~
 ~
 ~
 1141121034 128 0 0 973088828 45268 1073741824 8192 1000 S
-G 0 33 6
+G 0 33 0 6
 56 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 1
@@ -1607,7 +1618,7 @@ aregreal lord avatar~
 ~
 ~
 1074018314 1 0 0 973144380 45274 0 8192 -1000 S
-G 0 33 6
+G 0 33 0 6
 56 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 1
@@ -1620,7 +1631,7 @@ The peasant is a non-descript character, having no great wealth, nor
 possessions of mention.
 ~
 8388738 0 0 0 0 0 0 0 0 S
-H 1 0 -1
+H 1 0 0 -1
 1 20 96 1d15+4 1d5+0
 1.0.0.0 129
 8 8 1
@@ -1633,7 +1644,7 @@ The peasant is a non-descript character, having no great wealth, nor
 possessions of mention.
 ~
 128 0 0 0 0 0 0 0 600 S
-H 1 0 -1
+H 1 0 0 -1
 1 20 96 1d15+4 1d5+0
 1.0.0.0 129
 8 8 2
@@ -1646,7 +1657,7 @@ The peasant is a non-descript character, having no great wealth, nor
 possessions of mention.
 ~
 128 0 0 0 0 0 0 0 600 S
-H 2 0 -1
+H 2 0 0 -1
 1 20 96 1d15+4 1d5+0
 1.0.0.0 129
 8 8 1
@@ -1659,7 +1670,7 @@ The peasant is a non-descript character, having no great wealth, nor
 possessions of mention.
 ~
 128 0 0 0 0 0 0 0 600 S
-H 2 0 -1
+H 2 0 0 -1
 1 20 96 1d15+4 1d5+0
 1.0.0.0 129
 8 8 2
@@ -1672,7 +1683,7 @@ Peddlers always seem to be a bit more knowledgable about their wares
 than they will say.
 ~
 128 0 0 0 0 0 0 0 500 S
-H 1 0 -1
+H 1 0 0 -1
 1 20 96 1d15+4 1d5+0
 1.0.0.0 129
 8 8 1
@@ -1685,7 +1696,7 @@ Peddlers always seem to be a bit more knowledgable about their wares
 than they will say.
 ~
 128 0 0 0 0 0 0 0 500 S
-H 2 0 -1
+H 2 0 0 -1
 1 20 96 1d15+4 1d5+0
 1.0.0.0 129
 8 8 1
@@ -1700,7 +1711,7 @@ babau demon~
 &+rpreferring to stalk their prey instead of meeting it head on.&n
 ~
 395338 1 0 0 671621160 8384 0 0 -1000 S
-X 0 1 4
+X 0 1 0 4
 1 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 0
@@ -1713,7 +1724,7 @@ These reprehensible creatures seem to have no respect for the private
 ownership of property - or at least others' ownership.
 ~
 68 0 0 0 0 0 0 0 -400 S
-H 0 0 -1
+H 0 0 0 -1
 4 20 87 4d15+14 1d5+0
 2.1.0.0 518
 8 8 1
@@ -1727,7 +1738,7 @@ antelope horned prong shampet~
 &+ythe similarity.
 ~
 2058 0 0 0 0 0 0 0 0 S
-A 0 0 3
+A 0 0 0 3
 25 11 19 25d40+200 3d5+3
 0.0.0.0 22275
 8 8 0
@@ -1740,7 +1751,7 @@ buffalo thick haired shampet~
 &+yvicious as hell.
 ~
 2058 0 0 0 0 0 0 0 0 S
-A 0 1 4
+A 0 1 0 4
 35 6 -12 35d83+595 4d6+7
 0.0.0.0 45360
 8 8 0
@@ -1753,7 +1764,7 @@ horse wild shampet~
 &+yhurt if someone were to brush it every now and then.
 ~
 2058 0 0 0 0 0 0 0 0 S
-AE 0 0 4
+AE 0 0 0 4
 27 8 13 27d55+297 3d6+4
 0.0.0.0 24057
 8 8 0
@@ -1766,7 +1777,7 @@ bear grizzly large shampet~
 &+Lbe tangled with.
 ~
 2058 0 0 0 0 0 0 0 0 S
-A 0 1 4
+A 0 1 0 4
 36 2 -15 36d95+828 4d7+10
 0.0.0.0 46656
 8 8 0
@@ -1779,7 +1790,7 @@ This canine is much like its domestic canine cousins, only more vicious
 and without the collar saying "Fido".
 ~
 2058 0 0 0 0 0 0 0 0 S
-A 0 0 3
+A 0 0 0 3
 31 6 0 31d70+465 4d6+7
 0.0.0.0 40176
 8 8 0
@@ -1791,7 +1802,7 @@ chipmunk shampet~
 &+yAww, isn't it cute?
 ~
 2058 0 0 0 0 0 0 0 0 S
-A 0 0 1
+A 0 0 0 1
 7 18 77 7d18+24 2d3+1
 0.0.0.0 907
 8 8 0
@@ -1804,7 +1815,7 @@ goat mountain shampet~
 &+Wfearsome enough.
 ~
 2058 0 0 0 0 0 0 0 0 S
-A 0 0 3
+A 0 0 0 3
 27 8 13 27d55+297 3d6+4
 0.0.0.0 24057
 8 8 0
@@ -1818,7 +1829,7 @@ cougar shampet~
 &+ythis poor unimaginative beast will ever get.  But, it tries, eh?
 ~
 2058 0 0 0 0 0 0 0 0 S
-A 0 1 3
+A 0 1 0 3
 32 6 -2 32d83+544 4d6+7
 0.0.0.0 41472
 8 8 0
@@ -1831,7 +1842,7 @@ lizard rock shampet~
 &+revery now and then.
 ~
 2058 0 0 0 0 0 0 0 0 S
-R 0 0 1
+R 0 0 0 1
 5 20 83 5d15+17 1d5+0
 0.0.0.0 648
 8 8 0
@@ -1844,7 +1855,7 @@ spider cave huge shampet~
 &+Lminor fact that it's three feet tall and has four-foot legs.
 ~
 2058 0 0 0 0 2 0 0 0 S
-AS 0 0 4
+AS 0 0 0 4
 26 8 16 26d55+286 3d6+4
 0.0.0.0 23166
 8 8 0
@@ -1857,7 +1868,7 @@ lizard cave large shampet~
 &+genough, if a bit dull.
 ~
 2058 0 0 0 0 2 0 0 0 S
-R 0 1 4
+R 0 1 0 4
 28 8 10 28d65+364 3d6+4
 0.0.0.0 24948
 8 8 0
@@ -1871,7 +1882,7 @@ worm purple shampet~
 &+mnonetheless.
 ~
 2058 0 0 0 0 2 0 0 0 S
-pw 0 0 4
+pw 0 0 0 4
 29 8 7 29d55+319 3d6+4
 0.0.0.0 25839
 8 8 0
@@ -1884,7 +1895,7 @@ fire elemental~
 &+rlook to happy to be here, and seems a tad upset.
 ~
 2 0 0 0 671088648 1 0 0 0 S
-EF 1 0 -1
+EF 1 0 0 -1
 39 2 -34 39d80+819 4d7+10
 0.0.0.0 50544
 8 8 0
@@ -1897,7 +1908,7 @@ earth elemental~
 &+ylook to happy to be here, and seems a tad upset.
 ~
 2 0 0 0 136 0 0 0 0 S
-EE 1 1 -1
+EE 1 1 0 -1
 39 2 -34 39d95+897 4d7+10
 0.0.0.0 50544
 8 8 0
@@ -1910,7 +1921,7 @@ air elemental~
 &+Clook to happy to be here, and seems a tad upset.
 ~
 2 0 0 0 134217752 128 0 0 0 S
-EA 1 0 -1
+EA 1 0 0 -1
 39 2 -34 39d80+819 4d7+10
 0.0.0.0 50544
 8 8 0
@@ -1923,7 +1934,7 @@ water elemental~
 &+band does not look to be ready to do anything other then fight.
 ~
 262146 0 0 0 2056 192 0 0 0 S
-EW 1 1 -1
+EW 1 1 0 -1
 39 2 -34 39d95+897 4d7+10
 0.0.0.0 50544
 8 8 0
@@ -1935,7 +1946,7 @@ living earth elemental~
 &+LThis being, composed of solid &+rliving&+Learthen stone stand here glaring at YOU.
 ~
 2 0 0 0 136 0 0 0 0 S
-EE 1 1 -1
+EE 1 1 0 -1
 39 2 -34 39d95+897 4d7+10
 0.0.0.0 50544
 8 8 0
@@ -1947,7 +1958,7 @@ greater living stone elemental~
 &+LThis being, composed of solid &+rliving &+Learthen stone stand here glaring at YOU.
 ~
 2 0 0 0 136 0 0 0 0 S
-EE 0 1 -1
+EE 0 1 0 -1
 39 2 -34 39d95+897 4d7+10
 0.0.0.0 50544
 8 8 0
@@ -1959,7 +1970,7 @@ shadow elemental monster~
 &+LThis being scares the HELL outta you!
 ~
 2058 0 0 0 134217736 0 0 0 0 S
-UG 0 0 3
+UG 0 0 0 3
 39 2 -34 39d40+897 40d7+10
 0.0.0.0 50544
 8 8 0
@@ -1971,7 +1982,7 @@ insects swarm~
 &+LA swarm of insects fly around here, looking like a big dust cloud.
 ~
 2056 0 0 0 134217736 0 0 0 0 S
-I 0 0 1
+I 0 0 0 1
 20 20 83 5d15+17 1d5+0
 0.0.0.0 648
 8 8 0
@@ -1987,7 +1998,7 @@ dragon red chromatic~
 &+Rthat are given birth there.
 ~
 1107441706 0 0 0 33554488 12504 0 0 -1000 S
-D 0 1 -1
+D 0 1 0 -1
 60 -10 -152 60d143+10900 7d6+35
 6.6.9.22 486000
 8 8 1
@@ -2000,7 +2011,7 @@ large fire elemental~
 &+rlook to happy to be here, and seems a tad upset.
 ~
 65538 0 0 0 570425352 1025 0 0 0 S
-EF 0 1 4
+EF 0 1 0 4
 51 1 -75 1d1+2000 1d7+10
 0.0.0.0 0
 8 8 0
@@ -2013,7 +2024,7 @@ salamander flame fire elemental~
 &+rlook to happy to be here, and seems a tad upset.
 ~
 65570 0 0 0 570425352 4195329 0 0 0 S
-EF 0 1 4
+EF 0 1 0 4
 51 1 -75 1d1+2000 1d7+10
 0.0.0.0 0
 8 8 0
@@ -2026,7 +2037,7 @@ serpent fiery fire~
 &+rlook to happy to be here, and seems a tad upset.
 ~
 65538 0 0 0 704643080 1025 0 0 0 S
-EF 0 1 3
+EF 0 1 0 3
 51 1 -75 1d1+2000 1d7+10
 0.0.0.0 0
 8 8 0
@@ -2039,7 +2050,7 @@ large earth elemental~
 &+ylook to happy to be here, and seems a tad upset.
 ~
 65538 0 0 0 33554568 1024 0 0 0 S
-EE 0 1 4
+EE 0 1 0 4
 51 1 -100 1d1+2000 1d7+15
 0.0.0.0 50544
 8 8 0
@@ -2052,7 +2063,7 @@ huge stone golem~
 &+ylook to happy to be here, and seems a tad upset.
 ~
 65538 0 0 0 33554568 1024 0 0 0 S
-EE 0 1 5
+EE 0 1 0 5
 51 1 -100 1d1+2000 1d7+15
 0.0.0.0 50544
 8 8 0
@@ -2065,7 +2076,7 @@ large xorn~
 &+ylook to happy to be here, and seems a tad upset.
 ~
 65538 0 0 0 33554568 1024 0 0 0 S
-EE 0 1 4
+EE 0 1 0 4
 51 1 -100 1d1+2000 1d7+15
 0.0.0.0 50544
 8 8 0
@@ -2078,7 +2089,7 @@ large air elemental~
 &+Clook to happy to be here, and seems a tad upset.
 ~
 65538 0 0 0 167772184 192 0 0 0 S
-EA 0 1 4
+EA 0 1 0 4
 51 1 -120 1d1+2000 1d7+10
 0.0.0.0 0
 8 8 0
@@ -2091,7 +2102,7 @@ sylph air tornado elemental~
 &+Clook to happy to be here, and seems a tad upset.
 ~
 65538 0 0 0 167772184 192 0 0 0 S
-EA 0 8193 2
+EA 0 8193 0 2
 51 1 -120 1d1+2000 1d7+10
 0.0.0.0 0
 8 8 0
@@ -2104,7 +2115,7 @@ djinni powerful elemental humanoid shape~
 &+Clook to happy to be here, and seems a tad upset.
 ~
 65538 0 0 0 167772184 192 0 0 0 S
-EA 0 1 4
+EA 0 1 0 4
 51 1 -120 1d1+2000 1d7+10
 0.0.0.0 0
 8 8 0
@@ -2117,7 +2128,7 @@ large water elemental~
 &+band does not look to be ready to do anything other then fight.
 ~
 327682 0 0 0 33556488 1152 0 8448 0 S
-EW 1 1 4
+EW 1 1 0 4
 51 2 -110 1d1+2000 1d7+15
 0.0.0.0 0
 8 8 0
@@ -2130,7 +2141,7 @@ undine beautiful elemental water~
 &+band does not look to be ready to do anything other then fight.
 ~
 327682 0 0 0 33556488 1152 0 8448 0 S
-EW 1 8193 3
+EW 1 8193 0 3
 51 2 -110 1d1+2000 1d7+15
 0.0.0.0 0
 8 8 0
@@ -2143,7 +2154,7 @@ triton powerful elemental water~
 &+band does not look to be ready to do anything other then fight.
 ~
 327682 0 0 0 33556488 1152 0 8448 0 S
-EW 1 1 4
+EW 1 1 0 4
 51 2 -110 1d1+2000 1d7+15
 0.0.0.0 0
 8 8 0
@@ -2156,7 +2167,7 @@ This raccoon is almost the size of a dog.  He is extremely aware and is
 constantly sniffing the air for the scent of a predator, or food.
 ~
 8 0 0 0 0 0 0 0 0 S
-A 0 0 -1
+A 0 0 0 -1
 25 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 0
@@ -2168,7 +2179,7 @@ faerie~
 A small woodlan faerie, almost like a very small flying elf.
 ~
 8 0 0 0 0 0 0 0 0 S
-HF 0 512 -1
+HF 0 512 0 -1
 36 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 0
@@ -2180,7 +2191,7 @@ wolf black~
 A large black wolf.
 ~
 8 0 0 0 0 0 0 0 0 S
-A 0 0 -1
+A 0 0 0 -1
 36 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 0
@@ -2191,7 +2202,7 @@ squirrel~
 ~
 ~
 8 0 0 0 0 0 0 0 0 S
-A 0 0 -1
+A 0 0 0 -1
 20 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 0
@@ -2204,7 +2215,7 @@ This large grizzly bear is almost 10 feet tall when standing on his
 back legs.  His mouth is huge, and his claws even bigger.
 ~
 8 0 0 0 0 0 0 0 0 S
-A 0 0 -1
+A 0 0 0 -1
 42 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 0
@@ -2215,7 +2226,7 @@ woodchuck fat~
 ~
 ~
 8 0 0 0 0 0 0 0 0 S
-A 0 0 -1
+A 0 0 0 -1
 22 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 0
@@ -2226,7 +2237,7 @@ opossum~
 ~
 ~
 8 0 0 0 0 0 0 0 0 S
-A 0 0 -1
+A 0 0 0 -1
 25 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 0
@@ -2237,7 +2248,7 @@ doe~
 ~
 ~
 8 0 0 0 0 0 0 0 0 S
-A 0 0 -1
+A 0 0 0 -1
 26 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 0
@@ -2248,7 +2259,7 @@ buck deer~
 ~
 ~
 8 0 0 0 0 0 0 0 0 S
-A 0 0 -1
+A 0 0 0 -1
 35 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 0
@@ -2259,7 +2270,7 @@ cat~
 ~
 ~
 8 0 0 0 0 0 0 0 0 S
-A 0 0 -1
+A 0 0 0 -1
 17 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 0
@@ -2272,7 +2283,7 @@ ice elemental~
 &+cin your company.&n
 ~
 2 0 0 0 8 192 2097152 0 0 S
-IE 1 1 -1
+IE 1 1 0 -1
 39 2 -34 39d80+819 4d7+10
 0.0.0.0 50544
 8 8 0
@@ -2285,7 +2296,7 @@ large ice elemental~
 &+cstanding in your company.&n
 ~
 65538 0 0 0 8 192 2097152 0 0 S
-IE 0 1 4
+IE 0 1 0 4
 51 1 -120 1d1+2000 1d7+10
 0.0.0.0 0
 8 8 0
@@ -2298,7 +2309,7 @@ living glacier ice elemental~
 &+cto be standing in your company.&n
 ~
 65538 0 0 0 167772184 192 0 0 0 S
-EA 0 1 3
+EA 0 1 0 3
 51 1 -120 1d1+2000 1d7+10
 0.0.0.0 0
 8 8 0
@@ -2311,7 +2322,7 @@ frost golem ice elemental~
 &+cto be standing in your company.&n
 ~
 65538 0 0 0 167772184 192 0 0 0 S
-EA 0 1 2
+EA 0 1 0 2
 51 1 -120 1d1+2000 1d7+10
 0.0.0.0 0
 8 8 0
@@ -2324,7 +2335,7 @@ The undead corpse stands here moaning.
 not seem very happy about this as it lets out a strange moaning sound.
 ~
 0 0 0 0 0 0 0 0 0 S
-U 0 0 -1
+U 0 0 0 -1
 10 18 67 10d18+35 2d3+1
 0.0.0.0 1296
 8 8 0
@@ -2337,7 +2348,7 @@ A masked man with muscles bulging all over his body.  You can tell by
 the look in his eyes that he enjoys seeing you cower in his presence.
 ~
 66 0 0 0 524296 0 0 0 -1000 S
-H 0 0 -1
+H 0 0 0 -1
 60 -10 -132 60d120+6180 7d6+35
 6.6.9.7 243000
 8 8 1
@@ -2352,7 +2363,7 @@ stylish colors. He seems to be telling his newest victim about his latest
 and greatest product.
 ~
 137 0 0 0 0 0 0 0 350 S
-H 0 1 -1
+H 0 1 0 -1
 14 15 55 14d27+84 2d5+2
 7.5.2.0 6804
 8 8 1
@@ -2364,7 +2375,7 @@ Some pond scum is floating on the surface of the water.
 Well, it's scummy and it's floating on the pond.
 ~
 10 0 0 0 0 0 0 0 0 S
-AP 0 0 -1
+AP 0 0 0 -1
 3 20 90 3d15+11 1d5+0
 0.0.0.0 388
 8 8 2
@@ -2380,7 +2391,7 @@ is obvious he is having quite alot of trouble using the facilties. Once
 in a while he lets out a soft wimper or moan of agony.
 ~
 2051 0 0 0 553656376 12480 0 0 0 S
-PH 0 1 -1
+PH 0 1 0 -1
 54 -5 -107 54d131+4590 7d6+30
 9.1.7.6 218700
 6 6 1
@@ -2398,7 +2409,7 @@ lord ghoul kdaron~
 &+Larmor of a noble knight now dented and filthy from time.&n
 ~
 2059 0 0 0 73976 0 67108864 0 -1000 S
-D 0 8257 7
+D 0 8257 0 7
 61 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 1
@@ -2412,7 +2423,7 @@ to get horny over anything with two legs. Him and his friend Butthead
 are morons, but we love em anyways.
 ~
 11 0 0 0 8 0 0 0 -1000 S
-H 0 0 -1
+H 0 0 0 -1
 54 -5 -107 54d110+4482 7d6+30
 9.1.7.6 218700
 8 8 1
@@ -2426,7 +2437,7 @@ really can only pretend to be cool. He makes up for his lack of thinking
 with talking about stuff that really makes no sense.
 ~
 11 0 0 0 8 0 0 0 -1000 S
-H 0 0 -1
+H 0 0 0 -1
 54 -5 -107 54d110+4482 7d6+30
 9.1.7.6 218700
 8 8 1
@@ -2440,7 +2451,7 @@ spends his days drooling, and commenting ont he social injustices endured by
 minoritys.
 ~
 11 0 0 0 8 0 0 0 0 S
-H 0 0 -1
+H 0 0 0 -1
 54 -5 -107 54d110+4482 7d6+30
 9.1.7.6 218700
 8 8 1
@@ -2454,7 +2465,7 @@ nightmare horse mount anti-paladinmount~
 &+Lprevious life.
 ~
 134481923 0 0 0 65536 8 0 4096 -1000 S
-AE 0 1 -1
+AE 0 1 0 -1
 10 18 67 10d21+55 2d3+1
 0.0.0.0 1296
 8 8 1
@@ -2469,7 +2480,7 @@ warhorse horse heavy mount paladinmount~
 &+Wwith controlled power.
 ~
 134481923 0 0 0 8192 4 0 0 1000 S
-AE 0 2 -1
+AE 0 2 0 -1
 10 18 67 10d21+55 2d3+1
 0.0.0.0 1296
 8 8 1
@@ -2481,7 +2492,7 @@ An ancient prismatic treant towers into the heavens.
 A gentleness and warmth radiate from this many-hued, serene, ageless observer.
 ~
 133131 0 0 0 856269052 14557 0 0 1000 S
-VT 0 8 -1
+VT 0 8 0 -1
 59 -7 -128 59d143+6785 7d6+35
 0.0.0.0 238950
 8 8 1
@@ -2495,7 +2506,7 @@ hellhound hell hound beast winged~
 &+Lprevious life.
 ~
 134481923 0 0 0 134283272 10 0 4096 -1000 S
-AE 0 1 -1
+AE 0 1 0 -1
 10 18 67 10d21+55 2d3+1
 0.0.0.0 1296
 8 8 1
@@ -2510,7 +2521,7 @@ pegasus beautiful~
 &+Wwith controlled power.
 ~
 134481923 0 0 0 134225928 32772 0 4096 1000 S
-AE 0 2 -1
+AE 0 2 0 -1
 10 18 67 10d21+55 2d3+1
 0.0.0.0 1296
 8 8 1
@@ -2525,7 +2536,7 @@ hawk eyed hawkeyed ranger archer~
 &+gout of the way of the longbow he wields.
 ~
 2123 640 0 0 8204 0 0 0 1000 S
-PH 1 2 -1
+PH 1 2 0 -1
 30 8 3 30d65+390 3d6+4
 0.5.7.1 26730
 8 8 1
@@ -2540,7 +2551,7 @@ long bow and wearing a full quiver of arrows, he is ready to fill a
 raiding orc, or unwanted outcast with them.
 ~
 67110987 640 0 0 268435460 0 0 0 750 S
-PH 1 2 -1
+PH 1 2 0 -1
 20 13 35 20d35+140 3d4+2
 0.9.3.0 9720
 8 8 1
@@ -2553,7 +2564,7 @@ gnomish archer gnome~
 &+rand quiver full of sharp arrows to pierce the enemies of Ashrumite.
 ~
 67110987 640 0 0 33554440 0 0 0 500 S
-PG 8 16384 -1
+PG 8 16384 0 -1
 23 11 26 23d47+230 3d5+3
 5.1.6.0 20493
 8 8 1
@@ -2567,7 +2578,7 @@ elven elf archer~
 &+gan orc between the eyes at 200 feet.
 ~
 67110987 640 0 0 33562684 0 0 0 900 S
-PE 4 2 -1
+PE 4 2 0 -1
 35 6 -12 35d83+595 4d6+7
 9.9.1.2 45360
 8 8 1
@@ -2581,7 +2592,7 @@ A dark, hooded man is here protecting his Baron's home.&n
 &+Lwho dare to threaten Bloodstones citizens.
 ~
 1174407243 0 0 0 65588 0 0 0 0 S
-PH 12 16 -1
+PH 12 16 0 -1
 25 11 19 25d47+250 3d5+3
 6.2.6.1 22275
 8 8 1
@@ -2596,7 +2607,7 @@ random mob prototype~
 &+Lwhat &+rbattlefield&+L capabilities or &+bmagical&+L prowess he possesses if any.
 ~
 1174407241 0 0 0 65588 0 0 0 0 S
-PH 12 16 -1
+PH 12 16 0 -1
 25 11 19 25d47+250 3d5+3
 6.2.6.1 22275
 8 8 1
@@ -2611,7 +2622,7 @@ random zone mob prototype~
 &+Lwhat &+rbattlefield&+L capabilities or &+bmagical&+L prowess he possesses if any.
 ~
 1107298377 0 0 0 65588 0 0 0 0 S
-PH 12 16 -1
+PH 12 16 0 -1
 25 11 19 25d47+250 3d5+3
 6.2.6.1 22275
 8 8 1

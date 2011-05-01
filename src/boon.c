@@ -2173,7 +2173,7 @@ void check_boon_completion(P_char ch, P_char victim, double data, int option)
   for (i = 0; i < MAX_BOONS; i++)
     id[i] = 0;
 
-  buff = '\0'
+  *buff = '\0';
   // Modify the SQL search based on the option
   if (option == BOPT_NONE)
     sprintf(buff, " AND (criteria = '%d')", ROOM_ZONE_NUMBER(ch->in_room));

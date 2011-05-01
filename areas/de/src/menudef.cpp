@@ -394,9 +394,10 @@ const menuChoice mobAff34FlagsChoiceArr[] =
 
 const menuChoice mobMiscChoiceArr[] =
 { { "species", 0, 0, offsetof(mobType, mobSpecies), mctSpecies, mclNone, mcdDefault, MAX_SPECIES_LEN, 0 }, 
+  { "class(es)", 0, 0, offsetof(mobType, mobClass), mctMobClass, mclNone, mcdDefault, 0, 0 },
+  { "specialization", 0, 0, offsetof(mobType, mobSpec), mctInt, mclMobSpec, mcdDefault, 0, 0 },
   { "hometown", 0, 0, offsetof(mobType, mobHometown), mctInt, mclHometown, mcdDefault, 0, 0 },
   { "alignment", 0, 0, offsetof(mobType, alignment), mctInt, mclNone, mcdDefault, 0, 0 },
-  { "class(es)", 0, 0, offsetof(mobType, mobClass), mctMobClass, mclNone, mcdDefault, 0, 0 },
   { "size", 0, 0, offsetof(mobType, size), mctInt, mclMobSize, mcdDefault, 0, 0 },
   { 0 } };
 
@@ -480,6 +481,7 @@ const menuChoiceGroup mobMiscGroupArr[] =
   { &mobMiscChoiceArr[2], 'C', 0 },
   { &mobMiscChoiceArr[3], 'D', 0 },
   { &mobMiscChoiceArr[4], 'E', 0 },
+  { &mobMiscChoiceArr[5], 'F', 0 },
   { 0, 0, 0 } };
 
 menu g_mobMiscMenu =
@@ -762,8 +764,8 @@ const menuChoice shopMessagesOpenChoiceArr[] =
     MAX_SHOPSTRING_LEN, 0 }, { 0 } };
 
 const menuChoice shopMessagesCloseChoiceArr[] =
-{ { "closing message", 0, 0, offsetof(shop, closeMessage), mctString, mclNone, mcdDoNotDisplay, 
-    MAX_SHOPSTRING_LEN, 0 }, { 0 } };
+{ { "closing message", 0, 0, offsetof(shop, closeMessage), mctString, mclNone, mcdDoNotDisplay,
+  MAX_SHOPSTRING_LEN, 0 }, { 0 } };
 
 const menuChoice shopMessagesRacistChoiceArr[] =
 { { "racist shopkeeper message", 0, 0, offsetof(shop, racistMessage), mctString, mclNone, mcdDoNotDisplay, 

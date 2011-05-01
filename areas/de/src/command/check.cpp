@@ -2342,6 +2342,30 @@ uint checkMobs(FILE *file, size_t& numbLines, bool* userQuit)
         }
       }
 
+     // check spec's, no specs if multiclass or class none
+      if (!countClass(mob->mobClass))
+      {
+	sprintf(strn, "mob #%u is class None with a specialization set.\r\n", mobNumb);
+	errors++;
+
+	if (outCheckError(strn, file, numbLines))
+	{
+	  *userQuit = true;
+	  return errors;
+	}
+      }
+      else if (countClass(mob->mobClass) > 1)
+      {
+	sprintf(strn, "mob #%u has more than one class with specialization set.\r\n", mobNumb);
+	errors++;
+	
+	if (outCheckError(strn, file, numbLines))
+	{
+	  *userQuit = true;
+	  return errors;
+	}
+      }
+
      // check mob quest info
 
       if (mob->questPtr)

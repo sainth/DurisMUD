@@ -218,6 +218,9 @@ bool compareMobType(const mobType *mob1, const mobType *mob2)
   if (mob1->mobClass != mob2->mobClass)
     return false;
 
+  if (mob1->mobSpec != mob2->mobSpec)
+    return false;
+
   if (mob1->level != mob2->level) return false;
   if (mob1->thac0 != mob2->thac0) return false;
   if (mob1->ac != mob2->ac) return false;

@@ -58,7 +58,6 @@ extern uint g_roomFlagTemplates[], g_objExtraFlagTemplates[], g_objExtra2FlagTem
 
 extern variable *g_varHead;
 
-
 //
 // checkMenuKey : keys common to 99% of all menus, return various keyed
 //                values (MENUKEY_*, defined in menu.h)
@@ -279,7 +278,7 @@ int getMenuDataTypeStrn(char *valstrn, const menuChoiceDataType dataType, const 
       break;
 
     case mctMobClass :
-      getClassString(*(uint *)((char *)entityPtr + offset), valstrn, intMaxLen - 1);
+      getClassString((mobType *)entityPtr, valstrn, intMaxLen - 1);
       break;
 
     case mctPointerYesNoSansExists :
@@ -312,7 +311,6 @@ int getMenuDataTypeStrn(char *valstrn, const menuChoiceDataType dataType, const 
     case mctVarString :
       strncpy(valstrn, ((char *(*)(void))(offset))(), intMaxLen);
       valstrn[intMaxLen] = '\0';
-
       break;
 
     case mctObjIDKeywords :
@@ -379,6 +377,7 @@ void getMenuListTypeStrn(char *verbosevalstrn, const menuChoiceListType listType
                          const void *entityPtr, const size_t intMaxLen)
 {
   const objectType *obj = (const objectType*)entityPtr;  // used for obj values below
+  const mobType *mob = (const mobType*)entityPtr;
   const questItem *qstItem = (const questItem*)entityPtr;
   int intValNumb;
 
@@ -434,6 +433,11 @@ void getMenuListTypeStrn(char *verbosevalstrn, const menuChoiceListType listType
 
     case mclHometown :
       strncpy(verbosevalstrn, getMobHometownStrn(val), intMaxLen);
+      verbosevalstrn[intMaxLen] = '\0';
+      break;
+
+    case mclMobSpec :
+      strncpy(verbosevalstrn, getMobSpecStrn(val), intMaxLen);
       verbosevalstrn[intMaxLen] = '\0';
       break;
 
@@ -1251,6 +1255,7 @@ bool editMenuValue(const menuChoice *choice, void *entityPtr)
       return true;
 
     case mctZoneFlag :
+
       zonePtr = (zone *)entityPtr;
 
       editFlags(g_zoneMiscFlagDef, &(zonePtr->miscBits.longIntFlags), ENTITY_ZONE, zonePtr->zoneName, 
@@ -1430,6 +1435,13 @@ void editMenuValueList(const menuChoice *choice, void *entityPtr)
 
       editFlags(g_mobHometownList, &(mob->mobHometown), ENTITY_MOB, getMobShortName(mob), mob->mobNumber,
                 "hometown", NULL, 0, false);
+      break;
+    
+    case mclMobSpec :
+      mob = (mobType *)entityPtr;
+
+      editSpecs(&(mob->mobSpec), ENTITY_MOB, getMobShortName(mob), mob->mobNumber,
+	"specialize", NULL, 0, false);
       break;
 
     case mclMobSize :
