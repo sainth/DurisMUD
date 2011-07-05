@@ -1633,6 +1633,12 @@ struct shapechange_struct {
 
 /* Types */
 
+struct spell_res_data {
+  char tochar[MAX_STRING_LENGTH];
+  char tovict[MAX_STRING_LENGTH];
+  char toroom[MAX_STRING_LENGTH];
+  bool true_false;
+};
 
 
 #define SKILL_CATEGORY_OFFENSIVE BIT_1

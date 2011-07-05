@@ -63,6 +63,7 @@ extern const int rev_dir[];
 extern int top_of_world;
 extern struct con_app_type con_app[];
 extern struct dex_app_type dex_app[];
+extern struct str_app_type str_app[];
 extern struct max_stat max_stats[];
 extern const struct racial_data_type racial_data[];
 extern struct zone_data *zone_table;
@@ -655,7 +656,8 @@ void apply_affs(P_char ch, int mode)
     ch->points.damroll = damroll_cap;
 
 #if 1 // wipe 2011
-  ch->points.damroll = (int) ch->points.damroll * (float) ((float) GET_C_STR(ch) * ((float) stat_factor[GET_RACE(ch)].Str / 100)) / 100;
+  int strdam = (int) ((float) GET_C_STR(ch) * ((float) stat_factor[GET_RACE(ch)].Str / 100));
+  ch->points.damroll = (int) ch->points.damroll + str_app[STAT_INDEX(strdam)].todam;
   ch->points.damroll = MAX(0, ch->points.damroll);
 #else
   if (GET_C_STR(ch) > stat_factor[(int) GET_RACE(ch)].Str)

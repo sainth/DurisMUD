@@ -794,7 +794,7 @@ int ne_event_time(P_nevent);
 
 /* epic.c */
 int devotion_spell_check(int);
-
+void spell_resistance_check(P_char, P_char, void *);
 
 /* fight.c */
 bool rapier_dirk(P_char, P_char);

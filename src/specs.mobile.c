@@ -2278,9 +2278,7 @@ int guild_guard(P_char ch, P_char pl, int cmd, char *arg)
                            !GET_CLASS(pl, CLASS_NECROMANCER) ||
                            !GET_CLASS(pl, CLASS_SORCERER) ||
                            !GET_CLASS(pl, CLASS_ILLUSIONIST) ||
-                           !GET_CLASS(pl, CLASS_THEURGIST) ||
-                           !GET_CLASS(pl, CLASS_PSIONICIST) ||
-                           !GET_CLASS(pl, CLASS_MINDFLAYER)))
+                           !GET_CLASS(pl, CLASS_THEURGIST)))
       block = TRUE;
     break;
   case 139111:
@@ -9279,13 +9277,13 @@ int basilisk_freeze(P_char ch, P_char pl, int cmd, char *arg)
         return FALSE;
 
       act
-        ("&+L$n &+Lturns %s baleful &+Ygaze &+Lat $N &+Lfreezing %M with deadly &+Yparalysis&+L!&n",
+        ("&+L$N &+Lturns $S baleful &+Ygaze &+Lat $n &+Lfreezing $m with deadly &+Yparalysis&+L!&n",
          0, vict, 0, ch, TO_NOTVICT);
       act
-        ("&+L$n &+Lturns %s baleful &+Ygaze &+Lat &+YYOU &+Lfreezing you with deadly &+Yparalysis&+L!&n",
+        ("&+L$n &+Lturns $s baleful &+Ygaze &+Lat &+YYOU &+Lfreezing you with deadly &+Yparalysis&+L!&n",
          0, ch, 0, vict, TO_VICT);
       act
-        ("&+LYou &+Lturn your baleful &+Ygaze &+Lat $N &+Lfreezing %M with deadly &+Yparalysis&+L!&n",
+        ("&+LYou &+Lturn your baleful &+Ygaze &+Lat $N &+Lfreezing $M with deadly &+Yparalysis&+L!&n",
          0, ch, 0, vict, TO_CHAR);
 
       /*

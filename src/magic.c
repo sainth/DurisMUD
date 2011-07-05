@@ -10322,7 +10322,8 @@ void spell_blinding_breath(int level, P_char ch, char *arg, int type,
     "You die from the &+Ggas&N $n breathes on you.",
     "$n kills $N with a &+Ggas&N breath.", 0
   };
-  if(!are_we_still_alive(ch , victim))
+
+  if(!IS_ALIVE(ch) || !IS_ALIVE(victim))
     return;
 
   save = calc_dragon_breath_save(ch, victim);
