@@ -3641,23 +3641,18 @@ int get_innate_regeneration(P_char ch)
 
 int get_innate_resistance(P_char ch)
 {
-  int      res, lvl = GET_LEVEL(ch);
+  float      res;
   char     buf[128];
 
-  sprintf(buf, "innate.shrug.%s",
-          race_names_table[GET_RACE(ch)].no_spaces);
+  sprintf(buf, "innate.shrug.%s", race_names_table[GET_RACE(ch)].no_spaces);
   res = (int) get_property(buf, 10.);
-  res -= MIN(6, 56 - lvl);
-  res = (int) (res * MIN(1., ((float) lvl) / 50));
-  res = MAX(5, res);
 
   if(!(ch) ||
      !IS_ALIVE(ch))
         return 0;
 
-  if( has_innate(ch, INNATE_RRAKKMA) && ch->group )
+  if(has_innate(ch, INNATE_RRAKKMA) && ch->group )
   {
-  //  debug("shrug pct before rrakkma: %d", res);
     int count = 0;
     for(struct group_list *gl = ch->group; gl; gl = gl->next)
     {
@@ -3673,9 +3668,7 @@ int get_innate_resistance(P_char ch)
       count = MIN(count, (int) get_property("innate.rrakkma.maxSteps", 5));
       res += count * (int) get_property("innate.rrakkma.stepPc", 5);
     } 
-  //  debug("after: %d", res);
   }
-  
   return (res >= 100) ? 100 : res;
 }
 

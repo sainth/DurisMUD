@@ -3457,7 +3457,8 @@ int spell_damage(P_char ch, P_char victim, double dam, int type, uint flags,
   struct spell_res_data spell_msg_data = {"to char", "to vict", "to room", "TRUE"};
   P_char vict_group_member, next, eth_ch;
   P_obj vict_weapon, item;
-  int  result, circle, awe, i, resist, res_amt;
+  int result, circle, awe, i, resist;
+  float res_amt;
   double levelmod = 1.0;
 
   // Just making sure.
@@ -4249,8 +4250,7 @@ int spell_damage(P_char ch, P_char victim, double dam, int type, uint flags,
        }
        else
        {}
-
-       dam = dam * ((float)1 - ((float) res_amt / 100));   
+       dam = dam * (float) (1 - ((float) res_amt / 100));   
     }
 
     // ugly hack - we smuggle damage_type for eq poofing messages on 8 highest bits
