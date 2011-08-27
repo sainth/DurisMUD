@@ -941,7 +941,7 @@ void justice_set_outcast(P_char ch, int town)
 }
 
 
-/* fonction to outcast a player after being judge */
+/* function to outcast a player after being judge */
 
 void justice_sentence_outcast(P_char ch, int town)
 {
@@ -1035,10 +1035,10 @@ void justice_sentence_outcast(P_char ch, int town)
 int justice_send_guards(int to_rroom, P_char victim, int type, int response_level)
 {
   struct justice_guard_list *gl;
-  int      best_dist = 9999;
-  int      best_room = NOWHERE;
-  int      i, town;
-  int      hunt_type;
+  int best_dist = 9999;
+  int best_room = NOWHERE;
+  int i, town;
+  int hunt_type;
   hunt_data data;
 
   if((to_rroom == NOWHERE) && !victim)
@@ -1098,55 +1098,67 @@ int justice_send_guards(int to_rroom, P_char victim, int type, int response_leve
   }
 
   /* now send them out! */
-  while (response_level)
+  while(response_level)
   {
-    P_char   tch;
+     P_char   tch;
 
-    tch = justice_make_guard(best_room);
-    if(!tch)
-    {
-      wizlog(56,
-             "Justice: Unable to load mob vnum %d. Tracking: %s in room %d.",
-             hometowns[town - 1].guard_mob, GET_NAME(victim),
-             world[victim->in_room].number);
-      return FALSE;
-    }
-    SET_BIT(tch->only.npc->spec[2], type);
+     tch = justice_make_guard(best_room);
+     if(!tch)
+     {
+         wizlog(56, "Justice: Unable to load mob vnum %d. Tracking: %s in room %d.",
+                    hometowns[town - 1].guard_mob, GET_NAME(victim),
+                    world[victim->in_room].number);
+         return FALSE;
+     }
+     SET_BIT(tch->only.npc->spec[2], type);
+     tch->specials.arrest_by = victim;
+     set_justice_guard_parms(tch, FALSE);
+     data.hunt_type = hunt_type;
+     if(victim)
+       data.targ.victim = victim;
+     else
+       data.targ.room = to_rroom;
 
-    tch->specials.arrest_by = victim;
-
-    set_justice_guard_parms(tch);
-
-    data.hunt_type = hunt_type;
-    if(victim)
-      data.targ.victim = victim;
-    else
-      data.targ.room = to_rroom;
-
-    data.huntFlags = BFS_CAN_FLY | BFS_BREAK_WALLS;
-    if(npc_has_spell_slot(tch, SPELL_DISPEL_MAGIC))
-      data.huntFlags |= BFS_CAN_DISPEL;
+     data.huntFlags = BFS_CAN_FLY | BFS_BREAK_WALLS;
+     if(npc_has_spell_slot(tch, SPELL_DISPEL_MAGIC))
+       data.huntFlags |= BFS_CAN_DISPEL;
     
-    add_event(mob_hunt_event, PULSE_MOB_HUNT, tch, NULL, NULL, 0, &data, sizeof(hunt_data));
-    response_level--;
-
+     add_event(mob_hunt_event, PULSE_MOB_HUNT, tch, NULL, NULL, 0, &data, sizeof(hunt_data));
+     response_level--;
   }                             /* while() */
+    
   return TRUE;
 }
 
-void set_justice_guard_parms(P_char guard)
+void set_justice_guard_parms(P_char guard, bool army)
 {
-   int randomize = number(1, 20);
+   int randomize = number(1, 9);
 
-   guard->points.vitality = guard->points.base_vitality =
-   guard->points.max_vitality = MAX(90, guard->base_stats.Agi) + (guard->base_stats.Str + guard->base_stats.Con) / 2;
-   guard->points.base_armor = 0 - GET_LEVEL(guard) * 2;
-   guard->specials.affected_by = AFF_FLY + AFF_DETECT_INVISIBLE;
-   GET_HIT(guard) = GET_MAX_HIT(guard) = guard->points.base_hit = (int) GET_C_CON(guard) * .5 * GET_LEVEL(guard);
-   MonkSetSpecialDie(guard);
-   guard->points.base_hitroll = guard->points.hitroll = (int) (0.75 * GET_LEVEL(guard));
-   guard->points.base_damroll = guard->points.damroll = (int) (0.75 * GET_LEVEL(guard));
-   guard->player.m_class = randomize;
+   if(!army)
+   {
+      guard->points.vitality = guard->points.base_vitality =
+      guard->points.max_vitality = MAX(90, guard->base_stats.Agi) + (guard->base_stats.Str + guard->base_stats.Con) / 2;
+      guard->points.base_armor = 0 - GET_LEVEL(guard) * 2;
+      guard->specials.affected_by = AFF_FLY + AFF_DETECT_INVISIBLE;
+      GET_HIT(guard) = GET_MAX_HIT(guard) = guard->points.base_hit = (int) GET_C_CON(guard) * .5 * GET_LEVEL(guard);
+      MonkSetSpecialDie(guard);
+      guard->points.base_hitroll = guard->points.hitroll = (int) (0.75 * GET_LEVEL(guard));
+      guard->points.base_damroll = guard->points.damroll = (int) (0.75 * GET_LEVEL(guard));
+      guard->player.m_class = randomize;
+   }
+
+   if(army)
+   {
+      guard->points.vitality = guard->points.base_vitality =
+      guard->points.max_vitality = MAX(90, guard->base_stats.Agi) + (guard->base_stats.Str + guard->base_stats.Con) / 2;
+      guard->points.base_armor = 0 - GET_LEVEL(guard) * 2;
+      guard->specials.affected_by = AFF_FLY + AFF_DETECT_INVISIBLE;
+      GET_HIT(guard) = GET_MAX_HIT(guard) = guard->points.base_hit = (int) GET_C_CON(guard) * .5 * GET_LEVEL(guard);
+      MonkSetSpecialDie(guard);
+      guard->points.base_hitroll = guard->points.hitroll = (int) (0.75 * GET_LEVEL(guard));
+      guard->points.base_damroll = guard->points.damroll = (int) (0.75 * GET_LEVEL(guard));
+      guard->player.m_class = randomize;
+   }
 }
 
 P_char justice_make_guard(int rroom)
@@ -1752,6 +1764,52 @@ void justice_witness(P_char attacker, P_char victim, int crime)
   }
 }
 
+const char *justice_descriptor_first[] = {
+    "&+WA fearsome ",
+    "&+WA menacing ",
+    "&+WA hulking ",
+    "&+WA battle-scarred ",
+    "&+WA veteran ",
+    "&+WA disfigured ",
+    "&+WA brash, young ",
+    "&+WA weary, old ",
+    "&+WA ferocious ",
+    "&+WA gruff ",
+    "&+WA lordly "
+};
+
+const char *g_justice_descriptor[] = {
+    "&+BBarbarian ",
+    "&+YMountain Dwarf ",
+    "&+cGrey Elf ",
+    "&+RGnome ",
+    "&+yHalfling ",
+    "Gith&+Gzerai ",
+    "&+CHuman "
+};
+
+const char *justice_descriptor_last[] = {
+    "&+BHonor Guard&n",
+    "&+WRoyal Guard&n",
+    "&+LElite Guard&n",
+    "&+Rsentinel&n",
+    "&+Cwarden&n",
+    "&+rdefender&n",
+    "&+Yfootman&n",
+    "&+mofficer&n",
+    "&+bguardian&n",
+    "&+cwatchman&n"
+};
+
+const char *e_justice_descriptor[] = {
+    "&+bOgre ",
+    "&+gTroll ",
+    "&+mDrow Elf ",
+    "&+rDuergar Dwarf ",
+    "&+GGoblin ",
+    "&+LOrc ",
+    "&+GGith&+Wyanki "
+};
 
 void justice_action_invader(P_char ch)
 {
@@ -1787,22 +1845,19 @@ void justice_action_invader(P_char ch)
   //  squad issued from another hometown that will 'encourage' the invaders to
   //  leave.  Hopefully this works out better than justice ever has...  - Jexni 3/4/11
 
-  if(IS_INVADER(ch) && IS_PC(ch) && get_scheduled(ch, event_justice_raiding) && ch->only.pc->justice_level > 2)
+  if(IS_INVADER(ch) && IS_PC(ch) && get_scheduled(ch, event_justice_raiding) && ch->only.pc->justice_level == 3)
   {
-      //call_out_the_army(ch);
+      call_out_the_army(ch);
+      wizlog(56, "calling out the fucking army for %s", GET_NAME(ch));
+      ch->only.pc->justice_level = 4;
       return;
   }
   else if(IS_INVADER(ch) && IS_PC(ch) && !get_scheduled(ch, event_justice_raiding))
   {
     add_event(event_justice_raiding, WAIT_SEC * get_property("justice.raiding.alarm.time", 300), ch, 0, 0, 0, &room, sizeof(room));
     zone_struct->status = ZONE_RAID;
-  }
 
-  if(IS_INVADER(ch) && get_scheduled(ch, event_justice_raiding))
-  {
-    if((GET_RACEWAR(ch) == RACEWAR_EVIL) &&
-        !(number(0, 15)) &&
-        get_property("justice.alarms.good", 1.000))
+    if((GET_RACEWAR(ch) == RACEWAR_EVIL))
     { 
       int rnum = number(1, 4);
       if(rnum == 1)
@@ -1814,9 +1869,7 @@ void justice_action_invader(P_char ch)
       if(rnum == 4)
         justice_hometown_echo(CHAR_IN_TOWN(ch), "&+WThere is a stillness in the air before the storm of battle...&n");
     }
-    else if((GET_RACEWAR(ch) == RACEWAR_GOOD) &&
-              !number(0, 15) &&
-	      (int)get_property("justice.alarms.evil", 1.000))
+    else if((GET_RACEWAR(ch) == RACEWAR_GOOD))
     {
       justice_hometown_echo(CHAR_IN_TOWN(ch), "&+yHorns begin to &+Ybellow &+yand drums &+cthunder&n &+yto the &+Rcall to arms!&n");
     }
@@ -1824,6 +1877,129 @@ void justice_action_invader(P_char ch)
     justice_send_guards(NOWHERE, ch, MOB_SPEC_J_OUTCAST, ch->only.pc->justice_level);
     return;
   }
+  else if(IS_INVADER(ch) && IS_PC(ch) && get_scheduled(ch, event_justice_raiding))
+  {
+    if((GET_RACEWAR(ch) == RACEWAR_EVIL) && !number(0, get_property("justice.alarms.good", 15)))
+    { 
+      int rnum = number(1, 4);
+      if(rnum == 1)
+        justice_hometown_echo(CHAR_IN_TOWN(ch), "&+RAlarm bells sound, &+rsignaling an invasion!&n");
+      if(rnum == 2)
+        justice_hometown_echo(CHAR_IN_TOWN(ch), "&+YThe bells from all the shrines erupt in a thundering chorus!&n");
+      if(rnum == 3)
+        justice_hometown_echo(CHAR_IN_TOWN(ch), "&+LMilitia forces muster to bolster the town's defenses against the &=Lrinvaders!!!&n");
+      if(rnum == 4)
+        justice_hometown_echo(CHAR_IN_TOWN(ch), "&+WThere is a stillness in the air before the storm of battle...&n");
+    }
+    else if((GET_RACEWAR(ch) == RACEWAR_GOOD) && !number(0, get_property("justice.alarms.evil", 15)))
+    {
+      justice_hometown_echo(CHAR_IN_TOWN(ch), "&+yHorns begin to &+Ybellow &+yand drums &+cthunder&n &+yto the &+Rcall to arms!&n");
+    }
+    return;
+  }
+}
+
+void call_out_the_army(P_char ch)
+{
+   char buf[MAX_STRING_LENGTH];
+   const char *buf1;
+   int j, i, allies = 0, lvlsum = GET_LEVEL(ch), guard_start, town;
+   P_char tch;
+   struct zone_data *zone;
+   hunt_data data;
+   int RW = 0;
+
+   if(!ch || !IS_ALIVE(ch))
+   {
+     logit(LOG_EXIT, "call_out_the_army, no ch passed, derp");
+     raise(SIGSEGV);
+   }
+
+   if(!(town = CHAR_IN_TOWN(ch)))
+   {
+      return;
+   }
+
+   if(GET_RACEWAR(ch) == RACEWAR_EVIL)
+   {
+      RW = 2;
+   }
+   else if(GET_RACEWAR(ch) == RACEWAR_UNDEAD)
+   {
+      RW = 3;
+   }
+   else
+   {
+      RW = 1;
+   }
+  
+   zone = &zone_table[world[ch->in_room].zone];
+
+   for(j = zone->real_bottom; (j != NOWHERE) && (j <= zone->real_top); j++)
+   {
+      for(tch = world[j].people; tch; tch = tch->next_in_room)
+      {
+        if(IS_TRUSTED(tch) || IS_NPC(tch))
+           continue;
+
+        if((GET_RACEWAR(tch) == RACEWAR_EVIL && RW == 2) ||
+           (GET_RACEWAR(tch) == RACEWAR_UNDEAD && RW == 3) ||
+           (GET_RACEWAR(tch) == RACEWAR_GOOD && RW == 1))
+        {
+           allies++;
+           lvlsum += GET_LEVEL(tch);
+        }
+      }
+   }
+
+   lvlsum /= allies;
+   wizlog(56, "calling out the army: allies in zone = %d, average level of invaders = %d", allies, lvlsum);
+   for(i = 0;i < 5;i++)
+   {
+     guard_start = real_room(hometowns[town - 1].guard_room[i]);
+     if(guard_start == NOWHERE)
+        continue;
+     else
+        break;
+   }
+
+   for(j = allies;j > 0;j--)
+   { 
+     wizlog(56, "calling out the army: making a guard");
+     tch = justice_make_guard(guard_start);
+     if(!tch)
+     {
+         wizlog(56, "Justice: Unable to load mob vnum %d. Tracking: %s in room %d.",
+                    hometowns[town - 1].guard_mob, GET_NAME(ch),
+                    world[ch->in_room].number);
+         return;
+     }
+     i = number(0, 9);
+     sprintf(buf, justice_descriptor_first[i]);
+     i = number(0, 6);
+     strcat(buf, RW == 1 ? g_justice_descriptor[i] : e_justice_descriptor[i]);  
+     i = number(0, 9);
+     strcat(buf, justice_descriptor_last[i]);
+     sprintf(tch->player.short_descr, buf);
+     stripansi_2(buf1, buf);
+     sprintf(tch->player.name, buf1);
+     strcat(buf, " &+Wstands here impassively.&n");
+     sprintf(tch->player.long_descr, buf);
+     wizlog(56, "creating: %s", tch->player.long_descr);
+     SET_BIT(tch->only.npc->spec[2], MOB_SPEC_JUSTICE);
+     tch->specials.arrest_by = ch;
+     set_justice_guard_parms(tch, TRUE);
+     data.hunt_type = HUNT_JUSTICE_INVADER;
+     if(ch)
+       data.targ.victim = ch;
+
+     data.huntFlags = BFS_CAN_FLY | BFS_BREAK_WALLS;
+     if(npc_has_spell_slot(tch, SPELL_DISPEL_MAGIC))
+       data.huntFlags |= BFS_CAN_DISPEL;
+    
+     add_event(mob_hunt_event, PULSE_MOB_HUNT, tch, NULL, NULL, 0, &data, sizeof(hunt_data));
+  }
+
 }
 
 void event_justice_raiding(P_char ch, P_char victim, P_obj obj, void *data) 
@@ -1836,7 +2012,9 @@ void event_justice_raiding(P_char ch, P_char victim, P_obj obj, void *data)
   if(zone == &zone_table[world[ch->in_room].zone])
   {
     room = ch->in_room;
-    BOUNDED(0, ch->only.pc->justice_level++, 3);
+    if(ch->only.pc->justice_level < 3)
+       ch->only.pc->justice_level++;
+
     add_event(event_justice_raiding, WAIT_SEC * get_property("justice.raiding.alarm.time", 300), ch, 0, 0, 0, &room, sizeof(room));
   }
   else
@@ -1878,9 +2056,7 @@ int justice_is_criminal(P_char ch)
   while (t);
 
   return FALSE;
-
 }
-
 
 
 /*
@@ -1996,7 +2172,7 @@ witness_add(P_char ch, P_char attacker, P_char victim, int rroom, int crime)
 }
 
 
-/* fonction to add a crime to the town list (TASFALEN) */
+/* function to add a crime to the town list (TASFALEN) */
 
 void
 crime_add(int town, char *attacker, const char *victim,
@@ -2106,7 +2282,7 @@ wtns_rec *witness_find(wtns_rec * rec, char *attacker, char *victim,
   return rec;
 }
 
-/* fonction to find a specific record in the crime list of town (TASFALEN) */
+/* function to find a specific record in the crime list of town (TASFALEN) */
 crm_rec *crime_find(crm_rec * rec, char *attacker, const char *victim,
                     int crime, int room, int status, crm_rec * last_found)
 {
@@ -2349,12 +2525,6 @@ int shout_and_hunt(P_char ch,
   strcat(buffer, buffer2);
   strcat(buffer, "&n'\n");
 
-/*
- * Replacing this with new generic function, ha.
- * Also, i think it's the first place this new function is going to be used, go me!
-
-  do_sorta_yell(ch, buffer);
-*/
   int shout_distance = MIN(RMFR_MAX_RADIUS, max_distance);
   
   if(!ch->in_room)
@@ -2438,8 +2608,6 @@ int shout_and_hunt(P_char ch,
        * check if its a possible hunt.. and if its within the max
        * distance
        */
-
-//       debug("Okay boss mob is shouting at this point and we calling for find_first_step in justice.c 2421");
        
       if(find_first_step(target->in_room, ch->in_room,
                           (IS_MAGE(target) ? BFS_CAN_FLY : 0) |
@@ -2529,7 +2697,7 @@ void justice_hometown_echo(int town, const char *str)
 }
 
 
-/* fonction to judge a criminal for his/her crimes */
+/* function to judge a criminal for his/her crimes */
 
 void justice_judge(P_char ch, int town)
 {
@@ -2985,7 +3153,7 @@ void justice_engine(int town)
 }
 
 
-/* fonction to load the outside room that are under justice patrol */
+/* function to load the outside room that are under justice patrol */
 void load_justice_area(void)
 {
   FILE    *fl;
@@ -3095,7 +3263,7 @@ void event_justice_engine(P_char ch, P_char victim, P_obj obj, void *data)
 {
   int town = *((int*)data);
   justice_engine(town);
-  //AddEvent(EVENT_SPECIAL, 200, TRUE, justice_engine2, NULL);
+
   if(++town > 15)
     town = 1;
   add_event(event_justice_engine, 200, NULL, NULL, NULL, 0, &town, sizeof(town));

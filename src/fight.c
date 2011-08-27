@@ -7651,33 +7651,6 @@ int MonkRiposte(P_char victim, P_char attacker, P_obj wpn)
   percent += str_app[STAT_INDEX(GET_C_STR(victim))].tohit * 1.5;
   percent -= (str_app[STAT_INDEX(GET_C_STR(attacker))].tohit +
               str_app[STAT_INDEX(GET_C_STR(attacker))].todam);
-
-  if(!MIN_POS(victim, POS_STANDING + STAT_NORMAL))
-  {
-  
-  // This allows monks a chance to regain their feet based on agil and 
-  // martial arts skill. Aug09 -Lucrot
-
-  // All this does is set someone up to be repeatedly bashed and lagged,
-  // utterly and insanely stupid. -- Jexni 1/21/11
-/*
-    if(GET_C_AGI(victim) > number(1, 1000) &&
-       GET_CHAR_SKILL(victim, SKILL_MARTIAL_ARTS) > number(1, 100))
-    {
-      act("$n tucks in $s arms, rolls quickly away, then thrust $s feet skywards, leaping back to $s feet!",
-        TRUE, victim, 0, attacker, TO_NOTVICT);
-      act("$n tucks in $s arms, rolls away from $N's attack, then thrust $s feet skywards, and leaps to $s feet!",
-        TRUE, victim, 0, attacker, TO_VICT);
-      act("You tuck in your arms, roll away from $N's blow, then leap to your feet!",
-        TRUE, victim, 0, attacker, TO_CHAR);
-      SET_POS(victim, POS_STANDING + GET_STAT(victim));
-      CharWait(victim, (1 * WAIT_SEC));
-      update_pos(victim);
-      return false;
-    }
-  */  
-    percent = 5;
-  }
   
   if(!MIN_POS(attacker, POS_STANDING + STAT_NORMAL))
     percent *= 1.1;
@@ -7715,23 +7688,19 @@ int MonkRiposte(P_char victim, P_char attacker, P_obj wpn)
 
 int parrySucceed(P_char victim, P_char attacker, P_obj wpn)
 {
-  int learnedvictim = GET_CHAR_SKILL(victim, SKILL_PARRY);
-  int learnedattacker;
+  int vic_perc = GET_CHAR_SKILL(victim, SKILL_PARRY);
+  int att_perc;
   int blindfightskl = GET_CHAR_SKILL(victim, SKILL_BLINDFIGHTING);
-  bool npcepicparry = false;
+  bool NPC_epic_parry = false;
   int expertparry = 0;
 
-  if(!(attacker) ||
-    !(victim) ||
-    !IS_ALIVE(victim) ||
-    !IS_ALIVE(attacker))
-      return false;
-  
+  FightingCheck(victim, attacker, "parry_Succeed");
+
   if(affected_by_spell(victim, SPELL_COMBAT_MIND) &&
      GET_CLASS(victim, CLASS_PSIONICIST))
-      learnedvictim += GET_LEVEL(victim);
+      vic_perc += GET_LEVEL(victim);
 
-  if(learnedvictim < 1)
+  if(vic_perc < 1)
     return false;
   
   // Monks and immaterial (ghosts, phantoms, etc...) may be parried when attacker
@@ -7745,11 +7714,9 @@ int parrySucceed(P_char victim, P_char attacker, P_obj wpn)
   // Ensure the victim has a weapon for parrying.
   // May want to expand this in the future by adding modifiers
   // based on weapon types (e.g. maces are harder to parry with or
-  // parry against).
-  if(!victim->equipment[WIELD] &&
-    !victim->equipment[WIELD2] &&
-    !victim->equipment[WIELD3] &&
-    !victim->equipment[WIELD4])
+  // parry against).  Parry is only achieved with the primary weapon
+  // for balance purposes.
+  if(!victim->equipment[WIELD])
       return false;
   
   // Flaying weapons are !parry.
@@ -7761,7 +7728,7 @@ int parrySucceed(P_char victim, P_char attacker, P_obj wpn)
       return false;
 
   // Notching the parry skill fails the parry check.
-  if(notch_skill(victim, SKILL_PARRY, get_property("skill.notch.defensive", 25)) &&
+  if(notch_skill(victim, SKILL_PARRY, get_property("skill.notch.defensive", 100)) &&
      !affected_by_spell(victim, SPELL_COMBAT_MIND))
       return false;
 
@@ -7769,53 +7736,53 @@ int parrySucceed(P_char victim, P_char attacker, P_obj wpn)
 
   if(affected_by_spell(victim, SPELL_COMBAT_MIND) &&
      GET_CLASS(victim, CLASS_PSIONICIST))
-        learnedvictim += (int)(GET_LEVEL(victim) / 2);
-  learnedvictim += dex_app[STAT_INDEX(GET_C_DEX(victim))].reaction * 15;
-  learnedvictim += wis_app[STAT_INDEX(GET_C_WIS(victim))].bonus * 5;
+        vic_perc += (int)(GET_LEVEL(victim) / 2);
+  vic_perc += dex_app[STAT_INDEX(GET_C_DEX(victim))].reaction * 15;
   
-  if(learnedvictim < 1)
+  if(vic_perc < 1)
     return false;
     
   // Attacker's parry:
-  learnedattacker = WeaponSkill(attacker, wpn);
-  learnedattacker += str_app[STAT_INDEX(GET_C_STR(attacker))].tohit * 10;
-  learnedattacker += str_app[STAT_INDEX(GET_C_STR(attacker))].todam * 15;
+  att_perc = WeaponSkill(attacker, wpn);
+  att_perc += str_app[STAT_INDEX(GET_C_STR(attacker))].tohit * 10;
+  att_perc += str_app[STAT_INDEX(GET_C_STR(attacker))].todam * 15;
   
   // If attacker is significantly stronger than the defender, parry is reduced.
   // This will benefit giants, dragons, etc... which is logical.
   if(GET_C_STR(attacker) > GET_C_STR(victim) + 100)
-    learnedattacker += GET_C_STR(attacker) - 100 - GET_C_STR(victim);
+    att_perc += GET_C_STR(attacker) - 100 - GET_C_STR(victim);
   
   // Harder to parry incoming attacks when not standing.
   if(!MIN_POS(victim, POS_STANDING + STAT_NORMAL))
-    learnedvictim = (int) (learnedvictim * 0.75);
+    vic_perc = (int) (vic_perc * 0.75);
 
   // Attackers are easier to parry when they are not standing.
   if(!MIN_POS(attacker, POS_STANDING + STAT_NORMAL))
-    learnedattacker = (int) (learnedattacker * 0.75);
+    att_perc = (int) (att_perc * 0.75);
 
   if(IS_AFFECTED5(victim, AFF5_DAZZLEE))
-    learnedvictim = (int) (learnedvictim * 0.80);
+    vic_perc = (int) (vic_perc * 0.80);
 
   if(affected_by_spell(victim, SKILL_GAZE))
-    learnedvictim = (int) (learnedvictim * 0.80);
+    vic_perc = (int) (vic_perc * 0.80);
     
   // adding blindfighting check - Jexni 1/21/11
   if(IS_BLIND(victim))
-    learnedvictim = (int) (blindfightskl > 0 ? (learnedvictim * (blindfightskl / 200)) : (learnedvictim * 0.05));
+    vic_perc = (int) (blindfightskl > 0 ? (vic_perc * (blindfightskl / 200)) : (vic_perc * 0.05));
 
   if(IS_STUNNED(victim))
-    learnedvictim = (int) (learnedvictim * 0.90);
+    vic_perc = (int) (vic_perc * 0.90);
 
   // Elite warriors and paladins have maximum expert parry.  
   if(IS_ELITE(victim))
   {
     if(GET_CLASS(victim, CLASS_WARRIOR) ||
       GET_CLASS(victim, CLASS_PALADIN) ||
+      GET_CLASS(victim, CLASS_ANTIPALADIN) ||
       GET_CLASS(victim, CLASS_RANGER))
     {
-      learnedvictim = (int) (learnedvictim * 1.25);
-      npcepicparry == true;
+      vic_perc = (int) (vic_perc * 1.10);
+      NPC_epic_parry == true;
     }
   }
   
@@ -7825,51 +7792,39 @@ int parrySucceed(P_char victim, P_char attacker, P_obj wpn)
   {
     expertparry = GET_CHAR_SKILL(victim, SKILL_EXPERT_PARRY);
     // 125 percent max bonus
-    learnedvictim = (int) (learnedvictim * (1 + expertparry/400));
+    vic_perc = (int) (vic_perc * (1 + expertparry/400));
   }
-  
-  //  Blademasters and swashbucklers have a better chance.
-  if(GET_SPEC(victim, CLASS_RANGER, SPEC_BLADEMASTER) ||
-     GET_SPEC(victim, CLASS_WARRIOR, SPEC_SWASHBUCKLER))
-    learnedvictim = (int) (learnedvictim * 1.10);
-  
-  //  Better chance for ap's
-  if((GET_CLASS(victim, CLASS_ANTIPALADIN) || GET_CLASS(victim, CLASS_PALADIN)) &&
-     is_wielding_paladin_sword(victim))
-    learnedvictim = (int) (learnedvictim * 1.15);
 
   // Harder to parry a swashbuckler.
   if(GET_SPEC(attacker, CLASS_WARRIOR, SPEC_SWASHBUCKLER))
-    learnedattacker = (int) (learnedattacker * 0.80);
+    att_perc = (int) (att_perc * 0.80);
   
   // Random 5% change based on random luck comparison.
   if(number(0, GET_C_LUCK(victim)) > number(0, GET_C_LUCK(attacker)))
-    learnedvictim = (int) (learnedvictim * 1.05);
+    vic_perc = (int) (vic_perc * 1.05);
   
-  // Dragons are more difficult to parry, but not impossible.
+  // Greater races are more difficult to parry, but not impossible.
   if(IS_GREATER_RACE(attacker))
-      learnedattacker += GET_LEVEL(attacker);
+      att_perc += GET_LEVEL(attacker);
   
-// Much harder to parry with fireweapons like a bow, but not impossible.
+  // Much harder to parry with fireweapons like a bow, but not impossible.
   P_obj weapon = victim->equipment[WIELD];
   
-  if(weapon &&
-    GET_ITEM_TYPE(weapon) == ITEM_FIREWEAPON)
+  if(weapon && GET_ITEM_TYPE(weapon) == ITEM_FIREWEAPON)
   {
-    learnedvictim /= 10;
+    vic_perc /= 10;
   }
   
-// Harder to parry something you are not fighting.
-  if(IS_PC(victim) &&
-    victim->specials.fighting != attacker)
+  // Harder to parry something you are not fighting.
+  if(IS_PC(victim) && victim->specials.fighting != attacker)
   {
-    learnedvictim = (int) (learnedvictim * 0.90);
+    vic_perc = (int) (vic_perc * 0.90);
   }
   
   // Generate attacker and victim ranges.    
   int defroll, attroll;
-  defroll = MAX(5, number(1, learnedvictim));
-  attroll = MAX(5, number(1, learnedattacker));
+  defroll = MAX(5, number(1, vic_perc));
+  attroll = MAX(5, number(1, att_perc));
   
   // debug("Defroll (%d), Attroll (%d)", defroll, attroll);
 
@@ -7885,7 +7840,8 @@ int parrySucceed(P_char victim, P_char attacker, P_obj wpn)
   // Riposte check.  
   if(try_riposte(victim, attacker, wpn))
     return true;
-  /* succeed */
+  
+  /* success */
   
   if(expertparry > number(1, 250) &&
     !IS_NPC(victim))
@@ -7897,12 +7853,10 @@ int parrySucceed(P_char victim, P_char attacker, P_obj wpn)
     act("$N anticipates $n's attack and &+wmasterfully&n parries the incoming blow.", FALSE, attacker, 0, victim,
       TO_NOTVICT | ACT_NOTTERSE);
   }
-  else if(((npcepicparry == true) &&
+  else if(((NPC_epic_parry == true) &&
     !number(0, 12)) &&
     IS_NPC(victim))
   {
-//  act("You anticipate $n's maneuver and &+wmasterfully&n parry the attack.", FALSE, attacker, 0, victim,
-//      TO_VICT | ACT_NOTTERSE);
     act("$N anticipates your attack and &+wmasterfully&n parries your blow.", FALSE, attacker, 0, victim,
       TO_CHAR | ACT_NOTTERSE);
     act("$N anticipates $n's attack and &+wmasterfully&n parries the incoming blow.", FALSE, attacker, 0, victim,

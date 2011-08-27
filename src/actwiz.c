@@ -2761,9 +2761,9 @@ void do_stat(P_char ch, char *argument, int cmd)
       else
         strcpy(buf2, "");
       sprintf(buf,
-              "&+YHunger: &N%2d  &+YThirst: &N%2d  &+YDrunk: &N%2d                      &+Y%s%s\n",
+              "&+YHunger: &N%2d  &+YThirst: &N%2d  &+YDrunk: &N%2d  &+YJustice Level: &N%d &+Y%s%s\n",
               k->specials.conditions[FULL], k->specials.conditions[THIRST],
-              k->specials.conditions[DRUNK],
+              k->specials.conditions[DRUNK], k->only.pc->justice_level, 
               (k->desc) ? "Connected: " : "Linkdead", buf2);
       strcat(o_buf, buf);
     }
