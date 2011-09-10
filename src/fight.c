@@ -812,8 +812,8 @@ void AddFrags(P_char ch, P_char victim)
         if (IS_ILLITHID(tch))
           illithid_advance_level(tch);
 
-	check_boon_completion(tch, victim, ((double)real_gain/100), BOPT_FRAG);
-	check_boon_completion(tch, victim, ((double)real_gain/100), BOPT_FRAGS);
+	check_boon_completion(tch, victim, ((double)(real_gain/100)), BOPT_FRAG);
+	check_boon_completion(tch, victim, ((double)(real_gain/100)), BOPT_FRAGS);
       }
     }
   }
