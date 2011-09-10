@@ -5789,7 +5789,7 @@ void ascend_theurgist(P_char ch)
 
   if(ch->only.pc->epics < (int) get_property("ascend.epicCost.Eladrin", 250))
   {
-    sprintf(buff, "It costs &+W%d&n epics to ascend...\n", (int) get_property("descend.epicCost", 10));
+    sprintf(buff, "It costs &+W%d&n epics to ascend...\n", (int) get_property("descend.epicCost.Eladrin", 10));
     send_to_char(buff, ch);
     return;
   }

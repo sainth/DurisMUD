@@ -1061,10 +1061,20 @@ int parse_boon_args(P_char ch, BoonData *bdata, char *argument)
 	send_to_char_f(ch, "&+W'%s' is not a valid race.  Please enter a race name.&n\r\n", arg);
 	return FALSE;
       }
+      // check for exact match first
       for (i = 0; i <= LAST_RACE; i++)
       {
-	if (is_abbrev(arg, race_names_table[i].normal))
+	if (!strcmp(arg, race_names_table[i].normal))
 	  bdata->criteria2 = i;
+      }
+      // otherwise check for abbreviation
+      if (i == 0)
+      {	
+	for (i = 0; i <= LAST_RACE; i++)
+	{
+	  if (is_abbrev(arg, race_names_table[i].normal))
+	    bdata->criteria2 = i;
+	}
       }
     }
 
@@ -1554,12 +1564,13 @@ void boon_shop(P_char ch, char *argument)
   if (!*arg)
   {
     send_to_char("&+WBoon Shop&n\r\n", ch);
+    send_to_char_f(ch, "&+CShop points available: %d\r\n", bshop.points);
+    send_to_char_f(ch, "&+CStat points available: %d\r\n", bshop.stats);
     send_to_char("&+CItems available:\r\n", ch);
     //send data
     // but for now...
-    send_to_char("No items available.\r\n\r\n", ch);
+    send_to_char("No items available.\r\n", ch);
     // reclaiming stats
-    send_to_char_f(ch, "&+CStat points available: %d\r\n", bshop.stats);
     return;
   }
 }
@@ -1959,6 +1970,7 @@ int boon_display(P_char ch, char *argument)
 	    break;
 	  }
 	  sprintf(buffoption, boon_options[option].desc, (int)criteria, J_NAME(mob));
+	  extract_char(mob);
 	  break;
 	}
       case BOPT_RACE:
@@ -2254,7 +2266,10 @@ void boon_notify(int id, P_char ch, int action)
 	      if ((int)bdata.criteria2 > 0 &&
 		  (r_num = real_mobile((int)bdata.criteria2)) > 0 &&
 		  (mob = read_mobile(r_num, REAL)))
+	      {
 		sprintf(tmp, "%s", J_NAME(mob));
+	        extract_char(mob);
+	      }
 	      else
 		sprintf(tmp, "Invalid Mob");
 	      sprintf(buff, "&+CYou have killed %d of %d %s&+C(s) for boon # %d.&n\r\n", (int)bpg.counter, (int)bdata.criteria, tmp, bdata.id);
