@@ -4142,8 +4142,7 @@ void do_headbutt(P_char ch, char *argument, int cmd)
 
   int dam = 0;
   
-  if (!notch_skill(ch, SKILL_HEADBUTT, get_property("skill.notch.offensive", 15)) &&
-      tmp_num <= 2)
+  if (!notch_skill(ch, SKILL_HEADBUTT, get_property("skill.notch.offensive", 15)) && tmp_num <= 2)
   {
     // failed catastrophically!
     dam = number(0, 30);
@@ -4161,8 +4160,9 @@ void do_headbutt(P_char ch, char *argument, int cmd)
     if (melee_damage(victim, ch, dam, PHSDAM_NOPOSITION | PHSDAM_TOUCH | PHSDAM_NOREDUCE, &fail_messages)
         != DAM_NONEDEAD)
       return;
-
-    knock_out(ch, PULSE_VIOLENCE * number(2,3));
+    
+    if(!number(0, 20 - GET_LEVEL(ch)))
+      knock_out(ch, PULSE_VIOLENCE * number(2,3));
   }
   else if (tmp_num <= 20)
   {
