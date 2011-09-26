@@ -1,13 +1,7 @@
 #1312
 The Elemental Plane of Earth~
 131376 2 0 40 50 1
-*
-* Zone edited with durisEdit v2.99de
-*
-*
-*
-O 0 19722 1 131211 100 0 0 0       * (object type not in this .obj file)
-*
+
 M 0 131204 4 131200 100 0 0 0      * A small earth elemental
 M 0 131205 10 131201 100 0 0 0     * A gigantic earth elemental
 M 0 131209 5 131202 100 0 0 0      * A xaren
