@@ -402,7 +402,7 @@ int takedown_check(P_char ch, P_char victim, int chance, int skill,
   
   if(GET_STAT(victim) <= STAT_SLEEPING)
   {
-    if (affected_by_spell(ch, SKILL_LANCE_CHARGE))
+    if(affected_by_spell(ch, SKILL_LANCE_CHARGE))
       return TAKEDOWN_PENALTY;
       
     act("$N is no condition to avoid $n's attack!",
@@ -793,13 +793,13 @@ void do_garrote(P_char ch, char *argument, int cmd)
   struct garrote_data data;
   int percent, duration, type, gclvl;
 
-  if (!GET_CHAR_SKILL(ch, SKILL_GARROTE))
+  if(!GET_CHAR_SKILL(ch, SKILL_GARROTE))
   {
     send_to_char("You don't have a clue how to do that properly, leave this to a real master.", ch);
     return;
   }
   
-  if (affected_by_spell(ch, SKILL_GARROTE))
+  if(affected_by_spell(ch, SKILL_GARROTE))
   {
     send_to_char("You haven't quite reoriented yourself for another attempt.\n", ch);
     return;
@@ -807,20 +807,20 @@ void do_garrote(P_char ch, char *argument, int cmd)
 
   victim = ParseTarget(ch, argument);
 
-  if (!victim)
+  if(!victim)
   {
     send_to_char("garrote who?\r\n", ch);
     set_short_affected_by(ch, SKILL_GARROTE, PULSE_VIOLENCE);
     return;
   }
 
-  if (victim == ch)
+  if(victim == ch)
   {
     send_to_char("Michael Hutchence and David Carridine do not approve.", ch);
     return;
   }
   
-  if (!CAN_SEE(ch, victim))
+  if(!CAN_SEE(ch, victim))
   {
     send_to_char("You can't see anything, let alone someone to garrote!\r\n", ch);
     return;
@@ -832,7 +832,7 @@ void do_garrote(P_char ch, char *argument, int cmd)
     return;
   }
 
-  if (ch->equipment[WIELD] && isname(ch->equipment[WIELD]->name, "_garrote_"))
+  if(ch->equipment[WIELD] && isname(ch->equipment[WIELD]->name, "_garrote_"))
   {   
     send_to_char("You need to be wielding a wire to do that!", ch);
     return;
@@ -840,50 +840,50 @@ void do_garrote(P_char ch, char *argument, int cmd)
 
   data.wire = ch->equipment[PRIMARY_WEAPON];
 
-  if (victim)
+  if(victim)
   {
-    if (IS_TRUSTED(victim))
+    if(IS_TRUSTED(victim))
     {
       send_to_char("You're no match for a God!\r\n", ch);
       return;
     }
 
-    if (IS_GRAPPLED(victim))
+    if(IS_GRAPPLED(victim))
     {
       act("Doesn't look like you could get to them to try.", TRUE, ch, 0, victim, TO_CHAR);
       return;
     }
 
-    if (IS_AFFECTED(victim, AFF_WRAITHFORM))
+    if(IS_AFFECTED(victim, AFF_WRAITHFORM))
     {
       act("There's nothing corporeal enough there to choke.", TRUE, ch, 0, victim, TO_CHAR);
       return;
     }
     
-	if (IS_RIDING(victim))
+	if(IS_RIDING(victim))
 	{
 	  act("That would take a greater feat than you're capable of.", TRUE, ch, 0, victim, TO_CHAR);
 	  return;
 	}
 
-    if (GET_POS(victim) != POS_STANDING)
+    if(GET_POS(victim) != POS_STANDING)
     {
       act("$E doesn't seem to be in a good position for that.", TRUE, ch, 0, victim, TO_CHAR);
       return;
     }
 
-    if (GET_ALT_SIZE(ch) > GET_ALT_SIZE(victim) + 2 && IS_PC(victim))
+    if(GET_ALT_SIZE(ch) > GET_ALT_SIZE(victim) + 2 && IS_PC(victim))
     {
       send_to_char("They are too small of a target to try that on.\r\n", ch);
       return;
     }
-    if (GET_ALT_SIZE(ch) < GET_ALT_SIZE(victim) - 2 && IS_PC(victim))
+    if(GET_ALT_SIZE(ch) < GET_ALT_SIZE(victim) - 2 && IS_PC(victim))
     {
       send_to_char("You aren't wearing your mountain climbing boots...\r\n", ch);
       return;
     }
 
-    if (!IS_HUMANOID(victim))
+    if(!IS_HUMANOID(victim))
     {
       send_to_char("You're not really sure how to choke that...\r\n", ch);
       return;
@@ -894,7 +894,7 @@ void do_garrote(P_char ch, char *argument, int cmd)
     percent += GET_LEVEL(ch) - GET_LEVEL(victim);
     percent -= GET_C_LUCK(victim) / 12;
 
-    if (!IS_GARROTE(victim) && (percent > number(1, 101) || notch_skill(ch, SKILL_GARROTE, 10)))
+    if(!IS_GARROTE(victim) && (percent > number(1, 101) || notch_skill(ch, SKILL_GARROTE, 10)))
     {
       act("$n &+Lthrows $p &+Labout your neck from behind and begins to &+Rchoke &+Lyou!", FALSE, ch, data.wire, victim, TO_VICT);
       act("&+LYou throw $p &+Labout $N&+L's neck from behind and begin to &+Rchoke $M&+L!", FALSE, ch, data.wire, victim, TO_CHAR);
@@ -917,11 +917,11 @@ void do_garrote(P_char ch, char *argument, int cmd)
    
     add_event(event_garrote, PULSE_VIOLENCE / 2, ch, victim, 0, 0, &data, sizeof(data));
     
-    if (IS_FIGHTING(ch))
+    if(IS_FIGHTING(ch))
     {
       stop_fighting(ch);
     }
-    if (IS_FIGHTING(victim))
+    if(IS_FIGHTING(victim))
     {
       stop_fighting(victim);
     }
@@ -935,11 +935,11 @@ void do_garrote(P_char ch, char *argument, int cmd)
     act("$n tries to garrote $N, but $E manages to slip away.", TRUE, ch, 0, victim, TO_NOTVICT);
     CharWait(ch, (int)(PULSE_VIOLENCE * 1.25));
    
-    if (!IS_FIGHTING(ch))
+    if(!IS_FIGHTING(ch))
     {
       set_fighting(ch, victim);
     }
-    if (!IS_FIGHTING(victim))
+    if(!IS_FIGHTING(victim))
     {
       set_fighting(victim, ch);
     }
@@ -961,14 +961,14 @@ void event_garrote(P_char ch, P_char victim, P_obj obj, void *data)
       thisdata->wire
   };
       
-  if (!victim || !IS_ALIVE(victim) || !ch || !IS_ALIVE(ch))
+  if(!victim || !IS_ALIVE(victim) || !ch || !IS_ALIVE(ch))
   {
     return;
   }
 
-  if (thisdata->atk_str - thisdata->vic_str <= 0 || !ch->equipment[WIELD])
+  if(thisdata->atk_str - thisdata->vic_str <= 0 || !ch->equipment[WIELD])
   {	
-    if (IS_GARROTE(victim))
+    if(IS_GARROTE(victim))
     {
       affect_from_char(victim, SKILL_GARROTE);
     }
@@ -980,7 +980,7 @@ void event_garrote(P_char ch, P_char victim, P_obj obj, void *data)
     return;
   }
  
-  if (!IS_GARROTE(victim) ||
+  if(!IS_GARROTE(victim) ||
      (GET_POS(ch) != POS_STANDING) ||
      (GET_POS(victim) != POS_STANDING) ||
      (GET_STAT(ch) != STAT_NORMAL) ||
@@ -992,7 +992,7 @@ void event_garrote(P_char ch, P_char victim, P_obj obj, void *data)
     
      unlink_char(ch, victim, LNK_GRAPPLED);
       
-     if (IS_GARROTE(ch))
+     if(IS_GARROTE(ch))
      {
        affect_from_char(ch, SKILL_GARROTE);
      }
@@ -1011,11 +1011,11 @@ void event_garrote(P_char ch, P_char victim, P_obj obj, void *data)
      {
        add_event(event_garrote, PULSE_VIOLENCE / 2, ch, victim, 0, 0, thisdata, sizeof(struct garrote_data));
        
-       if (IS_FIGHTING(ch))
+       if(IS_FIGHTING(ch))
        {
          stop_fighting(ch);
        }
-       if (IS_FIGHTING(victim))
+       if(IS_FIGHTING(victim))
        {
          stop_fighting(victim);
        }
@@ -1044,7 +1044,7 @@ void garrote_decap(P_char ch, P_char victim)
 
   corpse->value[1] |= MISSING_SKULL;
   skull = read_object(8, VIRTUAL);
-  if (!skull)
+  if(!skull)
   {
     logit(LOG_OBJ, "Garrote_decap: Failed to load prototype 8.");
     return;
@@ -1297,7 +1297,7 @@ void lance_charge(P_char ch, char *argument)
   // Lom:
   // 1) dont let them charge out guild golems or charge past them
   //--------------------------------------
-  if( IS_OP_GOLEM(victim) || IS_GH_GOLEM(victim) || GET_RACE(victim) == RACE_CONSTRUCT )
+  if(IS_OP_GOLEM(victim) || IS_GH_GOLEM(victim) || GET_RACE(victim) == RACE_CONSTRUCT )
     continue_dir = -1;
 
   CharWait(ch, (int) (PULSE_VIOLENCE * get_property("skill.lance.charge.CharLag", 1.500)));
@@ -3974,15 +3974,15 @@ void do_headbutt(P_char ch, char *argument, int cmd)
     "$n's exploding headbutt relieves you of your duties in life.",
     "$n's headbutt sends $N into the afterlife."
   };  
-  
+
   struct damage_messages fail_messages = {
-    "You get the best of $N as $E headbutts you.",
-    "Ouch, that seriously hurt!",
-    "$N headbutts $n, but apparently $n got the best of $M.",
-    "As $N's skull crashes into you, it splits wide open, causing $S immediate death!",
-    "You feel your head split, and your life escaping from you.",
-    "$N skull splits open as it collides with $n in the wrong way.", 0
-  };
+    "You slam your head into $N, leaving a huge, &+rred&N swollen lump, on YOUR head, OUCH!",
+    "$n's forehead &+Wslams&n into you, but you leave $m reeling!",
+    "$n &+Wslams&n $s head into $N, leaving a huge, &+rred&n swollen lump, on his OWN head!",
+    "You slam $N with your head, and feel the sickening crack of your own skull being crushed...",
+    "$n's headbutt cracks $s own skull open, killing $m in the process.",
+    "$n's headbutt fails catastrophically, killing $m in the process."
+  };  
   
   if(!(ch) ||
      !IS_ALIVE(ch))
@@ -3990,7 +3990,7 @@ void do_headbutt(P_char ch, char *argument, int cmd)
     return;
   }
 
-  if (!GET_CHAR_SKILL(ch, SKILL_HEADBUTT))
+  if(!GET_CHAR_SKILL(ch, SKILL_HEADBUTT))
   {
     send_to_char("You don't know how.  Besides, you might hurt yourself.\n", ch);
     return;
@@ -3998,14 +3998,14 @@ void do_headbutt(P_char ch, char *argument, int cmd)
   
   victim = ParseTarget(ch, argument);
 
-  if (!victim)
+  if(!victim)
   {
     send_to_char("Headbutt whom?\n", ch);
     CharWait(ch, 1 * WAIT_SEC);
     return;
   }
   
-  if (ch == victim)
+  if(ch == victim)
   {
     act("Very funny.  But not as funny as your face. :P", TRUE, ch, 0, 0,
         TO_CHAR);
@@ -4013,19 +4013,19 @@ void do_headbutt(P_char ch, char *argument, int cmd)
   }
 
   int attlevel = GET_LEVEL(ch), deflevel = GET_LEVEL(victim);
-  if (IS_TRUSTED(victim) || isname("_nobutt_", GET_NAME(victim)))
+  if(IS_TRUSTED(victim) || isname("_nobutt_", GET_NAME(victim)))
   {
     act("$N is clearly too quick and clever for such a brutish attack.", FALSE, ch, 0, victim, TO_CHAR);
     return;
   }
   
-  if (!HAS_FOOTING(ch))
+  if(!HAS_FOOTING(ch))
   {
     send_to_char("You have no footing here!\n", ch);
     return;
   }
  
-  if (!CanDoFightMove(ch, victim))
+  if(!CanDoFightMove(ch, victim))
     return;
 
   if(GET_POS(victim) !=  POS_STANDING)
@@ -4046,15 +4046,15 @@ void do_headbutt(P_char ch, char *argument, int cmd)
     }
   }
 
-  if (!on_front_line(ch) || !on_front_line(victim))
+  if(!on_front_line(ch) || !on_front_line(victim))
   {
     send_to_char("You can't quite get close enough...\n", ch);
     return;
   }
   
-  if (IS_PC(ch) && IS_PC(victim))
+  if(IS_PC(ch) && IS_PC(victim))
   {
-    if (get_takedown_size(victim) > get_takedown_size(ch) + 1 &&
+    if(get_takedown_size(victim) > get_takedown_size(ch) + 1 &&
         GET_POS(victim) > POS_KNEELING)
     {
       act("You'd have to grow considerably to do that!", FALSE, ch, 0, 0,
@@ -4063,7 +4063,7 @@ void do_headbutt(P_char ch, char *argument, int cmd)
     }
   }
 
-  if (GET_POS(victim) == POS_STANDING && get_takedown_size(victim) < get_takedown_size(ch) - 1)
+  if(GET_POS(victim) == POS_STANDING && get_takedown_size(victim) < get_takedown_size(ch) - 1)
   {
     act("It is far too small.  You're better off squashing it.",
         FALSE, ch, 0, 0, TO_CHAR);
@@ -4091,12 +4091,12 @@ void do_headbutt(P_char ch, char *argument, int cmd)
     return;
   }
   
-  if( !IS_HUMANOID(victim) || get_takedown_size(victim) > get_takedown_size(ch) + 1)
+  if(!IS_HUMANOID(victim) || get_takedown_size(victim) > get_takedown_size(ch) + 1)
   {
     messages = &messages_other;
   }
   
-  if (affected_by_spell(ch, SKILL_HEADBUTT) && !IS_TRUSTED(ch))
+  if(affected_by_spell(ch, SKILL_HEADBUTT) && !IS_TRUSTED(ch))
   {
     act("You're still spinning in circles from your last headbutt.", FALSE, ch, 0, 0, TO_CHAR);
     CharWait(ch, (int) (PULSE_VIOLENCE * 0.25));
@@ -4104,10 +4104,10 @@ void do_headbutt(P_char ch, char *argument, int cmd)
     return;
   }
 
-  success = (GET_CHAR_SKILL(ch, SKILL_HEADBUTT) + attlevel) / 2;
+  success = (GET_CHAR_SKILL(ch, SKILL_HEADBUTT) + ((56 - attlevel) / 2));
   success += BOUNDED(-20, attlevel - deflevel, 20);
 
-  if (get_takedown_size(victim) > get_takedown_size(ch)) 
+  if(get_takedown_size(victim) > get_takedown_size(ch)) 
   {
     for( int j = 0; j < ( get_takedown_size(victim) - get_takedown_size(ch) ); j++ )
     {
@@ -4116,22 +4116,22 @@ void do_headbutt(P_char ch, char *argument, int cmd)
   }
 
   // anatomy check
-  if (GET_CHAR_SKILL(ch, SKILL_ANATOMY) &&
-      5 + GET_CHAR_SKILL(ch, SKILL_ANATOMY)/10 > number(0,100)) {
+  if(GET_CHAR_SKILL(ch, SKILL_ANATOMY) &&
+      5 + GET_CHAR_SKILL(ch, SKILL_ANATOMY) / 10 > number(0, 100)) {
     success *= (int) 1.5;
   }
 
   /*  maybe the attacker or victim are lucky */
 
-  if ((GET_C_LUCK(ch) / 2) > number(0, 90)) {
+  if((GET_C_LUCK(ch) / 2) > number(0, 90)) {
      success = (int) (success * 1.1);
   }
 
-  if ((GET_C_LUCK(victim) / 2) > number(0, 80)) {
+  if((GET_C_LUCK(victim) / 2) > number(0, 80)) {
      success = (int) (success * 0.9);
   }
   
-  if (IS_TRUSTED(ch) || !AWAKE(victim))
+  if(IS_TRUSTED(ch) || !AWAKE(victim))
   {
     tmp_num = 100;
   }
@@ -4142,12 +4142,12 @@ void do_headbutt(P_char ch, char *argument, int cmd)
 
   int dam = 0;
   
-  if (!notch_skill(ch, SKILL_HEADBUTT, get_property("skill.notch.offensive", 15)) && tmp_num <= 2)
+  if(!notch_skill(ch, SKILL_HEADBUTT, get_property("skill.notch.offensive", 15)) && tmp_num <= 2)
   {
     // failed catastrophically!
-    dam = number(0, 30);
+    dam = success + GET_LEVEL(ch);
 
-    if (get_takedown_size(victim) < get_takedown_size(ch))
+    if(get_takedown_size(victim) < get_takedown_size(ch))
       dam = (int) (dam * 1.5);
     
     memset(&af, 0, sizeof(af));
@@ -4157,17 +4157,19 @@ void do_headbutt(P_char ch, char *argument, int cmd)
     affect_to_char(ch, &af);
     CharWait(ch, PULSE_VIOLENCE * 2);
 
-    if (melee_damage(victim, ch, dam, PHSDAM_NOPOSITION | PHSDAM_TOUCH | PHSDAM_NOREDUCE, &fail_messages)
-        != DAM_NONEDEAD)
+    if(melee_damage(victim, ch, dam, PHSDAM_NOPOSITION | PHSDAM_TOUCH | PHSDAM_NOREDUCE, 0) != DAM_NONEDEAD)
+      return;
+
+    if(melee_damage(ch, victim, dam / 3, PHSDAM_NOPOSITION | PHSDAM_TOUCH | PHSDAM_NOREDUCE, &fail_messages) != DAM_NONEDEAD)
       return;
     
     if(!number(0, 20 - GET_LEVEL(ch)))
-      knock_out(ch, PULSE_VIOLENCE * number(2,3));
+      knock_out(ch, PULSE_VIOLENCE * number(2, 3));
   }
-  else if (tmp_num <= 20)
+  else if(tmp_num <= 15)
   {
     // merely failed
-    dam = number(0, 25);
+    dam = success + GET_LEVEL(ch) * 2;
     
     memset(&af, 0, sizeof(af));
     af.type = SKILL_HEADBUTT;
@@ -4176,39 +4178,41 @@ void do_headbutt(P_char ch, char *argument, int cmd)
     affect_to_char(ch, &af);
     CharWait(ch, PULSE_VIOLENCE * 1.5);
 
-    if (melee_damage(victim, ch, dam, PHSDAM_NOPOSITION, &fail_messages)
-        != DAM_NONEDEAD)
+    if(melee_damage(victim, ch, dam / 2, PHSDAM_NOPOSITION, 0) != DAM_NONEDEAD)
+      return;
+
+    if(melee_damage(ch, victim, dam / 2, PHSDAM_NOPOSITION, &fail_messages) != DAM_NONEDEAD)
       return;
   }
   else
   {
     // success!
-    dam = (int) ((GET_LEVEL(ch) / 51) * (number(-5, 25) + GET_C_STR(ch) + GET_CHAR_SKILL(ch, SKILL_HEADBUTT)));
-    
-    if (GET_RACE(ch) == RACE_MINOTAUR)
+    dam = (int) (GET_LEVEL(ch) * 3) * (GET_CHAR_SKILL(ch, SKILL_HEADBUTT) / 95) + (GET_C_STR(ch) / 2);
+
+    if(GET_RACE(ch) == RACE_MINOTAUR)
     {
-      dam = (int) (dam * get_property("damage.headbutt.damBonusMinotaur", 1.500));
+      dam = (int) (dam * get_property("damage.headbutt.damBonusMinotaur", 1.250));
     }
     
     // if victim is smaller, do a bit more damage
-    if (get_takedown_size(victim) < get_takedown_size(ch))
+    if(get_takedown_size(victim) < get_takedown_size(ch))
       dam = (int) (dam * get_property("damage.headbutt.damBonusVsSmaller", 1.10));
 
     // if victim is larger, do a bit less damage
-    if (get_takedown_size(victim) > get_takedown_size(ch))
+    if(get_takedown_size(victim) > get_takedown_size(ch))
       dam = (int) (dam * get_property("damage.headbutt.damPenaltyVsLarger", 0.900));    
     
-    if (melee_damage(ch, victim, dam, PHSDAM_NOPOSITION | PHSDAM_TOUCH | PHSDAM_NOREDUCE, messages))
+    if(melee_damage(ch, victim, dam, PHSDAM_NOPOSITION | PHSDAM_TOUCH | PHSDAM_NOREDUCE, messages))
       return;
 
-    if(GET_CHAR_SKILL(ch, SKILL_DOUBLE_HEADBUTT) > number(0,300))
+    if(GET_CHAR_SKILL(ch, SKILL_DOUBLE_HEADBUTT) > number(0, 300))
     {
-      for( int j = 1; j < 4 && !number(0,j); j++ )
+      for(int j = 1; j < 4 && !number(0, j); j++)
       {
         act("You deftly pull back your head and ram it into $N again!", FALSE, ch, 0, victim, TO_CHAR);
         act("With a quick move, $n pulls back $s head and rams it into you again!", FALSE, ch, 0, victim, TO_VICT);
         act("$n deftly pulls back $s head and slams it into $N again!", FALSE, ch, 0, victim, TO_NOTVICTROOM);
-        if (melee_damage(ch, victim, (int) (dam / j), PHSDAM_NOPOSITION | PHSDAM_TOUCH | PHSDAM_NOREDUCE , messages))
+        if(melee_damage(ch, victim, (int) (dam / (j + 1)), PHSDAM_NOPOSITION | PHSDAM_TOUCH | PHSDAM_NOREDUCE, messages))
           return;        
       }
     }
@@ -4219,24 +4223,24 @@ void do_headbutt(P_char ch, char *argument, int cmd)
     af.flags = AFFTYPE_SHORT;
     affect_to_char(ch, &af);
     CharWait(ch, (int) (PULSE_VIOLENCE * 1.5));
-
+    wizlog(56, "dam from headbutt %d", dam);
     tmp_num = number(1, 100 - (success / 2));
 
-    if (tmp_num < 3 && !IS_AFFECTED(victim, AFF_KNOCKED_OUT)) // 4% chance at 100% success - Jexni 2/15/11
+    if(tmp_num < 3 && !IS_AFFECTED(victim, AFF_KNOCKED_OUT)) // 4% chance at 100% success - Jexni 2/15/11
     {
       knock_out(victim, PULSE_VIOLENCE * number(2,3));
     }
-    else if (tmp_num < 7)
+    else if(tmp_num < 7)
     {
       send_to_char("Wow!  Look at all those stars!!\n", victim);
       CharWait(victim, (int) (PULSE_VIOLENCE * 1));
       Stun(victim, ch, (int) (PULSE_VIOLENCE * 1.5), FALSE);
     }
-    else if (tmp_num < 11)
+    else if(tmp_num < 11)
     {
       send_to_char("Wow!  Look at all those stars!\n", victim);
 
-      if (number(0,4)) {
+      if(number(0,4)) {
         CharWait(victim, (int) (PULSE_VIOLENCE * 0.5));
         Stun(victim, ch, (int) (PULSE_VIOLENCE * 0.5), FALSE);
       }
@@ -4245,13 +4249,13 @@ void do_headbutt(P_char ch, char *argument, int cmd)
     {
       CharWait(victim, (int) (PULSE_VIOLENCE * 1));
     }
-    if (tmp_num < 25 && !IS_SET(ch->specials.act, PLR_VICIOUS) &&
+    if(tmp_num < 25 && !IS_SET(ch->specials.act, PLR_VICIOUS) &&
         IS_FIGHTING(ch))
     {
       for (tch = world[ch->in_room].people; tch; tch = tch->next_in_room)
-        if (tch->specials.fighting == ch)
+        if(tch->specials.fighting == ch)
           break;
-      if (!tch)
+      if(!tch)
         stop_fighting(ch);
     }
   }
@@ -4546,7 +4550,7 @@ int backstab(P_char ch, P_char victim)
     return false;
   }
 
-  if (IS_SET(world[ch->in_room].room_flags, SINGLE_FILE))
+  if(IS_SET(world[ch->in_room].room_flags, SINGLE_FILE))
   {
     send_to_char("It's far too narrow in here to sneak up behind someone to stab them in the back...\r\n", ch);
     return false;
@@ -5276,7 +5280,7 @@ if((GET_RACE(victim) == RACE_OGRE) && ch_size < vict_size)
     bigger_victim = true;
   }
 
-  if (bigger_victim)
+  if(bigger_victim)
   {
     percent_chance = (int) (percent_chance * 0.70);
   }
@@ -5331,7 +5335,7 @@ if((GET_RACE(victim) == RACE_OGRE) && ch_size < vict_size)
   if(!notch_skill(ch, SKILL_BASH, get_property("skill.notch.offensive", 15)) &&
      percent_chance < rolled)
   {
-    if (bigger_victim && number(1,2) == 1)
+    if(bigger_victim && number(1,2) == 1)
     {
       act("As $N withstands your bash, you bounce back and fall to the ground.",
           FALSE, ch, 0, victim, TO_CHAR);
@@ -5929,7 +5933,7 @@ void do_disengage(P_char ch, char *arg, int cmd)
   }
   else
   {
-    if (GET_STAT(GET_OPPONENT(ch)) > STAT_SLEEPING)
+    if(GET_STAT(GET_OPPONENT(ch)) > STAT_SLEEPING)
       CharWait(ch, PULSE_VIOLENCE);
     stop_fighting(ch);
     act("You disengage from the fight!", FALSE, ch, 0, 0, TO_CHAR);
@@ -5980,7 +5984,7 @@ void do_retreat(P_char ch, char *arg, int cmd)
    expdr = GET_CHAR_SKILL(ch, SKILL_EXPEDITED_RETREAT);
 
 
-   if( retc <= 0 && expdr <=0 )
+   if(retc <= 0 && expdr <=0 )
   {
     send_to_char("You don't have the necessary skill...", ch);
     return;
@@ -6288,10 +6292,10 @@ void rescue(P_char ch, P_char rescuee, bool rescue_all)
           break;
         }
 
-        if( !rescue_all && GET_CHAR_SKILL(ch, SKILL_CLEAVE) )
+        if(!rescue_all && GET_CHAR_SKILL(ch, SKILL_CLEAVE) )
           cleave(ch, t_ch);
 
-        if( GET_STAT(t_ch) == STAT_DEAD)
+        if(GET_STAT(t_ch) == STAT_DEAD)
           return;
 
         send_to_char("&+WBanzai! To the rescue...\n", ch);
@@ -6420,7 +6424,7 @@ void maul(P_char ch, P_char victim)
   dam = dice(MIN(30, GET_LEVEL(ch)), 6) *
     (int) (get_property("skill.maul.damfactor", 1.000));
   
-  if (GET_SPEC(ch, CLASS_BERSERKER, SPEC_MAULER))
+  if(GET_SPEC(ch, CLASS_BERSERKER, SPEC_MAULER))
     dam *= 1.5;
   
   percent_chance = (int) (percent_chance * 
@@ -7422,7 +7426,7 @@ void do_trample(P_char ch, char *argument, int cmd)
   
   one_argument(argument, name);
   
-  if (*name)
+  if(*name)
   {
     victim = get_char_room_vis(ch, name);
   }
@@ -7434,7 +7438,7 @@ void do_trample(P_char ch, char *argument, int cmd)
     return;
   }
   
-  if (!(victim) &&
+  if(!(victim) &&
       IS_FIGHTING(ch))
   {
     victim = ch->specials.fighting;
@@ -8387,7 +8391,7 @@ void do_flank(P_char ch, char *argument, int cmd)
     return;
   }
   
-  if (IS_SET(world[ch->in_room].room_flags, SINGLE_FILE))
+  if(IS_SET(world[ch->in_room].room_flags, SINGLE_FILE))
   {
     send_to_char("There is no room in here to flank...\r\n", ch);
     return;
@@ -8541,7 +8545,7 @@ void event_call_grave(P_char ch, P_char victim, P_obj obj, void *data)
   int      i, room, num, skill;
   P_char   skeleton;
   
-  if (IS_SET(world[ch->in_room].room_flags, SINGLE_FILE))
+  if(IS_SET(world[ch->in_room].room_flags, SINGLE_FILE))
   {
     send_to_char("&+LYou find no corpses in this narrow environment.\r\n", ch);
     return;
