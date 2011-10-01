@@ -3641,11 +3641,11 @@ int get_innate_regeneration(P_char ch)
 
 int get_innate_resistance(P_char ch)
 {
-  float      res;
+  float    res;
   char     buf[128];
 
   sprintf(buf, "innate.shrug.%s", race_names_table[GET_RACE(ch)].no_spaces);
-  res = (int) get_property(buf, 10.);
+  res = (int) get_property(buf, 0.000);
 
   if(!(ch) ||
      !IS_ALIVE(ch))
@@ -3693,8 +3693,7 @@ void spell_resistance_check(P_char caster, P_char victim, void *data)
   int in_room;
   struct spell_res_data *messages = (struct spell_res_data*)data;
 
-  if(!caster ||
-    !victim)
+  if(!caster || !victim)
   {
     logit(LOG_EXIT, "spell_resistance_check() bogus parms no ch or victim");
     raise(SIGSEGV);
@@ -3706,8 +3705,7 @@ void spell_resistance_check(P_char caster, P_char victim, void *data)
     return;
   }
   
-  if(IS_TRUSTED(caster) &&
-    !IS_TRUSTED(victim))
+  if(IS_TRUSTED(caster) && !IS_TRUSTED(victim))
   {
     messages->true_false = FALSE;
     return;

@@ -573,7 +573,10 @@ void convertMob(P_char ch)
   }
 
   if(IS_SET(ch->specials.act, ACT_TEACHER))
+  {
     REMOVE_BIT(ch->specials.act, ACT_HUNTER); 
+    GET_EXP(ch) = 0;
+  }
 
   affect_total(ch, FALSE);
 }

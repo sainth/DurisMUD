@@ -4249,8 +4249,6 @@ int spell_damage(P_char ch, P_char victim, double dam, int type, uint flags,
        {
          act("&+b$N &+bseems to resist some of your spell!&n", FALSE, ch, 0, victim, TO_CHAR);
        }
-       else
-       {}
        dam = dam * (float) (1 - ((float) res_amt / 100));   
     }
 
