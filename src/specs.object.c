@@ -2879,7 +2879,7 @@ int living_necroplasm(P_obj obj, P_char ch, int cmd, char *arg)
         act
           ("$p &+Lruns its &+Gtendrils&+L through your body, transforming you!",
            FALSE, ch, obj, 0, TO_CHAR);
-        spell_vampire(55, ch, 0, 0, ch, 0);
+        spell_vampiric_trance(55, ch, 0, 0, ch, 0);
       }
       return TRUE;
     }

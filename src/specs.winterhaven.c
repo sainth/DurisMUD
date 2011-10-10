@@ -1937,7 +1937,7 @@ int demon_slayer(P_obj obj, P_char ch, int cmd, char *arg)
             act("&+rEuronymous suddenly leaps forward and sinks his fangs into the neck of $n, sending blood flying.&n", TRUE, ch, obj, vict, TO_ROOM);
             act("$n &+Lbegins to look rather &+wpale &+Las the last drops of &+Rblood &+Ldrip to the floor.&n", TRUE, ch, obj, vict, TO_ROOM);
 
-            spell_vampire(56, ch, 0, SPELL_TYPE_SPELL, ch, 0);
+            spell_vampiric_trance(56, ch, 0, SPELL_TYPE_SPELL, ch, 0);
 
             act("&nAs life departs from your body, you feel strained.&n", TRUE, ch, obj, vict, TO_CHAR);
 
@@ -2270,7 +2270,7 @@ int helmet_vampires(P_obj obj, P_char ch, int cmd, char *arg)
    
           if(rand > 975)
           {
-            spell_vampire(50, ch, 0, SPELL_TYPE_SPELL, ch, 0);
+            spell_vampiric_trance(50, ch, 0, SPELL_TYPE_SPELL, ch, 0);
           }
 
           if(rand == 1000)

@@ -241,7 +241,7 @@ struct epic_teacher_skill {
 
 int epic_points(P_char ch)
 {
-  if (IS_NPC(ch))
+  if(IS_NPC(ch))
     return 0;
   else
     return ch->only.pc->epics;
@@ -272,11 +272,11 @@ bool epic_stored_in(unsigned int *vector, int code)
 {
   unsigned int flag = *vector;
 
-  if ((flag >> 30) == 0)
+  if((flag >> 30) == 0)
     *vector = (unsigned int)code;
-  else if ((flag >> 30) == 1)
+  else if((flag >> 30) == 1)
     *vector |= (unsigned int)code << 10;
-  else if ((flag >> 30) == 2)
+  else if((flag >> 30) == 2)
     *vector |= (unsigned int)code << 20;
   else
     return false;
@@ -291,18 +291,18 @@ void epic_complete_errand(P_char ch, int zone)
   struct affected_type af, *afp;
 
   for (afp = ch->affected; afp; afp = afp->next) {
-    if (afp->type == TAG_EPIC_COMPLETED &&
+    if(afp->type == TAG_EPIC_COMPLETED &&
         afp->modifier < 12) {
-      if (!epic_stored_in(&afp->bitvector, zone))
-        if (!epic_stored_in(&afp->bitvector2, zone))
-          if (!epic_stored_in(&afp->bitvector3, zone))
+      if(!epic_stored_in(&afp->bitvector, zone))
+        if(!epic_stored_in(&afp->bitvector2, zone))
+          if(!epic_stored_in(&afp->bitvector3, zone))
             epic_stored_in(&afp->bitvector4, zone);
       afp->modifier++;
       break;
     }
   }
 
-  if (!afp) {
+  if(!afp) {
     memset(&af, 0, sizeof(af));
     af.type = TAG_EPIC_COMPLETED;
     af.modifier = 1;
@@ -365,7 +365,7 @@ void epic_choose_new_epic_task(P_char ch)
   if(zone_number < 0)
   {
     nexus = get_random_enemy_nexus(ch);
-    if ((number(0, 100) < 50) && (GET_LEVEL(ch) >= 51) && nexus)
+    if((number(0, 100) < 50) && (GET_LEVEL(ch) >= 51) && nexus)
     {
       act("The Gods of &+rDuris&n demand that you seek out $p and convert it!", FALSE, ch, nexus, 0, TO_CHAR);
       af.modifier = -STONE_ID(nexus);
@@ -530,7 +530,7 @@ void gain_epic(P_char ch, int type, int data, int amount)
     return;
   }
 
-  if (IS_AFFECTED4(ch, AFF4_EPIC_INCREASE))
+  if(IS_AFFECTED4(ch, AFF4_EPIC_INCREASE))
   {
     send_to_char("You feel the &+cblessing&n of the &+WGods&n wash over you.\n", ch);
 	amount = (int) (amount * get_property("epic.witch.multiplier", 1.5));
@@ -547,9 +547,9 @@ void gain_epic(P_char ch, int type, int data, int amount)
   amount = check_nexus_bonus(ch, amount, NEXUS_BONUS_EPICS);
   amount = amount + (int)((float)amount * get_epic_bonus(ch, EPIC_BONUS_EPIC_POINT));
 
-  if (GET_RACEWAR(ch) == RACEWAR_GOOD)
+  if(GET_RACEWAR(ch) == RACEWAR_GOOD)
     amount = amount * (float)get_property("epic.gain.modifier.good", 1.000);
-  if (GET_RACEWAR(ch) == RACEWAR_EVIL)
+  if(GET_RACEWAR(ch) == RACEWAR_EVIL)
     amount = amount * (float)get_property("epic.gain.modifier.evil", 1.000);
   
   // add guild prestige
@@ -602,7 +602,7 @@ void gain_epic(P_char ch, int type, int data, int amount)
     to touch specific stones to level.
   */
 
-  if (GET_LEVEL(ch) >= get_property("exp.maxExpLevel", 46) &&
+  if(GET_LEVEL(ch) >= get_property("exp.maxExpLevel", 46) &&
       GET_LEVEL(ch) < get_property("epic.maxFreeLevel", 50))
   {
      //epic_free_level(ch);
@@ -635,7 +635,7 @@ struct affected_type *get_epic_task(P_char ch)
     return NULL;
   
   for (hjp = ch->affected; hjp; hjp = hjp->next)
-    if (hjp->type == TAG_EPIC_ERRAND)
+    if(hjp->type == TAG_EPIC_ERRAND)
       return hjp;
   
   return NULL;
@@ -650,8 +650,8 @@ void epic_frag(P_char ch, int victim_pid, int amount)
 {
   struct affected_type *afp;
 
-  if (afp = get_epic_task(ch)) {
-    if (afp->modifier == SPILL_BLOOD) {
+  if(afp = get_epic_task(ch)) {
+    if(afp->modifier == SPILL_BLOOD) {
       send_to_char("The &+rGods of Duris&n are very pleased with this &+rblood&n.\n", ch);
       send_to_char("You can now progress further in your quest for epic power!\n", ch);
       amount *= 2;
@@ -669,7 +669,7 @@ void epic_feed_artifacts(P_char ch, int epics, int epic_type)
   int num_artis = 0;
   for (int i = 0; i < MAX_WEAR; i++)
   {
-    if (ch->equipment[i] && (IS_ARTIFACT(ch->equipment[i]) || isname("powerunique", ch->equipment[i]->name)))
+    if(ch->equipment[i] && (IS_ARTIFACT(ch->equipment[i]) || isname("powerunique", ch->equipment[i]->name)))
     {
       num_artis++;
     }
@@ -710,7 +710,7 @@ void epic_feed_artifacts(P_char ch, int epics, int epic_type)
   for (int i = 0; i < MAX_WEAR; i++)
   {
     P_obj obj = ch->equipment[i];
-    if (obj && IS_ARTIFACT(obj))
+    if(obj && IS_ARTIFACT(obj))
     {
       feed_artifact(ch, ch->equipment[i], feed_seconds, ((epic_type == EPIC_PVP || epic_type == EPIC_SHIP_PVP) ? TRUE : FALSE));
     }
@@ -778,7 +778,7 @@ int epic_stone_payout(P_obj obj, P_char ch)
     }
   }
 
-  if (num_players < obj->value[1] && obj->value[1] != 0)
+  if(num_players < obj->value[1] && obj->value[1] != 0)
       num_players = obj->value[1];
   
   /* epic value is
@@ -944,7 +944,7 @@ int epic_stone(P_obj obj, P_char ch, int cmd, char *arg)
   char arg1[MAX_INPUT_LENGTH];
   P_obj stoneobj = NULL;
 
-  if (cmd == CMD_SET_PERIODIC)
+  if(cmd == CMD_SET_PERIODIC)
     return TRUE;
 
   if(obj && cmd == CMD_PERIODIC)
@@ -1096,12 +1096,12 @@ void epic_zone_balance()
   for (i = 0; i <= epic_zones.size(); i++)
   {
     // No need to balance at 0, and code automatically fixes it to 1 or -1
-    if (!qry("SELECT alignment, last_touch FROM zones WHERE number = %d", epic_zones[i].number))
+    if(!qry("SELECT alignment, last_touch FROM zones WHERE number = %d", epic_zones[i].number))
       return;
 
     MYSQL_RES *res = mysql_store_result(DB);
 
-    if (mysql_num_rows(res) < 1)
+    if(mysql_num_rows(res) < 1)
     {
       mysql_free_result(res);
       return;
@@ -1109,7 +1109,7 @@ void epic_zone_balance()
 
     MYSQL_ROW row = mysql_fetch_row(res);
 
-    if (row)
+    if(row)
     {
       alignment = atoi(row[0]);
       lt = atoi(row[1]);
@@ -1117,19 +1117,19 @@ void epic_zone_balance()
 
     mysql_free_result(res);
     
-    if (lt == 0)
+    if(lt == 0)
       db_query("UPDATE zones SET last_touch='%d' WHERE number='%d'", time(NULL), epic_zones[i].number);
 
-    if ((alignment == 0) || (alignment == 1) || (alignment == -1))
+    if((alignment == 0) || (alignment == 1) || (alignment == -1))
       continue;
     
     //debug("zone %d alignment %d", epic_zones[i].number, alignment);
 
-    if (time(NULL) - lt > ((int)get_property("epic.alignment.reset.hour", 7*24)*60*60))
+    if(time(NULL) - lt > ((int)get_property("epic.alignment.reset.hour", 7*24)*60*60))
     {
       if(alignment > 0)
         delta = -1;
-      else if (alignment < 0)
+      else if(alignment < 0)
         delta = 1;
 
       //debug("calling update_epic_zone_alignment");
@@ -1221,7 +1221,7 @@ int epic_teacher(P_char ch, P_char pl, int cmd, char *arg)
         return TRUE;
       }
       
-      sprintf(buffer, "It will cost you &+W%d&n epic skill points and &+W%s&n.\n", points_cost, coin_stringv(coins_cost));
+      sprintf(buffer, "It willcost you &+W%d&n epic skill points and &+W%s&n.\n", points_cost, coin_stringv(coins_cost));
       send_to_char(buffer, pl);
       return TRUE;
     }
@@ -1314,17 +1314,17 @@ void event_blizzard(P_char ch, P_char victim, P_obj obj, void *data)
     messages1.death_attacker, messages1.death_victim, messages1.death_room,
   };
 
-  if (!raf) {
+  if(!raf) {
     send_to_room("&+CThe &+Ldark clouds&+C disperse and the blizzard comes to its end.&n\n", ch->in_room);
     return;
   }
 
-  if (step == 1) {
+  if(step == 1) {
     send_to_room(
         "&+CSuddenly &+Lheavy clouds&+C accumulate above your head, covering the entire sky!\n", ch->in_room);
     step++;
     add_event(event_blizzard, 3, ch, 0, 0, 0, &step, sizeof(step));
-  } else if (step == 2) {
+  } else if(step == 2) {
     send_to_room("&+CIt starts to &+Wsnow&+C!\n", ch->in_room);
     send_to_room(
         "Strong &+Wwinds &+Cbegin tossing the &+Wsnow &+Cand ice around with incredible force.&n\n", ch->in_room);
@@ -1337,14 +1337,14 @@ void event_blizzard(P_char ch, P_char victim, P_obj obj, void *data)
     count = 1;
     for (victim = room->people; victim; victim = next_ch) {
       next_ch = victim->next_in_room;
-      if (victim != ch && !grouped(victim, ch))
+      if(victim != ch && !grouped(victim, ch))
         count++;
     }
 
-    if ((faf = get_spell_from_room(room, SPELL_FIRESTORM)) ||
+    if((faf = get_spell_from_room(room, SPELL_FIRESTORM)) ||
         (faf = get_spell_from_room(room, SPELL_SCATHING_WIND)) ||
         (faf = get_spell_from_room(room, SPELL_INCENDIARY_CLOUD))) {
-      if (victim = get_random_char_in_room(ch->in_room, ch, 0)) {
+      if(victim = get_random_char_in_room(ch->in_room, ch, 0)) {
         sprintf(buffer, "&+CThe snow melts from the heat of &+R%s &+Cand you are only splashed by &+bwater&n.",
             skills[faf->type].name);
         send_to_char(buffer, victim);
@@ -1353,7 +1353,7 @@ void event_blizzard(P_char ch, P_char victim, P_obj obj, void *data)
         act(buffer, FALSE, victim, 0, 0, TO_ROOM);
         make_wet(victim, 2 * WAIT_MIN);
       }
-    } else if (victim = get_random_char_in_room(ch->in_room, ch, DISALLOW_SELF | DISALLOW_GROUPED)) {
+    } else if(victim = get_random_char_in_room(ch->in_room, ch, DISALLOW_SELF | DISALLOW_GROUPED)) {
       spell_damage(ch, victim, 70 + dice(4,6), SPLDAM_COLD,
           SPLDAM_NOSHRUG | SPLDAM_NODEFLECT,
           (number(0, 2) && GET_CHAR_SKILL(ch, SKILL_SUMMON_BLIZZARD) > 30) ? &messages1 : &messages2);
@@ -1369,12 +1369,12 @@ void do_summon_blizzard(P_char ch, char *argument, int cmd)
   struct room_affect raf;
   int step = 1;
 
-  if (get_spell_from_room(&world[room], SKILL_SUMMON_BLIZZARD)) {
+  if(get_spell_from_room(&world[room], SKILL_SUMMON_BLIZZARD)) {
     send_to_char("There is already a blizzard raging here!", ch);
     return;
   }
 
-  if (!affect_timer(ch, get_property("timer.mins.summonBlizzard", 3) * WAIT_MIN, SKILL_SUMMON_BLIZZARD)) {
+  if(!affect_timer(ch, get_property("timer.mins.summonBlizzard", 3) * WAIT_MIN, SKILL_SUMMON_BLIZZARD)) {
     send_to_char("You are too tired to summon another blizzard.\n", ch);
     return;
   }
@@ -1420,7 +1420,7 @@ void do_summon_familiar(P_char ch, char *argument, int cmd)
     ch_skill_level = 100;
   }
 
-  if (strlen(argument) < 1) {
+  if(strlen(argument) < 1) {
     send_to_char("You can summon the following familiars:\n", ch);
     for (i = 0; familiars[i].vnum && familiars[i].skill <= ch_skill_level; i++) {
       sprintf(buffer, "  %s\n", familiars[i].name);
@@ -1431,7 +1431,7 @@ void do_summon_familiar(P_char ch, char *argument, int cmd)
 
   for (cld = ch->linked; cld; cld = cld->next_linked)
   {
-    if (cld->type == LNK_PET)
+    if(cld->type == LNK_PET)
     {
       for(i = 0; familiars[i].vnum; i++)
       {
@@ -1445,7 +1445,7 @@ void do_summon_familiar(P_char ch, char *argument, int cmd)
     }
   }
 
-  if (!affect_timer(ch,
+  if(!affect_timer(ch,
         (get_property("timer.mins.summonFamiliar", 10) + 10 -
          2 * (ch_skill_level/20)) * WAIT_MIN,
         SKILL_SUMMON_FAMILIAR)) {
@@ -1454,7 +1454,7 @@ void do_summon_familiar(P_char ch, char *argument, int cmd)
   }
 
   for (i = 0; familiars[i].vnum && familiars[i].skill <= ch_skill_level; i++) {
-    if (!str_cmp(argument, familiars[i].name)) {
+    if(!str_cmp(argument, familiars[i].name)) {
       mob = read_mobile(familiars[i].vnum, VIRTUAL);
 
       if(!mob)
@@ -1510,14 +1510,14 @@ int epic_familiar(P_char ch, P_char pl, int cmd, char *arg)
   if(!ch)
     return FALSE;
 
-  if (cmd == CMD_SET_PERIODIC)
+  if(cmd == CMD_SET_PERIODIC)
     return TRUE;
 
   P_char master = get_linked_char(ch, LNK_PET);
 
 
   // bat proc, has a chance to prevent incoming takedown
-  if (GET_VNUM(ch) == EPIC_BAT_VNUM &&
+  if(GET_VNUM(ch) == EPIC_BAT_VNUM &&
       (cmd == CMD_BASH || cmd == CMD_TRIP || cmd == CMD_SPRINGLEAP ||
       cmd == CMD_TACKLE || cmd == CMD_BODYSLAM || cmd == CMD_MAUL) &&
       get_char_vis(pl, arg) == master && !number(0,2))
@@ -1527,7 +1527,7 @@ int epic_familiar(P_char ch, P_char pl, int cmd, char *arg)
     act("$n notices your maneuver and dives towards your head to protect $s master!",
         FALSE, ch, 0, pl, TO_VICT);
 
-    if (GET_C_AGI(pl) < number(0,150) && !number(0,2)) {
+    if(GET_C_AGI(pl) < number(0,150) && !number(0,2)) {
       act("$n's unexpected attack caused you to get lost in your tracks..",
           FALSE, ch, 0, pl, TO_VICT);
       act("$n's vicious assault disturbed $N's move.", FALSE, ch, 0, pl, TO_NOTVICT);
@@ -1539,10 +1539,10 @@ int epic_familiar(P_char ch, P_char pl, int cmd, char *arg)
     }
   }
 
-  if (mob_index[GET_RNUM(ch)].virtual_number == EPIC_IGUANA_VNUM &&
+  if(mob_index[GET_RNUM(ch)].virtual_number == EPIC_IGUANA_VNUM &&
       cmd == CMD_PAT && get_char_vis(pl, arg) == ch && pl == master)
   {
-    if (IS_RIDING(ch))
+    if(IS_RIDING(ch))
     {
       act("$N pats $n softly on $s back.\n"
           "$n wiggles reluctantly and slowly begins to climb down $N's back.",
@@ -1552,7 +1552,7 @@ int epic_familiar(P_char ch, P_char pl, int cmd, char *arg)
           FALSE, ch, 0, master, TO_VICT);
       do_dismount(ch, 0, CMD_DISMOUNT);
     }
-    else if (!IS_RIDING(master))
+    else if(!IS_RIDING(master))
     {
       act("$N pats $n softly on $s back.\n"
           "$n slowly begins to climb up $N's back.",
@@ -1572,14 +1572,14 @@ int epic_familiar(P_char ch, P_char pl, int cmd, char *arg)
 
   if(cmd == CMD_PERIODIC)
   {
-    if (!master)
+    if(!master)
     {
       act("$n turns around looking for $s master then disappears.", FALSE, ch, 0, 0, TO_ROOM);
       extract_char(ch);
       return TRUE;
     }
 
-    switch (ch->player.m_class)
+    switch(ch->player.m_class)
     {
       case CLASS_WARRIOR:
       case CLASS_MERCENARY:
@@ -1587,7 +1587,7 @@ int epic_familiar(P_char ch, P_char pl, int cmd, char *arg)
 
       case CLASS_SORCERER:
       case CLASS_CONJURER:
-        if (!number(0,2) && master->in_room == ch->in_room)
+        if(!number(0,2) && master->in_room == ch->in_room)
         {
           CastMageSpell(ch, master, 1);
           return TRUE;
@@ -1595,7 +1595,7 @@ int epic_familiar(P_char ch, P_char pl, int cmd, char *arg)
         break;
 
       case CLASS_CLERIC:
-        if (!number(0,2) && master->in_room == ch->in_room)
+        if(!number(0,2) && master->in_room == ch->in_room)
         {
           CastClericSpell(ch, master, 1);
           return TRUE;
@@ -1670,15 +1670,15 @@ int devotion_skill_check(P_char ch)
   char buf[128];
   buf[0] = '\0';
 
-    if (dev_power > 4)
+    if(dev_power > 4)
       sprintf(buf,
         "You feel as if %s took over your body bringing death to your foes!\n",
         get_god_name(ch));
-    else if (dev_power > 2)
+    else if(dev_power > 2)
       sprintf(buf,
         "%s fills you with holy power bringing death to your foes!\n",
         get_god_name(ch));
-    else if (dev_power > 0)
+    else if(dev_power > 0)
       sprintf(buf,
         "%s fills you with holy power to destroy your foes!\n",
         get_god_name(ch));
@@ -1722,251 +1722,252 @@ int stat_shops(int room, P_char ch, int cmd, char *arg)
   int MAX_SHOP_BUY = 95;
 
   /* check for periodic event calls */
-  if (cmd == CMD_SET_PERIODIC)
+  if(cmd == CMD_SET_PERIODIC)
     return FALSE;
 
-  if (!ch)
+  if(!ch)
     return (FALSE);
 
-  if (cmd == CMD_LIST)
-  {                             /* List */
-    send_to_char("Available potions:\r\n\r\n", ch);
+  if(cmd == CMD_LIST)
+  {
+     send_to_char("Available potions:\r\n\r\n", ch);
 
-    cost = ch->base_stats.Str  * ch->base_stats.Str  * ch->base_stats.Str  * cost_mod;
-    if(ch->base_stats.Str < MAX_SHOP_BUY)
-    sprintf(buf, "1. A &+Gmagical&n strength potion for %s\r\n", coin_stringv(cost));
-    else
-    sprintf(buf, "1. A &+Gmagical&n strength potion is not available for you.\r\n");
-    send_to_char(buf, ch);
+     cost = ch->base_stats.Str * ch->base_stats.Str * ch->base_stats.Str * cost_mod;
+     if(ch->base_stats.Str < MAX_SHOP_BUY)
+       sprintf(buf, "1. A &+Gmagical&n strength potion for %s\r\n", coin_stringv(cost));
+     else
+       sprintf(buf, "1. A &+Gmagical&n strength potion is not available for you.\r\n");
+     send_to_char(buf, ch); 
 
-     cost = ch->base_stats.Agi   *ch->base_stats.Agi   *ch->base_stats.Agi   * cost_mod;
-    if(ch->base_stats.Agi < MAX_SHOP_BUY)
-    sprintf(buf, "2. A &+Gmagical&n agility potion for %s\r\n", coin_stringv(cost));
-    else
-    sprintf(buf, "2. A &+Gmagical&n agility potion is not available for you.\r\n");
-    send_to_char(buf, ch);
+     cost = ch->base_stats.Agi * ch->base_stats.Agi * ch->base_stats.Agi * cost_mod;
+     if(ch->base_stats.Agi < MAX_SHOP_BUY)
+       sprintf(buf, "2. A &+Gmagical&n agility potion for %s\r\n", coin_stringv(cost));
+     else
+       sprintf(buf, "2. A &+Gmagical&n agility potion is not available for you.\r\n");
+     send_to_char(buf, ch);
 
-    cost = ch->base_stats.Dex   * ch->base_stats.Dex   * ch->base_stats.Dex   * cost_mod;
+     cost = ch->base_stats.Dex * ch->base_stats.Dex * ch->base_stats.Dex * cost_mod;
      if(ch->base_stats.Dex < MAX_SHOP_BUY)
-    sprintf(buf, "3. A &+Gmagical&n dexterity potion for %s\r\n", coin_stringv(cost));
+       sprintf(buf, "3. A &+Gmagical&n dexterity potion for %s\r\n", coin_stringv(cost));
      else
-    sprintf(buf, "3. A &+Gmagical&n dexterity potion is not available for you.\r\n");
-    send_to_char(buf, ch);
+       sprintf(buf, "3. A &+Gmagical&n dexterity potion is not available for you.\r\n");
+     send_to_char(buf, ch);
 
-    cost = ch->base_stats.Con   *ch->base_stats.Con   *ch->base_stats.Con   * cost_mod;
+     cost = ch->base_stats.Con * ch->base_stats.Con * ch->base_stats.Con * cost_mod;
      if(ch->base_stats.Con < MAX_SHOP_BUY)
-     sprintf(buf, "4. A &+Gmagical&n constitution potion for %s\r\n", coin_stringv(cost));
+       sprintf(buf, "4. A &+Gmagical&n constitution potion for %s\r\n", coin_stringv(cost));
      else
-     sprintf(buf, "4. A &+Gmagical&n constitution potion is not available for you.\r\n");
-    send_to_char(buf, ch);
+       sprintf(buf, "4. A &+Gmagical&n constitution potion is not available for you.\r\n");
+     send_to_char(buf, ch); 
 
-
-    cost = ch->base_stats.Luck   *ch->base_stats.Luck   *ch->base_stats.Luck   * cost_mod;
+     cost = ch->base_stats.Luck * ch->base_stats.Luck * ch->base_stats.Luck * cost_mod;
      if(ch->base_stats.Luck < MAX_SHOP_BUY)
-    sprintf(buf, "5. A &+Gmagical&n luck potion for %s\r\n", coin_stringv(cost));
+       sprintf(buf, "5. A &+Gmagical&n luck potion for %s\r\n", coin_stringv(cost));
      else
-    sprintf(buf, "5. A &+Gmagical&n luck stat potion is not available for you.\r\n");
-    send_to_char(buf, ch);
+       sprintf(buf, "5. A &+Gmagical&n luck stat potion is not available for you.\r\n");
+     send_to_char(buf, ch);
 
-      cost = ch->base_stats.Pow   *ch->base_stats.Pow   *ch->base_stats.Pow   * cost_mod;
-    if(ch->base_stats.Pow < MAX_SHOP_BUY)
-      sprintf(buf, "6. A &+Gmagical&n power potion for %s\r\n", coin_stringv(cost));
-    else
-        sprintf(buf, "6. A &+Gmagical&n power stat potion is not available for you.\r\n");
-    send_to_char(buf, ch);
+      cost = ch->base_stats.Pow   *ch->base_stats.Pow   *ch->base_stats.Pow  * cost_mod;
+     if(ch->base_stats.Pow < MAX_SHOP_BUY)
+       sprintf(buf, "6. A &+Gmagical&n power potion for %s\r\n", coin_stringv(cost));
+     else
+       sprintf(buf, "6. A &+Gmagical&n power stat potion is not available for you.\r\n");
+     send_to_char(buf, ch);
 
-    cost = ch->base_stats.Int   *ch->base_stats.Int   *ch->base_stats.Int   * cost_mod;
-    if(ch->base_stats.Int < MAX_SHOP_BUY)
-    sprintf(buf, "7. A &+Gmagical&n intelligence potion for %s\r\n", coin_stringv(cost));
-    else
-    sprintf(buf, "7. A &+Gmagical&n intelligence stat potion is not available for you.\r\n");
+     cost = ch->base_stats.Int * ch->base_stats.Int * ch->base_stats.Int * cost_mod;
+     if(ch->base_stats.Int < MAX_SHOP_BUY)
+       sprintf(buf, "7. A &+Gmagical&n intelligence potion for %s\r\n", coin_stringv(cost));
+     else
+       sprintf(buf, "7. A &+Gmagical&n intelligence stat potion is not available for you.\r\n");
+     send_to_char(buf, ch);
 
-    send_to_char(buf, ch);
+     cost = ch->base_stats.Wis * ch->base_stats.Wis * ch->base_stats.Wis * cost_mod;
+     if(ch->base_stats.Wis < MAX_SHOP_BUY)
+       sprintf(buf, "8. A &+Gmagical&n wisdom potion for %s\r\n", coin_stringv(cost));
+     else
+       sprintf(buf, "8. A &+Gmagical&n wisdom stat potion is not available for you.\r\n");
+     send_to_char(buf, ch);
 
-    cost = ch->base_stats.Wis   *ch->base_stats.Wis   *ch->base_stats.Wis   * cost_mod;
-    if(ch->base_stats.Wis < MAX_SHOP_BUY)
-    sprintf(buf, "8. A &+Gmagical&n wisdom potion for %s\r\n", coin_stringv(cost));
-    else
-    sprintf(buf, "8. A &+Gmagical&n wisdom stat potion is not available for you.\r\n");
+     cost = ch->base_stats.Cha * ch->base_stats.Cha * ch->base_stats.Cha * cost_mod;
+     if(ch->base_stats.Cha < MAX_SHOP_BUY)
+       sprintf(buf, "9. A &+Gmagical&n charisma potion for %s\r\n", coin_stringv(cost));
+     else
+       sprintf(buf, "9. A &+Gmagical&n charisma stat potion  is not available for you.\r\n");
+     send_to_char(buf, ch);
 
-    send_to_char(buf, ch);
-
-    cost = ch->base_stats.Cha   *ch->base_stats.Cha   *ch->base_stats.Cha   * cost_mod;
-    if(ch->base_stats.Cha < MAX_SHOP_BUY)
-        sprintf(buf, "9. A &+Gmagical&n charisma potion for %s\r\n", coin_stringv(cost));
-    else
-    sprintf(buf, "9. A &+Gmagical&n charisma stat potion  is not available for you.\r\n");
-    send_to_char(buf, ch);
-
-
-    return (TRUE);
+     return TRUE;
   }
-  else if (cmd == CMD_BUY)
-  {                             /* Buy */
-
-
-       arg = one_argument(arg, buf);
-        if (!atoi(buf))
-      {
+  else if(cmd == CMD_BUY)
+  {      
+     arg = one_argument(arg, buf);
+     if(!atoi(buf))
+     {
         send_to_char("Exactly what are you trying to buy?\r\n", ch);
         return TRUE;
-      }
-  switch (atoi(buf))
-    {
-    case 1:
-    cost = ch->base_stats.Str  * ch->base_stats.Str  * ch->base_stats.Str  * cost_mod;
-    if (GET_MONEY(ch) < cost)
-      {
-        send_to_char("You dont have enough money!\r\n", ch);
-        return (TRUE);
-      }
+     }
+     switch(atoi(buf))
+     {
+        case 1:
+          cost = ch->base_stats.Str * ch->base_stats.Str * ch->base_stats.Str * cost_mod;
+          if(GET_MONEY(ch) < cost)
+          {
+             send_to_char("You dont have enough money!\r\n", ch);
+             return TRUE;
+          } 
+          if(ch->base_stats.Str >= MAX_SHOP_BUY)
+          {
+             send_to_char("You cant buy that.\r\n", ch);
+             return TRUE;
+          }
 
-    if(ch->base_stats.Str >= MAX_SHOP_BUY){
-       send_to_char("You cant buy that.\r\n", ch);
-       return (TRUE);
-    }
-
-    SUB_MONEY(ch, cost, 0);
-    send_to_char("You quaffed a &+Gmagical&n potion.\r\n", ch);
-    spell_perm_increase_str(60,  ch, "", 0,ch , 0);
-    return (TRUE);
-      break;
-    case 2:
-      cost = ch->base_stats.Agi   *ch->base_stats.Agi   *ch->base_stats.Agi   * cost_mod;
-    if (GET_MONEY(ch) < cost)
-      {
-        send_to_char("You dont have enough money!\r\n", ch);
-        return (TRUE);
-      }
-    if(ch->base_stats.Agi >= MAX_SHOP_BUY){
-       send_to_char("You cant buy that.\r\n", ch);
-       return (TRUE);
-    }
-    SUB_MONEY(ch, cost, 0);
-    send_to_char("You quaffed a &+Gmagical&n potion.\r\n", ch);
-    spell_perm_increase_agi(60,  ch, "", 0,ch , 0);
-    return (TRUE);
-      break;
-    case 3:
-       cost = ch->base_stats.Dex   * ch->base_stats.Dex   * ch->base_stats.Dex   * cost_mod;
-    if (GET_MONEY(ch) < cost)
-      {
-        send_to_char("You dont have enough money!\r\n", ch);
-        return (TRUE);
-      }
-    if(ch->base_stats.Dex >= MAX_SHOP_BUY){
-       send_to_char("You cant buy that.\r\n", ch);
-       return (TRUE);
-    }
-    SUB_MONEY(ch, cost, 0);
-    send_to_char("You quaffed a &+Gmagical&n potion.\r\n", ch);
-    spell_perm_increase_dex(60,  ch, "", 0,ch , 0);
-    return (TRUE);
-      break;
-    case 4:
-      cost = ch->base_stats.Con   *ch->base_stats.Con   *ch->base_stats.Con   * cost_mod;
-    if (GET_MONEY(ch) < cost)
-      {
-        send_to_char("You dont have enough money!\r\n", ch);
-        return (TRUE);
-      }
-    if(ch->base_stats.Con >= MAX_SHOP_BUY){
-       send_to_char("You cant buy that.\r\n", ch);
-       return (TRUE);
-    }
-    SUB_MONEY(ch, cost, 0);
-    send_to_char("You quaffed a &+Gmagical&n potion.\r\n", ch);
-    spell_perm_increase_con(60,  ch, "", 0,ch , 0);
-    return (TRUE);
-      break;
-    case 5:
-      cost = ch->base_stats.Luck   *ch->base_stats.Luck   *ch->base_stats.Luck   * cost_mod;
-    if (GET_MONEY(ch) < cost)
-      {
-        send_to_char("You dont have enough money!\r\n", ch);
-        return (TRUE);
-      }
-    if(ch->base_stats.Luck >= MAX_SHOP_BUY){
-       send_to_char("You cant buy that.\r\n", ch);
-       return (TRUE);
-    }
-    SUB_MONEY(ch, cost, 0);
-    send_to_char("You quaffed a &+Gmagical&n potion.\r\n", ch);
-    spell_perm_increase_luck(60,  ch, "", 0,ch , 0);
-    return (TRUE);
-      break;
-     case 6:
-     cost = ch->base_stats.Pow   *ch->base_stats.Pow   *ch->base_stats.Pow   * cost_mod;
-    if (GET_MONEY(ch) < cost)
-      {
-        send_to_char("You dont have enough money!\r\n", ch);
-        return (TRUE);
-      }
-    if(ch->base_stats.Pow >= MAX_SHOP_BUY){
-       send_to_char("You cant buy that.\r\n", ch);
-       return (TRUE);
-    }
-    SUB_MONEY(ch, cost, 0);
-    send_to_char("You quaffed a &+Gmagical&n potion.\r\n", ch);
-    spell_perm_increase_pow(60,  ch, "", 0,ch , 0);
-    return (TRUE);
-      break;
-    case 7:
-      cost = ch->base_stats.Int   *ch->base_stats.Int   *ch->base_stats.Int   * cost_mod;
-    if (GET_MONEY(ch) < cost)
-      {
-        send_to_char("You dont have enough money!\r\n", ch);
-        return (TRUE);
-      }
-    if(ch->base_stats.Int >= MAX_SHOP_BUY){
-       send_to_char("You cant buy that.\r\n", ch);
-       return (TRUE);
-    }
-    SUB_MONEY(ch, cost, 0);
-    send_to_char("You quaffed a &+Gmagical&n potion.\r\n", ch);
-    spell_perm_increase_int(60,  ch, "", 0,ch , 0);
-    return (TRUE);
-      break;
-    case 8:
-       cost = ch->base_stats.Wis   *ch->base_stats.Wis   *ch->base_stats.Wis   * cost_mod;
-    if (GET_MONEY(ch) < cost)
-      {
-        send_to_char("You dont have enough money!\r\n", ch);
-        return (TRUE);
-      }
-    if(ch->base_stats.Wis >= MAX_SHOP_BUY){
-       send_to_char("You cant buy that.\r\n", ch);
-       return (TRUE);
-    }
-    SUB_MONEY(ch, cost, 0);
-    send_to_char("You quaffed a &+Gmagical&n potion.\r\n", ch);
-    spell_perm_increase_wis(60,  ch, "", 0,ch , 0);
-    return (TRUE);
-      break;
-    case 9:
-      cost = ch->base_stats.Cha   *ch->base_stats.Cha   *ch->base_stats.Cha   * cost_mod;
-    if (GET_MONEY(ch) < cost)
-      {
-        send_to_char("You dont have enough money!\r\n", ch);
-        return (TRUE);
-      }
-    if(ch->base_stats.Cha >= MAX_SHOP_BUY){
-       send_to_char("You cant buy that.\r\n", ch);
-       return (TRUE);
-    }
-    SUB_MONEY(ch, cost, 0);
-    send_to_char("You quaffed a &+Gmagical&n potion.\r\n", ch);
-    spell_perm_increase_cha(60,  ch, "", 0,ch , 0);
-    return (TRUE);
-      break;
-    default:
-    send_to_char("Exactly what are you trying to buy?\r\n", ch);
-    return TRUE;
-    }
+          SUB_MONEY(ch, cost, 0);
+          send_to_char("You quaffed a &+Gmagical&n potion.\r\n", ch);
+          spell_perm_increase_str(60, ch, NULL, SPELL_TYPE_SPELL, ch, 0);
+          return TRUE;
+          break;
+        case 2:
+          cost = ch->base_stats.Agi * ch->base_stats.Agi * ch->base_stats.Agi * cost_mod;
+          if(GET_MONEY(ch) < cost)
+          {
+             send_to_char("You dont have enough money!\r\n", ch);
+             return TRUE;
+          }
+          if(ch->base_stats.Agi >= MAX_SHOP_BUY)
+          {
+             send_to_char("You cant buy that.\r\n", ch);
+             return TRUE;
+          }
+          SUB_MONEY(ch, cost, 0);
+          send_to_char("You quaffed a &+Gmagical&n potion.\r\n", ch);
+          spell_perm_increase_agi(60, ch, NULL, SPELL_TYPE_SPELL, ch, 0);
+          return TRUE;
+          break;
+        case 3:
+          cost = ch->base_stats.Dex * ch->base_stats.Dex * ch->base_stats.Dex * cost_mod;
+          if(GET_MONEY(ch) < cost)
+          {
+             send_to_char("You dont have enough money!\r\n", ch);
+             return TRUE;
+          }
+          if(ch->base_stats.Dex >= MAX_SHOP_BUY)
+          {
+             send_to_char("You cant buy that.\r\n", ch);
+             return TRUE;
+          }
+          SUB_MONEY(ch, cost, 0);
+          send_to_char("You quaffed a &+Gmagical&n potion.\r\n", ch);
+          spell_perm_increase_dex(60, ch, NULL, SPELL_TYPE_SPELL, ch, 0);
+          return TRUE;
+          break;
+        case 4:
+          cost = ch->base_stats.Con * ch->base_stats.Con * ch->base_stats.Con * cost_mod;
+          if(GET_MONEY(ch) < cost)
+          {
+             send_to_char("You dont have enough money!\r\n", ch);
+             return TRUE;
+          }
+          if(ch->base_stats.Con >= MAX_SHOP_BUY)
+          {
+             send_to_char("You cant buy that.\r\n", ch);
+             return TRUE;
+          }
+          SUB_MONEY(ch, cost, 0);
+          send_to_char("You quaffed a &+Gmagical&n potion.\r\n", ch);
+          spell_perm_increase_con(60, ch, NULL, SPELL_TYPE_SPELL, ch, 0);
+          return TRUE;
+          break;
+        case 5:
+          cost = ch->base_stats.Luck * ch->base_stats.Luck * ch->base_stats.Luck * cost_mod;
+          if(GET_MONEY(ch) < cost)
+          {
+             send_to_char("You dont have enough money!\r\n", ch);
+             return TRUE;
+          }
+          if(ch->base_stats.Luck >= MAX_SHOP_BUY)
+          {
+             send_to_char("You cant buy that.\r\n", ch);
+             return TRUE;
+          }
+          SUB_MONEY(ch, cost, 0);
+          send_to_char("You quaffed a &+Gmagical&n potion.\r\n", ch);
+          spell_perm_increase_luck(60, ch, NULL, SPELL_TYPE_SPELL, ch, 0);
+          return TRUE;
+          break;
+        case 6:
+          cost = ch->base_stats.Pow * ch->base_stats.Pow * ch->base_stats.Pow * cost_mod;
+          if(GET_MONEY(ch) < cost)
+          {
+             send_to_char("You dont have enough money!\r\n", ch);
+             return TRUE;
+          }
+          if(ch->base_stats.Pow >= MAX_SHOP_BUY)
+          {
+             send_to_char("You cant buy that.\r\n", ch);
+             return TRUE;
+          }
+          SUB_MONEY(ch, cost, 0);
+          send_to_char("You quaffed a &+Gmagical&n potion.\r\n", ch);
+          spell_perm_increase_pow(60, ch, NULL, SPELL_TYPE_SPELL, ch, 0);
+          return TRUE;
+          break;
+        case 7:
+          cost = ch->base_stats.Int * ch->base_stats.Int * ch->base_stats.Int * cost_mod;
+          if(GET_MONEY(ch) < cost)
+          {
+             send_to_char("You dont have enough money!\r\n", ch);
+             return TRUE;
+          }
+          if(ch->base_stats.Int >= MAX_SHOP_BUY)
+          {
+             send_to_char("You cant buy that.\r\n", ch);
+             return TRUE;
+          }
+          SUB_MONEY(ch, cost, 0);
+          send_to_char("You quaffed a &+Gmagical&n potion.\r\n", ch);
+          spell_perm_increase_int(60, ch, NULL, SPELL_TYPE_SPELL, ch, 0);
+          return TRUE;
+          break;
+        case 8:
+          cost = ch->base_stats.Wis * ch->base_stats.Wis * ch->base_stats.Wis * cost_mod;
+          if(GET_MONEY(ch) < cost)
+          {
+             send_to_char("You dont have enough money!\r\n", ch);
+             return TRUE;
+          }
+          if(ch->base_stats.Wis >= MAX_SHOP_BUY)
+          {
+             send_to_char("You cant buy that.\r\n", ch);
+             return TRUE;
+          }
+          SUB_MONEY(ch, cost, 0);
+          send_to_char("You quaffed a &+Gmagical&n potion.\r\n", ch);
+          spell_perm_increase_wis(60, ch, NULL, SPELL_TYPE_SPELL, ch, 0);
+          return TRUE;
+          break;
+        case 9:
+          cost = ch->base_stats.Cha * ch->base_stats.Cha * ch->base_stats.Cha * cost_mod;
+          if(GET_MONEY(ch) < cost)
+          {
+             send_to_char("You dont have enough money!\r\n", ch);
+             return TRUE;
+          }
+          if(ch->base_stats.Cha >= MAX_SHOP_BUY)
+          {
+             send_to_char("You cant buy that.\r\n", ch);
+             return TRUE;
+          }
+          SUB_MONEY(ch, cost, 0);
+          send_to_char("You quaffed a &+Gmagical&n potion.\r\n", ch);
+          spell_perm_increase_cha(60, ch, NULL, SPELL_TYPE_SPELL, ch, 0);
+          return TRUE;
+          break;
+        default:
+          send_to_char("Exactly what are you trying to buy?\r\n", ch);
+          return TRUE;
+     }
 
   }
-
-  return (FALSE);
+  return FALSE;
 }
 
 int chant_mastery_bonus(P_char ch, int dura)
@@ -1974,33 +1975,43 @@ int chant_mastery_bonus(P_char ch, int dura)
   int chant_bonus;
   char buffer[256];
 
-  if (5 + GET_CHAR_SKILL(ch, SKILL_CHANT_MASTERY) / 10 > number(0,100)) {
-    chant_bonus = MAX(0, GET_CHAR_SKILL(ch, SKILL_CHANT_MASTERY)/40 + number(-1,1));
-    sprintf(buffer, "%s magic surrounds you as you begin your chant.&n",
-        chant_bonus == 0 ? "&+WSparkling&n" :
-        chant_bonus == 1 ? "&+WSparkling" : "&+WSp&+Cark&+Wli&+Cn&+Wg");
-    act(buffer, FALSE, ch, 0, 0, TO_CHAR);
-    sprintf(buffer, "%s magic surrounds $n &+Was $e begins $s chant.&n",
-        chant_bonus == 0 ? "&+WSparkling&n" :
-        chant_bonus == 1 ? "&+WSparkling" : "&+WSp&+Cark&+Wli&+Cn&+Wg");
-    act(buffer, FALSE, ch, 0, 0, TO_ROOM);
-  } else {
-    CharWait(ch, dura);
-    return dura;
+  if(5 + GET_CHAR_SKILL(ch, SKILL_CHANT_MASTERY) / 10 > number(0,100))
+  {
+     chant_bonus = MAX(0, GET_CHAR_SKILL(ch, SKILL_CHANT_MASTERY)/40 + number(-1,1));
+     sprintf(buffer, "%s magic surrounds you as you begin your chant.&n",
+                     chant_bonus == 0 ? "&+WSparkling&n" :
+                     chant_bonus == 1 ? "&+WSparkling" : "&+WSp&+Cark&+Wli&+Cn&+Wg");
+     act(buffer, FALSE, ch, 0, 0, TO_CHAR);
+     sprintf(buffer, "%s magic surrounds $n &+Was $e begins $s chant.&n",
+                     chant_bonus == 0 ? "&+WSparkling&n" :
+                     chant_bonus == 1 ? "&+WSparkling" : "&+WSp&+Cark&+Wli&+Cn&+Wg");
+     act(buffer, FALSE, ch, 0, 0, TO_ROOM);
+  } 
+  else 
+  {
+     CharWait(ch, dura);
+     return dura;
   }
 
-  if (chant_bonus == 3) {
-    CharWait(ch, 1);
-    return 1;
-  } else if (chant_bonus == 2) {
-    CharWait(ch, dura >> 1);
-    return  1;
-  } else if (chant_bonus == 1) {
-    CharWait(ch, dura * 0.8);
-    return (int) (dura * 0.6);
-  } else {
-    CharWait(ch, dura);
-    return (int) (dura * 0.8);
+  if(chant_bonus == 3) 
+  {
+     CharWait(ch, 1);
+     return 1;
+  } 
+  else if(chant_bonus == 2) 
+  {
+     CharWait(ch, dura >> 1);
+     return  1;
+  }
+  else if(chant_bonus == 1) 
+  {
+     CharWait(ch, dura * 0.8);
+     return (int) (dura * 0.6);
+  }
+  else
+  {
+     CharWait(ch, dura);
+     return (int) (dura * 0.8);
   }
 }
 
@@ -2087,7 +2098,6 @@ void do_epic(P_char ch, char *arg, int cmd)
 
   // list
   send_to_char("&+GEpic Players\n\n", ch);
-
   send_to_char(" &+WGoods\n\n", ch);
 
   for(int i = 0; i < top_good_players.size(); i++)
@@ -2097,9 +2107,7 @@ void do_epic(P_char ch, char *arg, int cmd)
     send_to_char("\n", ch);
   }
 
-
   send_to_char("\n\n &+LEvils\n\n", ch);
-
 
   for(int i = 0; i < top_evil_players.size(); i++)
   {
@@ -2107,45 +2115,48 @@ void do_epic(P_char ch, char *arg, int cmd)
     send_to_char(top_evil_players[i].c_str(), ch);
     send_to_char("\n", ch);
   }
-
 }
 
 bool epic_zone_done_now(int zone_number)
 {
-	for(vector<epic_zone_completion>::iterator it = epic_zone_completions.begin();
-			 it != epic_zone_completions.end();
-			 it++)
-	{
-		if((it->number == zone_number)) return true;
-	}
-	return false;
+   for(vector<epic_zone_completion>::iterator it = epic_zone_completions.begin();
+             it != epic_zone_completions.end();
+             it++)
+   {
+      if((it->number == zone_number)) return true;
+   }
+   return false;
 }
 
 bool epic_zone_done(int zone_number)
 {
-	for(vector<epic_zone_completion>::iterator it = epic_zone_completions.begin();
-			 it != epic_zone_completions.end();
-			 it++)
-	{
-		if((it->number == zone_number) && (time(NULL) - it->done_at) > (int) get_property("epic.showCompleted.delaySecs", (15*60))) return true;
-	}
-	return false;
+   for(vector<epic_zone_completion>::iterator it = epic_zone_completions.begin();
+             it != epic_zone_completions.end();
+             it++)
+   {
+      if((it->number == zone_number) && 
+         (time(NULL) - it->done_at) > (int) get_property("epic.showCompleted.delaySecs", (15*60))) 
+      {
+         return true;
+      }
+   }
+   return false;
 }
 
 int epic_zone_data::displayed_alignment() const 
 {
-  int delta = 0;
- 	for(vector<epic_zone_completion>::iterator it = epic_zone_completions.begin();
-      it != epic_zone_completions.end();
-      it++)
-	{
-		if((it->number == this->number) && (time(NULL) - it->done_at) < (int) get_property("epic.showCompleted.delaySecs", (15*60))) 
-    {
-      return this->alignment - it->delta;
-    }
-	}
-  
-  return this->alignment;
+   int delta = 0;
+   for(vector<epic_zone_completion>::iterator it = epic_zone_completions.begin();
+            it != epic_zone_completions.end();
+            it++)
+   {
+      if((it->number == this->number) && 
+         (time(NULL) - it->done_at) < (int) get_property("epic.showCompleted.delaySecs", (15*60))) 
+      {
+         return this->alignment - it->delta;
+      }
+   }
+   return this->alignment;
 }
 
 
@@ -2234,7 +2245,7 @@ void do_epic_reset(P_char ch, char *arg, int cmd)
   // run through skills
   // for each skill that is epic:
   //    for each skill point:
-  //      calculate epic point cost / plat cost
+  //      calculate epic pointcost / plat cost
   //      reimburse points / plat
   
   send_to_char("&+WResetting epic skills:\n", ch);
@@ -2362,7 +2373,7 @@ void do_epic_share(P_char ch, char *arg, int cmd)
 
   struct affected_type *afp, *tafp;
 
-  if (!has_epic_task(ch))
+  if(!has_epic_task(ch))
   {
     send_to_char("You don't have an epic task to share.\r\n", ch);
     return;
@@ -2379,13 +2390,13 @@ void do_epic_share(P_char ch, char *arg, int cmd)
       if( gl->ch == ch ) continue;
       if( gl->ch->in_room == ch->in_room )
       {
-	if (is_linked_to(ch, gl->ch, LNK_CONSENT) && IS_PC(gl->ch))
+	if(is_linked_to(ch, gl->ch, LNK_CONSENT) && IS_PC(gl->ch))
 	{
-	  if (has_epic_task(gl->ch))
+	  if(has_epic_task(gl->ch))
 	  {
 	    tafp = get_epic_task(gl->ch);
 	    // Don't let nexus stones or pvp get replaced
-	    if (tafp->modifier < 0)
+	    if(tafp->modifier < 0)
 	      continue;
 	    tafp->type = afp->type;
 	    tafp->flags = afp->flags;
@@ -2627,35 +2638,35 @@ int two_weapon_check(P_char ch)
 
   twoskl = GET_CHAR_SKILL(ch, SKILL_TWOWEAPON);
 
-  if (ch->equipment[PRIMARY_WEAPON] && (ch->equipment[SECONDARY_WEAPON] ||
+  if(ch->equipment[PRIMARY_WEAPON] && (ch->equipment[SECONDARY_WEAPON] ||
       ch->equipment[THIRD_WEAPON] || ch->equipment[FOURTH_WEAPON]) && twoskl)
   {
-    if (twoskl > 0 && twoskl < 20)
+    if(twoskl > 0 && twoskl < 20)
     {
       ch->points.hitroll += 1;
       ch->points.damroll += 1;
     }
-    else if (twoskl >= 20 && twoskl < 40)
+    else if(twoskl >= 20 && twoskl < 40)
     {
       ch->points.hitroll += 2;
       ch->points.damroll += 2;
     }
-    else if (twoskl >= 40 && twoskl < 60)
+    else if(twoskl >= 40 && twoskl < 60)
     {
       ch->points.hitroll += 3;
       ch->points.damroll += 3;
     }
-    else if (twoskl >= 60 && twoskl < 80)
+    else if(twoskl >= 60 && twoskl < 80)
     {
       ch->points.hitroll += 4;
       ch->points.damroll += 4;
     }
-    else if (twoskl >= 80 && twoskl < 100)
+    else if(twoskl >= 80 && twoskl < 100)
     {
       ch->points.hitroll += 5;
       ch->points.damroll += 5;
     }
-    else if (twoskl == 100)
+    else if(twoskl == 100)
     {
       ch->points.hitroll += 6;
       ch->points.damroll += 6;
@@ -2669,7 +2680,7 @@ void do_epic_skills(P_char ch, char *arg, int cmd)
   char buff[MAX_STRING_LENGTH];
   P_char teacher;
 
-  if (IS_TRUSTED(ch))
+  if(IS_TRUSTED(ch))
   {
     send_to_char("&+GSkills                    (Vnum) Teacher Name\n" \
                  "-------------------------------------------------\n", ch);
@@ -2708,7 +2719,7 @@ void do_epic_skills(P_char ch, char *arg, int cmd)
 
     if(IS_TRUSTED(ch))
     {
-      if (teacher = read_mobile(epic_teachers[t].vnum, VIRTUAL))
+      if(teacher = read_mobile(epic_teachers[t].vnum, VIRTUAL))
       {
         sprintf(buff, "&+W%-25s &n(&+W%-5d&n) %s\n", skills[skill].name, epic_teachers[t].vnum, teacher->player.short_descr);
         extract_char(teacher);
@@ -2734,7 +2745,7 @@ void do_infuse(P_char ch, char *arg, int cmd)
   int check;
   struct affected_type af;
 
-  if (!(skill = GET_CHAR_SKILL(ch, SKILL_INFUSE_MAGICAL_DEVICE)))
+  if(!(skill = GET_CHAR_SKILL(ch, SKILL_INFUSE_MAGICAL_DEVICE)))
   {
     send_to_char("You don't know how.\r\n", ch);
     return;
@@ -2742,39 +2753,39 @@ void do_infuse(P_char ch, char *arg, int cmd)
 
   arg = one_argument(arg, Gbuf1);
 
-  if (!(device = get_object_in_equip_vis(ch, Gbuf1, &i)))
+  if(!(device = get_object_in_equip_vis(ch, Gbuf1, &i)))
   {
     send_to_char("You need to hold something to infuse it.\r\n", ch);
     return;
   }
 
-  if ((device->type != ITEM_STAFF) &&
+  if((device->type != ITEM_STAFF) &&
        (device->type != ITEM_WAND))
   {
     send_to_char("You can't infuse that!\r\n", ch);
     return;
   }
 
-  if (get_spell_from_char(ch, SKILL_INFUSE_MAGICAL_DEVICE))
+  if(get_spell_from_char(ch, SKILL_INFUSE_MAGICAL_DEVICE))
   {
     send_to_char("You need to wait before you can infuse a device again.\r\n", ch);
     return;
   }
 
-  if ((device->type == ITEM_STAFF) &&
+  if((device->type == ITEM_STAFF) &&
        (skill < 40))
   {
     send_to_char("You're not proficient enough to infuse a staff yet.\r\n", ch);
     return;
   }
 
-  if (device->value[7] >= 2)
+  if(device->value[7] >= 2)
   {
     send_to_char("This device is too worn out to be infused.\r\n", ch);
     return;
   }
 
-  if (device->value[2] == device->value[1])
+  if(device->value[2] == device->value[1])
   {
     send_to_char("That device is already fully charged!\r\n", ch);
     return;
@@ -2783,9 +2794,9 @@ void do_infuse(P_char ch, char *arg, int cmd)
   for (t_obj = ch->carrying; t_obj; t_obj = nextobj)
   {
     nextobj = t_obj->next_content;
-    if (obj_index[t_obj->R_num].virtual_number == RANDOM_OBJ_VNUM)
+    if(obj_index[t_obj->R_num].virtual_number == RANDOM_OBJ_VNUM)
     {
-      if (isname("_strange_", t_obj->name))
+      if(isname("_strange_", t_obj->name))
       {
         stone = t_obj;
         break;
@@ -2793,7 +2804,7 @@ void do_infuse(P_char ch, char *arg, int cmd)
     }
   }
 
-  if (stone)
+  if(stone)
   {
     sprintf(msg, "&+WYou infuse the magic from %s &+Winto %s&+W.&n\r\n",
             stone->short_description, device->short_description);
@@ -2815,7 +2826,7 @@ void do_infuse(P_char ch, char *arg, int cmd)
     send_to_char(msg, ch);
     device->value[2]++;
 
-    if (device->value[2] == device->value[1])
+    if(device->value[2] == device->value[1])
     {
       sprintf(msg, "&+W%s &+Whas been fully infused!\r\n", device->short_description);
       send_to_char(msg, ch);
@@ -2823,7 +2834,7 @@ void do_infuse(P_char ch, char *arg, int cmd)
     }
 
     check += 10;
-    if ((number(0, 100) < ((check) - (skill/2))) || (check == 100))
+    if((number(0, 100) < ((check) - (skill/2))) || (check == 100))
     {
       send_to_char("&+LYou can't infuse this anymore today.&n\r\n",  ch);
       break;
@@ -2836,7 +2847,7 @@ void do_infuse(P_char ch, char *arg, int cmd)
   af.flags = AFFTYPE_NOSHOW | AFFTYPE_NODISPEL;
   affect_to_char(ch, &af);
 
-  if (skill >= 70)
+  if(skill >= 70)
   {
     device->value[7]++;
   }

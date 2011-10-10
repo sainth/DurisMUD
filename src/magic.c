@@ -1382,7 +1382,7 @@ void spell_wither(int level, P_char ch, char *arg, int type, P_char victim,
     af.modifier = 0 - (int) (GET_DAMROLL(victim) / 4);
     af.location = APPLY_DAMROLL;
     affect_to_char(victim, &af);
-    af.modifier = +100;
+    af.modifier = + 100;
     af.location = APPLY_AC;
     affect_to_char(victim, &af);
   }
@@ -1545,7 +1545,7 @@ P_char make_mirror (P_char ch) {
   /* if the pet will stop being charmed after a bit, also make it suicide 1-10 minutes later */
   if(duration >= 0) {
     duration += number(1,10);
-    add_event(event_pet_death, (duration+1) * 60 * 4, image, NULL, NULL, 0, NULL, 0);
+    add_event(event_pet_death, (duration+ 1) * 60 * 4, image, NULL, NULL, 0, NULL, 0);
   }
 
   /* string it */
@@ -2005,7 +2005,7 @@ void spell_conjour_elemental(int level, P_char ch, char *arg, int type,
     if(duration >= 0)
     {
       duration += number(1,10);
-      add_event(event_pet_death, (duration+1) * 60 * 4, mob, NULL, NULL, 0, NULL, 0);
+      add_event(event_pet_death, (duration+ 1) * 60 * 4, mob, NULL, NULL, 0, NULL, 0);
     }
   }
 }
@@ -2494,7 +2494,7 @@ void conjure_specialized(P_char ch, int level)
     if(duration >= 0)
     {
       duration += number(1,10);
-      add_event(event_pet_death, (duration+1) * 60 * 4, mob, NULL, NULL, 0, NULL, 0);
+      add_event(event_pet_death, (duration+ 1) * 60 * 4, mob, NULL, NULL, 0, NULL, 0);
     }
   }
 }
@@ -2617,7 +2617,7 @@ void spell_conjour_greater_elemental(int level, P_char ch, char *arg,
     if(duration >= 0)
     {
       duration += number(1,10);
-      add_event(event_pet_death, (duration+1) * 60 * 4, mob, NULL, NULL, 0, NULL, 0);
+      add_event(event_pet_death, (duration+ 1) * 60 * 4, mob, NULL, NULL, 0, NULL, 0);
     }
   }
 }
@@ -2712,7 +2712,7 @@ void spell_summon_greater_demon(int level, P_char ch, P_char victim,
     if(duration >= 0)
     {
       duration += number(1,10);
-      add_event(event_pet_death, (duration+1) * 60 * 4, mob, NULL, NULL, 0, NULL, 0);
+      add_event(event_pet_death, (duration+ 1) * 60 * 4, mob, NULL, NULL, 0, NULL, 0);
     }
   }
 }
@@ -3116,8 +3116,8 @@ void spell_chain_lightning(int level, P_char ch, char *arg, int type,
   act("A writhing &=LBbolt of lightning&n leaves $n's hands...", FALSE, ch, 0,
       0, TO_ROOM);
   zone_spellmessage(room,
-                       "&=LBThe sky lights up with brilliant lightning flashes!\n",
-                       "&=LBThe sky to the %s lights up with brilliant lightning flashes!\n");
+                       "&=LBThe sky is illuminated with brilliant lightning flashes!\n",
+                       "&=LBThe sky to the %s is illuminated with brilliant lightning flashes!\n");
 
   hit = cast_as_damage_area(ch, spell_single_chain_lightning, level, victim,
                             get_property ("spell.area.minChance.chainLightning", 0),
@@ -10623,8 +10623,8 @@ void spell_continual_light(int level, P_char ch, char *arg, int type,
   else
   {
   /*
-    send_to_char("&+WThe room lights up&n and then dims slightly.\n", ch);
-    act("&+WThe room lights up.&n", 0, ch, 0, 0, TO_ROOM);
+    send_to_char("&+WThe room is illuminated&n and then dims slightly.\n", ch);
+    act("&+WThe room is illuminated.&n", 0, ch, 0, 0, TO_ROOM);
     SET_BIT(world[ch->in_room].room_flags, TWILIGHT);
   */
 
@@ -10656,10 +10656,10 @@ void spell_continual_light(int level, P_char ch, char *arg, int type,
 
       SET_BIT(world[ch->in_room].room_flags, MAGIC_LIGHT);
 
-      send_to_char("&+WThe room lights up!\n", ch);
-      act("&+WThe room lights up!", 0, ch, 0, 0, TO_ROOM);
+      send_to_char("&+WThe room is illuminated!\n", ch);
+      act("&+WThe room is illuminated!", 0, ch, 0, 0, TO_ROOM);
 
-      add_event(cont_light_dissipate_event, level * 50, NULL, NULL, NULL, 0, buff, strlen(buff)+1);
+      add_event(cont_light_dissipate_event, level * 50, NULL, NULL, NULL, 0, buff, strlen(buff)+ 1);
       //AddEvent(EVENT_SPECIAL, level * 50, TRUE, cont_light_dissipate_event, buff);
     }
   }
@@ -17540,7 +17540,7 @@ void spell_starshell(int level, P_char ch, char *arg, int type, P_char vict, P_o
   return;
 }
 
-void spell_vampire(int level, P_char ch, char *arg, int type, P_char vict,
+void spell_vampiric_trance(int level, P_char ch, char *arg, int type, P_char vict,
                    P_obj obj)
 {
   struct affected_type af, *afp;
@@ -19561,7 +19561,7 @@ void event_natures_call(P_char ch, P_char victim, P_obj obj, void *data)
 void spell_perm_increase_str(int level, P_char ch, char *arg, int type,
                          P_char victim, P_obj obj)
 {
-    send_to_room("&+WThe room lights up as a &+Ymagical&+W light fills the room.&n\n", ch->in_room);
+    send_to_room("&+WThe room is illuminated as a &+Ymagical&+W light fills the room.&n\n", ch->in_room);
 
     if(victim->base_stats.Str >= 95)
     {
@@ -19570,15 +19570,15 @@ void spell_perm_increase_str(int level, P_char ch, char *arg, int type,
     }
 
     send_to_char("&+BYou feel your strength improve..\n", victim);
-    victim->base_stats.Str = BOUNDED(1, victim->base_stats.Str +1, 95);
-    victim->curr_stats.Str = BOUNDED(1, victim->curr_stats.Str +1, 95);
+    victim->base_stats.Str = BOUNDED(1, victim->base_stats.Str + 1, 95);
+    victim->curr_stats.Str = BOUNDED(1, victim->curr_stats.Str + 1, 95);
     balance_affects(victim);
 }
 
 void spell_perm_increase_agi(int level, P_char ch, char *arg, int type,
                          P_char victim, P_obj obj)
 {
-    send_to_room("&+WThe room lights up as a &+Ymagical&+W light fills the room.&n\n", ch->in_room);
+    send_to_room("&+WThe room is illuminated as a &+Ymagical&+W light fills the room.&n\n", ch->in_room);
 
     if(victim->base_stats.Agi >= 95)
     {
@@ -19587,15 +19587,15 @@ void spell_perm_increase_agi(int level, P_char ch, char *arg, int type,
     }
 
     send_to_char("&+BYou feel your agility improve..\n", victim);
-    victim->base_stats.Agi = BOUNDED(1, victim->base_stats.Agi +1, 95);
-    victim->curr_stats.Agi = BOUNDED(1, victim->curr_stats.Agi +1, 95);
+    victim->base_stats.Agi = BOUNDED(1, victim->base_stats.Agi + 1, 95);
+    victim->curr_stats.Agi = BOUNDED(1, victim->curr_stats.Agi + 1, 95);
     balance_affects(victim);
 }
 
 void spell_perm_increase_dex(int level, P_char ch, char *arg, int type,
                          P_char victim, P_obj obj)
 {
-    send_to_room("&+WThe room lights up as a &+Ymagical&+W light fills the room.&n\n", ch->in_room);
+    send_to_room("&+WThe room is illuminated as a &+Ymagical&+W light fills the room.&n\n", ch->in_room);
 
     if(victim->base_stats.Dex >= 95)
     {
@@ -19604,15 +19604,15 @@ void spell_perm_increase_dex(int level, P_char ch, char *arg, int type,
     }
 
     send_to_char("&+BYou feel your dexterity grow..\n", victim);
-    victim->base_stats.Dex = BOUNDED(1, victim->base_stats.Dex +1, 95);
-    victim->curr_stats.Dex = BOUNDED(1, victim->curr_stats.Dex +1, 95);
+    victim->base_stats.Dex = BOUNDED(1, victim->base_stats.Dex + 1, 95);
+    victim->curr_stats.Dex = BOUNDED(1, victim->curr_stats.Dex + 1, 95);
     balance_affects(victim);
 }
 
 void spell_perm_increase_con(int level, P_char ch, char *arg, int type,
                          P_char victim, P_obj obj)
 {
-    send_to_room("&+WThe room lights up as a &+Ymagical&+W light fills the room.&n\n", ch->in_room);
+    send_to_room("&+WThe room is illuminated as a &+Ymagical&+W light fills the room.&n\n", ch->in_room);
 
     if(victim->base_stats.Con >= 95)
     {
@@ -19621,15 +19621,15 @@ void spell_perm_increase_con(int level, P_char ch, char *arg, int type,
     }
 
     send_to_char("&+BYou feel your constitition grow..\n", victim);
-    victim->base_stats.Con = BOUNDED(1, victim->base_stats.Con +1, 95);
-    victim->curr_stats.Con = BOUNDED(1, victim->curr_stats.Con +1, 95);
+    victim->base_stats.Con = BOUNDED(1, victim->base_stats.Con + 1, 95);
+    victim->curr_stats.Con = BOUNDED(1, victim->curr_stats.Con + 1, 95);
     balance_affects(victim);
 }
 
 void spell_perm_increase_luck(int level, P_char ch, char *arg, int type,
                          P_char victim, P_obj obj)
 {
-    send_to_room("&+WThe room lights up as a &+Ymagical&+W light fills the room.&n\n", ch->in_room);
+    send_to_room("&+WThe room is illuminated as a &+Ymagical&+W light fills the room.&n\n", ch->in_room);
 
     if(victim->base_stats.Luck >= 95)
     {
@@ -19638,14 +19638,14 @@ void spell_perm_increase_luck(int level, P_char ch, char *arg, int type,
     }
 
     send_to_char("&+BYou feel your luck grow..\n", victim);
-    victim->base_stats.Luck = BOUNDED(1, victim->base_stats.Luck +1, 95);
-    victim->curr_stats.Luck = BOUNDED(1, victim->curr_stats.Luck +1, 95);
+    victim->base_stats.Luck = BOUNDED(1, victim->base_stats.Luck + 1, 95);
+    victim->curr_stats.Luck = BOUNDED(1, victim->curr_stats.Luck + 1, 95);
     balance_affects(victim);
 }
 void spell_perm_increase_pow(int level, P_char ch, char *arg, int type,
                          P_char victim, P_obj obj)
 {
-    send_to_room("&+WThe room lights up as a &+Ymagical&+W light fills the room.&n\n", ch->in_room);
+    send_to_room("&+WThe room is illuminated as a &+Ymagical&+W light fills the room.&n\n", ch->in_room);
 
     if(victim->base_stats.Pow >= 95)
     {
@@ -19654,15 +19654,15 @@ void spell_perm_increase_pow(int level, P_char ch, char *arg, int type,
     }
 
     send_to_char("&+BYou feel your power grow..\n", victim);
-    victim->base_stats.Pow = BOUNDED(1, victim->base_stats.Pow +1, 95);
-    victim->curr_stats.Pow = BOUNDED(1, victim->curr_stats.Pow +1, 95);
+    victim->base_stats.Pow = BOUNDED(1, victim->base_stats.Pow + 1, 95);
+    victim->curr_stats.Pow = BOUNDED(1, victim->curr_stats.Pow + 1, 95);
     balance_affects(victim);
 }
 
 void spell_perm_increase_int(int level, P_char ch, char *arg, int type,
                          P_char victim, P_obj obj)
 {
-    send_to_room("&+WThe room lights up as a &+Ymagical&+W light fills the room.&n\n", ch->in_room);
+    send_to_room("&+WThe room is illuminated as a &+Ymagical&+W light fills the room.&n\n", ch->in_room);
 
     if(victim->base_stats.Int >= 95)
     {
@@ -19671,14 +19671,14 @@ void spell_perm_increase_int(int level, P_char ch, char *arg, int type,
     }
 
     send_to_char("&+BYou feel your intelligence grow..\n", victim);
-    victim->base_stats.Int = BOUNDED(1, victim->base_stats.Int +1, 95);
-    victim->curr_stats.Int = BOUNDED(1, victim->curr_stats.Int +1, 95);
+    victim->base_stats.Int = BOUNDED(1, victim->base_stats.Int + 1, 95);
+    victim->curr_stats.Int = BOUNDED(1, victim->curr_stats.Int + 1, 95);
     balance_affects(victim);
 }
 void spell_perm_increase_wis(int level, P_char ch, char *arg, int type,
                          P_char victim, P_obj obj)
 {
-    send_to_room("&+WThe room lights up as a &+Ymagical&+W light fills the room.&n\n", ch->in_room);
+    send_to_room("&+WThe room is illuminated as a &+Ymagical&+W light fills the room.&n\n", ch->in_room);
 
     if(victim->base_stats.Wis >= 95)
     {
@@ -19687,14 +19687,14 @@ void spell_perm_increase_wis(int level, P_char ch, char *arg, int type,
     }
 
     send_to_char("&+BYou feel your wisdom grow..\n", victim);
-    victim->base_stats.Wis= BOUNDED(1, victim->base_stats.Wis +1, 95);
-    victim->curr_stats.Wis = BOUNDED(1, victim->curr_stats.Wis +1, 95);
+    victim->base_stats.Wis= BOUNDED(1, victim->base_stats.Wis + 1, 95);
+    victim->curr_stats.Wis = BOUNDED(1, victim->curr_stats.Wis + 1, 95);
     balance_affects(victim);
 }
 void spell_perm_increase_cha(int level, P_char ch, char *arg, int type,
                          P_char victim, P_obj obj)
 {
-    send_to_room("&+WThe room lights up as a &+Ymagical&+W light fills the room.&n\n", ch->in_room);
+    send_to_room("&+WThe room is illuminated as a &+Ymagical&+W light fills the room.&n\n", ch->in_room);
 
     if(victim->base_stats.Cha >= 95)
     {
@@ -19703,8 +19703,8 @@ void spell_perm_increase_cha(int level, P_char ch, char *arg, int type,
     }
 
     send_to_char("&+BYou feel your charisma grow..\n", victim);
-    victim->base_stats.Cha = BOUNDED(1, victim->base_stats.Cha +1, 95);
-    victim->curr_stats.Cha = BOUNDED(1, victim->curr_stats.Cha +1, 95);
+    victim->base_stats.Cha = BOUNDED(1, victim->base_stats.Cha + 1, 95);
+    victim->curr_stats.Cha = BOUNDED(1, victim->curr_stats.Cha + 1, 95);
     balance_affects(victim);
 }
 

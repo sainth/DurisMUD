@@ -1958,11 +1958,11 @@ bool CastReaverSpell(P_char ch, P_char victim, int helping)
     spl = SPELL_CHILLING_IMPLOSION;
 
   if(!spl && (ch == target) &&
-      !affected_by_spell(target, SPELL_STORMCALLERS_FURY) &&
+      !affected_by_spell(target, SPELL_UMBERLEES_FURY) &&
       affected_by_spell(target, SPELL_LLIENDILS_STORMSHOCK) &&
-      npc_has_spell_slot(ch, SPELL_STORMCALLERS_FURY) &&
+      npc_has_spell_slot(ch, SPELL_UMBERLEES_FURY) &&
       (!IS_FIGHTING(ch) || number(0, 1)))
-    spl = SPELL_STORMCALLERS_FURY;
+    spl = SPELL_UMBERLEES_FURY;
 
   if(!spl && (ch == target) &&
       !affected_by_spell(target, SPELL_CEGILUNE_BLADE) &&

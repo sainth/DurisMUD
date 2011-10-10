@@ -2549,7 +2549,7 @@ void spell_hellfire(int, P_char, char *, int, P_char, P_obj);
 void spell_battletide(int, P_char, char *, int, P_char, P_obj);
 void spell_starshell(int, P_char, char *, int, P_char, P_obj);
 void spell_cloak_of_fear(int, P_char, char *, int, P_char, P_obj);
-void spell_vampire(int, P_char, char *, int, P_char, P_obj);
+void spell_vampiric_trance(int, P_char, char *, int, P_char, P_obj);
 void spell_raise_spectre(int, P_char, char *, int, P_char, P_obj);
 void spell_raise_wraith(int, P_char, char *, int, P_char, P_obj);
 void spell_raise_shadow(int, P_char, char *, int, P_char, P_obj);

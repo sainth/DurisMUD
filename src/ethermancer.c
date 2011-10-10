@@ -2358,11 +2358,10 @@ void spell_razor_wind(int level, P_char ch, char *arg, int type, P_char victim, 
 {
   int room;
   room = ch->in_room;
-  send_to_room("&+WThe winds in the area begin to pick up, slowly becoming more intense...\n",
-     ch->in_room);
+  send_to_room("&+WThe winds in the area begin to pick up, slowly becoming more intense...\n", ch->in_room);
   zone_spellmessage(ch->in_room,
-    "&+LThe air &+cchills &+Land the odor of &+rdeath &+Land &+ydecay &+Lassault your senses.\n",
-    "&+LThe air to the %s &+cchills &+Land the odor of &+rdeath &+Land &+ydecay &+Lassault your senses.\n");
+    "&+LThe air &+cchills &+Land a rather fierce wind begins to blow...\n",
+    "&+LThe air to the %s &+cchills &+Land a rather fierce wind begins to blow...\n");
 
   add_event(event_razor_wind, PULSE_VIOLENCE * 2, ch, 0, 0, 0, &room, sizeof(room));
 

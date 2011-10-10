@@ -4508,28 +4508,27 @@ void do_divine_force(P_char ch, char *arg, int cmd)
   struct affected_type af1;
   int timer, timer1;
   
-  if(!ch ||
-     !IS_ALIVE(ch))
+  if(!ch || !IS_ALIVE(ch))
   {
-    return;
+     return;
   }
   
   if(!has_innate(ch, INNATE_DIVINE_FORCE))
   {
-    send_to_char("You pray, and pray, and pray ...\n", ch);
-    return;
+     send_to_char("You pray, and pray, and pray ...\n", ch);
+     return;
   }
 
   if(affected_by_spell(ch, TAG_DIVINE_FORCE_AFFECT))
   {
-    send_to_char("You are alread empowered by divine force.\n", ch);
-    return;
+     send_to_char("You are already empowered by divine force.\n", ch);
+     return;
   }
 
   if(affected_by_spell(ch, TAG_DIVINE_FORCE_TIMER))
   {
-    send_to_char("Divinity is a precious gift. You must consider waiting a bit longer.\n", ch);
-    return;
+     send_to_char("Divinity is a precious gift. You must consider waiting a bit longer.\n", ch);
+     return;
   }
     
   timer1 = get_property("innate.timer.secs.divineforceAffect", 20);
@@ -4537,7 +4536,7 @@ void do_divine_force(P_char ch, char *arg, int cmd)
   memset(&af1, 0, sizeof(af1));
   af1.type = TAG_DIVINE_FORCE_AFFECT;
   af1.location = INNATE_DIVINE_FORCE;
-  af1.duration = timer1;
+  af1.duration = timer1 * WAIT_SEC;
   af1.flags = AFFTYPE_SHORT | AFFTYPE_NOSAVE | AFFTYPE_NODISPEL | AFFTYPE_NOAPPLY;
   affect_to_char(ch, &af1);
   

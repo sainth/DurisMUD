@@ -558,11 +558,11 @@
 #define SPELL_TRANS_LAVA_ROCK   519
 #define SPELL_COMET             520
 
-// Flame Reaver Spell
+// Reaver spells
 #define SPELL_CEGILUNE_BLADE      521
 #define SPELL_RIGHTEOUS_AURA      522
 #define SPELL_BLEAK_FOEMAN        523
-#define SPELL_STORMCALLERS_FURY   524
+#define SPELL_UMBERLEES_FURY      524
 #define SPELL_CHILLING_IMPLOSION  525
 #define SPELL_LIGHTNINGSHIELD     526
 
@@ -1033,7 +1033,7 @@
 #define TYPE_TRAP                    2037
 #define TAG_HIT_COUNTER              2038
 #define TAG_NUKED_COUNTER            2039
-#define TAG_STORMCALLERS_FURY_TARGET 2040
+#define TAG_UMBERLEES_FURY_TARGET    2040
 #define TAG_CHILLING_IMPLOSION_TARGET 2041
 #define TAG_ENHANCE_HEALING          2042
 #define TAG_GRAPPLE                  2043

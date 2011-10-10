@@ -903,7 +903,7 @@ bool lliendils_stormshock(P_char ch, P_char victim, P_obj wpn)
   return FALSE;
 }
 
-void spell_stormcallers_fury(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
+void spell_umberlees_fury(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
   struct affected_type af;
   bool weapon = false;
@@ -914,7 +914,7 @@ void spell_stormcallers_fury(int level, P_char ch, char *arg, int type, P_char v
     return;
   }
 
-  if(affected_by_spell(ch, SPELL_STORMCALLERS_FURY) )
+  if(affected_by_spell(ch, SPELL_UMBERLEES_FURY) )
   {
     send_to_char("You already are infuriated!&n\n", ch);
     return;
@@ -947,7 +947,7 @@ void spell_stormcallers_fury(int level, P_char ch, char *arg, int type, P_char v
 
   bzero(&af, sizeof(af));
 
-  af.type = SPELL_STORMCALLERS_FURY;
+  af.type = SPELL_UMBERLEES_FURY;
   af.duration = level/2;
   af.modifier = 0;
 
@@ -957,7 +957,7 @@ void spell_stormcallers_fury(int level, P_char ch, char *arg, int type, P_char v
 
 }
 
-bool stormcallers_fury(P_char ch, P_char victim, P_obj wpn)
+bool umberlees_fury(P_char ch, P_char victim, P_obj wpn)
 {
   int pid;
   struct affected_type *afp, af;
@@ -977,7 +977,7 @@ bool stormcallers_fury(P_char ch, P_char victim, P_obj wpn)
     return FALSE;
   }
   
-  afp = get_spell_from_char(ch, SPELL_STORMCALLERS_FURY);
+  afp = get_spell_from_char(ch, SPELL_UMBERLEES_FURY);
   
   if(!afp)
   {
@@ -986,42 +986,42 @@ bool stormcallers_fury(P_char ch, P_char victim, P_obj wpn)
   
   /*
    the current level of chargeup is stored in the spell modifier
-   the targets get TAG_STORMCALLERS_FURY_TARGET counters with the pid of the attacker,
+   the targets get TAG_UMBERLEES_FURY_TARGET counters with the pid of the attacker,
    so if the reaver attacks a new target without the counter, it will reset the chargeup
    */
 
   pid = ( IS_PC(ch) ? GET_PID(ch) : GET_RNUM(ch) );
 
-  int stormcaller_id = counter(victim, TAG_STORMCALLERS_FURY_TARGET);
+  int target_id_id = counter(victim, TAG_UMBERLEES_FURY_TARGET);
 
-  if( stormcaller_id != pid )
+  if(target_id_id != pid )
   {
     // starting on a new target, reset spell modifier
     afp->modifier = 0;
-    remove_counter(victim, TAG_STORMCALLERS_FURY_TARGET, pid);
-    add_counter(victim, TAG_STORMCALLERS_FURY_TARGET, pid, 0);
+    remove_counter(victim, TAG_UMBERLEES_FURY_TARGET, pid);
+    add_counter(victim, TAG_UMBERLEES_FURY_TARGET, pid, 0);
     return FALSE;
   }
   else
   {
     // buildup
-    if( !number(0,1) )
+    if(!number(0,1) )
     {
       afp->modifier++;
 
-      if( afp->modifier == 6 )
+      if(afp->modifier == 6 )
       {
         act("&+BSparks begin to &+Yarc &+Band &+Ljump &+Bacross your weapon&+B.&n", FALSE, ch, wpn, victim, TO_CHAR);
         act("&+BSparks begin to &+Yarc &+Band &+Ljump &+Bacross $n's weapon&+B.&n", FALSE, ch, wpn, victim, TO_VICT);
         act("&+BSparks begin to &+Yarc &+Band &+Ljump &+Bacross $n's weapon&+B.&n", FALSE, ch, wpn, victim, TO_NOTVICT);
       }
-      else if( afp->modifier == 12 )
+      else if(afp->modifier == 12 )
       {
         act("&+BThe &+Yelectrical&+B aura around your weapon &+Bintensifies, and begins to &+Wcrackle &+Bloudly!&n", FALSE, ch, wpn, victim, TO_CHAR);
         act("&+BThe &+Yelectrical&+B aura around $n's &+Bweapon &+Bintensifies, and begins to &+Wcrackle &+Bloudly!&n", FALSE, ch, wpn, victim, TO_VICT);
         act("&+BThe &+Yelectrical&+B aura around $n's &+Bweapon &+Bintensifies, and begins to &+Wcrackle &+Bloudly!&n", FALSE, ch, wpn, victim, TO_NOTVICT);
       }
-      else if( afp->modifier > number(14,16) )
+      else if(afp->modifier > number(14,16) )
       {
         afp->modifier = 0;
 
@@ -1036,14 +1036,14 @@ bool stormcallers_fury(P_char ch, P_char victim, P_obj wpn)
 
         afp->modifier = 0;
 
-        if( !IS_ALIVE(victim) )
+        if(!IS_ALIVE(victim) )
           return TRUE;
       }
 
     }
 
-    remove_counter(victim, TAG_STORMCALLERS_FURY_TARGET, pid);
-    add_counter(victim, TAG_STORMCALLERS_FURY_TARGET, pid, 0);
+    remove_counter(victim, TAG_UMBERLEES_FURY_TARGET, pid);
+    add_counter(victim, TAG_UMBERLEES_FURY_TARGET, pid, 0);
     return FALSE;
   }
 
@@ -1142,7 +1142,7 @@ bool kostchtchies_implosion(P_char ch, P_char victim, P_obj wpn)
 
   int imploder_id = counter(victim, TAG_CHILLING_IMPLOSION_TARGET);
 
-  if( imploder_id != pid )
+  if(imploder_id != pid )
   {
     // starting on a new target, reset spell modifier
     afp->modifier = 0;
@@ -1153,23 +1153,23 @@ bool kostchtchies_implosion(P_char ch, P_char victim, P_obj wpn)
   else
   {
     // buildup
-    if( !number(0,1) )
+    if(!number(0,1) )
     {
       afp->modifier++;
 
-      if( afp->modifier == 6 )
+      if(afp->modifier == 6 )
       {
         act("&+CThe &+Bchilling &+Cice begins to gather upon your weapon&+C.&n", FALSE, ch, wpn, victim, TO_CHAR);
         act("&+CThe &+Bchilling &+Cice begins to gather upon $n's weapon&+C.&n", FALSE, ch, wpn, victim, TO_VICT);
         act("&+CThe &+Bchilling &+Cice begins to gather upon $n's weapon&+C.&n", FALSE, ch, wpn, victim, TO_NOTVICT);
       }
-      else if( afp->modifier == 12 )
+      else if(afp->modifier == 12 )
       {
         act("&+CThe &+Bice &+Cbegins to become heavy on your weapon&+C, and your determination grows!&n", FALSE, ch, wpn, victim, TO_CHAR);
         act("&+CThe &+Bice &+Cbegins to become heavy on $n's weapon&+C, and their determination fiercely intensifies!&n", FALSE, ch, wpn, victim, TO_VICT);
         act("&+CThe &+Bice &+Cbegins to become heavy on $n's weapon&+C, and their determination fiercely intensifies!&n", FALSE, ch, wpn, victim, TO_NOTVICT);
       }
-      else if( afp->modifier > number(14,16) )
+      else if(afp->modifier > number(14,16) )
       {
         afp->modifier = 0;
         struct damage_messages messages = {
@@ -1208,7 +1208,7 @@ bool reaver_hit_proc(P_char ch, P_char victim, P_obj weapon)
   if(GET_RACE(victim) == RACE_CONSTRUCT)
      return FALSE;
 
-  if (affected_by_spell(ch, SPELL_STORMCALLERS_FURY) && stormcallers_fury(ch, victim, weapon))
+  if (affected_by_spell(ch, SPELL_UMBERLEES_FURY) && umberlees_fury(ch, victim, weapon))
     return TRUE;
 
   if (affected_by_spell(ch, SPELL_CHILLING_IMPLOSION) && kostchtchies_implosion(ch, victim, weapon))
@@ -1235,7 +1235,7 @@ bool reaver_hit_proc(P_char ch, P_char victim, P_obj weapon)
  */
 void apply_reaver_mods(P_char ch)
 {
-  if( !ch )
+  if(!ch )
     return;
 
   P_obj w1 = ch->equipment[WIELD];
@@ -1266,9 +1266,9 @@ void apply_reaver_mods(P_char ch)
     }
   }
 /* Shock reavers currently have no two handed weapon skills. Apr09 -Lucrot
-  else if( GET_SPEC(ch, CLASS_REAVER, SPEC_SHOCK_REAVER) )
+  else if(GET_SPEC(ch, CLASS_REAVER, SPEC_SHOCK_REAVER) )
   {
-    if( required_weapon_skill(w1) == SKILL_2H_SLASHING ||
+    if(required_weapon_skill(w1) == SKILL_2H_SLASHING ||
         required_weapon_skill(w2) == SKILL_2H_SLASHING )
     {
       ch->specials.base_combat_round += (int) get_property("reavers.shock.penalty.pulse.2hSlashing", 3);
