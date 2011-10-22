@@ -17,7 +17,7 @@ A shimmering key floats here suspended in mid air.~
 E
 key shimmering~
 This key is amazingly different then all other keys, it is about 3 inches
-long with a emerald inlaid in the head.
+long with an emerald inlaid in the head.
 ~
 #26202
 cloak woven moonbeams~
@@ -48,21 +48,21 @@ cloak spun gold~
 E
 cloak spun gold~
 This cloak is made of a golden thread. It is lined on the
-inside with smooth silk. It has strange symbles on its
+inside with smooth silk. It has strange symbols on its
 interior.
 ~
 A
 23 -2
 #26205
-cloak midnight myst~
-a &+Lcloak of midnight myst&N~
-A cloak of midnight myst lies here.~
+cloak midnight mist~
+a &+Lcloak of midnight mist&N~
+A cloak of midnight mist lies here.~
 ~
 9 1 3 8 7 0 1056 5 0 37883812 0
 3 2 1 3 0 0 0 0
 1 10000 100
 E
-cloak midnight myst~
+cloak midnight mist~
 This cloak is pitch black with dark sigils glowing on it.
 ~
 A
@@ -70,16 +70,16 @@ A
 A
 2 2
 #26206
-cloak mystic light~
-a cloak of &+Ymystic light&N~
-A cloak of mystical being rests here blessed.~
+cloak mistic light~
+a cloak of &+Ymistic light&N~
+A cloak of mistical being rests here blessed.~
 ~
 9 1 3 8 7 0 1025 5 0 37883812 0
 4 2 1 3 0 0 0 0
 3 1 100
 E
-cloak mystic light~
-This cloak is beuatifully wrapped with silver glittiring
+cloak mistic light~
+This cloak is beuatifully wrapped with silver glittering
 gem stones. It also has fine silver markings about is
 sleeves.
 ~
@@ -97,7 +97,7 @@ A dark staff sits here alone with no master.~
 3 1 100
 E
 staff dancing shadows~
-This staff is soley black made from onyx.
+This staff is black, made from onyx.
 ~
 A
 4 5
@@ -130,8 +130,8 @@ A small orb rests here on the floor.~
 1 1 100
 E
 orb onyx~
-You see a small white orb made of black onxy. it is about 3 inches
-in diameter. with gold spots.
+You see a small white orb made of black onyx. It is about 3 inches
+in diameter, with gold spots.
 ~
 A
 5 2
@@ -147,7 +147,7 @@ E
 orb granite~
 You see a small little orb made from a smooth black
 granite, it looks as if it would fit in your hand
-very easly.
+very easily.
 ~
 A
 2 -2
@@ -182,14 +182,14 @@ A
 #26213
 water large fountain~
 a &+Wlarge fountain&N~
-A large &+Rjeweled&N &+Wenlayed fountain&N rests here.~
+A large &+Rjeweled&N &+Winlaid fountain&N rests here.~
 ~
 17 40 6 50 7 0 0 0 0 0 0
 -1 -1 0 0 0 0 0 0
 1 1 100
 E
 jeweled fountain~
-This fountain is right next to the jade statue, it has jewels enlayed
+This fountain is right next to the jade statue, it has jewels inlaid
 upon its base. The base is made of brass, and goes well with the
 jade statue next to it.
 ~
@@ -203,9 +203,9 @@ water moonwell well moon~
 1 1 100
 E
 moonwell moon well~
-The moon well like all the others is made of white marble with varius
-writtings and sigils on it. theese moonwells give the earthmother all
-here power.
+This moonwell, like all the others, is made of white marble with various
+writings and sigils upon it. These moonwells give the earthmother all
+her power.
 ~
 #26215
 orb onyx deifined~
@@ -217,7 +217,7 @@ A small orb lies here.~
 1 1 100
 E
 orb onyx~
-You see a small orb made of Well Defined onyx, it is small enough to hold
+You see a small orb made of well defined onyx, that is small enough to hold
 in your hand.
 ~
 A
@@ -227,7 +227,7 @@ A
 #26216
 staff earthmother~
 &+Gthe staff of the earthmother&N~
-A powerfull looking staff rests here on the ground.~
+A powerful looking staff rests here on the ground.~
 ~
 4 6 3 10 7 0 1025 16385 0 33685920 0
 30 1 1 6 0 0 0 0
@@ -235,7 +235,7 @@ A powerfull looking staff rests here on the ground.~
 E
 staff earthmother~
 This staff is made from the fine oak trees of the moonshaes, it has
-some wood from every living tree on the isles on it. it is amzeingly
+some wood from every living tree on the isles on it. It is amazingly
 light.
 ~
 A
@@ -252,7 +252,7 @@ A sacred robe lies here on the floor.~
 5 50000 100
 E
 staff earthmother~
-This robe is made from finly weaved cloth, it is dark green in color
+This robe is made from finely woven cloth, it is dark green in color
 and looks beautiful.
 ~
 A
@@ -281,7 +281,7 @@ Some green boots lies here.~
 2 23429 100
 E
 green forest boots~
-These boots are made from fine synnorian leather, and have
+These boots are made from fine Synnorian leather, and have
 green stitches holding them together.
 ~
 A
@@ -315,7 +315,7 @@ Some green sleeves are here on the ground.~
 3 1 100
 E
 silver white~
-These sleeves are made from white leather with silver lineing.
+These sleeves are made from white leather with silver lining.
 ~
 A
 1 5
@@ -340,7 +340,7 @@ A
 #26223
 white silver gloves~
 &+Wsome white and &+Csilver gloves&n~
-Some &+Wwhite&N and silver gloves lay here.~
+Some &+Wwhite&N and silver gloves lie here.~
 ~
 9 22 3 6 7 0 32768 129 64 0 0
 6 7 6 3 0 0 0 0
@@ -356,7 +356,7 @@ A
 #26224
 white silver helmet~
 &+Wa white &+Cand silver helmet&n~
-A &+Wwhite&N and silver helmet lays here.~
+A &+Wwhite&N and silver helmet lies here.~
 ~
 9 22 3 10 7 0 0 17 64 4173708804 0
 10 4 1 3 0 0 0 0
@@ -372,7 +372,7 @@ A
 #26225
 white silver belt~
 &+Wa white belt &+Clined with silver&n~
-A &+Wwhite&N and gold belt lays here.~
+A &+Wwhite&N and gold belt lies here.~
 ~
 9 22 3 3 7 0 1024 2049 64 87572571 0
 5 10 0 3 0 0 0 0
@@ -396,15 +396,15 @@ A &+Wwhite shield&N with silver edges sits here.~
 5 7000 100
 E
 silver white shield~
-This shield is made of white carbon, and has the sigil of the sisters
-of synnoria embedded in silver upon its face.
+This shield is made of white metal, and has the sigil of the sisters
+of Synnoria embossed in silver upon its face.
 ~
 A
 24 -2
 #26227
 ivory sword carved~
 &+Wa carved ivory&N sword~
-A sword of nicely carved ivory lays here.~
+A sword of nicely carved ivory lies here.~
 ~
 5 34 3 10 7 0 1024 8193 64 87572571 0
 5 2 5 3 0 0 0 0
@@ -412,7 +412,7 @@ A sword of nicely carved ivory lays here.~
 E
 silver white~
 This sword is all handcrafted, with a special touch. It is made from
-white ivory, and has a silver hilt
+white ivory, and has a silver hilt.
 ~
 A
 19 2
@@ -421,7 +421,7 @@ A
 #26228
 iron wood club~
 a ironwood club~
-An ironwood club lays here.~
+An ironwood club lies here.~
 ~
 5 6 3 8 7 0 0 8193 0 0 0
 10 1 10 6 0 0 0 0
@@ -436,7 +436,7 @@ A
 #26229
 club~
 a large club~
-A large club lays here.~
+A large club lies here.~
 ~
 5 6 3 8 7 0 0 8193 64 0 0
 10 1 7 6 0 0 0 0
@@ -450,7 +450,7 @@ A
 #26230
 roots bracelet~
 &+ya small bracelet made of roots&N~
-A small bracelet made from roots lays here.~
+A small bracelet made from roots lies here.~
 ~
 9 6 3 3 7 0 0 4097 0 0 0
 5 11 24 3 0 0 0 0
@@ -482,7 +482,7 @@ A
 #26232
 chain prisms~
 &+La chain of blackened prisms&N~
-A black chain lays here untouched.~
+A black chain lies here untouched.~
 ~
 9 16 0 0 7 0 524416 5 64 0 0
 4 2 1 3 0 0 0 0
@@ -498,7 +498,7 @@ A
 #26233
 sword hugh cymrych~
 the &+Llost&N sword of &+YCymrych Hugh&N~
-The &+Llost&N sword of &+Ycymrych hugh&N lays here.~
+The &+Llost&N sword of &+Ycymrych hugh&N lies here.~
 ~
 5 16 3 10 7 0 37888 8193 66 87572571 0
 5 3 6 3 0 27 50 30
@@ -527,7 +527,7 @@ A
 #26234
 slender longsword~
 a slender longsword~
-A slender longsword lays here.~
+A slender longsword lies here.~
 ~
 5 16 3 10 7 0 0 8193 0 0 0
 5 1 8 3 0 0 0 0
@@ -559,15 +559,15 @@ A
 #26236
 water jeweled fountain~
 a &+Rjeweled&N &+Wfountain&N~
-A &+Rjeweled&N enlayed &+Wfountain&N with clear water rests here.~
+A &+Rjeweled&N inlaid &+Wfountain&N with clear water rests here.~
 ~
 17 40 6 50 7 0 0 0 0 0 0
 -1 -1 0 0 0 0 0 0
 1000 1 100
 E
 jeweled fountain~
-This fountain has selected gems enlayed into its base. it is filled
-with sparkling clear water, and looks very mouth watering.
+This fountain has selected gems inlaid into its base. It is filled
+with sparkling clear, mouth-watering water.
 ~
 #26237
 lobster small red~
