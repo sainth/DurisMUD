@@ -3394,18 +3394,12 @@ int wear(P_char ch, P_obj obj_object, int keyword, int showit)
     return false;
   }
 
-  if(obj_object->condition <= 0) // Scrap it. Might cause crash. Dec08 -Lucrot
+  if(obj_object->condition <= 0)
   {
-    wizlog(56, "%s wore %s that's condition 0 or less : attempting to scrap.",
-          GET_NAME(ch),
-          obj_object->short_description);
     MakeScrap(ch, obj_object);
     return false;
   }
-
-// Quick and dirty periodic check for buggy items. Dec08 -Lucrot
-// Can write to player log if these checks are sufficient.
-
+#if 0
   for (int i = 0; i < 3; i++ )
   {  // Hunting a bad apply ...
     if(obj_object->affected[i].location > APPLY_LAST &&
@@ -3454,6 +3448,7 @@ int wear(P_char ch, P_obj obj_object, int keyword, int showit)
       }
     }
   }
+#endif
 
   if (!can_char_use_item(ch, obj_object))
   {
@@ -3461,13 +3456,12 @@ int wear(P_char ch, P_obj obj_object, int keyword, int showit)
       act("You can't use $p.", FALSE, ch, obj_object, 0, TO_CHAR);
     return FALSE;
   }
-#if 1
+
   /*
    * monk weight restriction
    */
   if (IS_PC(ch) && GET_CLASS(ch, CLASS_MONK) && keyword != 20)
   {
-    /*
     if (GET_LEVEL(ch) < 40 &&
        (GET_OBJ_WEIGHT(obj_object) > (27 - (GET_LEVEL(ch) / 2))))
     {
@@ -3475,7 +3469,6 @@ int wear(P_char ch, P_obj obj_object, int keyword, int showit)
         act("$p is far too heavy and cumbersome, your skills would be useless!", FALSE, ch, obj_object, 0, TO_CHAR);
       return FALSE;
     }
-    */
     int monkweight = get_property("monk.weight.str.modifier.denominator", 10);
 
     if(GET_OBJ_WEIGHT(obj_object) > (int)(GET_C_STR(ch) / monkweight))
@@ -3485,7 +3478,7 @@ int wear(P_char ch, P_obj obj_object, int keyword, int showit)
       return FALSE;
     }
   }
-#endif
+
   /* let's check for artis here */
 #if 0
   if (IS_ARTIFACT(obj_object) &&

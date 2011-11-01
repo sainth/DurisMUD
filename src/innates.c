@@ -3715,8 +3715,8 @@ void spell_resistance_check(P_char caster, P_char victim, void *data)
       return;
     }
     
-    strcpy(messages->tochar, "&+MYour spell flows around&n $n&+M, leaving $M unharmed!");
-    strcpy(messages->tovict, "&+MYou resist the effects of&n $N&+M's spell!");
+    strcpy(messages->tovict, "&+MYour spell flows around&n $n&+M, leaving $M unharmed!");
+    strcpy(messages->tochar, "&+MYou resist the effects of&n $N&+M's spell!");
     strcpy(messages->toroom, "$n's &+Mspell flows around&n $N&+M, leaving $M unharmed!");
     messages->true_false = TRUE;
     return;

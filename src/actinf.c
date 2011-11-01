@@ -3111,11 +3111,10 @@ void do_examine(P_char ch, char *argument, int cmd)
     {
       int max = tmp_object->value[1];
       int curr = tmp_object->value[2];
-      int ratio = (int)(100*curr/max);
+      int ratio = (int)(100 * curr / max);
 
       if(curr < 0 | max < 0)
         sprintf(buf, "$p seems to be bugged - please notify a god-type fellow, and report the item via the BUG command!");
-      
 
       if(ratio >= 100)
         sprintf(buf, "$p seems to be unused.");

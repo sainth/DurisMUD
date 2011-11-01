@@ -5550,9 +5550,6 @@ void nanny(P_desc d, char *arg)
       SEND_TO_Q
         ("\r\n\r\nYou have selected Yes, and hereby agree to all conditions in the set of rules.\r\n",
          d);
-      SEND_TO_Q
-        ("Now you have to wait for your character to be approved by a god.\r\nProcess should not take long.\r\n",
-         d);
       break;
     default:
       SEND_TO_Q("\r\nThat is not a correct response. Try again.\r\n", d);
@@ -5572,16 +5569,13 @@ void nanny(P_desc d, char *arg)
     else if(!IS_TRUSTED(d->character) && accept_mode)
     {
       SEND_TO_Q
-        ("Now you have to wait for your character to be approved by a god.\r\nProcess should not take long.\r\nIf no god is on to approve you, you will be auto-approved in 5 mins.\r\n",
+        ("Now you have to wait for your character to be approved by a god.\r\nThis process should not take long.\r\nIf no god is on to approve you, you will be auto-approved in 5 mins.\r\n",
          d);
       STATE(d) = CON_ACCEPTWAIT;
       newby_announce(d);
     }
     else
     {
-      SEND_TO_Q
-        ("Now you have to wait for your character to be approved by a god.\r\nProcess should not take long.\r\nIf no god is on to approve you, you will be auto-approved in 5 mins.\r\n",
-         d);
       SEND_TO_Q("\r\n*** PRESS RETURN:\r\n", d);
       writeCharacter(d->character, 2, NOWHERE);
       STATE(d) = CON_RMOTD;
@@ -5735,9 +5729,6 @@ void email_player_info(char *login, char *host, struct descriptor_data *d)
   ereglog(AVATAR, "Executing Command %s", buf);
   fclose(fp);
 }
-
-
-
 
 char    *hint_array[1000];
 int      iLOADED = 0;

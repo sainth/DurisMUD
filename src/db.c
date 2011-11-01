@@ -30,7 +30,7 @@
 #include "sql.h"
 #include "ships.h"
 #include "assocs.h"
-
+#include "objmisc.h"
 /*
  * external variables
  */
@@ -2822,10 +2822,15 @@ P_obj read_object(int nr, int type)
   obj->value[7] = tmp;
   fscanf(obj_f, " %d ", &tmp);
   obj->weight = tmp;
-  fscanf(obj_f, " %d \n", &tmp);
+  fscanf(obj_f, " %d ", &tmp);
   obj->cost = tmp;
-  fscanf(obj_f, " %d \n", &tmp);
+  fscanf(obj_f, " %d ", &tmp);
   obj->condition = tmp;
+  fscanf(obj_f, " %d ", &tmp);
+  obj->max_condition = tmp;
+  if(obj->max_condition < 100)
+    obj->max_condition = 100;
+
   if (fscanf(obj_f, " %lu \n", &utmp) == 1)
   {
     obj->bitvector = utmp;
@@ -2840,11 +2845,17 @@ P_obj read_object(int nr, int type)
       }
     }
   }
+
+  if(obj->craftsmanship > ((OBJCRAFT_HIGHEST - 1) / 2))
+  {
+    obj->max_condition = (int) BOUNDED(100, (50 * 1.4285 * (obj->craftsmanship - 6)), 500);
+    // 1.4285 = 10 / 7(max condition is 1000, there are 7 values after average craftsmanship)
+  } 
+  obj->condition = obj->max_condition;
+
   // nuke the proclib flag - it'll be put back if needed
   REMOVE_BIT(obj->extra_flags, ITEM_PROCLIB);
   /* *** extra descriptions *** */
-
-
 
   while (fscanf(obj_f, " %s \n", chk), *chk == 'E')
   {

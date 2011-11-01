@@ -212,7 +212,8 @@ struct ship_reg_node *ship_reg_db = NULL;
  *
  * ** only the values that varied from 'stock' are saved, as follows: { c
  * name c short_description c description c action_description i*4
- * value[0-3] b type i wear_flags i extra_flags i weight i cost l
+ * value[0-3] b type i wear_flags i extra_flags i weight i condition i
+ * max_condition i cost l
  * bitvector l bitvector2 { b obj->affected[0].location b
  * obj->affected[0].modifier b obj->affected[1].location b
  * obj->affected[1].modifier } }
@@ -914,7 +915,8 @@ int writeObject(P_obj obj, int o_f_flag, ulong o_u_flag, int count, int loc, cha
   ADD_BYTE(ibuf, o_f_flag);
   ADD_INT(ibuf, obj_index[obj->R_num].virtual_number);
   ADD_SHORT(ibuf, obj->craftsmanship);
-  ADD_SHORT(ibuf, obj->condition);
+  ADD_INT(ibuf, obj->condition);
+  ADD_INT(ibuf, obj->max_condition);
 
   if (o_f_flag & O_F_WORN)
     ADD_BYTE(ibuf, loc);
@@ -3122,7 +3124,8 @@ P_obj restoreObjects(char *buf, P_char ch, int not_room)
     obj->craftsmanship = GET_SHORT(buf);
     if (obj_vers < 32)
       GET_SHORT(buf);
-    obj->condition = GET_SHORT(buf);
+    obj->condition = GET_INTE(buf);
+    obj->max_condition = GET_INTE(buf);
     if (o_f_flag & O_F_WORN)
     {
       loc = GET_BYTE(buf);
@@ -3474,7 +3477,8 @@ P_obj read_one_object(char *read_buf)
 
     obj->g_key = 1;
     obj->craftsmanship = GET_SHORT(buf);
-    obj->condition = GET_SHORT(buf);
+    obj->condition = GET_INTE(buf);
+    obj->max_condition = GET_INTE(buf);
 
     if (o_f_flag & O_F_COUNT)
       i_count = GET_SHORT(buf);

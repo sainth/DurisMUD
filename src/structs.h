@@ -498,7 +498,8 @@ struct obj_data {
   sh_int trap_dam;              /* trap damage type                 */
   sh_int trap_charge;           /* trap charges                     */
   sh_int trap_level;
-  sh_int condition;             /* items condition or level         */
+  int condition;                /* items condition or level         */
+  int max_condition;            /* items maximum condition          */
   sh_int craftsmanship;         /* how well made item is            */
   sh_int z_cord;                /* where in the room (up/down)      */
 

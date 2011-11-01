@@ -27,19 +27,15 @@ extern P_room world;
 extern int proccing_slots[];
 extern struct material_data materials[];
 char bufCOLOR[MAX_STRING_LENGTH];
-char    *item_condition(P_obj obj)
+
+char  *item_condition(P_obj obj)
 {
   int      value;
+  float compare;
   static char buf[MAX_STRING_LENGTH];
-//   char bufCOLOR[MAX_STRING_LENGTH];
-  /* default conditon is 100, and reflects average quality. This can be
-     raised, through _special_ and _expensive_ smiths, tailors, etc to a max
-     of 125, reflecting exceptional quality and manufacture. Code only
-     cares about 1-12, so lets chop the name down a bit...
-   */
 
 #ifndef NEW_COMBAT
-  value = BOUNDED(1, obj->condition / 10, 12);
+  value = BOUNDED(1, obj->condition / obj->max_condition, 12);
 #else
   value =
     BOUNDED(1, (int) (((float) obj->curr_sp / (float) obj->max_sp) * 10.0),
@@ -49,66 +45,24 @@ char    *item_condition(P_obj obj)
   if (obj->type == ITEM_CORPSE)
     value = 12;                 /* So these item types wont be shown with a condition */
 
+  if(obj->condition / obj->max_condition > .900)
+    sprintf(bufCOLOR, "&+G");
+  else if(obj->condition / obj->max_condition > .700)
+    sprintf(bufCOLOR, "&+g");
+  else if(obj->condition / obj->max_condition > .500)
+    sprintf(bufCOLOR, "&+y");
+  else if(obj->condition / obj->max_condition > .200)
+    sprintf(bufCOLOR, "&+r");
+  else if(obj->condition / obj->max_condition > 0)
+    sprintf(bufCOLOR, "&+R");
 
-#if 1
+  compare = ((float) obj->condition / obj->max_condition);
 
-if(obj->condition > 90)
-sprintf(bufCOLOR, "&+G");
+  if(compare < 0.900)
+  sprintf(buf, " [%s%d&n%]             ", bufCOLOR, (int) (100 * ((float) obj->condition / obj->max_condition)));
+  else
+  sprintf(buf, "");
 
-else if(obj->condition > 70)
-sprintf(bufCOLOR, "&+g");
-
-else if(obj->condition > 50)
-sprintf(bufCOLOR, "&+y");
-
-else if(obj->condition > 20)
-sprintf(bufCOLOR, "&+r");
-
-else if(obj->condition > 0)
-sprintf(bufCOLOR, "&+R");
-
-
-if(obj->condition < 90)
-sprintf(buf, " [%s%d&n%]             ", bufCOLOR , obj->condition);
-else
-sprintf(buf, "");
-
-#else
-
-
-  switch (value)
-  {
-  case 1:
-    sprintf(buf, " [ruined]         ");
-    break;
-  case 2:
-    sprintf(buf, " [well worn]      ");
-    break;
-  case 3:
-    sprintf(buf, " [worn]           ");
-    break;
-  case 4:
-    sprintf(buf, " [partially worn] ");
-    break;
-  case 5:
-    sprintf(buf, " [fair]           ");
-    break;
-  case 6:
-    sprintf(buf, " [used]           ");
-    break;
-  case 7:
-    sprintf(buf, " [good]           ");
-    break;
-  case 8:
-    sprintf(buf, " [very good]      ");
-    break;
-  case 9:
-    sprintf(buf, " [almost new]     ");
-    break;
-  default:
-    sprintf(buf, "");
-  }
-#endif
   return buf;
 }
 
@@ -119,23 +73,22 @@ const char *item_damage_messages[][2] = {
    "melted from the intense heat!"},
   {"is weakened from the intense cold!",
    "freezes and shatters into million pieces from the intense cold!"},
-  {"is filled with electrical energy!",
+  {"is charred by electrical energy!",
    "exploded spreading charges of electrical energy!"},
   {"was corroded by gas.",
    "crumbled as it was consumed by the toxic gas."},
   {"was corroded by acid.",
-   "melted corroded by the acid."},
+   "melted, corroded by the acid."},
   {"is blasted by the negative energy!",
    "was disintegrated by the negative energy!"},
   {"is burned by the light!",
    "shattered into a million pieces by the divine fury!"},
-  {"cracks as the tortured body writhes!",
-   "shattered in bits as the tortured body spasms and quivers!"},
+  {"cracks from the psionic assault!",
+   "shattered in bits as the psionic assault became too much!"},
   {"is corrupted by spiritual anger!",
    "was destroyed by the blast!"},
-  {"cracks attacked by the sound wave.",
-   "shattered into a million pieces as the sound wave hit it!"},
-   
+  {"cracks attacked by the harmonic resonance.",
+   "shattered into pieces as the vibrations became too much!"},   
 };
 
 int DamageOneItem(P_char ch, int dam_type, P_obj obj, bool destroy)

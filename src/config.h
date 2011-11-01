@@ -21,7 +21,7 @@
 #define DFLT_PORT 7777          /* default port */
 // randomeq constants
 #define MAX_SLOT 108
-#define MAXMATERIAL 34
+#define MAXMATERIAL 42
 #define MAXPREFIX 56
 #define RANDOM_EQ_VNUM 1252
 /* configurable options */

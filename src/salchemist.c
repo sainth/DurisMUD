@@ -834,16 +834,12 @@ void do_encrust(P_char ch, char *argument, int cmd)
   sprintf(buf2, "%s attempts to encrust %s with %s...", GET_NAME(ch),
           item->short_description, jewel->short_description);
   act(buf2, TRUE, ch, 0, 0, TO_ROOM);
+  wizlog(56, buf2);
 
   craftsmanship = item->craftsmanship;
-//  if(!item->value[5] || !item->value[6] || !item->value[7])
-  {
-
-    item->value[5] = jewel->value[6];
-    item->value[6] = GET_LEVEL(ch);
-    item->value[7] = 30;
-
-  }
+  item->value[5] = jewel->value[6];
+  item->value[6] = GET_LEVEL(ch);
+  item->value[7] = 30;
 
   if(number(1, 110) > skill)
   {
@@ -856,10 +852,10 @@ void do_encrust(P_char ch, char *argument, int cmd)
   }
   else
   {
-    //notch_skill(ch, SKILL_ENCRUST, 12);
+    notch_skill(ch, SKILL_ENCRUST, 40);
     wizlog(56, "and created %s", item->short_description);
     act("...creating a real masterpiece!", TRUE, ch, 0, 0, TO_ROOM);
-    act("Hurrah! Hurrah!", FALSE, ch, 0, 0, TO_CHAR);
+    act("Success!", FALSE, ch, 0, 0, TO_CHAR);
   }
 
   P_obj new_item = read_object(1251, VIRTUAL);
@@ -888,7 +884,7 @@ void do_encrust(P_char ch, char *argument, int cmd)
   SET_BIT(new_item->extra_flags, item->extra_flags);
   SET_BIT(new_item->extra2_flags, item->extra2_flags);
   
-  new_item->craftsmanship = MIN(craftsmanship+1, OBJCRAFT_HIGHEST);
+  new_item->craftsmanship = MIN(craftsmanship + 1, OBJCRAFT_HIGHEST);
 
   int i = 0;
   for(i;i < 7;i++)

@@ -10159,7 +10159,7 @@ void spell_frost_breath(int level, P_char ch, char *arg, int type,
                         P_char victim, P_obj obj)
 {
   int save, dam, mod;
-  P_obj    frozen = NULL;
+  P_obj frozen = NULL;
   struct affected_type af;
   struct damage_messages messages = {
     "$N is partially turned to ice.",
@@ -10199,13 +10199,13 @@ void spell_frost_breath(int level, P_char ch, char *arg, int type,
            frozen && (((frozen->type != ITEM_DRINKCON) &&
                        (frozen->type != ITEM_FOOD) &&
                        (frozen->type != ITEM_POTION)) ||
-                      number(0, 2)); frozen = frozen->next_content) ;
-      if(frozen)
+                      number(0, 2)); frozen = frozen->next_content)
       {
-        act("&+W$p shatters into frozen scraps.", FALSE, victim, frozen, 0,
-            TO_CHAR);
-        extract_obj(frozen, TRUE);
-        frozen = NULL;
+        if(frozen)
+        {
+          DamageOneItem(victim, SPLDAM_COLD, obj, 0);
+          frozen = NULL;
+        }
       }
     }
   }
@@ -12637,8 +12637,10 @@ void spell_disintegrate(int level, P_char ch, char *arg, int type,
                !IS_NOSHOW(obj) )
             {
               spell_damage(ch, victim, (int)get_property("spell.disintegrate.burn.dmg", 3), SPLDAM_FIRE, 0, &eqburnmsg);
-	      obj->condition -= BOUNDED(0, number(1, (int)get_property("spell.disintegrate.max.eq.dmg", 10)), (obj->condition-1));
+	      obj->condition -= BOUNDED(0, number(1, (int)get_property("spell.disintegrate.max.eq.dmg", 5)), (obj->condition - 1));
               act("$p cracks from the heat.", FALSE, ch, obj, victim, TO_VICT);
+              if(obj->condition <= 0)
+                 MakeScrap(victim, obj);
               /*
 	      statuslog(AVATAR, "%s just disintegrated %s from %s at [%d]",
                         GET_NAME(ch), obj->short_description, GET_NAME(victim),
@@ -17583,7 +17585,7 @@ void spell_vampiric_trance(int level, P_char ch, char *arg, int type, P_char vic
   else
   {
   send_to_char("You take on the shape of undead...\n", ch);
-  act("A chill passes by as all the color drains from $n.", TRUE, ch, 0, 0,
+  act("&+wA &+bchill &+wpasses by as all the &+rc&+Ro&+Wl&+Ro&+rr &+wdrains from $n.", TRUE, ch, 0, 0,
       TO_ROOM);
   }
   
@@ -19836,25 +19838,6 @@ void spell_moonwell(int level, P_char ch, char *arg, int type, P_char victim,
   }
   from_room = ch->in_room;
 
-#if 0
-  if(!IS_TRUSTED(ch) && (time_info.hour >= 6) && (time_info.hour <= 17))
-  {
-    send_to_char("&+WThe well opens for a brief second and is quickly evaporated by the sun.\n",
-            ch);
-    act("&+WA moonwell appears for a brief second, then is quickly evaporated by the sun.",
-        FALSE, ch, 0, 0, TO_ROOM);
-    return;
-  }
-#endif
-#if 0
-  if(!OUTSIDE(ch))
-  {
-    send_to_char("You must be outside to cast this spell!\n", ch);
-    return;
-  }
-#endif
-
-
   int specBonus = 0;
   set.to_room = to_room;
   int maxToPass          = get_property("portals.moonwell.maxToPass", 3);
@@ -19973,7 +19956,6 @@ bool can_do_general_portal( int level, P_char ch, P_char victim,
         world[ch->in_room].sector_type == SECT_OCEAN ||
         IS_SET(world[to_room].room_flags, NO_MAGIC) ||
         IS_SET(world[to_room].room_flags, NO_TELEPORT) ||
-//        IS_NPC(ch) ||
         IS_PC_PET(ch) ||
         // victim check
         (victim &&
@@ -20798,8 +20780,8 @@ void spell_repair_one_item(int level, P_char ch, char *arg, int type, P_char vic
 {
   if(obj)
   {
-    obj->condition = 100;
-    act("$q glows a faint &+Yyellowish hue&n as a wave of energy covers its surface.", FALSE, ch, obj, 0, TO_CHAR);
-    act("$n's $q glows a faint &+Yyellowish hue&n as a wave of energy covers its surface.", FALSE, ch, obj, 0, TO_ROOM);    
+    obj->condition = obj->max_condition;
+    act("$q glows a faint &+Yyellowish hue&n as a wave of energy renews its surface.", FALSE, ch, obj, 0, TO_CHAR);
+    act("$n's $q glows a faint &+Yyellowish hue&n as a wave of energy renews its surface.", FALSE, ch, obj, 0, TO_ROOM);    
   }
 }

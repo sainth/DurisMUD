@@ -131,10 +131,6 @@ int apply_ac(P_char ch, int eq_pos)
     raise(SIGSEGV);
   }
 
-/*  if (GET_ITEM_TYPE(ch->equipment[eq_pos]) == ITEM_SHIELD &&
-      eq_pos == WEAR_SHIELD)
-    value = ch->equipment[eq_pos]->value[3];*/
-
   if (!GET_ITEM_TYPE(ch->equipment[eq_pos]) == ITEM_ARMOR &&
       !GET_ITEM_TYPE(ch->equipment[eq_pos]) == ITEM_SHIELD)
     return 0;
@@ -142,42 +138,40 @@ int apply_ac(P_char ch, int eq_pos)
   switch (ch->equipment[eq_pos]->material) {
     case MAT_UNDEFINED:
     case MAT_NONSUBSTANTIAL:
+    case MAT_PAPER:
+    case MAT_PARCHMENT:
+    case MAT_LIQUID:
       value = 0;
       break;
     case MAT_FLESH:
-    case MAT_REEDS:
     case MAT_HEMP:
-    case MAT_LIQUID:
     case MAT_CLOTH:
-    case MAT_PAPER:
-    case MAT_PARCHMENT:
     case MAT_LEAVES:
     case MAT_GENERICFOOD:
     case MAT_RUBBER:
     case MAT_FEATHER:
     case MAT_WAX:
+    case MAT_EGGSHELL:
+    case MAT_SOFTWOOD:
       value = 1;
       break;
     case MAT_BARK:
-    case MAT_SOFTWOOD:
     case MAT_SILICON:
-    case MAT_CERAMIC:
     case MAT_PEARL:
-    case MAT_EGGSHELL:
+    case MAT_BAMBOO:
       value = 2;
       break;
     case MAT_HIDE:
     case MAT_LEATHER:
     case MAT_CURED_LEATHER:
-    case MAT_LIMESTONE:
+    case MAT_CHITINOUS:
       value = 3;
       break;
+    case MAT_CLAY:
     case MAT_IVORY:
-    case MAT_BAMBOO:
     case MAT_HARDWOOD:
     case MAT_COPPER:
     case MAT_BONE:
-    case MAT_MARBLE:
       value = 4;
       break;
     case MAT_STONE:
@@ -185,15 +179,15 @@ int apply_ac(P_char ch, int eq_pos)
     case MAT_BRONZE:
     case MAT_IRON:
     case MAT_REPTILESCALE:
+    case MAT_BRASS:
+    case MAT_GLASSTEEL:
       value = 5;
       break;
+    case MAT_LIMESTONE:
     case MAT_GOLD:
-    case MAT_CHITINOUS:
     case MAT_CRYSTAL:
     case MAT_STEEL:
-    case MAT_BRASS:
     case MAT_OBSIDIAN:
-    case MAT_GRANITE:
     case MAT_GEM:
       value = 6;
       break;
@@ -202,16 +196,19 @@ int apply_ac(P_char ch, int eq_pos)
     case MAT_RUBY:
     case MAT_EMERALD:
     case MAT_SAPPHIRE:
-    case MAT_GLASSTEEL:
       value = 7;
       break;
-    case MAT_DRAGONSCALE:
-    case MAT_DIAMOND:
+    case MAT_MARBLE:
+    case MAT_GRANITE:
       value = 8;
       break;
     case MAT_MITHRIL:
     case MAT_ADAMANTIUM:
       value = 9;
+      break;
+    case MAT_DRAGONSCALE:
+    case MAT_DIAMOND:
+      value = 10;
       break;
     default:
       value = 0;
@@ -220,14 +217,14 @@ int apply_ac(P_char ch, int eq_pos)
   switch (eq_pos)
   {
     case WEAR_SHIELD:
-      value *= 15;
+      value *= 10;
 
-      if( GET_CHAR_SKILL(ch, SKILL_SHIELD_COMBAT) )
+      if(GET_CHAR_SKILL(ch, SKILL_SHIELD_COMBAT))
       {
-        value += (int) ( GET_CHAR_SKILL(ch, SKILL_SHIELD_COMBAT) * (float) get_property("skill.shieldCombat.ACBonusMultiplier", 1.00) );
+        value += (int) (GET_CHAR_SKILL(ch, SKILL_SHIELD_COMBAT) * (float) get_property("skill.shieldCombat.ACBonusMultiplier", 1.00));
         if (GET_CLASS(ch, CLASS_WARRIOR | CLASS_PALADIN | CLASS_ANTIPALADIN | CLASS_MERCENARY))
 	  value *= 2;
-      }
+      }// FIX THIS JEXNI!
       break;
     case WEAR_BODY:
       if (IS_SET(ch->equipment[eq_pos]->extra_flags, ITEM_WHOLE_BODY))
@@ -262,17 +259,17 @@ int apply_ac(P_char ch, int eq_pos)
     case WEAR_NECK_1:
     case WEAR_NECK_2:
     case WEAR_FACE:
-      value = (int) (value * 0.7);
+      value = (int) (value * 0.4);
       break;
     case WEAR_EYES:
     case WEAR_HORN:
-      value = (int) (value * 0.4);
+      value = (int) (value * 0.1);
       break;
     default:
       return 0;
   }
 
-  return BOUNDED(-500, (value * MIN(100, ch->equipment[eq_pos]->condition)) / 100, 500);
+  return BOUNDED(-250, value * (int) (ch->equipment[eq_pos]->condition / ch->equipment[eq_pos]->max_condition), 250);
 }
 
 int calculate_mana(P_char ch)
@@ -3202,8 +3199,7 @@ bool falling_char(P_char ch, const int kill_char, bool caller_is_event)
       send_to_char("But wait!  Saved by a bug!\n", ch);
       act("$n is granted a reprieve, and breathes a prayer of thanks", FALSE,
           ch, 0, 0, TO_ROOM);
-      logit(LOG_DEBUG, "Room (%d) Name: (%s) is NO_GROUND but has no valid 'down' exit",
-            world[ch->in_room].number, GET_NAME(ch));
+      //logit(LOG_DEBUG, "Room (%d) Name: (%s) is NO_GROUND but has no valid 'down' exit", world[ch->in_room].number, GET_NAME(ch));
       world[ch->in_room].sector_type = SECT_INSIDE;
       return FALSE;
     }
@@ -3514,8 +3510,7 @@ bool falling_obj(P_obj obj, int start_speed, bool caller_is_event)
     {
       act("$p quivers in space for a second, then settles to the ground.",
         TRUE, 0, obj, 0, TO_ROOM);
-      logit(LOG_DEBUG, "Room (%d) obj vnum (%d) is NO_GROUND but has no valid 'down' exit",
-        world[obj->loc.room].number, obj_index[obj->R_num].virtual_number);
+     // logit(LOG_DEBUG, "Room (%d) obj vnum (%d) is NO_GROUND but has no valid 'down' exit", world[obj->loc.room].number, obj_index[obj->R_num].virtual_number);
       world[obj->loc.room].sector_type = SECT_INSIDE;
       return FALSE;
     }

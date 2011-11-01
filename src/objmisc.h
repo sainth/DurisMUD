@@ -16,7 +16,7 @@
 #define MAT_HARDWOOD   6
 #define MAT_SILICON    7
 #define MAT_CRYSTAL    8
-#define MAT_CERAMIC    9
+#define MAT_CLAY    9
 #define MAT_BONE      10
 #define MAT_STONE     11
 #define MAT_HIDE      12
@@ -67,12 +67,15 @@
                         mat == MAT_SILVER || mat == MAT_PLATINUM || \
                         mat == MAT_MITHRIL || mat == MAT_ELECTRUM )
 
+#define IS_MAG_METAL(mat) ( mat == MAT_ELECTRUM || mat == MAT_MITHRIL || \
+                            mat == MAT_ADAMANTIUM)
+
 #define IS_STONE(mat) ( mat == MAT_GRANITE || mat == MAT_GEM || \
                         mat == MAT_EMERALD || mat == MAT_SAPPHIRE || \
                         mat == MAT_OBSIDIAN || mat == MAT_MARBLE || \
                         mat == MAT_LIMESTONE || mat == MAT_RUBY || \
                         mat == MAT_DIAMOND || mat == MAT_CRYSTAL || \
-                        mat == MAT_STONE || mat == MAT_CERAMIC )
+                        mat == MAT_STONE || mat == MAT_CLAY )
 
 #define IS_LEATHER(mat) ( mat == MAT_HIDE || mat == MAT_REPTILESCALE || \
                           mat == MAT_CURED_LEATHER || mat == MAT_LEATHER || \

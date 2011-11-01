@@ -620,23 +620,17 @@ void shopping_sell(char *arg, P_char ch, P_char keeper, int shop_nr)
     return;
   }
   cost_factor = (float) cha_app[STAT_INDEX(MAX(100, GET_C_CHA(ch)))].modifier;
+
   if (GET_RACE(ch) != GET_RACE(keeper))
     cost_factor = cost_factor / 2.;
 
-  cost_factor =
-    shop_index[shop_nr].buy_percent * (1.0 + (cost_factor / 100.));
+  cost_factor = shop_index[shop_nr].buy_percent * (1.0 + (cost_factor / 100.));
+
   if (cost_factor > shop_index[shop_nr].buy_percent)
     cost_factor = shop_index[shop_nr].buy_percent - .01;
 
-/*
-  Taken out the staff/scroll/wand/potion modifier since players only
-  sell these items now and never buy them
-  if (temp1->type == ITEM_SCROLL || temp1->type == ITEM_POTION ||
-      temp1->type == ITEM_STAFF || temp1->type == ITEM_WAND)
-    cost_factor *= .1;
-*/
   /* condition affects value too */
-  sale = (int) (temp1->cost * cost_factor * MIN(100, temp1->condition) / 100);
+  sale = (int) (temp1->cost * cost_factor * (temp1->condition / temp1->max_condition));
 
   if (sale < 1)
     sale = 1;
@@ -774,20 +768,20 @@ void shopping_value(char *arg, P_char ch, P_char keeper, int shop_nr)
   if (cost_factor > shop_index[shop_nr].buy_percent)
     cost_factor = shop_index[shop_nr].buy_percent - .01;
 
-  if (has_innate(ch, INNATE_BARTER)) {
-   if (GET_C_CHA(ch) > number(0, 125)) {
-    cost_factor -= .25;
-   } else {
-    cost_factor += .10;
-   }
+  if (has_innate(ch, INNATE_BARTER)) 
+  {
+    if (GET_C_CHA(ch) > number(75, 125)) 
+    {
+      cost_factor -= .25;
+    } 
+    else 
+    {
+      cost_factor += .10;
+    }
   }
-/*
-  if (temp1->type == ITEM_SCROLL || temp1->type == ITEM_POTION ||
-      temp1->type == ITEM_STAFF || temp1->type == ITEM_WAND)
-    cost_factor *= .1;
-*/
+
   /* condition affects value too */
-  sale = (int) (temp1->cost * cost_factor * MIN(100, temp1->condition) / 100);
+  sale = (int) (temp1->cost * cost_factor * (temp1->condition / temp1->max_condition));
 
   if (sale < 1)
     sale = 1;

@@ -360,7 +360,7 @@ void update_dam_factors()
   dam_factor[DF_GUARDIANS_BULWARK] = get_property("damage.reduction.guardians.bulwark", 0.850);
 }
 
-// The swashbuckler is considered the victim. // May09 -Lucrot
+// The swashbuckler is considered the victim.
 bool rapier_dirk(P_char victim, P_char attacker) 
 {
   int chance, i, f;
@@ -400,7 +400,9 @@ bool rapier_dirk(P_char victim, P_char attacker)
     }
     
     hit(victim, attacker, wep1);
-    
+#if 0 
+    // apparently someone wanted to give swashbucklers a bonus for using a one-of-a-kind
+    // item... this don't jive though...  -- Jexni 10/17/11   
     if(wep1->craftsmanship == OBJCRAFT_HIGHEST &&
       CanDoFightMove(victim, attacker))
     {
@@ -424,7 +426,7 @@ bool rapier_dirk(P_char victim, P_char attacker)
     {
       hit(victim, attacker, wep2);
     }
-    
+#endif    
     return true;
   }
   
@@ -2203,7 +2205,7 @@ void die(P_char ch, P_char killer)
     !IS_TRUSTED(killer))
   {
     logit(LOG_DEATH, "%s killed by %s at %s", GET_NAME(ch),
-          (IS_NPC(killer) ? killer->player.short_descr : GET_NAME(killer)),
+          (IS_NPC(killer) ? killer->player.short_descr :(IS_PC_PET(killer) ? GET_NAME(GET_MASTER(killer)) : GET_NAME(killer))),
           world[ch->in_room].name);
     statuslog(ch->player.level, "%s killed by %s at [%d] %s", GET_NAME(ch),
               (IS_NPC(killer) ? killer->player.

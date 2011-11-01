@@ -950,7 +950,7 @@ void create_randoms();
 int check_random_drop(P_char ch, P_char mob, int piece);
 P_obj create_random_eq(int charlvl, int moblvl, int item_type, int material_type);
 P_obj create_random_eq_new(P_char killer, P_char mob, int item_type, int material_type);
-P_obj setprefix_obj(P_obj obj, int modifier, int affectnumber);
+P_obj setprefix_obj(P_obj obj, P_char, int modifier, int affectnumber);
 P_obj create_stones(P_char ch);
 P_obj create_material(int index);
 P_obj create_material(P_char ch, P_char mob);

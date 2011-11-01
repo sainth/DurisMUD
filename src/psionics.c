@@ -1756,7 +1756,7 @@ void spell_flesh_armor(int level, P_char ch, char *arg, int type, P_char victim,
   affect_to_char(victim, &af);
 
   send_to_char("&+RYour flesh gains a steel-like hardness.\r\n", victim);
-  act("$N's &+Rflesh begins to shimmer, then gains a harder look to it.",
+  act("$N'&+Rs flesh begins to shimmer, then gains a &+Lharder &+Rlook to it.",
       TRUE, ch, 0, victim, TO_ROOM);
 
   return;
@@ -3039,7 +3039,7 @@ void spell_enhance_armor(int level, P_char ch, char *arg, int type, P_char victi
     affect_to_char(victim, &af);
     send_to_char("&+BBands of psionic force surround you!\r\n", victim);
     
-    act("$n becomes a little fuzzy as mist like bands surround $m.",
+    act("$n&+L's image becaomes &+Yhazy &+Las &+wmisty bands &+Lsurround $m.",
       TRUE, victim, 0, 0, TO_ROOM);
   }
   else

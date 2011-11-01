@@ -220,8 +220,9 @@ bool auction_offer(P_char ch, char *args) {
 		return TRUE;
 	}
 
-    if ( IS_SET(tmp_obj->extra_flags, ITEM_NORENT) ||
-		 tmp_obj->condition < 90 ) {
+        if ( IS_SET(tmp_obj->extra_flags, ITEM_NORENT) ||
+		 tmp_obj->condition / tmp_obj->max_condition< 90 ) 
+        {
 		send_to_char("&+gYou can't sell that item.\r\n", ch);
 		return TRUE;
 	}

@@ -2096,16 +2096,16 @@ void do_stat(P_char ch, char *argument, int cmd)
     }
 
     sprintf(o_buf + strlen(o_buf),
-            "&+YWeight: &N%d&+Y lbs,   Value: &N%s,   &+YCondition: &N%d\n",
-            j->weight, comma_string((long) (j->cost)), j->condition);
+            "&+YWeight: &N%d&+Y lbs   Value: &N%s   &+YCondition: &N%d/%d(%d%%)\n",
+            j->weight, comma_string((long) (j->cost)), j->condition, j->max_condition,
+            (int) (((float) j->condition / j->max_condition) * 100));
 
     sprintf(o_buf + strlen(o_buf),
             "&+YT0: &n%d&+Y  T1: &n%d&+Y  T2: &n%d&+Y  T3: &n%d&+Y  T4: &n%d&+Y  T5: &n%d\n",
             (int) j->timer[0], (int) j->timer[1], (int) j->timer[2],
             (int) j->timer[3], (int) j->timer[4], (int) j->timer[5]);
 
-/*    sprintf(o_buf + strlen(o_buf), "&+YCraftsmanship: &n%d\n",
-            j->craftsmanship);*/
+    sprintf(o_buf + strlen(o_buf), "&+YCraftsmanship: &n%s\n", craftsmanship_names[j->craftsmanship]);
 
     sprinttype(j->material, item_material, buf2);
     sprintf(o_buf + strlen(o_buf), "&+YMaterial: &n%s\n", buf2);
@@ -5255,9 +5255,9 @@ void do_restore(P_char ch, char *argument, int cmd)
           continue;
         for (i = 0; i < MAX_WEAR; i++)
           if(victim->equipment[i])
-            victim->equipment[i]->condition = 100;
+            victim->equipment[i]->condition = victim->equipment[i]->max_condition;
         for (obj = victim->carrying; obj; obj = obj->next_content)
-          obj->condition = 100;
+          obj->condition = obj->max_condition;
         send_to_char
           ("&+gFrom out of nowhere, little gremlin-like creatures about 6 inches tall pop up.&LThey grab all of your equipment, and fiddle with it before returning to you.&LThey then vanish as quickly as they came.\n",
            victim);
@@ -7593,6 +7593,7 @@ struct obj_data *clone_obj(P_obj obj)
   ocopy->trap_charge = obj->trap_charge;
   ocopy->trap_level = obj->trap_level;
   ocopy->condition = obj->condition;
+  ocopy->max_condition = obj->max_condition;
   ocopy->material = obj->material;
   ocopy->craftsmanship = obj->craftsmanship;
   ocopy->bitvector = obj->bitvector;
