@@ -348,8 +348,8 @@ void initialize_skills()
                 TAR_AREA | TAR_OFFAREA | TAR_AGGRO, spell_apocalypse);
   SPELL_ADD(CLASS_ANTIPALADIN, 11);
 
-  SPELL_CREATE("judgement", SPELL_JUDGEMENT, (7/2) * PULSE_SPELLCAST,
-                TAR_AREA | TAR_OFFAREA | TAR_AGGRO, spell_judgement);
+  SPELL_CREATE("judgment", SPELL_JUDGMENT, (7/2) * PULSE_SPELLCAST,
+                TAR_AREA | TAR_OFFAREA | TAR_AGGRO, spell_judgment);
   SPELL_ADD(CLASS_PALADIN, 11);
 
   SKILL_CREATE("lance charge", SKILL_LANCE_CHARGE, TAR_PHYS);

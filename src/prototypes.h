@@ -2539,7 +2539,7 @@ void spell_reduce(int, P_char, char *, int, P_char, P_obj);
 void spell_dazzle(int, P_char, char *, int, P_char, P_obj);
 void spell_blur(int, P_char, char *, int, P_char, P_obj);
 void cast_prismatic_cube(int, P_char, char *, int, P_char, P_obj);
-void spell_judgement(int, P_char, char *, int, P_char, P_obj);
+void spell_judgment(int, P_char, char *, int, P_char, P_obj);
 void spell_apocalypse(int, P_char, char *, int, P_char, P_obj);
 void spell_sanctuary(int, P_char, char *, int, P_char, P_obj);
 void spell_hellfire(int, P_char, char *, int, P_char, P_obj);

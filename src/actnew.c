@@ -166,7 +166,7 @@ void do_aggr(P_char ch, char *arg, int cmd)
   if (GET_CLASS(ch, CLASS_PALADIN))
   {
     send_to_char("Be an aggressive paladin?!  Not in this lifetime!\r\n", ch);
-    send_to_char("You'll have to use better judgement than that.\r\n", ch);
+    send_to_char("You'll have to use better judgment than that.\r\n", ch);
     return;
   }
 #endif
@@ -1489,7 +1489,7 @@ void do_disarm(P_char ch, char *arg, int cmd)
     act("$n starts to fumble $s weapon in a vain attempt to disarm you.",
         FALSE, ch, 0, victim, TO_VICT);
     act
-      ("You make a grave error in judgement, and lose control of your weapon.",
+      ("You make a grave error in judgment, and lose control of your weapon.",
        FALSE, ch, 0, 0, TO_CHAR);
     notch_skill(ch, SKILL_DISARM, 50);
   }

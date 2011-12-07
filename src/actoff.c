@@ -9002,7 +9002,7 @@ void gaze(P_char ch, P_char victim)
       if(GET_CLASS(ch, CLASS_AVENGER))
       {
         act("Your powerful will easily dominates the inferior creature before you.\n"
-            "You draw $S soul into your essence sentencing $M to judgement.\n"
+            "You draw $S soul into your essence sentencing $M to judgment.\n"
             "The guilt is obvious for there are so few true of heart. You strip\n"
             "the body of the soul and let the dead husk topple to the ground.",
             FALSE, ch, 0, victim, TO_CHAR);

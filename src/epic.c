@@ -1705,7 +1705,7 @@ int devotion_spell_check(int spell)
   {
     case SPELL_FLAMESTRIKE:
     case SPELL_APOCALYPSE:
-    case SPELL_JUDGEMENT:
+    case SPELL_JUDGMENT:
     case SPELL_FULL_HARM:
     case SPELL_HARM:
     case SPELL_CAUSE_LIGHT:

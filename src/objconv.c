@@ -802,7 +802,7 @@ int getSpellCost(const int spell)
     return 80000;
   case SPELL_PRISMATIC_CUBE:
     return 250000;
-  case SPELL_JUDGEMENT:
+  case SPELL_JUDGMENT:
     return 50000;
   case SPELL_GREATER_WRAITHFORM:
     return 3000000;

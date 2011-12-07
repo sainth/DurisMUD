@@ -610,7 +610,7 @@ void boot_the_quests(void)
       {
         fprintf(stderr, "Error in boot quest:  real_mobile(%d) = %d\n",
                 temp, quest_index[number_of_quests].quester);
-        fprintf(stderr, "Continuing anyway, against my better judgement.\n");
+        fprintf(stderr, "Continuing anyway, against my better judgment.\n");
         /*
            perror("Error in boot quest: mob does not exist.\n");
            raise(SIGSEGV);

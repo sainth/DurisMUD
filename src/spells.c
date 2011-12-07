@@ -749,16 +749,13 @@ void cast_plane_shift(int level, P_char ch, char *arg, int type,
         send_to_char("You must reach level 41 to use this ability.\r\n", ch);
         return;
       }
-/*
-*   Allowing mortals to shift, gate, word and well from ocean tiles
-*   to encourage naval battles: 22Aug08 Lucrot
-*
-*   if (world[ch->in_room].sector_type == SECT_OCEAN)
-*    {
-*      send_to_char("Chant such a complex spell while swimming?\r\n", ch);
-*      return;
-*    }
-*/ 
+
+      if (world[ch->in_room].sector_type == SECT_OCEAN)
+      {
+        send_to_char("Chant such a complex spell while swimming?\r\n", ch);
+        return;
+      }
+ 
 // plane_id
 // 0    earth, 
 // 1    water,

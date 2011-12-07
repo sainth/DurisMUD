@@ -276,7 +276,7 @@
 #define SPELL_REVEAL_TRUE_NAME       262
 #define SPELL_BLUR                   263
 #define SPELL_PRISMATIC_CUBE         264
-#define SPELL_JUDGEMENT              265
+#define SPELL_JUDGMENT              265
 #define SPELL_GREATER_WRAITHFORM     266
 #define SPELL_ELEMENTAL_FORM         267
 #define SPELL_RAISE_SPECTRE          268
