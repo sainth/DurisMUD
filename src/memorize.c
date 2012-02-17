@@ -1678,13 +1678,13 @@ void do_memorize(P_char ch, char *argument, int cmd)
       return;
     }
   }
-  else if(!sbook && book_class(ch))
+ /* else if(!sbook && book_class(ch))
   {
     send_to_char
       ("Sorry, but you haven't got that spell in any available spellbooks!\n",
        ch);
     return;
-  }
+  }*/
   else if( !SKILL_DATA_ALL(ch, spl).maxlearn[0] && !SKILL_DATA_ALL(ch, spl).maxlearn[ch->player.spec] )
 #else
   if( !SKILL_DATA_ALL(ch, spl).maxlearn[0] && !SKILL_DATA_ALL(ch, spl).maxlearn[ch->player.spec] )
