@@ -4542,7 +4542,7 @@ int check_shields(P_char ch, P_char victim, int dam, int flags)
 }
 
 /*
- * this functions handles physical damage and modifies it against stoneskin type spells,
+ * this function handles physical damage and modifies it against stoneskin type spells,
  * calculates vamping from melee damage and also resolves damage from fireshield type
  * spells to the attacker.
  */
@@ -4571,8 +4571,7 @@ int melee_damage(P_char ch, P_char victim, double dam, int flags, struct damage_
   
   if(!(flags & PHSDAM_NOREDUCE))
   {
-    dam = dam + (int) .500 + (dam * calculate_ac(victim, TRUE) / 1000);
-   
+    dam = dam + (int)(.500 + (dam * calculate_ac(victim, TRUE) / 1000));
     if(has_innate(victim, INNATE_TROLL_SKIN))
       dam *= dam_factor[DF_TROLLSKIN];
 
@@ -4632,7 +4631,7 @@ int melee_damage(P_char ch, P_char victim, double dam, int flags, struct damage_
 
   // Earth elementals ignore earth aura.
   if(IS_AFFECTED2(victim, AFF2_EARTH_AURA) &&
-    !number(0, 5) &&
+    !number(0, 10 - (GET_LEVEL(victim) / 11)) &&
     GET_RACE(ch) != RACE_E_ELEMENTAL)
   {
     dam = 0;
@@ -4720,8 +4719,9 @@ int melee_damage(P_char ch, P_char victim, double dam, int flags, struct damage_
   }
 
   dam = MAX(1, dam);
-
+  
   messages->type |= 1 << 24;
+  
   result = raw_damage(ch, victim, dam, RAWDAM_DEFAULT | flags, messages);
 
   if(result != DAM_NONEDEAD)
@@ -5116,7 +5116,7 @@ int raw_damage(P_char ch, P_char victim, double dam, uint flags,
 
     appear(ch);
     appear(victim);
-   
+    
     if(victim != ch)
     { 
       if(CHAR_IN_SAFE_ZONE(ch))
@@ -5143,7 +5143,7 @@ int raw_damage(P_char ch, P_char victim, double dam, uint flags,
       if(IS_NPC(ch))
       {
         dam = (int) (dam * get_property("damage.mob.bonus", 1.0));
-        dam = MIN(dam, 800);
+        dam = MIN(dam, 300);
       }
 
       if(IS_HARDCORE(ch))
@@ -5204,7 +5204,7 @@ int raw_damage(P_char ch, P_char victim, double dam, uint flags,
         has_aura(ch, AURA_BATTLELUST))
       {
         dam += dam *
-         (( get_property("innate.paladin_aura.battlelust_mod", 0.2) * aura_mod(ch, AURA_BATTLELUST)) / 100);
+         ((get_property("innate.paladin_aura.battlelust_mod", 0.2) * aura_mod(ch, AURA_BATTLELUST)) / 100);
       }
       
       if(has_innate(ch, INNATE_WARCALLERS_FURY))
@@ -7534,6 +7534,7 @@ int blockSucceed(P_char victim, P_char attacker, P_obj wpn)
     number(1, 400) < MAX(20, GET_CHAR_SKILL(victim, SKILL_IMPROVED_SHIELD_COMBAT)) &&
     MIN_POS(victim, POS_STANDING + STAT_NORMAL))
   {
+    DamageOneItem(victim, SPLDAM_GENERIC, shield, FALSE);
     struct damage_messages messages = 
     {
     "You block $N's lunge at you and immediately slam $M with your shield!",
@@ -8015,7 +8016,7 @@ int calculate_attacks(P_char ch, int attacks[])
       ADD_ATTACK(PRIMARY_WEAPON);
 
     if(IS_MULTICLASS_NPC(ch))
-      num_atts -= 2;
+      num_atts -= 3;
   }
   else
   {                           // not MONK
@@ -8032,7 +8033,7 @@ int calculate_attacks(P_char ch, int attacks[])
       {
         ADD_ATTACK(SECONDARY_WEAPON);
 
-        if(number(1, 99) < GET_CHAR_SKILL(ch, SKILL_IMPROVED_TWOWEAPON))
+        if(number(1, 101) < GET_CHAR_SKILL(ch, SKILL_IMPROVED_TWOWEAPON))
         {
           ADD_ATTACK(SECONDARY_WEAPON);
         }
@@ -8060,26 +8061,25 @@ int calculate_attacks(P_char ch, int attacks[])
 
     if(notch_skill(ch, SKILL_TRIPLE_ATTACK,
           get_property("skill.notch.offensive.auto", 100))
-        || GET_CHAR_SKILL(ch, SKILL_TRIPLE_ATTACK) > number(0, 110))
+        || GET_CHAR_SKILL(ch, SKILL_TRIPLE_ATTACK) > number(0, 120))
       ADD_ATTACK(PRIMARY_WEAPON);
 
     if(notch_skill(ch, SKILL_QUADRUPLE_ATTACK,
           get_property("skill.notch.offensive.auto", 100))
-        || GET_CHAR_SKILL(ch, SKILL_QUADRUPLE_ATTACK) > number(0, 125))
+        || GET_CHAR_SKILL(ch, SKILL_QUADRUPLE_ATTACK) > number(0, 140))
       ADD_ATTACK(PRIMARY_WEAPON);
 
     if(HAS_FOUR_HANDS(ch))
     {
       if(ch->equipment[THIRD_WEAPON])
         for (int i = 0; i < 3; i++)
-          if(GET_CHAR_SKILL(ch, SKILL_DUAL_WIELD) > number(1, 100))
+          if(GET_CHAR_SKILL(ch, SKILL_DUAL_WIELD) > number(1, 101))
           {
             ADD_ATTACK(THIRD_WEAPON);
           }
       if(ch->equipment[FOURTH_WEAPON] &&
           GET_CHAR_SKILL(ch, SKILL_DUAL_WIELD) > number(1, 100))
       {
-        ADD_ATTACK(THIRD_WEAPON);
         ADD_ATTACK(FOURTH_WEAPON);
       }
     }
@@ -8088,10 +8088,11 @@ int calculate_attacks(P_char ch, int attacks[])
   // both monks and others below
   if(IS_AFFECTED(ch, AFF_HASTE))
   {
-    if(!IS_AFFECTED2(ch, AFF2_SLOW)) {
+    if(!IS_AFFECTED2(ch, AFF2_SLOW)) 
+    {
       ADD_ATTACK(PRIMARY_WEAPON);
-    if(GET_RACE(ch) == RACE_THRIKREEN)
-      ADD_ATTACK(THIRD_WEAPON);
+      if(GET_RACE(ch) == RACE_THRIKREEN)
+        ADD_ATTACK(THIRD_WEAPON);
     }
   }
 
@@ -8100,7 +8101,7 @@ int calculate_attacks(P_char ch, int attacks[])
         ADD_ATTACK(PRIMARY_WEAPON);
 
   if(GET_CLASS(ch, CLASS_DREADLORD | CLASS_AVENGER) &&
-      GET_CHAR_SKILL(ch, required_weapon_skill(ch->equipment[PRIMARY_WEAPON])) > 69)
+      GET_CHAR_SKILL(ch, required_weapon_skill(ch->equipment[PRIMARY_WEAPON])) > number(69, 101))
     ADD_ATTACK(PRIMARY_WEAPON);
 
   if(affected_by_spell(ch, SPELL_HOLY_SWORD))
@@ -8109,8 +8110,6 @@ int calculate_attacks(P_char ch, int attacks[])
   if(IS_AFFECTED4(ch, AFF4_VAMPIRE_FORM))
   {
     ADD_ATTACK(PRIMARY_WEAPON);
-    if(number(0, 2))
-      ADD_ATTACK(PRIMARY_WEAPON);
   }
 
   if(get_linking_char(ch, LNK_ESSENCE_OF_WOLF))
@@ -8157,7 +8156,7 @@ int calculate_attacks(P_char ch, int attacks[])
   if(IS_AFFECTED3(ch, AFF3_BLUR))
   {
     ADD_ATTACK(PRIMARY_WEAPON);
-    if((GET_CLASS(ch, CLASS_RANGER) || GET_SECONDARY_CLASS(ch, CLASS_RANGER)) &&
+    if(GET_CLASS(ch, CLASS_RANGER) && // || GET_SECONDARY_CLASS(ch, CLASS_RANGER)) && wipe2011 comment
         number(1, 100) < GET_CHAR_SKILL(ch, SKILL_DUAL_WIELD) &&
         ch->equipment[SECONDARY_WEAPON])
       ADD_ATTACK(SECONDARY_WEAPON);
