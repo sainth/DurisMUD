@@ -345,11 +345,10 @@ int IS_TWILIGHT_ROOM(int r);
 #define GET_TITLE(ch)   ((ch)->player.title)
 #define GET_DISGUISE_TITLE(ch) ((ch)->disguise.title)
 
-//#define GET_LEVEL(ch)   ((int)(ch)->player.level)
+#define GET_LEVEL(ch)   ((int)(ch)->player.level)
 #define GET_SECONDARY_LEVEL(ch)   ((int)(ch)->player.secondary_level)
 #define GET_DISGUISE_LEVEL(ch) ((int)(ch)->disguise.level)
 
-//#define GET_CLASS(ch)   ((ch)->player.m_class)
 #define GET_SPEC(ch, cls, spc) (((ch)->player.m_class & cls) && (ch)->player.spec == spc)
 #define IS_MULTICLASS(ch, cls1, cls2) (GET_CLASS((ch), (cls1)) && GET_CLASS((ch), (cls2)))
 #define GET_DISGUISE_CLASS(ch) ((ch)->disguise.m_class)
@@ -530,9 +529,9 @@ int race_size(int race);
 #define COIN_WEIGHT(c, s, g, p) (0)
 //#define COIN_WEIGHT(c, s, g, p) (((c) + (s) + (g) + (p)) / 50)
 
-#define CAN_CARRY_W(ch) (str_app[STAT_INDEX(GET_C_STR(ch))].carry_w + (IS_TRUSTED(ch)? 20000: 0))
+#define CAN_CARRY_W(ch) (str_app[STAT_INDEX(GET_C_STR(ch))].carry_w + (IS_TRUSTED(ch) ? 20000 : 0) + (IS_NPC(ch) ? 10000 : 0))
 
-#define CAN_CARRY_N(ch) (IS_TRUSTED(ch)? 3000: (STAT_INDEX(GET_C_DEX(ch)) / 3) + (IS_NPC(ch)? 12: 6))
+#define CAN_CARRY_N(ch) (IS_TRUSTED(ch) ? 3000 : (STAT_INDEX(GET_C_DEX(ch)) / 3) + (IS_NPC(ch) ? 12 : 6))
 
 #define IS_CARRYING_W(ch)  \
 ((ch)->specials.carry_weight + COIN_WEIGHT(GET_COPPER(ch), GET_SILVER(ch), GET_GOLD(ch), GET_PLATINUM(ch)))

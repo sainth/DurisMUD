@@ -2176,7 +2176,7 @@ P_char read_mobile(int nr, int type)
     mob->points.hitroll = mob->points.base_hitroll;
 
     fscanf(mob_f, " %ld ", &tmp);
-    mob->points.base_armor = BOUNDED(-250, tmp, 250);
+    mob->points.base_armor = tmp;
 
     tmp = 0;
     tmp2 = 0;
@@ -2265,8 +2265,7 @@ P_char read_mobile(int nr, int type)
             mob_index[nr].virtual_number, mob->points.hit);
 
     fscanf(mob_f, " %ld ", &tmp);
-
-    mob->points.base_armor = 250;
+    mob->points.base_armor = tmp;
 
     fscanf(mob_f, " %ld ", &tmp);
     mob->points.mana = mob->points.base_mana = mob->points.max_mana = tmp;
@@ -2455,12 +2454,12 @@ P_char read_mobile(int nr, int type)
 
     mob->base_stats.Str = BOUNDED(25, mob->base_stats.Str, 200);
     mob->base_stats.Dex = BOUNDED(25, mob->base_stats.Dex, 200);
-    mob->base_stats.Agi = BOUNDED(25, mob->base_stats.Dex, 200);
+    mob->base_stats.Agi = BOUNDED(25, mob->base_stats.Agi, 200);
     mob->base_stats.Con = BOUNDED(25, mob->base_stats.Con, 200);
-    mob->base_stats.Pow = BOUNDED(25, mob->base_stats.Con, 200);
+    mob->base_stats.Pow = BOUNDED(25, mob->base_stats.Pow, 200);
     mob->base_stats.Int = BOUNDED(25, mob->base_stats.Int, 200);
     mob->base_stats.Wis = BOUNDED(25, mob->base_stats.Wis, 200);
-    mob->base_stats.Cha = BOUNDED(25, mob->base_stats.Wis, 200);
+    mob->base_stats.Cha = BOUNDED(25, mob->base_stats.Cha, 200);
 
     /* * variable mana */
     i = 80 + dice(MAX(1, GET_LEVEL(mob)), IS_ANIMAL(mob) ? 1 : 4) +
@@ -2547,8 +2546,9 @@ P_char read_mobile(int nr, int type)
     /* Set the damage as some standard 1d6 */
     fscanf(mob_f, " %ldd%ld+%ld %ld\n", &tmp, &tmp2, &tmp3, &tmp4);
     mob->points.base_damroll = mob->points.damroll = tmp3;
-    mob->points.damnodice = tmp;
-    mob->points.damsizedice = tmp2;
+    mob->points.damnodice = BOUNDED(1, tmp, 7);
+    mob->points.damsizedice = BOUNDED(1, tmp2, 7); // wipe2011, making sure we have lower limits engaged
+
     /* was warping things.  Tempy fix til everything changes.  JAB */
     if(IS_WARRIOR(mob) ||
       IS_GREATER_RACE(mob) ||
@@ -4080,9 +4080,6 @@ void clear_char(P_char ch)
   ch->in_room = NOWHERE;
   ch->specials.was_in_room = NOWHERE;
   SET_POS(ch, POS_STANDING + STAT_NORMAL);
-#if 1
-  ch->points.base_armor = 0;  /* Basic Armor */
-#endif
 
   /*
    * Zero out our other flags -- this should have been done when
@@ -4090,8 +4087,7 @@ void clear_char(P_char ch)
    */
 
   ch->affected = NULL;
-
-	ch->lobj = NULL;
+  ch->lobj = NULL;
 }
 
 /*

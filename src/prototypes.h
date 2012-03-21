@@ -1110,7 +1110,7 @@ struct obj_affect* get_obj_affect(P_obj, int);
 int obj_affect_time(P_obj, struct obj_affect*);
 void set_obj_affected(P_obj, int, sh_int, sh_int);
 int affect_from_obj(P_obj, sh_int);
-int agi_defense(P_char);
+float agi_defense(P_char);
 
 
 /* innates.c */
@@ -2784,7 +2784,7 @@ char *striplinefeed(char *mesg);
 int ScaleAreaDamage(P_char ch, int orig_dam);
 int flag2idx(int);
 bool can_char_multi_to_class(P_char, int);
-int GET_LEVEL(P_char);
+//int GET_LEVEL(P_char);
 int GET_CLASS(P_char, uint);
 int GET_PRIME_CLASS(P_char, uint);
 int GET_SECONDARY_CLASS(P_char, uint);

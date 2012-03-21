@@ -1194,6 +1194,9 @@ int ac_can_see(P_char sub, P_char obj, bool check_z)
     }
   }
 
+   if(globe && flame)
+     return 1;
+
   /*
    * Room is magically dark
    */
@@ -3870,23 +3873,20 @@ int flag2idx(int flag)
 
   return i;
 }
-
 /*
- *
- */
-
 int GET_LEVEL(P_char ch)
 {
-  return ch->player.level;
+  if(!(ch)  || !IS_ALIVE(ch))
+  {
+    logit(LOG_DEBUG, "No/dead character passed to GET_LEVEL in utility.c...  whaaaaa?");
+    raise(SIGSEGV);
+  }
+
+  return (int) (ch)->player.level;
 }
-
-/*
- * GET_CLASS
- */
-
+*/
 int GET_CLASS(P_char ch, uint m_class)
-{
-  
+{  
   return ((ch->player.m_class & m_class) || (ch->player.secondary_class & m_class));
 }
 
