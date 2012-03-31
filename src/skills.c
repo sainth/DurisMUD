@@ -1905,7 +1905,7 @@ void initialize_skills()
 
   SPELL_CREATE("conjure elemental", SPELL_CONJURE_ELEMENTAL, PULSE_SPELLCAST * 4, 
                TAR_IGNORE | TAR_NOCOMBAT,
-               spell_conjour_elemental);
+               spell_conjure_elemental);
   SPELL_ADD(CLASS_CONJURER, 5);
 
   SPELL_CREATE("mirror image", SPELL_MIRROR_IMAGE, PULSE_SPELLCAST * 2, TAR_IGNORE | TAR_NOCOMBAT, 
@@ -1916,7 +1916,7 @@ void initialize_skills()
 
   SPELL_CREATE("conjure greater elemental", SPELL_CONJURE_GREATER_ELEMENTAL, PULSE_SPELLCAST * 4,
                TAR_IGNORE | TAR_NOCOMBAT,
-               spell_conjour_greater_elemental);
+               spell_conjure_greater_elemental);
   SPELL_ADD(CLASS_CONJURER, 11);
 
   SPELL_CREATE("vitalize mana", SPELL_VITALIZE_MANA, PULSE_SPELLCAST, TAR_SELF_ONLY, spell_vitalize_mana);

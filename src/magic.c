@@ -526,7 +526,7 @@ void spell_magic_missile(int level, P_char ch, char *arg, int type, P_char victi
         return;
 
   int num_missiles = BOUNDED(1, (level / 3), 5);
-  dam = (dice(2, 4)) + (level / 8);
+  dam = (dice(2, 4)) + (level / 10);
   while(num_missiles--)
   {
     if(NewSaves(victim, SAVING_SPELL, 0))
@@ -795,7 +795,7 @@ void spell_invoke_negative_energy(int level, P_char ch, char *arg, int type, P_c
     "&+L$N&+L howls in pain as $n's&+L unmakes $m!"
   };
 
-  dam = dice(5, 10) + GET_LEVEL(ch);
+  dam = dice(level, 2) + number(-8, 8);
 
   spell_damage(ch, victim, dam, SPLDAM_NEGATIVE, SPLDAM_GLOBE, &messages);
 }
@@ -996,7 +996,7 @@ void spell_energy_drain(int level, P_char ch, char *arg, int type, P_char victim
     return;
   }
 
-  dam = dice(3 * level, 5);
+  dam = dice(level, level / 12);
   
   if(IS_AFFECTED4(victim, AFF4_DEFLECT))
   {
@@ -1245,8 +1245,8 @@ void spell_wither(int level, P_char ch, char *arg, int type, P_char victim, P_ob
       "$N&+L is completely withered away by&n $n's &+Lraw will!", 0
     };
   
-    int dam = dice(30, 2) + (level / 4);
-  
+    int dam = dice(30, 2) + (level / 4);  
+
     spell_damage(ch, victim, dam, SPLDAM_GENERIC, SPLDAM_GLOBE | SPLDAM_GRSPIRIT, &wither_undead);
     return;
   }
@@ -1586,8 +1586,7 @@ int can_call_woodland_beings(P_char ch, int level)
   return pets < allowed;
 }
 
-void spell_call_woodland_beings(int level, P_char ch, char *arg, int type,
-                                                                      P_char victim, P_obj obj)
+void spell_call_woodland_beings(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
   P_char        mob;
   int   sum, mlvl, lvl;
@@ -1758,7 +1757,7 @@ void spell_elemental_swarm(int level, P_char ch, char *arg, int type, P_char vic
   group_add_member(ch, mob);
 }
 
-void spell_conjour_elemental(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
+void spell_conjure_elemental(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
   P_char   mob;
   int      life = GET_CHAR_SKILL(ch, SKILL_INFUSE_LIFE);
@@ -2124,7 +2123,7 @@ bool can_conjure_greater_elem(P_char ch, int level)
 /* The conjure_terrain_check() function checks if it is a specialized conjurer  */
 /* trying to conjure on terrain appropriate for the elemental type, and handles */
 /* appropriate messages. Bonuses/maluses themselves are attributed in the       */
-/* conjour_elemental() and conjure_specialized() functions.                     */
+/* conjure_elemental() and conjure_specialized() functions.                     */
 /* Return values from this function are:                                        */
 /* -1 - bad terrain for the elemental type                                      */
 /* 0 - neutral terrain                                                          */ 
@@ -2296,9 +2295,9 @@ void conjure_specialized(P_char ch, int level)
      !(mob) ||
      !(room))
   {
-    logit(LOG_DEBUG, "spell_conjour_greater_elemental(): mob %d not loadable",
+    logit(LOG_DEBUG, "spell_conjure_greater_elemental(): mob %d not loadable",
           pets[summoned].vnum);
-    send_to_char("Bug in conjour greater elemental.  Tell a god!\n", ch);
+    send_to_char("Bug in conjure greater elemental.  Tell a god!\n", ch);
     return;
   }
 
@@ -2419,7 +2418,7 @@ void conjure_specialized(P_char ch, int level)
   }
 }
 
-void spell_conjour_greater_elemental(int level, P_char ch, char *arg,
+void spell_conjure_greater_elemental(int level, P_char ch, char *arg,
                                      int type, P_char victim, P_obj obj)
 {
   P_char   mob;
@@ -2806,7 +2805,7 @@ void spell_bigbys_crushing_hand(int level, P_char ch, char *arg, int type, P_cha
      !IS_ALIVE(victim))
         return;
 
-  int dam = dice(64, 2)  + (level / 4);
+  int dam = dice(64, 2) + (level / 4);
 
   if(NewSaves(victim, SAVING_SPELL, 0))
     dam >> 1;
@@ -5596,7 +5595,7 @@ void spell_cure_serious(int level, P_char ch, char *arg, int type, P_char victim
 {
   int      healpoints;
 
-  healpoints = dice(8, 2) + (level / 8);
+  healpoints = dice(8, 2) + (level / 4);
   heal(victim, ch, healpoints, GET_MAX_HIT(victim));
   // healCondition(victim, healpoints);
   send_to_char("&+WYou feel a lot better!\n", victim);
@@ -5607,7 +5606,7 @@ void spell_cure_critic(int level, P_char ch, char *arg, int type, P_char victim,
 {
   int      healpoints;
 
-  healpoints = dice(12, 2) + (level / 2);
+  healpoints = dice(12, 2) + (level / 4);
   heal(victim, ch, healpoints, GET_MAX_HIT(victim));
   // healCondition(victim, healpoints);
   send_to_char("&+WYou feel MUCH better!\n", victim);
@@ -5939,7 +5938,7 @@ void spell_enchant_weapon(int level, P_char ch, char *arg, int type, P_char vict
 
 void spell_full_heal(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
-  int num_dice = 1;
+  int num_dice = 2;
 
   if(level >= 36)
     num_dice += 2;
@@ -6005,7 +6004,7 @@ void spell_full_heal(int level, P_char ch, char *arg, int type, P_char victim, P
 
 void spell_heal(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
-  int num_dice = 1, healpoints;
+  int num_dice = 2, healpoints;
   
   if(!(ch) ||
      !IS_ALIVE(ch) ||
@@ -6047,6 +6046,9 @@ void spell_heal(int level, P_char ch, char *arg, int type, P_char victim, P_obj 
   }
   else
   {
+    if(level >= 21)
+      num_dice += 1;
+
     if(level >= 26)
       num_dice += 2;
 
@@ -9524,13 +9526,14 @@ void spell_shadow_breath_1(int level, P_char ch, char *arg, int type, P_char vic
     "$n &+wtotally consumes&n $N &+Lwith blackness.&n", 0
   };
   save = calc_dragon_breath_save(ch, victim);
-  dam = (int) (dice(level + get_property("dragon.Breath.DamageMod", 1), 4));
+  
+  dam = dice(level, 3) + number(-25, 25);
 
   if(!are_we_still_alive(ch, victim))
     return;
 
   if(NewSaves(victim, SAVING_BREATH, save))
-    dam = (int) (dam / get_property("dragon.Breath.savedDamage", 2));
+    dam >> 1;
 
   if(spell_damage(ch, victim, dam, SPLDAM_NEGATIVE, SPLDAM_BREATH | SPLDAM_NODEFLECT, &messages) != DAM_NONEDEAD);
       return;
@@ -9552,10 +9555,11 @@ void spell_shadow_breath_2(int level, P_char ch, char *arg, int type, P_char vic
     return;
 
   save = calc_dragon_breath_save(ch, victim);
-  dam = (int) (dice(level + get_property("dragon.Breath.DamageMod", 1), 5));
+  
+  dam = dice(level / 3, 6) + number(-25, 25);
 
   if(NewSaves(victim, SAVING_BREATH, save))
-    dam = (int) (dam / get_property("dragon.Breath.savedDamage", 2));
+    dam >> 1;
 
   if(!NewSaves(victim, SAVING_SPELL, save))
   {
@@ -9567,8 +9571,7 @@ void spell_shadow_breath_2(int level, P_char ch, char *arg, int type, P_char vic
       return;
 }
 
-void spell_fire_breath(int level, P_char ch, char *arg, int type,
-                       P_char victim, P_obj obj)
+void spell_fire_breath(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
   struct damage_messages messages = {
     "$N is hit.",
@@ -9578,20 +9581,20 @@ void spell_fire_breath(int level, P_char ch, char *arg, int type,
     "You are &+rb&+Ru&+Yrn&+Re&+rd&n to ashes as $n breathes on you.",
     "$n's breath turns $N to ashes.", 0
   };
-  int save, dam;
-  P_obj    burn = NULL;
+  int save, dam, burn;
 
   if(!are_we_still_alive(ch , victim))
     return;
 
   save = calc_dragon_breath_save(ch, victim);
-  dam = (int) (dice(level + get_property("dragon.Breath.DamageMod", 1), 8) + level);
+
+  dam = dice(level, 4) + number(-50, 50);
 
   if(IS_PC_PET(ch))
-    dam /= 2;
+    dam >> 1;
 
   if(NewSaves(victim, SAVING_BREATH, save))
-    dam = (int) (dam / get_property("dragon.Breath.savedDamage", 2));
+    dam >> 1;
 
   if(spell_damage(ch, victim, dam, SPLDAM_FIRE, SPLDAM_BREATH | SPLDAM_NODEFLECT, &messages) !=
     DAM_NONEDEAD)
@@ -9604,32 +9607,28 @@ void spell_fire_breath(int level, P_char ch, char *arg, int type,
   /*
    * And now for the damage on inventory
    */
-  if(number(0, TOTALLVLS) < GET_LEVEL(ch))
+  if(number(0, TOTALLVLS) < level)
   {
     if(!NewSaves(victim, SAVING_BREATH, save) &&
       !CHAR_IN_ARENA(victim))
     {
-      for (burn = victim->carrying;
-           burn && (((burn->type != ITEM_SCROLL) &&
-                     (burn->type != ITEM_WAND) &&
-                     (burn->type != ITEM_STAFF) &&
-                     (burn->type != ITEM_NOTE)) ||
-                    number(0, 2)); burn = burn->next_content);
-      if(burn)
+      for (burn = 0; (burn < MAX_WEAR) &&
+           !((victim->equipment[burn]) &&
+             (victim->equipment[burn]->type == ITEM_ARMOR) &&
+             (victim->equipment[burn]->value[0] > 0) &&
+             number(0, 1)); burn++);
+      if(burn < MAX_WEAR)
       {
-        act("&+r$p is turned into ash!", FALSE, victim, burn, 0, TO_CHAR);
-        extract_obj(burn, TRUE);
-        burn = NULL;
+        act("&+L$p corrodes.", FALSE, victim, victim->equipment[burn], 0, TO_CHAR);
+        victim->equipment[burn]->condition -= number(1, level / 7);
       }
     }
   }
 }
 
-void spell_frost_breath(int level, P_char ch, char *arg, int type,
-                        P_char victim, P_obj obj)
+void spell_frost_breath(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
-  int save, dam, mod;
-  P_obj frozen = NULL;
+  int save, dam, mod, frozen;
   struct affected_type af;
   struct damage_messages messages = {
     "$N is partially turned to ice.",
@@ -9643,11 +9642,14 @@ void spell_frost_breath(int level, P_char ch, char *arg, int type,
     return;
 
   save = calc_dragon_breath_save(ch, victim);
-  dam = (int) (dice(level + get_property("dragon.Breath.DamageMod", 1), 8) + level);
+
+  dam = dice(level / 3, 7) + number(-50, 50);
+
   if(IS_PC_PET(ch))
-    dam /= 2;
+    dam >> 1;
+
   if(NewSaves(victim, SAVING_BREATH, save))
-    dam = (int) (dam / get_property("dragon.Breath.savedDamage", 2));
+    dam >> 1;
 
   if(spell_damage(ch, victim, dam, SPLDAM_COLD, SPLDAM_BREATH | SPLDAM_NODEFLECT, &messages) !=
     DAM_NONEDEAD);
@@ -9660,31 +9662,29 @@ void spell_frost_breath(int level, P_char ch, char *arg, int type,
   /*
    * And now for the damage on inventory
    */
-  if(number(0, TOTALLVLS) < GET_LEVEL(ch))
+  
+  if(number(0, TOTALLVLS) < level)
   {
     if(!NewSaves(victim, SAVING_BREATH, save) &&
       !CHAR_IN_ARENA(victim))
     {
-      for (frozen = victim->carrying;
-           frozen && (((frozen->type != ITEM_DRINKCON) &&
-                       (frozen->type != ITEM_FOOD) &&
-                       (frozen->type != ITEM_POTION)) ||
-                      number(0, 2)); frozen = frozen->next_content)
+      for (frozen = 0; (frozen < MAX_WEAR) &&
+           !((victim->equipment[frozen]) &&
+             (victim->equipment[frozen]->type == ITEM_ARMOR) &&
+             (victim->equipment[frozen]->value[0] > 0) &&
+             number(0, 1)); frozen++);
+      if(frozen < MAX_WEAR)
       {
-        if(frozen)
-        {
-          DamageOneItem(victim, SPLDAM_COLD, obj, 0);
-          frozen = NULL;
-        }
+        act("&+L$p corrodes.", FALSE, victim, victim->equipment[frozen], 0, TO_CHAR);
+        victim->equipment[frozen]->condition -= number(1, level / 7);
       }
     }
   }
 }
 
-void spell_acid_breath(int level, P_char ch, char *arg, int type,
-                       P_char victim, P_obj obj)
+void spell_acid_breath(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
-  int save, dam;
+  int save, dam, damaged;
   struct damage_messages messages = {
     "$N is partially corroded by your acid breath.",
     "$n corrodes you.",
@@ -9697,11 +9697,14 @@ void spell_acid_breath(int level, P_char ch, char *arg, int type,
     return;
 
   save = calc_dragon_breath_save(ch, victim);
-  dam = (int) (dice(level + get_property("dragon.Breath.DamageMod", 1), 12) + level);
+
+  dam = dice(level / 2, 8) + number(-50, -10);
+
   if(IS_PC_PET(ch))
-    dam /= 2;
+    dam >> 1;
+
   if(NewSaves(victim, SAVING_BREATH, save))
-    dam = (int) (dam / get_property("dragon.Breath.savedDamage", 2));
+    dam >> 1;
 
   if(IS_AFFECTED2(victim, AFF2_PROT_ACID) &&
     number(0, 4))
@@ -9715,8 +9718,7 @@ void spell_acid_breath(int level, P_char ch, char *arg, int type,
    * And now for the damage on equipment
    */
 
-#if 0
-  if(number(0, TOTALLVLS) < GET_LEVEL(ch))
+  if(number(0, TOTALLVLS) < level)
   {
     if(!NewSaves(victim, SAVING_BREATH, save) &&
       !CHAR_IN_ARENA(victim))
@@ -9728,20 +9730,14 @@ void spell_acid_breath(int level, P_char ch, char *arg, int type,
              number(0, 1)); damaged++);
       if(damaged < MAX_WEAR)
       {
-        act("&+L$p corrodes.", FALSE, victim, victim->equipment[damaged], 0,
-            TO_CHAR);
-        GET_AC(victim) -= apply_ac(victim, damaged);
-        victim->equipment[damaged]->value[0] -= number(1, 7);
-        GET_AC(victim) += apply_ac(victim, damaged);
-        victim->equipment[damaged]->cost = 0;
+        act("&+L$p corrodes.", FALSE, victim, victim->equipment[damaged], 0, TO_CHAR);
+        victim->equipment[damaged]->condition -= number(1, level / 7);
       }
     }
   }
-#endif
 }
 
-void spell_gas_breath(int level, P_char ch, char *arg, int type,
-                      P_char victim, P_obj obj)
+void spell_gas_breath(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
   int save, dam;
   struct damage_messages messages = {
@@ -9756,12 +9752,13 @@ void spell_gas_breath(int level, P_char ch, char *arg, int type,
     return;
 
   save = calc_dragon_breath_save(ch, victim);
-  dam = (int) (dice(level + get_property("dragon.Breath.DamageMod", 1), 2) + 
-        ((level  + get_property("dragon.Breath.DamageMod", 1))/ 4));
+
+  dam = dice(level, 2) + number(-25, 25);
+
   if(IS_PC_PET(ch))
-    dam /= 2;
+    dam >> 1;
   if(NewSaves(victim, SAVING_BREATH, save))
-    dam = (int) (dam / get_property("dragon.Breath.savedDamage", 2));
+    dam >> 1;
 
   if(spell_damage(ch, victim, dam, SPLDAM_GAS, SPLDAM_BREATH | SPLDAM_NODEFLECT, &messages) ==
       DAM_NONEDEAD)
@@ -9772,8 +9769,7 @@ void spell_gas_breath(int level, P_char ch, char *arg, int type,
   }
 }
 
-void spell_lightning_breath(int level, P_char ch, char *arg, int type,
-                            P_char victim, P_obj obj)
+void spell_lightning_breath(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
   int save, dam;
   struct damage_messages messages = {
@@ -9788,21 +9784,18 @@ void spell_lightning_breath(int level, P_char ch, char *arg, int type,
     return;
 
   save = calc_dragon_breath_save(ch, victim);
-  dam = (int) (dice(level + get_property("dragon.Breath.DamageMod", 1), 8) + level);
-  if(IS_PC_PET(ch))
-    dam /= 2;
-  if(NewSaves(victim, SAVING_BREATH, save))
-    dam = (int) (dam / get_property("dragon.Breath.savedDamage", 2));
 
-  if(IS_AFFECTED2(victim, AFF2_PROT_LIGHTNING) &&
-    number(0, 4))
-      return;
+  dam = dice(level, 3) + number(-25, 25);
+
+  if(IS_PC_PET(ch))
+    dam >> 1;
+  if(NewSaves(victim, SAVING_BREATH, save))
+    dam >> 1;
 
   spell_damage(ch, victim, dam, SPLDAM_LIGHTNING, SPLDAM_BREATH | SPLDAM_NODEFLECT, &messages);
 }
 
-void spell_blinding_breath(int level, P_char ch, char *arg, int type,
-                           P_char victim, P_obj obj)
+void spell_blinding_breath(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
   struct affected_type af;
   int save, dam;
@@ -9819,11 +9812,14 @@ void spell_blinding_breath(int level, P_char ch, char *arg, int type,
     return;
 
   save = calc_dragon_breath_save(ch, victim);
-  dam = (int) (180 + dice(4, 10) + ((level + get_property("dragon.Breath.DamageMod", 1)) / 2));
+
+  dam = dice(level / 2, 4) + number(-25, 25);
+
   if(IS_PC_PET(ch))
-    dam /= 2;
+    dam >> 1;
+
   if(NewSaves(victim, SAVING_BREATH, save))
-    dam = (int) (dam / get_property("dragon.Breath.savedDamage", 2));;
+    dam >> 1;;
 
   if(spell_damage(ch, victim, dam, SPLDAM_GAS, SPLDAM_BREATH | SPLDAM_NODEFLECT, &messages) !=
       DAM_NONEDEAD)
@@ -9833,8 +9829,7 @@ void spell_blinding_breath(int level, P_char ch, char *arg, int type,
       !resists_spell(ch, victim) && !IS_TRUSTED(victim) &&
       !affected_by_spell(victim, SPELL_BLINDNESS))
   {
-    act("&+gThe toxic gas seems to have blinded $n&n!", TRUE, victim, 0, 0,
-        TO_ROOM);
+    act("&+gThe toxic gas seems to have blinded $n&n!", FALSE, victim, 0, 0, TO_ROOM);
     send_to_char("&+gYour eyes sting as the toxic gas blinds you!\n", victim);
     blind(ch, victim, 60 );
   }
@@ -10978,7 +10973,7 @@ void spell_endurance(int level, P_char ch, char *arg, int type, P_char victim,
     return;
   }
   
-  skl_lvl = (int)(MAX(3, ((level / 4) - 1)) * get_property("spell.endurance.modifiers", 1.000));
+  skl_lvl = (int)(MAX(3, ((level / 4) - 1)) * (float)get_property("spell.endurance.modifiers", 1.000));
   
   sprintf(Gbuf1, "You feel energy begin to surge through your limbs.\n");
 
@@ -16368,7 +16363,7 @@ void event_magma_burst(P_char ch, P_char vict, P_obj obj, void *data)
     return;
   }
 
-  dam = 3 * level + number(0, 30);
+  dam = dice(level / 3, 2) + number(-10, 10);
 
   if(spell_damage(ch, vict, dam, SPLDAM_FIRE, SPLDAM_NODEFLECT, &messages) ==
       DAM_NONEDEAD)
@@ -16385,11 +16380,11 @@ void spell_magma_burst(int level, P_char ch, char *arg, int type,
 {
   struct affected_type *af;
 
-  act("Two pillars of &+Wwhite flame &Nleap from $n's outstreached palms enveloping $N\n"
+  act("Two pillars of &+Wmagma &Nleap from $n's outstreached palms enveloping $N\n"
      "in a &+Rfi&+rery in&+Rferno&N.", TRUE, ch, 0, victim, TO_NOTVICT);
-  act("Two pillars of &+Wwhite flame &Nleap from $n's outstreached palms enveloping you\n"
+  act("Two pillars of &+Wmagma &Nleap from $n's outstreached palms enveloping you\n"
       "in a &+Rfi&+rery in&+Rferno&N.", TRUE, ch, 0, victim, TO_VICT);
-  act("Two pillars of &+Wwhite flame &Nleap from your outstreached palms enveloping $N\n"
+  act("Two pillars of &+Wmagma &Nleap from your outstreached palms enveloping $N\n"
       "in a &+Rfi&+rery in&+Rferno&N.", TRUE, ch, 0, victim, TO_CHAR);
 
   if((af = get_spell_from_char(victim, SPELL_MAGMA_BURST)) == NULL)
@@ -17869,7 +17864,7 @@ void spell_negative_concussion_blast(int level, P_char ch, char *arg,
       return;
     }
 
-    dam = dice(2 * level, 6);
+    dam = dice(level, level / 14);
 
     spell_damage(ch, victim, dam, SPLDAM_NEGATIVE, SPLDAM_NOSHRUG, &messages);
   }

@@ -209,17 +209,17 @@ int notch_skill(P_char ch, int skill, int chance)
   }
 
   if(affected_by_skill(ch, TAG_PHYS_SKILL_NOTCH))  // instead of simply not allowing notches, we just make it
-  {                                                // twice as hard - Jexni 1/3/12
-    chance = chance << 1;
+  {                                                // harder - Jexni 1/3/12
+    chance = chance << 2;
   }
   else if(affected_by_skill(ch, TAG_MENTAL_SKILL_NOTCH))
   {
-    chance = chance << 1;
+    chance = chance << 2;
   }
   
   chance = chance * (l / t); // the higher the skill, the tougher to notch and vice versa
   
-#if !defined(CHAOS_MUD) || (CHAOS_MUD == 0) || !wipe2011
+#if !defined(CHAOS_MUD) || (CHAOS_MUD == 0)
   if(number(0, chance))
   {
     return 0;
