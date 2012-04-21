@@ -2955,7 +2955,6 @@ bool decrease_skin_counter(P_char ch, unsigned int skin)
       return TRUE;
     }
   }
-
   return FALSE;
 }
 
@@ -3419,8 +3418,7 @@ bool damage(P_char ch, P_char victim, double dam, int attacktype)
  *        replace SPLDAM_ prefix with something else, it may collide with constants
  *        for spells.
  */
-int spell_damage(P_char ch, P_char victim, double dam, int type, uint flags,
-                 struct damage_messages *messages)
+int spell_damage(P_char ch, P_char victim, double dam, int type, uint flags, struct damage_messages *messages)
 {
   struct damage_messages dummy_messages;
   struct affected_type *af;
@@ -3428,7 +3426,7 @@ int spell_damage(P_char ch, P_char victim, double dam, int type, uint flags,
   struct spell_res_data spell_msg_data = {"to char", "to vict", "to room", "TRUE"};
   P_char vict_group_member, next, eth_ch;
   P_obj vict_weapon, item;
-  int result, circle, awe, i, resist;
+  int result, circle, awe, i, resist, skill;
   float res_amt;
   double levelmod = 1.0;
 
@@ -3452,6 +3450,30 @@ int spell_damage(P_char ch, P_char victim, double dam, int type, uint flags,
     act(spell_msg_data.toroom, FALSE, victim, 0, ch, TO_NOTVICTROOM);
     return DAM_NONEDEAD;
   }
+
+  if(IS_BOOK_CLASS(ch->player.m_class))
+  {
+    skill = GET_CHAR_SKILL(ch, SKILL_SPELL_KNOWLEDGE_MAGICAL);
+  }
+  else if(IS_PRAYING_CLASS(ch->player.m_class))
+  {
+    skill = GET_CHAR_SKILL(ch, SKILL_SPELL_KNOWLEDGE_CLERICAL);
+  }
+  else if(GET_CLASS(ch, CLASS_SHAMAN))
+  {
+    skill = GET_CHAR_SKILL(ch, SKILL_SPELL_KNOWLEDGE_SHAMAN);
+  }
+  else if(GET_CLASS(ch, CLASS_PSIONICIST))
+  {
+    skill = BOUNDED(20, GET_LEVEL(ch) + (GET_C_POW(ch) / 2), 100);
+  }
+  else
+  {
+    skill = number(GET_LEVEL(ch), 90);
+  }
+
+  // casters need skill to constantly achieve highest damage output - Jexni 4/2/12
+  dam = dam * ((float)number(skill, 100) / 100);
 
   /* Pets take double damage from PC spells */
   if(get_linked_char(victim, LNK_PET) &&
@@ -3496,7 +3518,7 @@ int spell_damage(P_char ch, P_char victim, double dam, int type, uint flags,
   //      DONE!  Jexni 1/14/12
 
   if(has_innate(victim, INNATE_EVASION) &&
-     GET_SPEC(victim, CLASS_MONK, SPEC_WAYOFDRAGON))
+     GET_SPEC(victim, CLASS_MONK, SPEC_REDDRAGON))
   {
     if(((int) get_property("innate.evasion.removechance", 15.000)) > number(1, 100))
     {
@@ -3855,7 +3877,6 @@ int spell_damage(P_char ch, P_char victim, double dam, int type, uint flags,
        vamp(victim, dam * get_property("vamping.hellfire.absorb", 0.14), (int)(GET_MAX_HIT(victim) * 1.3));
        return DAM_NONEDEAD;
     }
-
     // apply damage modifiers
     switch (type)
     {
@@ -4222,6 +4243,7 @@ int spell_damage(P_char ch, P_char victim, double dam, int type, uint flags,
 
     // ugly hack - we smuggle damage_type for eq poofing messages on 8 highest bits
     messages->type |= type << 24;
+
     result = raw_damage(ch, victim, dam, RAWDAM_DEFAULT ^ flags, messages);
 
     // Tether code here
@@ -4703,13 +4725,28 @@ int melee_damage(P_char ch, P_char victim, double dam, int flags, struct damage_
   //-------------------------------
   
   if(skin &&
-    !get_spell_from_char(ch, SKILL_FIST_OF_DRAGON))
+    !get_spell_from_char(ch, SKILL_FIST_OF_DRAGON) &&
+    !(flags & PHSDAM_NOREDUCE))
   {
-    dam -= get_property("damage.reduction.skinSpell.deduct", 46);
+    struct affected_type *af, *af2;
+    int mod;
 
-    if(dam > 10 &&
-      !(flags & PHSDAM_NOREDUCE))
-          dam -= dam * reduction;
+    for (af = ch->affected; af; af = af2)
+    {
+      af2 = af->next;
+      if(af->type == skin)
+      {
+        mod = af->modifier;
+      }
+    }
+
+    if(skin == SPELL_STONE_SKIN)
+      dam = dam - (mod * 4); // stoneskin power curved by level - Jexni 4/19/12
+    else
+      dam = dam - ((float) mod / 3 * get_property("damage.reduction.skinSpell.deduct", 20));
+   
+    if(dam > 2)
+      dam = dam - ((float)dam * reduction);
 
     // for mobs flagged with a skin spell that aren't pets, 1% chance to break it.  
     // pets are more likely to have it broken (5%)
@@ -5251,8 +5288,8 @@ int raw_damage(P_char ch, P_char victim, double dam, uint flags,
       if(GET_RACEWAR(victim) == RACEWAR_EVIL)
 	dam = dam * (float)get_property("damage.modifier.npcToPc.evil", 1.000);
     }
-    
-    dam = BOUNDED(1, (int) dam, 9999);
+
+    dam = BOUNDED(1, (int) dam, 999);
 
     check_blood_alliance(victim, (int)dam);
 
@@ -5265,30 +5302,23 @@ int raw_damage(P_char ch, P_char victim, double dam, uint flags,
     
     if(IS_AFFECTED5(victim, AFF5_VINES) &&
       (flags & RAWDAM_VINES) &&
+      !(flags & PHSDAM_NOREDUCE) &&
       (af = get_spell_from_char(victim, SPELL_VINES)))
     {
       bool  vine_success = FALSE;
-      if(number((20 + af->modifier / 4), 100))
+      if(number(0, 8))
       {
-        act("The &+Gvines&n protecting you bear the brunt of the assault.",
-            FALSE, ch, 0, victim, TO_VICT);
-        act("The &+Gvines&n protecting $N bear the brunt of the assault.",
-            FALSE, ch, 0, victim, TO_NOTVICT);
-        act("The &+Gvines&n surrounding $N bear the brunt of your attack.",
-          FALSE, ch, 0, victim, TO_CHAR);
+        act("The &+Gvines&n protecting you bear the brunt of the assault.", FALSE, ch, 0, victim, TO_VICT);
+        act("The &+Gvines&n protecting $N bear the brunt of the assault.", FALSE, ch, 0, victim, TO_NOTVICT);
+        act("The &+Gvines&n surrounding $N bear the brunt of your attack.", FALSE, ch, 0, victim, TO_CHAR);
         vine_success = TRUE;
       }
-      
-      af->modifier -= (int) dam;
-
+      af->modifier--;
       if(af->modifier <= 0)
       {
-        act("The &+Gvines&n surrounding you wither and die.",
-            FALSE, ch, 0, victim, TO_VICT);
-        act("The &+Gvines&n surrounding $N wither and die.",
-            FALSE, ch, 0, victim, TO_NOTVICT);
-        act("The &+Gvines&n surrounding $N wither and die.",
-          FALSE, ch, 0, victim, TO_CHAR);
+        act("The &+Gvines&n surrounding you wither and die.", FALSE, ch, 0, victim, TO_VICT);
+        act("The &+Gvines&n surrounding $N wither and die.", FALSE, ch, 0, victim, TO_NOTVICT);
+        act("The &+Gvines&n surrounding $N wither and die.", FALSE, ch, 0, victim, TO_CHAR);
         REMOVE_BIT(victim->specials.affected_by5, AFF5_VINES);
         affect_from_char(victim, SPELL_VINES);
       }
@@ -5858,7 +5888,7 @@ bool monk_critic(P_char ch, P_char victim)
      IS_CONSTRUCT(victim))
         return false;
 
-  if(GET_SPEC(ch, CLASS_MONK, SPEC_WAYOFSNAKE) ||
+  if(GET_SPEC(ch, CLASS_MONK, SPEC_ELAPHIDIST) ||
     (GET_CLASS(ch, CLASS_MONK) && IS_NPC(ch) && GET_LEVEL(ch) > 50))
   {
     af = get_spell_from_char(victim, TAG_PRESSURE_POINTS);
@@ -7999,15 +8029,6 @@ int calculate_attacks(P_char ch, int attacks[])
   if(GET_CLASS(ch, CLASS_MONK))
   {
     int num_atts = MonkNumberOfAttacks(ch);
-    int weight_threshold = GET_C_STR(ch) / 2;
-
-    if(IS_CARRYING_W(ch) >= weight_threshold && IS_PC(ch))
-    {
-      num_atts -= MIN(num_atts - 1, (int) ((IS_CARRYING_W(ch) - 30) / 10));
-
-      if(!number(0, 15))
-        send_to_char("&+LYou feel weighed down...&n\r\n", ch);
-    }
 
     if(IS_AFFECTED2(ch, AFF2_SLOW) && num_atts > 1)
       num_atts /= 2;
@@ -8016,7 +8037,7 @@ int calculate_attacks(P_char ch, int attacks[])
       ADD_ATTACK(PRIMARY_WEAPON);
 
     if(IS_MULTICLASS_NPC(ch))
-      num_atts -= 3;
+      num_atts -= 4;
   }
   else
   {                           // not MONK
