@@ -1357,6 +1357,14 @@ E
 _room_msg~
 &+LThe power of the &+gJ&+Gad&+ge &+LEm&+wpi&+Wre &+Yinfuses &+La &+Wk&+Latana &+Wc&+Lalled &+C'&+LRet&+rribut&+Lion&+C' &+Lwith an enveloping &+gg&+Gree&+gn &+Wlight&+L.&n
 ~
+E
+_victim_msg~
+&+LAs a &+Wk&+Latana &+Wc&+Lalled &+C'&+LRet&+rribut&+Lion&+C' &+Lslices through the &+Cair &+Ltowards you, a &+Gg&+gr&+Ge&+ge&+Gn &+Yg&+ylo&+Yw &+Linfuses the blade!&n
+~
+E
+_char_msg~
+&+LYour &+Wk&+Latana &+Wc&+Lalled &+C'&+LRet&+rribut&+Lion&+C' &+Yshimmers &+Lwith a &+Whealing &+Ggreen &+Ylight &+Las a &+rwarm &+Lsensation fills your body.&n
+~
 A
 18 4
 A
