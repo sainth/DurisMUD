@@ -1082,16 +1082,16 @@ void spell_energy_drain(int level, P_char ch, char *arg, int type,
   else
   {
     if(!IS_AFFECTED4(victim, AFF4_NEG_SHIELD) &&
-       !IS_UNDEADRACE(victim))
+       !IS_UNDEADRACE(victim) && (!GET_CLASS(ch, CLASS_NECROMANCER)))
     {
-     /* if(IS_PC(ch) || //disabling vamp
+      if(IS_PC(ch) || //disabling vamp
          IS_PC_PET(ch))
       {
-        vamp(ch, (int)(dam / 5), (int) (GET_MAX_HIT(ch) * 1.25));
+        vamp(ch, (int)(dam / 5), (int) (GET_MAX_HIT(ch) * 1.10));
       }
       else
-        vamp(ch, (int)(dam / 2), (int) (GET_MAX_HIT(ch) * 1.25));
-	*/ 
+        vamp(ch, (int)(dam / 2), (int) (GET_MAX_HIT(ch) * 1.10));
+	 
     }
 
     send_to_char("&+LYour life energy is &+rtapped&+L.\n", victim);
