@@ -2295,8 +2295,8 @@ void die(P_char ch, P_char killer)
       IS_ALIVE(killer))
   {
     
-  if(GET_LEVEL(ch) < 30 || GET_LEVEL(killer) < 20)
-   {
+ // if(GET_LEVEL(ch) < 30 || GET_LEVEL(killer) < 20)
+//   {
     if(check_random_drop(killer, ch, 0))
     {
       if(!number(0, 25) &&
@@ -2306,7 +2306,10 @@ void die(P_char ch, P_char killer)
       }
       else
       {
+        if(GET_LEVEL(ch) < 30 || GET_LEVEL(killer) < 20)
+	{
         tempobj = create_random_eq_new(killer, ch, -1, -1);
+       }
       }
       if(tempobj &&
          ch)
@@ -2332,7 +2335,7 @@ void die(P_char ch, P_char killer)
         obj_to_char(tempobj, ch);
       }
     }
-  }
+ // }
   }
 
   update_pos(ch);
