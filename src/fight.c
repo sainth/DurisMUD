@@ -2295,8 +2295,8 @@ void die(P_char ch, P_char killer)
       IS_ALIVE(killer))
   {
     
-  if(GET_LEVEL(ch) < 30 || GET_LEVEL(killer) < 20)
-   {
+ // if(GET_LEVEL(ch) < 30 || GET_LEVEL(killer) < 20)
+//   {
     if(check_random_drop(killer, ch, 0))
     {
       if(!number(0, 25) &&
@@ -2306,7 +2306,10 @@ void die(P_char ch, P_char killer)
       }
       else
       {
+        if(GET_LEVEL(ch) < 30 || GET_LEVEL(killer) < 20)
+	{
         tempobj = create_random_eq_new(killer, ch, -1, -1);
+       }
       }
       if(tempobj &&
          ch)
@@ -2332,7 +2335,7 @@ void die(P_char ch, P_char killer)
         obj_to_char(tempobj, ch);
       }
     }
-  }
+ // }
   }
 
   update_pos(ch);
@@ -8207,6 +8210,24 @@ int calculate_attacks(P_char ch, int attacks[])
       }
     }
     
+    if(ch->player.race == RACE_KOBOLD || ch->player.race == RACE_GNOME)
+	{
+	if (number(1, 160) < GET_C_AGI(ch))
+	  {
+	    ADD_ATTACK(PRIMARY_WEAPON);
+	    send_to_char("&nYou move swiftly and execute an extra attack against your foe!&n\n\r", ch);
+	  }
+	}
+
+    if(ch->player.race == RACE_GOBLIN || ch->player.race == RACE_HALFLING)
+	{
+	if (number(1, 220) < GET_C_AGI(ch))
+	  {
+	    ADD_ATTACK(PRIMARY_WEAPON);
+	    send_to_char("&nYou move swiftly and execute an extra attack against your foe!&n\n\r", ch);
+	  }
+	}
+
     if(GET_CLASS(ch, CLASS_PSIONICIST) &&
       affected_by_spell(ch, SPELL_COMBAT_MIND))
     {
