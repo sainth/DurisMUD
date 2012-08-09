@@ -115,6 +115,7 @@ void       do_aura_endurance(P_char, char *, int);
 void       do_aura_healing(P_char, char *, int);
 void       do_aura_vigor(P_char, char *, int);
 void       do_divine_force(P_char, char *, int);
+void	    do_wall_climbing(P_char, char *, int);
 
 int      get_relic_num(P_char ch);
 int      fight_in_room(P_char ch);
@@ -373,7 +374,8 @@ const struct innate_data
   {"calming", 0},
   {"longsword master", 0},
   {"melee mastery", 0},
-  {"bulwark", 0}
+  {"bulwark", 0},
+  {"wall climbing", 0},
 };
 
 string list_innates(int race, int cls, int spec)
@@ -940,10 +942,11 @@ void assign_innates()
   ADD_CLASS_INNATE(INNATE_BATTLEAID, CLASS_MERCENARY, 41, SPEC_BOUNTY);
   ADD_CLASS_INNATE(INNATE_PERCEPTION, CLASS_MERCENARY, 31, SPEC_BOUNTY);
 
-  ADD_CLASS_INNATE(INNATE_SNEAK, CLASS_THIEF, 1, 0);
+  ADD_CLASS_INNATE(INNATE_SNEAK, CLASS_ROGUE, 1, SPEC_THIEF);
   //ADD_CLASS_INNATE(INNATE_SNEAK, CLASS_ROGUE, 1, SPEC_THIEF);
   ADD_CLASS_INNATE(INNATE_TWO_DAGGERS, CLASS_ROGUE, 1, SPEC_THIEF);
   ADD_CLASS_INNATE(INNATE_QUICK_THINKING, CLASS_THIEF, 36, SPEC_TRICKSTER);
+  ADD_CLASS_INNATE(INNATE_WALL_CLIMBING, CLASS_ROGUE, 1, SPEC_THIEF);
 
   ADD_CLASS_INNATE(INNATE_EYELESS, CLASS_DREADLORD, 1, 0);
   ADD_CLASS_INNATE(INNATE_ACID_BLOOD, CLASS_DREADLORD, 1, 0);
@@ -2085,6 +2088,12 @@ void do_enlarge(P_char ch, char *arg, int cmd)
         TO_NOTVICT);
   }
   CharWait(ch, PULSE_VIOLENCE);
+}
+
+void do_wall_climbing(P_char ch, char *arg, int cmd)
+{
+	struct affected_type af;
+	act("&+LThis &+Wability &+Lis always active.", TRUE, ch, 0, 0, TO_CHAR);
 }
 
 void do_flurry(P_char ch, char *arg, int cmd)
