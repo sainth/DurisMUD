@@ -1094,7 +1094,7 @@ void do_practice(P_char ch, char *arg, int cmd)
     if (!IS_SPELL(skl) && (ch->only.pc->skills[i].learned == ch->only.pc->skills[i].taught))
     {
       sprintf(buf,
-              "I'm sorry but i can teach you no more.");
+              "I'm sorry but I can teach you no more.");
       mobsay(teacher, buf);
       return;
     }
@@ -1315,17 +1315,22 @@ char    *replace_it(char *g_string, char *replace_from, char *replace_to)
   return return_str;
 }
 
-void do_practice_new(P_char ch, char *arg, int cmd)
+int skill_cost( P_char ch, int skl )
+{
+  if( skl < FIRST_SKILL || skl > LAST_SKILL )
+    return -1;
+  return 1;
+}
+
+void do_practice_new( P_char ch, char *arg, int cmd )
 {
   char   buf[MAX_STRING_LENGTH], buf1[MAX_STRING_LENGTH],
          obuf[MAX_STRING_LENGTH];
   int    skl, spl, circle, i, meming_cl, cost, ret;
   P_char teacher;
   
-  if(!(ch) ||
-     !IS_ALIVE(ch) ||
-     !IS_PC(ch))
-        return;
+  if( !(ch) || !IS_ALIVE(ch) || !IS_PC(ch) )
+    return;
 
   teacher = FindTeacher(ch);
 
@@ -1341,14 +1346,12 @@ void do_practice_new(P_char ch, char *arg, int cmd)
     for( skl = FIRST_SKILL; skl <= LAST_SKILL; skl++ )
     {
                            /* skills first */
-      if (!IS_SPELL(skl) && (GET_CHAR_SKILL_S(ch, skl) /* ||
-                             ((GET_LEVEL(FindTeacher(ch)) >= 51) &&
-                              (GET_LEVEL(ch) >= 51)) */ ))
+      if( !IS_SPELL(skl) && GET_CHAR_SKILL_S(ch, skl) )
       {
-        if( GET_LVL_FOR_SKILL(ch, skl) <= GET_LEVEL(ch) &&
-            GET_LVL_FOR_SKILL(teacher, skl) <= GET_LEVEL(teacher) )
-          sprintf( buf, "%-25s %s\n", skills[skl].name,
-                  coin_stringv(SkillRaiseCost(ch, skl)) );
+        if( GET_LVL_FOR_SKILL(ch, skl) <= GET_LEVEL(ch)
+          && GET_LVL_FOR_SKILL(teacher, skl) <= GET_LEVEL(teacher)
+          && skill_cost( ch, skl) > 0 )
+          sprintf( buf, "%-25s %d\n", skills[skl].name, skill_cost( ch, skl) );
         else
           sprintf( buf, "%-25s (cannot practice)\n", skills[skl].name );
 
@@ -1363,16 +1366,15 @@ void do_practice_new(P_char ch, char *arg, int cmd)
       strcat(obuf, "\n&+BSpell                    Cost to Scribe\n&n");
       for (spl = FIRST_SKILL; spl <= LAST_SKILL; spl++)
       {
-        if( GET_LVL_FOR_SKILL(ch, spl) <= GET_LEVEL(ch) &&
-            GET_LVL_FOR_SKILL(teacher, spl) <= GET_LEVEL(teacher)
-            && IS_SPELL(spl))
+        if( GET_LVL_FOR_SKILL(ch, spl) <= GET_LEVEL(ch)
+          && GET_LVL_FOR_SKILL(teacher, spl) <= GET_LEVEL(teacher)
+          && IS_SPELL(spl) && skill_cost( ch, spl) > 0 )
         {
           circle = get_spell_circle(ch, spl);
-          if (circle <= get_max_circle(ch) && circle < MAX_CIRCLE + 1 &&
-              circle > 0)
+          if (circle <= get_max_circle(ch) && circle < MAX_CIRCLE + 1
+            && circle > 0)
           {
-            sprintf(buf, "%-25s %s\n", skills[spl].name,
-                    coin_stringv(SpellCopyCost(ch, spl)));
+            sprintf( buf, "%-25s %d\n", skills[skl].name, skill_cost( ch, spl) );
             strcat(buf1, buf);
           }
         }
@@ -1454,8 +1456,7 @@ void do_practice_new(P_char ch, char *arg, int cmd)
         return;
       }
 
-    if ((cost = (!IS_SPELL(skl) ? SkillRaiseCost(ch, skl) : 0
-                 /*SpellCopyCost(ch, skl) */ )) > GET_MONEY(ch))
+    if( skill_cost( ch, skl ) > ch->only.pc->skillpoints )
     {
       sprintf(buf,
               "Sorry, boss, but I'm afraid you cannot afford the training.");
@@ -1482,13 +1483,6 @@ void do_practice_new(P_char ch, char *arg, int cmd)
       return;
     }
 
-    if (!IS_SPELL(skl) && (ch->only.pc->skills[i].learned == ch->only.pc->skills[i].taught))
-    {
-      sprintf(buf,
-              "I'm sorry but i can teach you no more.");
-      mobsay(teacher, buf);
-      return;
-    }
     if (!IS_SPELL(skl) &&
         (ch->only.pc->skills[i].learned >= GET_LEVEL(teacher) * 2))
     {
@@ -1516,8 +1510,10 @@ void do_practice_new(P_char ch, char *arg, int cmd)
       return;
     }
 
-    SUB_MONEY(ch, SkillRaiseCost(ch, skl), 0);
-    ch->only.pc->skills[i].learned += 1;
+    ch->only.pc->skillpoints -= skill_cost( ch, skl );
+    ch->only.pc->skills[i].learned += 10;
+    ch->only.pc->skills[i].taught += 10;
+
     if (ch->only.pc->skills[i].learned > 100)
       ch->only.pc->skills[i].learned = 100;
     sprintf(buf, "You practice '%s' for a while...\n", skills[skl].name);
@@ -1527,12 +1523,17 @@ void do_practice_new(P_char ch, char *arg, int cmd)
 
 void advance_skillpoints( P_char ch )
 {
+  if( !IS_PC(ch) )
+    return;
+  ch->only.pc->skillpoints += 10;
   send_to_char( "Skill points not implemented yet.\n", ch );
   return;
 }
 
 void demote_skillpoints( P_char ch )
 {
+  if( !IS_PC(ch) )
+    return;
   send_to_char( "Skill points not implemented yet.\n", ch );
   return;
 }

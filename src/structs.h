@@ -1193,6 +1193,8 @@ struct pc_only_data {           /* values only used by PCs        */
   int quest_map_bought;
 
   long unsigned int last_ip;
+  int skillpoints;
+
 };
 
 struct npc_only_data {          /* values only used by NPCs  */
