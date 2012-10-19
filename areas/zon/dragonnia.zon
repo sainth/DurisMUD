@@ -195,6 +195,8 @@ M 0 6830 12 6834 100 0 0 0         * an elite Dragonnian guard
 M 0 6816 1 6835 100 0 0 0          * Dragonnia
 E 1 6831 2 2 100 0 0 0             *   a gleaming platinum ring
 E 1 6701 1 18 100 0 0 0            *   a yellow and red key
+G 1 6826 1 0 100 0 0 0             *    the mystic axe of the dragonkind
+G 1 910 1 0 100 0 0 0              *    (object type not in this .obj file)
 M 0 6830 12 6835 100 0 0 0         * an elite Dragonnian guard
 M 0 6830 12 6835 100 0 0 0         * an elite Dragonnian guard
 M 0 6814 30 6835 100 0 0 0         * a Dragonnian guard
