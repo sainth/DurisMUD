@@ -195,6 +195,12 @@ struct allowed_race_spec_struct {
 	/*{RACE_CENTAUR, CLASS_ETHERMANCER, SPEC_WINDTALKER}, I think not -Kitsero */
 	/* End Centaur Options */
 
+       /* Start Firbolg Options */
+	{RACE_FIRBOLG, CLASS_WARRIOR,   SPEC_SWORDSMAN},
+       {RACE_FIRBOLG, CLASS_WARRIOR,   SPEC_GUARDIAN},
+	{RACE_FIRBOLG, CLASS_DRUID,     SPEC_ALL},
+	{RACE_FIRBOLG, CLASS_MERCENARY, SPEC_ALL},
+
 	/* Start Githyanki Options */
 	{RACE_GITHYANKI, CLASS_PSIONICIST,  SPEC_ALL},
 	{RACE_GITHYANKI, CLASS_ANTIPALADIN, SPEC_ALL},
@@ -288,11 +294,8 @@ struct allowed_race_spec_struct {
 	{RACE_WOODELF, CLASS_ROGUE,   SPEC_THIEF},
 */	/* End Wood Elf Options */
 	
-	/* Start Firbolg Options */
-/*	{RACE_FIRBOLG, CLASS_WARRIOR,   SPEC_SWORDSMAN},
-	{RACE_FIRBOLG, CLASS_DRUID,     SPEC_WOODLAND},
-	{RACE_FIRBOLG, CLASS_MERCENARY, SPEC_BOUNTY},
-*/	{0}
+	
+	//{0}
 };
 
 bool is_allowed_race_spec(int race, uint m_class, int spec)
