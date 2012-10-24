@@ -978,7 +978,7 @@ IS_GIANT(ch) || IS_PC_PET(ch) || IS_PC(ch) || IS_UNDEAD(ch) || IS_EFREET(ch)) &&
      (skl == SKILL_MAUL) || (skl == SKILL_SHIELD_PUNCH) || (skl == SONG_STORMS) || \
      (skl == SKILL_TACKLE) || (skl == SKILL_TRIP) || (skl == SKILL_WHIRLWIND) || \
      (skl == SKILL_GAZE) || (skl == SKILL_TRAMPLE) || (skl == SONG_DISCORD) || \
-     (skl == SONG_HARMONY))
+     (skl == SONG_HARMONY) || (skl == SKILL_RESTRAIN))
 
 #define IS_AGG_SPELL(spl) (IS_SET(skills[spl].targets, TAR_AGGRO))
 

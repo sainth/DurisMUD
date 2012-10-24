@@ -1984,7 +1984,7 @@ struct mcname {
 /*AntiPaladin Specs */
 #define SPEC_DARKKNIGHT 1
 #define SPEC_DEMONIC 2
-#define SPEC_DEFILER 3
+#define SPEC_VIOLATOR 3
 #define SPEC_SPAWN 4
 
 /* CLASS_PALADIN Specs */

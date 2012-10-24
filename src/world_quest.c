@@ -836,6 +836,7 @@ int getItemFromZone(int zone)
             IS_SET(t_obj->bitvector, AFF_HIDE) ||
             IS_SET(t_obj->bitvector, AFF_SNEAK) ||
             IS_SET(t_obj->bitvector, AFF_FLY) ||
+            IS_SET(t_obj->bitvector, AFF4_NOFEAR) ||
             IS_SET(t_obj->bitvector2, AFF2_AIR_AURA) ||
             IS_SET(t_obj->bitvector2, AFF2_EARTH_AURA) ||
             IS_SET(t_obj->bitvector3, AFF3_INERTIAL_BARRIER) ||

@@ -968,6 +968,7 @@
 #define SKILL_NATURESPROTECTIONS     1290
 #define SKILL_PROTECT_FROM_EVIL      1291
 #define SKILL_NATURESSENSES          1292
+#define SKILL_RESTRAIN		  1293
 
 #ifdef SKILLPOINTS
 #define WHITE_SKILL                  -1

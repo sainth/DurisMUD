@@ -2989,6 +2989,35 @@ void do_maul(P_char ch, char *argument, int cmd)
   maul(ch, victim);
 }
 
+void do_restrain(P_char ch, char *argument, int cmd)
+{
+  P_char   victim = NULL;
+
+  if(!(ch))
+  {
+    logit(LOG_EXIT, "assert: bogus params (do_maul) in actoff.c");
+    raise(SIGSEGV);
+  }
+
+  if(!IS_ALIVE(ch))
+    return;
+
+  if(GET_CHAR_SKILL(ch, SKILL_RESTRAIN) < 1)
+  {
+    send_to_char("&+LThe depths fail to respond to your incantation.&n\n", ch);
+    return;
+  }
+  victim = ParseTarget(ch, argument);
+
+  if(!(victim) ||
+     !IS_ALIVE(victim))
+  {
+    send_to_char("&+LWho would you like restrained?&n\n", ch);
+    return;
+  }   
+  restrain(ch, victim);
+}
+
 int chance_kick(P_char ch, P_char victim)
 {
   int percent_chance;
@@ -9037,6 +9066,266 @@ void gaze(P_char ch, P_char victim)
   }
 
 }
+
+void restrain(P_char ch, P_char victim)
+{
+  int percent_chance, anatomy_skill, standing = 1, battling = 1;
+  bool death_door;
+  P_char temp_ch;
+
+  if(!(ch))
+  {
+    logit(LOG_EXIT, "restrain called in actoff.c with no ch");
+    raise(SIGSEGV);
+  }
+
+  if(ch == victim)
+  {
+    send_to_char
+      ("&+LOh, but that would be way too much fun...\n", ch);
+    CharWait(ch, PULSE_VIOLENCE);
+    return;
+  }
+  
+  appear(ch);
+
+    if(affected_by_spell(victim, SKILL_BASH))
+  {
+    send_to_char("&+LThey cannot be restrained in their current position.\n", ch);
+	CharWait(ch, (int) (PULSE_VIOLENCE));
+    return;
+  }
+
+  if(affected_by_spell(victim, SKILL_GAZE))
+  {
+    act("$N &+Lappears to be paralyzed as it is!&n", FALSE, ch, 0, victim, TO_CHAR);
+    CharWait(ch, (int) (2.5 * PULSE_VIOLENCE));
+    return;
+  }
+  
+  
+  if(affected_by_spell(ch, SKILL_BASH))
+  {
+    send_to_char("&+LYour &+rminions &+Lneed rest before restraining again.\n", ch);
+    return;
+  }
+
+  if(IS_NPC(victim) &&
+     (IS_GREATER_RACE(victim) ||
+     IS_ELITE(victim)))
+  {
+    act("&+LYou call your &+rminions &+Lfrom the depths to harness&n $N&+L, but it simply shrugs them away!",
+       FALSE, ch, 0, victim, TO_CHAR);
+    act("$N &+Lsimply shrugs away&n $n's &+Lattempt to restrain it...",
+       FALSE, ch, 0, victim, TO_NOTVICT);
+    act("&+LYou simply shrug away&n $N's &+Lattempt to restrain you...",
+        FALSE, ch, 0, victim, TO_VICT);
+    do_action(ch, 0, CMD_GROWL);
+    CharWait(ch, (int) (2.5 * PULSE_VIOLENCE));
+    return;
+  }
+  
+  if(get_takedown_size(victim) > get_takedown_size(ch) + 2)
+  {
+    act("&+LYou try to restrain&n $N&+L, but it easily breaks free of your &+rrestraints&+L.&n", FALSE,
+        ch, 0, victim, TO_CHAR);
+    act("$n &+Ltries to restrain&n $N&+L, but &n$E &+Leasily breaks free of the &+rrestraings&+L.&n", FALSE, ch,
+        0, victim, TO_NOTVICT);
+    act("$n's&+L minions attempt to restrain you, but you simply break free of the &+rrestraints&+L.&n", FALSE,
+        ch, 0, victim, TO_VICT);
+    CharWait(ch, (int) (0.5 * PULSE_VIOLENCE));
+    return;
+  }
+  
+  if(get_takedown_size(victim) < get_takedown_size(ch) - 2)
+  {
+    act("&+LYou try to restrain&n $N&+L, but it easily evades your &+rminions.",
+      FALSE, ch, 0, victim, TO_CHAR);
+    act("$n &+Ltries to restrain&n $N &+L, but they easily evade&n $n's &+rminions&n.",
+      FALSE, ch, 0, victim, TO_NOTVICT);
+    act("$n &+Ltries to restrain you, but you easily evade the attempt!&n",
+      FALSE, ch, 0, victim, TO_VICT);
+    CharWait(ch, (int) (0.5 * PULSE_VIOLENCE));
+    return;
+  }
+  
+
+  // any conditions past this will lag the char for the full duration
+  CharWait(ch, 2 * PULSE_VIOLENCE);
+
+  percent_chance = GET_CHAR_SKILL(ch, SKILL_RESTRAIN); // Base percentage
+  
+  if(GET_POS(victim) != POS_STANDING)
+  {
+    act("$E &+Lis not in a proper position to be restrained, but you summon your &+rminions &+Lanyway!",
+      FALSE, ch, 0, victim, TO_CHAR);
+    act("$n &+Lcalls forth $s &+rminions &+Lwhich have trouble restraining &n$N.",
+      FALSE, ch, 0, victim, TO_NOTVICT);
+    act("$n &+Lcalls forth $s &+rminions &+Lwhich have trouble restraining you&n.",
+      FALSE, ch, 0, victim, TO_VICT);
+    percent_chance = 0;  // Cannot restrain !standing victim.
+  }
+  
+  if(get_takedown_size(victim) == get_takedown_size(ch) + 2 ||
+     get_takedown_size(victim) == get_takedown_size(ch) - 2)
+  {
+    percent_chance = (int) (percent_chance * 0.6);
+  }
+
+  if(GET_C_LUCK(ch) / 2 > number(0, 110))
+  {
+    percent_chance = (int) (percent_chance * 1.05);
+  }
+  
+  if(GET_C_LUCK(victim) / 2 > number(0, 90))
+  {
+    percent_chance = (int) (percent_chance * 0.95);
+  }
+           
+  percent_chance = (int)(percent_chance *
+                       GET_C_POW(ch) / GET_C_POW(victim)) +
+                       GET_LEVEL(ch) -
+                       GET_LEVEL(victim) +
+                       number(-15, 0);
+  
+  percent_chance = BOUNDED(1, percent_chance, 90);
+
+  if(world[ch->in_room].room_flags & SINGLE_FILE &&
+     !AdjacentInRoom(ch, victim) &&
+     !IS_TRUSTED(ch))
+  {
+    act("&+LYour &+rminions &+Lwould have a difficult time in such a narrow area.",
+      FALSE, ch, 0, victim, TO_CHAR);
+    percent_chance = (int) (percent_chance * 0.65);
+  }
+  
+  if(IS_FIGHTING(ch) &&
+    victim->specials.fighting != ch &&
+    ch->specials.fighting != victim)
+  {
+    act("&+LYou turn from your current victim and direct your &+rsummons&+L toward&n $N&+L...&n",
+      FALSE, ch, 0, victim, TO_CHAR);
+    act("$n &+Lturns $s focus away from the current fight and makes a strange &+rgesture &+Ltoward &n$N...&n",
+      FALSE, ch, 0, victim, TO_NOTVICT);
+    act("$n &+Lturns $s focus away from the current fight and makes a strange &+rgesture &+Ltoward you.&n",
+      FALSE, ch, 0, victim, TO_VICT);
+    
+    percent_chance = (int) (percent_chance * 0.40);
+  }
+
+// DEBUG CODE SECTION ---------------------
+
+  if(GET_POS(victim) != POS_STANDING)
+  {
+    standing = 0;
+  }
+  
+  if(IS_FIGHTING(ch) &&
+    victim->specials.fighting != ch &&
+    ch->specials.fighting != victim)
+  {
+    battling = 0;
+  }
+  
+  debug("RESTRAIN: (%s) with (%d) percent at (%s&n) - standing? (%d) battling? (%d).",
+    GET_NAME(ch), percent_chance, J_NAME(victim), standing, battling);
+// ---------------------------------------
+  
+  if(notch_skill(ch, SKILL_RESTRAIN, get_property("skill.notch.offensive", 15)) ||
+      percent_chance > number(0, 100))
+  {    
+    anatomy_skill = GET_CHAR_SKILL(ch, SKILL_ANATOMY) - 25; // returns -25 to 70 int
+
+    if(GET_HIT(victim) < (int)(((number(0,100) + anatomy_skill))/2))
+    {
+      if(GET_CLASS(ch, CLASS_CABALIST))
+      {
+        act("Your powerful will easily dominates the inferior creature before you.\n"
+            "You draw $S soul into your essence sentencing $M to judgement.\n"
+            "The guilt is obvious for there are so few true of heart. You strip\n"
+            "the body of the soul and let the dead husk topple to the ground.",
+            FALSE, ch, 0, victim, TO_CHAR);
+        act("As you stare into&n $N's bottomless eyes you loose yourself\n"
+            "in the endless void. Powers beyond your understanding probe your soul\n"
+            "judging your deeds. The verdict is one - guilty. Your soul is ripped\n"
+            "from your body and the now dead husk topples to the ground.",
+            FALSE, ch, 0, victim, TO_VICT);
+        act("$N shudders as $E tries, and fails, to break free of the will of $n.\n"
+            "A second of silence passes before simply utters a silent sigh and topples over dead.",
+            FALSE, ch, 0, victim, TO_NOTVICT);
+      }
+      else
+      {
+        act("&+LYou turn to &n$N &+Land make an un&+who&+Wly &+Lgesture.\n"
+            "&+LA &nsmoking &+Ldark pit opens beneath &n$S's feet, the smell of death\n"
+            "&+Land decay fill the air. Suddenly, &+Wskeletal &+Lhands emerge, grasping\n"
+            "$N &+Ltightly! &n$N &+Llets out a final &+rsCCrrREEEaaMM &+Las they\n"
+            "&+Lare whisked away into the &+rabyss&+L.", FALSE, ch, 0, victim, TO_CHAR);
+        act("$n&+L turns to you &+Land makes an un&+who&+Wly &+Lgesture.\n"
+            "&+LA &nsmoking &+Ldark pit opens beneath your feet, the smell of death\n"
+            "&+Land decay fill the air. Suddenly, &+Wskeletal &+Lhands emerge, grasping\n"
+            "&+Lyou &+Ltightly! You struggle, but your efforts are fruitless...\n"
+            "&+LWith a final gasp, you cry out a final &+rsCCrrREEEaaMM &+Las you\n"
+            "&+Lare whisked away into the &+rabyss&+L.", FALSE, ch, 0, victim, TO_VICT);
+        act("$n&+L turns to &n$N &+Land makes an un&+who&+Wly &+Lgesture.\n"
+            "&+LA &nsmoking &+Ldark pit opens beneath &n$S's feet, the smell of death\n"
+            "&+Land decay fill the air. Suddenly, &+Wskeletal &+Lhands emerge, grasping\n"
+            "$N &+Ltightly! &n$N &+Llets out a final &+rsCCrrREEEaaMM &+Las they\n"
+            "&+Lare whisked away into the &+rabyss&+L.", FALSE, ch, 0, victim, TO_NOTVICT);
+      }
+      die(victim, ch);
+    }
+    else
+    {
+      if(GET_CLASS(ch, CLASS_AVENGER))
+      {
+        act("&+WYou stare at&n $N &+Wforcing $M into &+wsubmission.&n",
+          FALSE, ch, 0, victim, TO_CHAR);
+        act("$N &+wis lost in thought as $E meets&n $n's &+wgaze.",
+          FALSE, ch, 0, victim, TO_NOTVICT);
+        act("&+WCalming visions sweep over you as you gaze into&n $n's &+Weyes.&n",
+          FALSE, ch, 0, victim, TO_VICT);
+      }
+      else
+      {
+        act("&+LYou turn and make an un&+who&+Wly &+Lgesture in&n $N's &+Ldirection...\n"
+        "&+La band of &+Revil &+rminions &+Lsuddenly restrain &n$N&+L!",
+           FALSE, ch, 0, victim, TO_CHAR);
+        act("$N &+Lis suddenly overcome by&n $n's &+Lband of un&+who&+Wly &+rminions&+L!&n",
+           FALSE, ch, 0, victim, TO_NOTVICT);
+        act("&+LYou suddenly feel unable to move as&n $n's &+rminions &+Lsubdue you!&n",
+            FALSE, ch, 0, victim, TO_VICT);
+      }
+      
+      set_short_affected_by(victim, SKILL_RESTRAIN, (int) (PULSE_VIOLENCE * 1.5));
+      set_short_affected_by(ch, SKILL_BASH, (int) (PULSE_VIOLENCE * 3.0));
+      victim->specials.combat_tics = victim->specials.base_combat_round;
+
+      if(IS_NPC(victim))
+        // they can't do any cmds anyway, so lag them so they can stack
+        // cmds the same as being bashed, etc.
+      {
+        CharWait(victim, (int) (0.75 * PULSE_VIOLENCE));
+      }
+      if(number(0, 2))
+      {
+        StopCasting(victim);
+      }
+      engage(ch, victim);
+    }
+  }
+  else
+  {
+    act("&+LYour &+rminions&+L attempt to restrain&n $N &+Lbut $E deftly escapes the attack.&n",
+      FALSE, ch, 0, victim, TO_CHAR);
+    act("$N &+Lmakes a dextrous move, quickly evading&n $n's &+rminions&+L.&n",
+      FALSE, ch, 0, victim, TO_NOTVICT);
+    act("&+LYou quickly jump out of the way of&n $n's &+Levil &+rmionions&+L.&n",
+      FALSE,  ch, 0, victim, TO_VICT);
+  }
+
+}
+
 
 // Shriek skill/2 + 1d20 area damage usable once every 5 minutes.
 void do_shriek(P_char ch, char *argument, int cmd)

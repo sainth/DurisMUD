@@ -833,6 +833,7 @@ extern unsigned int game_locked;
 #define CMD_QUESTWHERE  806
 #define CMD_NEWBSA      807
 #define CMD_SALVAGE     808
+#define CMD_RESTRAIN    809
 
 /* cmds below are not real commands, they are
                 used in item special procedures to identify
