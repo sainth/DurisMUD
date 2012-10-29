@@ -2262,7 +2262,8 @@ void die(P_char ch, P_char killer)
   /* count xp loss for victim and apply */
   if(IS_PC(ch) &&
     !CHAR_IN_ARENA(ch) &&
-    !IS_TRUSTED(ch))
+    !IS_TRUSTED(ch) &&
+    (GET_LEVEL(ch) > 39))
   {
     loss = gain_exp(ch, NULL, 0, EXP_DEATH);
   }
@@ -7520,8 +7521,12 @@ int dodgeSucceed(P_char char_dodger, P_char attacker, P_obj wpn)
   if(IS_AFFECTED5(char_dodger, AFF5_DAZZLEE) ||
     IS_STUNNED(char_dodger))
   {
-    percent = (int) (percent * 0.90);
+    percent = (int) (percent * 0.80);
   }
+
+  //agility check - Drannak
+  percent = (int) (percent * (GET_C_AGI(char_dodger) / 95));
+
 
   if(IS_STUNNED(attacker))
   {
@@ -7907,8 +7912,8 @@ int parrySucceed(P_char victim, P_char attacker, P_obj wpn)
   
   // If attacker is significantly stronger than the defender, parry is reduced.
   // This will benefit giants, dragons, etc... which is logical.
-  if(GET_C_STR(attacker) > GET_C_STR(victim) + 100)
-    learnedattacker += GET_C_STR(attacker) - 100 - GET_C_STR(victim);
+  /*if(GET_C_STR(attacker) > GET_C_STR(victim) + 100)
+    learnedattacker += GET_C_STR(attacker) - 100 - GET_C_STR(victim);Removing this for now - Drannak*/ 
   
   // Harder to parry incoming attacks when not standing.
   if(!MIN_POS(victim, POS_STANDING + STAT_NORMAL))

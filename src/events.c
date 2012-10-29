@@ -175,7 +175,8 @@ const char *event_names[] = {
   "Short affect",
   "Room affect",
   "Interaction",
-  "Interaction-peer"
+  "Interaction-peer",
+  "Barrage"
 };
 
 /*

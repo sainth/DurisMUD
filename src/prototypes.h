@@ -350,6 +350,7 @@ void do_assist(P_char, char *, int);
 void do_backstab(P_char, char *, int);
 void do_bash(P_char, char *, int);
 void do_combination(P_char, char *, int);
+void do_barrage(P_char, char *, int);
 void do_buck(P_char, char *, int);
 void do_circle(P_char, char *, int);
 void do_defend(P_char, char *, int);

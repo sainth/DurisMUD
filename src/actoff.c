@@ -2698,7 +2698,7 @@ void do_combination(P_char ch, char *argument, int cmd)
   }
   if(!affect_timer(ch,
         get_property("timer.secs.monkCombination", 30) * WAIT_SEC,
-        SKILL_COMBINATION))
+        SKILL_BLADE_BARRAGE))
   {
     send_to_char("You're still recovering from your last move.\n", ch);
     return;
@@ -2728,6 +2728,178 @@ void do_combination(P_char ch, char *argument, int cmd)
   act("&+LYou begin moving into position for a combination...&n", TRUE, ch, 0,
       0, TO_CHAR);
 }
+
+//Drannak - Blade Barrage
+
+void event_barrage(P_char ch, P_char victim, P_obj obj, void *data)
+{
+  int      percent = 100, skill, stage = 0, dam = 0, move, result, skill_req;
+  struct damage_messages messages = {
+    0, 0, 0,
+    "...then you feign low and in a blur of speed leap into the air landing a swift roundkick to $S head.\n"
+      "$N topples to the ground, $s neck broken.",
+    "...then feigns low and in a blur of speed leaps into the air landing a swift roundkick to your head.\n"
+      "Your visions blurs as you topple to the ground, your neck broken.",
+    "...then feigns low and in a blur of speed leaps into the air and lands a swift roundkick to $S head.\n"
+      "$N topples to the ground, $s neck broken."
+  };
+
+  victim = ch->specials.fighting;
+  victim = guard_check(ch, victim);
+  affect_from_char(ch, SKILL_BLADE_BARRAGE);
+  if(!victim)
+  {
+    send_to_char("&+cYour opponent has escaped your deadly blade barrage.\n", ch);
+    return;
+  }
+
+  if(GET_POS(ch) < POS_STANDING)
+  {
+    send_to_char("&+cYou are unable to execute such a technique in your current position.\n", ch);
+    return;
+  }
+  
+  if(ch->in_room != victim->in_room)
+  {
+    send_to_char("&+cYour victim has escaped...\r\n", ch);
+    return;
+  }
+  
+
+  /* Ok, let's get it on! */
+  act("&+L$n &nbecomes a &+gF&+GL&+gu&+GR&+gr&+GY &nof &+Lweapons &nas they begin their onslaught...&n", TRUE, ch, 0, 0, TO_ROOM);
+  act("&nYou become a &+gF&+GL&+gu&+GR&+gr&+GY &nof &+Lweapons &nas you begin your onslaught&n...", TRUE, ch, 0, 0, TO_CHAR);
+
+  skill = GET_CHAR_SKILL(ch, SKILL_BLADE_BARRAGE);
+
+  if(!number(0, 30))
+  {
+    act("&+R$n attempts a fancy attack, but almost cuts $s fingers off in the process!",
+      FALSE, ch, 0, 0, TO_ROOM);
+    act("&+RYou attempt your blade barrage, but fail to execute the deadly attack!",
+      FALSE, ch, 0, 0, TO_CHAR);
+    return;
+  }
+
+  if(GET_C_LUCK(ch) / 2 > number(0, 100))
+  {
+    percent = (int) (percent * 1.05);
+  }
+
+  do
+  {
+    switch (stage)
+    {
+    case 0:
+      dam = number(1, 30);
+	  hit(ch, victim, ch->equipment[PRIMARY_WEAPON]);
+      if(GET_LEVEL(ch) < 50)
+        percent -= 10;
+      skill_req = 25;
+      break;
+    case 1:
+      if(GET_LEVEL(ch) < 50)
+        percent -= 5;
+      skill_req = 35;
+      dam = number(30, 60);
+	  hit(ch, victim, ch->equipment[SECONDARY_WEAPON]);
+      break;
+    case 2:
+      if(GET_LEVEL(ch) < 50)
+        percent -= 5;
+      skill_req = 40;
+      dam = number(40, 70);
+	  hit(ch, victim, ch->equipment[PRIMARY_WEAPON]);
+      break;
+    case 3:
+      percent -= 5;
+      skill_req = 55;
+      dam = number(50, 90);
+	  hit(ch, victim, ch->equipment[SECONDARY_WEAPON]);
+      break;
+    case 4:
+      percent -= 5;
+      skill_req = 70;
+      dam = number(60, 100);
+	  hit(ch, victim, ch->equipment[PRIMARY_WEAPON]);
+      break;
+    case 5:
+      skill_req = 85;
+      dam = number(60, 120);
+	  hit(ch, victim, ch->equipment[SECONDARY_WEAPON]);
+      break;
+    case 6:
+      dam = number(100, 150);
+         hit(ch, victim, ch->equipment[PRIMARY_WEAPON]);
+      break;
+    }
+    move = number(0, 1);
+    stage++;
+  }
+  while (skill >= skill_req &&
+         percent > number(0, 100) && stage < 7);
+  notch_skill(ch, SKILL_BLADE_BARRAGE, get_property("skill.notch.offensive", 15));
+  
+  CharWait(ch, 2 * PULSE_VIOLENCE);
+}
+
+void do_barrage(P_char ch, char *argument, int cmd)
+{
+  struct affected_type af;
+
+  if(!ch)
+    return;
+
+  if(!GET_CHAR_SKILL(ch, SKILL_BLADE_BARRAGE) || !GET_CLASS(ch, CLASS_RANGER))
+  {
+    send_to_char("You would probably hurt yourself trying.\n", ch);
+    return;
+  }
+
+    if(!ch->equipment[WIELD])
+  {
+    send_to_char("&+CYou must have a weapon equipped in order to unleash a barrage!\n", ch);
+    return;
+  }  
+
+  if(!IS_FIGHTING(ch))
+  {
+    send_to_char("You brandish your blades!... to no one in particular.\n", ch);
+    return;
+  }
+   if(!affect_timer(ch,
+        get_property("timer.secs.monkCombination", 30) * WAIT_SEC,
+        SKILL_BLADE_BARRAGE))
+  {
+    send_to_char("You're still recovering from your last attempt.\n", ch);
+    return;
+  }
+
+
+  if(affected_by_spell(ch, SKILL_BLADE_BARRAGE))
+  {
+    send_to_char("&+WYou're already executing a deadly barrage!\n", ch);
+    return;
+  }
+
+  memset(&af, 0, sizeof(af));
+  af.type = SKILL_BLADE_BARRAGE;
+  af.flags = AFFTYPE_NODISPEL | AFFTYPE_NOSHOW;
+  af.duration = 1;
+  affect_to_char(ch, &af);
+  /* Yes, the higher the skill, the longer it takes to prepare */
+  add_event(event_barrage,
+            GET_LEVEL(ch) < 51 ? 2 * PULSE_VIOLENCE : PULSE_VIOLENCE, ch, 0,
+            0, 0, 0, 0);
+  act("&+L$n &nbrandishes their &+Lweapons &nin a formal stance...&n", TRUE, ch, 0,
+      0, TO_ROOM);
+  act("&+LYou grasp your &+Lweapons &nand prepare for the &+Lonslaught&n...", TRUE, ch, 0,
+      0, TO_CHAR);
+}
+
+//Drannak - endblade barrage
+
+
 
 void do_bash(P_char ch, char *argument, int cmd)
 {
@@ -3149,7 +3321,7 @@ bool kick(P_char ch, P_char victim)
 
 // Dragons do more damage and adjusted by level and a bit quicker.
 // Includes dracoliches. Jan08 -Lucrot
-    if(IS_DRAGON(ch))
+    if(IS_DRAGON(ch) || IS_CENTAUR(ch))
     {
       dam = (int) ( dam * 2 * (GET_LEVEL(ch) / 60) );
       CharWait(ch, (int) (PULSE_VIOLENCE * 1.500));
@@ -3208,6 +3380,11 @@ bool kick(P_char ch, P_char victim)
     
     if(IS_NPC(ch) &&
       !GET_MASTER(ch))
+    {
+      takedown_chance = (int) (takedown_chance * 1.2);
+    }
+
+    if(IS_CENTAUR(ch) && !IS_NPC(ch))
     {
       takedown_chance = (int) (takedown_chance * 1.2);
     }
@@ -5086,7 +5263,7 @@ if((GET_RACE(victim) == RACE_OGRE) && ch_size < vict_size)
      ((has_innate(victim, INNATE_HORSE_BODY) ||
        has_innate(victim, INNATE_SPIDER_BODY) ||
        GET_RACE(ch) == RACE_QUADRUPED)  &&
-      ch_size < vict_size))
+      ch_size <= vict_size + 1))
   {
     act("$n makes a futile attempt to bash $N, but $E is simply immovable.", FALSE, ch, 0, victim, TO_NOTVICT);
     act("$n makes a futile attempt to bash you, but you are simply immovable.", FALSE, ch, 0, victim, TO_VICT);
@@ -5137,7 +5314,7 @@ if((GET_RACE(victim) == RACE_OGRE) && ch_size < vict_size)
     {
       if(ch->equipment[WEAR_SHIELD])
       {
-        percent_chance += (ch->equipment[WEAR_SHIELD]->weight / 2);
+        percent_chance += (ch->equipment[WEAR_SHIELD]->weight / 1.8);
       }
       else
       {
@@ -5196,12 +5373,18 @@ if((GET_RACE(victim) == RACE_OGRE) && ch_size < vict_size)
   
   if(!IS_PC_PET(ch))
   {
-    percent_chance = (int) (percent_chance * (1 + ((GET_C_DEX(ch) - GET_C_AGI(victim)) / 200)));
+    percent_chance = (int) (percent_chance * (1 + ((GET_C_DEX(ch) - GET_C_AGI(victim)) / 50)));
   }
   else
   {
     percent_chance -= 10;
   }
+
+  if (number(1, 105) > GET_C_DEX(ch))
+  {
+   percent_chance *= .75;
+  }
+  
 
   /*
    * if they are fighting something and try to bash something else
@@ -6434,7 +6617,7 @@ void maul(P_char ch, P_char victim)
 
   if((has_innate(victim, INNATE_HORSE_BODY) ||
       has_innate(victim, INNATE_SPIDER_BODY)) &&
-    get_takedown_size(ch) < get_takedown_size(victim) + 1)
+    get_takedown_size(ch) <= get_takedown_size(victim) + 1)
         too_big = true;
   else if(vict_size > ch_size + 1)
         too_big = true;

@@ -935,9 +935,10 @@
 #define SKILL_TIGER_PALM             1263
 #define SKILL_DIAMOND_SOUL           1264
 #define SKILL_RESTRAIN               1293
+#define SKILL_BLADE_BARRAGE		  1294
 
 #ifndef SKILLPOINTS
-  #define LAST_SKILL                   SKILL_RESTRAIN
+  #define LAST_SKILL                   SKILL_BLADE_BARRAGE
 #endif
 
 // New skills for skill points.
@@ -969,6 +970,7 @@
 #define SKILL_NATURESPROTECTIONS     1290
 #define SKILL_PROTECT_FROM_EVIL      1291
 #define SKILL_NATURESSENSES          1292
+
 
 #ifdef SKILLPOINTS
 #define WHITE_SKILL                  -1

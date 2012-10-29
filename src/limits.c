@@ -285,6 +285,7 @@ int hit_regen(P_char ch)
 
   if (IS_AFFECTED4(ch, AFF4_REGENERATION) ||
       has_innate(ch, INNATE_REGENERATION) ||
+      (has_innate(ch, INNATE_WOODLAND_RENEWAL) && (world[ch->in_room].sector_type == SECT_FOREST)) ||
       has_innate(ch, INNATE_ELEMENTAL_BODY))
     gain += get_innate_regeneration(ch);
 
@@ -306,9 +307,12 @@ int hit_regen(P_char ch)
       ;
     else if (IS_AFFECTED4(ch, AFF4_REGENERATION))
       gain >>= 1;
+    else if (has_innate(ch, INNATE_WOODLAND_RENEWAL) && (world[ch->in_room].sector_type == SECT_FOREST)) //can regen in battle in forest - Drannak
+	gain >>= 1;
     else
       gain = 0;
   }
+
   
   if (has_innate(ch, INNATE_VULN_SUN) && IS_SUNLIT(ch->in_room) &&
      !IS_TWILIGHT_ROOM(ch->in_room) && !IS_AFFECTED4(ch, AFF4_GLOBE_OF_DARKNESS))

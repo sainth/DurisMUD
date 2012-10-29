@@ -1055,6 +1055,8 @@ const char *command[] = {
   "newbsa",
   "salvage",
   "restrain",
+  "barrage",
+  "blade",
   "\n"                          /* MAX_CMD_LIST is now 1000 */
 };
 
@@ -2447,6 +2449,8 @@ void assign_command_pointers(void)
   CMD_Y(CMD_CHANT, STAT_NORMAL + POS_STANDING, do_chant, 0);
   CMD_Y(CMD_CIRCLE, STAT_NORMAL + POS_STANDING, do_circle, 0);
   CMD_Y(CMD_COMBINATION, STAT_NORMAL + POS_STANDING, do_combination, 0);
+  CMD_Y(CMD_BLADE, STAT_NORMAL + POS_STANDING, do_barrage, 0);
+  CMD_Y(CMD_BARRAGE, STAT_NORMAL + POS_STANDING, do_barrage, 0);
 /*  CMD_Y(CMD_CONDITION, STAT_RESTING + POS_SITTING, do_condition, 0); */
   CMD_Y(CMD_CONSENT, STAT_DEAD + POS_PRONE, do_consent, 0);
   CMD_Y(CMD_CONSIDER, STAT_RESTING + POS_SITTING, do_consider, 0);

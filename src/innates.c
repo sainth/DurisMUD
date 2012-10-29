@@ -376,6 +376,8 @@ const struct innate_data
   {"melee mastery", 0},
   {"bulwark", 0},
   {"wall climbing", 0},
+  {"woodland renewal", 0},
+  {"natural movement", 0},
 };
 
 string list_innates(int race, int cls, int spec)
@@ -852,6 +854,8 @@ void assign_innates()
   ADD_RACIAL_INNATE(INNATE_ELEMENTAL_BODY, RACE_W_ELEMENTAL, 1);
   ADD_RACIAL_INNATE(INNATE_ELEMENTAL_BODY, RACE_F_ELEMENTAL, 1);
 
+ 
+
 
   /* List of Ghaele Innates*/
   ADD_RACIAL_INNATE(INNATE_ULTRAVISION, RACE_GHAELE, 1);
@@ -864,6 +868,9 @@ void assign_innates()
   ADD_RACIAL_INNATE(INNATE_EYELESS, RACE_GHAELE, 1); 
   
   /* class innates */
+
+  ADD_CLASS_INNATE(INNATE_WOODLAND_RENEWAL, CLASS_RANGER, 30, SPEC_WOODSMAN); 
+  ADD_CLASS_INNATE(INNATE_NATURAL_MOVEMENT, CLASS_RANGER, 46, SPEC_WOODSMAN);
   
   ADD_CLASS_INNATE(INNATE_RAPIER_DIRK, CLASS_WARRIOR, 1, SPEC_SWASHBUCKLER);
   ADD_CLASS_INNATE(INNATE_MELEE_MASTER, CLASS_WARRIOR, 1, SPEC_SWORDSMAN);
@@ -3697,6 +3704,9 @@ int get_innate_regeneration(P_char ch)
     default:
       break;
   }
+
+  if (GET_SPEC(ch, CLASS_RANGER, SPEC_WOODSMAN) && (world[ch->in_room].sector_type == SECT_FOREST))
+  return GET_LEVEL(ch) * 8;
   
   if (GET_SPEC(ch, CLASS_CONJURER, SPEC_WATER))
     return GET_LEVEL(ch) * 2;

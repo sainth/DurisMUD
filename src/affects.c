@@ -575,6 +575,8 @@ void apply_affs(P_char ch, int mode)
     SET_BIT(ch->specials.affected_by, AFF_INFRAVISION);
   if (has_innate(ch, INNATE_FLY))
     SET_BIT(ch->specials.affected_by, AFF_FLY);
+  if (has_innate(ch, INNATE_NATURAL_MOVEMENT))
+    SET_BIT(ch->specials.affected_by3, AFF3_PASS_WITHOUT_TRACE);
   if (has_innate(ch, INNATE_HASTE))
     SET_BIT(ch->specials.affected_by, AFF_HASTE);
   if (has_innate(ch, INNATE_REGENERATION))
