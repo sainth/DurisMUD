@@ -5263,7 +5263,7 @@ if((GET_RACE(victim) == RACE_OGRE) && ch_size < vict_size)
      ((has_innate(victim, INNATE_HORSE_BODY) ||
        has_innate(victim, INNATE_SPIDER_BODY) ||
        GET_RACE(ch) == RACE_QUADRUPED)  &&
-      ch_size <= vict_size + 1))
+      ch_size <= vict_size))
   {
     act("$n makes a futile attempt to bash $N, but $E is simply immovable.", FALSE, ch, 0, victim, TO_NOTVICT);
     act("$n makes a futile attempt to bash you, but you are simply immovable.", FALSE, ch, 0, victim, TO_VICT);
