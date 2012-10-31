@@ -2851,6 +2851,16 @@ void do_consume(P_char ch, char *argument, int cmd)
        struct affected_type *af;
 	victim = ParseTarget(ch, argument); 
 
+    struct damage_messages messages = {
+    "The &=LBlightning bolt&N hits $N with full impact.",
+    "YOU'RE HIT!  A &=LBlightning bolt&N from $n has reached its goal.",
+    "$N wavers under the impact of the &=LBlightning bolt&N sent by $n.",
+    "Your &=LBlightning bolt&N shatters $N to pieces.",
+    "You feel enlightened by the &=LBlightning bolt&N $n sends, and then all is dark - RIP.",
+    "$N receives the full &+yblast&N of a &=LBlightning bolt&+B from $n ... and is no more.",
+      0
+  };
+
     if(!ch)
     return;
     
@@ -2874,27 +2884,39 @@ void do_consume(P_char ch, char *argument, int cmd)
   else
   {
      int spell;
+     int dam;
       act("&+L$n &nmakes a gesture, and chunks of &+R$N&n's &+grotten &+yflesh&n fall to the ground with a dull &+Lthud&n...&n", FALSE, ch, 0, victim, TO_NOTVICT);
       act("&+L$n &nmakes a gesture, and chunks of your &+grotten &+yflesh&n fall to the ground with a dull &+Lthud&n...&n", FALSE, ch, 0, victim, TO_VICT);
       act("You &nmake a gesture, and chunks of &+R$N&n's &+grotten &+yflesh&n fall to the ground with a dull &+Lthud&n...&n", FALSE, ch, 0, victim, TO_CHAR);
+      int tdam;
+      tdam = (int) (GET_LEVEL(ch) * .8);
+      /*if(!NewSaves(victim, SAVING_FEAR, 0))
+      tdam = (int) (tdam * 1.33);*/
       af = get_spell_from_char(victim, SPELL_DECAYING_FLESH);
+      vamp(ch, tdam, GET_MAX_HIT(ch) * 1.10);
+      //spell_damage(ch, victim, 4 * GET_LEVEL(ch), SPLDAM_GENERIC, RAWDAM_NOKILL, 0);
       while(--af->modifier > 0)
      {
-	act("...another chunk of &+R$N&n's &+grotten &+yflesh&n falls to the ground...&n", FALSE, ch, 0, victim, TO_NOTVICT);
+
+       int temp_dam;
+       temp_dam = (int) (GET_LEVEL(ch) * .8);
+       act("...another chunk of &+R$N&n's &+grotten &+yflesh&n falls to the ground...&n", FALSE, ch, 0, victim, TO_NOTVICT);
        act("...another chunk of your &+grotten &+yflesh&n falls to the ground...&n", FALSE, ch, 0, victim, TO_VICT);
        act("...another chunk of &+R$N&n's &+grotten &+yflesh&n falls to the ground, and you feel your &+gprayer &nflow back into your mind...&n", FALSE, ch, 0, victim, TO_CHAR);
             spell == memorize_last_spell(ch);
-     char buf[256];
+       char buf[256];
        send_to_char(buf, ch);
+       /*if(!NewSaves(victim, SAVING_FEAR, 0))
+       temp_dam = (int) (temp_dam * 1.33);*/
+       vamp(ch, temp_dam, GET_MAX_HIT(ch) * 1.10);
+       spell_damage(ch, victim, 3 * GET_LEVEL(ch), SPLDAM_GENERIC, RAWDAM_NOKILL, 0);
      }
      spell == memorize_last_spell(ch);
      char buf[256];
-/*
-     sprintf( buf, "%s's essence &+Cempowers you&n and you are rewarded with &+G%s!\n",
-                 get_god_name(ch), skills[spell].name );
-*/
      send_to_char(buf, ch); 
+     --af->modifier;
      REMOVE_BIT(victim->specials.affected_by5, AFF5_DECAYING_FLESH);
+     spell_damage(ch, victim, 3 * GET_LEVEL(ch), SPLDAM_GENERIC,0, 0);
      act("...with a final gesture, &+L$n&n tears the last bit of &+gr&+Go&+gt&+Gt&+gi&+Gn&+gg&+r flesh&n from $N&n's &+gco&+Lrrod&+ged&n body.&n\r\n", FALSE, ch, 0, victim, TO_NOTVICT);
      act("...with a final gesture, &+L$n&n tears the last bit of &+gr&+Go&+gt&+Gt&+gi&+Gn&+gg&+r flesh&n from your&n &+gco&+Lrrod&+ged&n body.&n\r\n", FALSE, ch, 0, victim, TO_VICT);
      act("...with a final gesture, &+Lyou&n tear the last bit of &+gr&+Go&+gt&+Gt&+gi&+Gn&+gg&+r flesh&n from $N&n's &+gco&+Lrrod&+ged&n body.&n\r", FALSE, ch, 0, victim, TO_CHAR);

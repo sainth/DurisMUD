@@ -4011,6 +4011,42 @@ void spell_full_harm(int level, P_char ch, char *arg, int type, P_char victim,
   spell_damage(ch, victim, dam, SPLDAM_HOLY, RAWDAM_NOKILL, &messages);
 }
 
+void event_fleshdecay(P_char ch, P_char victim, P_obj obj, void *data)
+{
+  int dam;
+  int count = *((int*)data);
+  int rand1 = number(1, 100);
+
+  dam = dice(5, 10);
+
+  if ((GET_HIT(ch) - dam) > 0)
+  {
+    GET_HIT(ch) -= dam;
+    
+    if(rand1 > 50)
+    {
+    send_to_char("&nA &+gslimy &npiece of your &+rflesh&n breaks apart from your body and falls to the &+yground&n.\n", ch);
+    act("A &+gslimy&n piece of $n's &+rflesh &nbreaks apart from their body and falls to the &+yground&n\n", TRUE, ch, NULL, NULL,
+        TO_NOTVICT);
+    make_bloodstain(ch);
+    }
+    else
+    {
+    send_to_char("&nYour skin continues to &+gde&+Gca&+Ly &nas the spell consumes your &+rflesh&n.\n", ch);
+    act("$n's skin continues to &+gde&+Gca&+Ly &nas the spell consumes their &+rflesh&n.", TRUE, ch, NULL, NULL,
+        TO_NOTVICT);
+    make_bloodstain(ch);
+    }
+  }
+
+  if (count >= 0)
+  {
+    count--;
+    add_event(event_fleshdecay, PULSE_VIOLENCE, ch, 0, 0, 0, &count, sizeof(count));
+  }
+  
+}
+
 void spell_decaying_flesh(int level, P_char ch, char *arg, int type,
                             P_char victim, P_obj obj)
 {
@@ -4029,16 +4065,17 @@ void spell_decaying_flesh(int level, P_char ch, char *arg, int type,
   }
   if(IS_AFFECTED5(victim, AFF5_DECAYING_FLESH))
   {
-    af.type = SPELL_DECAYING_FLESH;
-	if (af.modifier == 5)
+    struct affected_type *af1;
+
+    for (af1 = victim->affected; af1; af1 = af1->next)
+      if(af1->type == SPELL_DECAYING_FLESH && af1->modifier >= 5)
       {
-        //affect_from_char(victim, SPELL_DECAYING_FLESH);
-        //REMOVE_BIT(victim->specials.affected_by4, AFF4_STORNOGS_SPHERES);
-        send_to_char("&+WMAX NUMBER OF DECAY.\r\n",
-                     victim);
+        
+        send_to_char("&nTheir flesh cannot be afflicted any further.\r\n",
+                     ch);
 		return;
       }
-    
+   
   }
 
   memset(&af, 0, sizeof(af));
@@ -4057,6 +4094,9 @@ void spell_decaying_flesh(int level, P_char ch, char *arg, int type,
 	          "Your &+Rskin&n suddenly turns &+ggreen &nand starts &+Lwithering &nand &+rrotting &nright before your eyes!", FALSE, ch, 0, victim, TO_VICT);
     af.modifier = 1;
     affect_to_char(victim, &af);
+    int numb = number(2, 6);
+    add_event(event_fleshdecay, PULSE_VIOLENCE, victim, 0, 0, 0, &numb, sizeof(numb));
+
 	
   }
   else
@@ -4076,6 +4116,7 @@ void spell_decaying_flesh(int level, P_char ch, char *arg, int type,
         af1->duration = af1->duration + 100;
       }
   }  
+  attack_back(ch, victim, TRUE);
 }
 
 
