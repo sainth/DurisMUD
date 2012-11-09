@@ -652,7 +652,7 @@ void do_group(P_char ch, char *argument, int cmd)
     act("$N doesn't want to be in your group.", TRUE, ch, 0, victim, TO_CHAR);
     return;
   } */
-
+/*
 //Paladins and AP cannot group together - Drannak
 if(GET_CLASS(victim, CLASS_PALADIN))
 {
@@ -693,6 +693,7 @@ if(GET_CLASS(victim, CLASS_PALADIN) && GET_CLASS(ch, CLASS_ANTIPALADIN))
     send_to_char("&+WAhh, but grouping with someone so &+Lunholy &+Wwould disturb the holy energies of your group.&n\n", victim);
 	return;
    }
+*/
 
   if (IS_NPC(victim) && (victim->following != ch) &&
       !is_linked_to(ch, victim, LNK_CONSENT))
