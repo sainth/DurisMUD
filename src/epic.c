@@ -871,11 +871,11 @@ void epic_stone_level_char(P_obj obj, P_char ch)
 
 #if defined(CTF_MUD) && (CTF_MUD == 1)
   epics_for_level = (int)(epics_for_level/3);
-  int nostone_epics_for_level = epics_for_level * 2;
+ 
 #endif
-
-  if(((GET_EXP(ch) >= new_exp_table[GET_LEVEL(ch)+1] &&
-      ch->only.pc->epics >= epics_for_level)) || ((GET_EXP(ch) >= new_exp_table[GET_LEVEL(ch)+1] && ch->only.pc->epics >= (nostone_epics_for_level))))
+  nostone_epics_for_level = epics_for_level * 2;
+  if((GET_EXP(ch) >= new_exp_table[GET_LEVEL(ch)+1] &&
+      ch->only.pc->epics >= epics_for_level) || (GET_EXP(ch) >= new_exp_table[GET_LEVEL(ch)+1] && ch->only.pc->epics >= nostone_epics_for_level))
   {
     GET_EXP(ch) -= new_exp_table[GET_LEVEL(ch) + 1];
     advance_level(ch);//, TRUE); wipe2011
