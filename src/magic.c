@@ -7499,7 +7499,7 @@ void spell_remove_curse(int level, P_char ch, char *arg, int type,
   P_obj    t_obj, nextobj;
   int      e_pos;
 
-  if is_npc(ch) && (GET_VNUM(ch) == 63)
+  if (IS_NPC(ch) && (GET_VNUM(ch) == 63))
   return;
 
   if(obj)
