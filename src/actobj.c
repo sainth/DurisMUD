@@ -4937,8 +4937,8 @@ void do_salvage(P_char ch, char *argument, int cmd)
 	int matvnum;
     int rand1 = number(1, 16);
 	int rand2 = number(1, 3);
-	int objchance = (objcft * 7 /2 + GET_CHAR_SKILL(ch, SKILL_CRAFT) / 2 - rand1); //better skill and better quality yields better chance for good material
-	if(objcft < 7)
+	int objchance = (objcft * 7 / 2 + GET_CHAR_SKILL(ch, SKILL_CRAFT) / 2 - rand1); //better skill and better quality yields better chance for good material
+	if(objcft < 9)
 	{
 	 objchance = objchance - 10; //penalize for less than average
 	}

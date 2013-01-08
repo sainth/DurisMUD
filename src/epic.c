@@ -2813,6 +2813,12 @@ void do_infuse(P_char ch, char *arg, int cmd)
     return;
   }
 
+  if(isname("wicked", device->name))
+  {
+    send_to_char("You do not possess the extreme power to infuse this particular item.\r\n", ch);
+    return;
+  }
+
   if(device->value[7] >= 2)
   {
     send_to_char("This device is too worn out to be infused.\r\n", ch);

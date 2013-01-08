@@ -3900,12 +3900,14 @@ int spell_damage(P_char ch, P_char victim, double dam, int type, uint flags,
       attack_back(ch, victim, FALSE);
       return DAM_NONEDEAD;
     }
-    // Shrug now works as MR
+   /* Commenting this out for now - vision was never fully implemented - Drannak 1/8/13
+	 // Shrug now works as MR
     if( !(flags & SPLDAM_NOSHRUG) && has_innate(victim, INNATE_MAGIC_RESISTANCE) )
     {
       dam *= (100 - number(0, get_innate_resistance(victim) ) );
       dam /= 100;
     }
+	*/
     if(!(flags & SPLDAM_NODEFLECT) &&
       IS_AFFECTED4(victim, AFF4_HELLFIRE) &&
       !number(0, 5))

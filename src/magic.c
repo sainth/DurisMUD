@@ -2429,30 +2429,56 @@ void conjure_specialized(P_char ch, int level)
   } pets[] = // If you add or remove mobs, make sure to adjust 
               // IS_GREATER_ELEMENTAL define in utils.h -Lucrot
   {
-    {
+  /*  {
     1130, 500, 20},
     {
     1131, 400, 20},
     {
-    1132, 600, 20},             /* AIR */
+    1132, 600, 20},             // AIR 
     {
     1140, 600, 25},
     {
     1141, 600, 20},
     {
-    1142, 600, 20},             /* WATER */
+    1142, 600, 20},             // WATER 
     {
     1110, 600, 20},
     {
     1111, 700, 25},
     {
-    1112, 550, 20},             /* FIRE */
+    1112, 550, 20},             // FIRE 
     {
     1120, 600, 20},
     {
     1121, 800, 30},
     {
-    1122, 700, 25},             /* EARTH */
+    1122, 700, 25},             // EARTH 
+*/
+    {
+    43, 500, 20},
+    {
+    43, 400, 20},
+    {
+    43, 600, 20},             /* AIR */
+    {
+    44, 600, 25},
+    {
+    44, 600, 20},
+    {
+    44, 600, 20},             /* WATER */
+    {
+    41, 600, 20},
+    {
+    41, 700, 25},
+    {
+    41, 650, 20},             /* FIRE */
+    {
+    42, 600, 20},
+    {
+    42, 800, 30},
+    {
+    42, 700, 25},             /* EARTH */
+
   };
 
   summoned = 3 * (ch->player.spec - 1) + number(0, 2);
@@ -2660,23 +2686,23 @@ void spell_conjour_greater_elemental(int level, P_char ch, char *arg,
 
   mob->player.level = number(49, 53);
   if(mob->player.level == 49)
-    GET_MAX_HIT(mob) = GET_HIT(mob) = mob->points.base_hit = 550 + number(0,50) + (life * 3) + charisma;
+    GET_MAX_HIT(mob) = GET_HIT(mob) = mob->points.base_hit = 450 + number(0,50) + (life * 3) + charisma;
   else if(mob->player.level == 50)
-    GET_MAX_HIT(mob) = GET_HIT(mob) = mob->points.base_hit = 600 + number(0,50) + (life * 3) + charisma;
+    GET_MAX_HIT(mob) = GET_HIT(mob) = mob->points.base_hit = 500 + number(0,50) + (life * 3) + charisma;
   else if(mob->player.level == 51)
-    GET_MAX_HIT(mob) = GET_HIT(mob) = mob->points.base_hit = 650 + number(0,50) + (life * 3) + charisma;
+    GET_MAX_HIT(mob) = GET_HIT(mob) = mob->points.base_hit = 550 + number(0,50) + (life * 3) + charisma;
   else if(mob->player.level == 52)
     GET_MAX_HIT(mob) = GET_HIT(mob) = mob->points.base_hit =
-      700 + number(0,50) + (life * 3) + charisma;
+      600 + number(0,50) + (life * 3) + charisma;
   else
           //big bonus for highest level pet, since it's rare
     GET_MAX_HIT(mob) = GET_HIT(mob) = mob->points.base_hit =
-      800 + number(0,50) + (life * 3) + charisma;
+      700 + number(0,50) + (life * 3) + charisma;
 
   SET_BIT(mob->specials.affected_by, AFF_INFRAVISION);
 
   mob->points.base_hitroll = mob->points.hitroll = GET_LEVEL(mob) / 3;
-  mob->points.base_damroll = mob->points.damroll = GET_LEVEL(mob) / 3;
+  mob->points.base_damroll = mob->points.damroll = GET_LEVEL(mob) / 4;
 
   MonkSetSpecialDie(mob);       /* 2d6 to 4d5 */
   mob->points.damsizedice = (int)(0.8 * mob->points.damsizedice);

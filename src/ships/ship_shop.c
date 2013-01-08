@@ -528,6 +528,7 @@ int sell_cargo(P_char ch, P_ship ship, int slot)
     {
         total_cost = check_nexus_bonus(ch, total_cost, NEXUS_BONUS_CARGO);
         send_to_char_f(ch, "You receive %s&n.\r\n", coin_stringv(total_cost));
+	if(has_eq_diplomat(ship))
 	 send_to_char("Your &+bdip&+Blo&+bmat &nstatus costs you a &+W10&n percent cut on your profits.\r\n", ch);
         send_to_char("Thanks for your business!\r\n", ch);        
         ADD_MONEY(ch, total_cost);

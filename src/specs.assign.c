@@ -485,6 +485,9 @@ void assign_mobiles(void)
   mob_index[real_mobile0(65012)].func.mob = fooquest_mob;
   mob_index[real_mobile0(65013)].func.mob = fooquest_boss;
 
+  /* Goodie Highwayman */
+  mob_index[real_mobile0(500058)].func.mob = goodie_guardian;
+
   /* images */
   mob_index[real_mobile0(250)].func.mob = imageproc;
 

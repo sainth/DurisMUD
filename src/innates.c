@@ -379,6 +379,7 @@ const struct innate_data
   {"woodland renewal", 0},
   {"natural movement", 0},
   {"magic vulnerability", 0},
+  {"two-handed sword mastery", 0},
 };
 
 string list_innates(int race, int cls, int spec)
@@ -497,6 +498,7 @@ void assign_innates()
   ADD_RACIAL_INNATE(INNATE_HORSE_BODY, RACE_CENTAUR, 1);
   ADD_RACIAL_INNATE(INNATE_DOORKICK, RACE_CENTAUR, 1);
   ADD_RACIAL_INNATE(INNATE_STAMPEDE, RACE_CENTAUR, 21);
+  ADD_RACIAL_INNATE(TWO_HANDED_SWORD_MASTERY, RACE_CENTAUR, 31);
   /* List of Mountain Dwarf Innates */
   ADD_RACIAL_INNATE(INNATE_STRENGTH, RACE_MOUNTAIN, 1);
   ADD_RACIAL_INNATE(INNATE_INFRAVISION, RACE_MOUNTAIN, 1);
@@ -1105,7 +1107,7 @@ bool check_reincarnate(P_char ch)
   // innate resurrect! shaman spec
   if (has_innate(ch, INNATE_RESURRECTION))
   {
-    if (!number(0, 5))          // this may be tweeked later
+    if (!number(0, 8))          // this may be tweeked later
     {
       P_char   t, t_next;
 
@@ -1145,7 +1147,7 @@ bool check_reincarnate(P_char ch)
         }
       }
 
-      GET_HIT(ch) = GET_MAX_HIT(ch);
+      GET_HIT(ch) = BOUNDED(10, GET_MAX_HIT(ch), 100);
       CharWait(ch, dice(2, 2) * 4);
       update_pos(ch);
 

@@ -265,6 +265,7 @@ void make_remains(P_char);
 /* specs.mobile.c */
 
 int bahamut(P_char, P_char, int, char *);
+int goodie_guardian(P_char, P_char, int, char *);
 int claw_cavern_drow_mage(P_char, P_char, int, char *);
 int rentacleric(P_char, P_char, int, char *);
 int agthrodos(P_char, P_char, int, char *);
