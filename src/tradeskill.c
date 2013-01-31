@@ -1659,3 +1659,94 @@ int learn_recipe(P_obj obj, P_char ch, int cmd, char *arg)
   return TRUE;
 }
 
+int learn_tradeskill(P_char ch, P_char pl, int cmd, char *arg)
+{
+  char buffer[MAX_STRING_LENGTH];
+
+  if(cmd == CMD_PRACTICE)
+  {
+    
+       
+        if(!arg || !*arg)
+    {
+      // practice called with no arguments
+      sprintf(buffer,
+              "'Greetings Adventurer!'\n"
+              "'The choice of a &+Wtradeskill&n is an important one, as only &+Yone&n can be made.'\n"
+		"'Of the abilities which I can train you are &+Lm&+wi&+Wn&+wi&+Lng&n, &+Lforging&n, or &+rcrafting&n.'\n"
+		"'&+LM&+wi&+Wn&+wi&+Lng&n&n will allow you to gather raw &+mvaluable&n &+Lore&n from &+ymines&n scattered throughout the realm.'\n"
+		"'&+LForging&n allows one to create amazing &+Larmor&n and &+Wweapons&n from &+yrecipes&n found through the &+ysalvage&n skill.'\n"
+		"'&+rCrafting&n is the meticulous skill allowing one to craft &+Mjewelry&n, &+maccessories&n, and &+ccloak&n items from &+ysalvaged&n recipes.'\n"
+              "'Please think long and hard about your decision, and then &+RPractice &neither &+Lforge&n, &+Lmine&n, or &+Lcraft&n.\n\n");
+      send_to_char(buffer, pl);
+
+
+         if(GET_CHAR_SKILL(pl, SKILL_FORGE) >= 1 || GET_CHAR_SKILL(pl, SKILL_MINE) >= 1 || GET_CHAR_SKILL(pl, SKILL_CRAFT) >= 1 )
+      {
+        send_to_char("'Unfortunately, I cannot teach you anything more, as you have already learned a tradeskill!'\n", pl);
+        return TRUE;
+      }
+      
+      return TRUE;
+    }
+    else if(strstr(arg, "forge"))
+    {
+      // called with skill name
+        if(GET_CHAR_SKILL(pl, SKILL_FORGE) >= 1 || GET_CHAR_SKILL(pl, SKILL_MINE) >= 1 || GET_CHAR_SKILL(pl, SKILL_CRAFT) >= 1 )
+      {
+        send_to_char("Unfortunately, I cannot teach you anything more, as you have already learned a tradeskill!\n", pl);
+        return TRUE;
+      }
+      sprintf(buffer, "Your teacher takes you aside and teaches you the finer points of &+W%s&n.\n"
+                      "&+cYou feel your skill in %s improving.&n\n",
+              skills[SKILL_FORGE].name, skills[SKILL_FORGE].name);
+      act(buffer, FALSE, ch, 0, pl, TO_VICT);
+      pl->only.pc->skills[SKILL_FORGE].taught =
+        pl->only.pc->skills[SKILL_FORGE].learned =
+        MIN(100, pl->only.pc->skills[SKILL_FORGE].learned + 10);
+      do_save_silent(pl, 1); // tradeskills require a save.
+      CharWait(pl, PULSE_VIOLENCE);
+      return TRUE;
+    }
+	else if(strstr(arg, skills[SKILL_MINE].name))
+    {
+      // called with skill name
+        if(GET_CHAR_SKILL(pl, SKILL_FORGE) >= 1 || GET_CHAR_SKILL(pl, SKILL_MINE) >= 1 || GET_CHAR_SKILL(pl, SKILL_CRAFT) >= 1 )
+      {
+        send_to_char("Unfortunately, I cannot teach you anything more, you have already learned a tradeskill!\n", pl);
+        return TRUE;
+      }
+      sprintf(buffer, "Your teacher takes you aside and teaches you the finer points of &+W%s&n.\n"
+                      "&+cYou feel your skill in %s improving.&n\n",
+              skills[SKILL_MINE].name, skills[SKILL_MINE].name);
+      act(buffer, FALSE, ch, 0, pl, TO_VICT);
+      pl->only.pc->skills[SKILL_MINE].taught =
+        pl->only.pc->skills[SKILL_MINE].learned =
+        MIN(100, pl->only.pc->skills[SKILL_MINE].learned + 10);
+      do_save_silent(pl, 1); // tradeskills require a save.
+      CharWait(pl, PULSE_VIOLENCE);
+      return TRUE;
+    }
+	else if(strstr(arg, skills[SKILL_CRAFT].name))
+    {
+      // called with skill name
+        if(GET_CHAR_SKILL(pl, SKILL_FORGE) >= 1 || GET_CHAR_SKILL(pl, SKILL_MINE) >= 1 || GET_CHAR_SKILL(pl, SKILL_CRAFT) >= 1 )
+      {
+        send_to_char("Unfortunately, I cannot teach you anything more, you have already learned a tradeskill!\n", pl);
+        return TRUE;
+      }
+      sprintf(buffer, "Your teacher takes you aside and teaches you the finer points of &+W%s&n.\n"
+                      "&+cYou feel your skill in %s improving.&n\n",
+              skills[SKILL_CRAFT].name, skills[SKILL_CRAFT].name);
+      act(buffer, FALSE, ch, 0, pl, TO_VICT);
+      pl->only.pc->skills[SKILL_CRAFT].taught = 100;
+        pl->only.pc->skills[SKILL_CRAFT].learned = 10;
+       // MIN(100, pl->only.pc->skills[SKILL_CRAFT].learned + 10);
+      do_save_silent(pl, 1); // tradeskills require a save.
+      CharWait(pl, PULSE_VIOLENCE);
+      return TRUE;
+    }
+	
+  }
+  return FALSE;
+}

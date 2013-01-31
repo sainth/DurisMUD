@@ -4959,6 +4959,11 @@ void do_salvage(P_char ch, char *argument, int cmd)
     act("That's probably more valuable than what you could break it down into... lets not.", FALSE, ch, 0, 0, TO_CHAR);
     return;
    }
+  if (IS_OBJ_STAT2(temp, ITEM2_STOREITEM))
+   {
+    act("This appears to be from a store... try to find something a bit harder to acquire.", FALSE, ch, 0, 0, TO_CHAR);
+    return;
+   }
   if (IS_SET(temp->extra_flags, ITEM_ARTIFACT))
   {
     send_to_char
