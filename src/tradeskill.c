@@ -1596,7 +1596,7 @@ void create_recipes_name(char *name)
 int learn_recipe(P_obj obj, P_char ch, int cmd, char *arg)
 {
 
-
+  P_obj tobj;
   char     buf[256], *buff;
   char     Gbuf1[MAX_STRING_LENGTH], *c;
   FILE    *f;
@@ -1625,7 +1625,41 @@ int learn_recipe(P_obj obj, P_char ch, int cmd, char *arg)
    send_to_char("This item is useless!\r\n", ch);
    return TRUE;
   }
-  
+
+  tobj = read_object(recipenumber, VIRTUAL);
+ 	
+  if((IS_SET(tobj->wear_flags, ITEM_WEAR_HEAD) ||
+	IS_SET(tobj->wear_flags, ITEM_WEAR_BODY) ||
+	IS_SET(tobj->wear_flags, ITEM_WEAR_ARMS) ||
+	IS_SET(tobj->wear_flags, ITEM_WEAR_FEET) ||
+	IS_SET(tobj->wear_flags, ITEM_WEAR_SHIELD) ||
+	IS_SET(tobj->wear_flags, ITEM_WIELD) ||
+	IS_SET(tobj->wear_flags, ITEM_WEAR_LEGS) ||
+	IS_SET(tobj->wear_flags, ITEM_WEAR_HANDS))
+       && (GET_CHAR_SKILL(ch, SKILL_FORGE) < 1))
+	{
+	  send_to_char("This recipe can only be used by someone with the &+LForge&n skill.\r\n", ch);
+	  return TRUE;
+	}
+ if((IS_SET(tobj->wear_flags, ITEM_WEAR_ABOUT) ||
+	IS_SET(tobj->wear_flags, ITEM_WEAR_WAIST) ||
+	IS_SET(tobj->wear_flags, ITEM_WEAR_EARRING) ||
+	IS_SET(tobj->wear_flags, ITEM_WEAR_NECK) ||
+	IS_SET(tobj->wear_flags, ITEM_WEAR_WRIST) ||
+	IS_SET(tobj->wear_flags, ITEM_WEAR_FINGER) ||
+	IS_SET(tobj->wear_flags, ITEM_WEAR_EYES) ||
+	IS_SET(tobj->wear_flags, ITEM_WEAR_QUIVER) ||
+	IS_SET(tobj->wear_flags, ITEM_WEAR_TAIL) ||
+	IS_SET(tobj->wear_flags, ITEM_WEAR_NOSE) ||
+	IS_SET(tobj->wear_flags, ITEM_WEAR_HORN) ||
+	IS_SET(tobj->wear_flags, ITEM_WEAR_FACE)) && 
+	(GET_CHAR_SKILL(ch, SKILL_CRAFT) < 1))
+	{
+	  send_to_char("This recipe can only be used by someone with the &+rCraft&n skill.\r\n", ch);
+	  return TRUE;
+	}  
+ extract_obj(tobj, FALSE);
+
   //Create buffers for name
   strcpy(buf, GET_NAME(ch));
   buff = buf;
@@ -1668,6 +1702,10 @@ int learn_recipe(P_obj obj, P_char ch, int cmd, char *arg)
   "quickly consuming $p, which vanishes from sight.\r\n", FALSE, ch, obj, 0, TO_CHAR);   
   fclose(recipefile);
   extract_obj(obj, !IS_TRUSTED(ch));
+  if(GET_CHAR_SKILL(ch, SKILL_FORGE) > 1)
+  notch_skill(ch, SKILL_FORGE, 100);
+  if(GET_CHAR_SKILL(ch, SKILL_CRAFT) > 1)
+  notch_skill(ch, SKILL_CRAFT, 100);
   return TRUE;
 }
 

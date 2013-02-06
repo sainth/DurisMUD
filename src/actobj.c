@@ -4943,7 +4943,8 @@ void do_salvage(P_char ch, char *argument, int cmd)
     act("You may want to empty that container before you try to &+ysalvage &nit.", FALSE, ch, 0, 0, TO_CHAR);
     return;
    }
-  if (temp->extra_flags == ITEM_NOSELL)
+
+  if (IS_SET(temp->extra_flags, ITEM_NOSELL))
     {
 	 act("There is apparently no &+Yworth &nto that item.", FALSE, ch, 0, 0, TO_CHAR); 
         return;
@@ -5008,11 +5009,45 @@ void do_salvage(P_char ch, char *argument, int cmd)
 	//DEBUG send_to_char( buf, ch);
 	//DEBUG send_to_char( buf2, ch);
 	 //StartQualityCheck
+       if(objchance >= 60) 
+        {
+         objchance = 60;
+         if(number(60, 400) < GET_C_LUCK(ch)) //get lucky, get tier 4
+           {
+	    objchance += 10;
+	    if(number(70, 400) < GET_C_LUCK(ch))
+            {
+	      objchance += 15;
+             if(number(80, 500) < GET_C_LUCK(ch))
+             {
+              obj_to_char(read_object(400211, VIRTUAL), ch);
+              send_to_char("...as you work, a small &+Mm&+Ya&+Mg&+Yi&+Mc&+Ya&+Ml&n object gently separates from your item!\r\n", ch);
+             }
+	     }
+           }
+        }
+         if (IS_SET(temp->bitvector, AFF_STONE_SKIN) ||
+            IS_SET(temp->bitvector, AFF_HIDE) ||
+            IS_SET(temp->bitvector, AFF_SNEAK) ||
+            IS_SET(temp->bitvector, AFF_FLY) ||
+            IS_SET(temp->bitvector, AFF4_NOFEAR) ||
+            IS_SET(temp->bitvector2, AFF2_AIR_AURA) ||
+            IS_SET(temp->bitvector2, AFF2_EARTH_AURA) ||
+            IS_SET(temp->bitvector3, AFF3_INERTIAL_BARRIER) ||
+            IS_SET(temp->bitvector3, AFF3_REDUCE) ||
+            IS_SET(temp->bitvector2, AFF2_GLOBE) ||
+            IS_SET(temp->bitvector, AFF_HASTE) ||
+            IS_SET(temp->bitvector, AFF_DETECT_INVISIBLE) ||            
+            IS_SET(temp->bitvector4, AFF4_DETECT_ILLUSION))
+        {
+          obj_to_char(read_object(400211, VIRTUAL), ch);
+          send_to_char("...as you work, a small &+Mm&+Ya&+Mg&+Yi&+Mc&+Ya&+Ml&n object gently separates from your item!\r\n", ch);
+        }
 	    if (objchance <= 20) // Grant Rewards based on objchance roll
       	      {
               act("&+wYou were able to salvage a rather &+rpoor&n material from your item...", FALSE, ch, 0, 0, TO_CHAR);
 			  switch (objmat)
-				{       // If they all == 67283, why bother with the Switch?
+				{       
 					case MAT_NONSUBSTANTIAL:
 					matvnum = 400205;  
 					break;
@@ -5789,7 +5824,9 @@ void do_salvage(P_char ch, char *argument, int cmd)
        char *c;
        int recipenumber = obj_index[temp->R_num].virtual_number;
        
-       if(obj_index[temp->R_num].virtual_number == 1252)
+       if(obj_index[temp->R_num].virtual_number == 1252 ||
+          obj_index[temp->R_num].virtual_number == 1253 ||
+          obj_index[temp->R_num].virtual_number == 1254 )
 	{
          extract_obj(temp, !IS_TRUSTED(ch));
 	  return;
