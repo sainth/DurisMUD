@@ -13448,7 +13448,7 @@ void spell_blackmantle(int level, P_char ch, char *arg, int type, P_char victim,
 
     bzero(&af, sizeof(af));
     af.type = SPELL_BMANTLE;
-    af.duration = level * PULSE_VIOLENCE;
+    af.duration = PULSE_VIOLENCE / 4; //level * PULSE_VIOLENCE
     af.modifier = 300;
     affect_to_char(victim, &af);
   }
