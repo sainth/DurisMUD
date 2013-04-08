@@ -62,6 +62,8 @@ extern P_room world;
 extern char debug_mode;
 extern const struct race_names race_names_table[];
 extern const int exp_table[];
+extern void set_long_description(P_obj t_obj, const char *newDescription);
+extern void set_short_description(P_obj t_obj, const char *newDescription);
 
 //extern const int material_absorbtion[][];
 extern const struct stat_data stat_factor[];
@@ -5658,14 +5660,21 @@ int raw_damage(P_char ch, P_char victim, double dam, uint flags,
         killer = ch;
       }
 
-	/*	if(!affected_by_spell(victim, TAG_PVPDELAY))
+		if(!affected_by_spell(victim, TAG_PVPDELAY))
 	  {
+	    char bufpc[MAX_STRING_LENGTH], buffer[MAX_STRING_LENGTH];
+
 	    //send_to_char("no pvp here! die and make portal\r\n", victim);
 	    P_obj portal;
 	    portal = read_object(400220, VIRTUAL);
 	    portal->value[0] = world[victim->in_room].number;
+	    sprintf(bufpc, "%s %s", GET_NAME(victim), "corpseportal portal");
+  	    portal->name = str_dup(bufpc);
+	    sprintf(buffer, "%s %s&n", portal->description, GET_NAME(victim));
+	   set_long_description(portal, buffer); 
+	   set_short_description(portal, buffer);
 	    obj_to_room(portal, real_room(400000));
-	  }*/
+	  }
       if(victim &&
         killer &&
         IS_PC(victim) &&

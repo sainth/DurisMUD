@@ -669,7 +669,8 @@
 #define SPELL_DECAYING_FLESH	  620
 #define SPELL_NOAUCTION		  621
 #define SPELL_BATTLEMAGE		  622
-#define LAST_SPELL  SPELL_BATTLEMAGE
+#define SPELL_CORPSE_PORTAL		  623
+#define LAST_SPELL  SPELL_CORPSE_PORTAL
 
 #define FIRST_SKILL                  1000  /* should be a decent split point */
 #define SKILL_SNEAK                  1000

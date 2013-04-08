@@ -13876,12 +13876,16 @@ int portal_door(P_obj obj, P_char ch, int cmd, char *arg)
       (((cmd == CMD_ENTER) ||
       (cmd == CMD_LOOK)) && ch))
    {
-   
+   /*
     if(ch && !is_Raidable(ch, 0, 0))
     {
       send_to_char("&=LWYou are not raidable! You shall not pass!\r\n", ch);
       return false;
     }
+	*/
+
+
+
       struct portal_action_messages msg = {
 /*in ch    */ "You enter $p and reappear elsewhere...",
 /*in ch r  */ "&+W$p suddenly glows brightly!\n"
@@ -14045,6 +14049,7 @@ int portal_general_internal( P_obj obj, P_char ch, int cmd, char *arg,
    */
   if (obj2 != obj)
     return FALSE;
+
 
   to_room = real_room(obj->value[0]);
   if (to_room == NOWHERE)

@@ -1779,8 +1779,9 @@ int epic_store(P_char ch, P_char pl, int cmd, char *arg)
               "&+y|&+W 2) &+ya tightly wrapped vellum scroll named '&+LFix&+y'&n   &+C%30d&n		&+y|\n"
               "&+y|&+W 3) &+Wa &+mm&+My&+Ys&+Bt&+Gc&+Ra&+Gl &+MFaerie &+Wbag of &+Lstolen loot&n           &+C%30d&n               &+y|\n"
               "&+y|&+W 4) &+Ya r&+ro&+Yb&+re &+Yof a &+mN&+We&+Mt&+Wh&+me&+Wr&+Mi&+Wl &+rBa&+Ytt&+rle&+Y M&+rag&+Ye&n              &+C%30d&n               &+y|\n"
+              "&+y|&+W 5) &+La &+Gbottle &+Lof &+GT&+go&+GR&+gM&+Ge&+gN&+GT&+ge&+GD &+gS&+Goul&+gs     &n              &+C%30d&n               &+y|\n"
               "&+y=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n"
-		"\n", 125, 85, 20, 5000);
+		"\n", 125, 85, 20, 5000, 500);
       send_to_char(buffer, pl);
       return TRUE;
     }//endifnoarg
@@ -1883,6 +1884,28 @@ int epic_store(P_char ch, P_char pl, int cmd, char *arg)
 	obj_to_char(read_object(400218, VIRTUAL), pl);
        return TRUE;
     }//endbuy4
+
+  //400221 - corpse portal potion
+	else if(strstr(arg, "5"))
+    {//buy5
+	//check for 500 epics required to reset
+	int availepics = pl->only.pc->epics;
+	if (availepics < 500)
+	{
+	  send_to_char("&+WKannard&+L &+wsays '&nI'm sorry, but you do not seem to have the &+Wepics&n available for that item.\r\n&n", pl);
+	  return TRUE;
+        }
+	//subtract 500 epics
+       P_obj obj;
+	obj = read_object(400221, VIRTUAL);
+	pl->only.pc->epics -= 500;
+       send_to_char("&+WKannard&+L &+wsays '&nAh, good choice! Quite a rare item!'\n", pl);
+	send_to_char("&+WKannard &+Lthe &+ctra&+Cvell&+cer &nmakes a strange gesture about your body, and hands you your item.\r\n&n", pl);
+       act("You now have $p!\r\n", FALSE, pl, obj, 0, TO_CHAR);
+       extract_obj(obj, FALSE);
+	obj_to_char(read_object(400221, VIRTUAL), pl);
+       return TRUE;
+    }//endbuy5
 
 
   }

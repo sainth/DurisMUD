@@ -11182,6 +11182,13 @@ bool check_item_teleport(P_char ch, char *arg, int cmd)
     return FALSE;
   }
   */
+    if(400220 == obj_index[obj->R_num].virtual_number &&
+        !isname(GET_NAME(ch), obj->name))
+    {
+      send_to_char("You may not enter someone elses &+Gspirit&n portal!\r\n", ch);
+      return TRUE;
+    }
+
   /*
    * Ignore argument for now...eventually we could "throw dust Dbra"..
    */
@@ -21188,4 +21195,47 @@ void spell_repair_one_item(int level, P_char ch, char *arg, int type, P_char vic
     act("$q glows a faint &+Yyellowish hue&n as a wave of energy covers its surface.", FALSE, ch, obj, 0, TO_CHAR);
     act("$n's $q glows a faint &+Yyellowish hue&n as a wave of energy covers its surface.", FALSE, ch, obj, 0, TO_ROOM);    
   }
+}
+
+void spell_corpse_portal(int level, P_char ch, char *arg, int type,
+                       P_char victim, P_obj obj)
+{
+  P_obj    tobj;
+  int      found = 0;
+  int      location;
+
+  // find most recent corpse
+  for (tobj = object_list; tobj; tobj = tobj->next)
+  {
+    if(400220 == obj_index[tobj->R_num].virtual_number &&
+        isname(GET_NAME(victim), tobj->name))
+    {
+      found = 1;
+      break;
+    }
+  }
+
+  // if no corpse, fail!
+  if(!found || tobj->loc_p != LOC_ROOM)
+  {
+    act
+      ("&+L$n attempts to call upon the spirit realm, but is unable to make a connection.&N",
+       TRUE, ch, 0, 0, TO_ROOM);
+    act
+      ("&+gThe &+Gspirit &+grealm fails to answer your call for help.&N",
+       FALSE, ch, 0, 0, TO_CHAR);
+    return;
+  }
+
+  location = world[ch->in_room].number;
+
+  act
+    ("&+G$n's &+gbody begins to shake violently as if possessed by some &+Gother worldly &+gpower. With a blast of &+Gghastly &+Yflames&+g a portal suddenly materializes before them.&N",
+     TRUE, ch, 0, 0, TO_ROOM);
+  act
+    ("&+gYour body calls out to the &+Gspirit&+g realm, begging for assistance.  Every fiber within your body begins to &+Gtingle&+g as a &+Gghastly &+gessence begins to fill the room. Suddenly and without warning, a &+Gmystic &+gportal materializes before you, beckoning you to enter.&N",
+     FALSE, ch, 0, 0, TO_CHAR);
+  obj_from_room(tobj);
+  obj_to_room(tobj, real_room(location));
+
 }
