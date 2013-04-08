@@ -5660,7 +5660,7 @@ int raw_damage(P_char ch, P_char victim, double dam, uint flags,
         killer = ch;
       }
 
-		if(!affected_by_spell(victim, TAG_PVPDELAY))
+		if(!affected_by_spell(victim, TAG_PVPDELAY) && IS_PC(victim))
 	  {
 	    char bufpc[MAX_STRING_LENGTH], buffer[MAX_STRING_LENGTH];
 
