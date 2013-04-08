@@ -95,7 +95,7 @@ const int allowed_secondary_classes[CLASS_COUNT + 1][5] = {
  {-1}, 
  
   {CLASS_MERCENARY, CLASS_CLERIC, -1},      /* War */
-  {CLASS_WARRIOR, CLASS_DRUID, CLASS_ROGUE, -1},              /* Ran */
+  {CLASS_WARRIOR, CLASS_DRUID, CLASS_ROGUE, CLASS_PSIONICIST, -1},              /* Ran */
   {-1},                         		              /* Psi */
   {CLASS_WARRIOR, -1},          		      /* Pal */
   {CLASS_WARRIOR, -1},          		              /* APa */
@@ -150,7 +150,7 @@ const mcname multiclass_names[] = {
   {CLASS_WARRIOR, CLASS_ETHERMANCER,     "&+BAb&+wominati&+Bon&n"},
   {CLASS_WARRIOR, CLASS_AVENGER,         "&+BJu&+Yst&+Wic&+Ya&+Br&n"},  
   {CLASS_WARRIOR, CLASS_THEURGIST,       "&+BRi&+Ypp&+Ber&n"},
-  {CLASS_RANGER, CLASS_PSIONICIST,       "&+bKinetic &+GArm&n"},  
+  {CLASS_RANGER, CLASS_PSIONICIST,       "&+LVis&+Wion&+Wary&n"},  
   {CLASS_RANGER, CLASS_PALADIN,          "&+GWar&+Wden&n"},  
   {CLASS_RANGER, CLASS_ANTIPALADIN,      "&+LBleak &+GHero&n"},
   {CLASS_RANGER, CLASS_CLERIC,           "&+GWild &+YZealot&n"},  
@@ -185,7 +185,8 @@ const mcname multiclass_names[] = {
   {CLASS_PSIONICIST, CLASS_BARD,         "&+MSong&+bbender&n"},  
   {CLASS_PSIONICIST, CLASS_MINDFLAYER,   "&+MThe &+bBoss&n"},  
   {CLASS_PSIONICIST, CLASS_BERSERKER,    "&+rF&+Rac&+re&+bbender&n"},
-  {CLASS_PSIONICIST, CLASS_REAVER,       "&+LTra&+Wnsc&+Wendent&n"},  
+  {CLASS_PSIONICIST, CLASS_REAVER,       "&+LTra&+Wnsc&+Wendent&n"}, 
+  {CLASS_PSIONICIST, CLASS_RANGER,       "&+LVis&+Wion&+Wary&n"}, 
   {CLASS_PSIONICIST, CLASS_ILLUSIONIST,  "&+bMindbender&n"},
   {CLASS_PSIONICIST, CLASS_DREADLORD,    "&+rDe&+Lath&+bbender&n"},  
   {CLASS_PSIONICIST, CLASS_ETHERMANCER,  "&+wWind&+bbender&n"},
@@ -1600,7 +1601,7 @@ const int class_table[LAST_RACE + 1][CLASS_COUNT + 1] = {
  *      Wa   Ra   Ps   Pa   Ap   Cl   Mo   Dr   Sh   So   Ne   Co   Ro   As   Me   Ba   Th   Wl   Mf   Cm   Be   RV   Il   SP   DL   EM   Av   Th=Class
  *    -1) E, 0) N, 1) G,  2) Choice (ANY), 3) Choice (G/N), 4) Choice) N/E 5) NOGO */
   { 5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 },  /* None */
-  { 5 ,  2 ,  1 ,  5 ,  1 , -1 ,  2 ,  1 ,  0 ,  2 ,  2 , -1 ,  2 ,  0 ,  5 ,  2 ,  1 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  2 ,  5 ,  5 ,  0 ,  5 ,  5 },  /* Human */
+  { 5 ,  2 ,  1 ,  1 ,  1 , -1 ,  2 ,  1 ,  0 ,  2 ,  2 , -1 ,  2 ,  0 ,  5 ,  2 ,  1 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  2 ,  5 ,  5 ,  0 ,  5 ,  5 },  /* Human */
   { 5 ,  2 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  2 ,  5 ,  5 ,  5 ,  5 ,  5 ,  2 ,  5 ,  5 ,  5 ,  5 ,  5 ,  2 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 },  /* Barbarian */
   { 5 ,  5 ,  5 ,  5 ,  5 ,  5 , -1 ,  5 ,  5 ,  5 , -1 ,  5 , -1 , -1 ,  5 ,  5 , -1 ,  5 ,  5 ,  5 ,  5 ,  5 , -1 , -1 ,  5 ,  5 ,  5 ,  5 ,  5 },  /* Drow Elf */ 
   { 5 ,  5 ,  1 ,  5 ,  5 ,  5 ,  1 ,  5 ,  0 ,  5 ,  1 ,  5 ,  1 ,  3 ,  5 ,  5 ,  1 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  2 ,  5 ,  5 ,  5 ,  5 ,  5 },  /* Grey Elf */
@@ -1831,7 +1832,7 @@ const int guild_locations[][CLASS_COUNT + 1] = {
    -1, -1, -1, -1},
 
   /* * Tharn */
-  {132575, 132575, 132978,     -1, 132544,
+  {132575, 132575, 132978, 132656, 132544,
    132575, 132575, 132575, 132575, 132575,
    133019, 132656, 133018, 132575, 132575,
    132575, 132575, 132575, 132575,     -1,
