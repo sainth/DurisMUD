@@ -60,7 +60,8 @@ extern struct str_app_type str_app[];
 extern struct time_info_data time_info;
 extern struct zone_data *zone_table;
 
-#define MAX_HALLOFFAME_SIZE    15       /* max size of high/low lists */
+#define MAX_HALLOFFAME_SIZE    20       /* max size of high/low lists */
+#define MAX_LEADERBOARD_SIZE    50       /* max size of high/low lists */
 int getHardCorePts(P_char ch)
 {
   
@@ -301,7 +302,7 @@ void checkHallOfFame(P_char ch, char killer[1024])
   return;
 }
 
-#define MAX_LEADERBOARD_SIZE    100       /* max size of high/low lists */
+
 int getLeaderBoardPts(P_char ch)
 {
   
@@ -316,13 +317,13 @@ int getLeaderBoardPts(P_char ch)
  return hardcorepts;         
 }
 
-void deleteLeaderEntry(char names[MAX_LEADERBOARD_SIZE][MAX_STRING_LENGTH],
-                     int halloffames[MAX_LEADERBOARD_SIZE], int pos,
-                     char killer[MAX_LEADERBOARD_SIZE][MAX_STRING_LENGTH])
+void deleteLeaderEntry(char names[MAX_HALLOFFAME_SIZE][MAX_STRING_LENGTH],
+                     int halloffames[MAX_HALLOFFAME_SIZE], int pos,
+                     char killer[MAX_HALLOFFAME_SIZE][MAX_STRING_LENGTH])
 {
   int      i;
 
-  if (pos >= MAX_HALLOFFAME_SIZE)
+  if (pos >= 100)
     return;
 
   for (i = pos; i < MAX_HALLOFFAME_SIZE; i++)
@@ -331,19 +332,19 @@ void deleteLeaderEntry(char names[MAX_LEADERBOARD_SIZE][MAX_STRING_LENGTH],
     halloffames[i] = halloffames[i + 1];
     strcpy(killer[i], killer[i + 1]);
   }
-
+/*
   strcpy(names[MAX_HALLOFFAME_SIZE - 1], "Nobody");
   halloffames[MAX_HALLOFFAME_SIZE - 1] = 0;
   strcpy(killer[MAX_HALLOFFAME_SIZE - 1], "NotDead");
+*/
 }
 
-void insertLeaderEntry(char names[MAX_LEADERBOARD_SIZE][MAX_STRING_LENGTH],
-                     int halloffames[MAX_LEADERBOARD_SIZE], char *name,
+void insertLeaderEntry(char names[MAX_HALLOFFAME_SIZE][MAX_STRING_LENGTH],
+                     int halloffames[MAX_HALLOFFAME_SIZE], char *name,
                      int newHardcore, int pos,
-                     char killers[MAX_LEADERBOARD_SIZE][MAX_STRING_LENGTH],
+                     char killers[MAX_HALLOFFAME_SIZE][MAX_STRING_LENGTH],
                      char *killer)
-
-  {
+{
   int      i;
 
 
@@ -370,12 +371,11 @@ void insertLeaderEntry(char names[MAX_LEADERBOARD_SIZE][MAX_STRING_LENGTH],
   strcpy(killers[pos], killer);
 }
 
-
 void displayLeader(P_char ch, char *arg, int cmd)
 {
 
   FILE    *halloffameList, *f;
-  char     name[MAX_STRING_LENGTH], buf[65536], buf2[2048], tempbuf[2048];
+  char     name[MAX_STRING_LENGTH], buf[65536], buf2[2048], tempbuf[2048], tempbuf2[2048];
   char     killer[MAX_STRING_LENGTH];
   int      halloffames, x;
   char     i;
@@ -390,6 +390,7 @@ void displayLeader(P_char ch, char *arg, int cmd)
     sprintf(name, "Couldn't open leaderboard: %s\r\n", filename);
     send_to_char(name, ch);
     f = fopen("lib/information/leaderboard", "w");
+    fprintf(f, "none 0 0\n");
     fclose(f);
     return;
   }
@@ -404,10 +405,13 @@ void displayLeader(P_char ch, char *arg, int cmd)
 
   halloffameList = fopen(filename, "rt");
 
-  strcpy(buf, "\t\r\n&+r-= &+LHall Of&+L Fame&+r =-&n\r\n\r\n");
-  sprintf(tempbuf, "   &+w%-15s           &+w%s           &+w%-15s\r\n",
-          "Name", "Points", "Deaths/Killed by");
+  strcpy(buf, "\r\n&+y=-=-=-=-=-=-=-=-=-=--= &+rDuris Mud &+WLeader Board&+y =-=-=-=-=-=-=-=-=-=-=-&n\r\n\r\n");
+  sprintf(tempbuf, "   &+W%-15s           &+Y%s\r\n",
+          "Name", "Score");
+  sprintf(tempbuf2, "   &+L%-15s           &+L%s\r\n",
+          "----", "-----");
   strcat(buf, tempbuf);
+  strcat(buf, tempbuf2);
   for (i = 0; i < actualrecords; i++)
   {
     fscanf(halloffameList, "%s %d %s\n", name, &halloffames, killer);
@@ -415,8 +419,8 @@ void displayLeader(P_char ch, char *arg, int cmd)
     pts = halloffames;
     pts /= 100.0;
 
-    sprintf(buf2, "   &+L%-15s          &+r% 6.2f\t      &+W%-15s\r\n",
-            name, pts, killer);
+    sprintf(buf2, "   &+w%-15s          &+Y% 6.2f\t\r\n",
+            name, pts);
     strcat(buf, buf2);
   }
 
@@ -478,6 +482,7 @@ void writeLeaderBoard(P_char ch, char thekiller[1024])
             halloffamelist_file);
     send_to_char(buffer, ch);
     f = fopen("lib/information/leaderboard", "w");
+    fprintf(f, "none 0 0\n");
     fclose(f);
     return;
   }
@@ -521,14 +526,14 @@ void writeLeaderBoard(P_char ch, char thekiller[1024])
     the end of the list (higher than nobody after deleted), stick em there
     here */
 
-  for (i = 0; i < MAX_HALLOFFAME_SIZE; i++)
+  for (i = 0; i < actualrecords; i++)
   {
     // check for dupe entry - just delete it if it exists.  let's see what
     // happens, shall we?
 
     if (!str_cmp(ch->player.name, highPlayerName[i]))
     {
-      deleteHallEntry(highPlayerName, highHardcore, i, killerName);
+      deleteLeaderEntry(highPlayerName, highHardcore, i, killerName);
 
       break;
     }
@@ -536,18 +541,18 @@ void writeLeaderBoard(P_char ch, char thekiller[1024])
 
   /* see if player has beaten anybody currently on the list */
 
-  for (i = 0; (i < actualrecords + 1); i++)
+  for (i = 0; (i < actualrecords); i++)
   {
-    if (phalloffames > highHardcore[i])
-    {
-      insertHallEntry(highPlayerName, highHardcore, ch->player.name,
-                      phalloffames, i, killerName, thekiller);
+        if (phalloffames > highHardcore[i])
+        {
+          insertLeaderEntry(highPlayerName, highHardcore, ch->player.name,
+                          phalloffames, i, killerName, thekiller);
 
 
-      change = TRUE;
-      break;
-    }
-  }
+          change = TRUE;
+          break;
+        }
+   }
 
   if (change)
   {
@@ -558,11 +563,19 @@ void writeLeaderBoard(P_char ch, char thekiller[1024])
                    ch);
       return;
     }
-
-    for (i = 0; i < actualrecords +1; i++)
+  
+    for (i = 0; i < actualrecords; i++)
     {
       fprintf(halloffamelist, "%s %d %s\n", highPlayerName[i],
               highHardcore[i], killerName[i]);
+      if(i == (actualrecords - 1))
+       {
+        if(strcmp(highPlayerName[i], "none"))
+        {
+      	  fprintf(halloffamelist, "none 0 0\n");
+	 }
+	}
+     
     }
 
     fclose(halloffamelist);
