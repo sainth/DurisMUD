@@ -3038,7 +3038,6 @@ int try_mangle(P_char ch, P_char victim)
   if(GET_CHAR_SKILL(victim, SKILL_EXPERT_PARRY))
     {
     if((skl -= ((GET_CHAR_SKILL(victim, SKILL_EXPERT_PARRY)) / 20)) < 0)
-        notch_skill(ch, SKILL_EXPERT_PARRY, 50);
       return 0;
     }
   
@@ -3195,7 +3194,6 @@ int try_riposte(P_char ch, P_char victim, P_obj wpn)
   if(expertriposte)
   {
     skl += expertriposte;
-    notch_skill(ch, SKILL_EXPERT_RIPOSTE, 50);
   }
   
   if(GET_CHAR_SKILL(ch, SKILL_MANGLE) > 0 &&
@@ -6228,7 +6226,6 @@ int      battle_frenzy(P_char, P_char);
 int anatomy_strike(P_char ch, P_char victim, int msg, struct damage_messages *messages, int dam)
 {
   int skl = GET_CHAR_SKILL(ch, SKILL_ANATOMY);
-  notch_skill(ch, SKILL_ANATOMY, 50);
   struct affected_type af;
   
   memset(&af, 0, sizeof(af));
@@ -6793,7 +6790,7 @@ bool hit(P_char ch, P_char victim, P_obj weapon)
   {
     send_to_char("&=LWYou score a DEVASTATING HIT!!!!!&N\r\n", ch);
     make_bloodstain(ch);
-    notch_skill(ch, SKILL_DEVASTATING_CRITICAL, 50);
+ 
   }
 
   else if (sic == -1 && (!GET_CLASS(ch, CLASS_MONK) || GET_LEVEL(ch) <= 50))
@@ -6873,7 +6870,6 @@ bool hit(P_char ch, P_char victim, P_obj weapon)
   if (sic == -1 && GET_CHAR_SKILL(ch, SKILL_DEVASTATING_CRITICAL) > devcrit)
   {
     dam = (int) (dam * 2.5);
-            notch_skill(ch, SKILL_DEVASTATING_CRITICAL, 50);
   }
   else if (sic == -1)
   {
@@ -6925,7 +6921,6 @@ bool hit(P_char ch, P_char victim, P_obj weapon)
     if(GET_CHAR_SKILL(ch, SKILL_ANATOMY) > 0)
       {
       vs_skill += (int)(GET_CHAR_SKILL(ch, SKILL_ANATOMY) / 2);
-              notch_skill(ch, SKILL_ANATOMY, 50);
       }
     
     if(IS_NPC(ch) &&
@@ -7007,7 +7002,6 @@ bool hit(P_char ch, P_char victim, P_obj weapon)
           GET_CHAR_SKILL(ch, SKILL_ANATOMY) / 25 >= (number(1, 100)))
   {
     dam = anatomy_strike(ch, victim, msg, &messages, (int) dam);
-            notch_skill(ch, SKILL_ANATOMY, 50);
   }
   else
   {
@@ -7786,7 +7780,7 @@ int blockSucceed(P_char victim, P_char attacker, P_obj wpn)
     "$n blocks your attack and then slams $s shield into you! The lights go out.",
     "$n blocks $M's attack and then slams $s shield into $S body crunching it like a soft egg."
     };
-                    notch_skill(victim, SKILL_IMPROVED_SHIELD_COMBAT, 50);  
+                   
   /* Improved shield combat property can be adjusted on the fly - Lucrot */
     int dmg = number(40,
     MAX(41,
@@ -8042,7 +8036,7 @@ int parrySucceed(P_char victim, P_char attacker, P_obj wpn)
   {
     expertparry = GET_CHAR_SKILL(victim, SKILL_EXPERT_PARRY);
     // 125 percent max bonus
-        notch_skill(victim, SKILL_EXPERT_PARRY, 50);
+ 
     learnedvictim = (int) (learnedvictim * (1 + expertparry/400));
   }
   
@@ -8341,8 +8335,6 @@ int calculate_attacks(P_char ch, int attacks[])
         if (number(1, 99) < GET_CHAR_SKILL(ch, SKILL_IMPROVED_TWOWEAPON))
         {
           ADD_ATTACK(SECONDARY_WEAPON);
-                  notch_skill(ch, SKILL_IMPROVED_TWOWEAPON, 50);
-                             notch_skill(ch, SKILL_TWOWEAPON, 50);
         }
 
         if (GET_RACE(ch) == RACE_THRIKREEN)

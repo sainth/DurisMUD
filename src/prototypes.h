@@ -2005,6 +2005,7 @@ const char *getDodgeEaseString(const int passedby, const int tochar);
 /* skills.c */
 void assign_racial_skills(P_char ch);
 void assign_racial_skills_norefund(P_char ch);
+void update_racial_skills(P_char ch);
 
 
 /* new_skills.c */
