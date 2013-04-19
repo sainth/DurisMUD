@@ -2246,6 +2246,12 @@ void do_give(P_char ch, char *argument, int cmd)
     send_to_char("You can't let go of it! Yeech!!\r\n", ch);
     return;
   }
+  //prevent soulbind quest items - Drannak
+  if( IS_OBJ_STAT2(obj, ITEM2_SOULBIND))
+  {
+    send_to_char("You may not relinquish posession of a &+Wsoulbound &nitem!\r\n", ch);
+    return;
+  }
   if (!(vict = get_char_room_vis(ch, vict_name)))
   {
     send_to_char("No one by that name around here.\r\n", ch);

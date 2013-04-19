@@ -5669,7 +5669,7 @@ void do_who(P_char ch, char *argument, int cmd)
   {
     tch = d->character;
     //Anyone can now see invis on who list - Drannak
-	if (d->connected || racewar(ch, tch) || IS_NPC(tch))
+	if (d->connected || racewar(ch, tch) || IS_NPC(tch) || (!CAN_SEE(ch, tch) && IS_TRUSTED(tch)))
     //if (d->connected || racewar(ch, tch) || !CAN_SEE(ch, tch) || IS_NPC(tch))
       continue;
 

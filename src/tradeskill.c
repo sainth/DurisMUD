@@ -2231,3 +2231,38 @@ int get_frags(P_char ch)
  frags = ch->only.pc->frags;
  return frags;
 }
+
+void display_achievements(P_char ch, char *arg, int cmd)
+{
+  char buf[MAX_STRING_LENGTH], buf2[MAX_STRING_LENGTH], buf3[MAX_STRING_LENGTH];
+
+  sprintf(buf, "\r\n&+L=-=-=-=-=-=-=-=-=-=--= &+rDuris Mud &+yAch&+Yieveme&+ynts &+Lfor &+r%s &+L=-=-=-=-=-=-=-=-=-=-=-&n\r\n\r\n", GET_NAME(ch));
+  sprintf(buf2, "   &+W%-10s           &+W%s\r\n",
+          " ", "&+L(&+rP&+Rv&+rP&+L)&n");
+  strcat(buf, buf2);
+  sprintf(buf2, "   &+W%-25s           &+W%s\r\n",
+          "Achievement", "Affect/Reward");
+  strcat(buf, buf2);
+  sprintf(buf2, "   &+L%-25s           &+L%s\r\n",
+          "-----------", "-------------");
+  strcat(buf, buf2);
+  if(get_frags(ch) >= 2000)
+  sprintf(buf2, "   &+L%-28s           &+L%s\r\n",
+          "&+WObtain 20 Frags", "&+WAccess to the soulbind ability");
+  else
+  sprintf(buf2, "   &+L%-28s           &+L%s\r\n",
+          "&+wObtain 20 Frags", "&+wAccess to the soulbind ability");
+  strcat(buf, buf2);
+  sprintf(buf2, "\r\n");
+  strcat(buf, buf2);
+  sprintf(buf3, "   &+W%-10s           &+W%s\r\n",
+          " ", "&+L(&+gP&+Gv&+gE&+L)&n");
+  strcat(buf, buf3);
+  sprintf(buf3, "\r\n&+L=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-&n\r\n\r\n", GET_NAME(ch));
+  strcat(buf, buf3);
+ /* sprintf(buf2, "   &+w%-15s          &+Y% 6.2f\t\r\n",
+            name, pts);*/
+ page_string(ch->desc, buf, 1);
+
+
+}

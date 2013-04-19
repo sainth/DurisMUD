@@ -1062,6 +1062,7 @@ const char *command[] = {
   "riff",
   "leaderboard",
   "soulbind",
+  "achievements",
   "\n"                          /* MAX_CMD_LIST is now 1000 */
 };
 
@@ -2330,6 +2331,7 @@ void assign_command_pointers(void)
   CMD_N(CMD_HARDCORE, STAT_DEAD + POS_PRONE, displayHardCore, 0);
   CMD_N(CMD_LEADERBOARD, STAT_DEAD + POS_PRONE, displayLeader, 0);
   CMD_N(CMD_SOULBIND, STAT_DEAD + POS_PRONE, do_soulbind, 0);
+  CMD_N(CMD_ACHIEVEMENTS, STAT_DEAD + POS_PRONE, display_achievements, 0);
 //  CMD_N(CMD_RELIC, STAT_DEAD + POS_PRONE, displayRelic, 0);
  CMD_N(CMD_EPIC, STAT_DEAD + POS_PRONE, do_epic, 0);
   CMD_N(CMD_NEXUS, STAT_DEAD + POS_PRONE, do_nexus, 0);
