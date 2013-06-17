@@ -21454,6 +21454,8 @@ void do_soulbind(P_char ch, char *argument, int cmd)
             obj->type == ITEM_STORAGE ||
              obj->type == ITEM_TREASURE ||
               obj->type == ITEM_POTION || 
+		obj->type == ITEM_TELEPORT ||
+		 obj->type == ITEM_WAND ||
                obj->type == ITEM_KEY ||
                 obj->contains ||
               obj->type == ITEM_FOOD ||

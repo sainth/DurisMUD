@@ -518,3 +518,113 @@ bool lightbringer_weapon_proc(P_char ch, P_char victim)
   victim->specials.apply_saving_throw[SAVING_SPELL] = save;
   */
 }
+
+static FILE *aliaslist;
+
+char get_alias(P_char ch, char *argument)
+{
+
+  char     buf[256], aliasword[MAX_STRING_LENGTH], rbuf[MAX_STRING_LENGTH], *bufx;
+  char     gbuf1[MAX_STRING_LENGTH], charalias[MAX_STRING_LENGTH], bufbug[256];
+  FILE *aliaslist;
+
+   if(!str_cmp(argument, ""))
+   {
+    send_to_char("No arg provided\r\n", ch);
+    return FALSE;
+   }
+  
+  strcpy(buf, GET_NAME(ch));
+  bufx = buf;
+  for (; *bufx; bufx++)
+  *bufx = LOWER(*bufx);
+  sprintf(gbuf1, "Players/%c/%s.aliases", buf[0], buf);
+  
+  aliaslist = fopen(gbuf1, "rt");
+  if(!aliaslist)
+  {
+  create_alias_name(GET_NAME(ch));
+  aliaslist = fopen(gbuf1, "rt");
+  }
+  if(!aliaslist)
+   {
+    send_to_char("error reading alias file\r\n", ch);
+    return FALSE;
+   }
+
+    //see if the alias exists.
+      while((fscanf(aliaslist, "%s", charalias) != EOF))
+	{
+	 int i = 0;
+       sprintf(bufbug, charalias);
+       int times = 0;
+       char buffer[MAX_STRING_LENGTH] = "";
+
+       while(times < 1)
+       {
+          sprintf(rbuf, "%c", bufbug[i]);
+          if(!strstr(rbuf, "("))
+          {
+          strcat(buffer, rbuf);
+          }
+          else
+          times++;
+          i++;
+       }
+       //if valid alias
+    	 if(!str_cmp(buffer, argument))
+	{
+	   char bfbug[256];
+	   char bfr[MAX_STRING_LENGTH] = "";
+	   char ruf[MAX_STRING_LENGTH];
+	   int i = 0;
+	   int times = 0;
+	   
+       sprintf(bfbug, charalias);
+
+       while(times < 2)
+       {
+	    sprintf(ruf, "%c", bfbug[i]);
+          if(strstr(ruf, "(") || strstr(ruf, ")"))
+          times++;
+
+	  if(times > 0)
+	  {
+          if(!strstr(ruf, "(") && !strstr(ruf, ")") )
+          {
+          strcat(bfr, ruf);
+          }
+
+	  }
+          i++;
+       }
+        send_to_char("Valid Alias!\r\n", ch);
+        send_to_char(bfr, ch);
+	}
+      // end valid
+
+	 //make sure to close aliaslist
+    }
+  fclose(aliaslist);
+  return TRUE;
+}
+
+void create_alias_file(const char *dir, char *name)
+{
+  char     buf[256], *buff;
+  char     Gbuf1[MAX_STRING_LENGTH];
+  FILE    *f;
+
+  strcpy(buf, name);
+  buff = buf;
+  for (; *buff; buff++)
+    *buff = LOWER(*buff);
+  sprintf(Gbuf1, "%s/%c/%s.aliases", dir, buf[0], buf);
+  f = fopen(Gbuf1, "w");
+  fclose(f);
+}
+
+void create_alias_name(char *name)
+{
+  create_alias_file("Players", name);
+}

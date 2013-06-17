@@ -5045,6 +5045,8 @@ void do_salvage(P_char ch, char *argument, int cmd)
 
   one_argument(argument, Gbuf4);
 
+  
+
 
   if(GET_CHAR_SKILL(ch, SKILL_SALVAGE) < 1)
   {

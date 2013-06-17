@@ -649,6 +649,9 @@ void bard_charm(int l, P_char ch, P_char victim, int song)
 
   if(GET_MASTER(victim))
     return;
+
+  if(IS_PC(victim))
+  return;
  /*
     if(GET_LEVEL(victim) > (GET_LEVEL(ch) - 5) && IS_PC(ch))
     return;

@@ -1265,6 +1265,18 @@ void command_interpreter(P_char ch, char *argument)
                  ch);
     return;
   }
+/*
+  char testing = get_alias(ch, argument);
+  char blah[MAX_STRING_LENGTH];
+
+  if(!testing)
+  {
+  sprintf(blah, "%s", testing);
+  command_interpreter(ch, testing);
+  return;
+  }
+*/
+     
 
   /* Find first non blank */
   for (begin = 0; (*(argument + begin) == ' '); begin++) ;
@@ -2367,7 +2379,6 @@ void assign_command_pointers(void)
   CMD_N(CMD_HARDCORE, STAT_DEAD + POS_PRONE, displayHardCore, 0);
   CMD_N(CMD_LEADERBOARD, STAT_DEAD + POS_PRONE, displayLeader, 0);
   CMD_N(CMD_SOULBIND, STAT_DEAD + POS_PRONE, do_soulbind, 0);
-  CMD_N(CMD_SALVATION, STAT_DEAD + POS_PRONE, do_salvation, 0);
   CMD_N(CMD_REFINE, STAT_DEAD + POS_PRONE, do_refine, 0);
   CMD_N(CMD_ACHIEVEMENTS, STAT_DEAD + POS_PRONE, display_achievements, 0);
 //  CMD_N(CMD_RELIC, STAT_DEAD + POS_PRONE, displayRelic, 0);
@@ -2477,6 +2488,7 @@ void assign_command_pointers(void)
 
   CMD_Y(CMD_ABSORBE, STAT_NORMAL + POS_STANDING, do_absorbe, 0);
   CMD_Y(CMD_AGGR, STAT_RESTING + POS_PRONE, do_aggr, 0);
+  CMD_Y(CMD_SALVATION, STAT_NORMAL + POS_STANDING, do_salvation, 0);
   CMD_Y(CMD_ALERT, STAT_RESTING + POS_PRONE, do_alert, 0);
   CMD_Y(CMD_ARENA, STAT_RESTING + POS_PRONE, do_arena, 0);
   CMD_Y(CMD_ASK, STAT_RESTING + POS_SITTING, do_ask, 0);
