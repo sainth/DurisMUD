@@ -1141,6 +1141,7 @@
 #define ACH_DECEPTICON		  2092
 #define TAG_RECENTLY_FRAGGED	  2093
 #define TAG_MINOTAUR_RAGE		  2094
+#define TAG_CONJURED_PET		  2095
 #define DAMAGE_FALLING               2100       /* From falling to the ground */
 
 #define SAVING_PARA   0

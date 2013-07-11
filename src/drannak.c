@@ -524,7 +524,7 @@ bool lightbringer_weapon_proc(P_char ch, P_char victim)
 
 bool minotaur_race_proc(P_char ch, P_char victim)
 {
-  int num, room = ch->in_room, save, pos;
+  int num, room = ch->in_room, save, pos, cmd;
   int class_chance = 0;
 
   switch(ch->player.m_class)
@@ -941,7 +941,7 @@ void do_conjure(P_char ch, char *argument, int cmd)
   send_to_char("&+W(&+wconjure summon <number> &+m- &+mcall the &+Mminion&+m into existence&n.)\n&n", ch);
   send_to_char("&+MYou have learned the following &+mMobs&+M:\n&n", ch);
   send_to_char("----------------------------------------------------------------------------\n", ch);
-  send_to_char("&+MMob Number		              &+mMob Name&n\n\r", ch);
+  send_to_char("&+M Mob Number		          &+mMob Name		&n\n\r", ch);
       while((fscanf(recipelist, "%i", &recnum)) != EOF )
 	{  
        if(recnum == choice2)
@@ -949,7 +949,7 @@ void do_conjure(P_char ch, char *argument, int cmd)
       
     tobj = read_mobile(recnum, VIRTUAL);
  	sprintf(rbuf, "%d\n", recnum);
-    sprintf(buffer, "   &+W%-22d&n%s&n\n", recnum, tobj->player.short_descr);
+    sprintf(buffer, "   &+W%-22d&n%-41s&n\n", recnum, tobj->player.short_descr);
 	//stores the actual vnum written in file into rbuf 
 	page_string(ch->desc, buffer, 1);
     send_to_char("----------------------------------------------------------------------------\n", ch);
@@ -1052,11 +1052,12 @@ void do_conjure(P_char ch, char *argument, int cmd)
      REMOVE_BIT(tobj->specials.act, ACT_ELITE);
      REMOVE_BIT(tobj->specials.act, ACT_HUNTER);
      GET_EXP(tobj) = 0;
+     apply_achievement(tobj, TAG_CONJURED_PET);
 
      tobj->only.npc->aggro_flags = 0;     
-    act("$N sulkily says 'Your wish is my command, $n!'", TRUE, ch, 0,
+    act("$n utters a quick &+mincantation&n, calling forth $N who softly says 'Your wish is my command, $n!'", TRUE, ch, 0,
         tobj, TO_ROOM);
-    act("$N sulkily says 'Your wish is my command, master!'", TRUE, ch, 0,
+    act("You utter a quick &+mincantation&n, calling forth $N who softly says 'Your wish is my command, master!'", TRUE, ch, 0,
         tobj, TO_CHAR);
 
     duration = setup_pet(tobj, ch, 400 / STAT_INDEX(GET_C_INT(tobj)), PET_NOCASH);
@@ -1068,11 +1069,14 @@ void do_conjure(P_char ch, char *argument, int cmd)
       add_event(event_pet_death, (duration+1) * 60 * 4, tobj, NULL, NULL, 0, NULL, 0);
     }
 
-  memset(&af, 0, sizeof(af));
-  af.type = SPELL_CONJURE_ELEMENTAL;
-  af.duration = 100;
-  af.flags = AFFTYPE_SHORT;
-  affect_to_char(ch, &af);
+  if(!IS_TRUSTED(ch))
+  {
+    memset(&af, 0, sizeof(af));
+    af.type = SPELL_CONJURE_ELEMENTAL;
+    af.duration = 100;
+    af.flags = AFFTYPE_SHORT;
+    affect_to_char(ch, &af);
+  }
 
 	
   }
@@ -1232,4 +1236,44 @@ void learn_conjure_recipe(P_char ch, P_char victim)
   fclose(recipelist);
   send_to_char("&+gYou have learned a new minion to &+Gconjure&+g!\r\n", ch);
   return;
+}
+
+void do_dismiss(P_char ch, char *argument, int cmd)
+{
+  struct follow_type *k;
+  P_char   victim;
+  int i, j, count = 0, desired = 0;
+  
+  for (k = ch->followers, i = 0, j = 0; k; k = k->next)
+  {
+    victim = k->follower;
+
+    if(!IS_PC(victim))
+    {
+    count++;
+    }
+  }
+
+
+  if(count == 0)
+   {
+    send_to_char("You have no followers to dismiss.\r\n", ch);
+    return;
+    }
+	
+	
+  for (k = ch->followers, i = 0, j = 0; k; k = k->next)
+  {
+    victim = k->follower;
+
+    if(!IS_PC(victim))
+    {
+    act("$n makes a &+Mmagical &+mgesture&n, sending $N back to the &+Lnether plane&n.'", TRUE, ch, 0,
+        victim, TO_ROOM);
+    act("You make a &+Mmagical &+mgesture&n, sending $N back to the &+Lnether plane&n.'", TRUE, ch, 0,
+        victim, TO_CHAR);
+     extract_char(victim);
+    }
+  }
+
 }

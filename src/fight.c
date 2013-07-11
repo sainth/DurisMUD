@@ -1434,7 +1434,7 @@ P_obj make_corpse(P_char ch, int loss)
    * added by DTS 8/1/95 - ghosts and wraiths shouldn't leave corpses...
    * just dump contents of corpse to room and extract corpse
    */
- if (IS_NPC(ch) && (IS_NOCORPSE(ch) || IS_PC_PET(ch)))
+ if (IS_NPC(ch) && IS_NOCORPSE(ch))
   {
     if (corpse->contains)
     {
@@ -1513,6 +1513,9 @@ P_obj make_corpse(P_char ch, int loss)
     case RACE_BRALANI:
     case RACE_ELADRIN:
       act("$n &+Wglows white&n &+wbefore &+Ldisappearing...&n", TRUE, ch, 0, 0, TO_ROOM);
+      break;
+    default:
+          act("$n &+gquickly returns to the plane from whence they were summoned...&n", TRUE, ch, 0, 0, TO_ROOM);
       break;
     }
 
@@ -7043,6 +7046,33 @@ bool hit(P_char ch, P_char victim, P_obj weapon)
   {
     dam *= get_property("damage.modifier.divineforce", 1.250);
   }
+
+   if((GET_RACE(victim) == RACE_MINOTAUR) && !number(0, 25))
+   {
+  struct affected_type af;
+  act("&+LAs $n&+L strikes you, the power of your &+rance&+Lstor&+rs&+L fill you with &+rR&+RAG&+RE&+L!&n",
+    TRUE, ch, 0, victim, TO_VICT);
+  act("&+LAs &n$n&+L strikes $N&+L, the power of &n$N's&+L &+rance&+Lstor&+rs&+L fill them with &+rR&+RAG&+RE&+L!&n",
+    TRUE, ch, 0, victim, TO_NOTVICT);
+
+  memset(&af, 0, sizeof(af));
+  af.type = TAG_MINOTAUR_RAGE;
+  af.location = APPLY_COMBAT_PULSE;
+  af.modifier = -1;
+  af.duration = 130;
+  af.flags = AFFTYPE_SHORT;
+  affect_to_char(victim, &af);
+
+  memset(&af, 0, sizeof(af));
+  af.type = TAG_INNATE_TIMER;
+  af.location = APPLY_SPELL_PULSE;
+  af.modifier = -1;
+  af.duration = 130;
+  af.flags = AFFTYPE_SHORT;
+  affect_to_char(victim, &af);
+
+   }
+
 
   if (has_innate(ch, INNATE_MELEE_MASTER))
     dam *= get_property("damage.modifier.meleemastery", 1.100);

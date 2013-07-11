@@ -5618,7 +5618,7 @@ if((GET_RACE(victim) == RACE_OGRE) && ch_size < vict_size)
   
   if(!IS_PC_PET(ch))
   {
-    percent_chance = (int) (percent_chance * (1 + ((GET_C_AGI(ch) - GET_C_AGI(victim)) / 50)));
+    percent_chance = (int) (percent_chance * (1 + (((GET_C_STR(ch)+GET_C_AGI(ch) / 2) - GET_C_AGI(victim)) / 50)));
   }
   else
   {

@@ -774,6 +774,7 @@ for ((IN_ROOM) = world[(PLAYER)->in_room].people; (IN_ROOM) != NULL; (IN_ROOM) =
            ( GET_RACE(ch) == RACE_F_ELEMENTAL ) || \
            ( GET_RACE(ch) == RACE_E_ELEMENTAL ) || \
 	   ( GET_RACE(ch) == RACE_V_ELEMENTAL ) || \
+           (affected_by_spell(ch, TAG_CONJURED_PET)) || \
            ( GET_RACE(ch) == RACE_I_ELEMENTAL ) || \
            ( IS_THEURPET_RACE(ch) ) || \
            ( GET_RACE(ch) == RACE_EFREET ))

@@ -2346,7 +2346,7 @@ void cast_vines(int level, P_char ch, char *arg, int type, P_char tar_ch,
   af.flags = AFFTYPE_NOSHOW | AFFTYPE_NODISPEL;
   af.bitvector5 = AFF5_VINES;
   af.duration = level / 2;
-  af.modifier = 100 * count;
+  af.modifier = 40 * count;
   affect_to_char(ch, &af);
 }
 

@@ -800,6 +800,7 @@ void create_spellbook_file(P_char ch);
 bool new_summon_check(P_char ch, P_char selected);
 void learn_conjure_recipe(P_char ch, P_char victim);
 bool minotaur_race_proc(P_char, P_char);
+void do_dismiss(P_char ch, char *argument, int cmd);
 
 
 /* editor.c */
