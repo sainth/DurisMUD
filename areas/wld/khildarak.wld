@@ -15761,6 +15761,10 @@ slowly &+cphase&n into view, providing a &+Cglimpse&n into &+Lother-worldy &nrea
 &+Lcl&+woa&+Wked&n, &+Lhooded&n figure &+rhovers&n in the center of the room, beckoning you closer.
 ~
 170 0 0
+D4
+~
+~
+0 0 17750
 D5
 ~
 ~
@@ -15777,4 +15781,19 @@ D1
 ~
 ~
 0 0 17747
+S
+#17750
+&+LA &+rWat&+Rerf&+rall &+LOf &+rB&+Rloo&+rd&n~
+&+rAs if formed by an &+Rextradimensional pocket, &+rthis room fluxes in and out of
+&+rreality. Seemingly &+Rfrom nowhere, thick crims&+ron waves of blood flow from an
+&+runknown source crea&+Rting the confines of the &+rroom, which disappear into a
+&+rseries of bleach wh&+Rite skulls which line the&+r floor, creating a soft crackle
+&+rbeneath your feet a&+Rs you walk into the room.&+r A solitary figure hovers about
+&+rthe center of the r&+Room, clothed in black, ar&+rms outstretched.
+~
+170 0 0
+D5
+~
+~
+0 0 17748
 S

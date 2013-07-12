@@ -1914,3 +1914,19 @@ crippling trap~
 13 15 3 0 7 0 8200 16385 0 0 0
 0 0 0 0 0 0 0 0
 0 0 100
+#400230
+fragment soul shard ethereal~
+&+wan e&+Wt&+Lh&+rer&+Le&+Wa&+wl &+Wsoul &+rshard&n~
+&+La fragment of a soul lies here.&n~
+~
+8 1 1 0 7 0 33882120 1 0 0 0
+0 0 0 0 0 0 0 0
+0 0 100
+#400231
+greater orb conjuring~
+&+Ya &+Mgreater&+Y o&+Mr&+Bb &+Yof &+YConjuring&n~
+&+YA powerful orb of greater conjuring lies here.&n~
+~
+8 1 2 0 7 0 65545 0 64 0 0
+0 0 0 0 0 0 0 0
+0 0 100

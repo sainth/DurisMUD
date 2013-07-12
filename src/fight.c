@@ -2350,6 +2350,23 @@ void die(P_char ch, P_char killer)
      obj_to_char(tempobj, ch);
   }
 
+  if(IS_NPC(ch) && (GET_LEVEL(ch) > 51) && !IS_PC_PET(ch) && !affected_by_spell(ch, TAG_CONJURED_PET)) //soul shard - Drannak
+   {
+    int dchance = 2;
+
+    if(IS_ELITE(ch))
+    dchance +=5;
+    
+    if(number(1, 300) < dchance)
+    {
+	P_obj teobj = read_object(400230, VIRTUAL);
+       obj_to_char(teobj, ch);
+       act("&+LAs &+R$n falls to the ground, &+L.&N",
+           FALSE, ch, 0, 0, TO_ROOM);
+    }
+
+   }
+
     if(IS_PC(killer))
     random_recipe(killer, ch); //possibility to find a recipe for the items in the zone.
 
@@ -2811,7 +2828,7 @@ void kill_gain(P_char ch, P_char victim)
      return;
     }
     else
-     if((number(1, GET_C_INT(ch)) < chance) && (GET_VNUM(victim) != 1255))
+     if((number(1, GET_C_INT(victim)) < chance) && (GET_VNUM(victim) != 1255))
      learn_conjure_recipe(ch, victim);
    
   }
@@ -2912,7 +2929,7 @@ void kill_gain(P_char ch, P_char victim)
     }
     else
      {
-     if((number(1, GET_C_INT(gl->ch)) < chance) && (GET_VNUM(victim) != 1255))
+     if((number(1, GET_C_INT(victim)) < chance) && (GET_VNUM(victim) != 1255))
      learn_conjure_recipe(gl->ch, victim);
      }
    

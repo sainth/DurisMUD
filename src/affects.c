@@ -1949,6 +1949,18 @@ bool affected_by_spell(P_char ch, int skill)
   return (FALSE);
 }
 
+int affected_by_spell_count(P_char ch, int skill)
+{
+  int count = 0;
+  struct affected_type *hjp;
+
+  for (hjp = ch->affected; hjp; hjp = hjp->next)
+    if (hjp->type == skill)
+      count++;
+
+  return count;
+}
+
 bool affected_by_skill(P_char ch, int skill)
 {
   struct affected_type *hjp;

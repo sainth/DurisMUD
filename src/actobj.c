@@ -5174,7 +5174,14 @@ void do_salvage(P_char ch, char *argument, int cmd)
           send_to_char("...as you work, a small &+Mm&+Ya&+Mg&+Yi&+Mc&+Ya&+Ml&n object gently separates from your item!\r\n", ch);
         }
 
-	objchance = itemvalue(ch, temp);
+	objchance = itemvalue(ch, temp);           
+
+        if((objchance <= 5) && (number(1, 1000) > GET_C_LUCK(ch)))
+          {
+           send_to_char("The &+ypoor &nquality and &+Lcraftsmanship&n of the item yield to your force, &+Rbreaking&n the item into unusable bits.\r\n", ch);
+           return;
+          } 
+
 	    if (objchance <= 5) // Grant Rewards based on objchance roll
       	      {
               act("&+wYou were able to salvage a rather &+rpoor&n material from your item...", FALSE, ch, 0, 0, TO_CHAR);

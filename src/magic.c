@@ -2060,7 +2060,7 @@ void spell_conjour_elemental(int level, P_char ch, char *arg, int type,
     {
       SET_BIT(mob->specials.affected_by, AFF_HASTE);
     }
-    
+         apply_achievement(mob, TAG_CONJURED_PET);
     mob->points.base_hitroll = mob->points.hitroll = GET_LEVEL(mob) / 2;
     mob->points.base_damroll = mob->points.damroll = GET_LEVEL(mob) / 2;
     
@@ -2535,6 +2535,8 @@ void conjure_specialized(P_char ch, int level)
   {
     SET_BIT(mob->specials.affected_by, AFF_INFRAVISION);
   }
+
+     apply_achievement(mob, TAG_CONJURED_PET);
   
   if(GET_LEVEL(ch) > 55)
     mob->player.level = (ubyte)number(51,55);

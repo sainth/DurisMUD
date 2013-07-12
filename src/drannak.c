@@ -327,17 +327,14 @@ int pvp_store(P_char ch, P_char pl, int cmd, char *arg)
         sprintf(buffer,
               "&+LThe Harvester&+L fills your mind with words...'\n"
 	       "&+LThe Harvester&+L &+wsays 'Welcome combatant. I offer exotic items to those who have &+rproven &+Lthemselves in the arts of mortal &+rcombat&+L.&n'\n"
-	       "&+LThe Harvester&+L &+wsays 'Only those who have collected the necessary amount souls of may purchase these items.&+L.&n'\n"
-	       "&+LThe Harvester&+L &+wsays 'Please &+Yrefer to my &-L&+ysign&n&-l for an explanation of each of these items and their affects.'\n"
+	       "&+LThe Harvester&+L &+wsays 'Only those who have collected the necessary amount frags of may purchase these items.&+L.&n'\n"
+	       "&+LThe Harvester&+L &+wsays 'Additionally, I offer a reward for &+R6 &+we&+Wt&+Lh&+rer&+Le&+Wa&+wl &+Wsoul &+rshards&n from beings who have fallen in battle&n.&+L.&n'\n"
+	       "&+LThe Harvester&+L &+wsays 'Simply have them in your &+Winventory&n and buy the item from the list below&n.&+L.&n'\n"
               "&+y=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n"
-		"&+y|		&+cItem Name					           Frags Required            &+y|\n"																
-              "&+y|&+W 1) &+ga M&+Ga&+Wg&+Gi&+gc&+Ga&+Wl &+GGreen &+gMu&+Gshro&+gom from the &+GSylvan &+yWoods&n&+C%30d&n		&+y|\n"
-              "&+y|&+W 2) &+ya tightly wrapped vellum scroll named '&+LFix&+y'&n   &+C%30d&n		&+y|\n"
-              "&+y|&+W 3) &+Wa &+mm&+My&+Ys&+Bt&+Gc&+Ra&+Gl &+MFaerie &+Wbag of &+Lstolen loot&n           &+C%30d&n               &+y|\n"
-              "&+y|&+W 4) &+Ya r&+ro&+Yb&+re &+Yof a &+mN&+We&+Mt&+Wh&+me&+Wr&+Mi&+Wl &+rBa&+Ytt&+rle&+Y M&+rag&+Ye&n              &+C%30d&n               &+y|\n"
-              "&+y|&+W 5) &+La &+Gbottle &+Lof &+GT&+go&+GR&+gM&+Ge&+gN&+GT&+ge&+GD &+gS&+Goul&+gs     &n              &+C%30d&n               &+y|\n"
+		"&+y|		&+cItem Name					           Frags Required        &+y|\n"																
+              "&+y|&+W 1) &+Ya &+Mgreater&+Y o&+Mr&+Bb &+Yof &+YConjuring&n&+C%30d&n		                        &+y|\n"
               "&+y=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n"
-		"\n", 125, 85, 20, 5000, 500);
+		"\n", 0);
       send_to_char(buffer, pl);
       return TRUE;
     }//endifnoarg
@@ -356,113 +353,24 @@ int pvp_store(P_char ch, P_char pl, int cmd, char *arg)
 
 	else if(strstr(arg, "1"))
     {//buy1
-	//check for 200 epics required to reset
-	int availepics = pl->only.pc->epics;
-	if (availepics < 125)
+	//check for 50 soul shards
+	if (vnum_in_inv(pl, 400230) < 6)
 	{
-	  send_to_char("&+LThe Harvester&+L &+wsays '&nI'm sorry, but you do not seem to have the &+Wepics&n available for that item.\r\n&n", pl);
+	  send_to_char("&+LThe Harvester&+L &+wsays '&nI'm sorry, but you do not seem to have the 6 e&+Wt&+Lh&+rer&+Le&+Wa&+wl &+Wsoul &+rshards&n required to purchase that item.\r\n&n", pl);
 	  return TRUE;
         }
-	//subtract 125 epics
+	//subtract 6 soul shards
        P_obj obj;
-	obj = read_object(400213, VIRTUAL);
-	pl->only.pc->epics -= 125;
-       send_to_char("&+LThe Harvester&+L &+wsays '&nAh, good choice! Quite a rare item!'\n", pl);
-	send_to_char("&+LThe Harvester &+Lthe &+ctra&+Cvell&+cer &nmakes a strange gesture about your body, and hands you your item.\r\n&n", pl);
+	obj = read_object(400231, VIRTUAL);
+	vnum_from_inv(pl, 400230, 6);
+       send_to_char("&+LThe Harvester&+L &+wsays '&nExcellent, mortal.'\n", pl);
+	send_to_char("&+LThe Harvester &ntakes the &+rshards&n from you and tightly grasps them with his hands. After a moment, a large grin appears across it's face.\r\n&n", pl);
+	send_to_char("Moments later, &+LThe Harvester &nmakes a strange gesture about your body.\r\n&n", pl);
        act("You now have $p!\r\n", FALSE, pl, obj, 0, TO_CHAR);
        extract_obj(obj, FALSE);
-	obj_to_char(read_object(400213, VIRTUAL), pl);
+	obj_to_char(read_object(400231, VIRTUAL), pl);
        return TRUE;
     }//endbuy1
-
-    //14126 - fix scroll
-	else if(strstr(arg, "2"))
-    {//buy2
-	//check for 85 epics required to reset
-	int availepics = pl->only.pc->epics;
-	if (availepics < 85)
-	{
-	  send_to_char("&+LThe Harvester&+L &+wsays '&nI'm sorry, but you do not seem to have the &+Wepics&n available for that item.\r\n&n", pl);
-	  return TRUE;
-        }
-	//subtract 85 epics
-       P_obj obj;
-	obj = read_object(14126, VIRTUAL);
-	pl->only.pc->epics -= 85;
-       send_to_char("&+LThe Harvester&+L &+wsays '&nAh, good choice! Quite a rare item!'\n", pl);
-	send_to_char("&+LThe Harvester &+Lthe &+ctra&+Cvell&+cer &nmakes a strange gesture about your body, and hands you your item.\r\n&n", pl);
-       act("You now have $p!\r\n", FALSE, pl, obj, 0, TO_CHAR);
-       extract_obj(obj, FALSE);
-	obj_to_char(read_object(14126, VIRTUAL), pl);
-       return TRUE;
-    }//endbuy2
-
-    //400217 - faerie bag
-	else if(strstr(arg, "3"))
-    {//buy3
-	//check for 20 epics required to reset
-	int availepics = pl->only.pc->epics;
-	if (availepics < 20)
-	{
-	  send_to_char("&+LThe Harvester&+L &+wsays '&nI'm sorry, but you do not seem to have the &+Wepics&n available for that item.\r\n&n", pl);
-	  return TRUE;
-        }
-	//subtract 20 epics
-       P_obj obj;
-	obj = read_object(400217, VIRTUAL);
-	pl->only.pc->epics -= 20;
-       send_to_char("&+LThe Harvester&+L &+wsays '&nAh, good choice! Quite a rare item!'\n", pl);
-	send_to_char("&+LThe Harvester &+Lthe &+ctra&+Cvell&+cer &nmakes a strange gesture about your body, and hands you your item.\r\n&n", pl);
-       act("You now have $p!\r\n", FALSE, pl, obj, 0, TO_CHAR);
-       extract_obj(obj, FALSE);
-	obj_to_char(read_object(400217, VIRTUAL), pl);
-       return TRUE;
-    }//endbuy3
-
-  //400218 - netheril robe
-	else if(strstr(arg, "4"))
-    {//buy4
-	//check for 5000 epics required to reset
-	int availepics = pl->only.pc->epics;
-	if (availepics < 5000)
-	{
-	  send_to_char("&+LThe Harvester&+L &+wsays '&nI'm sorry, but you do not seem to have the &+Wepics&n available for that item.\r\n&n", pl);
-	  return TRUE;
-        }
-	//subtract 5000 epics
-       P_obj obj;
-	obj = read_object(400218, VIRTUAL);
-	pl->only.pc->epics -= 5000;
-       send_to_char("&+LThe Harvester&+L &+wsays '&nAh, good choice! Quite a rare item!'\n", pl);
-	send_to_char("&+LThe Harvester &+Lthe &+ctra&+Cvell&+cer &nmakes a strange gesture about your body, and hands you your item.\r\n&n", pl);
-       act("You now have $p!\r\n", FALSE, pl, obj, 0, TO_CHAR);
-       extract_obj(obj, FALSE);
-	obj_to_char(read_object(400218, VIRTUAL), pl);
-       return TRUE;
-    }//endbuy4
-
-  //400221 - corpse portal potion
-	else if(strstr(arg, "5"))
-    {//buy5
-	//check for 500 epics required to reset
-	int availepics = pl->only.pc->epics;
-	if (availepics < 500)
-	{
-	  send_to_char("&+LThe Harvester&+L &+wsays '&nI'm sorry, but you do not seem to have the &+Wepics&n available for that item.\r\n&n", pl);
-	  return TRUE;
-        }
-	//subtract 500 epics
-       P_obj obj;
-	obj = read_object(400221, VIRTUAL);
-	pl->only.pc->epics -= 500;
-       send_to_char("&+LThe Harvester&+L &+wsays '&nAh, good choice! Quite a rare item!'\n", pl);
-	send_to_char("&+LThe Harvester &+Lthe &+ctra&+Cvell&+cer &nmakes a strange gesture about your body, and hands you your item.\r\n&n", pl);
-       act("You now have $p!\r\n", FALSE, pl, obj, 0, TO_CHAR);
-       extract_obj(obj, FALSE);
-	obj_to_char(read_object(400221, VIRTUAL), pl);
-       return TRUE;
-    }//endbuy5
-
 
   }
   return FALSE;
@@ -561,8 +469,17 @@ bool minotaur_race_proc(P_char ch, P_char victim)
   act("&+LAs $n strikes $N&+L, the power of $n's &+rance&+Lstor&+rs&+L fill them with &+rR&+RAG&+RE&+L!&n",
     TRUE, ch, 0, victim, TO_NOTVICT);
 
+  if(affected_by_spell_count(ch, TAG_MINOTAUR_RAGE) < 6)
+  {
   memset(&af, 0, sizeof(af));
   af.type = TAG_MINOTAUR_RAGE;
+  af.duration = 130;
+  af.flags = AFFTYPE_SHORT;
+  affect_to_char(ch, &af);
+  }
+
+  memset(&af, 0, sizeof(af));
+  af.type = TAG_INNATE_TIMER;
   af.location = APPLY_COMBAT_PULSE;
   af.modifier = -1;
   af.duration = 130;
@@ -1037,15 +954,28 @@ void do_conjure(P_char ch, char *argument, int cmd)
      return;
     }
 
+
     if(affected_by_spell(ch, SPELL_CONJURE_ELEMENTAL))
     {
      send_to_char("You must wait a short time before calling another &+Yminion&n into existence.\r\n", ch);
     extract_char(tobj);
      return;
     }
+
+    if((GET_LEVEL(tobj) > 56) && !vnum_in_inv(ch, 400231) && !IS_TRUSTED(ch))
+    {
+     send_to_char("You must have a &+Ya &+Mgreater&+Y o&+Mr&+Bb &+Yof &+YConjuring&n in your &+Winventory&n in order to &+Ysummon&+ a being of such &+Mgreat&n power.\r\n", ch);
+    extract_char(tobj);
+     return;
+    }
+
       struct affected_type af;
-	if(GET_MAX_HIT(tobj) > 8000)
-	GET_MAX_HIT(tobj) = 8000;
+
+    #define TARGET_CONJ_MOB = tobj;
+
+    //Set up NPCACT etc.
+    if(tobj->points.base_hit > 8000)
+    GET_MAX_HIT(tobj) = GET_HIT(tobj) = tobj->points.base_hit = 8000;
 	 
      REMOVE_BIT(tobj->specials.affected_by, AFF_SLEEP);
      //REMOVE_BIT(tobj->specials.act, ACT_SENTINEL); Needed for mob to follow.
@@ -1053,6 +983,22 @@ void do_conjure(P_char ch, char *argument, int cmd)
      REMOVE_BIT(tobj->specials.act, ACT_HUNTER);
      GET_EXP(tobj) = 0;
      apply_achievement(tobj, TAG_CONJURED_PET);
+    if(!IS_SET(tobj->specials.affected_by, AFF_INFRAVISION))
+    {
+      SET_BIT(tobj->specials.affected_by, AFF_INFRAVISION);
+    }
+   REMOVE_BIT(tobj->specials.act, ACT_SPEC); 
+   REMOVE_BIT(tobj->specials.act, ACT_BREAK_CHARM);
+
+
+   if(GET_LEVEL(tobj) > 56 && !IS_TRUSTED(ch))
+   {
+   vnum_from_inv(ch, 400231, 1);
+   act("$n &+Ltosses their &+Ya &+Mgreater&+Y o&+Mr&+Bb &+Yof &+YConjuring&n &+Linto the &+Cair&+L, which quickly forms an &+Rextra-dimensional &+lpocket&n!", TRUE, ch, 0,
+        tobj, TO_ROOM);
+    act("You &+Ltoss your &+Ya &+Mgreater&+Y o&+Mr&+Bb &+Yof &+YConjuring&n &+Linto the &+Cair&+L, which quickly forms an &+Rextra-dimensional &+lpocket&n!", TRUE, ch, 0,
+        tobj, TO_CHAR);
+   }
 
      tobj->only.npc->aggro_flags = 0;     
     act("$n utters a quick &+mincantation&n, calling forth $N who softly says 'Your wish is my command, $n!'", TRUE, ch, 0,
@@ -1062,6 +1008,7 @@ void do_conjure(P_char ch, char *argument, int cmd)
 
     duration = setup_pet(tobj, ch, 400 / STAT_INDEX(GET_C_INT(tobj)), PET_NOCASH);
        char_to_room(tobj, room, 0);
+       SET_POS(tobj, POS_STANDING + STAT_NORMAL);
 	add_follower(tobj, ch);
     if(duration >= 0)
     {

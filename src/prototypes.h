@@ -1101,6 +1101,7 @@ void unequip_all(P_char);
 struct affected_type *get_spell_from_char(P_char ch, int spell);
 struct room_affect *get_spell_from_room(P_room, int );
 bool affected_by_spell(P_char, int);
+int affected_by_spell_count(P_char, int);
 bool affected_by_spell_flagged(P_char, int, uint);
 bool affected_by_skill(P_char ch, int skill);
 bool isname(const char *, const char *);

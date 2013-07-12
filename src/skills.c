@@ -4134,6 +4134,7 @@ SPELL_ADD(CLASS_NONE, 1);
                 TAR_SELF_ONLY | TAR_NOCOMBAT,
                 spell_elemental_aura, "&+BYour aura returns to normal.&N");
   SPELL_ADD(CLASS_DRUID, 11);
+  SPEC_SPELL_ADD(CLASS_CONJURER, 10, SPEC_WATER);
  //SPEC_SPELL_ADD(CLASS_DRUID, 11, SPEC_STORM);
 
   SPELL_CREATE("wind tunnel", SPELL_WIND_TUNNEL,

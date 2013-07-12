@@ -5691,7 +5691,14 @@ void do_suicide(P_char ch, char *argument, int cmd)
     send_to_char("Your not skilled enough to kill yourself\r\n", ch);
     return;
   }
-  if (GET_LEVEL(ch) > 20)
+ /* if (GET_LEVEL(ch) > 20)
+  {
+    send_to_char("Suicide is not an option at your level, sorry.\r\n", ch);
+    ch->desc->confirm_state = CONFIRM_NONE;
+    return;
+  }*/
+
+ if (IS_TRUSTED(ch))
   {
     send_to_char("Suicide is not an option at your level, sorry.\r\n", ch);
     ch->desc->confirm_state = CONFIRM_NONE;

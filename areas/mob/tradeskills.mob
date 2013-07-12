@@ -15,9 +15,9 @@ harvester~
 &+LThe Harvester, collector of &+Wsouls&+L hovers about the room.&n
 ~
 ~
-8 0 0 0 0 0 0 0 0 S
-PH 0 0 0 -1
-1 0 0 1d1+1 1d1+1
+28682 0 0 0 0 0 0 0 0 S
+UL 0 20 0 -1
+60 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 0
 #400002
