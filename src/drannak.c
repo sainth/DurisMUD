@@ -34,6 +34,7 @@
 #include "tradeskill.h"
 #include "map.h"
 #include "specs.prototypes.h"
+#include "ships.h"
 
 /*
  * external variables
@@ -926,7 +927,7 @@ void do_conjure(P_char ch, char *argument, int cmd)
 
     if(!valid_conjure(ch, tobj))
     {
-     send_to_char("Your character does not have &+Ldominion&n over this race of &+Lmonster&n.\r\n", ch);
+     send_to_char("Your character does not have &+Ldominion&n over this race of &+Lmonster&n, either because its level is too high, or it is not a valid race for you to summon.\r\n", ch);
      extract_char(tobj);
      return;
     }
@@ -1240,4 +1241,50 @@ void do_dismiss(P_char ch, char *argument, int cmd)
     return;
     }
 
+}
+
+int calculate_shipfrags(P_char ch)
+{
+  for (int i = 0; i < 1000; i++)
+  {
+    if (shipfrags[i].ship == NULL)
+    {
+      break;
+    }
+    int found = 0;
+    ShipVisitor svs;
+    for (bool fn = shipObjHash.get_first(svs); fn; fn = shipObjHash.get_next(svs))
+    {
+      if (svs == shipfrags[i].ship)
+      {
+        found = 1;
+      }
+    }
+    if (!found)
+    {
+      break;
+    }
+    if (shipfrags[i].ship->frags == 0)
+    {
+      break;
+    }
+    if (i != 0)
+    {
+      if (shipfrags[i].ship == shipfrags[i - 1].ship)
+      {
+        break;
+      }
+    }
+	
+    if(shipfrags[i].ship->ownername == GET_NAME(ch))
+	{
+	 int shipfr = shipfrags[i].ship->frags;
+	 return shipfr;
+	}
+    /*send_to_char_f(ch,
+            "&+W%d:&N %s\r\n&+LCaptain: &+W%-20s &+LClass: &+y%-15s&+R Tonnage Sunk: &+W%d&N\r\n\r\n",
+            i + 1, shipfrags[i].ship->name, shipfrags[i].ship->ownername,
+            SHIPTYPE_NAME(SHIP_CLASS(shipfrags[i].ship)),
+            shipfrags[i].ship->frags);*/
+  }
 }

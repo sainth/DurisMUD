@@ -8942,10 +8942,10 @@ void perform_violence(void)
     }
 
     number_attacks = calculate_attacks(ch, attacks);
-/*
+
     if(IS_AFFECTED3(opponent, AFF3_INERTIAL_BARRIER) ||
-      (!GET_CLASS(ch, CLASS_PSIONICIST) &&
-      IS_AFFECTED3(ch, AFF3_INERTIAL_BARRIER) ) ||
+   /*   (!GET_CLASS(ch, CLASS_PSIONICIST) &&
+      IS_AFFECTED3(ch, AFF3_INERTIAL_BARRIER) ) ||*/
       IS_ARMLOCK(ch))
     {
       real_attacks = number_attacks - (int) (number_attacks / 2);
@@ -8954,7 +8954,7 @@ void perform_violence(void)
     {
       real_attacks = number_attacks;
     }
-*/
+
           real_attacks = number_attacks;
 
     if(!affected_by_spell(opponent, SKILL_BATTLE_SENSES) &&

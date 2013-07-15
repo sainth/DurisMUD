@@ -802,6 +802,7 @@ void learn_conjure_recipe(P_char ch, P_char victim);
 bool minotaur_race_proc(P_char, P_char);
 void do_dismiss(P_char ch, char *argument, int cmd);
 bool valid_conjure(P_char, P_char);
+int calculate_shipfrags(P_char);
 
 
 /* editor.c */
