@@ -6063,13 +6063,11 @@ void do_descend(P_char ch, char *arg, int cmd)
     }*/
 
   //Check Items
-  int heart = vnum_in_inv(ch, 57513);
   int tome = vnum_in_inv(ch, 58424);
   int book = vnum_in_inv(ch, 500032);
   int orbs = vnum_in_inv(ch, 400231);
 
   if  (
-	!heart ||
 	!tome ||
 	!book ||
 	!(orbs > 4))
@@ -6115,7 +6113,6 @@ void do_descend(P_char ch, char *arg, int cmd)
        "&+Land grins with newfound &+Rmalevolence&+L.", FALSE, ch, 0, 0, TO_ROOM);
     }
 
-  vnum_from_inv(ch, 57513, 1);
   vnum_from_inv(ch, 58424, 1);
   vnum_from_inv(ch, 500032, 1);
   vnum_from_inv(ch, 400231, 5);
