@@ -541,7 +541,7 @@ void do_gcc(P_char ch, char *argument, int cmd)
           (GET_A_NUM(i->character) == GET_A_NUM(ch)) &&
           (!(IS_AFFECTED4(i->character, AFF4_DEAF))) &&
           (GT_PAROLE(GET_A_BITS(i->character))) ||
-         IS_TRUSTED(i->character))
+         (IS_TRUSTED(i->character) && IS_SET(i->character->specials.act, PLR_GCC)))
       {
         sprintf(Gbuf1, "&+c%s&n&+c tells your guild '&+C%s&n&+c'\r\n",
                 PERS(ch, i->character, FALSE),
