@@ -3928,6 +3928,9 @@ int flag2idx(int flag)
 
 int GET_LEVEL(P_char ch)
 {
+  if(!ch)
+  return NULL;
+
   return ch->player.level;
 }
 
