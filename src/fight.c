@@ -7095,7 +7095,7 @@ bool hit(P_char ch, P_char victim, P_obj weapon)
 
   if(victim && 
 	GET_CLASS(victim, CLASS_MERCENARY) &&
-	!affected_by_spell(ch, SKILL_ARMLOCK) &&
+	!affected_by_spell(ch, TAG_MERC_DEFENSE) &&
 	MIN_POS(victim, POS_STANDING + STAT_NORMAL) &&
 	(number(1, GET_C_LUCK(victim)) > number(1, 900)))
   {
@@ -7111,7 +7111,7 @@ bool hit(P_char ch, P_char victim, P_obj weapon)
 
 
   memset(&af, 0, sizeof(af));
-  af.type = SKILL_ARMLOCK;
+  af.type = TAG_MERC_DEFENSE;
   af.duration = 100;
   af.flags = AFFTYPE_SHORT;
   affect_to_char_with_messages(ch, &af, "Your arm feels normal.", NULL);
@@ -9044,7 +9044,7 @@ void perform_violence(void)
    /*   (!GET_CLASS(ch, CLASS_PSIONICIST) &&
       IS_AFFECTED3(ch, AFF3_INERTIAL_BARRIER) ) ||*/
 
-    if(IS_AFFECTED3(opponent, AFF3_INERTIAL_BARRIER) || IS_ARMLOCK(ch) || affected_by_spell(ch, SKILL_ARMLOCK))
+    if(IS_AFFECTED3(opponent, AFF3_INERTIAL_BARRIER) || IS_ARMLOCK(ch) || affected_by_spell(ch, TAG_MERC_DEFENSE))
     {
       real_attacks = number_attacks - (int) (number_attacks / 2);
     }

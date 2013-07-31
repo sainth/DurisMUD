@@ -4961,6 +4961,7 @@ SPELL_ADD(CLASS_NONE, 1);
   TAG_CREATE("ach - decepticon", ACH_DECEPTICON);
 
   TAG_CREATE("fragged victim", TAG_RECENTLY_FRAGGED);
+  TAG_CREATE("merc defensive proc", TAG_MERC_DEFENSE);
 
   TAG_CREATE("minotaur rage", TAG_MINOTAUR_RAGE);
   TAG_CREATE("conjured pet", TAG_CONJURED_PET);
