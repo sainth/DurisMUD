@@ -643,7 +643,7 @@ void advance_level(P_char ch)
   if (IS_PC(ch) && (ch->only.pc->highest_level < GET_LEVEL(ch)))
     ch->only.pc->highest_level = GET_LEVEL(ch);
 
-  if ((GET_LEVEL(ch) == get_property("exp.maxExpLevel", 45)) && !IS_HARDCORE(ch)) {
+  if ((GET_LEVEL(ch) == get_property("exp.maxExpLevel", 45)) && !IS_HARDCORE(ch) && (!GET_RACE(ch) == RACE_PLICH)) {
     char buf[512];
     sprintf(buf, 
         "You are now level %d and are considered among "

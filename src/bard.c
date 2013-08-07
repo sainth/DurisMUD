@@ -583,7 +583,7 @@ void bard_healing(int l, P_char ch, P_char victim, int song)
 {
   struct affected_type af;
  if(!affected_by_spell(victim, SONG_HEALING) ||
-     (affected_by_spell(victim, SONG_HEALING) &&  (get_linked_char(victim, LNK_SONG) == ch)))
+     (affected_by_spell(victim, SONG_HEALING) &&  (get_linked_char(victim, LNK_SNG_HEALING) == ch)))
   {
   int healed, old_hits = GET_HIT(ch);
   //healed = l * 3 * number(40, 80) / 100;
@@ -637,10 +637,11 @@ void bard_healing(int l, P_char ch, P_char victim, int song)
 
      memset(&af, 0, sizeof(af));
     af.type = SONG_HEALING;
-    af.location = APPLY_HIT_REG;
-    af.modifier = (int) (PULSE_VIOLENCE);
+    af.duration = PULSE_VIOLENCE * 3;
+    af.flags = AFFTYPE_SHORT | AFFTYPE_NODISPEL;
 
-    linked_affect_to_char(victim, &af, ch, LNK_SONG);
+
+    linked_affect_to_char(victim, &af, ch, LNK_SNG_HEALING);
 
   }
   else

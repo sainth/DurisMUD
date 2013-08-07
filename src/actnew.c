@@ -3936,6 +3936,8 @@ if(difference == 0)
       notch_skill(ch, SKILL_CRAFT, 1);
   P_obj reward = read_object(selected, VIRTUAL);
   SET_BIT(reward->extra2_flags, ITEM2_CRAFTED);
+  SET_BIT(reward->extra_flags, ITEM_NOREPAIR);
+
   obj_to_char(reward, ch);
   act
     ("&+W$n &+Ldelicately opens their &+ybox &+mof &+Rgnomish &+rcrafting &+mtools&+L and starts their work...\r\n"

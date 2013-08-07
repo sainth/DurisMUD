@@ -6069,6 +6069,12 @@ void do_descend(P_char ch, char *arg, int cmd)
       return;
     }
 
+    if(GET_LEVEL(ch) < 50)
+    {
+     send_to_char("You must be level &+L50&n in order to descend.\r\n", ch);
+     return;
+    }
+
   /*  if(GET_RACE(ch) == RACE_PLICH)
     {
       send_to_char("You could not get any &+Ldarker&n if you tried.\n", ch);

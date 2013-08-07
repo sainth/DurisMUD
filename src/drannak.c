@@ -1200,7 +1200,7 @@ bool new_summon_check(P_char ch, P_char selected)
   }
 
 
-  if(greater == 1)
+  if((greater == 1) && (desired >= 50))
   {
    send_to_char("You may not summon an additional being of such great power.\r\n", ch);
    return FALSE;

@@ -279,7 +279,8 @@ struct edit_data {
 #define LNK_GRAPPLED        18
 #define LNK_CIRCLING        19
 #define LNK_TETHER	    20
-#define LNK_MAX             20
+#define LNK_SNG_HEALING	21
+#define LNK_MAX             21
 
 #define LNKFLG_ROOM            BIT_1
 #define LNKFLG_AFFECT          BIT_2
