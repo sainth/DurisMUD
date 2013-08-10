@@ -2704,7 +2704,9 @@ void do_eat(P_char ch, char *argument, int cmd)
   {
     if(oaffect == 1337) //+1 level mushroom
     {
-      if(GET_LEVEL(ch) > 45)
+      if((GET_LEVEL(ch) > 45) ||
+       (GET_RACE(ch) == RACE_PLICH)  
+	)
 	{
 	  send_to_char("&+GYou are much too powerful for the magic of this item&n.\r\n", ch);
 	  return;
