@@ -1418,7 +1418,7 @@ void do_charge(P_char ch, char *argument, int cmd)
       SET_POS(ch, POS_KNEELING + GET_STAT(ch));
     }
     
-    engage(ch, victim);
+    //engage(ch, victim); - we charged, but why should we engage if we failed - Drannak
     return;
   }
 

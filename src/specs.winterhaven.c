@@ -1888,7 +1888,7 @@ int demon_slayer(P_obj obj, P_char ch, int cmd, char *arg)
 
             act("&+rThe Prince of Demons &+Llooks at $n and says, &+W'&+CProt&+Bec&+Ction&+W'&n", TRUE, ch, obj, vict, TO_ROOM);
 
-            spell_displacement(56, ch, 0, SPELL_TYPE_SPELL, ch, 0);
+            //spell_displacement(56, ch, 0, SPELL_TYPE_SPELL, ch, 0);
             spell_stone_skin(56, ch, 0, SPELL_TYPE_SPELL, ch, 0);
             spell_globe(56, ch, 0, SPELL_TYPE_SPELL, ch, 0);
         }
@@ -1902,7 +1902,7 @@ int demon_slayer(P_obj obj, P_char ch, int cmd, char *arg)
             spell_enhanced_agility(56, ch, 0, SPELL_TYPE_SPELL, ch, 0);
             spell_enhanced_dexterity(56, ch, 0, SPELL_TYPE_SPELL, ch, 0);
             spell_blur(40, ch, 0, SPELL_TYPE_SPELL, ch, 0);
-            spell_reduce(40, ch, 0, SPELL_TYPE_SPELL, ch, 0);
+           // spell_reduce(40, ch, 0, SPELL_TYPE_SPELL, ch, 0);
         }
         else
         if(rand <= 94)
@@ -1914,7 +1914,7 @@ int demon_slayer(P_obj obj, P_char ch, int cmd, char *arg)
             spell_enhanced_strength(56, ch, 0, SPELL_TYPE_SPELL, ch, 0);
             spell_strength(56, ch, 0, SPELL_TYPE_SPELL, ch, 0);
             spell_lionrage(56, ch, 0, SPELL_TYPE_SPELL, ch, 0);
-            spell_enlarge(56, ch, 0, SPELL_TYPE_SPELL, ch, 0);
+          //  spell_enlarge(56, ch, 0, SPELL_TYPE_SPELL, ch, 0);
         }
         else
         if(rand > 97) //ho ho, hellfire? I think not -Z
@@ -2039,9 +2039,9 @@ int demon_slayer(P_obj obj, P_char ch, int cmd, char *arg)
         act("&+L$n's $q &+rfl&+Rar&+res &+Las it channels the powers of &+rBel &+Lupon $N!&n", TRUE, ch, obj, vict, TO_NOTVICT);
 
         spell_sunray(40, ch, 0, SPELL_TYPE_SPELL, vict, 0);
+      /*  spell_sunray(40, ch, 0, SPELL_TYPE_SPELL, vict, 0);
         spell_sunray(40, ch, 0, SPELL_TYPE_SPELL, vict, 0);
-        spell_sunray(40, ch, 0, SPELL_TYPE_SPELL, vict, 0);
-        spell_sunray(40, ch, 0, SPELL_TYPE_SPELL, vict, 0);
+        spell_sunray(40, ch, 0, SPELL_TYPE_SPELL, vict, 0);*/
 
       break;
       case 1:
@@ -2050,7 +2050,7 @@ int demon_slayer(P_obj obj, P_char ch, int cmd, char *arg)
         act("&+L$n's $q &+bbl&+Cu&+brs &+Las it channels the powers of &+rEuronymous &+Lupon $N!&n", TRUE, ch, obj, vict, TO_NOTVICT);
 
         spell_bigbys_crushing_hand(50, ch, 0, SPELL_TYPE_SPELL, vict, 0);
-        spell_bigbys_crushing_hand(50, ch, 0, SPELL_TYPE_SPELL, vict, 0);
+       /* spell_bigbys_crushing_hand(50, ch, 0, SPELL_TYPE_SPELL, vict, 0);*/
 
       break;
       case 2:
@@ -2079,7 +2079,7 @@ int demon_slayer(P_obj obj, P_char ch, int cmd, char *arg)
           act("&+L$n's $q &+bbl&+Cu&+brs &+Las it channels the powers of &+rEuronymous &+Lupon you!&n", TRUE, ch, obj, vict, TO_VICT);
           act("&+L$n's $q &+bbl&+Cu&+brs &+Las it channels the powers of &+rEuronymous &+Lupon $N!&n", TRUE, ch, obj, vict, TO_NOTVICT);
 
-          spell_pword_kill(GET_LEVEL(ch), ch, 0, SPELL_TYPE_SPELL, vict, 0);
+          spell_immolate(50, ch, 0, SPELL_TYPE_SPELL, vict, 0);
 
         break;
         case 2:
@@ -2414,14 +2414,14 @@ int buckler_saints(P_obj obj, P_char ch, int cmd, char *arg)
         act("$n &+Wutters a prayer for &+YSaint &+WVerdonnaly.&n", TRUE, ch, obj, vict, TO_ROOM);
         act("$n's $q hums loudly, sending waves of &+csoothing &+Wsensations through the &+Cair&+W.&n", TRUE, ch, obj, vict, TO_ROOM);
 
-        if (ch->group)
+     /*   if (ch->group)
         {
           cast_as_area(ch, SPELL_VITALITY, 50, 0);
         }
         else
-        {
+        {*/
         spell_vitality(50, ch, 0, SPELL_TYPE_SPELL, ch, 0);
-        }
+      //  }
 
         obj->timer[0] = curr_time;
         return TRUE;

@@ -4355,7 +4355,7 @@ int spell_damage(P_char ch, P_char victim, double dam, int type, uint flags,
         send_to_char("&+CThe freezing cold causes you intense pain!\n", victim);
         act("&+CThe freezing cold causes&n $n&+C intense pain!&n",
           FALSE, victim, 0, 0, TO_ROOM);
-    }
+    
     
    /*  if(IS_PC(victim) &&
         !NewSaves(victim, SAVING_PARA, 2))
@@ -4395,13 +4395,13 @@ int spell_damage(P_char ch, P_char victim, double dam, int type, uint flags,
         bzero(&af, sizeof(af));
         af.type = SPELL_SLOW;
         af.flags = AFFTYPE_SHORT;
-        af.duration = 25;
+        af.duration = 60;
         af.bitvector2 = AFF2_SLOW;
 
         affect_to_char(victim, &af);
 
       }
-
+   }
 
     if (parse_chaos_shield(ch, victim))
     {
@@ -9609,6 +9609,7 @@ bool fear_check(P_char ch)
   }
 
   if(IS_SET(ch->specials.act, ACT_ELITE) ||
+     GET_SPEC(ch, CLASS_WARRIOR, SPEC_GUARDIAN) ||
      IS_AFFECTED4(ch, AFF4_NOFEAR))
   {
     act("&+WYou are simply fearless!", FALSE, ch, 0, 0, TO_CHAR);
