@@ -3229,6 +3229,13 @@ void do_drag(P_char ch, char *argument, int cmd)
     return;
   }
 
+   if (IS_RIDING(ch))
+  {
+    send_to_char("While mounted? I don't think so...\n", ch);
+    return;
+  }
+
+
   half_chop(argument, Gbuf1, Gbuf2);
 
   if(!*Gbuf1 || !*Gbuf2)
