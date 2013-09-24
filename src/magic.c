@@ -1404,7 +1404,10 @@ void spell_wither(int level, P_char ch, char *arg, int type, P_char victim,
   
     if(!number(0, 1) &&
        resists_spell(ch,victim))
+       {
+	 send_to_char("Your victim resisted your &+Lwither&n attempt!\r\n", ch);
           return;
+	}
       
     struct damage_messages wither_undead = {
       "$N &+Lwavers under the power of your will, as $S &+Lundead flesh withers away!",
@@ -1422,8 +1425,8 @@ void spell_wither(int level, P_char ch, char *arg, int type, P_char victim,
     return;
   }
   
-  if(resists_spell(ch,victim))
-    return;
+ /* if(resists_spell(ch,victim))
+    return;*/
     
   int save = victim->specials.apply_saving_throw[SAVING_SPELL];
 

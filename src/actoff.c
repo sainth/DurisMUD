@@ -4643,9 +4643,17 @@ bool is_preparing_for_sneaky_strike(P_char ch)
 void sneaky_strike(P_char ch, P_char victim)
 {
   struct affected_type af;
-  P_obj weapon;
+  P_obj weapon = ch->equipment[WIELD];
+  if(!weapon)
+        {
+          send_to_char("You must be wielding a weapon.\r\n", ch);
+          return;
+        }
 
-    if(!(weapon = ch->equipment[WIELD]))/*
+  int is_weapon = (GET_ITEM_TYPE(weapon) == ITEM_WEAPON);
+
+
+    if(!is_weapon)/*
     if(!weapon && !(weapon = ch->equipment[WIELD2]))
       if(!weapon && !(weapon = ch->equipment[WIELD3]))
         if(!weapon && !(weapon = ch->equipment[WIELD4]))*/
