@@ -886,7 +886,8 @@ void epic_stone_level_char(P_obj obj, P_char ch)
   epics_for_level = (int)(epics_for_level/3);
  
 #endif
-  nostone_epics_for_level = epics_for_level * 2;
+  //nostone_epics_for_level = epics_for_level * 2; //Multiclass now use same epics
+  nostone_epics_for_level = epics_for_level;
   if((GET_EXP(ch) >= new_exp_table[GET_LEVEL(ch)+1] &&
       ch->only.pc->epics >= epics_for_level) || (GET_EXP(ch) >= new_exp_table[GET_LEVEL(ch)+1] && ch->only.pc->epics >= nostone_epics_for_level))
   {
@@ -945,11 +946,11 @@ void epic_stone_one_touch(P_obj obj, P_char ch, int epic_value)
 
   //Characters can now level up to 55 by epics and exp alone - 11/13/12 Drannak
   if((GET_LEVEL(ch) == (obj->value[3] - 1)) ||
-    (curr_epics > 250 && GET_LEVEL(ch) == 50) ||
-    (curr_epics > 500 && GET_LEVEL(ch) == 51) ||
-    (curr_epics > 1000 && GET_LEVEL(ch) == 52) ||
-    (curr_epics > 2000 && GET_LEVEL(ch) == 53) ||
-    (curr_epics > 4000 && GET_LEVEL(ch) == 54))
+    (curr_epics > 3000 && GET_LEVEL(ch) == 50) ||
+    (curr_epics > 4500 && GET_LEVEL(ch) == 51) ||
+    (curr_epics > 5000 && GET_LEVEL(ch) == 52) ||
+    (curr_epics > 7500 && GET_LEVEL(ch) == 53) ||
+    (curr_epics > 8000 && GET_LEVEL(ch) == 54))
   {
     epic_stone_level_char(obj, ch);
   }

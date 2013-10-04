@@ -4908,6 +4908,8 @@ void do_score(P_char ch, char *argument, int cmd)
     strcat(buf, " &+WFly&n");
   if (IS_AFFECTED(ch, AFF_ARMOR))
     strcat(buf, " &+WArmor&n");
+  if (IS_AFFECTED(ch, AFF_AWARE))
+    strcat(buf, " &+BA&+Ww&+Ba&+Wr&+Be&n");
   if (IS_AFFECTED(ch, AFF_HASTE))
     strcat(buf, " &+RH&+ra&+Rs&+rt&+Re&n");
   if (IS_AFFECTED3(ch, AFF3_BLUR))
