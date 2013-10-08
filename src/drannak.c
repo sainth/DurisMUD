@@ -83,7 +83,7 @@ void set_surname(P_char ch, int num)
   {
   int points = getLeaderBoardPts(ch);
   points *= .01;
-  debug("points: %d", points);
+  //debug("points: %d", points);
   clear_surname(ch);
   if(points < 200)
   {
@@ -1391,7 +1391,7 @@ void do_dismiss(P_char ch, char *argument, int cmd)
 
 int calculate_shipfrags(P_char ch)
 {
-  for (int i = 0; i < 20; i++)
+  for (int i = 0; i < 2000; i++)
   {
      if (shipfrags[i].ship == NULL)
     {
@@ -1411,7 +1411,7 @@ int calculate_shipfrags(P_char ch)
       break;
     }
 
-    debug("ownername: %s frags: %d getname: %s\r\n", shipfrags[i].ship->ownername, shipfrags[i].ship->frags, GET_NAME(ch));
+    //debug("ownername: %s frags: %d getname: %s\r\n", shipfrags[i].ship->ownername, shipfrags[i].ship->frags, GET_NAME(ch));
    if(!strcmp(shipfrags[i].ship->ownername, GET_NAME(ch)))
 	{
 	 int shipfr = shipfrags[i].ship->frags;
