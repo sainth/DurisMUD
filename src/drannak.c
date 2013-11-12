@@ -69,6 +69,8 @@ extern P_obj quest_item_reward(P_char ch);
 extern int find_map_place();
 extern int getItemFromZone(int zone);
 
+void     set_short_description(P_obj t_obj, const char *newShort);
+
 void set_surname(P_char ch, int num)
 {
   /* Surname List
@@ -259,6 +261,20 @@ void display_surnames(P_char ch)
  page_string(ch->desc, buf, 1);
 }
 
+bool quested_spell(P_char ch, int spl)
+{
+
+ //debug("spell: %d\r\n");
+ if(IS_NPC(ch))
+ return FALSE;
+
+ /*if(spl == 56)
+ return TRUE;*/
+
+ return FALSE;
+}
+
+
 void clear_surname(P_char ch)
 {
   REMOVE_BIT(ch->specials.act3, PLR3_SURLIGHT);
@@ -430,58 +446,6 @@ bool lightbringer_weapon_proc(P_char ch, P_char victim)
   return !is_char_in_room(ch, room) || !is_char_in_room(victim, room);
   victim->specials.apply_saving_throw[SAVING_SPELL] = save;
   */
-}
-
-bool stat_roll(P_char ch, P_char victim, int stat)
-{
-  int current;
-  /*
-    1. STR
-    2. DEX
-    3. AGI
-    4. CON
-    5. POW
-    6. INT
-    7. WIS
-    8. CHA
-    9. LUCK
-  */
-
-  if(!ch)
-  return FALSE;
-
-  switch (stat)
-  {
-   case 1:
-   current = GET_C_STR(ch);
-   break;
-   case 2:
-   current = GET_C_DEX(ch);
-   break;
-   case 3:
-   current = GET_C_AGI(ch);
-   break;
-   case 4:
-   current = GET_C_CON(ch);
-   break;
-   case 5:
-   current = GET_C_POW(ch);
-   break;
-   case 6:
-   current = GET_C_INT(ch);
-   break;
-   case 7:
-   current = GET_C_WIS(ch);
-   break;
-   case 8:
-   current = GET_C_CHA(ch);
-   break;
-   case 9:
-   current = GET_C_LUCK(ch);
-   break;
-   default = 0;
-  }
-
 }
 
 bool mercenary_defensiveproc(P_char victim, P_char ch) //victim is the merc being hit
@@ -786,32 +750,8 @@ void create_recipe(P_char ch, P_obj temp)
     return;
    }
 
-  if (IS_SET(temp->extra_flags, ITEM_NOSELL))
-    {
-        return;
-	}
-
-  if(GET_OBJ_VNUM(temp) == 366)
-   {
-    return;
-   }
-
-  if (temp->type == ITEM_FOOD)
-   {
-    return;
-   }
-  if (temp->type == ITEM_TREASURE || temp->type == ITEM_POTION || temp->type == ITEM_MONEY || temp->type == ITEM_KEY)
-   {
-    return;
-   }
-  if (IS_OBJ_STAT2(temp, ITEM2_STOREITEM))
-   {
-    return;
-   }
-  if (IS_SET(temp->extra_flags, ITEM_ARTIFACT))
-  {
-    return;
-  }
+ if(!is_salvageable(temp))
+ return;
        
 
        
@@ -865,8 +805,6 @@ void random_recipe(P_char ch, P_char victim)
 
 }
 
-<<<<<<< HEAD
-=======
 void randomizeitem(P_char ch, P_obj obj)
 {
   int i = 0, workingvalue = 0, range = 0, value = 0, limit = 0, good = 0, luckroll = 0, modified = 0;
@@ -1285,7 +1223,6 @@ while (i < 2)
 
 }
 
->>>>>>> bff69ee7ca4ee4cb962e17db13b70a78b0aa051e
 P_obj random_zone_item(P_char ch)
 {
   P_obj reward = read_object(real_object(getItemFromZone(GET_ZONE(ch))), REAL);

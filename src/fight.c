@@ -5613,7 +5613,9 @@ int raw_damage(P_char ch, P_char victim, double dam, uint flags,
     loss = MIN(dam, (10 + GET_HIT(victim)) * 4);
     damage_dealt = (int) dam;
 
+
     dam = ((int) dam) >> 1;
+
 
     if(IS_NPC(ch) &&
       !IS_PC_PET(ch) &&
@@ -5630,8 +5632,9 @@ int raw_damage(P_char ch, P_char victim, double dam, uint flags,
     {
       dam = ((int) dam) >> 1;
     }
-    
+
     dam = BOUNDED(1, (int) dam, 32766);
+
     check_blood_alliance(victim, (int)dam);
 
     if(IS_AFFECTED5(victim, AFF5_IMPRISON) &&
@@ -6730,12 +6733,26 @@ bool hit(P_char ch, P_char victim, P_obj weapon)
   if (affected_by_spell(ch, SKILL_RAGE))
 	  diceroll -= (GET_CHAR_SKILL(ch, SKILL_RAGE) / 10);
 
-  if (diceroll < 5)
-    sic = -1;
-  else if (diceroll < 96)
+
+  int rollmod = 5; //statupdate2013 - drannak
+  if (GET_C_INT(ch) < 80)
+  rollmod = 6;
+  else if (GET_C_INT(ch) > 130)
+  rollmod = 4;
+  int critroll = (int) (GET_C_INT(ch) / rollmod);
+  if(critroll > number(1, 100)) 
+   sic = -1;
+  else if (diceroll < 96) //fumble
     sic = 0;
   else
     sic = 1;
+ 
+ /* if (diceroll < 5) //crit
+    sic = -1;
+  else if (diceroll < 96) //fumble
+    sic = 0;
+  else
+    sic = 1;*/
 
   if ((sic == -1) &&
        has_innate(victim, INNATE_AMORPHOUS_BODY))

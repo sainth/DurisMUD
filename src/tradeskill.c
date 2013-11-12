@@ -339,6 +339,9 @@ void do_forge(P_char ch, char *argument, int cmd)
   char     first[MAX_INPUT_LENGTH];
   char     second[MAX_INPUT_LENGTH];
   char     rest[MAX_INPUT_LENGTH];
+  char tempdesc [MAX_INPUT_LENGTH];
+  char short_desc[MAX_STRING_LENGTH];
+  char keywords[MAX_INPUT_LENGTH];
   int i = 0;  
   int choice = 0;  
   P_obj hammer, foundry;
@@ -472,6 +475,8 @@ void do_forge(P_char ch, char *argument, int cmd)
 
    float tobjvalue = itemvalue(ch, tobj);
 
+   tobjvalue += 4; //add minimum crafting requirement of value 4.
+
    int startmat = get_matstart(tobj);
 
    tobjvalue = (float)tobjvalue / (float)5;
@@ -541,6 +546,8 @@ void do_forge(P_char ch, char *argument, int cmd)
    tobj = read_object(selected, VIRTUAL);
 
    float tobjvalue = itemvalue(ch, tobj);
+
+   tobjvalue += 4;
 
    int startmat = get_matstart(tobj);
 
@@ -619,21 +626,25 @@ void do_forge(P_char ch, char *argument, int cmd)
 	if((GET_OBJ_VNUM(t_obj) == obj1) && (i < fullcount) )
          {
 	   obj_from_char(t_obj, TRUE);
+	   extract_obj(t_obj, TRUE);
           i++;
          }
        if((GET_OBJ_VNUM(t_obj) == obj2) && (o < difference))
          {
 	   obj_from_char(t_obj, TRUE);
+	   extract_obj(t_obj, TRUE);
           o++;
          }
        if((GET_OBJ_VNUM(t_obj) == 400211) && (z < affcount))
          {
 	   obj_from_char(t_obj, TRUE);
+	   extract_obj(t_obj, TRUE);
           z++;
          }
        if((GET_OBJ_VNUM(t_obj) == 400223) && (y < 1))
          {
 	   obj_from_char(t_obj, TRUE);
+	   extract_obj(t_obj, TRUE);
           y++;
          }
       }
@@ -644,6 +655,17 @@ void do_forge(P_char ch, char *argument, int cmd)
   P_obj reward = read_object(selected, VIRTUAL);
   SET_BIT(reward->extra2_flags, ITEM2_CRAFTED);
   SET_BIT(reward->extra_flags, ITEM_NOREPAIR);
+
+  randomizeitem(ch, reward);
+
+  sprintf(keywords, "%s %s tradeskill", reward->name, GET_NAME(ch));
+
+  sprintf(tempdesc, "%s", reward->short_description);
+  sprintf(short_desc, "%s &+ymade by&n &+r%s&n", tempdesc, GET_NAME(ch));
+  set_keywords(reward, keywords);
+  set_short_description(reward, short_desc);
+
+
 
   obj_to_char(reward, ch);
   act

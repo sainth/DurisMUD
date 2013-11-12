@@ -78,6 +78,8 @@ extern int itemvalue(P_char ch, P_obj obj);
 
 void yank_make_item(P_char, P_obj);
 void lore_item( P_char ch, P_obj obj );
+void     set_keywords(P_obj t_obj, const char *newKeys);
+void     set_short_description(P_obj t_obj, const char *newShort);
 
 // This sets players to forego all their attacks. It is useful for 
 // caster type classes which do not want their opponent to riposte or
@@ -3650,6 +3652,9 @@ void do_craft(P_char ch, char *argument, int cmd)
  
   char     buf[256], *buff, buf2[256], rbuf[MAX_STRING_LENGTH];
   char     Gbuf1[MAX_STRING_LENGTH], selectedrecipe[MAX_STRING_LENGTH];
+  char tempdesc [MAX_INPUT_LENGTH];
+  char short_desc[MAX_STRING_LENGTH];
+  char keywords[MAX_INPUT_LENGTH];
   char buffer[256];
   FILE    *f;
   FILE    *recipelist;
@@ -3767,6 +3772,8 @@ void do_craft(P_char ch, char *argument, int cmd)
 
    float tobjvalue = itemvalue(ch, tobj);
 
+   tobjvalue += 4; //minimum craft start value.
+
    int startmat = get_matstart(tobj);
 
    tobjvalue = (float)tobjvalue / (float)5;
@@ -3829,6 +3836,8 @@ if(difference == 0)
    tobj = read_object(selected, VIRTUAL);
 
    float tobjvalue = itemvalue(ch, tobj);
+
+   tobjvalue += 4;
 
    int startmat = get_matstart(tobj);
 
@@ -3912,21 +3921,25 @@ if(difference == 0)
 	if((GET_OBJ_VNUM(t_obj) == obj1) && (i < fullcount) )
          {
 	   obj_from_char(t_obj, TRUE);
+	   extract_obj(t_obj, TRUE);
           i++;
          }
        if((GET_OBJ_VNUM(t_obj) == obj2) && (o < difference))
          {
 	   obj_from_char(t_obj, TRUE);
+	   extract_obj(t_obj, TRUE);
           o++;
          }
        if((GET_OBJ_VNUM(t_obj) == 400211) && (z < affcount))
          {
 	   obj_from_char(t_obj, TRUE);
+	   extract_obj(t_obj, TRUE);
           z++;
          }
        if((GET_OBJ_VNUM(t_obj) == 400224) && (y < 1))
          {
 	   obj_from_char(t_obj, TRUE);
+	   extract_obj(t_obj, TRUE);
           y++;
          }
       }
@@ -3937,6 +3950,14 @@ if(difference == 0)
   P_obj reward = read_object(selected, VIRTUAL);
   SET_BIT(reward->extra2_flags, ITEM2_CRAFTED);
   SET_BIT(reward->extra_flags, ITEM_NOREPAIR);
+  randomizeitem(ch, reward);
+  sprintf(keywords, "%s %s tradeskill", reward->name, GET_NAME(ch));
+
+  sprintf(tempdesc, "%s", reward->short_description);
+  sprintf(short_desc, "%s &+ymade by&n &+r%s&n", tempdesc, GET_NAME(ch));
+  set_keywords(reward, keywords);
+  set_short_description(reward, short_desc);
+
 
   obj_to_char(reward, ch);
   act

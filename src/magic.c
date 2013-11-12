@@ -7680,6 +7680,7 @@ void spell_remove_curse(int level, P_char ch, char *arg, int type,
           act
             ("&+LUpon being torn from you, $p &+Llets out a ghastly &n&+rSHRIEK!!!",
              FALSE, victim, t_obj, 0, TO_CHAR);
+          affect_from_char(ch, SPELL_VAMPIRE);
           spell_dispel_magic(60, victim, 0, SPELL_TYPE_SPELL, victim, 0);
         }
         if(IS_TRUSTED(victim))
@@ -7712,6 +7713,7 @@ void spell_remove_curse(int level, P_char ch, char *arg, int type,
           act
             ("&+LUpon being torn from you, $p &+Llets out a ghastly &n&+rSHRIEK!!!",
              FALSE, victim, t_obj, 0, TO_CHAR);
+          affect_from_char(ch, SPELL_VAMPIRE);
           spell_dispel_magic(60, victim, 0, SPELL_TYPE_SPELL, victim, 0);
         }
         if(IS_TRUSTED(victim))

@@ -301,6 +301,7 @@ int wear(P_char, P_obj, int, int);
 int remove_item(P_char, P_obj, int);
 int remove_and_wear(P_char, P_obj, int, int, int);
 bool find_chance(P_char);
+bool is_salvageable(P_obj);
 void do_drink(P_char, char *, int);
 void do_drop(P_char, char *, int);
 void do_eat(P_char, char *, int);
@@ -782,6 +783,7 @@ void init_cmdlog(void);
 void loop_debug(void);
 
 /* drannak.c */
+bool quested_spell(P_char ch, int spl);
 int vnum_in_inv(P_char ch, int cmd);
 void vnum_from_inv(P_char ch, int item, int count);
 void set_surname(P_char ch, int num);
@@ -804,6 +806,7 @@ bool minotaur_race_proc(P_char, P_char);
 void do_dismiss(P_char ch, char *argument, int cmd);
 bool valid_conjure(P_char, P_char);
 int calculate_shipfrags(P_char);
+void randomizeitem(P_char, P_obj);
 
 
 /* editor.c */
