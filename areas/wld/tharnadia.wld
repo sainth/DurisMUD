@@ -1547,7 +1547,7 @@ only people you have seen use this stairwell, all night.
 ~
 E
 table tables~
-   These old wooden tables are definitely not of this century.  Morbid images
+   These old wooden tables are definately not of this century.  Morbid images
 decorate their four-foot legs, and their once smooth tops are now marred from
 bar fights and lover's knives.
 ~
@@ -8874,7 +8874,7 @@ S
 D1
 ~
 ~
-0 0 210385
+0 0 570424
 D3
 ~
 ~
@@ -13747,6 +13747,11 @@ The docks continue south.
 ~
 ~
 0 0 133052
+D3
+A great ocean can be seen in that direction
+~
+~
+0 0 230408
 S
 #133054
 &+BSouthern Pier~
@@ -13780,6 +13785,11 @@ The docks continue north.
 ~
 ~
 0 0 133054
+D2
+A vast ocean can be seen to the south.
+~
+~
+0 0 -1
 S
 #133056
 &+GOutside the Southern City Gates&n~
@@ -13969,7 +13979,7 @@ D0
 D2
 ~
 ~
-0 0 210684
+0 0 570823
 S
 #133065
 Inside the Northern Gates~
@@ -14082,7 +14092,7 @@ north towards the open road.
 D0
 ~
 ~
-0 0 210084
+0 0 570023
 D2
 ~
 ~

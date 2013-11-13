@@ -99,7 +99,6 @@ typedef struct _objectType
   int weight;
   uint worth;
   uint condition;
-  uint max_condition;
   uint craftsmanship;
   uint damResistBonus;
 

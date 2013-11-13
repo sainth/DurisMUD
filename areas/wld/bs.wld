@@ -1905,6 +1905,10 @@ some kind of cobblestone and yet there is something very different to
 the look and feel of this road.  To the south is a trail.
 ~
 740 33554432 3
+D0
+~
+~
+0 0 91000
 D1
 To the east the road seems to be endless.
 ~
@@ -3099,7 +3103,7 @@ road bodies poles cobblestone~
 D3
 ~
 ~
-0 0 266491
+0 0 604259
 E
 road~
 The road is lined with impailed bodies.  It is made out of some type of
@@ -3745,12 +3749,16 @@ wearing a brown, hooded robe.
 D0
 ~
 ~
-0 0 264992
+0 0 602263
 D1
 To the east the valley extends.
 ~
 throne~
 0 0 74112
+D3
+~
+~
+0 0 602662
 E
 throne~
 The throne is carved out of solid wood.  It is covered with some
@@ -8046,7 +8054,7 @@ Above is a room.
 0 0 74642
 E
 sounds~
-The sounds are most definitely human.
+The sounds are most definately human.
 ~
 E
 wood~
@@ -13067,7 +13075,7 @@ To the north is more of the gorge.
 D2
 ~
 ~
-0 0 267694
+0 0 605864
 S
 #74445
 In a Narrow Gorge~
@@ -24218,10 +24226,10 @@ evergreens.  This trail is very remaniscent of the trail of the dead,
 located deeper into the mountain to the west.
 ~
 740 0 5
-D0
+D1
 ~
 ~
-0 0 266497
+0 0 604673
 D3
 ~
 ~

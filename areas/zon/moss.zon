@@ -119,10 +119,10 @@ D 0 23501 4 1 100 0 0 0
 *
 D 0 23546 3 1 100 0 0 0
 *     west exit from "A Closed Path Into the Woods" to
-*     "A Golden Field of Wheat" - closed
+*     "ve" - closed
 *
 D 0 23547 1 1 100 0 0 0
-*     east exit from "A Golden Field of Wheat" to
+*     east exit from "ve" to
 *     "A Closed Path Into the Woods" - closed
 *
 D 0 23550 0 1 100 0 0 0
@@ -190,8 +190,8 @@ M 0 23513 1 23427 100 0 0 0        * the farmer
 M 0 23405 3 23428 100 0 0 0        * a raven
 M 0 23405 3 23428 100 0 0 0        * a raven
 M 0 23405 3 23428 100 0 0 0        * a raven
-M 0 23510 2 23429 100 0 0 0        * a young boy
-M 0 23510 2 23429 100 0 0 0        * a young boy
+M 0 23510 2 23429 100 0 0 0        *  a young boy
+M 0 23510 2 23429 100 0 0 0        *  a young boy
 M 0 23512 1 23431 100 0 0 0        * the farmer's wife
 M 0 23511 2 23432 100 0 0 0        * a farmer's daughter
 M 0 23511 2 23432 100 0 0 0        * a farmer's daughter

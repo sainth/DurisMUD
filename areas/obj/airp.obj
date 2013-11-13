@@ -5,7 +5,7 @@ gate large~
 ~
 25 1 10 0 14 0 24640 0 0 1 0
 131610 7 -1 0 0 0 0 0
-0 0 100 100
+0 0 100
 E
 gate large~
 &+C   This large gate leads into the &+LFortress&+C of Mists. It stands over twenty
@@ -20,7 +20,7 @@ gate large~
 ~
 25 1 10 0 10 0 32832 0 0 1 0
 131605 7 -1 0 0 0 0 0
-0 0 100 100
+0 0 100
 #131602
 generator~
 A Generator~
@@ -28,7 +28,7 @@ A Lightning generator is here that the PC's can't see.~
 ~
 12 15 3 0 14 100 32770 0 0 1 0
 0 0 0 0 0 0 0 0
-0 0 100 100
+0 0 100
 T
 3576 5 500 31
 #131603
@@ -38,7 +38,7 @@ gate smoke smoky~
 ~
 25 19 10 0 7 0 49216 0 0 1 0
 131736 7 -1 0 0 0 0 0
-0 0 100 100
+0 0 100
 E
 gate smoke smoky~
 &+L   This large gate is the entrace into the Fortress of smoke that stands
@@ -52,7 +52,7 @@ smoky gate~
 ~
 25 15 10 0 7 100 32832 0 0 1 0
 131720 7 -1 0 0 0 0 0
-0 0 100 100
+0 0 100
 #131605
 smoke key pure~
 &+La key of pure smoke~
@@ -60,7 +60,7 @@ smoke key pure~
 ~
 18 15 3 0 7 0 8507393 16385 0 1 0
 0 0 0 0 0 0 0 0
-0 0 100 100
+0 0 100
 #131606
 gate ice~
 &+Ba gate of ice~
@@ -68,7 +68,7 @@ gate ice~
 ~
 25 15 3 0 7 100 32832 0 0 1 0
 131751 7 -1 0 0 0 0 0
-0 0 100 100
+0 0 100
 E
 gate ice~
 &+B   This huge gate stands difrectly in front of the Fortress of Ice. Two
@@ -82,7 +82,7 @@ gate ice~
 ~
 25 15 3 0 7 100 32832 0 0 1 0
 131730 7 -1 0 0 0 0 0
-0 0 100 100
+0 0 100
 #131608
 key frost~
 &+Ca key of frost~
@@ -90,7 +90,7 @@ key frost~
 ~
 18 15 3 0 7 0 8442048 16385 0 1 0
 0 2 0 0 0 0 0 0
-0 0 100 100
+0 0 100
 #131609
 essence frost ball essense~
 &+Wthe essence of frost~
@@ -98,7 +98,7 @@ essence frost ball essense~
 ~
 12 1 3 0 7 100 67235904 16385 0 1 0
 0 0 0 0 0 0 0 0
-0 130400 100 100
+0 130400 100
 E
 essence frost~
 &+W   This small ball seems to be the essense of all frost and air. Somehow in
@@ -111,7 +111,7 @@ smoke essense ball~
 ~
 12 15 3 0 7 100 118848 16385 0 1 0
 0 0 0 0 0 0 0 0
-0 130594 100 100
+0 130594 100
 E
 smoke essense ball~
 &+L   This small ball seems to be made of the very essense of smoke, and the
@@ -124,7 +124,7 @@ essense ball mist~
 ~
 12 15 3 0 7 100 67227712 16385 0 1 0
 0 0 0 0 0 0 0 0
-0 139284 100 100
+0 139284 100
 E
 essense ball mist~
 &+C   This small ball seems be filled with mist and air, and seems to radiate
@@ -137,7 +137,7 @@ key palace tempests~
 ~
 18 15 3 0 7 100 75620417 16385 0 1 0
 0 0 0 0 0 0 0 0
-0 0 100 100
+0 0 100
 E
 key palace tempests~
 &+W  This ksy is actually very normal looking excelt it has large runes written
@@ -150,7 +150,7 @@ gate tempests~
 ~
 25 15 3 0 7 100 32833 0 0 1 0
 131768 7 -1 0 0 0 0 0
-0 0 100 100
+0 0 100
 E
 gate tempests~
 &+C   This large gate is the entrace way into the Palace of Tempests.
@@ -162,7 +162,7 @@ gate tempests~
 ~
 25 15 3 0 7 100 65 0 0 1 0
 131647 7 -1 0 0 0 0 0
-0 0 100 100
+0 0 100
 #131615
 heart ixteal small~
 &n&+rthe heart of &n&+Mixteal~
@@ -170,7 +170,7 @@ heart ixteal small~
 ~
 12 15 3 0 7 50 53312 16385 0 2560 0
 0 0 0 0 0 0 0 0
-0 5019 100 100
+0 5019 100
 E
 heart ixteal small~
 &n&+r   This heart seems to have been ripped from the body of some medium sized
@@ -181,15 +181,9 @@ dagger wind _artifact_~
 &+cthe dagger of &+CWind&N~
 &+cThe dagger of &+CWind&N&+c lies here.~
 ~
-<<<<<<< HEAD
-5 44 2 0 15 100 67117088 8193 512 125470 0
-2 9 4 11 0 0 0 0
-1 0 100 100 134217754 192 0 0
-=======
 5 44 2 0 15 100 335553568 8193 576 42074021 0
 2 6 4 11 0 0 0 0
 1 0 100 134217754 192 0 0
->>>>>>> master
 A
 18 5
 A
@@ -201,11 +195,7 @@ cloak north wind~
 ~
 11 1 3 0 12 0 33824 1025 0 147099140 0
 0 0 0 0 0 0 0 0
-<<<<<<< HEAD
-0 0 100 100 67108880 0 0 0
-=======
 0 181818 100 134217744 0 0 0
->>>>>>> master
 A
 33 4
 A
@@ -217,11 +207,7 @@ rainbow earring~
 ~
 11 15 3 0 7 0 99360 524289 0 181309348 0
 0 0 0 0 0 0 0 0
-<<<<<<< HEAD
-0 0 100 100 268435456 0 0 0
-=======
 0 0 100 0 28 0 0
->>>>>>> master
 A
 27 10
 A
@@ -231,11 +217,6 @@ dagger tricksters deception and illusions _id_~
 &+La &+yt&+Yrickster&+ys&+L da&+wgg&+Wer&+L of &+rd&+Rec&+Lept&+Rio&+rn&+L and &+bi&+Bl&+cl&+Cu&+Ws&+ci&+co&+Bn&+bs&n~
 A &+Ldark-bladed&N dagger rests on end here.~
 ~
-<<<<<<< HEAD
-5 15 2 0 15 50 163968 8193 192 57344 0
-2 4 4 11 0 0 0 0
-1 0 100 100 67108864 0 0 0
-=======
 5 15 2 0 15 50 189776 8193 64 8515584 0
 2 4 4 11 0 1421406459 51 30
 1 450005 100 0 0 0 100663296
@@ -246,7 +227,6 @@ E
 _char_msg~
 &+LThe &+Wleg&+wend&+Lary dagger fills you with the &+CP&+cower&+L and &+CK&+cnowledge&+L of &+bI&+Bl&+cl&+Cu&+Ws&+Ci&+co&+Bn&+bs&+L and &+yT&+Yricker&+yy&+L.&n
 ~
->>>>>>> master
 A
 18 5
 A
@@ -258,7 +238,7 @@ A tiny rainbow springs from the ground here.~
 ~
 11 15 3 0 7 0 57345 4097 0 1 0
 0 0 0 0 0 0 0 0
-0 0 100 100 805306372 0 0 0
+0 0 100 805306372 0 0 0
 A
 13 15
 A
@@ -270,7 +250,7 @@ An unnamed object lies here, looking lonely and forelorn.~
 ~
 5 15 3 0 10 80 4227105 8193 0 2 0
 8 5 8 11 0 0 0 0
-6 0 100 100
+6 0 100
 A
 18 5
 A
@@ -282,7 +262,7 @@ ring djin~
 ~
 11 15 3 0 7 0 163841 3 0 1 0
 0 0 0 0 0 0 0 0
-0 0 100 100 134217728 0 0 0
+0 0 100 134217728 0 0 0
 A
 13 15
 A
@@ -294,7 +274,7 @@ crystal dagger~
 ~
 5 15 3 0 7 0 32768 8193 0 1 0
 2 4 4 11 0 0 0 0
-0 0 100 100
+0 0 100
 A
 18 3
 A
@@ -306,7 +286,7 @@ ruby dragons _ignore_~
 ~
 8 31 3 0 15 100 102400 16385 0 1 0
 0 0 0 0 0 0 0 0
-0 1500000 100 100
+0 1500000 100
 #131625
 mass dark~
 &+La dark mass&N~
@@ -314,7 +294,7 @@ mass dark~
 ~
 11 15 3 0 7 0 36992 16385 0 32 0
 0 0 0 0 0 0 0 0
-0 0 100 100 32 32768 0 0
+0 0 100 32 32768 0 0
 A
 4 -5
 A
@@ -326,7 +306,7 @@ barbed black whip~
 ~
 5 15 3 0 7 0 32768 8193 0 1 0
 14 5 4 0 0 0 0 0
-0 0 100 100 16 0 0 0
+0 0 100 16 0 0 0
 A
 18 4
 A
@@ -338,7 +318,7 @@ medallion djinn~
 ~
 11 15 3 0 7 0 229376 16389 0 1 0
 0 0 0 0 0 0 0 0
-0 0 100 100
+0 0 100
 #131628
 sapphire eyepiece lens~
 &+Ba sapphire eyepiece&N~
@@ -346,7 +326,7 @@ sapphire eyepiece lens~
 ~
 11 33 3 0 15 0 163848 131073 0 8160 0
 0 0 0 0 0 0 0 0
-2 0 100 100 12 12288 0 0
+2 0 100 12 12288 0 0
 A
 18 3
 A
@@ -358,11 +338,7 @@ robe deva~
 ~
 11 1 3 0 7 0 164097 9 0 416 0
 0 0 0 0 0 0 0 0
-<<<<<<< HEAD
-0 0 100 100 1048576 0 0 0
-=======
 0 131111 100 134225920 192 0 0
->>>>>>> master
 A
 34 5
 A
@@ -374,11 +350,7 @@ earring negative energy~
 ~
 11 1 1 0 13 100 37024 524289 0 0 0
 0 0 0 0 0 0 0 0
-<<<<<<< HEAD
-1 0 100 100 524288 0 0 0
-=======
 1 0 100 0 0 0 536870912
->>>>>>> master
 A
 12 25
 A
@@ -390,7 +362,7 @@ sword ice~
 ~
 5 15 2 0 10 0 0 8193 0 57350 0
 5 5 5 3 0 0 0 0
-2 0 100 100 0 64 0 0
+2 0 100 0 64 0 0
 A
 18 4
 A
@@ -402,7 +374,7 @@ dagger ice~
 ~
 5 15 2 0 10 0 0 8193 0 57350 0
 2 4 5 11 0 0 0 0
-2 0 100 100 0 64 0 0
+2 0 100 0 64 0 0
 A
 18 4
 A
@@ -414,7 +386,7 @@ ice crystal _ignore_~
 ~
 13 8 1 0 15 0 0 1 0 1 0
 0 0 0 0 0 0 0 0
-0 700000 100 100
+0 700000 100
 #131634
 staff marid~
 &+ba staff of the marids&N~
@@ -422,21 +394,15 @@ staff marid~
 ~
 3 15 3 0 7 0 102400 16385 0 1 0
 40 3 3 254 0 0 0 0
-0 0 100 100
+0 0 100
 #131635
 efreeti earring tenflames~
 &+Ran &+ref&+Rre&+ret&+Ri &+re&+Ra&+rr&+Rr&+ri&+Rn&+rg&+R of &+rte&+Rn&+Yf&+Wl&+Ya&+Rm&+res~
 &+rA flaming earring of fire lies here.&N~
 ~
-<<<<<<< HEAD
-11 15 3 0 7 0 32768 3 0 2560 0
-0 0 0 0 0 0 0 0
-0 0 100 100 536870912 0 0 0
-=======
 9 1 3 0 15 0 49216 524289 64 0 0
 25 0 0 4 0 0 0 0
 0 156000 100 536870912 64 0 0
->>>>>>> master
 A
 13 25
 A
@@ -448,11 +414,7 @@ legendary silverish gith's blessingsilvery gauntlets~
 ~
 9 22 3 0 15 0 164416 129 65 0 536903680
 15 7 0 5 0 0 0 0
-<<<<<<< HEAD
-0 0 100 100 4 4096 0 0
-=======
 0 456544 100 0 0 16777280 0
->>>>>>> master
 A
 18 4
 A
@@ -464,11 +426,7 @@ hurricane vambraces~
 ~
 9 1 3 0 7 0 33856 257 0 87158875 0
 10 8 0 0 0 0 0 0
-<<<<<<< HEAD
-0 0 100 100 32768 0 0 0
-=======
 0 98000 100 67141632 0 0 1048576
->>>>>>> master
 A
 19 3
 A
@@ -480,11 +438,7 @@ breeze cloud motes~
 ~
 11 1 3 0 12 0 33793 5 0 33685920 0
 0 0 0 0 0 0 0 0
-<<<<<<< HEAD
-0 0 100 100 8192 8192 0 0
-=======
 0 123000 100 67108864 128 0 0
->>>>>>> master
 A
 13 25
 A
@@ -494,15 +448,9 @@ saddle four winds~
 &+ct&+Che &+cs&+Caddle &+co&+Cf &+ct&+Che &+Cfou&+cr &+cw&+Cind&+Ws~
 &+ct&+Che &+cs&+Caddle &+co&+Cf &+ct&+Che &+Cfou&+crs &+cw&+Cind&+Ws &+chas been left here floating.&n~
 ~
-<<<<<<< HEAD
-9 15 3 0 7 0 163840 4097 0 1 0
-8 11 0 0 0 0 0 0
-0 0 100 100 65536 0 0 0
-=======
 9 1 3 0 10 0 184832 16777217 2 0 16384
 25 0 0 4 0 0 0 0
 0 110094 100 134217728 0 0 0
->>>>>>> master
 A
 22 -6
 A
@@ -514,7 +462,7 @@ belt dragonscale~
 ~
 11 35 2 0 10 40 36864 2049 0 1 0
 0 0 0 0 0 0 0 0
-0 0 100 100 0 12288 0 0
+0 0 100 0 12288 0 0
 A
 13 30
 A
@@ -526,9 +474,6 @@ A &+Bportal made from clouds&n hovers here.&n~
 ~
 25 15 3 0 7 0 0 0 0 1 0
 1823 0 0 0 0 0 0 0
-<<<<<<< HEAD
-0 0 100 100
-=======
 0 0 100
 #131642
 essence ball essense storm four~
@@ -858,4 +803,3 @@ A six-point star sapphire floats in mid-air, pulsing with azure waves of power!~
 9 15 3 0 7 0 0 131073 0 0 0
 7 0 0 0 0 0 0 0
 0 0 100
->>>>>>> master

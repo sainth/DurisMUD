@@ -7,11 +7,7 @@ limping skeleton weary~
 &+Wis twisted around 180 degrees at the knee. It would charge at you and take its
 &+Wpent up aggression on the living...but its just too tired.
 ~
-<<<<<<< HEAD
-8 1 0 0 0 0 0 0 -1000 S
-=======
 8 192 0 0 0 0 0 0 -1000 S
->>>>>>> master
 SK 0 0 0 -1
 8 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -26,11 +22,7 @@ ghoul guard~
 &+LEven in death, the directive to stop the incursions of the mad duergar is so
 &+Lstrong as to compel this poor soul to man his post.
 ~
-<<<<<<< HEAD
-1140852746 1 0 0 0 0 0 0 -1000 S
-=======
 1140852746 192 0 0 0 0 0 0 -1000 S
->>>>>>> master
 U 0 0 0 -1
 17 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -44,11 +36,7 @@ The magic that animated the town also affected the denizens of this forest.
 Doomed to wander this forest for all of its un-life, this skeleton has
 resigned itself to its fate.
 ~
-<<<<<<< HEAD
-72 1 0 0 256 0 0 0 0 S
-=======
 72 192 0 0 256 0 0 0 0 S
->>>>>>> master
 SK 0 0 0 -1
 4 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -63,11 +51,7 @@ ghoul wolf~
 &+Ldismember any living being who enters its domain. Madness gleams in its eyes
 &+Land a &+Yfoam of saliva&+L dribbles out of its mouth.
 ~
-<<<<<<< HEAD
-2120 1 0 0 0 0 0 0 0 S
-=======
 2120 192 0 0 0 0 0 0 0 S
->>>>>>> master
 U 0 0 0 -1
 7 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -81,11 +65,7 @@ duergar assassin~
 &+rto flee. To avoid the burn of the sun, he has come to this
 &+runderground hideout.
 ~
-<<<<<<< HEAD
-1073744074 1 0 0 1573144 2 0 0 -1000 S
-=======
 1073744074 192 0 0 1573144 2 0 0 -1000 S
->>>>>>> master
 PD 0 8192 0 -1
 50 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -99,11 +79,7 @@ ghoul~
 &+Lsilently moves through the area. Filled with a burning hatred for the living,
 &+Lit never pauses in its quest to bring about death.
 ~
-<<<<<<< HEAD
-8 1 0 0 0 0 0 0 -1000 S
-=======
 8 192 0 0 0 0 0 0 -1000 S
->>>>>>> master
 U 0 0 0 -1
 9 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -118,11 +94,7 @@ vicious rat~
 &+yare like no others. Perhaps they have taken on some of the necromantic power
 &+ythat animated the undead above.
 ~
-<<<<<<< HEAD
-72 1 0 0 0 0 0 0 -1000 S
-=======
 72 192 0 0 0 0 0 0 -1000 S
->>>>>>> master
 A 0 0 0 -1
 6 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -137,11 +109,7 @@ hideous ghoul~
 &+wto their knees, where its razor sharp talons are more than enough to finish the
 &+wjob.
 ~
-<<<<<<< HEAD
-8 1 0 0 0 0 0 0 -1000 S
-=======
 8 192 0 0 0 0 0 0 -1000 S
->>>>>>> master
 U 0 0 0 -1
 10 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -155,11 +123,7 @@ shaggy werewolf~
 &+yundead who took over the outpost. Cursed to much the same fate, it roams the
 &+ymountains looking to create havoc and destruction.
 ~
-<<<<<<< HEAD
-8 1 0 0 0 0 0 0 -1000 S
-=======
 8 192 0 0 0 0 0 0 -1000 S
->>>>>>> master
 L 0 0 0 -1
 13 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -174,11 +138,7 @@ mindless ghast~
 &+mdoesn't react. As such, this being is completely unpredictable, given to
 &+mviolent fits.
 ~
-<<<<<<< HEAD
-8 1 0 0 0 0 0 0 0 S
-=======
 8 192 0 0 0 0 0 0 0 S
->>>>>>> master
 U 0 0 0 -1
 11 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -194,11 +154,7 @@ cook undead~
 &+Wtestifies to its willingness to put that cleaver to use, and it has had many
 &+Wlong years of practice.
 ~
-<<<<<<< HEAD
-2122 1 0 0 0 0 0 0 -1000 S
-=======
 2122 192 0 0 0 0 0 0 -1000 S
->>>>>>> master
 ZO 0 1 0 -1
 18 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -212,11 +168,7 @@ vampire lookout~
 &+rcanyon below. Nothing passes this area without its knowledge. If anything,
 &+rdeath has sharpened this lookout's senses, as it now sees with the sight of the undead.
 ~
-<<<<<<< HEAD
-2058 1 0 0 0 0 0 0 -1000 S
-=======
 2058 192 0 0 0 0 0 0 -1000 S
->>>>>>> master
 UV 0 1 0 -1
 15 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -231,11 +183,7 @@ zombie merchant~
 &+Yleft here to rot for some time before being re-animated. As a result, this
 &+Yzombie looks far more dead than alive.
 ~
-<<<<<<< HEAD
-2058 1 0 0 0 0 0 0 -1000 S
-=======
 2058 192 0 0 0 0 0 0 -1000 S
->>>>>>> master
 ZO 0 16 0 -1
 20 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -248,11 +196,7 @@ golem stone necromancer giant~
 &+LAs you enter the room the golem's &+reyes&+L light up. "Finally! With your blood
 &+LI'll be able to return to my human form! Don't worry...this won't hurt...much"
 ~
-<<<<<<< HEAD
-2122 1 0 0 939598332 14557 0 0 -1000 S
-=======
 2122 192 0 0 939598332 14557 0 0 -1000 S
->>>>>>> master
 OG 0 1024 0 -1
 50 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -265,11 +209,7 @@ black raven~
 Covered in jet black feather, this bird melts seemlessly into the surrounding
 darkness.
 ~
-<<<<<<< HEAD
-131144 1 0 0 0 0 0 0 0 S
-=======
 131144 192 0 0 0 0 0 0 0 S
->>>>>>> master
 B 0 0 0 -1
 5 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -282,11 +222,7 @@ shade weaponsmaster~
 Tall and proud, this undead retains much of his skills, although he no longer
 hesitates to use them.
 ~
-<<<<<<< HEAD
-2058 1 0 0 0 0 0 0 -1000 S
-=======
 2058 192 0 0 0 0 0 0 -1000 S
->>>>>>> master
 SA 0 1 0 -1
 20 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -299,11 +235,7 @@ armorer spectre~
 &+mThis former shopkeeper defends his turf using whatever implements he can get
 &+mhis hands on.
 ~
-<<<<<<< HEAD
-1073741966 1 0 0 0 0 0 0 -1000 S
-=======
 1073741966 192 0 0 0 0 0 0 -1000 S
->>>>>>> master
 SP 0 4096 0 -1
 20 0 0 1d1+1 1d1+1
 0.0.0.0 0
@@ -316,11 +248,7 @@ swarm angry flies~
 Thousands of large black flies comprise this swarm, feeding off the abundant
 carrion.
 ~
-<<<<<<< HEAD
-1073875016 1 0 0 0 0 0 0 -1000 S
-=======
 1073875016 192 0 0 0 0 0 0 -1000 S
->>>>>>> master
 I 0 0 0 -1
 5 0 0 1d1+1 1d1+1
 0.0.0.0 0
