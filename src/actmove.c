@@ -2267,7 +2267,7 @@ void do_open(P_char ch, char *argument, int cmd)
       
 
       //special proc for bag of random goodness - drannak 4/3/2013
-	if (obj_index[obj->R_num].virtual_number == 400217)
+	if (obj_index[obj->R_num].virtual_number == 400217 || obj_index[obj->R_num].virtual_number == 400232 || obj_index[obj->R_num].virtual_number == 400233)
 	{
 	   if ((IS_CARRYING_N(ch) + 1) > CAN_CARRY_N(ch)) //check their inventory
   		{
@@ -2279,11 +2279,13 @@ void do_open(P_char ch, char *argument, int cmd)
 
 	    if(!OBJ_CARRIED(obj))
 		{
-		  send_to_char("You must have the &+MFaerie &+Wbag&n in your &+Yinventory&n to open it!\r\n", ch);
+		  send_to_char("You must have the &+Witem&n in your &+Yinventory&n to open it!\r\n", ch);
 		  return;
 		}
-
+        if(!(obj_index[obj->R_num].virtual_number == 400232))
 	 send_to_char("&+mAs you open the &+Mbag&+m, a magical mist &+rex&+Rpl&+Mod&+Wes&+m covering everything!\r\n", ch);
+        else
+	 send_to_char("&+mAs you open the &+Ychest&+m, a magical mist &+rex&+Rpl&+Mod&+Wes&+m covering everything!\r\n", ch);
 	 char buf[MAX_STRING_LENGTH];
 	 P_obj robj;
 	 long robjint;
@@ -2305,6 +2307,16 @@ void do_open(P_char ch, char *argument, int cmd)
 		  validobj = 0;
                 extract_obj(robj, FALSE);
 		 }
+              else if((obj_index[obj->R_num].virtual_number == 400232) && itemvalue(ch, robj) < 15)
+               {  
+		  validobj = 0;
+                extract_obj(robj, FALSE);
+               }
+              else if((obj_index[obj->R_num].virtual_number == 400233) && itemvalue(ch, robj) < 25)
+               {  
+		  validobj = 0;
+                extract_obj(robj, FALSE);
+               }
 
 	  }
 	//Remove Curse, Secret, add Invis

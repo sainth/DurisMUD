@@ -367,7 +367,7 @@ He is covered in a light brown, almost gray fure coat.  This young cat
 of the region appears to be strong and with quite a build.  He drools
 with hunger as he notices his next meal.
 ~
-1073743884 1 0 0 40 0 0 0 0 S
+1073743884 64 0 0 40 0 0 0 0 S
 A 0 0 0 -1
 17 13 45 17d30+85 3d4+2
 0.0.0.0 8262
@@ -626,7 +626,7 @@ drunken orc~
 had too much to drink. With a bottle in one hand, he appears dazed and
 confused about the area around him.
 ~
-2248 1 0 0 0 0 0 0 -500 S
+2248 64 0 0 0 0 0 0 -500 S
 HO 0 1 0 -1
 8 18 74 8d21+44 2d3+1
 4.2.0.0 1036
