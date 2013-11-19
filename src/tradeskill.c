@@ -2445,43 +2445,43 @@ int itemvalue(P_char ch, P_obj obj)
  long workingvalue = 0;
 
  if (IS_SET(obj->bitvector, AFF_STONE_SKIN))
-	 workingvalue += 20;
+	 workingvalue += 60;
 
  if (IS_SET(obj->bitvector, AFF_BIOFEEDBACK))
-	 workingvalue += 20;
+	 workingvalue += 60;
 
  if (IS_SET(obj->bitvector, AFF_FARSEE))
-	 workingvalue += 4;
-
- if (IS_SET(obj->bitvector, AFF_DETECT_INVISIBLE))
-	 workingvalue += 6;
-
- if (IS_SET(obj->bitvector, AFF_HASTE))
 	 workingvalue += 8;
 
+ if (IS_SET(obj->bitvector, AFF_DETECT_INVISIBLE))
+	 workingvalue += 15;
+
+ if (IS_SET(obj->bitvector, AFF_HASTE))
+	 workingvalue += 25;
+
  if (IS_SET(obj->bitvector, AFF_SENSE_LIFE))
-	 workingvalue += 3;
+	 workingvalue += 10;
 
  if (IS_SET(obj->bitvector, AFF_MINOR_GLOBE))
-	 workingvalue += 3;
+	 workingvalue += 8;
 
  if (IS_SET(obj->bitvector, AFF_UD_VISION))
-	 workingvalue += 5;
+	 workingvalue += 10;
 
  if (IS_SET(obj->bitvector, AFF_WATERBREATH))
-	 workingvalue += 1;
+	 workingvalue += 5;
 
  if (IS_SET(obj->bitvector, AFF_PROTECT_EVIL))
-	 workingvalue += 1;
+	 workingvalue += 8;
 
  if (IS_SET(obj->bitvector, AFF_SLOW_POISON))
 	 workingvalue += 2;
 
  if (IS_SET(obj->bitvector, AFF_SNEAK))
-	 workingvalue += 35;
+	 workingvalue += 50;
 
  if (IS_SET(obj->bitvector, AFF_BARKSKIN))
-	 workingvalue += 4;
+	 workingvalue += 8;
 
  if (IS_SET(obj->bitvector, AFF_INFRAVISION))
 	 workingvalue += 2;
@@ -2490,22 +2490,22 @@ int itemvalue(P_char ch, P_obj obj)
 	 workingvalue += 3;
 
  if (IS_SET(obj->bitvector, AFF_HIDE))
-	 workingvalue += 18;
+	 workingvalue += 50;
 
  if (IS_SET(obj->bitvector, AFF_FLY))
-	 workingvalue += 7;
+	 workingvalue += 15;
 
  if (IS_SET(obj->bitvector, AFF_AWARE))
-	 workingvalue += 7;
+	 workingvalue += 20;
 
  if (IS_SET(obj->bitvector, AFF_PROT_FIRE))
-	 workingvalue += 2;
+	 workingvalue += 5;
 
  if (IS_SET(obj->bitvector2, AFF2_FIRESHIELD))
 	 workingvalue += 4;
 
  if (IS_SET(obj->bitvector2, AFF2_ULTRAVISION))
-	 workingvalue += 5;
+	 workingvalue += 10;
 
  if (IS_SET(obj->bitvector2, AFF2_DETECT_EVIL))
 	 workingvalue += 2;
@@ -2517,46 +2517,46 @@ int itemvalue(P_char ch, P_obj obj)
 	 workingvalue += 2;
 
  if (IS_SET(obj->bitvector2, AFF2_PROT_COLD))
-	 workingvalue += 2;
+	 workingvalue += 5;
 
  if (IS_SET(obj->bitvector2, AFF2_PROT_LIGHTNING))
-	 workingvalue += 2;
+	 workingvalue += 5;
 
  if (IS_SET(obj->bitvector2, AFF2_GLOBE))
-	 workingvalue += 9;
+	 workingvalue += 20;
 
  if (IS_SET(obj->bitvector2, AFF2_PROT_GAS))
-	 workingvalue += 2;
+	 workingvalue += 5;
 
  if (IS_SET(obj->bitvector2, AFF2_PROT_ACID))
-	 workingvalue += 2;
+	 workingvalue += 5;
 
  if (IS_SET(obj->bitvector2, AFF2_SOULSHIELD))
-    	 workingvalue += 8;
+    	 workingvalue += 15;
 
  if (IS_SET(obj->bitvector2, AFF2_MINOR_INVIS))
 	 workingvalue += 5;
 
  if (IS_SET(obj->bitvector2, AFF2_VAMPIRIC_TOUCH))
-	 workingvalue += 7;
+	 workingvalue += 20;
 
  if (IS_SET(obj->bitvector2, AFF2_EARTH_AURA))
-	 workingvalue += 20;
+	 workingvalue += 50;
 
  if (IS_SET(obj->bitvector2, AFF2_WATER_AURA))
-	 workingvalue += 20;
+	 workingvalue += 50;
 
  if (IS_SET(obj->bitvector2, AFF2_FIRE_AURA))
-	 workingvalue += 20;
+	 workingvalue += 50;
 
  if (IS_SET(obj->bitvector2, AFF2_AIR_AURA))
-	 workingvalue += 20;
+	 workingvalue += 50;
 
  if (IS_SET(obj->bitvector2, AFF2_PASSDOOR))
-	 workingvalue += 8;
+	 workingvalue += 40;
 
  if (IS_SET(obj->bitvector2, AFF2_FLURRY))
-	 workingvalue += 15;
+	 workingvalue += 75;
 
  if (IS_SET(obj->bitvector3, AFF3_PROT_ANIMAL))
 	 workingvalue += 4;
@@ -2565,82 +2565,82 @@ int itemvalue(P_char ch, P_obj obj)
 	 workingvalue += 4;
 
  if (IS_SET(obj->bitvector3, AFF3_GR_SPIRIT_WARD))
-	 workingvalue += 9;
+	 workingvalue += 20;
 
  if (IS_SET(obj->bitvector3, AFF3_ENLARGE))
-	 workingvalue += 15;
+	 workingvalue += 45;
 
  if (IS_SET(obj->bitvector3, AFF3_REDUCE))
-	 workingvalue += 15;
+	 workingvalue += 45;
 
  if (IS_SET(obj->bitvector3, AFF3_INERTIAL_BARRIER))
-	 workingvalue += 15;
+	 workingvalue += 45;
 
  if (IS_SET(obj->bitvector3, AFF3_COLDSHIELD))
-	 workingvalue += 4;
-
- if (IS_SET(obj->bitvector3, AFF3_TOWER_IRON_WILL))
 	 workingvalue += 8;
 
+ if (IS_SET(obj->bitvector3, AFF3_TOWER_IRON_WILL))
+	 workingvalue += 25;
+
  if (IS_SET(obj->bitvector3, AFF3_BLUR))
-	 workingvalue += 10;
+	 workingvalue += 40;
 
  if (IS_SET(obj->bitvector3, AFF3_PASS_WITHOUT_TRACE))
-	 workingvalue += 9;
+	 workingvalue += 30;
 
  if (IS_SET(obj->bitvector4, AFF4_VAMPIRE_FORM))
-	 workingvalue += 20;
+	 workingvalue += 90;
 
  if (IS_SET(obj->bitvector4, AFF4_HOLY_SACRIFICE))
-	 workingvalue += 20;
+	 workingvalue += 50;
 
  if (IS_SET(obj->bitvector4, AFF4_BATTLE_ECSTASY))
-	 workingvalue += 20;
+	 workingvalue += 80;
 
  if (IS_SET(obj->bitvector4, AFF4_DAZZLER))
-	 workingvalue += 10;
+	 workingvalue += 30;
 
  if (IS_SET(obj->bitvector4, AFF4_PHANTASMAL_FORM))
-	 workingvalue += 9;
+	 workingvalue += 30;
 
  if (IS_SET(obj->bitvector4, AFF4_NOFEAR))
-	 workingvalue += 10;
+	 workingvalue += 30;
 
  if (IS_SET(obj->bitvector4, AFF4_REGENERATION))
-	 workingvalue += 10;
+	 workingvalue += 20;
 
  if (IS_SET(obj->bitvector4, AFF4_GLOBE_OF_DARKNESS))
-	 workingvalue += 6;
+	 workingvalue += 15;
 
  if (IS_SET(obj->bitvector4, AFF4_HAWKVISION))
-	 workingvalue += 6;
+	 workingvalue += 16;
 
  if (IS_SET(obj->bitvector4, AFF4_SANCTUARY))
-	 workingvalue += 20;
+	 workingvalue += 60;
 
  if (IS_SET(obj->bitvector4, AFF4_HELLFIRE))
-	 workingvalue += 20;
+	 workingvalue += 80;
 
  if (IS_SET(obj->bitvector4, AFF4_SENSE_HOLINESS))
 	 workingvalue += 5;
 
  if (IS_SET(obj->bitvector4, AFF4_PROT_LIVING))
-	 workingvalue += 4;
+	 workingvalue += 10;
 
  if (IS_SET(obj->bitvector3, AFF3_ENLARGE))
-        workingvalue +=20;
+        workingvalue +=400;
 
  if (IS_SET(obj->bitvector4, AFF4_DETECT_ILLUSION))
-	 workingvalue += 7;
+	 workingvalue += 30;
 
  if (IS_SET(obj->bitvector4, AFF4_ICE_AURA))
-	 workingvalue += 20;
+	 workingvalue += 60;
 
  if (IS_SET(obj->bitvector4, AFF4_NEG_SHIELD))
-	 workingvalue += 8;
+	 workingvalue += 20;
 
  if (IS_SET(obj->bitvector4, AFF4_WILDMAGIC))
-	 workingvalue += 10;
+	 workingvalue += 50;
 
   //------- A0/A1 -------------  
  int i = 0; 
