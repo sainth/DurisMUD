@@ -1933,13 +1933,13 @@ greater orb magic~
 0 0 0 0 0 0 0 0
 0 0 100
 #400232
-elven bag rare duris equipment~
-&+gan &+Gelven &+gbag of &+yRare &+rDuris&+g equipment&n~
-&+LSome idiot has dropped a magical bag here&n~
+innards turkey undigested~
+&+Lthe &+yun&+ydig&+Yest&+Wed &+rinnards &+Lof a &+yturkey&n~
+&+LWhat... the... hell... turkey innards?&n~
 ~
-15 15 3 0 7 0 65545 1 64 0 0
+15 2 3 0 7 0 65545 1 64 0 0
 2 5 0 4 0 0 0 0
-0 10000000 100
+0 1000 100
 E
 mystical energies hand-sewn bag~
 &+BSeemingly crafted from magical energies, this bag contains a random item of great power!&n
@@ -1964,3 +1964,35 @@ bottle past experiences~
 10 8 1 0 15 0 8201 8404993 0 0 0
 60 0 0 0 0 0 0 0
 0 0 100
+#400235
+elven bag rare duris equipment~
+&+gan &+Gelven &+gbag of &+yRare &+rDuris&+g equipment&n~
+&+LSome idiot has dropped a magical bag here&n~
+~
+15 15 3 0 7 0 65545 1 64 0 0
+2 5 0 4 0 0 0 0
+0 10000000 100
+E
+mystical energies hand-sewn bag~
+&+BSeemingly crafted from magical energies, this bag contains a random item of great power!&n
+~
+#400236
+thanksgiving turkey~
+&+ya &+Wdelicious &+yThanksgiving &+YTurkey&n~
+&+yA delicious turkey feast sits here.&n~
+~
+19 2 3 0 7 0 8192 8388609 0 0 0
+24 0 0 0 0 0 0 0
+0 0 100
+#400237
+severed wings turkey~
+&+ythe sev&+Yer&+Wed &+Lwings &+yof a turkey named &+L'&+rDinner&+L'&n~
+&+ya pair of severed wings lies in the dust here.&n~
+~
+9 15 3 0 7 0 33562696 1025 0 0 0
+20 0 0 0 0 0 0 0
+0 0 100 134217728 0 0 0
+A
+54 150
+A
+55 150

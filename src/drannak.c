@@ -2119,3 +2119,18 @@ int get_progress(P_char ch, int ach, uint required)
 
  return percentage;
 }
+
+void thanksgiving_proc(P_char ch)
+{
+  P_char mob;
+  char buff[MAX_STRING_LENGTH];
+  sprintf(buff, " %s 86", GET_NAME(ch));
+  act("&+YSuddenly and without warning, a &+rPlump &+yTurkey &+Yappears out of no where, seemly attracted to the freshly spilled &+Rblood&n!", TRUE, ch, 0, 0, TO_CHAR);
+  act("&+YSuddenly and without warning, a &+rPlump &+yTurkey &+Yappears out of no where, seemly attracted to the freshly spilled &+Rblood&n!", TRUE, ch, 0, 0, TO_ROOM);
+  //do_givepet(ch, buff, CMD_GIVEPET);
+  mob = read_mobile(400005, VIRTUAL);
+  if(!mob)
+  return;
+ obj_to_char(read_object(400232, VIRTUAL), mob);
+ char_to_room(mob, ch->in_room, -2);
+}

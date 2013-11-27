@@ -14801,3 +14801,43 @@ int miners_helmet(P_obj obj, P_char ch, int cmd, char *argument)
    return FALSE;
 }
 
+int thanksgiving_wings(P_obj obj, P_char ch, int cmd, char *argument)
+{
+  char    *arg;
+  int      curr_time;
+  P_char   temp_ch;
+
+  if (cmd == CMD_SET_PERIODIC)
+    return TRUE;
+
+  if (!obj)
+    return FALSE;
+
+  temp_ch = ch;
+
+  if (!ch)
+  {
+    if (OBJ_WORN(obj) && obj->loc.wearing)
+      temp_ch = obj->loc.wearing;
+    else
+      return FALSE;
+  }
+
+  if (!OBJ_WORN(obj))
+    return FALSE;
+
+  if (cmd)
+    return FALSE;
+
+  curr_time = time(NULL);
+
+  if (obj->timer[0] + (int) 200 <= curr_time)
+  {
+  act("&nYou suddenly feel the urge for &+yTURKEY! &nand take a nice &+rbite &nout of your $p!", FALSE, temp_ch, obj, 0, TO_CHAR);
+  act("$n suddenly looks &+Rravenous!&n and takes a huge &+rbite &nout of their $p&n!", FALSE, temp_ch, obj, 0, TO_ROOM);
+    spell_invigorate(30, temp_ch, 0, SPELL_TYPE_POTION, temp_ch, 0);
+    obj->timer[0] = curr_time;
+  }
+  return FALSE;
+}
+

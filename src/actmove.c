@@ -2266,8 +2266,8 @@ void do_open(P_char ch, char *argument, int cmd)
     {
       
 
-      //special proc for bag of random goodness - drannak 4/3/2013
-	if (obj_index[obj->R_num].virtual_number == 400217 || obj_index[obj->R_num].virtual_number == 400232 || obj_index[obj->R_num].virtual_number == 400233)
+      //special proc for bag of random goodness - drannak 4/3/2013 400232= turkey gut
+	if (obj_index[obj->R_num].virtual_number == 400217 || obj_index[obj->R_num].virtual_number == 400235 || obj_index[obj->R_num].virtual_number == 400233 || obj_index[obj->R_num].virtual_number == 400232)
 	{
 	   if ((IS_CARRYING_N(ch) + 1) > CAN_CARRY_N(ch)) //check their inventory
   		{
@@ -2282,10 +2282,12 @@ void do_open(P_char ch, char *argument, int cmd)
 		  send_to_char("You must have the &+Witem&n in your &+Yinventory&n to open it!\r\n", ch);
 		  return;
 		}
-        if(!(obj_index[obj->R_num].virtual_number == 400233))
+        if(obj_index[obj->R_num].virtual_number == 400235 || obj_index[obj->R_num].virtual_number == 400217)
 	 send_to_char("&+mAs you open the &+Mbag&+m, a magical mist &+rex&+Rpl&+Mod&+Wes&+m covering everything!\r\n", ch);
-        else
+        else if(obj_index[obj->R_num].virtual_number == 400233)
 	 send_to_char("&+mAs you open the &+Ychest&+m, a magical mist &+rex&+Rpl&+Mod&+Wes&+m covering everything!\r\n", ch);
+	else //turkey gut
+	 send_to_char("&+rYou thrust your &+yhand &+rdeep into the slimy &+Lgut&+r, covering everything in &+Rblood&+r!\r\n", ch);
 	 char buf[MAX_STRING_LENGTH];
 	 P_obj robj;
 	 long robjint;
@@ -2293,6 +2295,17 @@ void do_open(P_char ch, char *argument, int cmd)
 	 validobj = 0;
 	/*debug sprintf(buf, "validobj value: %d\n\r", validobj);
 	send_to_char(buf, ch);*/
+       if(obj_index[obj->R_num].virtual_number == 400232) //turkey gut
+       {
+        int roll = number(0, 500);
+        if (roll < 5) //big reward
+        robj = read_object(400237, VIRTUAL);
+        else if (roll < 20)
+        robj = read_object(400233, VIRTUAL);
+        else
+        robj = read_object(400236, VIRTUAL);
+       }
+       else
 	 while(validobj == 0)
 	  {
 	 	robjint = number(1300, 134000);
@@ -2307,7 +2320,7 @@ void do_open(P_char ch, char *argument, int cmd)
 		  validobj = 0;
                 extract_obj(robj, FALSE);
 		 }
-              else if((obj_index[obj->R_num].virtual_number == 400232) && itemvalue(ch, robj) < 15)
+              else if((obj_index[obj->R_num].virtual_number == 400235) && itemvalue(ch, robj) < 15)
                {  
 		  validobj = 0;
                 extract_obj(robj, FALSE);
@@ -2335,7 +2348,9 @@ void do_open(P_char ch, char *argument, int cmd)
 	}
 	
 
-
+       if(obj_index[obj->R_num].virtual_number == 400232)
+      	act("&+rAfter some &+Rmessy &+rsearching, you finally find &n$p&+m!\r\n", FALSE, ch, robj, 0, TO_CHAR);
+       else
       	act("&+mWhen at last it clears the &+Mbag&+m is gone, and all that remains is &n$p&+m!\r\n", FALSE, ch, robj, 0, TO_CHAR);
 	obj_to_char(robj, ch);     
 	obj_from_char(obj, TRUE);

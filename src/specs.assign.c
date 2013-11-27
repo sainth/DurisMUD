@@ -1408,6 +1408,8 @@ void assign_objects(void)
   obj_index[real_object0(67215)].func.obj = artifact_biofeedback;
   obj_index[real_object0(23807)].func.obj = blind_boots;
 
+  obj_index[real_object0(400237)].func.obj = thanksgiving_wings;
+
   obj_index[real_object0(12410)].func.obj =
     obj_index[real_object0(19916)].func.obj =
     obj_index[real_object0(23809)].func.obj =
