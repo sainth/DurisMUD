@@ -2285,17 +2285,17 @@ void do_open(P_char ch, char *argument, int cmd)
         if(obj_index[obj->R_num].virtual_number == 400235 || obj_index[obj->R_num].virtual_number == 400217)
         {
 	 send_to_char("&+mAs you open the &+Mbag&+m, a magical mist &+rex&+Rpl&+Mod&+Wes&+m covering everything!\r\n", ch);
-        act("&+mAs $n opens the &+Mbag&+m, a magical mist &+rex&+Rpl&+Mod&+Wes&+m covering everything!", FALSE, temp_ch, obj, 0, TO_ROOM);
+        act("&+mAs $n opens the &+Mbag&+m, a magical mist &+rex&+Rpl&+Mod&+Wes&+m covering everything!", FALSE, ch, obj, 0, TO_ROOM);
 	}
         else if(obj_index[obj->R_num].virtual_number == 400233)
         {
 	 send_to_char("&+mAs you open the &+Ychest&+m, a magical mist &+rex&+Rpl&+Mod&+Wes&+m covering everything!\r\n", ch);
-        act("&+mAs $n opens the &+Ychest&+m, a magical mist &+rex&+Rpl&+Mod&+Wes&+m covering everything!", FALSE, temp_ch, obj, 0, TO_ROOM);
+        act("&+mAs $n opens the &+Ychest&+m, a magical mist &+rex&+Rpl&+Mod&+Wes&+m covering everything!", FALSE, ch, obj, 0, TO_ROOM);
         }
 	else //turkey gut
         {
 	 send_to_char("&+rYou thrust your &+yhand &+rdeep into the slimy &+Lgut&+r, covering everything in &+Rblood&+r!\r\n", ch);
-        act("&+r$n&+r thrusts their &+yhand &+rdeep into the slimy &+Lgut&+r, covering everything in &+Rblood&+r!", FALSE, temp_ch, obj, 0, TO_ROOM);
+        act("&+r$n&+r thrusts their &+yhand &+rdeep into the slimy &+Lgut&+r, covering everything in &+Rblood&+r!", FALSE, ch, obj, 0, TO_ROOM);
         }
 	 char buf[MAX_STRING_LENGTH];
 	 P_obj robj;
