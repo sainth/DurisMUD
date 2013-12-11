@@ -5070,6 +5070,10 @@ if(obj_index[temp->R_num].virtual_number == 1252)
     return FALSE;
    }
 
+ if(IS_SET(temp->extra2_flags, ITEM2_SOULBIND))
+  return FALSE;
+
+
   if (temp->type == ITEM_WAND)
    {
     return FALSE;

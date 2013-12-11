@@ -1785,7 +1785,7 @@ robe netheril battle mage~
 &+Ya r&+ro&+Yb&+re &+Yof a &+mN&+We&+Mt&+Wh&+me&+Wr&+Mi&+Wl &+rBa&+Ytt&+rle&+Y M&+rag&+Ye&n~
 &+YA golden cloak of immense &+mpower &+Yfloats here on the ground.&n~
 ~
-9 1 4 0 15 0 33562632 9 64 28405851 0
+9 1 4 0 15 0 33562624 9 64 28405851 0
 -40 0 0 0 0 0 0 0
 0 0 100
 E
@@ -1996,3 +1996,35 @@ A
 54 125
 A
 55 125
+#400238
+brain small piece~
+&+wa small piece of &+Mbrain &+wfrom &n~
+&+Ma small piece of brain rests here on the ground.&n~
+~
+19 2 3 0 7 0 8454152 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 100
+#400239
+brain small chunk~
+&+wa medium chunk of &+Mbrain &+wfrom &n~
+&+Ma small piece of brain rests here on the ground.&n~
+~
+19 2 3 0 7 0 8454152 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 100
+#400240
+brain~
+&+wthe &+Mbrain &+wof &n~
+&+Ma small piece of brain rests here on the ground.&n~
+~
+19 2 3 0 7 0 8454152 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 100
+#400241
+brain~
+&+wthe &+Mbrain &+wof &n~
+&+Ma small piece of brain rests here on the ground.&n~
+~
+19 2 3 0 7 0 8454152 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 100
