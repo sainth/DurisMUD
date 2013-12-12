@@ -79,6 +79,7 @@ extern P_nevent ne_schedule[];
 long unsigned int ip2ul(const char *ip);
 void load_alliances();
 void initialize_transport();
+void load_towns();
 
 /* local globals */
 
@@ -388,6 +389,9 @@ void run_the_game(int port)
 
   fprintf(stderr, "-- Loading alliances\r\n");
   load_alliances();
+
+  fprintf(stderr, "-- Loading town data\r\n");
+  load_towns();
 
   fprintf(stderr, "-- Updating leaderboard\r\n");
   newLeaderBoard(NULL, NULL, NULL);

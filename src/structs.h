@@ -661,6 +661,18 @@ struct zone_data {
   int avg_mob_level;
 };
 
+struct town {
+  int level;
+  int defense;
+  int offense;
+
+  struct zone_data *zone;
+
+  town *next_town;
+};
+
+typedef struct town *P_town;
+
 struct table_element {
    int weight;
    int virtual_number;

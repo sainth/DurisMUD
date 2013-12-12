@@ -1072,6 +1072,7 @@ const char *command[] = {
   "conjure",
   "dismiss",
   "enhance",
+  "add",
   "\n"                          /* MAX_CMD_LIST is now 1000 */
 };
 
@@ -2275,6 +2276,7 @@ void assign_command_pointers(void)
   CMD_GRT(CMD_RESETARTI, STAT_DEAD + POS_PRONE, do_artireset, OVERLORD);
   CMD_GRT(CMD_RESETSPEC, STAT_DEAD + POS_PRONE, do_unspec, FORGER);
   CMD_GRT(CMD_STATISTIC, STAT_DEAD + POS_PRONE, do_statistic, FORGER);
+  CMD_GRT(CMD_ADD, STAT_DEAD + POS_PRONE, do_add, FORGER);
   CMD_GRT(CMD_STORAGE, STAT_DEAD + POS_PRONE, do_storage, GREATER_G);
   CMD_GRT(CMD_NEWBSU, STAT_DEAD + POS_PRONE, do_newb_spellup, LESSER_G);
   CMD_GRT(CMD_NEWBSA, STAT_DEAD + POS_PRONE, do_newb_spellup_all, LESSER_G);
