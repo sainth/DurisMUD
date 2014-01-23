@@ -665,10 +665,21 @@ struct town {
   int  resources;
   int  defense;
   int  offense;
+
   bool deploy_guard;
+  bool deploy_cavalry;
+  bool deploy_portals;
+
   int  guard_vnum;
   int  guard_max;
   int  guard_load_room;
+
+  int  cavalry_vnum;
+  int  cavalry_max;
+  int  cavalry_load_room;
+
+  int  portal_vnum;
+  int  portal_load_room;
 
   struct zone_data *zone;
 

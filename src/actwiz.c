@@ -10212,12 +10212,24 @@ void load_towns()
 
         (*town)->zone = &(zone_table[i]);
 
+        // Offense/defense/resources
         fgets( line, sizeof line, town_file );
         sscanf(line, "%i %i %i\n", &((*town)->offense), &((*town)->defense), &((*town)->resources));
+        // Guards
         fgets( line, sizeof line, town_file );
         (*town)->deploy_guard = !strcmp( line, "TRUE\n" ) ? TRUE : FALSE;
         fgets( line, sizeof line, town_file );
         sscanf(line, "%i %i %i\n", &((*town)->guard_vnum), &((*town)->guard_max), &((*town)->guard_load_room));
+        // Cavalry
+        fgets( line, sizeof line, town_file );
+        (*town)->deploy_cavalry = !strcmp( line, "TRUE\n" ) ? TRUE : FALSE;
+        fgets( line, sizeof line, town_file );
+        sscanf(line, "%i %i %i\n", &((*town)->cavalry_vnum), &((*town)->cavalry_max), &((*town)->cavalry_load_room));
+        // Portals
+        fgets( line, sizeof line, town_file );
+        (*town)->deploy_portals = !strcmp( line, "TRUE\n" ) ? TRUE : FALSE;
+        fgets( line, sizeof line, town_file );
+        sscanf(line, "%i %i\n", &((*town)->portal_vnum), &((*town)->portal_load_room));
 
 //        logit(LOG_DEBUG, "Town loaded: '%s'", zone_table[i].filename);
 
@@ -10259,8 +10271,13 @@ void save_towns()
     // Save the info.
     fprintf(town_file, "%s\n", town->zone->filename);
     fprintf(town_file, "%d %d %d\n", town->offense, town->defense, town->resources);
-    fprintf(town_file, "%s\n", town->deploy_guard?"TRUE":"FALSE");
+    fprintf(town_file, "%s\n", town->deploy_guard ? "TRUE" : "FALSE");
     fprintf(town_file, "%d %d %d\n", town->guard_vnum, town->guard_max, town->guard_load_room);
+    fprintf(town_file, "%s\n", town->deploy_cavalry ? "TRUE" : "FALSE");
+    fprintf(town_file, "%d %d %d\n", town->cavalry_vnum, town->cavalry_max, town->cavalry_load_room);
+    fprintf(town_file, "%s\n", town->deploy_portals ? "TRUE" : "FALSE");
+    fprintf(town_file, "%d %d\n", town->portal_vnum, town->portal_load_room);
+
   }
   fclose(town_file);
 }
@@ -10275,15 +10292,15 @@ void list_town( P_char ch, P_town town )
     return;
   }
 
-  if( town->zone )
-    // Show town name: level, off, def.
-    sprintf( buf, "Town '%s': Resources %d, Offense %d, Defense %d, Guards: %s: %d %d %d.\n",
-      town->zone->name, town->resources, town->offense, town->defense,
-      town->deploy_guard ? "YES" : "NO", town->guard_max, town->guard_vnum, town->guard_load_room );
-  else
-    sprintf( buf, "Town 'Unknown': Level %d, Offense %d, Defense %d, Guards: %s: %d %d %d.\n",
-      town->resources, town->offense, town->defense, town->deploy_guard ? "YES" : "NO",
-      town->guard_max, town->guard_vnum, town->guard_load_room );
+  // Show town name: level, off, def.
+  sprintf( buf, "Town '%s': Resources %d, Offense %d, Defense %d\n"
+                "  Guards:  %3s: Max %3d Vnum %6d Room %6d.\n"
+                "  Cavalry: %3s: Max %3d Vnum %6d Room %6d.\n"
+                "  Portals: %3s:         Vnum %6d Room %6d.\n",
+    (town->zone != NULL) ? town->zone->name : "Unknown", town->resources, town->offense, town->defense,
+    town->deploy_guard ? "YES" : "NO", town->guard_max, town->guard_vnum, town->guard_load_room,
+    town->deploy_cavalry ? "YES" : "NO", town->cavalry_max, town->cavalry_vnum, town->cavalry_load_room, 
+    town->deploy_portals ? "YES" : "NO", town->portal_vnum, town->portal_load_room );
   send_to_char( buf, ch );
 }
 

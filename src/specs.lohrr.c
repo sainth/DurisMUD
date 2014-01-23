@@ -886,7 +886,7 @@ bool check_gates( P_char ch, int room )
   for( dir = 0; dir < NUM_EXITS; dir++ )
   {
     if( world[ch->in_room].dir_option[dir]
-     && world[ch->in_room].dir_option[dir] == room )
+     && world[ch->in_room].dir_option[dir]->to_room == room )
       break;
   }
   // If no exit to room, no gate can block it.
@@ -1138,8 +1138,10 @@ P_town gettown( P_char ch )
 int warmaster( P_char ch, P_char pl, int cmd, char *arg )
 {
   P_town town;
-  char buf[MAX_STRING_LENGTH];
-  P_obj donation;
+  char buf[MAX_STRING_LENGTH], arg1[MAX_STRING_LENGTH];
+  char arg2[MAX_STRING_LENGTH];
+  char *rest;
+  P_obj donation, siege;
 
   if( cmd == CMD_SET_PERIODIC )
     return FALSE;
@@ -1172,16 +1174,23 @@ int warmaster( P_char ch, P_char pl, int cmd, char *arg )
     }
 
     // List town's name, offense, defense, and resrources..
-    sprintf( buf, "'%s'\nOffense:     %9d\nDefense:     %9d\nResources:   %9d\n"
-                  "Town Guards: %s\n\n",
+    sprintf( buf, "'%s'\nOffense:     %7d\nDefense:     %7d\nResources:   %7d\n"
+                  "Town Guards:  %s\nTown Cavalry: %s\nTown Portals: %s\n\n",
                   town->zone->name, town->offense, town->defense, town->resources, 
-                  town->deploy_guard ? " Deployed" : "Not Deployed" );
+                  town->deploy_guard ? "  Deployed" : "Not Deployed",
+                  town->deploy_cavalry ? "  Deployed" : "Not Deployed",
+                  town->deploy_portals ? "  Deployed" : "Not Deployed" );
     send_to_char( buf, pl );
+
     if( IS_TRUSTED( pl ) )
     {
-      sprintf( buf, "Guards: %d deployed of %d max, vnum %d, load in room %d.\n\n", 
+      sprintf( buf, "Guards: %d deployed of %d max, vnum %d, load in room %d.\n", 
         mob_index[real_mobile(town->guard_vnum)].number, town->guard_max, town->guard_vnum, 
         town->guard_load_room );
+      send_to_char( buf, pl );
+      sprintf( buf, "Cavalry: %d deployed of %d max, vnum %d, load in room %d.\n\n", 
+        mob_index[real_mobile(town->cavalry_vnum)].number, town->cavalry_max, town->cavalry_vnum, 
+        town->cavalry_load_room );
       send_to_char( buf, pl );
     }
 
@@ -1196,13 +1205,17 @@ int warmaster( P_char ch, P_char pl, int cmd, char *arg )
       return TRUE;
     if( IS_SET( pl->specials.act3, PLR3_SURCOMMONER ) )
       return TRUE;
+    send_to_char( "You can buy a catapult, ballista, or battering ram.\n", pl );
+    send_to_char( "You can buy some town gates.\n", pl );
     if( IS_SET( pl->specials.act3, PLR3_SURKNIGHT ) )
       return TRUE;
     if( IS_SET( pl->specials.act3, PLR3_SURNOBLE ) )
       return TRUE;
     send_to_char( "You can deploy guards/stop deployment with the deploy command.\n", pl );
+    send_to_char( "You can deploy town portals/stop deployment with the deploy command.\n", pl );
     if( IS_SET( pl->specials.act3, PLR3_SURLORD ) )
       return TRUE;
+    send_to_char( "You can deploy cavalry/stop deployment with the deploy command.\n", pl );
     if( IS_SET( pl->specials.act3, PLR3_SURKING ) )
       return TRUE;
 
@@ -1249,23 +1262,169 @@ int warmaster( P_char ch, P_char pl, int cmd, char *arg )
       logit(LOG_DEBUG, "warmaster: called outside of town.");
       return FALSE;
     }
-    // Toggle deploy guard and save
-    if( town->deploy_guard )
+
+    one_argument( arg, arg1 );
+    if( *arg1 == '\0' )
     {
-      send_to_char( "Town guards will now not be deployed.\n", pl );
-      town->deploy_guard = FALSE;
+      send_to_char( "You can deploy: guards, calvary, or portals.\n", pl );
+      return TRUE;
     }
-    else
+    if( is_abbrev( arg1, "guards" ) )
     {
-      send_to_char( "Town guards will now be deployed.\n", pl );
-      town->deploy_guard = TRUE;
+      // Toggle deploy guard and save
+      if( town->deploy_guard )
+      {
+        send_to_char( "Town guards will now not be deployed.\n", pl );
+        town->deploy_guard = FALSE;
+      }
+      else
+      {
+        send_to_char( "Town guards will now be deployed.\n", pl );
+        town->deploy_guard = TRUE;
+      }
+      save_towns();
+      return TRUE;
     }
-    save_towns();
-    return TRUE;
+    else if( is_abbrev( arg1, "cavalry" ) )
+    {
+      if( IS_SET( pl->specials.act3, PLR3_SURLORD ) )
+        return FALSE;
+      // Toggle deploy guard and save
+      if( town->deploy_cavalry )
+      {
+        send_to_char( "Town cavalry will now not be deployed.\n", pl );
+        town->deploy_cavalry = FALSE;
+      }
+      else
+      {
+        send_to_char( "Town calvary will now be deployed.\n", pl );
+        town->deploy_cavalry = TRUE;
+      }
+      save_towns();
+      return TRUE;
+    }
+    else if( is_abbrev( arg1, "portals" ) )
+    {
+      // Toggle deploy guard and save
+      if( town->deploy_portals )
+      {
+        send_to_char( "Town portals will now not be deployed.\n", pl );
+        town->deploy_portals = FALSE;
+      }
+      else
+      {
+        send_to_char( "Town portals will now be deployed.\n", pl );
+        town->deploy_portals = TRUE;
+      }
+      save_towns();
+      return TRUE;
+    }
   }
+  if( cmd == CMD_BUY )
+  {
+    // People that can't buy anything here.
+    if( IS_SET( pl->specials.act3, PLR3_NOSUR ) 
+     || IS_SET( pl->specials.act3, PLR3_SURSERF ) 
+     || IS_SET( pl->specials.act3, PLR3_SURCOMMONER ) )
+      return FALSE;
+
+    rest = one_argument( arg, arg1 );
+    rest = one_argument( rest, arg2 );
+    if( *arg1 == '\0' )
+    {
+      send_to_char( "You can buy a catapult, ballista, or battering ram.\n", pl );
+      send_to_char( "You can buy some town gates.\n", pl );
+      return TRUE;
+    }
+    if( is_abbrev( arg1, "ballista" ) )
+    {
+      if( 5000 * 1000 > GET_MONEY(pl) )
+      {
+        send_to_char( "A ballista costs 5000 platinum.\n", pl );
+        return TRUE;
+      }
+      else
+      {
+        // Load them a ballista and take the cash.
+        siege = read_object(real_object(461), REAL);
+        if( !siege )
+        {
+          logit(LOG_DEBUG, "warmaster: couldn't load ballista.");
+          return FALSE;
+        }
+        SUB_MONEY( pl, 5000 * 1000, 0 );
+        obj_to_room( siege, pl->in_room );
+        act( "You buy $p.", FALSE, pl, siege, NULL, TO_CHAR );
+        act( "$n buys $p.", FALSE, pl, siege, NULL, TO_ROOM );
+        return TRUE;
+      }
+    }
+    if( is_abbrev( arg1, "battering" ) 
+     || is_abbrev( arg1, "ram" ) )
+    {
+      if( 5000 * 1000 > GET_MONEY(pl) )
+      {
+        send_to_char( "A battering ram costs 5000 platinum.\n", pl );
+        return TRUE;
+      }
+      else
+      {
+        // Load them a battering ram and take the cash.
+        siege = read_object(real_object(462), REAL);
+        if( !siege )
+        {
+          logit(LOG_DEBUG, "warmaster: couldn't load battering ram.");
+          return FALSE;
+        }
+        SUB_MONEY( pl, 5000 * 1000, 0 );
+        obj_to_room( siege, pl->in_room );
+        act( "You buy $p.", FALSE, pl, siege, NULL, TO_CHAR );
+        act( "$n buys $p.", FALSE, pl, siege, NULL, TO_ROOM );
+        return TRUE;
+      }
+    }
+    if( is_abbrev( arg1, "catapult" ) )
+    {
+      if( 5000 * 1000 > GET_MONEY(pl) )
+      {
+        send_to_char( "A catapult costs 5000 platinum.\n", pl );
+        return TRUE;
+      }
+      else
+      {
+        // Load them a catapult and take the cash.
+        siege = read_object(real_object(463), REAL);
+        if( !siege )
+        {
+          logit(LOG_DEBUG, "warmaster: couldn't load catapult.");
+          return FALSE;
+        }
+        SUB_MONEY( pl, 5000 * 1000, 0 );
+        obj_to_room( siege, pl->in_room );
+        act( "You buy $p.", FALSE, pl, siege, NULL, TO_CHAR );
+        act( "$n buys $p.", FALSE, pl, siege, NULL, TO_ROOM );
+        return TRUE;
+      }
+    }
+// need to add buying town gates
+    if( is_abbrev( arg1, "town" ) 
+     || is_abbrev( arg1, "gates" ) )
+    {
+      if( *arg2 == '\0' )
+      {
+        send_to_char( "You can buy: \n", ch );
+        send_to_char( "No gates atm.\n", ch );
+
+      }
+      send_to_char( "Town gates not buyable yet..\n", pl );
+      return TRUE;
+    }
+  }
+
   return FALSE;
 }
 
+// Checks to see if it's time to deploy guards/cavalry/portals.
 void check_deploy( struct zone_data *zone )
 {
   P_town town = towns;
@@ -1277,22 +1436,44 @@ void check_deploy( struct zone_data *zone )
   while( town && town->zone != zone )
     town = town->next_town;
   // If no town data, or not set to deploy.
-  if( !town || !town->deploy_guard )
+  if( !town )
     return;
 
-  rnum = real_mobile( town->guard_vnum );
-
-  sprintf( buf, "Mob: %d '%s': Current load: %d, Max load: %d in room: %d.",
-    town->guard_vnum, mob_index[rnum].desc2, mob_index[rnum].number,
-    mob_index[rnum].limit, town->guard_load_room );
-  wizlog( 60, buf );
-
-  // Deploy guards if necessary..
-  for( i = mob_index[rnum].number;
-    i < mob_index[rnum].limit; i++ )
+  if( town->deploy_guard && town->guard_vnum )
   {
-    mob = read_mobile(rnum, REAL);
-    apply_zone_modifier(mob);
-    char_to_room(mob, real_room(town->guard_load_room), -1);
+    rnum = real_mobile( town->guard_vnum );
+
+    sprintf( buf, "Mob: %d '%s': Current load: %d, Max load: %d in room: %d.",
+      town->guard_vnum, mob_index[rnum].desc2, mob_index[rnum].number,
+      mob_index[rnum].limit, town->guard_load_room );
+    wizlog( 60, buf );
+
+    // Deploy guards if necessary..
+    for( i = mob_index[rnum].number; i < mob_index[rnum].limit; i++ )
+    {
+      mob = read_mobile(rnum, REAL);
+      apply_zone_modifier(mob);
+      char_to_room(mob, real_room(town->guard_load_room), -1);
+    }
   }
+  if( town->deploy_cavalry && town->cavalry_vnum )
+  {
+    rnum = real_mobile( town->cavalry_vnum );
+
+    sprintf( buf, "Mob: %d '%s': Current load: %d, Max load: %d in room: %d.",
+      town->cavalry_vnum, mob_index[rnum].desc2, mob_index[rnum].number,
+      mob_index[rnum].limit, town->cavalry_load_room );
+    wizlog( 60, buf );
+    
+    // Deploy cavalry if necessary..
+    for( i = mob_index[rnum].number; i < mob_index[rnum].limit; i++ )
+    {
+      mob = read_mobile(rnum, REAL);
+      apply_zone_modifier(mob);
+      char_to_room(mob, real_room(town->cavalry_load_room), -1);
+    }
+  }
+// Need to add portals
+
 }
+
