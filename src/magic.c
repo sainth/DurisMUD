@@ -14456,13 +14456,16 @@ void spell_feeblemind(int level, P_char ch, char *arg, int type, P_char victim, 
       }
       else // We guessing it's a regular caster.
       {
-        if(!victim)
+        if(!victim || !IS_PC(victim))
         {
           return;
         }
         struct affected_type *af2, *next_af2;
         for(af2 = victim->affected; af2; af2 = next_af2)
         {
+          if(!af2)
+          break;
+
           next_af2 = af2->next;
           if(af2->type == TAG_MEMORIZE)
           {

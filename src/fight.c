@@ -4333,7 +4333,7 @@ int spell_damage(P_char ch, P_char victim, double dam, int type, uint flags,
 	}
 */
 	if (has_innate(victim, MAGIC_VULNERABILITY) && (GET_RACE(victim) == RACE_OGRE))
-        dam *= 1.15;
+        dam *= 1.10;
 
        if(has_innate(victim, MAGIC_VULNERABILITY) && (GET_RACE(victim) == RACE_FIRBOLG))
         dam *= 1.10; 
