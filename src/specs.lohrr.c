@@ -1417,6 +1417,12 @@ int warmaster( P_char ch, P_char pl, int cmd, char *arg )
         return FALSE;
       }
 
+      if( 5000 * 1000 > GET_MONEY(pl) )
+      {
+        send_to_char( "Town gates cost 5000 platinum.\n", pl );
+        return TRUE;
+      }
+
       ztop = town->zone->real_top;
       count = 0;
       if( *arg2 == '\0' )
@@ -1471,6 +1477,7 @@ int warmaster( P_char ch, P_char pl, int cmd, char *arg )
                 obj_to_room( siege, i );//world[i].dir_option[j]->to_room );
                 act( "You buy $p.", FALSE, pl, siege, NULL, TO_CHAR );
                 act( "$n buys $p.", FALSE, pl, siege, NULL, TO_ROOM );
+                SUB_MONEY( pl, 5000 * 1000, 0 );
                 return TRUE;
               }
             }

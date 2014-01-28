@@ -3975,57 +3975,43 @@ void do_attributes(P_char ch, char *argument, int cmd)
 
 //drannak new way
   char o_buf[MAX_STRING_LENGTH] = "", buf2[MAX_STRING_LENGTH] = "";
+  strcat(o_buf, "  &+GActual &n(&+gBase&n)     &+GActual &n(&+gBase&n)\n");
 
- strcat(o_buf, "  &+GActual &n(&+gBase&n)     &+GActual &n(&+gBase&n)\n");
- int i, i2, i3;
- P_char k = ch;
-    for (i = 0, i3 = 0; i < MAX_WEAR; i++)
-      if(k->equipment[i])
-        i3++;
-    i2 = (int) (GET_HEIGHT(k));
-    i = (int) (i2 / 12);
-    i2 -= i * 12;
+  int i, i2, i3;
+  for (i = i3 = 0; i < MAX_WEAR; i++)
+    if(ch->equipment[i])
+      i3++;
+  i2 = (int) (GET_HEIGHT(ch));
+  i = (int) (i2 / 12);
+  i2 -= i * 12;
 
-    sprintf(buf,
-            "&+YStr: &n%3d&+Y (&n%3d&+Y)    Pow: &n%3d&+Y (&n%3d&+Y)\n",
-            GET_C_STR(k), MAX(1,
-                  (int) ((GET_C_STR(ch) * 100 /
-                          stat_factor[(int) GET_RACE(ch)].Str) + .55)), GET_C_POW(k), MAX(1,
-                  (int) ((GET_C_POW(ch) * 100 /
-                          stat_factor[(int) GET_RACE(ch)].Pow) + .55)));
-    strcat(o_buf, buf);
+  sprintf(buf, "&+YStr: &n%3d&+Y (&n%3d&+Y)    Pow: &n%3d&+Y (&n%3d&+Y)\n",
+    GET_C_STR(ch), MAX(1, (int) ((GET_C_STR(ch) * 100 /
+    stat_factor[(int) GET_RACE(ch)].Str) + .55)), GET_C_POW(ch), MAX(1,
+    (int) ((GET_C_POW(ch) * 100 / stat_factor[(int) GET_RACE(ch)].Pow) + .55)));
+  strcat(o_buf, buf);
 
-    sprintf(buf,
-            "&+YDex: &n%3d&+Y (&n%3d&+Y)    Int: &n%3d&+Y (&n%3d&+Y)   \n",
-            GET_C_DEX(k), MAX(1,
-                  (int) ((GET_C_DEX(ch) * 100 /
-                          stat_factor[(int) GET_RACE(ch)].Dex) + .55)), GET_C_INT(k), MAX(1,
-                  (int) ((GET_C_INT(ch) * 100 /
-                          stat_factor[(int) GET_RACE(ch)].Int) + .55)));
-    strcat(o_buf, buf);
+  sprintf(buf, "&+YDex: &n%3d&+Y (&n%3d&+Y)    Int: &n%3d&+Y (&n%3d&+Y)   \n",
+    GET_C_DEX(ch), MAX(1, (int) ((GET_C_DEX(ch) * 100 /
+    stat_factor[(int) GET_RACE(ch)].Dex) + .55)), GET_C_INT(ch), MAX(1,
+    (int) ((GET_C_INT(ch) * 100 / stat_factor[(int) GET_RACE(ch)].Int) + .55)));
+  strcat(o_buf, buf);
 
-    sprinttype(GET_ALT_SIZE(k), size_types, buf2);
-    sprintf(buf,
-            "&+YAgi: &n%3d&+Y (&n%3d&+Y)    Wis: &n%3d&+Y (&n%3d&+Y)\n",
-            GET_C_AGI(k), MAX(1,
-                  (int) ((GET_C_AGI(ch) * 100 /
-                          stat_factor[(int) GET_RACE(ch)].Agi) + .55)), GET_C_WIS(k), MAX(1,
-                  (int) ((GET_C_WIS(ch) * 100 /
-                          stat_factor[(int) GET_RACE(ch)].Wis) + .55)));
-    strcat(o_buf, buf);
+  sprinttype(GET_ALT_SIZE(ch), size_types, buf2);
+  sprintf(buf, "&+YAgi: &n%3d&+Y (&n%3d&+Y)    Wis: &n%3d&+Y (&n%3d&+Y)\n",
+    GET_C_AGI(ch), MAX(1, (int) ((GET_C_AGI(ch) * 100 /
+    stat_factor[(int) GET_RACE(ch)].Agi) + .55)), GET_C_WIS(ch), MAX(1,
+    (int) ((GET_C_WIS(ch) * 100 / stat_factor[(int) GET_RACE(ch)].Wis) + .55)));
+  strcat(o_buf, buf);
 
-    sprintf(buf,
-            "&+YCon: &n%3d&+Y (&n%3d&+Y)    Cha: &n%3d&+Y (&n%3d&+Y)   Luc: &n%3d&+Y\n&+cEquipped Items: &n%3d&+Y     &+cCarried weight:&n%5d\n\n",
-            GET_C_CON(k), MAX(1,
-                  (int) ((GET_C_CON(ch) * 100 /
-                          stat_factor[(int) GET_RACE(ch)].Con) + .55)), GET_C_CHA(k), MAX(1,
-                  (int) ((GET_C_CHA(ch) * 100 /
-                          stat_factor[(int) GET_RACE(ch)].Cha) + .55)), GET_C_LUK(k),
-            MAX(1,
-                  (int) ((GET_C_LUK(ch) * 100 /
-                          stat_factor[(int) GET_RACE(ch)].Luck) + .55)),
-            i3, IS_CARRYING_W(k));
-    strcat(o_buf, buf);
+  sprintf(buf, "&+YCon: &n%3d&+Y (&n%3d&+Y)    Cha: &n%3d&+Y (&n%3d&+Y)   Luc: &n%3d&+Y (&n%3d&+Y)\n"
+               "&+cEquipped Items: &n%3d&+Y     &+cCarried weight:&n%5d\n\n",
+    GET_C_CON(ch), MAX(1, (int) ((GET_C_CON(ch) * 100 /
+    stat_factor[(int) GET_RACE(ch)].Con) + .55)), GET_C_CHA(ch), MAX(1,
+    (int) ((GET_C_CHA(ch) * 100 / stat_factor[(int) GET_RACE(ch)].Cha) + .55)), 
+    GET_C_LUK(ch), MAX(1, (int) ((GET_C_LUK(ch) * 100 /
+    stat_factor[(int) GET_RACE(ch)].Luck) + .55)), i3, IS_CARRYING_W(ch));
+  strcat(o_buf, buf);
 
    /* sprintf(buf,
             "&+YKar: &n%3d&+Y (&n%3d&+Y)    Luc: &n%3d&+Y (&n%3d&+Y)    Carried Items: &n%3d&+Y   Max Carry Weight:&n%5d\n",
@@ -4033,13 +4019,13 @@ void do_attributes(P_char ch, char *argument, int cmd)
             k->base_stats.Luck, IS_CARRYING_N(k), CAN_CARRY_W(k));
     strcat(o_buf, buf);*/
 
-    i = GET_C_STR(k) + GET_C_DEX(k) + GET_C_AGI(k) + GET_C_CON(k) +
-      GET_C_POW(k) + GET_C_INT(k) + GET_C_WIS(k) + GET_C_CHA(k);
+    i = GET_C_STR(ch) + GET_C_DEX(ch) + GET_C_AGI(ch) + GET_C_CON(ch) +
+      GET_C_POW(ch) + GET_C_INT(ch) + GET_C_WIS(ch) + GET_C_CHA(ch);
 
     i2 =
-      k->base_stats.Str + k->base_stats.Dex + k->base_stats.Agi +
-      k->base_stats.Con + k->base_stats.Pow + k->base_stats.Int +
-      k->base_stats.Wis + k->base_stats.Cha;
+      ch->base_stats.Str + ch->base_stats.Dex + ch->base_stats.Agi +
+      ch->base_stats.Con + ch->base_stats.Pow + ch->base_stats.Int +
+      ch->base_stats.Wis + ch->base_stats.Cha;
 
  /*   sprintf(buf,
             "&+YAvg: &n%3d&+Y (&n%3d&+Y)  Total mod: (&n%3d&+Y)              Load modifer: &n%3d\n\n",
