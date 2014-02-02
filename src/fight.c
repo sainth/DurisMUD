@@ -5226,12 +5226,12 @@ void check_vamp(P_char ch, P_char victim, double fdam, uint flags)
 
     if (GET_MANA(ch) < GET_MAX_MANA(ch))
     {
-      StartRegen(victim, EVENT_MANA_REGEN);   
+      StartRegen(ch, EVENT_MANA_REGEN);   
     }
 
     can_mana = BOUNDED(0, can_mana, 100);
    
-    GET_MANA(victim) -= BOUNDED(0, number(1, can_mana), GET_MANA(ch));
+    GET_MANA(victim) -= BOUNDED(0, number(1, can_mana), GET_MANA(victim));
     
     if (GET_MANA(victim) < GET_MAX_MANA(victim))
     {
