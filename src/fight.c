@@ -2845,6 +2845,7 @@ void kill_gain(P_char ch, P_char victim)
   {
     send_to_char("You receive your share of experience.\r\n", ch);
     gain_exp(ch, victim, gain, EXP_KILL);
+    if(IS_PC(ch))
     add_bloodlust(ch, victim);
 
     update_achievements(ch, victim, 0, 2);//this is for all kinds of kill-type quests
@@ -2946,6 +2947,7 @@ void kill_gain(P_char ch, P_char victim)
       
       send_to_char("You receive your share of experience.\r\n", gl->ch);
       gain_exp(gl->ch, victim, (XP + (XP*(group_size*.25))), EXP_KILL);
+          if(IS_PC(gl->ch))
           add_bloodlust(gl->ch, victim);
     update_achievements(gl->ch, victim, 0, 2);//this is for all kinds of kill-type quests
     if((GET_LEVEL(victim) > 30) && !IS_PC(victim) && !affected_by_spell(victim, TAG_CONJURED_PET))
