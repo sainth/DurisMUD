@@ -117,7 +117,7 @@ bool praying_class(P_char ch)
 bool meming_class(P_char ch)
 {
   return IS_MEMING_CLASS(ch->player.m_class) ||
-    (!IS_CASTER_CLASS(ch->player.m_class) &&
+    (!IS_CASTER_CLASS(ch->player.m_class) && !USES_MANA(ch) &&
      IS_MEMING_CLASS(ch->player.secondary_class));
 }
 

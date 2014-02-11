@@ -1613,8 +1613,8 @@ bool parse_spell(P_char ch, char *argument,
   {
   }
   
-  //else if (USES_MANA(ch))
-else if (GET_CLASS(ch, CLASS_PSIONICIST) || GET_CLASS(ch, CLASS_MINDFLAYER))
+  else if (USES_MANA(ch))
+//else if (GET_CLASS(ch, CLASS_PSIONICIST) || GET_CLASS(ch, CLASS_MINDFLAYER))
   {
     if (GET_MANA(ch) < 1 && circle != -1)
     {
@@ -1845,7 +1845,7 @@ void do_will(P_char ch, char *argument, int cmd)
   P_char tar_char;
 
   memset(&tmp_spl, 0, sizeof(tmp_spl));
-  if (!GET_CLASS(ch, CLASS_PSIONICIST) && !GET_CLASS(ch, CLASS_MINDFLAYER) && !IS_TRUSTED(ch) && !IS_PILLITHID(ch))
+  if (!USES_MANA(ch))
   {
     send_to_char("Your character lacks the training to enforce his will.\n", ch);
     return;
@@ -2107,8 +2107,7 @@ void do_cast(P_char ch, char *argument, int cmd)
     send_to_char("You are too filled with &+RRAGE&N to cast!\n", ch);
     return;
   }
-  if ((GET_CLASS(ch, CLASS_PSIONICIST) || GET_CLASS(ch, CLASS_MINDFLAYER)) &&
-      !IS_TRUSTED(ch))
+  if( USES_MANA(ch) && !IS_TRUSTED(ch) )
   {
     send_to_char("Psionicists use the command &+Bwill&n to use their abilities.\n", ch);
     return;
@@ -2151,9 +2150,7 @@ void do_cast(P_char ch, char *argument, int cmd)
   argument = skip_spaces(argument);
   orig_arg = argument;
 
-  if (IS_AFFECTED2(ch, AFF2_SILENCED) &&
-      !GET_CLASS(ch, CLASS_PSIONICIST) && 
-      !GET_CLASS(ch, CLASS_MINDFLAYER) && 
+  if (IS_AFFECTED2(ch, AFF2_SILENCED) && !USES_MANA(ch) && 
       !GET_CHAR_SKILL(ch, SKILL_SILENT_SPELL) && !IS_TRUSTED(ch))
   {
     send_to_char
@@ -2601,7 +2598,7 @@ void event_spellcast(P_char ch, P_char victim, P_obj obj, void *data)
      GET_NAME(tar_char), ch->desc->host);
    */
   
-  if (!GET_CLASS(ch, CLASS_PSIONICIST) && !GET_CLASS(ch, CLASS_MINDFLAYER))
+  if( !USES_MANA(ch) )
   {
     send_to_char("&+WYou complete your spell...&n\n", ch);
   }
@@ -2612,7 +2609,7 @@ void event_spellcast(P_char ch, P_char victim, P_obj obj, void *data)
   clear_links(ch, LNK_CAST_ROOM);
   clear_links(ch, LNK_CAST_WORLD);
 
-  if (!GET_CLASS(ch, CLASS_PSIONICIST) && !GET_CLASS(ch, CLASS_MINDFLAYER))
+  if( !USES_MANA(ch) )
   {
     act("$n &+Wcompletes $s spell...&n", FALSE, ch, 0, 0, TO_ROOM);
 
