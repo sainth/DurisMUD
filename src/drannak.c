@@ -2521,6 +2521,8 @@ void add_bloodlust(P_char ch, P_char victim)
 {
  if (!ch)
  return;
+
+ int dur;
  
  if (!victim)
  return;
@@ -2530,6 +2532,11 @@ void add_bloodlust(P_char ch, P_char victim)
  
  if (GET_LEVEL(victim) < (GET_LEVEL(ch) - 5))
  return;
+
+ if (GET_RACE(ch) == RACE_OGRE)
+ dur = 10;
+ else
+ dur = 5;
  
  send_to_char("&+rThe smell of fresh &+Rblood &+renters your body, &+Rinfusing&+r you with &+Rpower&+r!\r\n", ch);
   struct affected_type af;
@@ -2541,7 +2548,7 @@ void add_bloodlust(P_char ch, P_char victim)
        if(GET_RACE(ch) == RACE_OGRE)
   	af.duration = 10;
        else
-       af.duration = 5;
+       af.duration = dur;
     af.location = 0;
     af.flags = AFFTYPE_NODISPEL;
 	affect_to_char(ch, &af);
@@ -2555,12 +2562,12 @@ void add_bloodlust(P_char ch, P_char victim)
 	 if((findaf && findaf->type == TAG_BLOODLUST) && findaf->modifier < 20)
 	 {
 	findaf->modifier += 1;
-       af.duration = 5;
+       findaf->duration = dur;
 	 }
 	 else if(findaf && findaf->type == TAG_BLOODLUST)
         {
 	 findaf->modifier = 20;
-        af.duration = 5;
+        findaf->duration = dur;
         }
 	}
 
