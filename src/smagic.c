@@ -1359,7 +1359,7 @@ void earthen_grasp(int level, P_char ch, P_char victim,
   }
   int attdiff = ((GET_C_STR(ch) - GET_C_STR(victim)) / 2);
   attdiff = number(0, attdiff);
-  attdiff = BOUNDED(1, attdiff, 100);
+  attdiff = BOUNDED(-100, attdiff, 100);
 
   if(IS_NPC(victim) && IS_SET(victim->specials.act, ACT_IMMUNE_TO_PARA))
   {
