@@ -2916,8 +2916,8 @@ void kill_gain(P_char ch, P_char victim)
 
   // exp gain drops slower than group size increases 
   // to avoid people being unable to get in groups  -Odorf
-  float exp_divider = ((float)group_size + 2.0) / 3.0; 
- // float exp_divider = 1.0; //Doing away with this as I want groups to be more beneficial. Not concerned with too much exp gain - drannak
+  //float exp_divider = ((float)group_size + 2.0) / 3.0; -old value drannak
+  float exp_divider = 1.0; 
 
   for (gl = ch->group; gl; gl = gl->next)
   {
@@ -2928,7 +2928,6 @@ void kill_gain(P_char ch, P_char victim)
       XP = (int) (((float)GET_LEVEL(gl->ch) / (float)highest_level) * ((float)gain / exp_divider));
       
       /* power leveler stopgap measure */
-      /* Disabling this for now - Drannak 3/10/13
       if ((GET_LEVEL(gl->ch) + 40) < highest_level)
         XP /= 10000;
       else if ((GET_LEVEL(gl->ch) + 30) < highest_level)
@@ -2937,7 +2936,7 @@ void kill_gain(P_char ch, P_char victim)
         XP /= 1000;
       else if ((GET_LEVEL(gl->ch) + 15) < highest_level)
         XP /= 200;
-      */
+      
 
       if (XP && IS_PC(gl->ch))
       {
