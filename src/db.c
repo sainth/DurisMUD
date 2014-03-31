@@ -3427,6 +3427,7 @@ void reset_zone(int zone, int force_item_repop)
               }
               if (mob)
               {
+                if(!IS_ARTIFACT(obj))
                 randomizeitem(mob, obj); //Drannak trying out item stat randomization 3/28/14
                 obj_to_char(obj, mob);
                 obj->timer[3] = time(NULL) + 1290600;
