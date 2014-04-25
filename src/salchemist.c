@@ -600,7 +600,7 @@ void do_spellbind (P_char ch, char *argument, int cmd)
   struct affected_type *afp;
   P_obj item;
   bool neggood;
-  int total_epic_points = epic_points(ch);
+  int total_epic_points = GET_EPIC_POINTS(ch);
   int bonus;
   int skill = GET_CHAR_SKILL(ch, SKILL_SPELLBIND);
   int total = 0;

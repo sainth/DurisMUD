@@ -352,13 +352,13 @@ int epic_teacher(P_char ch, P_char pl, int cmd, char *arg)
         return TRUE;
       }
 
-      if(epic_points(pl) < points_cost)
+      if(GET_EPIC_POINTS(pl) < points_cost)
       {
         send_to_char("You don't have enough epic points!\n", pl);
         return TRUE;
       }
 
-      if(epic_points(pl) < epic_rewards[s].min_points)
+      if(GET_EPIC_POINTS(pl) < epic_rewards[s].min_points)
       {
         send_to_char("You haven't progressed far enough to be able to master such skills!\n", pl);
         return TRUE;

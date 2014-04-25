@@ -1780,7 +1780,7 @@ int buy_hull(P_char ch, P_ship ship, int owned, char* arg1, char* arg2)
         cost = SHIPTYPE_COST(i) - (int) (SHIPTYPE_COST(oldclass) * .90);
         if (cost >= 0)
         {
-            if (GET_MONEY(ch) < cost || epic_points(ch) < SHIPTYPE_EPIC_COST(i)) 
+            if (GET_MONEY(ch) < cost || GET_EPIC_POINTS(ch) < SHIPTYPE_EPIC_COST(i)) 
             {
                 if (SHIPTYPE_EPIC_COST(i) > 0)
                     send_to_char_f(ch, "That upgrade costs %s and %d epic points!\r\n", coin_stringv(cost), SHIPTYPE_EPIC_COST(i));
@@ -1794,7 +1794,7 @@ int buy_hull(P_char ch, P_ship ship, int owned, char* arg1, char* arg2)
         }
         else
         {
-            if (epic_points(ch) < SHIPTYPE_EPIC_COST(i))
+            if (GET_EPIC_POINTS(ch) < SHIPTYPE_EPIC_COST(i))
             {
                 send_to_char_f(ch, "That upgrade costs %d epic points!\r\n", SHIPTYPE_EPIC_COST(i));
                 return TRUE;
@@ -1840,7 +1840,7 @@ int buy_hull(P_char ch, P_ship ship, int owned, char* arg1, char* arg2)
         if (!check_ship_name(0, ch, arg2))
             return TRUE;
 
-        if (GET_MONEY(ch) < SHIPTYPE_COST(i) || epic_points(ch) < SHIPTYPE_EPIC_COST(i)) 
+        if (GET_MONEY(ch) < SHIPTYPE_COST(i) || GET_EPIC_POINTS(ch) < SHIPTYPE_EPIC_COST(i)) 
         {
             if (SHIPTYPE_EPIC_COST(i) > 0)
                 send_to_char_f(ch, "That ship costs %s and %d epic points!\r\n", coin_stringv(SHIPTYPE_COST(i)), SHIPTYPE_EPIC_COST(i));

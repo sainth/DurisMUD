@@ -58,7 +58,6 @@ int modify_by_epic_trophy(P_char ch, int amount, int zone_number);
 void gain_epic(P_char, int type, int data, int amount);
 void group_gain_epic(P_char, int type, int data, int amount);
 void epic_frag(P_char, int victim_pid, int amount);
-int epic_points(P_char);
 const char *epic_prestige(P_char);
 void init_guild_frags();
 void epic_feed_artifacts(P_char ch, int epics, int epic_type);
@@ -90,6 +89,8 @@ void epic_zone_balance();
 int zone2saveable(int zone_index);
 int saveable2zone(int saved_zone);
 void epic_choose_new_epic_task(P_char ch);
+
+#define GET_EPIC_POINTS(ch) (IS_NPC(ch) ? 0 : ch->only.pc->epics)
 
 #define EPIC_ZONE 0
 #define EPIC_PVP 1

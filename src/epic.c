@@ -70,17 +70,9 @@ void epic_initialization()
   }
 }
 
-int epic_points(P_char ch)
-{
-  if(IS_NPC(ch))
-    return 0;
-  else
-    return ch->only.pc->epics;
-}
-
 const char *epic_prestige(P_char ch)
 {
-  return prestige_names[MIN(epic_points(ch)/get_property("epic.prestigeNotch", 400), EPIC_MAX_PRESTIGE-1)];
+  return prestige_names[MIN(GET_EPIC_POINTS(ch)/get_property("epic.prestigeNotch", 400), EPIC_MAX_PRESTIGE-1)];
 }
 /* shouldn't need this now - Zion 4/8/2014
 int epic_skillpoints(P_char ch)
