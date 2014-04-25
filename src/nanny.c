@@ -34,6 +34,7 @@
 #include "specializations.h"
 #include "multiplay_whitelist.h"
 #include "guildhall.h"
+#include "epic.h"
 
 /* external variables */
 
@@ -80,7 +81,6 @@ extern int top_of_mobt;
 extern P_index mob_index;
 extern int exp_table[];
 extern int new_exp_table[];
-extern void assign_racial_skills(P_char ch);
 
 #define TOGGLE_BIT(var, bit) ((var) = (var) ^ (bit))
 #define PLR_FLAGS(ch)          ((ch)->specials.act)
@@ -3432,8 +3432,6 @@ if(d->character->base_stats.Wis < 80)
   {
   d->character->base_stats.Cha = 80;
   }
-   //Drannak - set racial skills
-    assign_racial_skills(ch);
 
   //goodie AP fix
   if(GET_CLASS(ch, CLASS_ANTIPALADIN) && GET_ALIGNMENT(ch) > -10)
@@ -3450,7 +3448,10 @@ if(d->character->player.time.played <  10000000  && !IS_TRUSTED(d->character))
   ch->player.time.played = 10000000;
   }
 */
- 
+
+  // This is to remove the racial epic skills set with TAG_RACIAL_SKILLS
+  // after the current wipe (as of 4/25/14) this should be removed - Torgal
+  clear_racial_skills(ch);
 }
 
 void select_terminal(P_desc d, char *arg)

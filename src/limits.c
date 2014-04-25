@@ -57,7 +57,6 @@ extern int get_innate_regeneration(P_char);
 extern P_index mob_index;
 struct mm_ds *dead_trophy_pool = NULL;
 extern struct race_names race_names_table[];
-extern void update_racial_skills(P_char);
 
 long      new_exp_table[TOTALLVLS];
 long     global_exp_limit;
@@ -624,8 +623,6 @@ void advance_level(P_char ch)
 //#else
   update_skills(ch);
 //#endif
-
-  update_racial_skills(ch);
 
 /*
   if (GET_LEVEL(ch) == 21 && !IS_NEWBIE(ch) ) {

@@ -919,7 +919,7 @@ struct room_data {
 /* For players : specials.act3 */
 #define PLR3_FRAGLEAD      BIT_1  /* FragList Leader */
 #define PLR3_FRAGLOW       BIT_2  /* Lowest Fragger */
-#define PLR3_RACIAL_SKILLS BIT_3
+//#define PLR3_RACIAL_SKILLS BIT_3
 #define PLR3_NOSUR         BIT_4  /* Titles that will show on who list before names - This is default, none */
 #define PLR3_SURSERF	      BIT_5
 #define PLR3_SURCOMMONER   BIT_6

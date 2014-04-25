@@ -4936,9 +4936,6 @@ void do_start(P_char ch, int nomsg)
 
   ch->player.time.played = 0;
   ch->player.time.logon = time(0);
-
-  //Drannak - preserve already set racial skills
-  assign_racial_skills_norefund(ch);
 }
 
 void do_advance(P_char ch, char *argument, int cmd)

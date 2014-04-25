@@ -13667,7 +13667,6 @@ int unspec_altar(P_obj obj, P_char ch, int cmd, char *arg)
 
 
   unspecialize(ch, obj);
-  update_racial_skills(ch);
 }
 
 int unmulti_altar(P_obj obj, P_char ch, int cmd, char *arg)
@@ -13685,7 +13684,6 @@ int unmulti_altar(P_obj obj, P_char ch, int cmd, char *arg)
   }
 
   unmulti(ch, obj);
-  update_racial_skills(ch);
 }
 
 int thought_beacon(P_obj obj, P_char ch, int cmd, char *arg)
