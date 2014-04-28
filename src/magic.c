@@ -5077,8 +5077,7 @@ void spell_relocate(int level, P_char ch, char *arg, int type, P_char victim,
     FALSE, ch, 0, 0, TO_CHAR);
 }
 
-void spell_group_teleport(int level, P_char ch, char *arg, int type,
-                          P_char victim, P_obj obj)
+void spell_group_teleport(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
   int from_room, dir, to_room, tries;
   P_char   targetChar;
@@ -5133,6 +5132,7 @@ do
   }
   else
   {
+    tries = 0;
     do
     {
       to_room = number(zone_table[world[ch->in_room].zone].real_bottom,
@@ -5149,6 +5149,7 @@ do
   // if no suitable room was found, teleport back to the same room they're in
   if(tries == 1000)
     to_room = ch->in_room;
+
 /*
   // if this zone limits teleports, check to see if the teleportation range is too great
   if(LIMITED_TELEPORT_ZONE(ch->in_room))
