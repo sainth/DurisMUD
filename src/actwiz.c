@@ -1516,13 +1516,13 @@ void stat_game(P_char ch)
   send_to_char(buf, ch);
 }
 
-#define STAT_SYNTAX "Syntax:\n   stat game\n   stat room <room #>\n   stat zone <zone #>\n   stat obj|item  #|'name'\n   stat char|mob #|'name'\n   stat trap 'name'\n   shop #|'name'\n   stat damage\n"
+#define STAT_SYNTAX "Syntax:\n   stat game\n   stat room <room #>\n   stat zone <zone #>\n   stat obj|item  #|'name'\n   stat char|mob #|'name'\n   stat trap 'name'\n   shop #|'name'\n   stat damage\n   stat quest 'name'"
 
 
 //CMD = 555 is used for storing stat o string in db.
 void do_stat(P_char ch, char *argument, int cmd)
 {
-  P_char   k = 0, t_mob = 0, shopkeeper;
+  P_char   k = 0, t_mob = 0, shopkeeper, mob;
   P_event  e1 = NULL;
   P_obj    j = 0, t_obj = 0;
   P_room   rm = 0;
@@ -3299,6 +3299,55 @@ void do_stat(P_char ch, char *argument, int cmd)
     stat_dam(ch, arg2);
     send_to_char("\n", ch);
     stat_spldam(ch, arg2);
+  }
+  if((*arg1 == 'q') || (*arg1 == 'Q'))
+  {
+    if( !(mob = get_char_vis(ch, arg2)) || !IS_NPC(mob) )
+    {
+      sprintf( buf, "'%s' not found or is not a NPC.\n", arg2 );
+      send_to_char( buf, ch );
+      return;
+    }
+    int qi = find_quester_id(GET_RNUM(mob));
+    struct quest_complete_data *qdata = quest_index[qi].quest_complete;
+    struct goal_data *goals;
+
+    if( !qdata )
+    {
+      sprintf( buf, "'%s' is not a quest complete mob.\n", mob->player.short_descr );
+      send_to_char( buf, ch );
+    }
+    else
+    {
+
+      sprintf( buf, "'%s' has quest:\n", mob->player.short_descr );
+      send_to_char( buf, ch );
+
+      while( qdata )
+      {
+        sprintf( buf, "'%s'\n", qdata->message );
+        send_to_char( buf, ch );
+        if( qdata->receive )
+        {
+          for( goals = qdata->receive; goals; goals = goals->next )
+          {
+            sprintf( buf, "Receive: '%c' %d\n", goals->goal_type, goals->number );
+            send_to_char( buf, ch );
+          }
+        }
+        if( qdata->give )
+        {
+          for( goals = qdata->give; goals; goals = goals->next )
+          {
+            sprintf( buf, "Give: '%c' %d\n", goals->goal_type, goals->number );
+            send_to_char( buf, ch );
+          }
+        }
+
+send_to_char( "Working on it. PENIS\n", ch );
+        qdata = qdata->next;
+      }
+    }
   }
   else
     send_to_char(STAT_SYNTAX, ch);
