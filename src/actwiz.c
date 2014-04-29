@@ -3344,7 +3344,6 @@ void do_stat(P_char ch, char *argument, int cmd)
           }
         }
 
-send_to_char( "Working on it. PENIS\n", ch );
         qdata = qdata->next;
       }
     }
