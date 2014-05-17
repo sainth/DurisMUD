@@ -98,6 +98,7 @@ extern int get_honing(P_obj);
 extern void apply_honing(P_obj, int);
 extern void holy_crusade_check(P_char, P_char);
 extern int is_wearing_necroplasm(P_char);
+extern int top_of_zone_table;
 
 /* Structures */
 
@@ -2138,6 +2139,29 @@ void perform_arti_update(P_char ch, P_char victim)
   }
 }
 
+// in_their_zone is designed to stop pets/mounts/etc from dropping recipes.
+// This function returns TRUE iff a mob is in the zone that it loads in.
+bool in_their_zone( P_char mob )
+{
+  int vnum;
+
+  // PCs never in their zone.
+  if( !IS_NPC(mob) )
+    return FALSE;
+
+  vnum = mob_index[GET_RNUM(mob)].virtual_number;
+
+  // If vnum falls outside the vnums for the zone it's in.
+  //  vnum too small, or mob not in last zone and vnum too big
+  if( vnum < zone_table[world[mob->in_room].zone].number * 100
+    || (world[mob->in_room].zone < top_of_zone_table
+      && vnum > zone_table[world[mob->in_room].zone+1].number * 100) )
+    return FALSE;
+
+  return TRUE;
+
+}
+
 void kill_gain(P_char ch, P_char victim);
 void die(P_char ch, P_char killer)
 {
@@ -2412,7 +2436,8 @@ void die(P_char ch, P_char killer)
   }
 
   //possibility to find a recipe for the items in the zone.
-  if(IS_PC(killer) && !IS_PC_PET(ch))
+  // Only find recipes from mobs inside their own zone.
+  if( IS_PC(killer) && !IS_PC_PET(ch) && in_their_zone(ch) )
     random_recipe(killer, ch);
 
   // object code - Normal kills.  Kvark
