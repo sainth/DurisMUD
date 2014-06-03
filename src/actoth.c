@@ -3487,7 +3487,7 @@ void do_recite(P_char ch, char *argument, int cmd)
 
   act("You recite $p which turns to dust in your hands.", FALSE, ch, scroll,
       0, TO_CHAR);
-  CharWait(ch, 2);
+  CharWait(ch, PULSE_VIOLENCE);
 
   if (GET_LEVEL(ch) > 56)
   {
