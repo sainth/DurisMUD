@@ -5175,3 +5175,45 @@ const char *condition_str(P_char ch)
     return "&+rbleeding, close to death";
 }
 
+// Returns TRUE iff substr is found within str
+// Not case sensitive!
+bool sub_string( const char *str, const char *substr)
+{
+  int strlength = strlen(str);
+  int sublength = strlen(substr);
+  int i = 0;
+  int j;
+
+  // While substr will fit into strlength - i
+  while( strlength >= sublength + i )
+  {
+    j = 0;
+    // While the letters match..
+    while( LOWER(str[i+j]) == LOWER(substr[j]) )
+    {
+      j++;
+      // If we've found all the letters..
+      if( j == sublength )
+        return TRUE;
+    }
+    i++;
+  }
+  return FALSE;
+}
+
+// Looks through list of strings strset to see if name contains one of them.
+// Not case sensitive!
+// Returns TRUE iff name contains one of the strings in strset.
+bool sub_string_set( const char *name, const char **strset )
+{
+  int i = 0;
+
+  while( strset[i][0] != '\n' )
+  {
+    if( sub_string( name, strset[i] ) )
+      return TRUE;
+    i++;
+  }
+
+  return FALSE;
+}

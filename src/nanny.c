@@ -34,6 +34,7 @@
 #include "specializations.h"
 #include "multiplay_whitelist.h"
 #include "guildhall.h"
+#include "utility.h"
 
 /* external variables */
 
@@ -50,6 +51,7 @@ extern char valid_term_list[];
 extern const struct class_names class_names_table[];
 extern const char *command[];
 extern const char *fill_words[];
+extern const char *rude_ass[];
 extern const char *town_name_list[];
 extern const struct race_names race_names_table[];
 extern const struct bonus_stat bonus_stats[];
@@ -2631,6 +2633,10 @@ bool _parse_name(char *arg, char *name)
     "southeast",
     "northwest",
     "southwest",
+    "nw",
+    "ne",
+    "sw",
+    "se",
     "guide",
     "he",
     "she",
@@ -2671,11 +2677,13 @@ bool _parse_name(char *arg, char *name)
     if (isname(name, mob_index[i].keys))
       return TRUE;
 
-  if (search_block(name, command, TRUE) >= 0)
+  if( search_block(name, command, TRUE) >= 0 )
     return TRUE;
-  if (search_block(name, fill_words, TRUE) >= 0)
+  if( search_block(name, fill_words, TRUE) >= 0 )
     return TRUE;
-  if (search_block(name, smart_ass, TRUE) >= 0)
+  if( search_block(name, smart_ass, TRUE) >= 0 )
+    return TRUE;
+  if( sub_string_set(name, rude_ass) )
     return TRUE;
 
   return FALSE;

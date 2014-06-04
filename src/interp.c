@@ -1091,6 +1091,19 @@ const char *fill_words[] = {
   "\n"
 };
 
+// Rude words that should not be found in names/ship names.
+// Please keep in alpha order to make sure no duplicates.
+const char *rude_ass[] = {
+  "ass",
+  "bitch",
+  "cunt",
+  "dick",
+  "fuck",
+  "penis",
+  "shit",
+  "\n"
+};
+
 int search_block(char *arg, const char **list, int exact)
 {
   register int i, l;
