@@ -2029,7 +2029,7 @@ bool check_disruptive_blow(P_char ch)
       }
       else
       {
-        act("&+wYour lunge at $N&+w's throat comes up a bit short.", FALSE, ch, 0, 0, TO_CHAR);
+        act("&+wYour lunge at $N&+w's throat comes up a bit short.", FALSE, tch, NULL, ch, TO_CHAR);
       }
     }
   }
