@@ -2819,8 +2819,7 @@ void extract_char(P_char ch)
 
       obj = unequip_char(ch, l);
       /* Added pet check */
-      if (ch->in_room == -1 || IS_SET(obj->extra_flags, ITEM_TRANSIENT) || IS_SHOPKEEPER(ch) ||
-          (IS_NPC(ch) && IS_RANDOM_MOB(ch)))
+      if( ch->in_room == NOWHERE || IS_SET(obj->extra_flags, ITEM_TRANSIENT) || IS_SHOPKEEPER(ch) || (IS_NPC(ch) && IS_RANDOM_MOB(ch)) )
       {
         extract_obj(obj, TRUE);
         obj = NULL;
@@ -2828,20 +2827,16 @@ void extract_char(P_char ch)
       else
         obj_to_room(obj, ch->in_room);
     }
-  if(ch &&
-     ch->carrying)
+  if(ch && ch->carrying)
   {
     P_obj    next_obj;
 
     for (obj = ch->carrying; obj != NULL; obj = next_obj)
     {
       next_obj = obj->next_content;
-      
-      if(IS_SHOPKEEPER(ch) ||
-        IS_SET(obj->extra_flags, ITEM_TRANSIENT) ||
-        (IS_NPC(ch) &&
-          mob_index[GET_RNUM(ch)].virtual_number >= 100000 &&
-          mob_index[GET_RNUM(ch)].virtual_number < 110000))
+
+      if( ch->in_room == NOWHERE || IS_SHOPKEEPER(ch) || IS_SET(obj->extra_flags, ITEM_TRANSIENT)
+        || (IS_NPC(ch) && mob_index[GET_RNUM(ch)].virtual_number >= 100000 && mob_index[GET_RNUM(ch)].virtual_number < 110000))
       {
         extract_obj(obj, TRUE);
         obj = NULL;

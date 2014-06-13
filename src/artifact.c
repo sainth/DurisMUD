@@ -448,7 +448,7 @@ int add_owned_artifact(P_obj arti, P_char ch, long unsigned blood)
   // if(exist)
   if (f)
   {
-    fprintf(f, "%s %d %lu 0 %d", GET_NAME(ch), GET_PID(ch), time(NULL), blood);
+    fprintf(f, "%s %d %lu 0 %lu", GET_NAME(ch), GET_PID(ch), time(NULL), blood);
     /*
        else
        fprintf(f, "%s %d %d 0 %d", GET_NAME(ch), GET_PID(ch), time(NULL), time(NULL));
@@ -1079,7 +1079,7 @@ void poof_arti( P_char ch, char *arg )
     }
 
     // Free memory
-    char_from_room( owner );
+    owner->in_room = NOWHERE;
     extract_char( owner );
   }
   else
@@ -1289,7 +1289,7 @@ void swap_arti( P_char ch, char *arg )
           send_to_char( "Could not load arti2.\n\r", ch );
           if( vnum )
           {
-            char_from_room( owner );
+            owner->in_room = NOWHERE;
             extract_char( owner );
           }
           return;
@@ -1310,7 +1310,7 @@ void swap_arti( P_char ch, char *arg )
       send_to_char( buf, ch );
       if( vnum )
       {
-        char_from_room( owner );
+        owner->in_room = NOWHERE;
         extract_char( owner );
       }
       return;
@@ -1348,7 +1348,7 @@ void swap_arti( P_char ch, char *arg )
           send_to_char( buf, ch );
           if( vnum )
           {
-            char_from_room( owner );
+            owner->in_room = NOWHERE;
             extract_char( owner );
           }
           return;
@@ -1402,7 +1402,7 @@ void swap_arti( P_char ch, char *arg )
     send_to_char( buf, ch );
     if( vnum )
     {
-      char_from_room( owner );
+      owner->in_room = NOWHERE;
       extract_char( owner );
     }
     return;
@@ -1411,7 +1411,7 @@ void swap_arti( P_char ch, char *arg )
   if( vnum )
   {
     writeCharacter( owner, RENT_SWAPARTI, owner->in_room );
-    char_from_room( owner );
+    owner->in_room = NOWHERE;
     extract_char( owner );
   }
 }
@@ -1556,7 +1556,7 @@ void set_timer_arti( P_char ch, char *arg )
     }
 
     // Free memory
-    char_from_room( owner );
+    owner->in_room = NOWHERE;
     extract_char( owner );
   }
   else
@@ -1572,7 +1572,7 @@ void event_check_arti_poof( P_char ch, P_char vict, P_obj obj, void * arg )
   DIR           *dir;
   FILE          *f;
   struct dirent *dire;
-  int            vnum;
+  int            vnum, i;
   char           name[256];
   int            t_id, t_tu;
   long unsigned  t_last_time, t_blood;
@@ -1630,7 +1630,7 @@ void event_check_arti_poof( P_char ch, P_char vict, P_obj obj, void * arg )
       character_list = owner;
       setCharPhysTypeInfo( owner );
       // Find/Poof arti
-      for( int i = 0; i < MAX_WEAR; i++ )
+      for( i = 0; i < MAX_WEAR; i++ )
       {
         if( !owner->equipment[i] )
           continue;
@@ -1662,7 +1662,7 @@ void event_check_arti_poof( P_char ch, P_char vict, P_obj obj, void * arg )
         writeCharacter( owner, RENT_POOFARTI, owner->in_room );
       }
       // Free memory
-      char_from_room( owner );
+      owner->in_room = NOWHERE;
       extract_char( owner );
     }
   }
