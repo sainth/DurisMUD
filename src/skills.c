@@ -5368,19 +5368,18 @@ void assign_racial_skills(P_char ch)
   struct affected_type af;
   //if(!IS_SET(PLR3_FLAGS(ch), PLR3_RACIAL_SKILLS)) 
 
-     // if ((af = get_spell_from_char(ch, TAG_RACIAL_SKILLS)) == NULL)
-   if(!affected_by_spell(ch, TAG_RACIAL_SKILLS))
-     {
-	 do_epic_reset(ch, 0, 1); //player has never had their new racial skills set clear out ALL EPIC SKILLS
-  
-        memset(&af, 0, sizeof(struct affected_type));
-        af.type = TAG_RACIAL_SKILLS;
-        af.flags = AFFTYPE_NOSHOW | AFFTYPE_PERM | AFFTYPE_NODISPEL;
-        af.duration = -1;
-        affect_to_char(ch, &af);
-            }
+  // if ((af = get_spell_from_char(ch, TAG_RACIAL_SKILLS)) == NULL)
+  if(!affected_by_spell(ch, TAG_RACIAL_SKILLS))
+  {
+	  do_epic_reset(ch, 0, 1); //player has never had their new racial skills set clear out ALL EPIC SKILLS
+
+    memset(&af, 0, sizeof(struct affected_type));
+    af.type = TAG_RACIAL_SKILLS;
+    af.flags = AFFTYPE_NOSHOW | AFFTYPE_PERM | AFFTYPE_NODISPEL;
+    af.duration = -1;
+    affect_to_char(ch, &af);
+  }
     update_racial_skills(ch);
- 
 }
 
 void assign_racial_skills_norefund(P_char ch)
@@ -5402,14 +5401,14 @@ void assign_racial_skills_norefund(P_char ch)
 
 void update_racial_skills(P_char ch)
 {
-	  int currrace;
-         currrace = GET_RACE(ch);
-         if(GET_SPEC(ch, CLASS_SORCERER, SPEC_WIZARD))
-          {
+	int currrace;
+  currrace = GET_RACE(ch);
+  if(GET_SPEC(ch, CLASS_SORCERER, SPEC_WIZARD))
+  {
 		ch->only.pc->skills[SKILL_SPELL_PENETRATION].taught = BOUNDED(10, GET_LEVEL(ch) *2, 100);
 		ch->only.pc->skills[SKILL_SPELL_PENETRATION].learned = BOUNDED(10, GET_LEVEL(ch) *2, 100);
 		do_save_silent(ch, 1); // racial skills require a save.
-           }
+  }
 	  switch (currrace)
 		 {
 			case RACE_GNOME:
@@ -5507,5 +5506,63 @@ void update_racial_skills(P_char ch)
 			return;
 			break;
 		}
+}
+
+void reset_racial_skills(P_char ch)
+{
+  ch->only.pc->skills[SKILL_SPELL_PENETRATION].taught = 0;
+  ch->only.pc->skills[SKILL_SPELL_PENETRATION].learned = 0;
+  ch->only.pc->skills[SKILL_FIX].taught = 0;
+  ch->only.pc->skills[SKILL_FIX].learned = 0;
+  ch->only.pc->skills[SKILL_EXPERT_PARRY].taught = 0;
+  ch->only.pc->skills[SKILL_EXPERT_PARRY].learned = 0;
+  ch->only.pc->skills[SKILL_EXPERT_PARRY].taught = 0;
+  ch->only.pc->skills[SKILL_EXPERT_PARRY].learned = 0;
+  ch->only.pc->skills[SKILL_FIX].taught = 0;
+  ch->only.pc->skills[SKILL_FIX].learned = 0;
+  ch->only.pc->skills[SKILL_ADVANCED_MEDITATION].taught = 0;
+  ch->only.pc->skills[SKILL_ADVANCED_MEDITATION].learned = 0;
+  ch->only.pc->skills[SKILL_SHIELD_COMBAT].taught = 0;
+  ch->only.pc->skills[SKILL_SHIELD_COMBAT].learned = 0;
+  ch->only.pc->skills[SKILL_IMPROVED_SHIELD_COMBAT].taught = 0;
+  ch->only.pc->skills[SKILL_IMPROVED_SHIELD_COMBAT].learned = 0;
+  ch->only.pc->skills[SKILL_SCRIBE_MASTERY].taught = 0;
+  ch->only.pc->skills[SKILL_SCRIBE_MASTERY].learned = 0;
+  ch->only.pc->skills[SKILL_DEVOTION].taught = 0;
+  ch->only.pc->skills[SKILL_DEVOTION].learned = 0;
+  ch->only.pc->skills[SKILL_IMPROVED_ENDURANCE].taught = 0;
+  ch->only.pc->skills[SKILL_IMPROVED_ENDURANCE].learned = 0;
+  ch->only.pc->skills[SKILL_SHIELD_COMBAT].taught = 0;
+  ch->only.pc->skills[SKILL_SHIELD_COMBAT].learned = 0;
+  ch->only.pc->skills[SKILL_IMPROVED_SHIELD_COMBAT].taught = 0;
+  ch->only.pc->skills[SKILL_IMPROVED_SHIELD_COMBAT].learned = 0;
+  ch->only.pc->skills[SKILL_SCRIBE_MASTERY].taught = 0;
+  ch->only.pc->skills[SKILL_SCRIBE_MASTERY].learned = 0;
+  ch->only.pc->skills[SKILL_DEVOTION].taught = 0;
+  ch->only.pc->skills[SKILL_DEVOTION].learned = 0;
+  ch->only.pc->skills[SKILL_IMPROVED_ENDURANCE].taught = 0;
+  ch->only.pc->skills[SKILL_IMPROVED_ENDURANCE].learned = 0;
+  ch->only.pc->skills[SKILL_EXPERT_RIPOSTE].taught = 0;
+  ch->only.pc->skills[SKILL_EXPERT_RIPOSTE].learned = 0;
+  ch->only.pc->skills[SKILL_TWOWEAPON].taught = 0;
+  ch->only.pc->skills[SKILL_TWOWEAPON].learned = 0;
+  ch->only.pc->skills[SKILL_IMPROVED_TWOWEAPON].taught = 0;
+  ch->only.pc->skills[SKILL_IMPROVED_TWOWEAPON].learned = 0;
+  ch->only.pc->skills[SKILL_ANATOMY].taught = 0;
+  ch->only.pc->skills[SKILL_ANATOMY].learned = 0;
+  ch->only.pc->skills[SKILL_ANATOMY].taught = 0;
+  ch->only.pc->skills[SKILL_ANATOMY].learned = 0;
+  ch->only.pc->skills[SKILL_TOTEMIC_MASTERY].taught = 0;
+  ch->only.pc->skills[SKILL_TOTEMIC_MASTERY].learned = 0;
+  ch->only.pc->skills[SKILL_DEVASTATING_CRITICAL].taught = 0;
+  ch->only.pc->skills[SKILL_DEVASTATING_CRITICAL].learned = 0;
+  ch->only.pc->skills[SKILL_NATURES_SANCTITY].taught = 0;
+  ch->only.pc->skills[SKILL_NATURES_SANCTITY].learned = 0;
+  ch->only.pc->skills[SKILL_SHIELDLESS_BASH].taught = 0;
+  ch->only.pc->skills[SKILL_SHIELDLESS_BASH].learned = 0;
+  ch->only.pc->skills[SKILL_IMPROVED_ENDURANCE].taught = 0;
+  ch->only.pc->skills[SKILL_IMPROVED_ENDURANCE].learned = 0;
+
+  update_racial_skills( ch );
 }
 

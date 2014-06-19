@@ -43,6 +43,7 @@ extern bool racial_innates[][LAST_RACE];
 extern Skill skills[];
 extern char *spells[];
 
+extern void reset_racial_skills(P_char ch);
 int GET_LVL_FOR_SKILL(P_char ch, int skill);
 P_obj find_gh_library_book_obj(P_char ch);
 void do_practice_new(P_char ch, char *arg, int cmd);
@@ -661,7 +662,7 @@ void do_spells(P_char ch, char *argument, int cmd)
     {
       if (!(target = get_char_vis(ch, argument)))
       {
-        send_to_char("No such character.\n", ch);
+        send_to_char("No such player.\n", ch);
         return;
       }
     }
@@ -753,7 +754,7 @@ void do_skills(P_char ch, char *argument, int cmd)
     send_to_char("You ain't nothin' but a hound-dog.\n", ch);
     return;
   }
-  
+
   *buf = '\0';
   *buf1 = '\0';
 
@@ -765,10 +766,10 @@ void do_skills(P_char ch, char *argument, int cmd)
     for (skil = 0; skil <= MAX_AFFECT_TYPES; skil++)
     {
       skl = SortedSkills[skil];
-      
+
       if( !IS_SKILL(skl) && !IS_INSTRUMENT_SKILL(skl) && !IS_BARD_SONG(skl) )
         continue;
-      
+
       sprintf(buf1,
         "%-30s    %2d %2d %2d %2d %2d %2d %2d %2d %2d %2d %2d %2d %2d %2d %2d %2d %2d %2d %2d %2d %2d\n",
         skills[skl].name,
@@ -793,7 +794,7 @@ void do_skills(P_char ch, char *argument, int cmd)
         skills[skl].m_class[flag2idx(CLASS_BERSERKER) - 1].rlevel[0],
         skills[skl].m_class[flag2idx(CLASS_WARLOCK) - 1].rlevel[0],
         skills[skl].m_class[flag2idx(CLASS_ILLUSIONIST) - 1].rlevel[0]);
-      
+
       send_to_char(buf1, ch);
     }
     return;
@@ -802,9 +803,24 @@ void do_skills(P_char ch, char *argument, int cmd)
   {
     if (IS_TRUSTED(ch) && argument)
     {
-      if (!(target = get_char_vis(ch, argument)))
+      argument = one_argument( argument, buf );
+      if( is_abbrev( buf, "reset" ) )
       {
-        send_to_char("No such player.\n", ch);
+        argument = one_argument( argument, buf );
+        if (!(target = get_char_vis(ch, buf)))
+        {
+          send_to_char("No such character.\n", ch);
+          return;
+        }
+        else
+        {
+          reset_racial_skills(target);
+          return;
+        }
+      }
+      if (!(target = get_char_vis(ch, buf)))
+      {
+        send_to_char("No such character.\n", ch);
         return;
       }
     }
