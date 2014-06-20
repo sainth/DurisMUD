@@ -4622,7 +4622,7 @@ messages->type |= type << 24;
 result = raw_damage(ch, victim, dam, RAWDAM_DEFAULT ^ flags, messages);
 
 // Tether code here
-if( GET_CLASS( ch, CLASS_CABALIST ) )
+if( FALSE )//GET_CLASS( ch, CLASS_CABALIST ) )
 {
   tetherheal( ch, dam );
 }

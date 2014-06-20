@@ -6099,8 +6099,9 @@ void do_tackle(P_char ch, char *arg, int cmd)
   appear(ch);
 
   if((has_innate(vict, INNATE_HORSE_BODY) ||
-     GET_RACE(ch) == RACE_QUADRUPED)  &&
-     (get_takedown_size(ch) < get_takedown_size(vict)) + 1)
+    has_innate(vict, INNATE_SPIDER_BODY) ||
+    GET_RACE(ch) == RACE_QUADRUPED)  &&
+    (get_takedown_size(ch) < get_takedown_size(vict)) + 1)
   {
     act("$n makes a futile attempt to tackle $N, but $E is simply immovable.",
         FALSE, ch, 0, vict, TO_NOTVICT);
@@ -9811,6 +9812,7 @@ void restrain(P_char ch, P_char victim)
 
     if(GET_HIT(victim) < (int)(((number(0,100) + anatomy_skill))/2))
     {
+/*
       if(GET_CLASS(ch, CLASS_CABALIST))
       {
         act("Your powerful will easily dominates the inferior creature before you.\n"
@@ -9828,6 +9830,7 @@ void restrain(P_char ch, P_char victim)
             FALSE, ch, 0, victim, TO_NOTVICT);
       }
       else
+*/
       {
         act("&+LYou turn to &n$N &+Land make an un&+who&+Wly &+Lgesture.\n"
             "&+LA &nsmoking &+Ldark pit opens beneath &n$S's feet, the smell of death\n"

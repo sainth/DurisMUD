@@ -13323,7 +13323,13 @@ void spell_unholy_wind(int level, P_char ch, char *arg, int type,
     return;
   }
 
-  dam = dice(3, 8) * DAMFACTOR;
+  dam = (dice(1, 6) + 5 * 4 + level) ;
+
+  bool failed_save = !NewSaves(victim, SAVING_SPELL, 0);
+
+  if (failed_save)
+    dam <<= 1;
+
   spell_damage(ch, victim, dam, SPLDAM_HOLY, SPLDAM_ALLGLOBES, &messages);
 }
 

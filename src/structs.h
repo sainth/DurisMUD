@@ -2092,10 +2092,7 @@ struct mcname {
 #define SPEC_DECEIVER 1
 #define SPEC_DARK_DREAMER 2
 
-/* CLASS_CABALIST Specs */
-#define SPEC_DRAGONBORN   1
-#define SPEC_ABYSSAL      2
-#define SPEC_DARK_TEMPEST 3
+/* CLASS_BLIGHTER Specs */
 
 //Avenger Specs
 #define SPEC_LIGHTBRINGER 1

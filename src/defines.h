@@ -1000,7 +1000,7 @@ struct attr_names_struct {
 #define CLASS_BERSERKER         BIT_21
 #define CLASS_REAVER            BIT_22
 #define CLASS_ILLUSIONIST       BIT_23
-#define CLASS_CABALIST          BIT_24
+#define CLASS_BLIGHTER          BIT_24
 #define CLASS_DREADLORD         BIT_25
 #define CLASS_ETHERMANCER       BIT_26
 #define CLASS_AVENGER           BIT_27
