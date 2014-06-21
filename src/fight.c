@@ -3979,7 +3979,7 @@ int spell_damage(P_char ch, P_char victim, double dam, int type, uint flags,
       if(!IS_STUNNED(victim) &&
           (dam > 10 && 
            notch_skill(victim, SKILL_ARCANE_RIPOSTE, get_property("skill.notch.arcane", 100))) ||
-          (number(1, 100) < skill_lvl / 8))
+          (number(1, 100) < skill_lvl / 4))
       {
         act("$N frowns in &+cconcentration&n as $E intercepts $n's spell and &+Churls it back at $m!&n",
             TRUE, ch, 0, victim, TO_NOTVICT);
@@ -4010,7 +4010,7 @@ int spell_damage(P_char ch, P_char victim, double dam, int type, uint flags,
     {
       if(dam > 15 &&
           (notch_skill(victim, SKILL_ARCANE_BLOCK, get_property("skill.notch.arcane", 100)) ||
-           number(1, 200) <= (GET_LEVEL(victim) + GET_C_LUK(victim) / 10) ||
+           number(1, 250) <= (GET_LEVEL(victim) + GET_C_LUK(victim) / 10 + GET_CHAR_SKILL(victim, SKILL_ARCANE_BLOCK)) ||
            ((IS_ELITE(victim) || IS_GREATER_RACE(victim)) && !number(0, 4))))
       {
         act("$N raises hands performing an &+Marcane gesture&n and some of $n's &+mspell energy&n is dispersed.",
