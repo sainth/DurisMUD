@@ -103,17 +103,17 @@ void spell_flame_sphere(int level, P_char ch, char *arg, int type, P_char victim
   }
 
   struct damage_messages messages = {
-    "The &+RFlaming sphere&N hits $N and burns.",
-    "A &+RFlaming sphere&N from $n sets you ablaze.",
-    "$N is engulfed by a &+RFlaming sphere&N sent by $n.",
-    "Your &+RFlaming sphere&n burns $N to ashes.",
-    "You are burnt clean, clean of body.",
-    "$N is burnt to ashes by $n's &+RFlaming sphere&n.",
+    "You grin as your opponent is &+Ren&+Ygu&+rlf&+Red&n in &+rfl&+Ram&+res&n!",
+    "You scream in agony as you &+Rb&+Yu&+rr&+Rn&n in a &+Rsph&+rer&+Re of f&+Yi&+rr&+Re&n!",
+    "$N screams in agony as $S &+Rb&+Yu&+rr&+Rns&n in a &+Rsph&+rer&+Re of f&+Yi&+rr&+Re&n!",
+    "Your &+Rsph&+rer&+Re&n of &+Rf&+Yi&+rr&+Re&n proves to be too much for $N, who turns to &+Lash&n.",
+    "You &+Wscream&n as your body turns to &+Las&nhe&+Ls&n.",
+    "$N &+Wscreams&n as $S body turns to &+Las&nhe&+Ls&n.",
       0
   };
 
   int num_dice = (level / 5);
-  int dam = (dice(num_dice+5, 6) * 4);
+  int dam = (dice(num_dice+5, 6) * 3);
 
   if(!NewSaves(victim, SAVING_SPELL, 0))
   {
@@ -341,7 +341,7 @@ void spell_blight(int level, P_char ch, char *arg, int type, P_char victim, P_ob
     return;
   }
 
-  int dam = (level > 30) ? dice( 90, 6 ) : dice( level*3, 6 );
+  int dam = (level > 40) ? dice( 40*3, 6 ) : dice( level*3, 6 );
 
   if(NewSaves(victim, SAVING_SPELL, 0))
   {
@@ -421,7 +421,7 @@ void event_acid_rain(P_char ch, P_char victim, P_obj obj, void *data)
   P_char next;
   struct damage_messages messages = {
     "",
-    "&+GYou are burned as the raid dissolves your skin.&n",
+    "&+GYou are burned as the rain dissolves your skin.&n",
     "",
     "$N &+gmelts into a pile of &+GGOO&n ... $E is no more!",
     "&+GThe rain &+gconsuming your flesh devours you completely!",
@@ -432,6 +432,11 @@ void event_acid_rain(P_char ch, P_char victim, P_obj obj, void *data)
   if( !ch || !IS_ALIVE(ch) )
   {
     return;
+  }
+  if( world[room].people)
+  {
+    act("An awful &+Gburning rain&n continues to fall from the sky.",0, world[room].people, 0, 0, TO_ROOM);
+    act("An awful &+Gburning rain&n continues to fall from the sky.",0, world[room].people, 0, 0, TO_CHAR);
   }
 
   for( victim = world[room].people; victim; victim = next )

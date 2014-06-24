@@ -13430,7 +13430,7 @@ void spell_acid_blast(int level, P_char ch, char *arg, int type,
      ch->in_room != victim->in_room)
         return;
 
-  int dam = dice(MIN(level, 21), 10);
+  int dam = dice(MIN(level, 21), 10) + level/2;
 
   if(!NewSaves(victim, SAVING_SPELL, 0))
     dam = (int) (dam * 1.25);

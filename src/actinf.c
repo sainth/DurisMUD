@@ -2791,7 +2791,7 @@ void new_look(P_char ch, char *argument, int cmd, int room_no)
     if (get_spell_from_room(&world[ch->in_room], SPELL_FORBIDDANCE))
     {
       sprintf(Gbuf5,
-              "&+LA strange energy flows through this area.&n\n");
+              "&+LA strange unwelcoming energy flows through the area.&n\n");
       send_to_char(Gbuf5, ch);
     }
 		if (get_spell_from_room(&world[ch->in_room], SPELL_BINDING_WIND)) 

@@ -423,7 +423,7 @@ void initialize_skills()
 
   SPELL_CREATE("implosion", SPELL_IMPLOSION, PULSE_SPELLCAST * 2,
                 TAR_CHAR_ROOM | TAR_FIGHT_VICT | TAR_AGGRO, spell_implosion);
-  SPELL_ADD( CLASS_BLIGHTER, 11 );
+  SPELL_ADD( CLASS_BLIGHTER, 12 );
 
   SPELL_CREATE("chaotic ripple", SPELL_CHAOTIC_RIPPLE, PULSE_SPELLCAST * 2,
                 TAR_CHAR_ROOM | TAR_FIGHT_VICT | TAR_AGGRO, spell_chaotic_ripple);
@@ -746,6 +746,7 @@ void initialize_skills()
                 TAR_CHAR_ROOM,
                 spell_fortitude, "You feel less determined to go on with life.");
   SPELL_ADD(CLASS_DRUID, 1);
+  SPELL_ADD(CLASS_BLIGHTER, 1);
 	SPEC_SPELL_ADD(CLASS_RANGER, 7, SPEC_BLADEMASTER);
 
   SPELL_CREATE_MSG("armor", SPELL_ARMOR, PULSE_SPELLCAST,
@@ -1283,6 +1284,7 @@ void initialize_skills()
   SPELL_CREATE("earthen maul", SPELL_EARTHEN_MAUL, PULSE_SPELLCAST * 2,
                 TAR_CHAR_ROOM | TAR_FIGHT_VICT | TAR_AGGRO, spell_earthen_maul);
   SPELL_ADD(CLASS_DRUID, 6);
+  SPELL_ADD(CLASS_BLIGHTER, 6);
   //SPEC_SPELL_ADD(CLASS_CONJURER, 7, SPEC_EARTH);
 
   SPELL_CREATE("earth spike", SPELL_GROW_SPIKES, PULSE_SPELLCAST * 2,
@@ -1346,7 +1348,7 @@ void initialize_skills()
 
   SPELL_CREATE("horrid wilting", SPELL_HORRID_WILTING, PULSE_SPELLCAST * 2,
                 TAR_AREA | TAR_OFFAREA | TAR_FIGHT_VICT | TAR_AGGRO, spell_horrid_wilting);
-  SPELL_ADD(CLASS_BLIGHTER, 10);
+  SPELL_ADD(CLASS_BLIGHTER, 9);
 
   SPELL_CREATE("flame strike", SPELL_FLAMESTRIKE, PULSE_SPELLCAST + 1,
                 TAR_CHAR_ROOM | TAR_FIGHT_VICT | TAR_CHAR_RANGE | TAR_AGGRO, spell_flamestrike);
@@ -2462,7 +2464,7 @@ SPELL_ADD(CLASS_NONE, 1);
   SPELL_CREATE("acid rain", SPELL_ACID_RAIN, (int) (PULSE_SPELLCAST * 3),
                 TAR_AREA | TAR_OFFAREA | TAR_AGGRO,
                 spell_acid_rain);
-  SPELL_ADD(CLASS_BLIGHTER, 9);
+  SPELL_ADD(CLASS_BLIGHTER, 10);
 
   SPELL_CREATE("ice storm", SPELL_ICE_STORM, PULSE_SPELLCAST * 2,
                 TAR_AREA | TAR_OFFAREA /*| TAR_CHAR_RANGE */  | TAR_AGGRO, spell_ice_storm);
@@ -4209,6 +4211,7 @@ SPELL_ADD(CLASS_NONE, 1);
                 TAR_SELF_ONLY | TAR_NOCOMBAT,
                 spell_elemental_aura, "&+BYour aura returns to normal.&N");
   SPELL_ADD(CLASS_DRUID, 11);
+  SPELL_ADD(CLASS_BLIGHTER, 11);
   SPEC_SPELL_ADD(CLASS_CONJURER, 10, SPEC_WATER);
  //SPEC_SPELL_ADD(CLASS_DRUID, 11, SPEC_STORM);
 
@@ -4421,6 +4424,7 @@ SPELL_ADD(CLASS_NONE, 1);
 //  SKILL_ADD(CLASS_CABALIST, 1, 40);
   SKILL_ADD(CLASS_THEURGIST, 1, 40);
   SKILL_ADD(CLASS_DRUID, 1, 40);
+  SKILL_ADD(CLASS_BLIGHTER, 1, 40);
   SKILL_ADD(CLASS_REAVER, 1, 40);
   SKILL_ADD(CLASS_ETHERMANCER, 1, 40);
   
