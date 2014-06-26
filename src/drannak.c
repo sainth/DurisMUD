@@ -2478,8 +2478,8 @@ void enhancematload(P_char ch)
     moblvl * 10;
   if(number(1, 5000) < moblvl)
   {
-    debug("moblvl %d\r\n", moblvl);
-    if(number(1, 8000) < moblvl)
+    debug("enhancematload: moblvl %d\r\n", moblvl);
+    if(number(1, 7000) < moblvl)
     {
       reward = number(1, 8);
       switch (reward)
