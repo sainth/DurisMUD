@@ -2313,12 +2313,14 @@ int crime_remove(int hometown, crm_rec * what)
 
 int shout_and_hunt(P_char ch, int max_distance, const char *shout_str, int (*locator_proc) (P_char, P_char, int, char *), int vnums[], ulong act_mask, ulong no_act_mask)
 {
-  P_char   target;
+  P_char    target;
   P_nevent  ev;
-  char     buffer[MAX_STRING_LENGTH], buffer2[MAX_STRING_LENGTH];
+  char      buffer[MAX_STRING_LENGTH], buffer2[MAX_STRING_LENGTH];
   hunt_data data;
-  int      dummy;
-  int      i;
+  int       dummy;
+  int       i;
+  bool      has_help = FALSE;
+  bool      found_help = FALSE;
 
   if( !ch || !max_distance || (act_mask & no_act_mask) )
   {
@@ -2467,6 +2469,7 @@ int shout_and_hunt(P_char ch, int max_distance, const char *shout_str, int (*loc
        * got one.  If they aren't already hunting someone, make
        * things happen
        */
+      has_help = TRUE;
 
       if (IS_FIGHTING(target))
         continue;
@@ -2490,11 +2493,15 @@ int shout_and_hunt(P_char ch, int max_distance, const char *shout_str, int (*loc
         (npc_has_spell_slot(target, SPELL_DISPEL_MAGIC) ? BFS_CAN_DISPEL : 0) |
         BFS_BREAK_WALLS, 0, 0, &dummy) < 0)
       {
+//        debug( "shout_and_hunt: mob (%s) no first step to room (%d).", J_NAME(target), ch->in_room);
         continue;
       }
 
       if (dummy > max_distance)
+      {
+//        debug( "shout_and_hunt: mob (%s) too far to hunt to room (%d).", J_NAME(target), ch->in_room);
         continue;
+      }
 
       if (CAN_SEE(ch, ch->specials.fighting))
       {
@@ -2506,11 +2513,16 @@ int shout_and_hunt(P_char ch, int max_distance, const char *shout_str, int (*loc
         data.hunt_type = HUNT_ROOM;
         data.targ.room = ch->in_room;
       }
+      found_help = TRUE;
 //    debug( "shout_and_hunt: adding hunt event mob (%s) to room (%d).", J_NAME(target), ch->in_room);
       add_event(mob_hunt_event, PULSE_MOB_HUNT, target, NULL, NULL, 0, &data, sizeof(hunt_data));
       //AddEvent(EVENT_MOB_HUNT, PULSE_MOB_HUNT, TRUE, target, data);
     }
   }
+
+  // Flee if no help can get to ch.
+  if( has_help && !found_help )
+    do_flee( ch, "", CMD_FLEE );
 
   /*
    * okay... last thing to do is add this "tank" to the mobs justice
