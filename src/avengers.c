@@ -174,8 +174,7 @@ void do_holy_smite(P_char ch, char *argument, int cmd)
   }
   else
   {
-    melee_damage(ch, vict, (dice((GET_LEVEL(ch) / 2), (skl_lvl / 10)) * 2), PHSDAM_NOSHIELDS | PHSDAM_NOREDUCE | PHSDAM_NOPOSITION,
-    &messages);
+    melee_damage(ch, vict, (dice((GET_LEVEL(ch) / 2), (skl_lvl / 10)) / 2), PHSDAM_NOSHIELDS | PHSDAM_NOREDUCE | PHSDAM_NOPOSITION, &messages);
     if ((GET_LEVEL(ch) / 2) > number(1, 150) && IS_ALIVE(vict))
 	{
 	  act("&+L$N&+L is blinded by the &+Wholy&+L energy!&n", FALSE, ch, 0, vict, TO_CHAR);

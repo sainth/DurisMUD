@@ -4247,7 +4247,7 @@ void do_headbutt(P_char ch, char *argument, int cmd)
       tmp_num <= 2)
   {
     // failed catastrophically!
-    dam = number(0, 30);
+    dam = number(5, 15);
 
     if (get_takedown_size(victim) < get_takedown_size(ch))
       dam = (int) (dam * 1.5);
@@ -4268,7 +4268,7 @@ void do_headbutt(P_char ch, char *argument, int cmd)
   else if (tmp_num <= 5)
   {
     // merely failed
-    dam = number(0, 25);
+    dam = number(1, 8);
     
     memset(&af, 0, sizeof(af));
     af.type = SKILL_HEADBUTT;
@@ -4277,8 +4277,7 @@ void do_headbutt(P_char ch, char *argument, int cmd)
     affect_to_char(ch, &af);
     CharWait(ch, PULSE_VIOLENCE * 1.5);
 
-    if (melee_damage(victim, ch, dam, PHSDAM_NOPOSITION, &fail_messages)
-        != DAM_NONEDEAD)
+    if (melee_damage(victim, ch, dam, PHSDAM_NOPOSITION, &fail_messages) != DAM_NONEDEAD)
       return;
   }
   else
@@ -4286,6 +4285,7 @@ void do_headbutt(P_char ch, char *argument, int cmd)
     // success!
     dam = ((56 * (number(1, 25))/51 + GET_C_STR(ch) + GET_CHAR_SKILL(ch, SKILL_HEADBUTT)));
     dam = (dam * 1.2);
+    dam /= 4;
     if (GET_RACE(ch) == RACE_MINOTAUR)
     {
       dam = (int) (dam * get_property("damage.headbutt.damBonusMinotaur", 1.500));
@@ -4299,6 +4299,7 @@ void do_headbutt(P_char ch, char *argument, int cmd)
     if (get_takedown_size(victim) > get_takedown_size(ch))
       dam = (int) (dam * get_property("damage.headbutt.damPenaltyVsLarger", 0.900));    
 
+    debug("do_headbutt: (%s) butting (%s) dam (%d) skill (%d).", GET_NAME(ch), GET_NAME(victim), dam, GET_CHAR_SKILL(ch, SKILL_HEADBUTT) );
     if (melee_damage(ch, victim, dam, PHSDAM_NOPOSITION | PHSDAM_TOUCH | PHSDAM_NOREDUCE, messages)
       != DAM_NONEDEAD)
     {
@@ -4310,6 +4311,7 @@ void do_headbutt(P_char ch, char *argument, int cmd)
       act("You deftly pull back your head and ram it into $N again!", FALSE, ch, 0, victim, TO_CHAR);
       act("With a quick move, $n pulls back $s head and rams it into you again!", FALSE, ch, 0, victim, TO_VICT);
       act("$n deftly pulls back $s head and slams it into $N again!", FALSE, ch, 0, victim, TO_NOTVICTROOM);
+      debug("do_headbutt: (%s) double butting (%s) dam (%d) skill (%d).", GET_NAME(ch), GET_NAME(victim), dam/2, GET_CHAR_SKILL(ch, SKILL_DOUBLE_HEADBUTT) );
       if (melee_damage(ch, victim, (int) (dam / 2), PHSDAM_NOPOSITION | PHSDAM_TOUCH | PHSDAM_NOREDUCE , messages)
         != DAM_NONEDEAD)
       {
@@ -4507,39 +4509,37 @@ void event_sneaky_strike(P_char ch, P_char victim, P_obj obj, void *data)
 
   if(weapon = ch->equipment[WIELD])
   {
-    dam =
-      (dice(weapon->value[1], MAX(1, weapon->value[2])) + weapon->value[2]);
+    dam = (dice(weapon->value[1], MAX(1, weapon->value[2])) + weapon->value[2]);
   }
   else
   {
-    dam =
-      (IS_PC(ch) ? dice(1, skill / 5) :
-       dice(ch->points.damnodice, ch->points.damsizedice));
+    dam = (IS_PC(ch) ? dice(1, skill / 5) : dice(ch->points.damnodice, ch->points.damsizedice));
   }
   /* notch_skill(ch, SKILL_SNEAKY_STRIKE,
               get_property("skill.notch.offensive", 15)); */
-   notch_skill(ch, SKILL_SNEAKY_STRIKE, 20);
-  dam *= 2;
+  notch_skill(ch, SKILL_SNEAKY_STRIKE, 20);
 
   dam += str_app[STAT_INDEX(GET_C_STR(ch))].todam + GET_C_DEX(ch) / 4;
-  dam =
-    (int) (dam * number(25, 30) *
-           (1 +
-            ((double) GET_LEVEL(ch)) / MAXLVLMORTAL) * (((double) skill) /
-                                                        100));
+  dam = (int) (dam * number(25, 30) *
+    (1 + ((double) GET_LEVEL(ch)) / MAXLVLMORTAL) * (((double) skill) / 100));
 
 	//dambonus for thiefs - roughly 10-15 damage more at 12
 	if(GET_SPEC(ch, CLASS_ROGUE, SPEC_THIEF)) //proc skill for thief - possibility to blind on sneaky strike
   {
-    dam /= 12;
+    dam /= 16*4;
   }
 	else
 	{
-	  dam /= 16;
+	  dam /= 20*4;
 	}
 
-  melee_damage(ch, victim, dam, PHSDAM_NOREDUCE | PHSDAM_NOPOSITION,
-               &messages);
+  debug("event_sneaky_strike: (%s) striking (%s) dam (%d).", GET_NAME(ch), GET_NAME(victim), dam );
+  melee_damage(ch, victim, dam, PHSDAM_NOREDUCE | PHSDAM_NOPOSITION, &messages);
+  if( !ch || !victim || !IS_ALIVE(victim) || !IS_ALIVE(ch) )
+  {
+    return;
+  }
+
   if(GET_SPEC(ch, CLASS_ROGUE, SPEC_THIEF)  || (GET_CLASS(ch, CLASS_BARD))) //proc skill for thief - possibility to blind on sneaky strike
   {
     skl_lvl = (int) (GET_CHAR_SKILL(ch, SKILL_SNEAKY_STRIKE));
@@ -4876,11 +4876,11 @@ bool single_stab(P_char ch, P_char victim, P_obj weapon)
       FALSE, ch, 0, victim, TO_NOTVICTROOM);
   }
 
-  debug("single_stab: (%s) stabbing (%s) dam (%d) weapon %dd%d.", GET_NAME(ch), GET_NAME(victim), dam, weapon->value[1], weapon->value[2] );
   if(GET_CHAR_SKILL(ch, SKILL_SPINAL_TAP)
     && (notch_skill(ch, SKILL_SPINAL_TAP, get_property("skill.notch.offensive", 15))
     || (spinal_tap * GET_CHAR_SKILL(ch, SKILL_SPINAL_TAP)) > number(1, 100)))
   {
+    debug("single_stab: (%s) stabbing (%s) dam (%d) weapon (%dd%d) skill (%d).", GET_NAME(ch), GET_NAME(victim), dam, weapon->value[1], weapon->value[2], skill );
     if( melee_damage(ch, victim, dam, PHSDAM_NOREDUCE | PHSDAM_NOPOSITION, &messages)
       || !is_char_in_room(ch, room) )
     {
@@ -4894,7 +4894,8 @@ bool single_stab(P_char ch, P_char victim, P_obj weapon)
     || (critical_stab * GET_CHAR_SKILL(ch, SKILL_CRITICAL_STAB)) > number(1, 100)))
   {
     dam = dam + (dam * critical_stab_mult);
-
+    send_to_char("&=LWYou score a CRITICAL HIT!!!&N\n", ch);
+    debug("single_stab: (%s) stabbing (%s) dam (%d) weapon (%dd%d) skill (%d).", GET_NAME(ch), GET_NAME(victim), dam, weapon->value[1], weapon->value[2], skill );
     if(melee_damage(ch, victim, dam, PHSDAM_NOREDUCE | PHSDAM_NOPOSITION, &messages)
       || !is_char_in_room(ch, room))
     {
@@ -4908,10 +4909,14 @@ bool single_stab(P_char ch, P_char victim, P_obj weapon)
     act("$n twists the blade causing $N to writhe in agony,",
       FALSE, ch, 0, victim, TO_NOTVICTROOM);
   }
-  else if(melee_damage(ch, victim, dam, PHSDAM_NOREDUCE | PHSDAM_NOPOSITION, &messages)
-    || (room < 1) || !is_char_in_room(ch, room))
+  else
   {
-    return TRUE;
+    debug("single_stab: (%s) stabbing (%s) dam (%d) weapon (%dd%d) skill (%d).", GET_NAME(ch), GET_NAME(victim), dam, weapon->value[1], weapon->value[2], skill );
+    if(melee_damage(ch, victim, dam, PHSDAM_NOREDUCE | PHSDAM_NOPOSITION, &messages)
+      || (room < 1) || !is_char_in_room(ch, room))
+    {
+      return TRUE;
+    }
   }
 
   if(spinal)

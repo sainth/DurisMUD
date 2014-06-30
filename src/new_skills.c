@@ -1169,7 +1169,7 @@ void chant_jin_touch(P_char ch, char *argument, int cmd)
   else if(skl_lvl <= 90)
     dam = (int) (0.6 * dam);
 
-   dam = dam * 2;
+   dam /= 2;
     
   act("&+CYou harness your full Jin, and deliver a powerful strike to&n $N!&n",
     FALSE, ch, 0, vict, TO_CHAR);
@@ -1177,11 +1177,9 @@ void chant_jin_touch(P_char ch, char *argument, int cmd)
     FALSE, ch, 0, vict, TO_NOTVICT);
   act("$n&+C's chants a mantra as $e touches you - pain courses throughout your body!&n",
     FALSE, ch, 0, vict, TO_VICT);
-    
-  //debug("(%s) Jin Touch: damage upon (%s) for (%d).", GET_NAME(ch), GET_NAME(vict), dam);
 
-  if(melee_damage(ch, vict, dam, PHSDAM_NOREDUCE | PHSDAM_NOPOSITION |
-      PHSDAM_TOUCH, 0) != DAM_NONEDEAD)
+  debug("chant_jin_touch: (%s) hitting (%s) for (%d) dam.", GET_NAME(ch), GET_NAME(vict), dam);
+  if(melee_damage(ch, vict, dam, PHSDAM_NOREDUCE | PHSDAM_NOPOSITION | PHSDAM_TOUCH, 0) != DAM_NONEDEAD)
         return;
 
   if (!char_in_list(ch))
