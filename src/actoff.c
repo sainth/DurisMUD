@@ -5797,7 +5797,7 @@ if((GET_RACE(victim) == RACE_OGRE) && ch_size < vict_size)
 
 
   rolled = number(1, 100);
-//  debug("bash: (%s) bashing (%s) final percentage (%d).", GET_NAME(ch), GET_NAME(victim), percent_chance);
+  debug("bash: (%s) bashing (%s) final percentage (%d).", GET_NAME(ch), GET_NAME(victim), percent_chance);
 
   if(!notch_skill(ch, SKILL_BASH, get_property("skill.notch.offensive", 15)) &&
      percent_chance < rolled)
