@@ -4781,7 +4781,7 @@ bool single_stab(P_char ch, P_char victim, P_obj weapon)
 
   dam += (number (10, GET_C_LUK(ch)) / 10);
 
-  dam =  (int)((float)dam * ((float)skill / (float)100));
+  dam = (int)((float)dam * ((float)skill / (float)100));
 
   dice_mult = (int) (weapon->value[1] + (weapon->value[2] / 2)) / 2;
   dice_mult += weapon->value[1] + (weapon->value[1] / 2);
@@ -5054,7 +5054,7 @@ bool backstab(P_char ch, P_char victim)
 
   victim = misfire_check(ch, victim, DISALLOW_SELF | DISALLOW_BACKRANK);
 
-  percent_chance = (int) (0.9 * GET_CHAR_SKILL(ch, SKILL_BACKSTAB));
+  percent_chance = (int) (0.95 * GET_CHAR_SKILL(ch, SKILL_BACKSTAB));
 
   if(GET_C_LUK(ch) / 2 > number(0, 100))
   {
@@ -5156,7 +5156,8 @@ bool backstab(P_char ch, P_char victim)
   {
     stabbed = TRUE;
     if(notch_skill(ch, SKILL_BACKSTAB, get_property("skill.notch.offensive", 15))
-      || percent_chance > number(0, 100))
+      || percent_chance > number(0, 100)
+      || GET_STAT(victim) <= STAT_SLEEPING )
     {
       if(single_stab(ch, victim, first_w))
       {
@@ -5204,11 +5205,12 @@ bool backstab(P_char ch, P_char victim)
       hit(ch, victim, second_w);
     }
   }
-  if(!affected_by_spell(victim, SKILL_AWARENESS))
+
+  if(victim && IS_ALIVE(victim) && !affected_by_spell(victim, SKILL_AWARENESS))
   {
     bzero(&af, sizeof(af));
     af.type = SKILL_AWARENESS;
-    af.duration = 10 * PULSE_VIOLENCE;
+    af.duration = PULSE_VIOLENCE;
     af.bitvector = AFF_AWARE;
     affect_to_char(victim, &af);
   }
