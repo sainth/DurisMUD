@@ -5694,7 +5694,7 @@ if((GET_RACE(victim) == RACE_OGRE) && ch_size < vict_size)
 
   if(!IS_PC_PET(ch))
   {
-    modifier = 1 + ((GET_C_STR(ch) + GET_C_AGI(ch))/2 - GET_C_AGI(victim)) / 50.0;
+    modifier = 1 + ((GET_C_STR(ch) + GET_C_DEX(ch))/2 - GET_C_AGI(victim)) / 50.0;
     percent_chance *= modifier;
 //    debug("bash: (%s) bashing (%s) str/agi percentage (%d) mod (%f).", GET_NAME(ch), GET_NAME(victim), percent_chance, modifier);
   }
