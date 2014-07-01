@@ -4767,6 +4767,12 @@ bool single_stab(P_char ch, P_char victim, P_obj weapon)
     0, weapon
   };
 
+  if( !ch || !victim || !IS_ALIVE(ch) || !IS_ALIVE(victim) )
+  {
+    debug( "single_stab: ch/victim missing or already dead." );
+    return TRUE;
+  }
+
   if((skill = GET_CHAR_SKILL(ch, SKILL_BACKSTAB)) < 1)
   {
     return FALSE;
