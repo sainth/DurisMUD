@@ -1427,23 +1427,20 @@ void chant_fist_of_dragon(P_char ch, char *arg, int cmd)
     return;
   }
 
- if (!affect_timer(ch,
-       WAIT_SEC * get_property("timer.secs.monkFistOfDragon", 30),
-       SKILL_FIST_OF_DRAGON))
+  if (!affect_timer(ch, WAIT_SEC * get_property("timer.secs.monkFistOfDragon", 30), SKILL_FIST_OF_DRAGON))
   {
     send_to_char("Yer not in proper mood for that right now!\r\n", ch);
     return;
   }
 
-  if (!notch_skill(ch, SKILL_FIST_OF_DRAGON,
-     get_property("skill.notch.chants", 100)) &&
-     (number(1,101) > (IS_PC(ch) ? (1 + GET_CHAR_SKILL(ch, SKILL_FIST_OF_DRAGON)) : (MIN(100,GET_LEVEL(ch) * 2)))))
+  if (!notch_skill(ch, SKILL_FIST_OF_DRAGON, get_property("skill.notch.chants", 100))
+    && (number(1,101) > (IS_PC(ch) ? (1 + GET_CHAR_SKILL(ch, SKILL_FIST_OF_DRAGON)) : (MIN(100,GET_LEVEL(ch) * 2)))))
   {
     send_to_char("You fail to summon the power of the &+RRed Dragon&n!\r\n", ch);
     return;
   }
 
-  set_short_affected_by(ch, SKILL_FIST_OF_DRAGON, WAIT_SEC * (BOUNDED(4, (GET_CHAR_SKILL(ch, SKILL_FIST_OF_DRAGON) / 2), 55)));
+  set_short_affected_by(ch, SKILL_FIST_OF_DRAGON, WAIT_SEC * (MAX(4, (GET_CHAR_SKILL(ch, SKILL_FIST_OF_DRAGON) / 2))));
   send_to_char
      ("&+rThe strength of the &+Rred dragon &+rflows strong in your veins.\r\n"
      , ch);
