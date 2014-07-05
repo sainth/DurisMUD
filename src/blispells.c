@@ -480,8 +480,6 @@ void spell_acid_rain(int level, P_char ch, char *arg, int type, P_char victim, P
 // 1d6 damage (1d8 to water mentals/plants) per lvl.
 void spell_horrid_wilting(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
-  P_char next;
-  int    dam = dice(level, 6);
   struct damage_messages messages = {
     "$N &+Lbegins to dry and wilt.&n",
     "&+LYou begin to dry out and wilt.&n",
@@ -491,40 +489,33 @@ void spell_horrid_wilting(int level, P_char ch, char *arg, int type, P_char vict
     "$N dries up completely and crumbles&n.",
       0
   };
+  int dam = dice((int)(level * 3), 6) - number(0, 40);
 
-  if( !ch || !IS_ALIVE(ch) )
+  if( !ch || !victim || !IS_ALIVE(ch) || !IS_ALIVE(victim) )
   {
     return;
   }
 
-  for( victim = world[ch->in_room].people; victim; victim = next )
+  int mod = BOUNDED(0, (GET_LEVEL(ch) - GET_LEVEL(victim)), 20);
+
+  if(!NewSaves(victim, SAVING_SPELL, mod))
   {
-    next = victim->next_in_room;
-    if( (victim != ch) )
-    {
-      if(!NewSaves(victim, SAVING_SPELL, 0))
-      {
-        if( GET_RACE(victim) != RACE_PLANT && GET_RACE(victim) != RACE_SLIME && GET_RACE(victim) != RACE_W_ELEMENTAL )
-        {
-          spell_damage(ch, victim, dam, SPLDAM_ACID, SPLDAM_GLOBE | SPLDAM_GRSPIRIT, &messages);
-        }
-        else
-        {
-          spell_damage(ch, victim, (dam*4)/3, SPLDAM_ACID, SPLDAM_GLOBE | SPLDAM_GRSPIRIT, &messages);
-        }
-      }
-      else
-      {
-        if( GET_RACE(victim) != RACE_PLANT && GET_RACE(victim) != RACE_SLIME && GET_RACE(victim) != RACE_W_ELEMENTAL )
-        {
-          spell_damage(ch, victim, dam/2, SPLDAM_ACID, SPLDAM_GLOBE | SPLDAM_GRSPIRIT, &messages);
-        }
-        else
-        {
-          spell_damage(ch, victim, (dam*2)/3, SPLDAM_ACID, SPLDAM_GLOBE | SPLDAM_GRSPIRIT, &messages);
-        }
-      }
-    }
+      dam = (int)(dam * 1.30);
+  }
+
+  if(!NewSaves(victim, SAVING_SPELL, (int)(mod / 3)) && !IS_BLIND(victim))
+  {
+    send_to_char( "&+CYour &+ceyes &+Bdry &+bout&+L!!!&n\n", victim );
+    blind(ch, victim, number((int)(level / 3), (int)(level / 2)) * WAIT_SEC);
+  }
+
+  if( GET_RACE(victim) != RACE_PLANT && GET_RACE(victim) != RACE_SLIME && GET_RACE(victim) != RACE_W_ELEMENTAL )
+  {
+    spell_damage(ch, victim, dam, SPLDAM_ACID, SPLDAM_GLOBE | SPLDAM_GRSPIRIT, &messages);
+  }
+  else
+  {
+    spell_damage(ch, victim, (dam*4)/3, SPLDAM_ACID, SPLDAM_GLOBE | SPLDAM_GRSPIRIT, &messages);
   }
 }
 

@@ -8711,6 +8711,11 @@ int blighter_pond(P_obj obj, P_char ch, int cmd, char *arg)
     arg = skip_spaces(arg);
     if( *arg && !strcmp(arg, "pond") )
     {
+      if( obj->value[0] < 31 )
+      {
+        return FALSE;
+      }
+
       act("You drink from $p.", FALSE, ch, obj, 0, TO_CHAR);
       act("$n drinks from $p.", FALSE, ch, obj, 0, TO_ROOM);
 
