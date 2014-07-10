@@ -1738,7 +1738,7 @@ void use_spell(P_char ch, int spell)
     {
       if( MIN(GET_CHAR_SKILL(ch, SKILL_DEVOTION)/10, 5) + 4 > number(0,100) )
       {
-        sprintf(buf, "%s's grace flows down on you refreshing your wind power!&n\n", get_god_name(ch));
+        sprintf(buf, "%s's grace flows down on you refreshing your spell power!&n\n", get_god_name(ch));
         send_to_char( buf, ch );
         return;
       }
