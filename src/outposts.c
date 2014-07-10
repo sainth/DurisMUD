@@ -1495,7 +1495,7 @@ void outposts_upkeep()
   if( time(0) - upkeep_time < (60*60) )
   {
     return;
-  {
+  }
   else
   {
     upkeep_time = time(0);
