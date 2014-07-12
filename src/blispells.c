@@ -615,7 +615,11 @@ void spell_shambler(int level, P_char ch, char *arg, int type, P_char victim, P_
       return;
     }
     char_to_room( mob, ch->in_room, 0 );
-    setup_pet(mob, ch, 1, PET_NOCASH | PET_NOAGGRO);
+    /* if the pet will stop being charmed after a bit, also make it suicide 2-12 minutes later */
+    if( setup_pet(mob, ch, 15, PET_NOCASH | PET_NOAGGRO) >= 0 )
+    {
+      add_event(event_pet_death, dice(2,6) * 60 * WAIT_SEC, mob, NULL, NULL, 0, NULL, 0);
+    }
     add_follower(mob, ch);
   }
 }
