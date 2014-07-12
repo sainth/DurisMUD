@@ -508,91 +508,102 @@ void do_specialize(P_char ch, char *argument, int cmd)
 {
   P_char teacher;
   int      i;
-  char     buf[MAX_STRING_LENGTH] = "";
+  char     buf[MAX_STRING_LENGTH];
   bool found_one;
 
-  if (!strcmp(argument, "list"))
+  if( !strcmp(argument, "list") )
   {
     do_spec_list(ch);
     return;
   }
 
-  if (IS_MULTICLASS_PC(ch)) {
+  if( IS_MULTICLASS_PC(ch) )
+  {
     send_to_char("You have already chosen another path!\n", ch);
     return;
   }
-  
-  if (!*argument)
+
+  if( !*argument )
   {
-    strcpy(buf, "You can choose from the following specializations:\n\r");
-    
+    sprintf(buf, "You can choose from the following specializations:\n\r");
+
     found_one = append_valid_specs(buf, ch);;
-    
+
     if( !found_one )
     {
       send_to_char("There are no specializations available to you.\r\n", ch);
-      return;      
+      return;
     }
 
     send_to_char(buf, ch);
     return;
   }
-  
-  for (teacher = world[ch->in_room].people; teacher; teacher = teacher->next_in_room)
-    if (IS_NPC(teacher) && GET_CLASS(teacher, ch->player.m_class) &&
-        IS_SET(teacher->specials.act, ACT_SPEC_TEACHER))
+
+  for( teacher = world[ch->in_room].people; teacher; teacher = teacher->next_in_room )
+  {
+    if( IS_NPC(teacher) && GET_CLASS(teacher, ch->player.m_class)
+      && IS_SET(teacher->specials.act, ACT_SPEC_TEACHER) )
+    {
       break;
-  
-  if (!teacher) {
+    }
+    // Allowing people to spec from a God if they have consent.
+    if( IS_PC(teacher) && IS_TRUSTED(teacher) && is_linked_to( ch, teacher, LNK_CONSENT)
+      && ch != teacher )
+    {
+      break;
+    }
+  }
+
+  if( !teacher )
+  {
     send_to_char("You need to find a teacher first.\n", ch);
     return;
   }
-  
-  if (IS_NPC(ch))
+
+  if( IS_NPC(ch) )
   {
     mobsay(teacher, "Please stop trying to crash the game by ordering pets to specialize.");
     return;
   }
-  
-  if (teacher->player.m_class != ch->player.m_class)
+
+  if( teacher->player.m_class != ch->player.m_class
+    && !(IS_PC(teacher) && IS_TRUSTED(teacher) && is_linked_to(ch, teacher, LNK_CONSENT)) )
   {
     mobsay(teacher, "I know nothing of your kind. Be gone.");
     return;
   }
-  
-  if (IS_SPECIALIZED(ch))
+
+  if( IS_SPECIALIZED(ch) )
   {
     mobsay(teacher, "You are already specialized.");
     return;
   }
-  
-  char     tmp[512];
-  
+
   while (*argument == ' ')
     argument++;
-  
-  if (time(NULL) < ch->only.pc->time_unspecced)
+
+  if( time(NULL) < ch->only.pc->time_unspecced )
   {
     sprintf(buf, "You cannot specialize until %s.\r\n",
             asctime(localtime(&ch->only.pc->time_unspecced)));
     send_to_char(buf, ch);
     return;
   }
-  
+
   if (GET_LEVEL(ch) < 30)
   {
     mobsay(teacher, "You are not yet experienced enough to specialize.");
     return;
   }
-  
+
   for (i = 0; i < MAX_SPEC; i++)
   {
-    if( !*GET_SPEC_NAME(ch->player.m_class, i))
+    if( !*GET_SPEC_NAME(ch->player.m_class, i) )
       continue;
-    
+
     if( !is_allowed_race_spec(GET_RACE(ch), ch->player.m_class, i+1) )
       continue;
-    
+
     if( is_abbrev( argument, strip_ansi(GET_SPEC_NAME(ch->player.m_class, i)).c_str()) )
     {
       sprintf(buf, "From this day onwards you will follow the path of the %s&n!", GET_SPEC_NAME(ch->player.m_class, i));
@@ -600,9 +611,9 @@ void do_specialize(P_char ch, char *argument, int cmd)
       update_skills(ch);
       mobsay(teacher, buf);
       return;
-    }    
+    }
   }
-  
+
   mobsay(teacher, "I'm sorry, but that specialization isn't available to you.");
 }
 
