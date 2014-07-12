@@ -3321,7 +3321,6 @@ void do_area(P_char ch, char *argument, int cmd)
   }
   send_to_char(buf, ch);
   send_to_char(buf2, ch);
-  
 }
 
 void do_quaff(P_char ch, char *argument, int cmd)
@@ -3330,10 +3329,9 @@ void do_quaff(P_char ch, char *argument, int cmd)
   int      i, j, chance;
   bool     equipped;
   char     Gbuf1[MAX_STRING_LENGTH];
-  
-  if(!(ch) ||
-     !IS_ALIVE(ch))
-        return;
+
+  if( !IS_ALIVE(ch) )
+    return;
 
   equipped = FALSE;
 
@@ -3343,14 +3341,14 @@ void do_quaff(P_char ch, char *argument, int cmd)
   {
     temp = ch->equipment[HOLD];
     equipped = TRUE;
-    
+
     if((temp == NULL) || !isname(Gbuf1, temp->name))
     {
       act("You do not have that item.", FALSE, ch, 0, 0, TO_CHAR);
       return;
     }
   }
-  
+
   if(temp->type != ITEM_POTION)
   {
     act("You can only quaff potions.", FALSE, ch, 0, 0, TO_CHAR);
@@ -3364,33 +3362,31 @@ void do_quaff(P_char ch, char *argument, int cmd)
     return;
   }
 
-  if(IS_FIGHTING(ch) || IS_DESTROYING(ch) )
+  if(affected_by_spell(ch, TAG_POTION_TIMER))
+  {
+    send_to_char("Your body cannot yet handle another jolt of magical influence!\r\n", ch);
+    return;
+  }
+
+  if( IS_FIGHTING(ch) || IS_DESTROYING(ch) )
   {
     chance = 50;
 
     chance += ((GET_C_DEX(ch) + (GET_C_AGI(ch) / 2)) - 75) / 4;
 
     if (GET_C_LUK(ch) / 2 > number(0, 100))
-       chance = (int) (chance * 1.1);
-       
-    if(has_innate(ch, INNATE_QUICK_THINKING) ||
-       affected_by_spell(ch, SPELL_COMBAT_MIND))
-          chance = (int)(chance * 1.25);
-      
-    if(number(0, 99) >= chance && GET_OBJ_VNUM(temp) != 400228)
+      chance = (int) (chance * 1.1);
+
+    if( has_innate(ch, INNATE_QUICK_THINKING) || affected_by_spell(ch, SPELL_COMBAT_MIND) )
+      chance = (int)(chance * 1.25);
+
+    if( number(0, 99) >= chance && GET_OBJ_VNUM(temp) != 400228 )
     {
       act("Whoops!  You spilled it!", TRUE, ch, 0, 0, TO_CHAR);
-      act("$n attempts to quaff $p, but spills it instead!",
-        TRUE, ch, temp, 0, TO_ROOM);
+      act("$n attempts to quaff $p, but spills it instead!", TRUE, ch, temp, 0, TO_ROOM);
       extract_obj(temp, TRUE);
       return;
     }
-  }
-
-  if(affected_by_spell(ch, TAG_POTION_TIMER))
-  {
-    send_to_char("Your body cannot yet handle another jolt of magical influence!\r\n", ch);
-    return;
   }
 
   struct affected_type af;
