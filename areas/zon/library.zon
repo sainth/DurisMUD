@@ -395,6 +395,7 @@ O 0 402010 11 402111 100 0 0 0     * a bookcase carved into the walls
 P 1 402051 1 402010 100 0 0 0      *   a mystical tome covered in demon-skin
 O 0 402010 11 402112 100 0 0 0     * a bookcase carved into the walls
 P 1 402050 1 402010 100 0 0 0      *   a cloth-bound tome of magical study
+O 0 3097 1 402114 100 0 0 0        * (object type not in this .obj file)
 O 0 402002 16 402118 100 0 0 0     * a faerie fire wall torch
 O 0 402002 16 402119 100 0 0 0     * a faerie fire wall torch
 O 0 402002 16 402120 100 0 0 0     * a faerie fire wall torch
