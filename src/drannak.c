@@ -803,6 +803,8 @@ void random_recipe(P_char ch, P_char victim)
   if(IS_ELITE(victim))
     chance *= 5;
 
+  chance += GET_C_LUK(ch)/2;
+
   int result = number(1, 20000);
 
   if(result < chance)
