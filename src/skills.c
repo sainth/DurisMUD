@@ -746,6 +746,10 @@ void initialize_skills()
   SPEC_SPELL_ADD(CLASS_RANGER, 8, SPEC_WOODSMAN);
   SPEC_SPELL_ADD(CLASS_CLERIC, 7, SPEC_HEALER);
 
+  SPELL_CREATE_MSG("sap nature", SPELL_SAP_NATURE, PULSE_SPELLCAST * 3 / 2,
+                TAR_SELF_ONLY, spell_sap_nature, "&+yThe &+Genergy&+y ceases to flow.&n");
+  SPELL_ADD(CLASS_BLIGHTER, 6);
+
   SPELL_CREATE_MSG("fortitude", SPELL_FORTITUDE, PULSE_SPELLCAST,
                 TAR_CHAR_ROOM,
                 spell_fortitude, "You feel less determined to go on with life.");

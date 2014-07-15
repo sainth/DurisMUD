@@ -689,7 +689,8 @@
 #define SPELL_CREATE_POND            639
 #define SPELL_TOXIC_FOG              640
 #define SPELL_FALUZURES_VITALITY     641
-#define LAST_SPELL  SPELL_FALUZURES_VITALITY
+#define SPELL_SAP_NATURE             642
+#define LAST_SPELL  SPELL_SAP_NATURE
 
 #define FIRST_SKILL                  1000  /* should be a decent split point */
 #define SKILL_SNEAK                  1000

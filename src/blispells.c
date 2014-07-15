@@ -852,7 +852,7 @@ void spell_drain_nature(int level, P_char ch, char *arg, int type, P_char victim
   else
   {
     act("&+yYou feel &+Whealth&+y flow into you from your surroundings.&n", FALSE, ch, 0, victim, TO_VICT );
-    act("&+yYou drain &+Whealth&+y from you surroundings, sending it to $N&+y.&n",
+    act("&+yYou drain &+Whealth&+y from your surroundings, sending it to $N&+y.&n",
       FALSE, ch, 0, victim, TO_CHAR);
   }
   act("&+y$n&+y sucks the &+glife&+y out of the surroundings, &+Whealing&+y $N&+y.&n",
@@ -981,4 +981,63 @@ void spell_faluzures_vitality(int level, P_char ch, char *arg, int type, P_char 
   affect_to_char(victim, &af);
 
   send_to_char("&+yYou feel the &+Lcold &+ybreath of the God &+yFa&+Lluz&+yure.&n\r\n", ch);
+}
+
+// Blighter's version of endurance.
+void spell_sap_nature(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj )
+{
+  struct affected_type af;
+  int skl_lvl;
+
+  if( !IS_ALIVE(victim) || !IS_ALIVE(ch) )
+  {
+    return;
+  }
+
+  if( affected_by_spell(victim, SPELL_ENDURANCE) )
+  {
+    send_to_char("You can't possibly regain movement any faster.\n", victim);
+    return;
+  }
+
+  if( affected_by_spell(victim, SPELL_MIELIKKI_VITALITY)
+    && !GET_CLASS(victim, CLASS_DRUID)
+    && !GET_SPEC(victim, CLASS_RANGER, SPEC_WOODSMAN) )
+  {
+    send_to_char("&+GThe Goddess Mielikki is aiding your health, and prevents the endurance spell from functioning", ch );
+    return;
+  }
+
+  if( affected_by_spell(ch, SPELL_FALUZURES_VITALITY) )
+  {
+    send_to_char( "&+yFa&+Lluz&+yure refuses to help you further.&n\r\n", ch);
+    return;
+  }
+
+  // 3 up to lvl 20 (4) ... 56 (13)
+  skl_lvl = (int)(MAX(3, ((level / 4) - 1)) * get_property("spell.endurance.modifiers", 1.000));
+  if( GET_SPEC(ch, CLASS_BLIGHTER, SPEC_SCOURGE) )
+  {
+    skl_lvl += 5;
+  }
+
+  bzero(&af, sizeof(af));
+  af.type = SPELL_SAP_NATURE;
+  af.location = APPLY_MOVE_REG;
+  af.duration = skl_lvl;
+  af.modifier = skl_lvl;
+  affect_to_char(victim, &af);
+
+  if(ch == victim)
+  {
+    act( "&+yYou sap &+Genergy&+y from your surroundings.&n", FALSE, ch, 0, victim, TO_CHAR );
+  }
+  else
+  {
+    act("&+yYou feel &+Genergy&+y flow into you from your surroundings.&n", FALSE, ch, 0, victim, TO_VICT );
+    act("&+yYour incantation saps &+Genergy&+y from your surroundings, sending it to $N&+y.&n",
+      FALSE, ch, 0, victim, TO_CHAR);
+  }
+  act("&+GEnergy&+y from the area begins to drain into &+y$N&+y.&n",
+    FALSE, ch, 0, victim, TO_NOTVICT);
 }
