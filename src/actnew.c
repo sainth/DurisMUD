@@ -524,6 +524,11 @@ void do_war_cry(P_char ch, char *arg, int cmd)
   int      skl;
   struct affected_type af;
 
+  if( !IS_ALIVE(ch) )
+  {
+    return;
+  }
+
   if (!GET_CHAR_SKILL(ch, SKILL_WAR_CRY))
   {
     send_to_char("You don't know how to war cry.\r\n", ch);
@@ -531,47 +536,15 @@ void do_war_cry(P_char ch, char *arg, int cmd)
   }
 
   send_to_char("You unleash a &+rpowerful &+RSCREAM!!&n\r\n", ch);
-  act("$n lets loose with a &+rpowerful &+RSCREAM!!&n", TRUE, ch, 0, 0,
-      TO_ROOM);
+  act("$n lets loose with a &+rpowerful &+RSCREAM!!&n", TRUE, ch, 0, 0, TO_ROOM);
 
-  if (ch && ch->group)
+  if( ch->group )
   {
-    gl = ch->group;
-    /* leader first */
-    if (gl->ch->in_room == ch->in_room)
+    for( gl = ch->group; gl; gl = gl->next )
     {
-      if (!affected_by_spell(gl->ch, SKILL_WAR_CRY))
+      if( gl->ch->in_room == ch->in_room )
       {
-        bzero(&af, sizeof(af));
-        af.type = SKILL_WAR_CRY;
-        af.duration = (dampoints);
-        //HPS
-        af.modifier = hpoints;
-        af.location = APPLY_HIT;
-        affect_to_char(gl->ch, &af);
-        //HIT
-        af.modifier = dampoints;
-        af.location = APPLY_HITROLL;
-        affect_to_char(gl->ch, &af);
-        //DAM
-        af.modifier = dampoints;
-        af.location = APPLY_DAMROLL;
-        affect_to_char(gl->ch, &af);
-        update_pos(gl->ch);
-        send_to_char("You feel like you could &+rfight&n forever.\r\n",
-            gl->ch);
-        act("&+L$n becomes alert and ready to &+rfight&n.", TRUE, gl->ch, 0,
-            0, TO_ROOM);
-        notch_skill(ch, SKILL_WAR_CRY, 15);
-      }
-
-    }
-    /* followers */
-    for (gl = gl->next; gl; gl = gl->next)
-    {
-      if (gl->ch->in_room == ch->in_room)
-      {
-        if (!affected_by_spell(gl->ch, SKILL_WAR_CRY))
+        if( !affected_by_spell(gl->ch, SKILL_WAR_CRY) )
         {
           bzero(&af, sizeof(af));
           af.type = SKILL_WAR_CRY;
@@ -589,18 +562,16 @@ void do_war_cry(P_char ch, char *arg, int cmd)
           af.location = APPLY_DAMROLL;
           affect_to_char(gl->ch, &af);
           update_pos(gl->ch);
-          send_to_char("You feel like you could &+rfight&n forever.\r\n",
-              gl->ch);
-          act("&+L$n becomes alert and ready to &+rfight&n.", TRUE, gl->ch, 0,
-              0, TO_ROOM);
-          notch_skill(ch, SKILL_WAR_CRY, 50);
+          send_to_char("You feel like you could &+rfight&n forever.\r\n", gl->ch);
+          act("&+L$n becomes alert and ready to &+rfight&n.", TRUE, gl->ch, 0, 0, TO_ROOM);
+          notch_skill( ch, SKILL_WAR_CRY, 15 );
         }
       }
     }
   }
   else
   {
-    if (!affected_by_spell(ch, SKILL_WAR_CRY))
+    if( !affected_by_spell(ch, SKILL_WAR_CRY) )
     {
       bzero(&af, sizeof(af));
       af.type = SKILL_WAR_CRY;
@@ -619,8 +590,8 @@ void do_war_cry(P_char ch, char *arg, int cmd)
       affect_to_char(ch, &af);
       update_pos(ch);
       send_to_char("You feel like you could &+rfight&n forever.\r\n", ch);
-      act("&+L$n becomes alert and ready to &+rfight&n.", TRUE, ch, 0, 0,
-          TO_ROOM);
+      act("&+L$n becomes alert and ready to &+rfight&n.", TRUE, ch, 0, 0, TO_ROOM);
+      notch_skill(ch, SKILL_WAR_CRY, 15);
     }
   }
 
