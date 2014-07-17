@@ -548,11 +548,12 @@ const struct class_names class_names_table[] = {
   {"Berserker", "&+rBeR&+RSeR&n&+rKeR&n", "Ber", 'u'},
   {"Reaver", "&+LRe&+Wav&+Ler&n", "Rev", 'v'},
   {"Illusionist", "&+WIl&+Clu&+csi&+Con&+Wist&n", "Ilu", 'y'},
-  {"Unholy Piper", "&+GUnholy Piper&n", "Pip", 'y'},
+  {"Blighter", "&+LBl&+yi&+ggh&+yt&+Ler&n", "Bli", '9'},
   {"Dreadlord", "&+LDread&+rlord&n", "Dre", 'e'},
   {"Ethermancer", "&+wEthermancer&n", "Eth", 'g'},
   {"Avenger", "&+WAvenger&n", "Ave", '2'},
   {"Theurgist", "&+cTh&+Ceur&+Wgist&n", "The", '1'},
+  {"Summoner", "&+RSummoner&n", "Sum", '3'},
   {0}
 };
 
