@@ -17900,18 +17900,19 @@ void event_magma_burst(P_char ch, P_char vict, P_obj obj, void *data)
     "$N screams in agony as &+Rthe flames&n consume $M completely.", 0
   };
 
-  level = *((int *) data);
-
-  for (af = vict->affected; af && af->type != SPELL_MAGMA_BURST;
-       af = af->next)
-    ;
-
-  if(af == NULL)
+  if( !IS_ALIVE(vict) )
   {
     return;
   }
 
-  if( !IS_ALIVE(vict) )
+  level = *((int *) data);
+
+  for( af = vict->affected; af && af->type != SPELL_MAGMA_BURST; af = af->next )
+  {
+    ;
+  }
+
+  if( af == NULL )
   {
     return;
   }
@@ -17925,30 +17926,26 @@ void event_magma_burst(P_char ch, P_char vict, P_obj obj, void *data)
 
   dam = 3 * level + number(0, 30);
 
-  if(spell_damage(ch, vict, dam, SPLDAM_FIRE, SPLDAM_NODEFLECT, &messages) ==
-      DAM_NONEDEAD)
+  if( spell_damage(ch, vict, dam, SPLDAM_FIRE, SPLDAM_NODEFLECT, &messages) == DAM_NONEDEAD)
   {
-    add_event(event_magma_burst, PULSE_VIOLENCE, ch, vict, NULL, 0, &level,
-              sizeof(level));
-    if(5 > number(1, 10))
+    add_event(event_magma_burst, PULSE_VIOLENCE, ch, vict, NULL, 0, &level, sizeof(level));
+    if( 5 > number(1, 10) )
+    {
       stop_memorizing(vict);
+    }
   }
 }
 
-void spell_magma_burst(int level, P_char ch, char *arg, int type,
-                       P_char victim, P_obj obj)
+void spell_magma_burst(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
   struct affected_type *af;
 
-  act("Two pillars of &+Wwhite flame &Nleap from $n's outstreached palms enveloping $N\n"
-     "in a &+Rfi&+rery in&+Rferno&N.", TRUE, ch, 0, victim, TO_NOTVICT);
-  act("Two pillars of &+Wwhite flame &Nleap from $n's outstreached palms enveloping you\n"
-      "in a &+Rfi&+rery in&+Rferno&N.", TRUE, ch, 0, victim, TO_VICT);
-  act("Two pillars of &+Wwhite flame &Nleap from your outstreached palms enveloping $N\n"
-      "in a &+Rfi&+rery in&+Rferno&N.", TRUE, ch, 0, victim, TO_CHAR);
-
   if((af = get_spell_from_char(victim, SPELL_MAGMA_BURST)) == NULL)
   {
+    act("Two pillars of &+Wwhite flame &Nleap from $n's outstreached palms enveloping $N in a &+Rfi&+rery in&+Rferno&N.", TRUE, ch, 0, victim, TO_NOTVICT);
+    act("Two pillars of &+Wwhite flame &Nleap from $n's outstreached palms enveloping you in a &+Rfi&+rery in&+Rferno&N.", TRUE, ch, 0, victim, TO_VICT);
+    act("Two pillars of &+Wwhite flame &Nleap from your outstreached palms enveloping $N in a &+Rfi&+rery in&+Rferno&N.", TRUE, ch, 0, victim, TO_CHAR);
+
     struct affected_type new_affect;
 
     af = &new_affect;
@@ -17964,7 +17961,10 @@ void spell_magma_burst(int level, P_char ch, char *arg, int type,
   }
   else
   {
-    af->modifier = 3;
+    act("Two pillars of &+Wwhite flame &Nleap from $n's outstreached palms, making the &+Rfi&+rery in&+Rferno&N burn &+Wbrighter&n.", TRUE, ch, 0, victim, TO_NOTVICT);
+    act("Two pillars of &+Wwhite flame &Nleap from $n's outstreached palms, making the &+Rfi&+rery in&+Rferno&N burn &+Wbrighter&n.", TRUE, ch, 0, victim, TO_VICT);
+    act("Two pillars of &+Wwhite flame &Nleap from your outstreached palms, making the &+Rfi&+rery in&+Rferno&N burn &+Wbrighter&n.", TRUE, ch, 0, victim, TO_CHAR);
+    af->modifier = ( af->modifier < 3 ) ? 3 : af->modifier + 1;
   }
 }
 
