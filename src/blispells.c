@@ -675,9 +675,9 @@ void event_sandstorm(P_char ch, P_char victim, P_obj obj, void *data)
   int    room = *((int *)data);
   P_char next;
   struct damage_messages messages = {
-    "",
+    "&+yYou en&+Ygu&+ylf $N&+y in s&+Ya&+ynd which &+Rsh&+rre&+Rds&+y $S &+Yskin&+y and gets in $S &+Weyes&+y!&n",
     "&+yYou are en&+Ygu&+ylfed in s&+Ya&+ynd which &+Rsh&+rre&+Rds&+y your &+Yskin&+y and gets in your &+Weyes&+y!&n",
-    "",
+    "&+y$N&+y is en&+Ygu&+ylfed in s&+Ya&+ynd which &+Rsh&+rre&+Rds&+y $S &+Yskin&+y and gets in $S &+Weyes&+y!&n",
     "&+yYou smile as the &+Lhowling &+ys&+Yan&+yds consume $N&+y completely!&n",
     "&+ySand&+Y, sand&+y, sand and more s&+Yan&+yd &+Rsh&+rre&+Rds&+y you and &+Wfills&+y your lungs, causing a major case of &+Ldeath&+y!&n",
     "&+yYou can barely &+wsee&+y, but you believe that you just witnessed the &+Ysandy &+Ldeath&+y of $N&+y.&n",
