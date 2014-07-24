@@ -1344,7 +1344,6 @@ void event_mine_check( P_char ch, P_char victim, P_obj, void *data )
   }
 
   send_to_char("You continue mining...\n", ch);
-// PENIS
   notch_skill(ch, SKILL_MINE, get_property("skill.notch.mining", 2.5));
   GET_VITALITY(ch) -= (number(0,100) > GET_CHAR_SKILL(ch, SKILL_MINE)) ? 3 : 2;
 
@@ -3117,33 +3116,45 @@ bool has_affect(P_obj obj)
 void do_refine(P_char ch, char *arg, int cmd)
 {
   P_obj obj;
-    char     gbuf1[MAX_STRING_LENGTH], gbuf2[MAX_STRING_LENGTH], buffer[MAX_STRING_LENGTH], gbuf3[MAX_STRING_LENGTH];
-    argument_interpreter(arg, gbuf1, gbuf3);
-    if(*gbuf1)
-     {
-      obj = get_obj_in_list(gbuf1, ch->carrying);
-       if(!obj)
-      {
-       send_to_char("&nYou must have the item you wish to &+yre&+Yfi&+yne &nin your inventory.&n\r\n", ch);
-       return;
-      }
-      
+  P_obj t_obj, nextobj;
+  int   i = 0, o = 0;
+  int   orechance;
+  bool  plat = FALSE;
+  char  gbuf1[MAX_STRING_LENGTH], gbuf2[MAX_STRING_LENGTH], buffer[MAX_STRING_LENGTH], gbuf3[MAX_STRING_LENGTH];
+
+  argument_interpreter(arg, gbuf1, gbuf3);
+
+  // If first argument.
+  if(*gbuf1)
+  {
+    obj = get_obj_in_list(gbuf1, ch->carrying);
+    if(!obj)
+    {
+      send_to_char("&nYou must have the item you wish to &+yre&+Yfi&+yne &nin your inventory.&n\r\n", ch);
+      return;
+    }
 
     //must be salvaged material, and cannot be the highest salvage type.
-      if ((GET_OBJ_VNUM(obj) > 400208) || 
-	    (GET_OBJ_VNUM(obj) < 400000) ||
-	    (GET_OBJ_VNUM(obj) == (get_matstart(obj) + 4))
-	    )
-      {
-       send_to_char("That item is either not a &+ysalvaged &nitem, or it is already the &+Bhighest&n quality of &+bmaterial&n for that type!\r\n", ch);
-       return;
-      }
-  P_obj t_obj, nextobj;
-  int i = 0;
-  int o = 0;
-  for (t_obj = ch->carrying; t_obj; t_obj = nextobj)
+    if( (GET_OBJ_VNUM(obj) > 400208) || (GET_OBJ_VNUM(obj) < 400000) )
+    {
+      send_to_char("That item is not a &+ysalvaged&n item!\r\n", ch);
+      return;
+    }
+    if( GET_OBJ_VNUM(obj) == (get_matstart(obj) + 4) )
+    {
+      send_to_char("That &+bmaterial&n is already of the &+Bhighest&n quality.\n", ch );
+      return;
+    }
+  }
+  else
   {
-    nextobj = t_obj->next_content;
+    send_to_char("What &+ysalvaged &+Ymaterial &nwould you like to &+yre&+Yfi&+yne?\r\n", ch);
+    return;
+  }
+
+  // Check for other materials of same quality/type
+  for( t_obj = ch->carrying; t_obj; t_obj = t_obj->next_content )
+  {
 
     if(GET_OBJ_VNUM(t_obj) == GET_OBJ_VNUM(obj))
     {
@@ -3151,7 +3162,7 @@ void do_refine(P_char ch, char *arg, int cmd)
     }
     if((GET_OBJ_VNUM(t_obj) > 193) && (GET_OBJ_VNUM(t_obj) < 234))
     {
-     o++;
+      o++;
     }
   }
   if(i < 2)
@@ -3159,59 +3170,74 @@ void do_refine(P_char ch, char *arg, int cmd)
     send_to_char("You need at least &+Y2 &nof the &+ymaterials&n in your inventory in order to &+yre&+Yfi&+yne&n it.\r\n", ch);
     return;
   }
+  // If no ore, check for 50 plat..
   if(o != 1)
   {
-    send_to_char("You must have &+Wexactly &+Rone&n &+Lm&+yi&+Ln&+ye&+Ld ore &nin your inventory in order to &+yre&+Yfi&+yne&n it.\r\n", ch);
-    return;
+    if( SUB_MONEY( ch, 50000, 0 ) != 0 )
+    {
+      send_to_char("You must have &+Wexactly &+Rone&n &+Lm&+yi&+Ln&+ye&+Ld ore &nin your inventory or 50 &+Wplatinum&n in order to &+yre&+Yfi&+yne&n it.\r\n", ch);
+      return;
+    }
+    else
+    {
+      plat = TRUE;
+    }
   }
+
   i = 2;
-  int orechance;
   for (t_obj = ch->carrying; t_obj; t_obj = nextobj)
-     {
+  {
     nextobj = t_obj->next_content;
 
-	if((GET_OBJ_VNUM(t_obj) == GET_OBJ_VNUM(obj)) && i > 0 )
-         {
-	   obj_from_char(t_obj, TRUE);
-          send_to_char("You take the item and gently pour the melted ore over the item...\n", ch);
-          i--;
-         }
-       if((GET_OBJ_VNUM(t_obj) > 193) && (GET_OBJ_VNUM(t_obj) < 234))
-        {
-         obj_from_char(t_obj, TRUE);
-         orechance = (GET_OBJ_VNUM(t_obj) - 194);
-        }
-      }
+    if((GET_OBJ_VNUM(t_obj) == GET_OBJ_VNUM(obj)) && i > 0 )
+    {
+      obj_from_char(t_obj, TRUE);
+      send_to_char("You take the item and gently pour the melted ore over the item...\n", ch);
+      i--;
+    }
+    if((GET_OBJ_VNUM(t_obj) > 193) && (GET_OBJ_VNUM(t_obj) < 234))
+    {
+      obj_from_char(t_obj, TRUE);
+      orechance = (GET_OBJ_VNUM(t_obj) - 194);
+    }
+  }
+
   int success = 61;
-  success += orechance;
+  // Increase by ore type or 10 pts for using platinum.
+  success += plat ? 10 : orechance;
   if(success < number(1, 100))
   {
-  act
-    ("&+W$n &+Ltakes their &+yore&+L and begins to &+rh&+Rea&+Yt &+Lit in the &+yforge&+L.\r\n"
-     "&+W$n &+Lgently removes the &+rm&+Ro&+Ylt&+Re&+rn &+yore &+Land starts to spread it about their $ps&+L, which &-L&+Rshatters&n &+Lfrom the intense &+rheat&+L!&N",
-     TRUE, ch, obj, 0, TO_ROOM);
-  act
-    ("&+LYou &+Ltake your &+yore&+L and &+rh&+Rea&+Yt &+Lit in the &+yforge&+L.\r\n"
-     "&+LYou &+Lgently remove the &+rm&+Ro&+Ylt&+Re&+rn &+yore &+Land start to spread it about your $ps&+L, which &-L&+Rshatters&n &+Lfrom the intense &+rheat&+L!&N",
-     FALSE, ch, obj, 0, TO_CHAR);
-   return;
+    if( plat )
+    {
+      act("&+W$n &+Ltakes their &+Wcoins&+L and begins to &+rh&+Rea&+Yt &+Lit in the &+yforge&+L.\r\n"
+        "&+W$n &+Lgently removes the &+rm&+Ro&+Ylt&+Re&+rn &+ymetal &+Land starts to spread it about their $ps&+L, which &-L&+Rshatters&n &+Lfrom the intense &+rheat&+L!&N",
+        TRUE, ch, obj, 0, TO_ROOM);
+      act("&+LYou &+Ltake your &+Wcoins&+L and &+rh&+Rea&+Yt &+Lit in the &+yforge&+L.\r\n"
+        "&+LYou &+Lgently remove the &+rm&+Ro&+Ylt&+Re&+rn &+ymetal &+Land start to spread it about your $ps&+L, which &-L&+Rshatters&n &+Lfrom the intense &+rheat&+L!&N",
+        FALSE, ch, obj, 0, TO_CHAR);
+    }
+    else
+    {
+      act("&+W$n &+Ltakes their &+yore&+L and begins to &+rh&+Rea&+Yt &+Lit in the &+yforge&+L.\r\n"
+        "&+W$n &+Lgently removes the &+rm&+Ro&+Ylt&+Re&+rn &+yore &+Land starts to spread it about their $ps&+L, which &-L&+Rshatters&n &+Lfrom the intense &+rheat&+L!&N",
+        TRUE, ch, obj, 0, TO_ROOM);
+      act("&+LYou &+Ltake your &+yore&+L and &+rh&+Rea&+Yt &+Lit in the &+yforge&+L.\r\n"
+        "&+LYou &+Lgently remove the &+rm&+Ro&+Ylt&+Re&+rn &+yore &+Land start to spread it about your $ps&+L, which &-L&+Rshatters&n &+Lfrom the intense &+rheat&+L!&N",
+        FALSE, ch, obj, 0, TO_CHAR);
+    }
+    return;
   }
 
   //success!
   int newobj = GET_OBJ_VNUM(obj) + 1;
   obj_to_char(read_object(newobj, VIRTUAL), ch);
-  act
-    ("&+W$n &+Ltakes their &+yore&+L and begins to &+rh&+Rea&+Yt &+Lit in the &+yforge&+L.\r\n"
-     "&+W$n &+Lgently removes the &+rm&+Ro&+Ylt&+Re&+rn &+yore &+Land starts to spread it about their $ps&+L, which &+ycrack &+Land &+yreform&+L under the intense &+rheat&+L.&N",
-     TRUE, ch, obj, 0, TO_ROOM);
-  act
-    ("&+LYou &+Ltake your &+yore&+L and &+rh&+Rea&+Yt &+Lit in the &+yforge&+L.\r\n"
-     "&+LYou &+Lgently remove the &+rm&+Ro&+Ylt&+Re&+rn &+yore &+Land start to spread it about your $ps&+L, which &+ycrack &+Land &+yreform&+L under the intense &+rheat&+L.&N",
-     FALSE, ch, obj, 0, TO_CHAR);
-    }
+  act("&+W$n &+Ltakes their &+yore&+L and begins to &+rh&+Rea&+Yt &+Lit in the &+yforge&+L.\r\n"
+    "&+W$n &+Lgently removes the &+rm&+Ro&+Ylt&+Re&+rn &+yore &+Land starts to spread it about their $ps&+L, which &+ycrack &+Land &+yreform&+L under the intense &+rheat&+L.&N",
+    TRUE, ch, obj, 0, TO_ROOM);
+  act("&+LYou &+Ltake your &+yore&+L and &+rh&+Rea&+Yt &+Lit in the &+yforge&+L.\r\n"
+    "&+LYou &+Lgently remove the &+rm&+Ro&+Ylt&+Re&+rn &+yore &+Land start to spread it about your $ps&+L, which &+ycrack &+Land &+yreform&+L under the intense &+rheat&+L.&N",
+    FALSE, ch, obj, 0, TO_CHAR);
 
-    if(!arg || !*arg)
-  send_to_char("What &+ysalvaged &+Ymaterial &nwould you like to &+yre&+Yfi&+yne?\r\n", ch);
 }
 
 void do_dice(P_char ch, char *arg, int cmd)
