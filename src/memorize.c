@@ -952,7 +952,8 @@ void handle_undead_mem(P_char ch)
     time = get_circle_memtime(ch, highest_empty);
     add_event(event_memorize, time, ch, 0, 0, 0, &time, sizeof(time));
   }
-  else if( !(USES_COMMUNE(ch) || USES_FOCUS(ch) || USES_DEFOREST(ch)) )
+  else if( is_wearing_necroplasm(ch)
+    || !(USES_COMMUNE(ch) || USES_FOCUS(ch) || USES_DEFOREST(ch)) )
   {
     send_to_char("&+rYou feel fully infused...\n", ch);
 
