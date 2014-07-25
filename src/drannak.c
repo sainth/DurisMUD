@@ -801,7 +801,7 @@ void create_recipe(P_char ch, P_obj temp)
   objrecipe->short_description = str_dup(buffer);
 
   objrecipe->str_mask |= STRUNG_DESC2;
-  debug( "create_recipe: %s reward was: %s", J_NAME(ch), objrecipe->short_description );
+  debug( "create_recipe: %s reward was: %s ival: %d.", J_NAME(ch), objrecipe->short_description, itemvalue(ch, temp) );
   obj_to_char( objrecipe, ch );
 }
 
@@ -824,7 +824,7 @@ void random_recipe(P_char ch, P_char victim)
 
   int result = number(1, 20000);
 
-  if(result < chance)
+  if( result < chance )
   {
     P_obj reward = random_zone_item(ch);
     if(obj_index[reward->R_num].virtual_number == 1252 ||
@@ -835,10 +835,10 @@ void random_recipe(P_char ch, P_char victim)
       return;
     }
     create_recipe(victim, reward);
-    extract_obj(reward, TRUE); 
+    extract_obj(reward, TRUE);
   }
 
-  return; 
+  return;
 
 }
 
