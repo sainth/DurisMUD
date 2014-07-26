@@ -1332,7 +1332,8 @@ void do_conjure(P_char ch, char *argument, int cmd)
   char buffer[256];
   FILE    *f;
   FILE    *recipelist;
-  int line, recfind; 
+  int line, recfind;
+  int duration;
   unsigned long	linenum = 0;
   struct affected_type af;
   long recnum, choice2;
@@ -1399,7 +1400,7 @@ void do_conjure(P_char ch, char *argument, int cmd)
   }
 
   while((fscanf(recipelist, "%ld", &recnum)) != EOF )
-  {  
+  {
     if(recnum == choice2)
       selected = choice2;
 
@@ -1438,9 +1439,6 @@ void do_conjure(P_char ch, char *argument, int cmd)
       return;
     }
 
-
-
-    int duration;
     tobj = read_mobile(selected, VIRTUAL);
 
     if(!valid_conjure(ch, tobj) && !IS_TRUSTED(ch))
@@ -1494,7 +1492,7 @@ void do_conjure(P_char ch, char *argument, int cmd)
 //    debug("Conjure chance %d", chance);
 
     if(chance > 70)
-    {    
+    {
       act("$n's &+mcha&+Mris&+Mma&n &+Cradiates&n as they call forth their minion!", TRUE, ch, 0,
           tobj, TO_ROOM);
       act("Your &+mcha&+Mris&+Mma&n &+Cradiates&n as you call forth your minion!", TRUE, ch, 0,
@@ -1527,9 +1525,10 @@ void do_conjure(P_char ch, char *argument, int cmd)
     REMOVE_BIT(tobj->specials.affected_by4, AFF4_DEFLECT);
     REMOVE_BIT(tobj->specials.act, ACT_SCAVENGER);
     REMOVE_BIT(tobj->specials.act, ACT_PATROL);
-    REMOVE_BIT(tobj->specials.act, ACT_SPEC); 
+    REMOVE_BIT(tobj->specials.act, ACT_SPEC);
     REMOVE_BIT(tobj->specials.act, ACT_BREAK_CHARM);
-
+    // Stop mobs from randomly sitting all the time.
+    tobj->only.npc->default_pos = POS_STANDING + STAT_NORMAL;
 
 
 
