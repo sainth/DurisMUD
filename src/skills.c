@@ -5120,8 +5120,7 @@ void create_tags()
 
   TAG_CREATE("fragged victim", TAG_RECENTLY_FRAGGED);
   TAG_CREATE("merc defensive proc", TAG_MERC_DEFENSE);
-  TAG_CREATE_WITH_MESSAGES("Addicted to Blood", TAG_ADDICTED_BLOOD,
-                           "&+LYou fail your attempt at 30 mobs in 30 min.&n", "");
+  TAG_CREATE("Addicted to Blood", TAG_ADDICTED_BLOOD);
 
   TAG_CREATE_WITH_MESSAGES("LAY HANDS", TAG_LAYONHANDS,
                            "&+WYour &+yhands&+W surge with &+Yholy &+Wstrength once again.&n",
