@@ -398,6 +398,7 @@ void raise_undead(int level, P_char ch, P_char victim, P_obj obj,
 
   if(IS_NPC(ch) && IS_PC_PET(ch))
   {
+    send_to_char( "Your pet can not summon pets.", get_linked_char(ch, LNK_PET) );
     return;
   }
 
@@ -785,6 +786,18 @@ void spawn_raise_undead(P_char ch, P_char vict, P_obj corpse)
   struct follow_type *ft;
   int      sum, type = 0;
   int      roll = (corpse->value[CORPSE_LEVEL]) / 5 + number(1, 20);
+
+  if( !IS_ALIVE(ch) )
+  {
+    logit(LOG_DEBUG, "spawn_raise_undead: Missing or dead char.");
+    debug( "spawn_raise_undead: Missing or dead char '%s'.", ch ? J_NAME(ch) : "Null" );
+    return;
+  }
+  if( IS_NPC(ch) && IS_PC_PET(ch) )
+  {
+    send_to_char( "Your pet can not summon pets.", get_linked_char(ch, LNK_PET) );
+    return;
+  }
 
   sum = 0;
   for (ft = ch->followers; ft; ft = ft->next)
@@ -1240,12 +1253,13 @@ void spell_create_dracolich(int level, P_char ch, char *arg, int type, P_char vi
     6, "&+LThe corpse summons the spirit of a black dragon!"}
   };
 
-  if (!(ch))
+  if( !IS_ALIVE(ch) )
   {
-    logit(LOG_EXIT, "assert: bogus parms");
-    raise(SIGSEGV);
+    logit(LOG_DEBUG, "spell_create_dracolich: Missing or dead char.");
+    debug( "spell_create_dracolich: Missing or dead char '%s'.", ch ? J_NAME(ch) : "Null" );
+    return;
   }
-  
+
   if(IS_IMMOBILE(ch))
   {
     send_to_char("But you can barely move!\r\n", ch);
@@ -1253,8 +1267,10 @@ void spell_create_dracolich(int level, P_char ch, char *arg, int type, P_char vi
   }
 
   if(IS_NPC(ch) && affected_by_spell(ch, TAG_CONJURED_PET))
-  return;
-  
+  {
+    return;
+  }
+
   if (CHAR_IN_SAFE_ZONE(ch))
   {
     send_to_char("A mysterious force blocks your spell!\r\n", ch);
@@ -1468,6 +1484,24 @@ void spell_create_golem(int level, P_char ch, char *arg, int type,
   int      pet_type;
   int      clevel;
 
+  if( !IS_ALIVE(ch) )
+  {
+    logit(LOG_DEBUG, "spell_create_golem: Missing or dead char.");
+    debug( "spell_create_golem: Missing or dead char '%s'.", ch ? J_NAME(ch) : "Null" );
+    return;
+  }
+  if( IS_NPC(ch) && IS_PC_PET(ch) )
+  {
+    send_to_char( "Your pet can not summon pets.", get_linked_char(ch, LNK_PET) );
+    return;
+  }
+  if( !obj )
+  {
+    logit(LOG_DEBUG, "spell_create_golem: Missing obj.");
+    debug( "spell_create_golem: Missing obj." );
+    return;
+  }
+
   clevel = obj->value[CORPSE_LEVEL];
 
   if (level >= 41)
@@ -1497,18 +1531,30 @@ void create_golem(int level, P_char ch, P_char victim, P_obj obj,
   int      life = GET_CHAR_SKILL(ch, SKILL_INFUSE_LIFE);
   int      percent;
 
-  if (!(ch))
+  if( !IS_ALIVE(ch) )
   {
-    logit(LOG_EXIT, "assert: bogus parms");
-    raise(SIGSEGV);
+    logit(LOG_DEBUG, "create_golem: Missing or dead char.");
+    debug( "create_golem: Missing or dead char '%s'.", ch ? J_NAME(ch) : "Null" );
+    return;
   }
-  
+  if( IS_NPC(ch) && IS_PC_PET(ch) )
+  {
+    send_to_char( "Your pet can not summon pets.", get_linked_char(ch, LNK_PET) );
+    return;
+  }
+  if( !obj )
+  {
+    logit(LOG_DEBUG, "create_golem: Missing obj.");
+    debug( "create_golem: Missing obj." );
+    return;
+  }
+
   if(IS_IMMOBILE(ch))
   {
     send_to_char("But you can barely move!\r\n", ch);
     return;
   }
-  
+
   if (CHAR_IN_SAFE_ZONE(ch))
   {
     send_to_char("A mysterious force blocks your spell!\r\n", ch);
@@ -1516,8 +1562,7 @@ void create_golem(int level, P_char ch, P_char victim, P_obj obj,
   }
   if (obj->value[CORPSE_LEVEL] < golem_data[which_type].corpse_lvl)
   {
-    send_to_char
-      ("This spell requires the corpse of a more powerful being!\r\n", ch);
+    send_to_char("This spell requires the corpse of a more powerful being!\r\n", ch);
     return;
   }
 
@@ -1683,7 +1728,7 @@ void spell_call_avatar(int level, P_char ch, char *arg, int type,
   P_obj    globe;
   struct follow_type *k;
   int      i, sum, num_undead = 0;
-  int      life = GET_CHAR_SKILL(ch, SKILL_INFUSE_LIFE);
+  int      life;
   static struct
   {
     const int mob_number;
@@ -1700,14 +1745,21 @@ void spell_call_avatar(int level, P_char ch, char *arg, int type,
     85, "The corpse summons &+wan &+cav&+Ca&+Wt&+Ca&+cr &+wof the &+Warch&+wangel of &+CJustice&+w!&n"}
   };
 
-  if (!(ch))
+  if( !IS_ALIVE(ch) )
   {
-    logit(LOG_EXIT, "assert: bogus parms");
-    raise(SIGSEGV);
+    logit(LOG_DEBUG, "spell_call_avatar: Missing or dead char.");
+    debug( "spell_call_avatar: Missing or dead char '%s'.", ch ? J_NAME(ch) : "Null" );
+    return;
   }
-  if(!IS_ALIVE(ch))
+  if( IS_NPC(ch) && IS_PC_PET(ch) )
   {
-    send_to_char("Lay still. You are dead.\r\n", ch);
+    send_to_char( "Your pet can not summon pets.", get_linked_char(ch, LNK_PET) );
+    return;
+  }
+  if( !obj )
+  {
+    logit(LOG_DEBUG, "spell_call_avatar: Missing obj.");
+    debug( "spell_call_avatar: Missing obj." );
     return;
   }
   if(IS_IMMOBILE(ch))
@@ -1722,8 +1774,7 @@ void spell_call_avatar(int level, P_char ch, char *arg, int type,
   }
   if(obj->value[CORPSE_LEVEL] < 51)
   {
-    send_to_char
-      ("This spell requires the corpse of a more powerful being!\r\n", ch);
+    send_to_char("This spell requires the corpse of a more powerful being!\r\n", ch);
     return;
   }
   if(obj->type != ITEM_CORPSE)
@@ -1761,6 +1812,7 @@ void spell_call_avatar(int level, P_char ch, char *arg, int type,
     return;
   }
 
+  life = GET_CHAR_SKILL(ch, SKILL_INFUSE_LIFE);
   globe = get_globe( ch );
   
   if( globe )
@@ -1913,7 +1965,7 @@ void spell_create_greater_dracolich(int level, P_char ch, char *arg, int type,
   P_obj    globe;
   struct follow_type *k;
   int      i, sum, num_undead = 0;
-  int      life = GET_CHAR_SKILL(ch, SKILL_INFUSE_LIFE);
+  int      life;
   static struct
   {
     const int mob_number;
@@ -1930,14 +1982,21 @@ void spell_create_greater_dracolich(int level, P_char ch, char *arg, int type,
     10, "The corpse summons a greater &+Lshadow&n dracolich!"}
   };
 
-  if (!(ch))
+  if( !IS_ALIVE(ch) )
   {
-    logit(LOG_EXIT, "assert: bogus parms");
-    raise(SIGSEGV);
+    logit(LOG_DEBUG, "spell_create_greater_dracolich: Missing or dead char.");
+    debug( "spell_create_greater_dracolich: Missing or dead char '%s'.", ch ? J_NAME(ch) : "Null" );
+    return;
   }
-  if(!IS_ALIVE(ch))
+  if( IS_NPC(ch) && IS_PC_PET(ch) )
   {
-    send_to_char("Lay still. You are dead.\r\n", ch);
+    send_to_char( "Your pet can not summon pets.", get_linked_char(ch, LNK_PET) );
+    return;
+  }
+  if( !obj )
+  {
+    logit(LOG_DEBUG, "spell_create_greater_dracolich: Missing obj.");
+    debug( "spell_create_greater_dracolich: Missing obj." );
     return;
   }
   if(IS_IMMOBILE(ch))
@@ -1995,6 +2054,7 @@ void spell_create_greater_dracolich(int level, P_char ch, char *arg, int type,
     return;
   }
 
+  life = GET_CHAR_SKILL(ch, SKILL_INFUSE_LIFE);
   globe = get_globe( ch );
   
   if( globe )
