@@ -2067,11 +2067,11 @@ void do_beep(P_char ch, char *argument, int cmd)
   else if( !IS_TRUSTED(ch)
     && ((IS_SET(zone_table[world[ch->in_room].zone].flags, ZONE_SILENT)
     || IS_SET(world[ch->in_room].room_flags, ROOM_SILENT))
-    || GET_STAT(vict) < STAT_RESTING || (PLR3_FLAGGED(ch, PLR3_NOBEEP)
+    || GET_STAT(vict) < STAT_RESTING || (PLR3_FLAGGED(vict, PLR3_NOBEEP)
     && !is_linked_from(vict, ch, LNK_CONSENT))))
   {
     act("No-one by that name here...", FALSE, ch, 0, vict, TO_CHAR);
-    if (IS_NPC(ch) && IS_SET(vict->specials.act, PLR_NOTELL))
+    if( IS_NPC(ch) && IS_SET(vict->specials.act, PLR_NOTELL) )
     {
       act("$n attempted to beep you!", FALSE, ch, 0, vict, TO_VICT);
     }
