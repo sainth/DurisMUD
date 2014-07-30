@@ -487,6 +487,8 @@ string wiki_help_single(string str)
     return_str += "\n";
     return_str += wiki_innates(title);
     return_str += "\n";
+    return_str += wiki_skills(title);
+    return_str += "\n";
     return_str += wiki_spells(title);
   }
   // Class skillsets type help files
@@ -496,6 +498,10 @@ string wiki_help_single(string str)
     char buf[MAX_INPUT_LENGTH];
     one_argument( row[0], buf );
     title += buf;
+    return_str += "\n";
+    return_str += wiki_skills(title);
+    return_str += "\n";
+    return_str += wiki_innates(title);
     return_str += "\n";
     return_str += wiki_spells(title);
   }
@@ -672,31 +678,31 @@ void load_cmd_attributes()
   }
 }
 
-char *attrib_help( char *arg)
+char *attrib_help( char *arg )
 {
   int count = 0;
-
-logit( LOG_DEBUG, "The search string is '%s'.", arg );
 
   while( cmd_attribs[count].name != NULL )
   {
     if( strstr( cmd_attribs[count].name, arg ) )
+    {
       return cmd_attribs[count].attributes;
+    }
     count++;
   }
 
   return NULL;
 }
 
-string wiki_spells(string title)
+string wiki_spells( string title )
 {
   string return_str;
   int i, j, innate;
   bool found = FALSE;
 
-  for (i = 0; i <= CLASS_COUNT; i++)
+  for( i = 0; i <= CLASS_COUNT; i++ )
   {
-    if (!strcmp(tolower(class_names_table[i].normal).c_str(), tolower(title).c_str()))
+    if( !strcmp(tolower(class_names_table[i].normal).c_str(), tolower(title).c_str()) )
     {
 	    found = TRUE;
       j = 0;
@@ -704,13 +710,13 @@ string wiki_spells(string title)
     }
   }
 
-  if (!found)
+  if( !found )
   {
-    for (i = 0; i <= CLASS_COUNT; i++)
+    for( i = 0; i <= CLASS_COUNT; i++ )
     {
-      for (j = 0; j < MAX_SPEC; j++)
+      for( j = 0; j < MAX_SPEC; j++ )
       {
-        if (!strcmp(tolower(strip_ansi(specdata[i][j])).c_str(), tolower(title).c_str()))
+        if( !strcmp(tolower(strip_ansi(specdata[i][j])).c_str(), tolower(title).c_str()) )
         {
           found = TRUE;
           break;
@@ -735,6 +741,57 @@ string wiki_spells(string title)
 
   // List spells( class, spec )
   return_str += list_spells( i, j );
+
+  return return_str;
+}
+
+string wiki_skills( string title )
+{
+  string return_str;
+  int i, j, innate;
+  bool found = FALSE;
+
+  for( i = 0; i <= CLASS_COUNT; i++ )
+  {
+    if( !strcmp(tolower(class_names_table[i].normal).c_str(), tolower(title).c_str()) )
+    {
+	    found = TRUE;
+      j = 0;
+    	break;
+    }
+  }
+
+  if( !found )
+  {
+    for( i = 0; i <= CLASS_COUNT; i++ )
+    {
+      for( j = 0; j < MAX_SPEC; j++ )
+      {
+        if( !strcmp(tolower(strip_ansi(specdata[i][j])).c_str(), tolower(title).c_str()) )
+        {
+          found = TRUE;
+          break;
+        }
+      }
+      if( found == TRUE )
+      {
+        // Specs range from 1-4 not 0-3.
+        j++;
+        break;
+      }
+    }
+  }
+
+  return_str += "==Skills==\n";
+
+  if( !found )
+  {
+    return_str += "No entries found.\n";
+    return return_str;
+  }
+
+  // List spells( class, spec )
+  return_str += list_skills( i, j );
 
   return return_str;
 }

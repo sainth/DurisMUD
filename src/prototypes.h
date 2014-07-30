@@ -1083,6 +1083,7 @@ int notch_skill(P_char, int, float);
 void SetGuildSpellLvl(void);
 void update_skills(P_char);
 string list_spells(int, int);
+string list_skills(int, int);
 
 /* handler.c */
 
@@ -1619,6 +1620,7 @@ int get_max_circle(P_char);
 int GetPagesInBook(P_obj);
 int get_spell_circle(P_char, int);
 int get_spell_circle(int, int, int);
+int get_skill_level(int, int, int);
 int GetTotalPagesInBook(P_obj);
 int IS_SEMI_CASTER(P_char);
 int IS_PARTIAL_CASTER(P_char);

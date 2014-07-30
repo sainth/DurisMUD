@@ -1561,10 +1561,11 @@ void demote_skillpoints( P_char ch )
 
 string list_spells( int cls, int spec )
 {
-  int      spl, circle, i, oldcircle;
+  int      spl, spell, circle, i, oldcircle;
   char     buf[MAX_STRING_LENGTH], buf1[MAX_STRING_LENGTH],
     buf2[MAX_STRING_LENGTH];
   struct spl_list spell_list[LAST_SPELL+1];
+  bool found;
 
   *buf = '\0';
   *buf1 = '\0';
@@ -1587,10 +1588,11 @@ string list_spells( int cls, int spec )
   qsort(spell_list, i, sizeof(struct spl_list), spell_cmp);
 
   oldcircle = 0;
+  found = FALSE;
   /* finally, show it */
   for( spl = 0; spl < i; spl++ )
   {
-    int      spell = spell_list[spl].spell;
+    spell = spell_list[spl].spell;
     circle = spell_list[spl].circle;
 
     // If they don't have the spell..
@@ -1600,15 +1602,76 @@ string list_spells( int cls, int spec )
     }
     if( !spl || circle != oldcircle )
     {
-      sprintf( buf, "\n&+B%d%s CIRCLE:&N\n", circle,
+      sprintf( buf, "\n&+B%d%s Circle:&N", circle,
         circle == 1 ? "st" : circle == 2 ? "nd" : circle == 3 ? "rd" : "th" );
       strcat( buf1, buf );
       oldcircle = circle;
+      found = FALSE;
     }
     strcpy(buf2, " ");
 
-    sprintf(buf, "%s", skills[spell].name);
-    strcat(buf, "\n");
+    sprintf(buf, "%s&+c%s&n", found ? ", " : " ", skills[spell].name);
+    found = TRUE;
+    strcat(buf1, buf);
+  }
+  strcat(buf1, "\n");
+  return string(buf1);
+}
+
+string list_skills( int cls, int spec )
+{
+  int      skl, skill, skllvl, i, oldskllvl, lvlending;
+  char     buf[MAX_STRING_LENGTH], buf1[MAX_STRING_LENGTH], buf2[MAX_STRING_LENGTH];
+  struct spl_list skill_list[LAST_SKILL - FIRST_SKILL + 1 ];
+  bool     found;
+
+  *buf = '\0';
+  *buf1 = '\0';
+  *buf2 = '\0';
+  memset( skill_list, 0, sizeof(spl_list) * (LAST_SKILL - FIRST_SKILL + 1) );
+
+  // first, build a list of all the spells for this class/spec.
+  i = 0;
+  for( skl = FIRST_SKILL; skl <= LAST_SKILL; skl++ )
+  {
+    skllvl = get_skill_level(cls, spec, skl);
+
+    if( skllvl < MAXLVLMORTAL + 1 )
+    {
+      skill_list[i].circle = skllvl;
+      skill_list[i++].spell = skl;
+    }
+  }
+  /* then sort the list... (Can use spell_cmp although we're doing skills and levels not spells and circles). */
+  qsort(skill_list, i, sizeof(struct spl_list), spell_cmp);
+
+  oldskllvl = 0;
+  found = FALSE;
+  /* finally, show it */
+  for( skl = 0; skl < i; skl++ )
+  {
+    int skill = skill_list[skl].spell;
+    skllvl = skill_list[skl].circle;
+
+    // If they don't have the spell..
+    if( !(skills[skill].m_class[cls-1]).maxlearn[spec] )
+    {
+      continue;
+    }
+    if( !skl || skllvl != oldskllvl )
+    {
+      // Lvls 4-20 get "th", rest get the st/nd/rd or th.
+      lvlending = (skllvl > 3 && skllvl < 21) ? 4 : skllvl % 10;
+      sprintf( buf, "\n&+B%d%s Level:&N", skllvl,
+        lvlending == 1 ? "st" : lvlending == 2 ? "nd" : lvlending == 3 ? "rd" : "th" );
+      strcat( buf1, buf );
+      oldskllvl = skllvl;
+      found = FALSE;
+    }
+    strcpy(buf2, " ");
+
+    sprintf(buf, "%s&+c%s&n", found ? ", " : " ", skills[skill].name);
+    found = TRUE;
     strcat(buf1, buf);
   }
   strcat(buf1, "\n");

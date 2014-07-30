@@ -2520,3 +2520,36 @@ int get_spell_circle( int cls, int spec, int spl )
     }
   }
 }
+
+// Returns the level of the skill
+// If spec is 0, returns level for base class.
+// If spec > 0 returns level for spec skill or MAXLVLMORTAL+1 if not specifically a spec skill.
+int get_skill_level( int cls, int spec, int skl )
+{
+  // If we're not looking at a spec..
+  if( spec == 0 )
+  {
+    // Just check the base for a rlevel.
+    if( skills[skl].m_class[cls-1].rlevel[0] )
+    {
+      return skills[skl].m_class[cls-1].rlevel[0];
+    }
+    else
+    {
+      return MAXLVLMORTAL+1;
+    }
+  }
+  else
+  {
+    // If it's a pure spec skill..
+    if( !skills[skl].m_class[cls-1].rlevel[0]
+      && skills[skl].m_class[cls-1].rlevel[spec] )
+    {
+      return skills[skl].m_class[cls-1].rlevel[spec];
+    }
+    else
+    {
+      return MAXLVLMORTAL+1;
+    }
+  }
+}

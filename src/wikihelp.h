@@ -11,6 +11,7 @@ string wiki_innates(string str);
 string wiki_races(string str);
 string wiki_help_single(string str);
 string wiki_spells(string title);
+string wiki_skills(string title);
 
 struct cmd_attrib_data {
   char *name;
