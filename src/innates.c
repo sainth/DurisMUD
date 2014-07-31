@@ -409,7 +409,8 @@ const struct innate_data
   {"giant avoidance", 0},
   {"seadog", 0},
   {"aura_of_spell_protection", do_aura_spell_protection},
-  {"vision of the dead", 0}
+  {"vision of the dead", 0},
+  {"remort", do_remort}
 };
 
 string list_innates(int race, int cls, int spec)
@@ -972,6 +973,8 @@ void assign_innates()
   ADD_CLASS_INNATE(INNATE_SPAWN, CLASS_NECROMANCER, 41, SPEC_NECROLYTE);
   ADD_CLASS_INNATE(INNATE_ALLY, CLASS_THEURGIST, 41, SPEC_TEMPLAR);
   ADD_CLASS_INNATE(INNATE_SUMMON_HOST, CLASS_THEURGIST, 31, SPEC_MEDIUM);
+  ADD_CLASS_INNATE(INNATE_REMORT, CLASS_THEURGIST, 46, SPEC_THAUMATURGE);
+  ADD_CLASS_INNATE(INNATE_REMORT, CLASS_NECROMANCER, 46, SPEC_REAPER);
 
   ADD_CLASS_INNATE(INNATE_FPRESENCE, CLASS_DREADLORD, 46, SPEC_SHADOWLORD);
   ADD_CLASS_INNATE(INNATE_FADE, CLASS_DREADLORD, 51, SPEC_SHADOWLORD);

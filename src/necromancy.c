@@ -2384,8 +2384,7 @@ void do_remort(P_char ch, char *arg, int cmd)
     return;
   }
 
-  if( !GET_SPEC(ch, CLASS_NECROMANCER, SPEC_REAPER) &&
-      !GET_SPEC(ch, CLASS_THEURGIST, SPEC_THAUMATURGE)) 
+  if( !has_innate(ch, INNATE_REMORT) )
   {
     send_to_char("You don't know how to return to life so quickly!\r\n", ch);
     return;
