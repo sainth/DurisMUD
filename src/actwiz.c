@@ -2251,6 +2251,9 @@ void do_stat(P_char ch, char *argument, int cmd)
 /*      sprintf(buf, "&+YDefl: &n%.2f  &+YAbs: &n%.2f",
               getArmorDeflection(j, NULL), getArmorAbsorbtion(j, NULL));*/
       break;
+    case ITEM_SHIELD:
+      sprintf(buf, "&+YAC-apply: &N%d", j->value[3]);
+      break;
     case ITEM_CONTAINER:
     case ITEM_STORAGE:
       sprintf(buf,

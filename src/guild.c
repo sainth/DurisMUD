@@ -1564,6 +1564,7 @@ string list_spells( int cls, int spec )
   int      spl, spell, circle, i, oldcircle;
   char     buf[MAX_STRING_LENGTH], buf1[MAX_STRING_LENGTH],
     buf2[MAX_STRING_LENGTH];
+  char     color;
   struct spl_list spell_list[LAST_SPELL+1];
   bool found;
 
@@ -1610,7 +1611,11 @@ string list_spells( int cls, int spec )
     }
     strcpy(buf2, " ");
 
-    sprintf(buf, "%s&+c%s&n", found ? ", " : " ", skills[spell].name);
+    color = cls != flag2idx(CLASS_SHAMAN) ? 'c' :
+      IS_SET(skills[spell].targets, TAR_ANIMAL) ? 'y' :
+      IS_SET(skills[spell].targets, TAR_ELEMENTAL) ? 'r' :
+      IS_SET(skills[spell].targets, TAR_SPIRIT) ? 'W' : 'L';
+    sprintf(buf, "%s&+%c%s&n", found ? ", " : " ", color, skills[spell].name);
     found = TRUE;
     strcat(buf1, buf);
   }

@@ -126,19 +126,19 @@ int apply_ac(P_char ch, int eq_pos)
 
   if (!(ch && (eq_pos >= 0) && (eq_pos < MAX_WEAR) && ch->equipment[eq_pos]))
   {
-    logit(LOG_EXIT, "assert: apply_ac called for dead character");
+    logit(LOG_EXIT, "assert: apply_ac called with bad args: ch: %s, eq_pos: %d, ch->eq[eq_pos]: %s.",
+      ch ? J_NAME(ch) : "NULL", eq_pos, ch ? (ch->equipment[eq_pos] ? ch->equipment[eq_pos]->short_description : "No Eq in Slot" ): "NULL" );
     raise(SIGSEGV);
   }
 
-/*  if (GET_ITEM_TYPE(ch->equipment[eq_pos]) == ITEM_SHIELD &&
-      eq_pos == WEAR_SHIELD)
-    value = ch->equipment[eq_pos]->value[3];*/
-
   if (!GET_ITEM_TYPE(ch->equipment[eq_pos]) == ITEM_ARMOR &&
       !GET_ITEM_TYPE(ch->equipment[eq_pos]) == ITEM_SHIELD)
+  {
     return 0;
+  }
 
-  switch (ch->equipment[eq_pos]->material) {
+  switch (ch->equipment[eq_pos]->material)
+  {
     case MAT_UNDEFINED:
     case MAT_NONSUBSTANTIAL:
       value = 0;
@@ -216,11 +216,10 @@ int apply_ac(P_char ch, int eq_pos)
       value = 0;
   }
 
-  switch (eq_pos)
+  switch( eq_pos )
   {
     case WEAR_SHIELD:
       value *= 15;
-
       if( GET_CHAR_SKILL(ch, SKILL_SHIELD_COMBAT) )
       {
         value += (int) ( GET_CHAR_SKILL(ch, SKILL_SHIELD_COMBAT) * (float) get_property("skill.shieldCombat.ACBonusMultiplier", 1.00) );
@@ -271,7 +270,16 @@ int apply_ac(P_char ch, int eq_pos)
       value = (int) (value * 0.4);
       break;
     default:
-      return 0;
+      break;;
+  }
+  // If values in zone files are better than values calculated..
+  if( GET_ITEM_TYPE(ch->equipment[eq_pos]) == ITEM_SHIELD && eq_pos == WEAR_SHIELD )
+  {
+    value = MAX(value, ch->equipment[eq_pos]->value[3]);
+  }
+  else if( GET_ITEM_TYPE(ch->equipment[eq_pos]) == ITEM_ARMOR )
+  {
+    value = MAX(value, ch->equipment[eq_pos]->value[0]);
   }
 
   return BOUNDED( -500, (value * MIN(100, ch->equipment[eq_pos]->condition)) / 100, 500);
