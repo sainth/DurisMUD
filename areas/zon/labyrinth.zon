@@ -5,6 +5,14 @@
 * Zone edited with durisEdit v2.99de
 *
 *
+D 0 5000 3 6 100 0 0 0
+*     west exit from "Entrance to the Labyrinth of No Return" to
+*     "A Light at the End of the Tunnel" - closed/locked/secret
+*
+D 0 5295 1 2 100 0 0 0
+*     east exit from "A Light at the End of the Tunnel" to
+*     "Entrance to the Labyrinth of No Return" - closed/locked
+*
 D 0 5002 1 8 100 0 0 0
 *     east exit from "In the Speleothemian Gardens" to
 *     "A Great Chamber in the Speleothemian Gardens" - open/blocked
@@ -52,14 +60,6 @@ D 0 5276 0 8 100 0 0 0
 D 0 5286 2 0 100 0 0 0
 *     south exit from "Passage in the Labyrinth of No Return" to
 *     "Passage in the Labyrinth of No Return" - open
-*
-D 0 5295 1 2 100 0 0 0
-*     east exit from "A Light at the End of the Tunnel" to
-*     "A Light at the End of the Tunnel" - closed/locked
-*
-D 0 5295 1 2 100 0 0 0
-*     east exit from "A Light at the End of the Tunnel" to
-*     "A Light at the End of the Tunnel" - closed/locked
 *
 *
 O 0 5036 2 5003 100 0 0 0          * a small emerald ring

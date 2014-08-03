@@ -12,11 +12,10 @@ That way leads into the darkness of the labyrinth.
 ~
 ~
 0 0 5008
-D4
-That direction leads away from the labyrinth, which lies to the north.
+D3
 ~
 ~
-0 0 20971
+15 0 5295
 S
 #5001
 &+LA Dead End&n~
@@ -5895,7 +5894,7 @@ D1
 The sounds of song and laughter seem to be coming from the east.
 ~
 diamondine door~
-3 5057 5295
+3 5057 5000
 D2
 There is an exit to the south.
 ~
