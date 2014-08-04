@@ -241,8 +241,7 @@ P_obj has_instrument(P_char ch)
    * level a person has to be to get a skill to 40... this seems
    * reasonable
    */
-  if(!(ch) ||
-     !IS_ALIVE(ch))
+  if( !IS_ALIVE(ch) )
   {
     logit(LOG_EXIT, "has_instrument in bard.c called without ch");
     raise(SIGSEGV);
@@ -355,79 +354,108 @@ int bard_calc_chance(P_char ch, int song)
   return 0;
 }
 
+// This should represent the level with song and level with instrument.
+// Returns a value between 1 and 56.
 int bard_song_level(P_char ch, int song)
 {
-  P_obj    instrument;
-  int      c;
-  double   i_factor = get_property("bard.instrumentFactor", 0.35);
-  
-  if(!ch)
+  P_obj  instrument;
+  double level, instrument_level;
+  double i_factor;
+
+  if( !ch )
   {
     logit(LOG_EXIT, "bard_song_level in bard.c called without ch");
     raise(SIGSEGV);
   }
-  if(ch)
+
+  if( !SINGING(ch) || !IS_ALIVE(ch) )
   {
-    if(!SINGING(ch))
+    return 1;
+  }
+
+  // NPCs always sing/play at their level.
+  if( IS_NPC(ch) )
+  {
+    return GET_LEVEL(ch);
+  }
+
+  // Start with a base of (song skill/2 + 50) * level / 100.
+  // This gives a base of level / 2 when just learning song (skill = 1),
+  //  and a base of level when skill is maxxed.
+  level = ((GET_CHAR_SKILL(ch, song) / 2 + 50.0) * GET_LEVEL(ch))/100.0;
+
+  if( (instrument = has_instrument(ch)) == NULL )
+  {
+    // Lose 2/3 of your base if you don't have an instrument.
+    level /= 3;
+    instrument_level = 0;
+  }
+  else
+  {
+    // Has instrument factor to reduce level.
+    level *= (1. - get_property("bard.instrumentFactor", 0.35));
+
+    // If using the wrong instrument.
+    if( bard_get_type(song) != instrument->value[0] + INSTRUMENT_OFFSET
+      && !IS_ARTIFACT(instrument) )
     {
-      return 1;
+      // Lose 1/2 of your base for using the wrong instrument.
+      level /= 2;
     }
-    if(!(instrument = has_instrument(ch)))
+    // If ch is below the min level to use instrument.
+    if( GET_LEVEL(ch) < instrument->value[3] )
     {
-      c = GET_LEVEL(ch) / 3;
+      instrument_level = 0;
     }
     else
     {
-      c = (int) ((1. - i_factor) * GET_LEVEL(ch));
-      if((bard_get_type(song) == instrument->value[0] + INSTRUMENT_OFFSET &&
-           GET_LEVEL(ch) >= instrument->value[3]) || IS_ARTIFACT(instrument))
-        c += (int) (i_factor * instrument->value[1]);
+      // Skill level with the instrument in hand (just learing: 50%, max skill: 100%) * instrument level of effect.
+      instrument_level = IS_ARTIFACT(instrument) ? (GET_CHAR_SKILL(ch, bard_get_type(song)) * instrument->value[1])
+        : ((GET_CHAR_SKILL(ch, instrument->value[0] + INSTRUMENT_OFFSET) / 2 + 50.0) * instrument->value[1]);
+      instrument_level /= 100;
     }
-    return c;
+    level = (level + instrument_level) / 2;
   }
-  return 0;
+  if( level < 1 )
+    level = 1;
+  if( level > 56 )
+    level = 56;
+  return (int) level;
 }
 
-int bard_saves(P_char ch, P_char victim, int song)
+bool bard_saves(P_char ch, P_char victim, int song)
 {
-  int smod, save;
-  
-  if(!ch)
+  int smod;
+
+  if( !ch )
   {
     logit(LOG_EXIT, "bard_saves in bard.c called without ch");
     raise(SIGSEGV);
   }
-  if(ch) // Just making sure.
+  // Can't save vs dead bard or dead victim.
+  if( !IS_ALIVE(ch) || !IS_ALIVE(victim) )
   {
-    if(IS_ALIVE(ch) ||
-      !victim ||
-      !IS_ALIVE(victim))
-  
+    return FALSE;
+  }
+
 // Saves are bounded to 4. Here are some examples:
 // Sept08 -Lucrot
 // Level bard / Level instrument / Level victim / save
-// 56/56/56/6 ~ bounded to 4
-// 40/40/40/4
-// 40/56/56/-3
-// 15/30/56/-18
-// 40/56/62/-6
-    if(ch && victim)
-    {
-      smod = (int) MIN((((bard_song_level(ch, song)) / 15) + ((GET_LEVEL(ch) - GET_LEVEL(victim)) / 2)), 4);
-      save = NewSaves(victim, SAVING_SPELL, smod);
-      return save;
-    }
-  }
-  else
-  {
-    return 0;
-  }
-  // if(ch && victim)
-    // return NewSaves(victim, SAVING_SPELL,
-                    // (((bard_song_level(ch, song) + GET_LEVEL(ch)) / 2) -
-                     // GET_LEVEL(victim)) / 7);
-  // else
-    // return 0;
+// 56/          56/                 56/             6 ~ bounded to 4
+// 40/          40/                 40/             4
+// 40/          56/                 56/            -3
+// 15/          30/                 56/           -18
+// 40/          56/                 62/            -6
+//    smod = (int) MIN((((bard_song_level(ch, song)) / 15) + ((GET_LEVEL(ch) - GET_LEVEL(victim)) / 2)), 4);
+
+// Vastly simplified: bard_song_level takes ch's level into account,
+//   and returns value between 1 and 56, so just compare it to victim's level.
+// Note: God-level mobs sing at 56 level, and have automatic negative save mod.
+    smod = (int) MIN( (bard_song_level(ch, song) - GET_LEVEL(victim)) / 2, 4 );
+// Can uncomment this if you wanna test.
+// debug( "smod(final): %d", smod );
+    return NewSaves(victim, SAVING_SPELL, smod);
+    // return NewSaves(victim, SAVING_SPELL, (((bard_song_level(ch, song) + GET_LEVEL(ch)) / 2) - GET_LEVEL(victim)) / 7);
 }
 
 void do_bardsing(P_char ch, char *arg)
@@ -1842,8 +1870,7 @@ void do_play(P_char ch, char *arg, int cmd)
     send_to_char("&+yYou haven't regained your composure.\r\n", ch);
     return;
   }
-  if(IS_TRUSTED(ch) &&
-    GET_LEVEL(ch) < OVERLORD)
+  if( IS_TRUSTED(ch) && GET_LEVEL(ch) < OVERLORD )
   {
     wizlog(GET_LEVEL(ch), "%s plays %s [%d]",
            GET_NAME(ch), arg, world[ch->in_room].number);
