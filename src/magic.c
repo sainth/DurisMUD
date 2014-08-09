@@ -19847,21 +19847,20 @@ void spell_single_banish(int level, P_char ch, char *arg, int type, P_char victi
 {
   int chance;
 
-  if(!ch)
+  if( !ch )
   {
     logit(LOG_EXIT, "spell_single_banish called in magic.c with no ch");
     raise(SIGSEGV);
   }
-  
-  if(IS_TRUSTED(victim) ||
-     IS_PC(victim))
+
+  if( IS_TRUSTED(victim) || IS_PC(victim) )
   {
     return;
   }
-  
+
   chance = (int) (((40 * level) + ( 10 * GET_CHAR_SKILL(ch, SKILL_DEVOTION))) / (GET_LEVEL(victim) + 1));
 
-  if(GET_LEVEL(ch) > (10 + GET_LEVEL(victim)))
+  if( GET_LEVEL(ch) > (10 + GET_LEVEL(victim)) )
   {
     chance = 95;
   }
@@ -19871,7 +19870,7 @@ void spell_single_banish(int level, P_char ch, char *arg, int type, P_char victi
     chance = (int) (chance * 1.25);
   }
 
-  if(IS_GREATER_DRACO(victim) || IS_GREATER_AVATAR(victim))
+  if( IS_GREATER_DRACO(victim) || IS_GREATER_AVATAR(victim) )
   {
     chance = (int) (chance * 1 / 3);
   }
@@ -19993,11 +19992,11 @@ bool can_banish(P_char ch, P_char victim)
       if(world[victim->in_room].sector_type == SECT_NEG_PLANE)
       {
         send_to_char("This is the negative plane. Your banish spell fails!", ch);
-        return false;
+        return FALSE;
       }
       else
       {
-        return true;
+        return TRUE;
       }
     }
 
@@ -20010,8 +20009,14 @@ bool can_banish(P_char ch, P_char victim)
       case RACE_W_ELEMENTAL:
   	  case RACE_I_ELEMENTAL:
         return TRUE;
+        break;
       default:
+        if( affected_by_spell(victim, TAG_CONJURED_PET) )
+        {
+          return TRUE;
+        }
         return FALSE;
+        break;
     }
   }
 
@@ -20027,22 +20032,22 @@ void spell_banish(int level, P_char ch, char *arg, int type, P_char victim, P_ob
   act(buf, FALSE, ch, 0, 0, TO_CHAR);
   sprintf(buf, "$n raises $s holy symbol sending a battle prayer to %s.", get_god_name(ch));
   act(buf, FALSE, ch, 0, 0, TO_ROOM);
-  
+
   for (tch = world[ch->in_room].people; tch; tch = next)
   {
     next = tch->next_in_room;
-    
+
     if(get_linked_char(tch, LNK_PET) &&
        can_banish(ch, tch))
     {
       attack_back(ch, tch, FALSE);
     }
   }
-  
+
   for (tch = world[ch->in_room].people; tch; tch = next)
   {
     next = tch->next_in_room;
-    
+
     if(get_linked_char(tch, LNK_PET) &&
        can_banish(ch, tch))
     {
