@@ -3778,20 +3778,33 @@ void show_toggles(P_char ch)
   P_char   send_ch = ch;
 
   if (IS_NPC(ch))
+  {
     if (IS_MORPH(ch))
+    {
       ch = MORPH_ORIG(ch);
+    }
     else
+    {
       return;
+    }
+  }
 
   if (GET_WIMPY(ch) == 0)
+  {
     strcpy(Gbuf2, "OFF");
+  }
   else
+  {
     sprintf(Gbuf2, "%4d", GET_WIMPY(ch));
-
+  }
   if (IS_PC(ch) && (ch->only.pc->screen_length > 0))
+  {
     sprintf(Gbuf3, "%3d", ch->only.pc->screen_length);
+  }
   else
+  {
     strcpy(Gbuf3, " 24");
+  }
 
   sprintf(Gbuf1,
           "&+y-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-="
@@ -3836,7 +3849,9 @@ void show_toggles(P_char ch)
           "&+r   Newbie EQ   :&+g %-3s    &+y|&N"
           "&+r     No Beep     :&+g %-3s    &+y|&n"
           "&+r     Underline   :&+g %-3s    &+y|&N\r\n"
-          "&+r   Surname     :&+g %-3s    &+y|&N\r\n"
+          "&+r   Surname     :&+g %-3s    &+y|"
+          "&+r     Damage      :&+g %-3s    &+y|&n"
+          "&+r                 :&+g        &+y|&n\r\n"
           "&+y-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-="
           "-=-=-=-=-=-=-=-=-=-=-=-=-=-&N\r\n",
           ONOFF(!PLR_FLAGGED(ch, PLR_NOTELL)),
@@ -3875,7 +3890,8 @@ void show_toggles(P_char ch)
           ONOFF(PLR2_FLAGGED(ch, PLR2_NEWBIEEQ)),
           ONOFF(PLR3_FLAGGED(ch, PLR3_NOBEEP)),
           ONOFF(PLR3_FLAGGED(ch, PLR3_UNDERLINE)),
-          ONOFF(PLR3_FLAGGED(ch, PLR3_NOSUR)));
+          ONOFF(PLR3_FLAGGED(ch, PLR3_NOSUR)),
+          ONOFF(PLR2_FLAGGED(ch, PLR2_DAMAGE)) );
   send_to_char(Gbuf1, send_ch);
 
   if (GET_LEVEL(ch) >= AVATAR)
@@ -3889,7 +3905,6 @@ void show_toggles(P_char ch)
             "&+rNames:&+g %-3s "
             "&+rVnum:&+g %-3s "
             "&+rBan:&+g %-3s\r\n"
-            "&+rDamage:&+g %-3s "
             "&+rExp:&+g %-3s "
             "&+rDebug:&+g %-3s "
             "&+rFog:&+g %-3s "
@@ -3902,7 +3917,6 @@ void show_toggles(P_char ch)
             ONOFF(PLR_FLAGGED(ch, PLR_NAMES)),
             ONOFF(PLR_FLAGGED(ch, PLR_VNUM)),
             ONOFF(PLR_FLAGGED(ch, PLR_BAN)),
-            ONOFF(PLR2_FLAGGED(ch, PLR2_DAMAGE)),
             ONOFF(PLR2_FLAGGED(ch, PLR2_EXP)),
             ONOFF(PLR_FLAGGED(ch, PLR_DEBUG)),
             ONOFF(PLR_FLAGGED(ch, PLR_MORTAL)),
@@ -4159,15 +4173,20 @@ void do_toggle(P_char ch, char *arg, int cmd)
   char     Gbuf1[MAX_STRING_LENGTH], Gbuf3[MAX_STRING_LENGTH], buf[80];
   P_char   send_ch = ch;
 
-  if (IS_NPC(ch))
-    if (IS_MORPH(ch))
+  if( IS_NPC(ch) )
+  {
+    if( IS_MORPH(ch) )
+    {
       ch = MORPH_ORIG(ch);
+    }
     else
+    {
       return;
-
+    }
+  }
   arg = one_argument(arg, Gbuf1);
 
-  if (!*Gbuf1)
+  if( !*Gbuf1 )
   {
     // Doesn't care about morphs: just sending a message to send_ch.
     show_toggles(send_ch);
@@ -4175,7 +4194,7 @@ void do_toggle(P_char ch, char *arg, int cmd)
   }
   tog_nr = (old_search_block(Gbuf1, 0, strlen(Gbuf1), toggles_list, 0) - 1);
 
-  if (tog_nr < 0)
+  if( tog_nr < 0 )
   {
     send_to_char("Wrong option.\r\n\r\n", send_ch);
     show_toggles(send_ch);
@@ -4183,11 +4202,10 @@ void do_toggle(P_char ch, char *arg, int cmd)
   }
   switch (tog_nr)
   {
-  case 0:                      /*
-                                 * ?
-                                 */
+  case 0:
     strcpy(Gbuf1, "Toggle options:\r\n");
     for (j = 0, i = 0; *toggles_list[i] != '\n'; i++)
+    {
       if ((!strn_cmp(toggles_list[i], "wizlog", 6) ||
            !strn_cmp(toggles_list[i], "wizmessage", 10) ||
            !strn_cmp(toggles_list[i], "aggimmunity", 11) ||
@@ -4198,15 +4216,18 @@ void do_toggle(P_char ch, char *arg, int cmd)
            !strn_cmp(toggles_list[i], "ban", 3) ||
            !strn_cmp(toggles_list[i], "fog", 3) ||
            !strn_cmp(toggles_list[i], "logmsg", 6) ||
-           !strn_cmp(toggles_list[i], "heal", 6) ||
-           !strn_cmp(toggles_list[i], "damage", 6) ||
+           !strn_cmp(toggles_list[i], "heal", 4) ||
+// Damage is now a mortal command.
+//           !strn_cmp(toggles_list[i], "damage", 6) ||
            !strn_cmp(toggles_list[i], "experience", 10)) && GET_LEVEL(ch) < MINLVLIMMORTAL)
+      {
         continue;
+      }
       else
       {
-        sprintf(Gbuf1, "%s[%2d] %-15s%s",
-                Gbuf1, i + 1, toggles_list[i], (!(++j % 3) ? "\r\n" : 0));
+        sprintf(Gbuf1, "%s[%2d] %-15s%s", Gbuf1, i + 1, toggles_list[i], (!(++j % 3) ? "\r\n" : ""));
       }
+    }
     strcat(Gbuf1, "\r\n");
     send_to_char(Gbuf1, send_ch);
     return;
@@ -4457,16 +4478,14 @@ void do_toggle(P_char ch, char *arg, int cmd)
       result = TRUE;
       sprintf(Gbuf3, "%d", wimp_lev);
     }
-    else if (isname(Gbuf1, "off") || isname(Gbuf1, "default"))
+    else if( isname(Gbuf1, "off") || isname(Gbuf1, "default") )
     {
       result = FALSE;
       strcpy(Gbuf3, " 24");
     }
     else
     {
-      send_to_char
-        ("Specify how many lines to display on a page (no effect without paging)\r\nor 'off' or 'default' to reset to standard 24 lines.\r\n",
-         send_ch);
+      send_to_char("Specify how many lines to display on a page (no effect without paging)\r\nor 'off' or 'default' to reset to standard 24 lines.\r\n", send_ch);
       return;
     }
     break;
@@ -4585,12 +4604,20 @@ void do_toggle(P_char ch, char *arg, int cmd)
        return;
      }*/
     result = PLR2_TOG_CHK(ch, PLR2_NCHAT);
-    break; 
+    break;
   case 42:
     result = PLR2_TOG_CHK(ch, PLR2_DAMAGE);
     break;
   case 48:
-    result = PLR2_TOG_CHK(ch, PLR2_HEAL);
+    if( IS_TRUSTED(ch) )
+    {
+      result = PLR2_TOG_CHK(ch, PLR2_HEAL);
+    }
+    else
+    {
+      send_to_char("Humf?!\r\n", send_ch);
+      return;
+    }
     break;
   case 49:
     if ((GET_LEVEL(ch) > 50) && !IS_SET(PLR2_FLAGS(ch), PLR2_LGROUP))
