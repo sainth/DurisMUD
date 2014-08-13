@@ -135,6 +135,7 @@ const struct undead_description undead_data[NECROPET_LAST + 1] = {
 #define NECROPLASM_VNUM 67243
 #define GLOBE_SHADOWS_VNUM 16262
 
+// Returns TRUE if ch is alive and wearing plasm and tranced.
 int is_wearing_necroplasm(P_char ch)
 {
   // loop thru ch's equip'd slots, and return 'true' if
@@ -142,13 +143,20 @@ int is_wearing_necroplasm(P_char ch)
   int i;
   int plasmID;
 
-  plasmID = real_object0(NECROPLASM_VNUM);
-  if (plasmID)
+  if( !IS_ALIVE(ch) || !affected_by_spell(ch, SPELL_VAMPIRE) )
   {
-    for (int i = 0; i < MAX_WEAR; i++)
+    return FALSE;
+  }
+
+  plasmID = real_object0(NECROPLASM_VNUM);
+  if( plasmID )
+  {
+    for( int i = 0; i < MAX_WEAR; i++ )
     {
-      if (ch->equipment[i] && ch->equipment[i]->R_num == plasmID)
+      if( ch->equipment[i] && ch->equipment[i]->R_num == plasmID )
+      {
         return TRUE;
+      }
     }
   }
   return FALSE;
