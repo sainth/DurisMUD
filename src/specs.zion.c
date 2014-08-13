@@ -935,15 +935,13 @@ int zion_mace_of_earth(P_obj obj, P_char ch, int cmd, char *arg)
     }
   }
 
-  if( !(data = (struct proc_data *) arg) )
+  if( (cmd == CMD_GOTHIT) && !number(0, 50) && !has_skin_spell(ch) && IS_ALIVE(ch) )
   {
-    return FALSE;
-  }
-  vict = data->victim;
-
-  if( (cmd == CMD_GOTHIT) && !number(0, 50) && !has_skin_spell(ch) && IS_ALIVE(ch))
-  {
-
+    if( !(data = (struct proc_data *) arg) )
+    {
+      return FALSE;
+    }
+    vict = data->victim;
     if( !IS_ALIVE(vict) )
     {
       return FALSE;
@@ -957,6 +955,7 @@ int zion_mace_of_earth(P_obj obj, P_char ch, int cmd, char *arg)
     return FALSE;
   }
 
+  vict = (P_char) arg;
   if( cmd != CMD_MELEE_HIT || !IS_ALIVE(vict) )
   {
     return FALSE;
