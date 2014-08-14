@@ -375,6 +375,61 @@ void do_test(P_char ch, char *arg, int cmd)
       send_to_char( "' in your inventory to randomize.\n\r", ch );
     }
   }
+  else if ( isname("clearepiczones", buff) )
+  {
+    if( GET_LEVEL(ch) >= FORGER )
+    {
+      while( *arg == ' ' )
+      {
+        arg++;
+      }
+      if( isname(arg, "confirm") )
+      {
+        sql_clear_zone_trophy();
+      }
+      else
+      {
+        send_to_char("You must '&=Blconfirm&n' this command in order to use it.\n\r", ch );
+        send_to_char("This will &=Blpermenantly&n clear the zone alignment list; there is no going back!\n\r", ch );
+      }
+    }
+    else
+    {
+      send_to_char( "You must be a &+LFORGER&n or higher to execute this command.\n\r", ch );
+    }
+  }
+  else if ( isname("clearoutposts", buff) )
+  {
+    if( GET_LEVEL(ch) >= FORGER )
+    {
+      while( *arg == ' ' )
+      {
+        arg++;
+      }
+      if( isname(arg, "confirm") )
+      {
+        send_to_char( "&=GLResetting oupost information... .. .", ch );
+        if( qry("UPDATE outposts SET owner_id='0', level='8', walls='1', archers='0', hitpoints='300000', territory='0',"
+          " portal_room='0', resources='0', applied_resources='0', golems='0', meurtriere='0', scouts='0'") )
+        {
+          send_to_char("&=Bl success!&n\n\r", ch);
+        }
+        else
+        {
+          send_to_char("&=Rl failure!&n\n\r", ch);
+        }
+      }
+      else
+      {
+        send_to_char("You must '&=Blconfirm&n' this command in order to use it.\n\r", ch );
+        send_to_char("This will &=Blpermenantly&n reset the info on outposts, setting owners to none; there is no going back!\n\r", ch );
+      }
+    }
+    else
+    {
+      send_to_char( "You must be a &+LFORGER&n or higher to execute this command.\n\r", ch );
+    }
+  }
   else
   {
     send_to_char("Invalid keyword.\r\n", ch);

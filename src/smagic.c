@@ -866,8 +866,8 @@ void spell_molten_spray(int level, P_char ch, char *arg, int type,
     
     if(IS_ALIVE(victim))
     {
-      send_to_char("\r\n&+LThe vile creature &+Rb&+ru&+Rr&+rn&+Rs&n &+Land &+Ys&+yi&+Yz&+yz&+Yl&+ye&+Ys!\r\n", ch);
-      send_to_char("\r\n&+RThe molten fire &=Lrbursts&n &+Rthrough your defenses and melts away your &+Lundead carcass!\r\n", victim);
+      send_to_char("&+LThe vile creature &+Rb&+ru&+Rr&+rn&+Rs&n &+Land &+Ys&+yi&+Yz&+yz&+Yl&+ye&+Ys!\r\n", ch);
+      send_to_char("&+RThe molten fire &=Lrbursts&n &+Rthrough your defenses and melts away your &+Lundead carcass!\r\n", victim);
     }
     return;
   }

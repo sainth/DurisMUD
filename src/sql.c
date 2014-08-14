@@ -160,7 +160,7 @@ void sql_log(P_char ch, char * kind, char * format, ...)
 
 bool get_zone_info(int zone_number, struct zone_info *info)
 {
-  return FALSE;  
+  return FALSE;
 }
 
 string escape_str(const char *str)
@@ -175,7 +175,6 @@ string get_mud_info(const char *name)
 
 void send_mud_info(const char* name, P_char ch)
 {
-  
 }
 
 void sql_update_bind_data(int vnum, int *owner_pid, int *timer)
@@ -184,7 +183,23 @@ void sql_update_bind_data(int vnum, int *owner_pid, int *timer)
 
 void sql_get_bind_data(int vnum, int *owner_pid, int *timer)
 {
-  
+}
+
+bool sql_pwipe( int code_verify )
+{
+  if( code_verify == 1723699 )
+  {
+    send_to_all( "&=GlCan't wipe the SQL stuff as SQL database is not loaded.&n\n\r" );
+  }
+  else
+  {
+    send_to_all( "&=GlSomeone called sql_pwipe with a bad verify code... hrm..&n\n\r" );
+  }
+  return FALSE;
+}
+bool sql_clear_zone_trophy()
+{
+  return FALSE;
 }
 #else
 
@@ -1332,5 +1347,222 @@ void sql_update_bind_data(int vnum, int *owner_pid, int *timer)
     qry("INSERT INTO artifact_bind VALUES(%d, %d, %d)", vnum, *owner_pid, *timer);
   }
   mysql_free_result(res);
+}
+
+bool sql_clear_zone_trophy()
+{
+  // Update the table zones, set the alignment to 0, where there's an epic stone.
+  if( !qry("UPDATE zones SET alignment=0 WHERE epic_type > 0") )
+  {
+    debug( "sql_clear_zone_trophy(): Failed sql UPDATE.. :(" );
+    return FALSE;
+  }
+
+  return TRUE;
+}
+
+bool sql_pwipe( int code_verify )
+{
+  if( code_verify == 1723699 )
+  {
+    send_to_all( "&=BlClearing zone alignments, trophy and touches... .. ." );
+    if( sql_clear_zone_trophy()
+      && qry("DELETE FROM zone_trophy")
+      && qry("DELETE FROM zone_touches") )
+    {
+      send_to_all("&=Bl success!&n\n\r" );
+    }
+    else
+    {
+      send_to_all("&=Rl failure!&n\n\r");
+      return FALSE;
+    }
+    send_to_all( "&=BlClearing tower ownership... .. ." );
+    if( qry("UPDATE outposts SET owner_id='0', level='8', walls='1', archers='0', hitpoints='300000', territory='0',"
+      " portal_room='0', resources='0', applied_resources='0', golems='0', meurtriere='0', scouts='0'") )
+    {
+      send_to_all("&=Bl success!&n\n\r" );
+    }
+    else
+    {
+      send_to_all("&=Rl failure!&n\n\r");
+      return FALSE;
+    }
+    send_to_all( "&=BlClearing nexus stone data... .. ." );
+    if( qry("UPDATE nexus_stones SET align='0', last_touched_at='0'") )
+    {
+      send_to_all("&=Bl success!&n\n\r" );
+    }
+    else
+    {
+      send_to_all("&=Rl failure!&n\n\r");
+      return FALSE;
+    }
+    send_to_all( "&=BlClearing prestige lists... .. ." );
+    if( qry("DELETE FROM associations") )
+    {
+      send_to_all("&=Bl success!&n\n\r" );
+    }
+    else
+    {
+      send_to_all("&=Rl failure!&n\n\r");
+      return FALSE;
+    }
+    send_to_all( "&=BlClearing alliances... .. ." );
+    if( qry("DELETE FROM alliances") )
+    {
+      send_to_all("&=Bl success!&n\n\r" );
+    }
+    else
+    {
+      send_to_all("&=Rl failure!&n\n\r");
+      return FALSE;
+    }
+    send_to_all( "&=BlClearing artifact bind data... .. ." );
+    if( qry("DELETE FROM artifact_bind") )
+    {
+      send_to_all("&=Bl success!&n\n\r" );
+    }
+    else
+    {
+      send_to_all("&=Rl failure!&n\n\r");
+      return FALSE;
+    }
+    send_to_all( "&=BlClearing auction data... .. ." );
+    if( qry("DELETE FROM auction_bid_history")
+      && qry("DELETE FROM auction_item_pickups")
+      && qry("DELETE FROM auction_money_pickups")
+      && qry("DELETE FROM auctions") )
+    {
+      send_to_all("&=Bl success!&n\n\r" );
+    }
+    else
+    {
+      send_to_all("&=Rl failure!&n\n\r");
+      return FALSE;
+    }
+    send_to_all( "&=BlClearing boon data... .. ." );
+    if( qry("DELETE FROM boons_progress")
+      && qry("DELETE FROM boons") )
+    {
+      send_to_all("&=Bl success!&n\n\r" );
+    }
+    else
+    {
+      send_to_all("&=Rl failure!&n\n\r");
+      return FALSE;
+    }
+    send_to_all( "&=BlClearing ctf data... .. ." );
+    if( qry("DELETE FROM ctf_data") )
+    {
+      send_to_all("&=Bl success!&n\n\r" );
+    }
+    else
+    {
+      send_to_all("&=Rl failure!&n\n\r");
+      return FALSE;
+    }
+    send_to_all( "&=BlClearing frag data and epic bonus data... .. ." );
+    if( qry("DELETE FROM epic_bonus")
+      && qry("DELETE FROM epic_gain")
+      && qry("DELETE FROM progress") )
+    {
+      send_to_all("&=Bl success!&n\n\r" );
+    }
+    else
+    {
+      send_to_all("&=Rl failure!&n\n\r");
+      return FALSE;
+    }
+    send_to_all( "&=BlClearing guild data... .. ." );
+    if( qry("DELETE FROM guild_transactions")
+      && qry("DELETE FROM guildhall_rooms")
+      && qry("DELETE FROM guildhalls") )
+    {
+      send_to_all("&=Bl success!&n\n\r" );
+    }
+    else
+    {
+      send_to_all("&=Rl failure!&n\n\r");
+      return FALSE;
+    }
+    send_to_all( "&=BlClearing ip info... .. ." );
+    if( qry("DELETE FROM ip_info") )
+    {
+      send_to_all("&=Bl success!&n\n\r" );
+    }
+    else
+    {
+      send_to_all("&=Rl failure!&n\n\r");
+      return FALSE;
+    }
+    send_to_all( "&=BlClearing log entries... .. ." );
+    if( qry("DELETE FROM log_entries") )
+    {
+      send_to_all("&=Bl success!&n\n\r" );
+    }
+    else
+    {
+      send_to_all("&=Rl failure!&n\n\r");
+      return FALSE;
+    }
+    send_to_all( "&=BlClearing offline messages... .. ." );
+    if( qry("DELETE FROM offline_messages") )
+    {
+      send_to_all("&=Bl success!&n\n\r" );
+    }
+    else
+    {
+      send_to_all("&=Rl failure!&n\n\r");
+      return FALSE;
+    }
+    send_to_all( "&=BlClearing cargo data... .. ." );
+    if( qry("DELETE FROM ship_cargo_market_mods")
+      && qry("DELETE FROM ship_cargo_prices") )
+    {
+      send_to_all("&=Bl success!&n\n\r" );
+    }
+    else
+    {
+      send_to_all("&=Rl failure!&n\n\r");
+      return FALSE;
+    }
+    send_to_all( "&=BlClearing timers... .. ." );
+    if( qry("UPDATE timers SET date='0'") )
+    {
+      send_to_all("&=Bl success!&n\n\r" );
+    }
+    else
+    {
+      send_to_all("&=Rl failure!&n\n\r");
+      return FALSE;
+    }
+    send_to_all( "&=BlClearing shop data... .. ." );
+    if( qry("DELETE FROM shop_trophy") )
+    {
+      send_to_all("&=Bl success!&n\n\r" );
+    }
+    else
+    {
+      send_to_all("&=Rl failure!&n\n\r");
+      return FALSE;
+    }
+    send_to_all( "&=BlClearing completed quest data... .. ." );
+    if( qry("DELETE FROM world_quest_accomplished") )
+    {
+      send_to_all("&=Bl success!&n\n\r" );
+    }
+    else
+    {
+      send_to_all("&=Rl failure!&n\n\r");
+      return FALSE;
+    }
+    return TRUE;
+  }
+  else
+  {
+    send_to_all( "&=GlSomeone called sql_pwipe with a bad verify code... hrm..&n\n\r" );
+    return FALSE;
+  }
 }
 #endif

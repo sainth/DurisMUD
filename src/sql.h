@@ -110,4 +110,7 @@ void sql_update_bind_data(int vnum, int *owner_pid, int *timer);
 void sql_ship_sunk(char owner);
 void sql_get_sincesunk_frags(char owner, float *frags);
 void sql_add_sincesunk_frags(char owner, float frags);
+
+bool sql_pwipe( int code_verify );
+bool sql_clear_zone_trophy();
 #endif

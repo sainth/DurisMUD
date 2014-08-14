@@ -125,21 +125,6 @@ void display_map(P_char ch, int n, int show_map_regardless);
 
 
 extern HelpFilesCPPClass help_index;
-struct TimedShutdownData
-{
-  time_t  reboot_time;
-  int  next_warning;
-  enum
-  {
-    NONE,
-    OK,
-    REBOOT,
-    COPYOVER,
-    AUTOREBOOT,
-  }
-  eShutdownType;
-  char IssuedBy[50];
-};
 
 extern struct TimedShutdownData shutdownData;
 

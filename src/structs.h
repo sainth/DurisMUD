@@ -2347,4 +2347,22 @@ struct EventsFactory
     nevent_data* local_tail;
 };
 
+// For the shutdown command.
+struct TimedShutdownData
+{
+  time_t  reboot_time;
+  int  next_warning;
+  enum
+  {
+    NONE,
+    OK,
+    REBOOT,
+    COPYOVER,
+    AUTOREBOOT,
+    PWIPE
+  }
+  eShutdownType;
+  char IssuedBy[50];
+};
+
 #endif /* _SOJ_STRUCTS_H_ */

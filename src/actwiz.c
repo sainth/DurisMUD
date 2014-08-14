@@ -3925,22 +3925,6 @@ void do_wizmsg(P_char ch, char *arg, int cmd)
     logit(LOG_CHAT, "%s wizmsg's '%s'", GET_NAME(ch), Gbuf1);
 }
 
-struct TimedShutdownData
-{
-  time_t  reboot_time;
-  int  next_warning;
-  enum
-  {
-    NONE,
-    OK,
-    REBOOT,
-    COPYOVER,
-    AUTOREBOOT,
-  }
-  eShutdownType;
-  char IssuedBy[50];
-};
-
 TimedShutdownData shutdownData = {0, -1, TimedShutdownData::NONE};
 
 
@@ -3990,6 +3974,19 @@ void timedShutdown(P_char ch, P_char, P_obj, void *data)
         logit(LOG_STATUS, buf);
         sql_log(ch, WIZLOG, buf);
         shutdownflag = _autoboot = 1;
+        break;
+
+      case TimedShutdownData::PWIPE:
+        sprintf(buf, "\r\n&=BrDuris begins to fade into nothing.. So do you.. \r\n&=BrThis is really the end!!!\r\n&=Br.\r\n&=Br.\r\n&=Br.\r\n&=Br.\r\n&=Br.&n\n\r", shutdownData.IssuedBy);
+        send_to_all(buf);
+        logit(LOG_STATUS, buf);
+        sql_log(ch, WIZLOG, buf);
+        if( !sql_pwipe( 1723699 ) )
+        {
+          send_to_all( "&=GlSQL database not wiped clean.. Aborting shutdown wipe.&n\n\r&+WYou're still alive!  Yay!&n\n\r" );
+          return;
+        }
+        shutdownflag = 1;
         break;
 
       default:
@@ -4171,6 +4168,32 @@ void do_shutdown(P_char ch, char *argument, int cmd)
   else if(!str_cmp(arg, "copyover"))
   {
     shutdownData.eShutdownType = TimedShutdownData::COPYOVER;
+  }
+  else if(!str_cmp(arg, "pwipe"))
+  {
+    argument = one_argument(argument, arg);
+    if(!str_cmp(arg, "confirm"))
+    {
+      argument = one_argument(argument, arg);
+      if(!str_cmp(arg, "yes"))
+      {
+        send_to_char( "&-RYou've done it now.. the world is really going away!!!&n\n\r", ch );
+        send_to_char( "&=glYou have _five_ minutes to reconsider and cancel the shutdown.&n\n\r", ch );
+        shutdownData.eShutdownType = TimedShutdownData::PWIPE;
+        mins_to_reboot = 5;
+      }
+      else
+      {
+        send_to_char( "&=RWYou must &n&=RL'shutdown pwipe confirm yes'&=RW to do this, as it's going to DELETE everything!!!&n\n\r", ch );
+        return;
+      }
+    }
+    else
+    {
+      send_to_char( "&-rYou must &+W'shutdown pwipe confirm'&n&-r to do this, as it's going to DELETE everything!!!&n\n\r", ch );
+      send_to_char( "&-rNot to be used for a partial wipe, and will wipe files you didn't know you had!!!&n\n\r", ch );
+      return;
+    }
   }
   else if(!str_cmp(arg, "segfault"))
   {

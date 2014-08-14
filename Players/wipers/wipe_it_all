@@ -118,4 +118,12 @@ rm -f Tradeskills/z/*
 rm -f ../Ships/*
 rm -f Artifacts/*
 rm -f Artifacts/Mortal/*
+rm -f ../lib/information/guild_frags
+rm -f ../lib/information/hardcore_hall_of_fame
+rm -f ../lib/information/hardcore_hall_of_fameprod
+rm -f ../lib/information/leaderboard
+rm -f ../lib/information/leaderboardprod
+rm -f ../Fraglists/*
+rm -f mail
+rm -f emailreg
 mv ../towns.orig ../towns
