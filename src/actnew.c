@@ -29,7 +29,7 @@
 #include "listen.h"
 #include "disguise.h"
 #include "config.h"
-
+#include  "sql.h"
 /*
  * external variables
  */
@@ -3545,6 +3545,8 @@ void do_vote(P_char ch, char *argument, int cmd)
   int      vote_serial = 9, voting_enabled = 1;
   int      max_vote = 0;
   FILE    *f = NULL;
+  char    *ip, ipbuf[255];
+  time_t   lastConnect, lastDisconnect;
   char    *vote_options[] = {
     "nothing",
     "Follow through on the Miniwipe",
@@ -3607,7 +3609,8 @@ void do_vote(P_char ch, char *argument, int cmd)
     send_to_char("There was a problem recording your vote, notify a Forger.\r\n", ch);
     return;
   }
-  fprintf(f, "%s\n", vote_options[votes]);
+  ip = sql_select_IP_info( ch, ipbuf, sizeof(char)*255, &lastConnect, &lastDisconnect );
+  fprintf(f, "%s : %s : %s\n", ip, J_NAME(ch), vote_options[votes]);
   ch->only.pc->vote = vote_serial;
 
   if( f )
