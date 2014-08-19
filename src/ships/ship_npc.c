@@ -719,6 +719,10 @@ NPCShipSetup npcShipSetup [] = {
 P_char dbg_char = 0;
 P_ship try_load_pirate_ship(P_ship target)
 {
+    NPC_AI_Type type;
+    int level, slot;
+    int n;
+
     if (IS_NPC_SHIP(target))
         return 0;
     if (target->m_class == SH_SLOOP || target->m_class == SH_YACHT)
@@ -726,9 +730,9 @@ P_ship try_load_pirate_ship(P_ship target)
     if (ocean_pvp_state()) // dont want pirates to interfere in pvp too much
         return 0;
 
-    NPC_AI_Type type = NPC_AI_PIRATE;
-    int level = 0;
-    int n = number(0, SHIP_HULL_WEIGHT(target)) + target->frags;
+    level = 0;
+    type = NPC_AI_PIRATE;
+    n = number(0, SHIP_HULL_WEIGHT(target)) + target->frags;
     if (IS_MERCHANT(target))
     {
         if(IS_SET(target->flags, ATTACKBYNPC)) 
@@ -781,6 +785,22 @@ P_ship try_load_pirate_ship(P_ship target)
     }
 
     P_ship ship = try_load_npc_ship(target, type, level, 0);
+    // Be nice to diplomats: no mindblast cannons.
+    if( has_eq_diplomat(target) )
+    {
+      // Check each slot for a Mindblast Cannon.
+      for( slot = 0; slot < MAXSLOTS; slot++ )
+      {
+        // Change Mindblast Cannon to Light Beamcannon
+        if( ship->slot[slot].index == W_MINDBLAST )
+        {
+          // Just set the type and ammo, not the arc or anything else.
+          ship->slot[slot].index = W_LIGHT_BEAM;
+          ship->slot[slot].val0 = W_LIGHT_BEAM; // ammo type
+          ship->slot[slot].val1 = weapon_data[W_LIGHT_BEAM].ammo; // ammo count
+        }
+      }
+    }
 
     if (ship)
     {

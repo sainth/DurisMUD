@@ -118,11 +118,10 @@ const WeaponData weapon_data[MAXWEAPON] = {
 #define EQFLAGS03  DIPLOMAT	// Pirate Suppression Flag
 
 const EquipmentData equipment_data[MAXEQUIPMENT] = {
-// Name                         Cost  Frags Weight  Flags
-//
- { "&+yBronze&+L Plated Ram",            0,    0,    0,  EQFLAGS01, },
- { "Zentharium Levistone",   5000000, 1600,    0,  EQFLAGS02, },
- { "&+W A &+bDi&+Bploma&+bt's &+WFlag&n",    0,	    0,    0,  EQFLAGS03,  },
+// Name                                     Cost      Frags Weight  Flags
+ { "&+yBronze&+L Plated Ram",               0,        0,    0,      EQFLAGS01, },
+ { "Zentharium Levistone",                  5000000,  1600, 0,      EQFLAGS02, },
+ { "&+W A &+bDi&+Bploma&+bt's &+WFlag&n",   0,        0,    0,      EQFLAGS03, }
 };
 
 /* NEVER CHANGE SHIP IDs Just add new ones. */

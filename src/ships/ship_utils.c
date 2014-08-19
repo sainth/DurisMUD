@@ -1478,9 +1478,13 @@ bool has_eq_diplomat(const ShipData* ship)
 }
 int eq_diplomat_slot(const ShipData* ship)
 {
-    for (int slot = 0; slot < MAXSLOTS; slot++)
-	if (ship->slot[slot].type == SLOT_EQUIPMENT && ship->slot[slot].index == E_DIPLOMAT)
+  for (int slot = 0; slot < MAXSLOTS; slot++)
+  {
+    if (ship->slot[slot].type == SLOT_EQUIPMENT && ship->slot[slot].index == E_DIPLOMAT)
+    {
 	    return slot;
+    }
+  }
 	return -1;
 }
 int eq_diplomat_weight(const ShipData *ship)
