@@ -1111,12 +1111,11 @@ void spell_life_leech(int level, P_char ch, char *arg, int type,
 
 
 
-void spell_energy_drain(int level, P_char ch, char *arg, int type,
-                        P_char victim, P_obj obj)
+void spell_energy_drain(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
   int mana, dam, result, moves;
   bool saved  = FALSE;
-  
+
   struct damage_messages messages = {
     "You drain $N of some of $S &+Wenergy.&n",
     "&+LYou feel less energetic as&n $n &+Ldrains you.&n",
@@ -1126,11 +1125,7 @@ void spell_energy_drain(int level, P_char ch, char *arg, int type,
     "$n &+Ldrains the &+Wenergy&n of $N who crumbles into a lifeless husk."
   };
 
-  if(!(ch) ||
-     !(victim) ||
-     !IS_ALIVE(ch) ||
-     !IS_ALIVE(victim) ||
-     victim == ch)
+  if( !IS_ALIVE(ch) || !IS_ALIVE(victim) || victim == ch)
   {
     return;
   }
@@ -1139,24 +1134,25 @@ void spell_energy_drain(int level, P_char ch, char *arg, int type,
     return;
 
   dam = dice(3 * level, 5);
-  
-  if(GET_SPEC(ch, CLASS_NECROMANCER, SPEC_REAPER) ||
-      GET_SPEC(ch, CLASS_THEURGIST, SPEC_THAUMATURGE))
-    level = (int)(level * 1.25); 
-  
+
+  if( GET_SPEC(ch, CLASS_NECROMANCER, SPEC_REAPER) || GET_SPEC(ch, CLASS_THEURGIST, SPEC_THAUMATURGE) )
+  {
+    level = (int)(level * 1.25);
+  }
+
   if(IS_AFFECTED4(victim, AFF4_DEFLECT))
   {
     spell_damage(ch, victim, dam, SPLDAM_GENERIC, SPLDAM_NOSHRUG | SPLDAM_NOVAMP | SPLDAM_NODEFLECT, &messages);
     return;
   }
 
-  if(NewSaves(victim, SAVING_SPELL, 0))
+  if( NewSaves(victim, SAVING_SPELL, 0) )
   {
     saved = TRUE;
     dam = (int)(dam * 0.80);
   }
-  
-  if(GET_LEVEL(victim) <= (level / 10))
+
+  if( GET_LEVEL(victim) <= (level / 10) )
   {
     /*
      * Kill the sucker
@@ -1169,65 +1165,67 @@ void spell_energy_drain(int level, P_char ch, char *arg, int type,
   }
   else
   {
-    if(!IS_AFFECTED4(victim, AFF4_NEG_SHIELD) &&
-       !IS_UNDEADRACE(victim))
+    if( !IS_AFFECTED4(victim, AFF4_NEG_SHIELD) && !IS_UNDEADRACE(victim) )
     {
-      if(IS_PC(ch) || 
-         IS_PC_PET(ch))
+      if( IS_PC(ch) || IS_PC_PET(ch) )
       {
         vamp(ch, (int)(dam / 5), (int) (GET_MAX_HIT(ch) * (double)(BOUNDED(110, ((GET_C_POW(ch) * 10) / 9), 220) * .01)));
       }
       else
+      {
         vamp(ch, (int)(dam / 2), (int) (GET_MAX_HIT(ch) * (double)(BOUNDED(110, ((GET_C_POW(ch) * 10) / 9), 220) * .01)));
-	 
+      }
     }
 
 
-if(GET_SPEC(ch, CLASS_NECROMANCER, SPEC_REAPER))
-{   
- send_to_char("&+LYour life energy is &+rtapped&+L.\n", victim);
-    if(GET_VITALITY(victim) >= 25 &&
-      !IS_AFFECTED4(victim, AFF4_NEG_SHIELD))
+    if(GET_SPEC(ch, CLASS_NECROMANCER, SPEC_REAPER))
     {
-      moves = number(5, 30); //old value (5, level)
-      
-      if(affected_by_spell(victim, SPELL_ENERGY_DRAIN))
-        moves /= 2;
-        
-      GET_VITALITY(victim) = MAX(1, (GET_VITALITY(victim) - moves));
-      GET_VITALITY(ch) += moves;
-      debug("E DRAIN: (%s&n) loses and (%s&n) gained (%d) moves.", 
-        J_NAME(victim), J_NAME(ch), moves);
+      send_to_char("&+LYour life energy is &+rtapped&+L.\n", victim);
+      if( GET_VITALITY(victim) >= 25 && !IS_AFFECTED4(victim, AFF4_NEG_SHIELD) )
+      {
+        moves = number(5, 30); //old value (5, level)
+
+        if(affected_by_spell(victim, SPELL_ENERGY_DRAIN))
+        {
+          moves /= 2;
+        }
+
+        GET_VITALITY(victim) = MAX(1, (GET_VITALITY(victim) - moves));
+        GET_VITALITY(ch) += moves;
+        debug("E DRAIN: (%s&n) loses and (%s&n) gained (%d) moves.", J_NAME(victim), J_NAME(ch), moves);
+      }
+      StartRegen(ch, EVENT_MOVE_REGEN);
+      StartRegen(victim, EVENT_MOVE_REGEN);
     }
 
-
-    StartRegen(ch, EVENT_MOVE_REGEN);
-    StartRegen(victim, EVENT_MOVE_REGEN);
-}
-      
-// Vamping still occurs as above. We do not want double vamping undead. 
+    // Vamping still occurs as above. We do not want double vamping undead.
     spell_damage(ch, victim, dam, SPLDAM_NEGATIVE, SPLDAM_NOSHRUG | SPLDAM_NOVAMP, &messages);
   }
 
-  if(!IS_ALIVE(victim) ||
-     !IS_ALIVE(ch))
-        return;
+  if( !IS_ALIVE(victim) || !IS_ALIVE(ch) )
+  {
+    return;
+  }
 
-  if (IS_AFFECTED4(victim, AFF4_NEG_SHIELD))
+  if( IS_AFFECTED4(victim, AFF4_NEG_SHIELD) )
   {
     send_to_char("&+LYour negative energy shield protects you from lasting effects from the energy drain!&n\r\n", victim);
     send_to_char("&+LYour victim is too well protected against necromancy - no lingering effects of the energy drain will hold.&n\r\n", ch);
     return;
   }
-  
+
   if(affected_by_spell(victim, SPELL_ENERGY_DRAIN))
   {
     struct affected_type *af1;
     for (af1 = victim->affected; af1; af1 = af1->next)
+    {
       if(af1->type == SPELL_ENERGY_DRAIN)
+      {
         af1->duration += 1;
+      }
+    }
   }
-  else if(!saved)
+  else if( !saved )
   {
     //send_to_char("&+LYour spell saps the energy from your foe, leaving you invigorated in return.\r\n", ch);
     //send_to_char("&+LYour energy is sapped! You feel sluggish and weak...\r\n", victim);
@@ -1236,7 +1234,7 @@ if(GET_SPEC(ch, CLASS_NECROMANCER, SPEC_REAPER))
     af.type = SPELL_ENERGY_DRAIN;
     af.flags = AFFTYPE_NODISPEL | AFFTYPE_SHORT;
     af.duration = (level / 10) * WAIT_SEC;
-    
+
     af.location = APPLY_MOVE_REG;
     af.modifier = -(level / 20);
     affect_to_char(victim, &af);

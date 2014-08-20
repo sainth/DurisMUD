@@ -373,35 +373,36 @@ void raise_undead(int level, P_char ch, P_char victim, P_obj obj,
   bool     corpselog = FALSE;
   int      life = GET_CHAR_SKILL(ch, SKILL_INFUSE_LIFE);
 
-  if (!(obj && ch))
+  if( !(obj && ch) )
   {
     logit(LOG_EXIT, "raise_undead: bogus parms - missing ch or obj");
     raise(SIGSEGV);
   }
 
-  if(GET_SPEC(ch, CLASS_NECROMANCER, SPEC_REAPER) ||
-     GET_SPEC(ch, CLASS_THEURGIST, SPEC_THAUMATURGE))
+  if( GET_SPEC(ch, CLASS_NECROMANCER, SPEC_REAPER) || GET_SPEC(ch, CLASS_THEURGIST, SPEC_THAUMATURGE) )
+  {
     life += (int) (life / 3);
+  }
 
-  if (CHAR_IN_SAFE_ZONE(ch))
+  if( CHAR_IN_SAFE_ZONE(ch) )
   {
     send_to_char("You do not feel right raising undead here.\r\n", ch);
     return;
   }
 
-  if ((GET_ALIGNMENT(ch) > 0) && GET_CLASS(ch, CLASS_NECROMANCER))
+  if( (GET_ALIGNMENT(ch) > 0) && GET_CLASS(ch, CLASS_NECROMANCER) )
   {
     send_to_char("You don't even _consider_ such a evil act, meddling with undead!\n", ch);
     return;
   }
 
-  if ((GET_ALIGNMENT(ch) < 0) && GET_CLASS(ch, CLASS_THEURGIST))
+  if( (GET_ALIGNMENT(ch) < 0) && GET_CLASS(ch, CLASS_THEURGIST) )
   {
     send_to_char("You don't even _consider_ such a good act, meddling with angels!\n", ch);
     return;
   }
 
-  if(IS_NPC(ch) && IS_PC_PET(ch))
+  if( IS_NPC(ch) && IS_PC_PET(ch) )
   {
     send_to_char( "Your pet can not summon pets.\n\r", get_linked_char(ch, LNK_PET) );
     return;
@@ -419,11 +420,11 @@ void raise_undead(int level, P_char ch, P_char victim, P_obj obj,
   // If corpse not in room with ch ?!
   if( !OBJ_IN_ROOM(obj, ch->in_room) )
   {
-    send_to_char("Something is screwed up with the code.\r\n", ch);
+    act("Where'd $p go?? It's not in the room with you anymore!", FALSE, ch, obj, 0, TO_CHAR);
     return;
   }
 
-  if (obj->type != ITEM_CORPSE)
+  if( obj->type != ITEM_CORPSE )
   {
     act("You can't animate $p!", FALSE, ch, obj, 0, TO_CHAR);
     return;
@@ -435,23 +436,24 @@ void raise_undead(int level, P_char ch, P_char victim, P_obj obj,
     return;
   }
 
-  clevel = obj->value[CORPSE_LEVEL];
+  clev  el = obj->value[CORPSE_LEVEL];
 
   if( IS_SET(obj->value[CORPSE_FLAGS], PC_CORPSE) && (clevel < 0) )
+  {
     clevel = -clevel;
+  }
 
   if( clevel > (level + 4) && !IS_TRUSTED(ch) && (level < 49) )
   {
-    act("You are not powerful enough to animate that corpse!",
-      FALSE, ch, 0, 0, TO_CHAR);
+    act("You are not powerful enough to animate that corpse!", FALSE, ch, 0, 0, TO_CHAR);
     return;
   }
 
   sum = count_undead(ch);
 
-  if (sum < 0)
+  if( sum < 0 )
   {
-    send_to_char("You cannot have draco-liches, titans, or avatars under your control when animating undead!\r\n", ch);
+    send_to_char("You cannot have dracoliches, titans, or avatars under your control when animating undead!\r\n", ch);
     return;
   }
 
@@ -509,11 +511,10 @@ void raise_undead(int level, P_char ch, P_char victim, P_obj obj,
     necro_power = (necro_power) / 3;
   }
 
-  if( (sum + undead_data[typ].cost > necro_power )
+  if( (sum + undead_data[typ].cost > necro_power)
     && !IS_TRUSTED(ch) && IS_PC(ch) )
   {
-    act("You are too weak to animate more corpses!",
-      FALSE, ch, 0, 0, TO_CHAR);
+    act("You are too weak to animate more corpses!", FALSE, ch, 0, 0, TO_CHAR);
     return;
   }
 
@@ -546,11 +547,11 @@ void raise_undead(int level, P_char ch, P_char victim, P_obj obj,
   GET_RACE(undead) = undead_data[typ].race;
   GET_SEX(undead) = SEX_NEUTRAL;
 
-  if ((typ >= NECROPET_START) && (typ <= NECROPET_END))
+  if( (typ >= NECROPET_START) && (typ <= NECROPET_END) )
   {
     undead->specials.alignment = -1000;    /* evil aligned */
   }
-  else if ((typ >= THEURPET_START) && (typ <= THEURPET_END))
+  else if( (typ >= THEURPET_START) && (typ <= THEURPET_END) )
   {
     undead->specials.alignment = 1000;
   }
@@ -587,34 +588,31 @@ void raise_undead(int level, P_char ch, P_char victim, P_obj obj,
   undead->base_stats.Con = BOUNDED(74, undead->base_stats.Con, 100);
   undead->base_stats.Dex = BOUNDED(74, undead->base_stats.Dex, 100);
   undead->base_stats.Int = BOUNDED(84, undead->base_stats.Int, 100);
+  undead->base_stats.Wis = BOUNDED(84, undead->base_stats.Int, 100);
 
   /* max hp: 800 - really lucky lich.  */
   GET_HIT(undead) = GET_MAX_HIT(undead) = undead->points.base_hit =
-    (int) (dice(GET_LEVEL(undead), 12) +
-    GET_LEVEL(ch) * undead_data[typ].hps + (life * 3));
+    (int) (dice(GET_LEVEL(undead), 12) + GET_LEVEL(ch) * undead_data[typ].hps + (life * 3));
 
-  undead->points.vitality = undead->points.base_vitality =
-    undead->points.max_vitality =
+  undead->points.vitality = undead->points.base_vitality = undead->points.max_vitality =
     MAX(50, undead->base_stats.Agi) + (undead->base_stats.Str + undead->base_stats.Con) / 2;
 
   undead->points.base_armor = 100 - GET_LEVEL(undead) - (typ * 15);
 
   MonkSetSpecialDie(undead);
-  undead->points.base_hitroll = undead->points.hitroll =
-    (int) (0.7 * GET_LEVEL(undead));
-  undead->points.base_damroll = undead->points.damroll =
-    (int) (0.7 * GET_LEVEL(undead));
+  undead->points.base_hitroll = undead->points.hitroll = (int) (0.7 * GET_LEVEL(undead));
+  undead->points.base_damroll = undead->points.damroll = (int) (0.7 * GET_LEVEL(undead));
   undead->points.damnodice = (undead->points.damnodice / 2 + 2);
 
   StartRegen(undead, EVENT_MANA_REGEN);
   balance_affects(undead);
   undead->only.npc->str_mask = (STRUNG_KEYS | STRUNG_DESC1 | STRUNG_DESC2);
 
-  if ((typ >= THEURPET_START) && (typ <= THEURPET_END))
+  if( (typ >= THEURPET_START) && (typ <= THEURPET_END) )
   {
     sprintf(Gbuf2, "%s", undead_data[typ].name);
     undead->player.name = str_dup(Gbuf2);
-    if (typ == THEURPET_SPECTRE || typ == THEURPET_LICH || typ == THEURPET_SHADOW)
+    if( typ == THEURPET_SPECTRE || typ == THEURPET_LICH || typ == THEURPET_SHADOW )
     {
       sprintf(Gbuf1, "an %s", undead_data[typ].short_desc);
       undead->player.short_descr = str_dup(Gbuf1);
@@ -640,7 +638,7 @@ void raise_undead(int level, P_char ch, P_char victim, P_obj obj,
     undead->player.long_descr = str_dup(Gbuf1);
   }
 
-  if (IS_SET(obj->value[CORPSE_FLAGS], PC_CORPSE))
+  if( IS_SET(obj->value[CORPSE_FLAGS], PC_CORPSE) )
   {
     logit(LOG_CORPSE, "%s got raised while equipped ( by %s in room %d ).",
       obj->short_description, (IS_PC(ch) ? GET_NAME(ch) : ch->player.short_descr), world[ch->in_room].number);
@@ -666,7 +664,7 @@ void raise_undead(int level, P_char ch, P_char victim, P_obj obj,
     }
   }
 
-  if ((typ >= THEURPET_START) && (typ <= THEURPET_END))
+  if( (typ >= THEURPET_START) && (typ <= THEURPET_END) )
   {
     act("After a short &+yr&+Yi&+Wtu&+Ya&+yl&n, the &+Wsoul&n of $N&n is called to inhabit the $p.", FALSE, ch, obj, undead, TO_CHAR);
     act("The $p &+btr&+Ban&+Csf&+Bor&+bms&n into $N&n and awaits instructions from &n&n.", FALSE, ch, obj, undead, TO_ROOM);
@@ -681,7 +679,7 @@ void raise_undead(int level, P_char ch, P_char victim, P_obj obj,
 
   int timeToDecay = 0;
   struct obj_affect *afDecay = get_obj_affect(obj, TAG_OBJ_DECAY);
-  if (NULL !=  afDecay)
+  if( NULL !=  afDecay )
   {
     timeToDecay = obj_affect_time(obj, afDecay) / (60 * 4); /* 4 pulses in a sec, 60 secs in a minute */
   }
@@ -1298,14 +1296,14 @@ void spell_create_dracolich(int level, P_char ch, char *arg, int type, P_char vi
   if (count_undead(ch) > 0)
   {
     send_to_char
-      ("You cannot have undead under your control when summoning draco-liches!\r\n",
+      ("You cannot have undead under your control when summoning dracoliches!\r\n",
        ch);
     return;
   }
   */
   if (!can_raise_draco(ch, level, false))
   {
-    send_to_char("You cannot control any more draco-liches!\r\n", ch);
+    send_to_char("You cannot control any more dracoliches!\r\n", ch);
     return;
   }
 
@@ -2021,7 +2019,7 @@ void spell_create_greater_dracolich(int level, P_char ch, char *arg, int type,
   if(count_undead(ch) > 0)
   {
     send_to_char
-      ("You cannot have undead under your control when summoning draco-liches!\r\n",
+      ("You cannot have undead under your control when summoning dracoliches!\r\n",
        ch);
     return;
   }
