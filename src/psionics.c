@@ -1229,7 +1229,7 @@ void spell_detonate(int level, P_char ch, char *arg, int type, P_char victim, P_
   dam += 2 * GET_DAMROLL(ch);
   if( GET_CLASS(ch, CLASS_MINDFLAYER) )
   {
-    dam += level * 4;
+    dam += level * 8;
   }
   // spell_damage already doubles against pets - Jexni 6/21/08
   if( GET_RACE(victim) == RACE_GOLEM || GET_RACE(victim) == RACE_PLANT )
