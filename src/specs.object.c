@@ -7108,18 +7108,14 @@ int wall_generic(P_obj obj, P_char ch, int cmd, char *arg)
     if (IS_AFFECTED2(ch, AFF2_PROT_COLD))
       dam -= dam / 3;
 
-    send_to_char
-      ("&+WYou shiver from the &+bfreezing cold &+Wof the &+Cice&+W!&n\n",
-       ch);
+    send_to_char("&+WYou shiver from the &+bfreezing cold &+Wof the &+Cice&+W!&n\n", ch);
     GET_HIT(ch) = MAX(GET_HIT(ch) - MAX(dam / 2, 20), 1);
     update_pos(ch);
     StartRegen(ch, EVENT_MOVE_REGEN);
 
     break;
   case LIGHTNING_CURTAIN:
-    sprintf(buffer,
-            "$n &+Bis surrounded by lightning as $e goes to the %s.&n",
-            dirs[dircmd]);
+    sprintf(buffer, "$n &+Bis surrounded by lightning as $e goes to the %s.&n", dirs[dircmd]);
     act(buffer, TRUE, ch, obj, NULL, TO_ROOM);
 
     if (IS_AFFECTED2(ch, AFF2_PROT_LIGHTNING))
@@ -7140,6 +7136,7 @@ int wall_generic(P_obj obj, P_char ch, int cmd, char *arg)
     GET_HIT(ch) = MAX(GET_HIT(ch) - dam, 1);
     do_simple_move_skipping_procs(ch, dircmd, 0);
     act("$n &+Bsteps through the lightning curtain!&n", TRUE, ch, NULL, NULL, TO_ROOM);
+    act("&+YOUCH!  &+BYou step through the lightning curtain!&n", TRUE, ch, NULL, NULL, TO_CHAR);
     update_pos(ch);
     StartRegen(ch, EVENT_HIT_REGEN);
 

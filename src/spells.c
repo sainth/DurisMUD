@@ -937,10 +937,9 @@ void cast_wall_of_flames(int level, P_char ch, char *arg, int type,
     return;
   }
 
-  if (create_walls
-      (ch->in_room, var, ch, level, WALL_OF_FLAMES, dice(level / 4, 10), 1800,
-       "&+Ra billowing wall of flames&n",
-       "&+RA towering wall of flames is here to the %s.&n", 0))
+  if( create_walls(ch->in_room, var, ch, level, WALL_OF_FLAMES, dice(level / 4, 10), 1800,
+    "&+Ra billowing wall of flames&n",
+    "&+RA towering wall of flames is here to the %s.&n", 0) )
   {
     sprintf(buf1,
             "&+RYou feel a blast of heat as a huge wall of flames bursts to the %s!&n\r\n",
@@ -969,10 +968,9 @@ void cast_wall_of_ice(int level, P_char ch, char *arg, int type,
     return;
   }
 
-  if (create_walls
-      (ch->in_room, var, ch, level, WALL_OF_ICE, 40, 1800,
-       "&+Wa wall of ice&N",
-       "&+WA huge block of solid ice is here to the %s.&n", 0))
+  if( create_walls(ch->in_room, var, ch, level, WALL_OF_ICE, 40, 1800,
+    "&+Wa wall of ice&N",
+    "&+WA huge block of solid ice is here to the %s.&n", 0) )
   {
     SET_BIT(EXIT(ch, var)->exit_info, EX_BREAKABLE);
     SET_BIT(VIRTUAL_EXIT
@@ -1006,10 +1004,9 @@ void cast_life_ward(int level, P_char ch, char *arg, int type, P_char tar_ch,
     return;
   }
 
-  if (create_walls
-      (ch->in_room, var, ch, level, LIFE_WARD, 40, 1800,
-       "&+La wall of &n&+bnegative energy&n",
-       "&+LA strange blackness cloaks the %s exit here.&n", 0))
+  if( create_walls(ch->in_room, var, ch, level, LIFE_WARD, 40, 1800,
+    "&+La wall of &n&+bnegative energy&n",
+    "&+LA strange blackness cloaks the %s exit here.&n", 0) )
   {
     sprintf(buf1, "&+LA wall of blackness begins to spread to the %s!&n\r\n",
             dirs[var]);
@@ -1036,10 +1033,9 @@ void cast_wall_of_stone(int level, P_char ch, char *arg, int type,
     return;
   }
 
-  if (create_walls
-      (ch->in_room, var, ch, level, WALL_OF_STONE, level, 1800,
-       "&+La greyish stone wall&N",
-       "&+LA greyish stone wall is here to the %s.&n", 0))
+  if( create_walls(ch->in_room, var, ch, level, WALL_OF_STONE, level, 1800,
+    "&+La greyish stone wall&N",
+    "&+LA greyish stone wall is here to the %s.&n", 0) )
   {
 
     SET_BIT(EXIT(ch, var)->exit_info, EX_BREAKABLE);
@@ -1071,10 +1067,9 @@ void cast_wall_of_iron(int level, P_char ch, char *arg, int type,
     return;
   }
 
-  if (create_walls
-      (ch->in_room, var, ch, level, WALL_OF_IRON, level, 1800,
-       "&+ya massive wall of iron&N",
-       "&+yA massive wall of iron is here to the %s.&n", 0))
+  if( create_walls(ch->in_room, var, ch, level, WALL_OF_IRON, level, 1800,
+    "&+ya massive wall of iron&N",
+    "&+yA massive wall of iron is here to the %s.&n", 0) )
   {
     SET_BIT(EXIT(ch, var)->exit_info, EX_BREAKABLE);
     SET_BIT(VIRTUAL_EXIT
@@ -1105,10 +1100,9 @@ void cast_wall_of_force(int level, P_char ch, char *arg, int type,
     return;
   }
 
-  if (create_walls
-      (ch->in_room, var, ch, level, WALL_OF_FORCE, level, 1800,
-       "&+Wa wall of force&n",
-       "&+WThe outline of some wall is here to the %s.&n", ITEM_INVISIBLE))
+  if( create_walls(ch->in_room, var, ch, level, WALL_OF_FORCE, level, 1800,
+    "&+Wa wall of force&n",
+    "&+WThe outline of some wall is here to the %s.&n", ITEM_INVISIBLE) )
   {
     SET_BIT(EXIT(ch, var)->exit_info, EX_BREAKABLE);
     SET_BIT(VIRTUAL_EXIT
@@ -1201,10 +1195,9 @@ void cast_wall_of_bones(int level, P_char ch, char *arg, int type,
   }
 
   
-  if (corpse && create_walls
-      (ch->in_room, var, ch, level, WALL_OF_BONES, level, 1800,
-       "&+La wall of &+wbones&n",
-       "&+LA large wall of &+wbones&+L is here to the %s.&n", 0))
+  if( corpse && create_walls(ch->in_room, var, ch, level, WALL_OF_BONES, level, 1800,
+    "&+La wall of &+wbones&n",
+    "&+LA large wall of &+wbones&+L is here to the %s.&n", 0) )
   {
 
     SET_BIT(EXIT(ch, var)->exit_info, EX_BREAKABLE);
@@ -1230,10 +1223,9 @@ void cast_wall_of_bones(int level, P_char ch, char *arg, int type,
 	extract_obj(corpse, TRUE);
 
   }
-  else if (scales && create_walls
-      (ch->in_room, var, ch, level, WALL_OF_BONES, scales, 1000,
-       "&+La thin wall of &+gscales&n",
-       "&+LA thin wall of &+gscales&+L is here to the %s.&n", 0))
+  else if( scales && create_walls(ch->in_room, var, ch, level, WALL_OF_BONES, scales, 1000,
+    "&+La thin wall of &+gscales&n",
+    "&+LA thin wall of &+gscales&+L is here to the %s.&n", 0) )
   {
 
     SET_BIT(EXIT(ch, var)->exit_info, EX_BREAKABLE);
@@ -1266,10 +1258,9 @@ void cast_lightning_curtain(int level, P_char ch, char *arg, int type,
     return;
   }
 
-  if (create_walls
-      (ch->in_room, var, ch, level, LIGHTNING_CURTAIN, dice(level / 4, 10),
-       1800, "&+Ya crackling curtain of lightning&n",
-       "&+BA rippling curtain of lightning crackles to the %s.&n", 0))
+  if( create_walls(ch->in_room, var, ch, level, LIGHTNING_CURTAIN, dice(level / 4, 10),
+    1800, "&+Ya crackling curtain of lightning&n",
+    "&+BA rippling curtain of lightning crackles to the %s.&n", 0) )
   {
     sprintf(buf1, "&+BYou see an electrical surge to the %s!&n\r\n",
             dirs[var]);
@@ -1296,9 +1287,8 @@ void cast_web(int level, P_char ch, char *arg, int type, P_char tar_ch,
     return;
   }
 
-  if (create_walls
-      (ch->in_room, var, ch, level, WEB, 0, 1800, "&+Wa sticky web&n",
-       "A large web appears %s!", 0))
+  if( create_walls(ch->in_room, var, ch, level, WEB, 0, 1800, "&+Wa sticky web&n",
+    "A large web appears %s!", 0) )
   {
     sprintf(buf1, "A large web appears %s!\r\n", dirs[var]);
     sprintf(buf2, "A large web appears %s!\r\n", dirs[rev_dir[var]]);
@@ -1327,11 +1317,9 @@ void cast_prismatic_cube(int level, P_char ch, char *arg, int type,
       continue;
     }
 
-    if (create_walls
-        (room, dir, ch, level, PRISMATIC_WALL, level, 1800,
-         "a prismatic wall",
-         "A &+rw&N&+ca&N&+bl&N&+yl&N of &+gs&N&+Rh&N&+Ci&N&+Bf&N&+Yt&N&+Gi&N&+rn&N&+Cg&N &+bc&N&+yo&N&+Gl&N&+Ro&N&+cr&N is here to the %s.",
-         0))
+    if( create_walls(room, dir, ch, level, PRISMATIC_WALL, level, 1800,
+      "a prismatic wall",
+      "A &+rw&N&+ca&N&+bl&N&+yl&N of &+gs&N&+Rh&N&+Ci&N&+Bf&N&+Yt&N&+Gi&N&+rn&N&+Cg&N &+bc&N&+yo&N&+Gl&N&+Ro&N&+cr&N is here to the %s.", 0) )
     {
       sprintf(buf1,
               "A &+rw&N&+ca&N&+bl&N&+yl&N of &+gs&N&+Rh&N&+Ci&N&+Bf&N&+Yt&N&+Gi&N&+rn&N&+Cg&N &+bc&N&+yo&N&+gl&N&+ro&N&+cr&N appears to the %s!\r\n",
@@ -1403,9 +1391,8 @@ void event_earthen_tomb(P_char ch, P_char victim, P_obj obj, void *data)
     }
   }
 
-  if (create_walls
-      (room, exit, NULL, 50, WALL_OF_STONE, 50, 1800, "&+yAn earthen wall&n",
-       "&+yAn earthen wall blocks the exit to the %s.&n", 0))
+  if( create_walls(room, exit, NULL, 50, WALL_OF_STONE, 50, 1800, "&+yAn earthen wall&n",
+    "&+yAn earthen wall blocks the exit to the %s.&n", 0) )
   {
     sprintf(buf1,
             "&+ySuddenly a tall earthen wall rises from the ground blocking the exit to the %s!&n\r\n",
@@ -2807,9 +2794,7 @@ void cast_bloodstone(int level, P_char ch, char *arg, int type, P_char victim, P
  *
  * returns true if direction was walled succesfully, will always happen unless zone files are broken etc.
  */
-bool create_walls(int room, int exit, P_char ch, int level, int type,
-                  int power, int decay, char *short_desc, char *desc,
-                  ulong flags)
+bool create_walls(int room, int exit, P_char ch, int level, int type, int power, int decay, char *short_desc, char *desc, ulong flags)
 {
   P_obj    wall_inside;
   P_obj    wall_outside;
