@@ -3875,45 +3875,50 @@ int get_innate_resistance(P_char ch)
   return (res >= 100) ? 100 : res;
 }
 
-int resists_spell(P_char caster, P_char victim)
+bool resists_spell(P_char caster, P_char victim)
 {
-  int skill = GET_CHAR_SKILL(caster, SKILL_SPELL_PENETRATION);
-  int in_room;
-  
+  int skill;
 
-  if(!caster ||
-    !victim)
+  if( !IS_ALIVE(caster) || !IS_ALIVE(victim) )
   {
-    logit(LOG_EXIT, "resists_spell () bogus parms no ch or victim");
+    logit(LOG_EXIT, "resists_spell()bogus parms missing or dead ch '%s' or victim '%s'.",
+      caster ? J_NAME(caster) : "Null", victim ? J_NAME(victim) : "Null" );
     raise(SIGSEGV);
   }
 
-  if(caster == victim)
+  if( caster == victim )
   {
     return FALSE;
   }
-  
-  if(IS_TRUSTED(caster) &&
-    !IS_TRUSTED(victim))
+
+  if( IS_TRUSTED(caster) && !IS_TRUSTED(victim) )
   {
     return FALSE;
   }
-  
-  if(affected_by_spell(victim, SKILL_SPELL_PENETRATION))
+
+  if( affected_by_spell(victim, SKILL_SPELL_PENETRATION) )
   {
     return FALSE;
   }
-  
-  if (has_innate(victim, INNATE_MAGIC_RESISTANCE))
+
+  skill = GET_CHAR_SKILL(caster, SKILL_SPELL_PENETRATION)/2;
+  if( has_innate(victim, INNATE_MAGIC_RESISTANCE) )
   {
-	//if(number(1, 101) > get_innate_resistance(victim)) old check - drannak
-	int shrugroll = number(1, 101);
-	//debug("shrug check roll: %d", shrugroll);
-	if(shrugroll > get_innate_resistance(victim))
+    int shrugroll = number(1, 101);
+    //debug("shrug check roll: %d", shrugroll);
+    if(shrugroll > get_innate_resistance(victim))
     {
-	return FALSE;
+      return FALSE;
     }
-    if(GET_RACE(victim) == RACE_BEHOLDER)
+    if( get_spell_from_room(&world[victim->in_room], SPELL_DESECRATE_LAND) )
+    {
+      // 10% penalty to shrug if desecrate land is active.
+      if( shrugroll > get_innate_resistance(victim) - 10 )
+      {
+        return FALSE;
+      }
+    }
+    if( GET_RACE(victim) == RACE_BEHOLDER )
     {
       act("&+W$n&+W's central eye glows brightly as it negates your spell!",
           TRUE, victim, 0, caster, TO_VICT);
@@ -3921,23 +3926,18 @@ int resists_spell(P_char caster, P_char victim)
           TRUE, victim, 0, caster, TO_CHAR);
       act("&+W$n&+W's central eye glows brightly as it negates $N&+W's spell!",
          TRUE, victim, 0, caster, TO_NOTVICT);
-      
       return TRUE;
     }
-     
-    if(GET_CHAR_SKILL(caster, SKILL_SPELL_PENETRATION) ||
-      (IS_NPC(caster) &&
-      (IS_ELITE(caster) || IS_GREATER_RACE(caster))))
+    if( skill || (IS_NPC(caster) && (IS_ELITE(caster) || IS_GREATER_RACE(caster))) )
     {
-      
-      skill /= 2;
 
-      if(IS_NPC(caster) &&
-         !IS_PC_PET(caster))
-            skill = GET_LEVEL(caster); // Added Nov08 -Lucrot
-      
-      if(number(0, 110) < BOUNDED(10, skill, (int)get_property("skill.spellPenetration.highEndPercent", 60.000)) &&
-         caster->in_room == victim->in_room)
+      if( IS_NPC(caster) && !IS_PC_PET(caster) )
+      {
+        skill = GET_LEVEL(caster); // Added Nov08 -Lucrot
+      }
+
+      if( number(0, 110) < BOUNDED(10, skill, (int)get_property("skill.spellPenetration.highEndPercent", 60.000))
+        && caster->in_room == victim->in_room )
       {
         struct affected_type af;
 
@@ -3963,8 +3963,8 @@ int resists_spell(P_char caster, P_char victim)
       TRUE, caster, 0, victim, TO_VICT);
     act("$n's &+Mspell flows around&n $N&+M, leaving $M unharmed!",
         TRUE, caster, 0, victim, TO_NOTVICT);
-    
-    return true;
+
+    return TRUE;
   }
   return FALSE;
 }

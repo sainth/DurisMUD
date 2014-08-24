@@ -1718,7 +1718,7 @@ bool TryToGetHome(P_char);
 bool npc_has_spell_slot(P_char, int);
 int AlignRestriction(P_char, P_obj);
 int CountToughness(P_char, P_char);
-int resists_spell(P_char, P_char);
+bool resists_spell(P_char, P_char);
 int get_innate_resistance(P_char);
 int FreshCorpse(int);
 int GetLowestSpellCircle(int);
