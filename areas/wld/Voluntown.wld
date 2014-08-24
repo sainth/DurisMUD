@@ -5,7 +5,7 @@
 &+ythe ground which says in bold letters, "&+rVoluntown&+y". The trail continues
 &+yto the east and a small shack can seen on a hill farther down.
 ~
-1 33554432 4 0
+1 176193600 4 0
 D2
 ~
 ~
@@ -20,7 +20,7 @@ S
 &+yThe mountain trail continues, it seems to be getting steadily &+Ldarker &+yas you
 &+ycontinue down the trail.
 ~
-1 32769 4 0
+1 142639169 4 0
 D1
 ~
 ~
@@ -35,7 +35,7 @@ S
 &+yThe mountain trail continues west, a small run down &+Yshack&+y lies to the
 &+ynorth with a sign that says, "&+GCaretaker&+y".
 ~
-1 142639105 4 0
+1 142639169 4 0
 D0
 The door to the shack.
 ~
@@ -70,7 +70,7 @@ S
 &+ydrops off here. The only direction you can go is back the way
 &+yyou came or down.
 ~
-1 176193536 4 0
+1 176193600 4 0
 D1
 ~
 ~
