@@ -1941,16 +1941,19 @@ void affect_from_char(P_char ch, int skill)
 struct affected_type *get_spell_from_char(P_char ch, int spell)
 {
   struct affected_type *hjp;
-  
-  if(!(ch) ||
-     !IS_ALIVE(ch) ||
-     !(spell))
-        return NULL;
 
-  for (hjp = ch->affected; hjp; hjp = hjp->next)
-    if (hjp->type == spell)
+  if( !IS_ALIVE(ch) || !(spell) )
+  {
+    return NULL;
+  }
+
+  for( hjp = ch->affected; hjp; hjp = hjp->next )
+  {
+    if( hjp->type == spell )
+    {
       return hjp;
-
+    }
+  }
   return NULL;
 }
 

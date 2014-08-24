@@ -355,7 +355,11 @@ int list_hulls (P_char ch, P_ship ship, int owned)
                 (SHIPTYPE_EPIC_COST(i) > 0) ? ('0' + SHIPTYPE_EPIC_COST(i)) : ' ',
                 coin_stringv(SHIPTYPE_COST(i)));
         }
-
+        if( affected_by_spell( ch, AIP_FREESLOOP ) )
+        {
+          send_to_char( "\r\n&+yYou qualify for a &+WFree Sloop&+y!&n\n\r", ch );
+          send_to_char( "&+yTo claim this reward, use the command '&+Gbuy hull 1 <name>&+y' where <name> is the name of your ship.&n\n\r", ch );
+        }
         send_to_char("\r\n", ch);
         send_to_char("&+YRead HELP WARSHIP before buying one!\r\n", ch);
         send_to_char("To buy a ship, type 'buy <number> <name of ship>'\r\n", ch);
@@ -1744,9 +1748,9 @@ int buy_hull(P_char ch, P_ship ship, int owned, char* arg1, char* arg2)
     }
 
     int i = atoi(arg1) - 1;
-    if ((i < 0) || (i >= MAXSHIPCLASS)) 
+    if ((i < 0) || (i >= MAXSHIPCLASS))
     {
-        send_to_char ("Not a valid hull selection.'\r\n", ch);
+        send_to_char ("Not a valid hull selection.\r\n", ch);
         return TRUE;
     }
 
@@ -1857,6 +1861,16 @@ int buy_hull(P_char ch, P_ship ship, int owned, char* arg1, char* arg2)
         }
         if (!check_ship_name(0, ch, arg2))
             return TRUE;
+
+        if( affected_by_spell( ch, AIP_FREESLOOP ) )
+        {
+          if( (GET_MONEY(ch) >= SHIPTYPE_COST(i) - 100000) && GET_EPIC_POINTS(ch) >= SHIPTYPE_EPIC_COST(i) )
+          {
+            send_to_char( "You show your &+ysmall &+bS&+Ba&+bi&+Bl&+bo&+Br&+b'&+Bs&n &+yTattoo&n for a discount.&n\n\r", ch );
+            ADD_MONEY(ch, 100000);
+            affect_from_char( ch, AIP_FREESLOOP );
+          }
+        }
 
         if (GET_MONEY(ch) < SHIPTYPE_COST(i) || GET_EPIC_POINTS(ch) < SHIPTYPE_EPIC_COST(i)) 
         {

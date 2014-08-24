@@ -6,6 +6,7 @@
 #include "achievements.h"
 #include "utils.h"
 #include "spells.h"
+#include "ships/ships.h"
 
 extern P_index mob_index;
 extern int pulse;
@@ -73,7 +74,7 @@ void do_achievements(P_char ch, char *arg, int cmd)
   strcat(buf, buf3);
 
   //-----Achievement: The Journey Begins
-  if(affected_by_spell(ch, ACH_JOURNEYBEGINS))
+  if(affected_by_spell(ch, ACH_LEVELACHIEVEMENT))
     sprintf(buf3, "  &+L%-34s&+L%-45s&+L%s\r\n",
         "&+gThe Jou&+Grney Beg&+gins&n", "&+BGain level 5", "&+B&+ya rugged a&+Yd&+yv&+Ye&+yn&+Yt&+yu&+Yr&+ye&+Yr&+ys &+Lsatchel");
   else
@@ -81,6 +82,16 @@ void do_achievements(P_char ch, char *arg, int cmd)
         "&+gThe Jou&+Grney Beg&+gins&n", "&+wGain level 5", "&+wan Unknown Item");
   strcat(buf, buf3);
   //-----The Journey Begins
+
+  //-----Achievement: The Sailor's Tattoo
+  if(affected_by_spell(ch, ACH_LEVELACHIEVEMENT))
+    sprintf(buf3, "  &+L%-34s&+L%-45s&+L%s\r\n",
+        "&+bThe Sai&+Blor's Tat&+btoo&n", "&+BGain level 30", "&+ya small &+bS&+Ba&+bi&+Bl&+bo&+Br&+b'&+Bs&n &+yTattoo&n");
+  else
+    sprintf(buf3, "  &+L%-34s&+L%-45s&+L%s\r\n",
+        "&+gThe Jou&+Grney Beg&+gins&n", "&+wGain level 30", "&+wan Unknown Item");
+  strcat(buf, buf3);
+  //-----The Sailor's Tattoo
 
   //-----Achievement: Dragonslayer
   if(affected_by_spell(ch, ACH_DRAGONSLAYER))
@@ -150,6 +161,7 @@ void update_achievements(P_char ch, P_char victim, int cmd, int ach)
 {
   char     argument[MAX_STRING_LENGTH];
   struct affected_type af;
+  struct affected_type *paf;
   int required = 1;
 
   /* Achievement int ach list:
@@ -217,13 +229,43 @@ void update_achievements(P_char ch, P_char victim, int cmd, int ach)
     apply_achievement(ch, ACH_SERIALKILLER);
   }
 
-  /* The Journey Begins */
-  if( GET_LEVEL(ch) >= 5 && !affected_by_spell(ch, ACH_JOURNEYBEGINS) )
+  /* Level-Based Achievements */
+  if( !(paf = get_spell_from_char(ch, ACH_LEVELACHIEVEMENT)) || paf->modifier < GET_LEVEL(ch) )
   {
-    send_to_char("&+rCon&+Rgra&+Wtula&+Rtio&+rns! You have completed the &+RThe Journey Begins&+r achievement!&n\r\n", ch);
-    send_to_char("&+yThis &+Yachievement&+y rewards an &+Yitem&+y! Check your &+Winventory &+yby typing &+Wi&+y!&n\r\n", ch);
-    apply_achievement(ch, ACH_JOURNEYBEGINS);
-    obj_to_char(read_object(400222, VIRTUAL), ch);
+    // The Journey Begins
+    if( GET_LEVEL(ch) >= 5 && (!paf || paf->modifier < 5) )
+    {
+      send_to_char("&+rCon&+Rgra&+Wtula&+Rtio&+rns! You have completed the &+RThe Journey Begins&+r achievement!&n\r\n", ch);
+      send_to_char("&+yThis &+Yachievement&+y rewards an &+Yitem&+y! Check your &+Winventory &+yby typing &+Wi&+y!&n\r\n", ch);
+      obj_to_char(read_object(400222, VIRTUAL), ch);
+      if( !paf )
+      {
+        paf = apply_achievement(ch, ACH_LEVELACHIEVEMENT);
+      }
+      paf->modifier = 5;
+    }
+    // The Sailor's Tattoo
+    if( GET_LEVEL(ch) >= 30 && (!paf || paf->modifier < 30) )
+    {
+      send_to_char("&+rCon&+Rgra&+Wtula&+Rtio&+rns! You have completed the &+RThe Sailor's Tattoo&+r achievement!&n\r\n", ch);
+      send_to_char("&+yThis &+Yachievement&+y rewards a small &+bS&+Ba&+bi&+Bl&+bo&+Br&+b'&+Bs&n &+yTattoo&+y on your forearm.&n\r\n", ch);
+      if( get_ship_from_char( ch ) )
+      {
+        send_to_char( "&+ySeeing as you already own a ship, here's &n100 &+WPlatinum&+y!&n\n\r", ch);
+        ADD_MONEY( ch, 100000 );
+      }
+      else
+      {
+        send_to_char( "&+yCheck the &+Wdocks &+yfor your reward: &+WA free sloop&+y!&n\n\r", ch);
+// PENIS: Need to tag them for a free sloop.
+        apply_achievement(ch, AIP_FREESLOOP);
+      }
+      if( !paf )
+      {
+        paf = apply_achievement(ch, ACH_LEVELACHIEVEMENT);
+      }
+      paf->modifier = 30;
+    }
   }
 
   if(cmd == 0 && !victim) //no exp or other value means nothing else to do.
@@ -321,19 +363,22 @@ void update_achievements(P_char ch, P_char victim, int cmd, int ach)
 
 }
 
-void apply_achievement(P_char ch, int ach)
+affected_type *apply_achievement(P_char ch, int ach)
 {
   struct affected_type af;
 
-  if(!ach)
-    return;
+  if( !ach )
+  {
+    return NULL;
+  }
   memset(&af, 0, sizeof(struct affected_type));
   af.type = ach;
   af.modifier = 0;
   af.duration = -1;
   af.location = 0;
   af.flags = AFFTYPE_NOSHOW | AFFTYPE_PERM | AFFTYPE_NODISPEL;
-  affect_to_char(ch, &af);
+
+  return affect_to_char(ch, &af);
 
 }
 

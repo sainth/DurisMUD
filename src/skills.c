@@ -5101,8 +5101,9 @@ void create_tags()
   TAG_CREATE("ach - serial killer", ACH_SERIALKILLER); //static, 10.00 frags
 
   //PVE
-  TAG_CREATE("ach - journey begins", ACH_JOURNEYBEGINS); //static, gain 1.0 levels
-  TAG_CREATE("aip - arachnophobia", AIP_ARACHNOPHOBIA); 
+  TAG_CREATE("ach - level achievement", ACH_LEVELACHIEVEMENT); //static, gain 1.0 levels
+  TAG_CREATE("aip - free sloop", AIP_FREESLOOP);
+  TAG_CREATE("aip - arachnophobia", AIP_ARACHNOPHOBIA);
   TAG_CREATE("ach - arachnophobia", ACH_ARACHNOPHOBIA);
   TAG_CREATE("aip - Trollin", AIP_TROLLIN);
   TAG_CREATE("ach - trollin", ACH_TROLLIN);

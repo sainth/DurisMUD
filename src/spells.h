@@ -1065,7 +1065,7 @@
 #define SKILL_CAMP                   (LAST_POISON+1)
 #define SKILL_PERMINVIS              (LAST_POISON+2)
 
-/* everything below does now make part of players skill data */
+/* everything below does not make part of players skill data */
 #define FIRST_TAG                    2001
 #define TAG_OBJ_DECAY                2001
 #define TAG_ALTERED_EXTRA2           2002
@@ -1140,7 +1140,7 @@
 #define ACH_UNSTOPPABLE              2071
 #define ACH_LETSGETDIRTY             2072
 #define ACH_SERIALKILLER             2073
-#define ACH_JOURNEYBEGINS	           2074
+#define ACH_LEVELACHIEVEMENT         2074
 #define AIP_ARACHNOPHOBIA            2075
 #define ACH_ARACHNOPHOBIA            2076
 #define ACH_TROLLIN                  2077
@@ -1172,6 +1172,7 @@
 #define TAG_ADDICTED_BLOOD           2103
 #define TAG_BLOODLUST                2104
 #define TAG_EPICS                    2105
+#define AIP_FREESLOOP                2106
 
 #define SAVING_PARA   0
 #define SAVING_ROD    1
