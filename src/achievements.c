@@ -257,7 +257,7 @@ void update_achievements(P_char ch, P_char victim, int cmd, int ach)
       else
       {
         send_to_char( "&+yCheck the &+Wdocks &+yfor your reward: &+WA free sloop&+y!&n\n\r", ch);
-// PENIS: Need to tag them for a free sloop.
+        // Tag them for a free sloop.
         apply_achievement(ch, AIP_FREESLOOP);
       }
       if( !paf )

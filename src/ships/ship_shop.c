@@ -358,7 +358,7 @@ int list_hulls (P_char ch, P_ship ship, int owned)
         if( affected_by_spell( ch, AIP_FREESLOOP ) )
         {
           send_to_char( "\r\n&+yYou qualify for a &+WFree Sloop&+y!&n\n\r", ch );
-          send_to_char( "&+yTo claim this reward, use the command '&+Gbuy hull 1 <name>&+y' where <name> is the name of your ship.&n\n\r", ch );
+          send_to_char( "&+yTo claim this reward, use the command '&+Gbuy hull 1 <name>&+y' where <name> is the name of your ship (ansi color allowed).&n\n\r", ch );
         }
         send_to_char("\r\n", ch);
         send_to_char("&+YRead HELP WARSHIP before buying one!\r\n", ch);
@@ -1868,6 +1868,7 @@ int buy_hull(P_char ch, P_ship ship, int owned, char* arg1, char* arg2)
           {
             send_to_char( "You show your &+ysmall &+bS&+Ba&+bi&+Bl&+bo&+Br&+b'&+Bs&n &+yTattoo&n for a discount.&n\n\r", ch );
             ADD_MONEY(ch, 100000);
+            // Remove the flag for free sloop.
             affect_from_char( ch, AIP_FREESLOOP );
           }
         }
