@@ -621,17 +621,29 @@ int get_circle_memtime(P_char ch, int circle, bool bStatOnly)
   level = circle - 1;
   clevel = GET_LEVEL(ch) - 1;
 
-  if( IS_SEMI_CASTER(ch) && !IS_MULTICLASS_PC(ch) )
+  if( IS_MULTICLASS_PC(ch) )
+  {
+    if( ch->player.m_class  && (GET_PRIME_CLASS(ch, CLASS_DRUID) || GET_PRIME_CLASS(ch, CLASS_RANGER)) )
+    {
+      time_mult = get_property("memorize.factor.multi.commune", 1.75);
+    }
+    else if( ch->player.m_class && GET_PRIME_CLASS(ch, CLASS_BLIGHTER) )
+    {
+      time_mult = get_property("memorize.factor.multi.deforest", 1.75);
+    }
+    else
+    {
+      time_mult = get_property("memorize.factor.multiclass", 1.75);
+    }
+  }
+  else if( IS_SEMI_CASTER(ch) )
   {
     level = MAX(1, level - 2);
     time_mult = 2.25;
   }
-  else if( IS_MULTICLASS_PC(ch) )
-  {
-    time_mult = get_property("memorize.factor.multiclass", 1.75);
-  }
   else
   {
+    // Why we have a 1.25 base instead of 1.00 I have no idea..
     //drannak - figuring this out
     time_mult = 1.25;
   }
@@ -663,7 +675,7 @@ int get_circle_memtime(P_char ch, int circle, bool bStatOnly)
     // If Wisdom w/eq is > 100.
     if( GET_C_WIS(ch) > stat_factor[(int) GET_RACE(ch)].Wis )
     {
-      if( GET_CLASS(ch, CLASS_DRUID) && IS_MULTICLASS_PC(ch) )
+      if( (GET_PRIME_CLASS(ch, CLASS_DRUID) || GET_PRIME_CLASS(ch, CLASS_BLIGHTER)) && IS_MULTICLASS_PC(ch) )
       {
          // Increase tick factor by amount over 100 / 1.3.
          tick_factor += (int)((GET_C_WIS(ch) - (stat_factor[(int) GET_RACE(ch)].Wis)) / 1.3);
@@ -673,7 +685,6 @@ int get_circle_memtime(P_char ch, int circle, bool bStatOnly)
          tick_factor += GET_C_WIS(ch) - (stat_factor[(int) GET_RACE(ch)].Wis);
       }
     }
-
   }
 
   float clevel_mod = fake_sqrt_table[clevel];
@@ -692,24 +703,17 @@ int get_circle_memtime(P_char ch, int circle, bool bStatOnly)
   }
   else if( ch->player.m_class  && (GET_PRIME_CLASS(ch, CLASS_DRUID) || GET_PRIME_CLASS(ch, CLASS_RANGER)) )
   {
+    // modify based on property tweak
+    time = time * get_property("memorize.factor.commune", 1.0);
+
     // send_to_char("you're a druid or ranger\r\n", ch);
     // modify for terrain
     float modifier = druid_memtime_terrain_mod[world[ch->in_room].sector_type];
 
-    // multiclass druids have longer forest modifiers, but smaller UD city modifiers
-    if(IS_MULTICLASS_PC(ch))
-    {
-      modifier = (modifier * get_property("memorize.factor.multi.commune", 2.0) );
-    }
-
     time = time * modifier;
 
-    // modify based on property tweak
-    time = time * get_property("memorize.factor.commune", 1.0);
-
     // reduction in time if you have the epic skill
-    if( OUTSIDE(ch) && (GET_CHAR_SKILL(ch, SKILL_NATURES_SANCTITY) > number(1, 100)
-      || GET_CHAR_SKILL(ch, SKILL_NATURES_RUIN) > number(1, 100)) )
+    if( OUTSIDE(ch) && GET_CHAR_SKILL(ch, SKILL_NATURES_SANCTITY) > number(1, 100) )
     {
       time = time * .65;
     }
@@ -755,18 +759,18 @@ int get_circle_memtime(P_char ch, int circle, bool bStatOnly)
     // modify for terrain
     float modifier = blighter_memtime_terrain_mod[world[ch->in_room].sector_type];
 
-    // multiclass druids have longer forest modifiers, but smaller UD city modifiers
-    if(IS_MULTICLASS_PC(ch))
-    {
-      modifier = (modifier * get_property("memorize.factor.multi.deforest", 2.0) );
-    }
-
     time = time * modifier;
 
     // randomly reduce the time by 1/3 based on level of caster
     if(!bStatOnly && !GET_OPPONENT(ch) && GET_LEVEL(ch) > number(0, 65))
     {
       time = time / 1.5;
+    }
+
+    // reduction in time if you have the epic skill
+    if( OUTSIDE(ch) && GET_CHAR_SKILL(ch, SKILL_NATURES_RUIN) > number(1, 100) )
+    {
+      time = time * .65;
     }
 
     // cant commune while in command lag, this makes sure they will
@@ -777,7 +781,7 @@ int get_circle_memtime(P_char ch, int circle, bool bStatOnly)
                                  // instantly after a fight or spell is cast
     }
   }
-  /*  //reverting back to use mana
+/* Reverting back to use mana
   else if(ch->player.m_class & CLASS_PSIONICIST)
   {
     time = time * get_property("memorize.factor.focus", 1.0);
