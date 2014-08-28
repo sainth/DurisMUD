@@ -1231,18 +1231,11 @@ IS_GIANT(ch) || IS_PC_PET(ch) || IS_PC(ch) || IS_UNDEAD(ch) || IS_EFREET(ch)) &&
        affected_by_spell(ch, SPELL_SLEEP))
 
 // Meeting the following define grants hitpoints.spellcaster.maxConBonus.
-#define IS_MAX_CON_BONUS_CLASS(ch) (GET_CLASS(ch, CLASS_ETHERMANCER | \
-                                                  CLASS_DRUID | \
-                                                  CLASS_CLERIC | \
-                                                  CLASS_SORCERER | \
-                                                  CLASS_NECROMANCER | \
-                                                  CLASS_SHAMAN | \
-                                                  CLASS_PSIONICIST | \
-                                                  CLASS_ILLUSIONIST | \
-                                                  CLASS_CONJURER | \
-                                                  CLASS_SUMMONER | \
-                                                  CLASS_BARD | \
-                                                  CLASS_THEURGIST))
+#define IS_MAX_CON_BONUS_CLASS(ch) ( GET_CLASS(ch, \
+  CLASS_DRUID       | CLASS_BLIGHTER | CLASS_CLERIC     | CLASS_SORCERER   | \
+  CLASS_NECROMANCER | CLASS_SHAMAN   | CLASS_PSIONICIST | CLASS_MINDFLAYER | \
+  CLASS_ILLUSIONIST | CLASS_CONJURER | CLASS_SUMMONER   | CLASS_BARD | \
+  CLASS_ETHERMANCER | CLASS_THEURGIST) )
 
 #define IS_COLD_VULN(ch) (GET_RACE(ch) == RACE_THRIKREEN || \
                           GET_RACE(ch) == RACE_F_ELEMENTAL || \
