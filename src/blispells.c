@@ -432,11 +432,11 @@ void event_acid_rain(P_char ch, P_char victim, P_obj obj, void *data)
   int    dam;
   P_char next;
   struct damage_messages messages = {
-    "",
+    "&+G$N&+G is burned as the rain dissolves $S skin.&n",
     "&+GYou are burned as the rain dissolves your skin.&n",
     "",
-    "$N &+gmelts into a pile of &+GGOO&n ... $E is no more!",
-    "&+GThe rain &+gconsuming your flesh devours you completely!",
+    "&+g$N &+gmelts into a pile of &+GGOO&n ... $E is no more!",
+    "&+GThe rain &+gconsuming your flesh &+Gdevours you completely!",
     "$N &+gmelts into a pile of &+GGOO&n ... $E is no more!",
       0
   };
