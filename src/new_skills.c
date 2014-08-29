@@ -66,14 +66,14 @@ int CanDoFightMove(P_char ch, P_char victim)
   
   if(!IS_ALIVE(victim))
   {
-    debug("CanDoFightMove in new_skills.c called on dead victim", 0);
+    debug("CanDoFightMove in new_skills.c called on dead victim '%s'.", victim ? J_NAME(victim) : "NULL" );
     send_to_char("What?  Dead isn't good enough?  Leave that corpse alone!\r\n", ch);
     return FALSE;
   }
   
   if(!IS_ALIVE(ch))
   {
-    debug("CanDoFightMove in new_skills.c called on ch who is dead",0);
+    debug("CanDoFightMove in new_skills.c called on by dead ch '%s'.", ch ? J_NAME(ch) : "NULL" );
     return FALSE;
   }
   
