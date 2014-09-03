@@ -1428,30 +1428,31 @@ void chant_tiger_palm(P_char ch, char *arg, int cmd)
 void chant_fist_of_dragon(P_char ch, char *arg, int cmd)
 {
   struct affected_type af;
+  int skl_lvl;
 
-  if (!GET_CHAR_SKILL(ch, SKILL_FIST_OF_DRAGON) && !IS_TRUSTED(ch))
+  skl_lvl = IS_TRUSTED(ch) ? 100 : GET_CHAR_SKILL(ch, SKILL_FIST_OF_DRAGON);
+
+  if( !skl_lvl )
   {
     send_to_char("You wouldnt know where to begin.\r\n", ch);
     return;
   }
 
-  if (!affect_timer(ch, WAIT_SEC * get_property("timer.secs.monkFistOfDragon", 30), SKILL_FIST_OF_DRAGON))
+  if( !affect_timer(ch, WAIT_SEC * get_property("timer.secs.monkFistOfDragon", 30), SKILL_FIST_OF_DRAGON) )
   {
     send_to_char("Yer not in proper mood for that right now!\r\n", ch);
     return;
   }
 
-  if (!notch_skill(ch, SKILL_FIST_OF_DRAGON, get_property("skill.notch.chants", 20))
-    && (number(1,101) > (IS_PC(ch) ? (1 + GET_CHAR_SKILL(ch, SKILL_FIST_OF_DRAGON)) : (MIN(100,GET_LEVEL(ch) * 2)))))
+  if( !notch_skill(ch, SKILL_FIST_OF_DRAGON, get_property("skill.notch.chants", 20))
+    && (number(1,101) > skl_lvl) )
   {
     send_to_char("You fail to summon the power of the &+RRed Dragon&n!\r\n", ch);
     return;
   }
 
-  set_short_affected_by(ch, SKILL_FIST_OF_DRAGON, WAIT_SEC * (MAX(4, (GET_CHAR_SKILL(ch, SKILL_FIST_OF_DRAGON) / 2))));
-  send_to_char
-     ("&+rThe strength of the &+Rred dragon &+rflows strong in your veins.\r\n"
-     , ch);
+  set_short_affected_by(ch, SKILL_FIST_OF_DRAGON, WAIT_SEC * (MAX(4, (GET_LEVEL(ch) * skl_lvl / 100))));
+  send_to_char("&+rThe strength of the &+Rred dragon &+rflows strong in your veins.\r\n", ch);
   act("&+r$n&+r's hands harden as $e summons $s inner chi-powers.&n", FALSE, ch, 0, 0, TO_ROOM);
 }
 
@@ -1498,8 +1499,8 @@ void do_chant(P_char ch, char *argument, int cmd)
     return;
   }
 
-  if (IS_PC(ch))
-    skl_lvl = GET_CHAR_SKILL(ch, SKILL_CHANT);
+  if( IS_PC(ch) )
+    skl_lvl = IS_TRUSTED(ch) ? 100 : GET_CHAR_SKILL(ch, SKILL_CHANT);
   else
     skl_lvl = MAX(100, GET_LEVEL(ch) * 3);
 
@@ -1507,27 +1508,27 @@ void do_chant(P_char ch, char *argument, int cmd)
   {
     sprintf(buf, "You know the following chants:\r\n");
     sprintf(buf, "%s============================\r\n", buf);
-    if (GET_CHAR_SKILL(ch, SKILL_QUIVERING_PALM) > 0)
+    if( IS_TRUSTED(ch) || GET_CHAR_SKILL(ch, SKILL_QUIVERING_PALM) > 0)
       sprintf(buf, "%sQuivering Palm\r\n", buf);
-    if (GET_CHAR_SKILL(ch, SKILL_BUDDHA_PALM) > 0)
+    if( IS_TRUSTED(ch) || GET_CHAR_SKILL(ch, SKILL_BUDDHA_PALM) > 0)
       sprintf(buf, "%sBuddha palm\r\n", buf);
-    if (GET_CHAR_SKILL(ch, SKILL_HEROISM) > 0)
+    if( IS_TRUSTED(ch) || GET_CHAR_SKILL(ch, SKILL_HEROISM) > 0)
       sprintf(buf, "%sHeroism\r\n", buf);
-    if (GET_CHAR_SKILL(ch, SKILL_CHI_PURGE) > 0)
+    if( IS_TRUSTED(ch) || GET_CHAR_SKILL(ch, SKILL_CHI_PURGE) > 0)
       sprintf(buf, "%sChi Purge\r\n", buf);
-    if (GET_CHAR_SKILL(ch, SKILL_CALM) > 0)
+    if( IS_TRUSTED(ch) || GET_CHAR_SKILL(ch, SKILL_CALM) > 0)
       sprintf(buf, "%sCalm\r\n", buf);
-    if (GET_CHAR_SKILL(ch, SKILL_REGENERATE) > 0)
+    if( IS_TRUSTED(ch) || GET_CHAR_SKILL(ch, SKILL_REGENERATE) > 0)
       sprintf(buf, "%sRegenerate\r\n", buf);
-    if (GET_CHAR_SKILL(ch, SKILL_JIN_TOUCH) > 0)
+    if( IS_TRUSTED(ch) || GET_CHAR_SKILL(ch, SKILL_JIN_TOUCH) > 0)
       sprintf(buf, "%sJin Touch\r\n", buf);
-    if (GET_CHAR_SKILL(ch, SKILL_FIST_OF_DRAGON) > 0)
+    if( IS_TRUSTED(ch) || GET_CHAR_SKILL(ch, SKILL_FIST_OF_DRAGON) > 0)
       sprintf(buf, "%sFist of dragon\r\n", buf);
-    if (GET_CHAR_SKILL(ch, SKILL_KI_STRIKE) > 0)
+    if( IS_TRUSTED(ch) || GET_CHAR_SKILL(ch, SKILL_KI_STRIKE) > 0)
       sprintf(buf, "%sKi Strike\r\n", buf);
-    if (GET_CHAR_SKILL(ch, SKILL_TIGER_PALM) > 0)
+    if( IS_TRUSTED(ch) || GET_CHAR_SKILL(ch, SKILL_TIGER_PALM) > 0)
       sprintf(buf, "%sTiger Palm\r\n", buf);
-    if (GET_CHAR_SKILL(ch, SKILL_DIAMOND_SOUL) > 0)
+    if( IS_TRUSTED(ch) || GET_CHAR_SKILL(ch, SKILL_DIAMOND_SOUL) > 0)
       sprintf(buf, "%sDiamond Soul\r\n", buf);
 
     send_to_char(buf, ch);
