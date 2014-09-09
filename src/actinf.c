@@ -5869,21 +5869,18 @@ void do_who(P_char ch, char *argument, int cmd)
   long     timer = 0;
   snoop_by_data *snoop_by_ptr;
   int      align = 0, min_level = 70, max_level = -1, sort = FALSE, zone = FALSE, lfg = FALSE;
-  struct affected_type *pafepics = get_spell_from_char(ch, TAG_EPICS_GAINED);
+  struct affected_type *pafepics;
 
-  if(!(ch) ||
-     !IS_ALIVE(ch) ||
-     IS_NPC(ch))
-        return;
-        
-  if (IS_MORPH(ch))
+  if( !IS_ALIVE(ch) || IS_NPC(ch) )
   {
-    send_to_char
-      ("Morphs do not possess the extra-sensory organs necessary to detect who all is in the world at the moment.\n",
-       ch);
     return;
   }
-  
+  if( IS_MORPH(ch) )
+  {
+    send_to_char("Morphs do not possess the extra-sensory organs necessary to detect who all is in the world at the moment.\n", ch);
+    return;
+  }
+
   *pattern = 0;
 
   while (*argument)
@@ -6283,6 +6280,8 @@ void do_who(P_char ch, char *argument, int cmd)
             "      Experience to next level = %d.\n",
             (new_exp_table[GET_LEVEL(tch) + 1] - GET_EXP(tch)));
     strcat(buf, buf3);
+
+    pafepics = get_spell_from_char(tch, TAG_EPICS_GAINED);
     sprintf(buf3, "      Epic points = %ld.   Total epics gained = %d.\n",
       tch->only.pc->epics, pafepics ? pafepics->modifier : 0 );
     strcat(buf, buf3);
