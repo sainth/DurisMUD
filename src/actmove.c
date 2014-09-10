@@ -2228,21 +2228,20 @@ void do_open(P_char ch, char *argument, int cmd)
   struct room_direction_data *back;
   P_obj    obj;
   P_char   victim;
-  char     Gbuf1[MAX_STRING_LENGTH], Gbuf2[MAX_STRING_LENGTH],
-    Gbuf3[MAX_STRING_LENGTH];
+  char     Gbuf1[MAX_STRING_LENGTH], Gbuf2[MAX_STRING_LENGTH], Gbuf3[MAX_STRING_LENGTH];
 
-  if(!(ch))
+  if( !IS_ALIVE(ch) )
   {
     return;
   }
 
-  if(IS_IMMOBILE(ch))
+  if( IS_IMMOBILE(ch) )
   {
     act("In your present state just relax and make the best of it.", FALSE, ch, 0, 0, TO_CHAR);
     return;
   }
 
-  if(IS_BLIND(ch))
+  if( IS_BLIND(ch) )
   {
     act("You can't see a thing let alone a door or whatever.", FALSE, ch, 0, 0, TO_CHAR);
     return;
@@ -2255,156 +2254,163 @@ void do_open(P_char ch, char *argument, int cmd)
     send_to_char("That's tough to do in battle, but still you try...\n", ch);
     return;
   }
-  if( !*Gbuf2)
+  if( !*Gbuf2 )
+  {
     send_to_char("Open what?\n", ch);
-  else if( generic_find(argument, FIND_OBJ_INV | FIND_OBJ_ROOM,
-                        ch, &victim, &obj))
-    /*
-     * this is an object
-     */
-
-    if( (obj->type != ITEM_CONTAINER) &&
-        (obj->type != ITEM_STORAGE) && (obj->type != ITEM_QUIVER))
+  }
+  // This is an object
+  else if( generic_find(argument, FIND_OBJ_INV | FIND_OBJ_ROOM, ch, &victim, &obj) )
+  {
+    if( (obj->type != ITEM_CONTAINER) && (obj->type != ITEM_STORAGE) && (obj->type != ITEM_QUIVER) )
+    {
       send_to_char("That's not a container.\n", ch);
+      return;
+    }
     else if( !IS_SET(obj->value[1], CONT_CLOSED))
+    {
       send_to_char("But it's already open!\n", ch);
+      return;
+    }
     else if( !IS_SET(obj->value[1], CONT_CLOSEABLE))
+    {
       send_to_char("You can't do that.\n", ch);
+      return;
+    }
     else if( IS_SET(obj->value[1], CONT_LOCKED))
+    {
       send_to_char("It seems to be locked.\n", ch);
+      return;
+    }
     else
     {
-      
-
       //special proc for bag of random goodness - drannak 4/3/2013 400232= turkey gut
-	if( obj_index[obj->R_num].virtual_number == 400217 || obj_index[obj->R_num].virtual_number == 400235 || obj_index[obj->R_num].virtual_number == 400233 || obj_index[obj->R_num].virtual_number == 400232)
-	{
-	   if( (IS_CARRYING_N(ch) + 1) > CAN_CARRY_N(ch)) //check their inventory
-  		{
-   		 send_to_char
-   		   ("You currently have too many items in your inventory to open a bag,\r\nput some items in a container then try again!\r\n",
-   		    ch);
-  		  return;
- 		 }
+      if( obj_index[obj->R_num].virtual_number == 400217 || obj_index[obj->R_num].virtual_number == 400235
+        || obj_index[obj->R_num].virtual_number == 400233 || obj_index[obj->R_num].virtual_number == 400232 )
+      {
+        if( (IS_CARRYING_N(ch) + 1) > CAN_CARRY_N(ch)) //check their inventory
+        {
+          send_to_char("You currently have too many items in your inventory to open a bag,\r\nput some items in a container then try again!\r\n", ch);
+          return;
+        }
 
-	    if(!OBJ_CARRIED(obj))
-		{
-		  send_to_char("You must have the &+Witem&n in your &+Yinventory&n to open it!\r\n", ch);
-		  return;
-		}
+        if( !OBJ_CARRIED(obj) )
+        {
+          send_to_char("You must have the &+Witem&n in your &+Yinventory&n to open it!\r\n", ch);
+          return;
+        }
         if(obj_index[obj->R_num].virtual_number == 400235 || obj_index[obj->R_num].virtual_number == 400217)
         {
-	 send_to_char("&+mAs you open the &+Mbag&+m, a magical mist &+rex&+Rpl&+Mod&+Wes&+m covering everything!\r\n", ch);
-        act("&+mAs $n opens the &+Mbag&+m, a magical mist &+rex&+Rpl&+Mod&+Wes&+m covering everything!", FALSE, ch, obj, 0, TO_ROOM);
-	}
+          send_to_char("&+mAs you open the &+Mbag&+m, a magical mist &+rex&+Rpl&+Mod&+Wes&+m covering everything!\r\n", ch);
+          act("&+mAs $n opens the &+Mbag&+m, a magical mist &+rex&+Rpl&+Mod&+Wes&+m covering everything!", FALSE, ch, obj, 0, TO_ROOM);
+        }
         else if(obj_index[obj->R_num].virtual_number == 400233)
         {
-	 send_to_char("&+mAs you open the &+Ychest&+m, a magical mist &+rex&+Rpl&+Mod&+Wes&+m covering everything!\r\n", ch);
-        act("&+mAs $n opens the &+Ychest&+m, a magical mist &+rex&+Rpl&+Mod&+Wes&+m covering everything!", FALSE, ch, obj, 0, TO_ROOM);
+          send_to_char("&+mAs you open the &+Ychest&+m, a magical mist &+rex&+Rpl&+Mod&+Wes&+m covering everything!\r\n", ch);
+          act("&+mAs $n opens the &+Ychest&+m, a magical mist &+rex&+Rpl&+Mod&+Wes&+m covering everything!", FALSE, ch, obj, 0, TO_ROOM);
         }
-	else //turkey gut
+        else //turkey gut
         {
-	 send_to_char("&+rYou thrust your &+yhand &+rdeep into the slimy &+Lgut&+r, covering everything in &+Rblood&+r!\r\n", ch);
-        act("&+r$n&+r thrusts their &+yhand &+rdeep into the slimy &+Lgut&+r, covering everything in &+Rblood&+r!", FALSE, ch, obj, 0, TO_ROOM);
+          send_to_char("&+rYou thrust your &+yhand &+rdeep into the slimy &+Lgut&+r, covering everything in &+Rblood&+r!\r\n", ch);
+          act("&+r$n&+r thrusts their &+yhand &+rdeep into the slimy &+Lgut&+r, covering everything in &+Rblood&+r!", FALSE, ch, obj, 0, TO_ROOM);
         }
-	 char buf[MAX_STRING_LENGTH];
-	 P_obj robj;
-	 long robjint;
-	 int validobj;
-	 validobj = 0;
-	/*debug sprintf(buf, "validobj value: %d\n\r", validobj);
-	send_to_char(buf, ch);*/
-       if(obj_index[obj->R_num].virtual_number == 400232) //turkey gut
-       {
-        int roll = number(0, 500);
-        if( roll < 5) //big reward
-        robj = read_object(400237, VIRTUAL);
-        else if( roll < 20)
-        robj = read_object(400233, VIRTUAL);
+
+        char buf[MAX_STRING_LENGTH];
+        P_obj robj;
+        long robjint;
+        int validobj;
+        validobj = 0;
+/*
+debug sprintf(buf, "validobj value: %d\n\r", validobj);
+send_to_char(buf, ch);
+*/
+        if( obj_index[obj->R_num].virtual_number == 400232 ) //turkey gut
+        {
+          int roll = number(0, 500);
+          if( roll < 5) //big reward
+          {
+            robj = read_object(400237, VIRTUAL);
+          }
+          else if( roll < 20)
+          {
+            robj = read_object(400233, VIRTUAL);
+          }
+          else
+          {
+            robj = read_object(400236, VIRTUAL);
+          }
+        }
         else
-        robj = read_object(400236, VIRTUAL);
-       }
-       else
-	 while(validobj == 0)
-	  {
-	 	robjint = number(1300, 134000);
-	 	robj = read_object(robjint, VIRTUAL);
-		validobj = 1;
-		if(!robj)
-		 {
-		  validobj = 0;
-		 }
-		else if(!IS_SET(robj->wear_flags, ITEM_TAKE) || robj->type == ITEM_KEY || IS_SET(robj->extra_flags, ITEM_ARTIFACT) || IS_SET(robj->extra_flags, ITEM_NORENT) || IS_SET(robj->extra_flags, ITEM_NOSHOW) || IS_SET(robj->extra_flags, ITEM_TRANSIENT))
-		 {
-		  validobj = 0;
-                extract_obj(robj, FALSE);
-		 }
-              else if((obj_index[obj->R_num].virtual_number == 400235) && itemvalue(ch, robj) < 15)
-               {  
-		  validobj = 0;
-                extract_obj(robj, FALSE);
-               }
-              else if((obj_index[obj->R_num].virtual_number == 400233) && itemvalue(ch, robj) < 25)
-               {  
-		  validobj = 0;
-                extract_obj(robj, FALSE);
-               }
+        {
+          while(validobj == 0)
+          {
+ 	          robjint = number(1300, 134000);
+ 	          robj = read_object(robjint, VIRTUAL);
+            validobj = 1;
+            if( !robj )
+            {
+              validobj = 0;
+            }
+            else if( !IS_SET(robj->wear_flags, ITEM_TAKE) || robj->type == ITEM_KEY || IS_SET(robj->extra_flags, ITEM_ARTIFACT)
+              || IS_SET(robj->extra_flags, ITEM_NORENT) || IS_SET(robj->extra_flags, ITEM_NOSHOW)
+              || IS_SET(robj->extra_flags, ITEM_TRANSIENT) )
+            {
+              validobj = 0;
+              extract_obj(robj, FALSE);
+            }
+            else if((obj_index[obj->R_num].virtual_number == 400235) && itemvalue(ch, robj) < 15)
+            {
+              validobj = 0;
+              extract_obj(robj, FALSE);
+            }
+            else if((obj_index[obj->R_num].virtual_number == 400233) && itemvalue(ch, robj) < 25)
+            {
+              validobj = 0;
+              extract_obj(robj, FALSE);
+            }
+          }
+  	    }
+        //Remove Curse, Secret, add Invis
+        REMOVE_BIT(robj->extra_flags, ITEM_SECRET);
+        REMOVE_BIT(robj->extra_flags, ITEM_NODROP);
+        REMOVE_BIT(robj->extra_flags, ITEM_INVISIBLE);
 
-	  }
-	//Remove Curse, Secret, add Invis
-	if(IS_SET(robj->extra_flags, ITEM_SECRET))
-	 {
-	  REMOVE_BIT(robj->extra_flags, ITEM_SECRET);
-	 }
-	if(IS_SET(robj->extra_flags, ITEM_NODROP))
-	 {
-	  REMOVE_BIT(robj->extra_flags, ITEM_NODROP);
-	 }
+        if( obj_index[obj->R_num].virtual_number == 400232 )
+        {
+          act("&+rAfter some &+Rmessy &+rsearching, you finally find &n$p&+m!\r\n", FALSE, ch, robj, 0, TO_CHAR);
+          act("&+rAfter some &+Rmessy &+rsearching, $n finally finds &n$p&+m!\r\n", FALSE, ch, robj, 0, TO_ROOM);
+        }
+        else
+        {
+          act("&+mWhen at last it clears the &+Mbag&+m is gone, and all that remains is &n$p&+m!\r\n", FALSE, ch, robj, 0, TO_CHAR);
+          act("&+mWhen at last it clears the &+Mbag&+m is gone, and all that remains is &n$p&+m!\r\n", FALSE, ch, robj, 0, TO_ROOM);
+        }
 
- 	if(IS_SET(robj->extra_flags, ITEM_INVISIBLE))
-	{
-         REMOVE_BIT(robj->extra_flags, ITEM_INVISIBLE);
-	}
-	
-
-       if(obj_index[obj->R_num].virtual_number == 400232)
-       {
-      	act("&+rAfter some &+Rmessy &+rsearching, you finally find &n$p&+m!\r\n", FALSE, ch, robj, 0, TO_CHAR);
-       act("&+rAfter some &+Rmessy &+rsearching, $n finally finds &n$p&+m!\r\n", FALSE, ch, robj, 0, TO_ROOM);
-       }
-       else
-       {
-      	act("&+mWhen at last it clears the &+Mbag&+m is gone, and all that remains is &n$p&+m!\r\n", FALSE, ch, robj, 0, TO_CHAR);
-	act("&+mWhen at last it clears the &+Mbag&+m is gone, and all that remains is &n$p&+m!\r\n", FALSE, ch, robj, 0, TO_ROOM);
-       }
-	obj_to_char(robj, ch);     
-	obj_from_char(obj, TRUE);
-       extract_obj(obj, FALSE);
-	 statuslog(ch->player.level,
-        "&+MFaerie Bag:&n (%s&n) just got [%d] (%s&n) at [%d]!",
-          GET_NAME(ch),
-          obj_index[robj->R_num].virtual_number,
-          robj->short_description,
-          (ch->in_room == NOWHERE) ? -1 : world[ch->in_room].number);
-       
-	return;
-	}
-      REMOVE_BIT(obj->value[1], CONT_CLOSED);
-      send_to_char("Ok.\n", ch);
-      act("$n opens $p.", FALSE, ch, obj, 0, TO_ROOM);
-      if( obj_index[obj->R_num].virtual_number == 1270) {
-         treasure_chest(obj, ch, CMD_OPEN, argument);
-      }    
-      
-
-      /*
-       * Trap check
-       */
-      if( checkopen(ch, obj))
+        obj_to_char(robj, ch);
+        obj_from_char(obj, TRUE);
+        extract_obj(obj, FALSE);
+        if( itemvalue(ch, robj) > 100 )
+        {
+          statuslog(ch->player.level, "&+MFaerie Bag:&n (%s&n) just got [%d] (%s&n) ival %d at [%d]!", GET_NAME(ch),
+            obj_index[robj->R_num].virtual_number, robj->short_description, itemvalue(ch, robj),
+           (ch->in_room == NOWHERE) ? -1 : world[ch->in_room].number);
+        }
         return;
-   
-
+      }
     }
+    REMOVE_BIT(obj->value[1], CONT_CLOSED);
+    send_to_char("Ok.\n", ch);
+    act("$n opens $p.", FALSE, ch, obj, 0, TO_ROOM);
+    if( obj_index[obj->R_num].virtual_number == 1270)
+    {
+       treasure_chest(obj, ch, CMD_OPEN, argument);
+    }
+
+    // Trap check
+    if( checkopen(ch, obj) )
+    {
+      return;
+    }
+  }
   else if( (door = find_door(ch, Gbuf2, Gbuf3)) >= 0)
     /*
      * perhaps it is a door
