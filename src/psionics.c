@@ -1372,31 +1372,26 @@ void spell_spinal_corruption(int level, P_char ch, char *arg, int type,
   }
 }
 
-void
-spell_mental_anguish(int level, P_char ch, char *arg, int type, P_char victim,
-                     P_obj obj)
+void spell_mental_anguish(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
   struct affected_type af;
 
   appear(ch);
   if (CheckMindflayerPresence(ch))
   {
-    send_to_char
-      ("You sense an ethereal disturbance and abort your spell!\r\n", ch);
+    send_to_char("You sense an ethereal disturbance and abort your spell!\r\n", ch);
     return;
   }
   if (affected_by_spell(victim, SPELL_MENTAL_ANGUISH))
   {
-    act("You cannot cause anymore anguish to $m!", TRUE, ch,
-        0, victim, TO_CHAR);
+    act("You cannot cause anymore anguish to $m!", TRUE, ch, 0, victim, TO_CHAR);
     return;
   }
 
 
-  if (StatSave(victim, APPLY_POW, MIN(0, POW_DIFF(ch, victim))))
+  if( StatSave(victim, APPLY_POW, MIN(0, POW_DIFF(ch, victim))) )
   {
-    send_to_char("&+RYou feel a strange sensation inside your brain.&n\r\n",
-                 victim);
+    send_to_char("&+RYou feel a strange sensation inside your brain.&n\r\n", victim);
     send_to_char("&+RYou try, but fail to induce the anguish in your victim.\r\n", ch);
     return;
   }
@@ -1410,11 +1405,12 @@ spell_mental_anguish(int level, P_char ch, char *arg, int type, P_char victim,
 
     bzero(&af, sizeof(af));
     af.type = SPELL_MENTAL_ANGUISH;
-    af.duration = (int) GET_LEVEL(ch) / 5;
+    // at 56, this spell will last 56/2 = 28 sec.
+    af.duration = WAIT_SEC * (GET_LEVEL(ch)/2);
     af.bitvector5 = AFF5_MENTAL_ANGUISH;
+    af.flags = AFFTYPE_SHORT;
     affect_to_char(victim, &af);
     return;
-
   }
 }
 
@@ -2517,7 +2513,7 @@ void spell_enrage(int level, P_char ch, char *arg, int type, P_char victim,
   appear(ch);
 
   int attdiff = ((GET_C_POW(ch) - GET_C_POW(victim)) / 2);
-  attdiff = BOUNDED(2, attdiff, 100);
+  attdiff = BOUNDED(2, attdiff, WAIT_SEC*10);
 
   if( (ch != victim) && NewSaves(victim, SAVING_SPELL, attdiff/5) )
   {                             /* made save */
@@ -2529,9 +2525,7 @@ void spell_enrage(int level, P_char ch, char *arg, int type, P_char victim,
   return;
 }
 
-void
-spell_mind_blank(int level, P_char ch, char *arg, int type, P_char victim,
-                 P_obj obj)
+void spell_mind_blank(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
   struct affected_type af;
 

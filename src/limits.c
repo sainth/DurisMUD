@@ -1412,7 +1412,8 @@ int gain_exp(P_char ch, P_char victim, const int value, int type)
 
   if (XP_final > 0)
   {
-    if ((IS_HARDCORE(ch) && (GET_LEVEL(ch) <= 55)) || (IS_PC(ch) && GET_RACE(ch) == RACE_PLICH)) //Hardcores should level via exp only. - Drannak 11/30/12
+    if( (IS_HARDCORE(ch) && (GET_LEVEL(ch) <= 55)) )
+// || (IS_PC(ch) && GET_RACE(ch) == RACE_PLICH)) //Hardcores should level via exp only. - Drannak 11/30/12
     {
       for(int i = GET_LEVEL(ch) + 1;i <= 56 && (new_exp_table[i] <= GET_EXP(ch)); i++ )
   	  {
