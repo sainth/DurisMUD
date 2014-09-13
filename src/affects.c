@@ -1695,7 +1695,6 @@ char affect_total(P_char ch, int kill_ch)
 //=================================================================================
 //=== AFFECTS - CHAR
 //=================================================================================
-
 void event_short_affect(P_char ch, P_char victim, P_obj obj, void *data)
 {
   struct event_short_affect_data *event_data = (struct event_short_affect_data*)data;
@@ -2043,12 +2042,16 @@ void wear_off_message(P_char ch, struct affected_type *af)
   if ((af->flags & AFFTYPE_NOMSG))      //|| (af->flags & AFFTYPE_SUBAFFECT))
     return;
 
+  if( af->type == TAG_INNATE_TIMER && af->location == INNATE_LAY_HANDS )
+  {
+    af->type = TAG_LAYONHANDS;
+  }
+
   if (af->wear_off_message_index)
   {
     if (skills[af->type].wear_off_char[af->wear_off_message_index])
     {
-      send_to_char(skills[af->type].wear_off_char[af->wear_off_message_index],
-                   ch);
+      send_to_char(skills[af->type].wear_off_char[af->wear_off_message_index], ch);
       send_to_char("\n", ch);
     }
     if (skills[af->type].wear_off_room[af->wear_off_message_index])
@@ -2069,6 +2072,7 @@ void wear_off_message(P_char ch, struct affected_type *af)
       act(skills[af->type].wear_off_room[0], FALSE, ch, 0, 0, TO_ROOM);
     }
   }
+
 }
 
 //=================================================================================

@@ -4541,6 +4541,7 @@ void do_fade(P_char ch, char *argument, int cmd)
 
 void do_layhand(P_char ch, char *argument, int cmd)
 {
+  struct affected_type *afp;
   time_t   now;
   int      tmp_time, healamt;
   P_char   vict = NULL;
@@ -4564,7 +4565,7 @@ void do_layhand(P_char ch, char *argument, int cmd)
     send_to_char("You can't lay hand!\r\n", ch);
     return;
   }
-  
+
   if (!has_innate(ch, INNATE_LAY_HANDS))
   {
     send_to_char("You don't have the ability to lay hand.\r\n", ch);
@@ -4573,24 +4574,24 @@ void do_layhand(P_char ch, char *argument, int cmd)
 
   if (!IS_GOOD(ch))
   {
-    send_to_char("You don't possess enough moral fortitude to do that.\r\n",
-        ch);
+    send_to_char("You don't possess enough moral fortitude to do that.\r\n", ch);
     return;
   }
 
   one_argument(argument, name);
 
-  if (*name)
+  if( *name )
   {
     vict = get_char_room_vis(ch, name);
   }
-   
-  if (!vict)
+
+  if( !vict )
   {
      send_to_char("&+WLay hand who?\n", ch);
      return;
   }
 
+/*
   // calculate timer for informative messages :)
   for (ne = ch->nevents; ne; ne = ne->next) {
     if (ne->func == event_short_affect) {
@@ -4602,7 +4603,7 @@ void do_layhand(P_char ch, char *argument, int cmd)
     }
   }
 
-  /* rested = 1.0 - ((float)time) / timer;
+  rested = 1.0 - ((float)time) / timer;
 
   // Lom: enabled thus very informative messages
   if (time != -1)
@@ -4619,7 +4620,7 @@ void do_layhand(P_char ch, char *argument, int cmd)
      }
   }*/
 
-    if (affected_by_spell(ch, TAG_LAYONHANDS))
+    if( !check_innate_time(ch, INNATE_LAY_HANDS) )
     {
       send_to_char("You need more rest before laying hands.\r\n", ch);
       return;
@@ -4641,35 +4642,19 @@ void do_layhand(P_char ch, char *argument, int cmd)
   }
   */
 
-  struct affected_type af;
-
-  memset(&af, 0, sizeof(af));
-  af.type = TAG_LAYONHANDS;
-  af.location = INNATE_LAY_HANDS;
-  af.duration = 30;
-  af.flags = AFFTYPE_NOSHOW | AFFTYPE_PERM | AFFTYPE_NODISPEL;
-
-  affect_to_char(ch, &af);
-
-
   //  act("$n's hands glow as $e lays $s hand on $N.", FALSE, ch, 0, vict, TO_NOTVICT);
-  if (ch != vict)
+  if( ch != vict )
   {
-    act("Your hands &+Wglow&n as you lay your hands on $N.", FALSE, ch, 0, vict,
-        TO_CHAR);
-    act("$n's hands &+Wglow&n as $e lays $s hands on you.", FALSE, ch, 0, vict,
-        TO_VICT);
-    act("$n's hands &+Wglow&n as $e lays $s hands on $N.", FALSE, ch, 0, vict,
-        TO_NOTVICT);
+    act("Your hands &+Wglow&n as you lay your hands on $N.", FALSE, ch, 0, vict, TO_CHAR);
+    act("$n's hands &+Wglow&n as $e lays $s hands on you.", FALSE, ch, 0, vict, TO_VICT);
+    act("$n's hands &+Wglow&n as $e lays $s hands on $N.", FALSE, ch, 0, vict, TO_NOTVICT);
   }
   else
   {
-    act("Your hands &+Wglow&n as you lay your hands on yourself.", FALSE, ch, 0, 0,
-        TO_CHAR);
-    act("$n's hands &+Wglow&n as $e lays $s hands on $mself.", FALSE, ch, 0, vict,
-        TO_NOTVICT);
+    act("Your hands &+Wglow&n as you lay your hands on yourself.", FALSE, ch, 0, 0, TO_CHAR);
+    act("$n's hands &+Wglow&n as $e lays $s hands on $mself.", FALSE, ch, 0, vict, TO_NOTVICT);
   }
-  
+
 /* lom: probably too good, and dont need it
   if (IS_UNDEAD(vict) || IS_AFFECTED4(vict, AFF4_REV_POLARITY))
   {

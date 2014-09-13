@@ -2156,27 +2156,29 @@ void do_summon_mount(P_char ch, char *arg, int cmd)
   int      sumtime;
   struct follow_type *fol;
 
-  if(!(ch) ||
-     !IS_ALIVE(ch))
-        return;
-        
+  if( !IS_ALIVE(ch) )
+  {
+    return;
+  }
 
-  for (fol = ch->followers; fol; fol = fol->next)
-    if (IS_NPC(fol->follower) &&
-        IS_SET(fol->follower->specials.act, ACT_MOUNT))
+  for( fol = ch->followers; fol; fol = fol->next )
+  {
+    if( IS_NPC(fol->follower) && IS_SET(fol->follower->specials.act, ACT_MOUNT) )
     {
       send_to_char("You already have a mount!\r\n", ch);
       return;
     }
-    
-  if(!is_prime_plane(ch->in_room))
+  }
+
+  if( !is_prime_plane(ch->in_room) )
   {
     send_to_char("&+LYour mount cannot answer your call in this strange land/terrain...\r\n", ch);
     return;
   }
-    
-  if (IS_SET(world[ch->in_room].room_flags, LOCKER) ||
-      IS_SET(world[ch->in_room].room_flags, SINGLE_FILE) ) {
+
+  if( IS_SET(world[ch->in_room].room_flags, LOCKER)
+    || IS_SET(world[ch->in_room].room_flags, SINGLE_FILE) )
+  {
     send_to_char("A horse couldn't fit in here!\r\n", ch);
     return;
   }
@@ -2186,33 +2188,32 @@ void do_summon_mount(P_char ch, char *arg, int cmd)
     send_to_char("Nothing out here will answer your call!\r\n", ch);
     return;
   }
-  
-  if (!IS_GOOD(ch) && IS_PC(ch) && GET_CLASS(ch, CLASS_PALADIN))
+
+  if( !IS_GOOD(ch) && IS_PC(ch) && GET_CLASS(ch, CLASS_PALADIN) )
   {
     send_to_char("Not even horses can stand your offensive presence!\r\n", ch);
     return;
   }
-      
-  if (!IS_EVIL(ch) && IS_PC(ch) && GET_CLASS(ch, CLASS_ANTIPALADIN))
+
+  if( !IS_EVIL(ch) && IS_PC(ch) && GET_CLASS(ch, CLASS_ANTIPALADIN) )
   {
     send_to_char("Your innate skill seems to falter. You must be evil.\r\n", ch);
     return;
   }
-  if (!OUTSIDE(ch) && !IS_UNDERWORLD(ch->in_room))
+  if( !OUTSIDE(ch) && !IS_UNDERWORLD(ch->in_room) )
   {
     send_to_char("Try again, OUTDOORS THIS TIME!\r\n", ch);
     return;
   }
 
-  if (!check_innate_time(ch, INNATE_SUMMON_MOUNT))
+  if( !check_innate_time(ch, INNATE_SUMMON_MOUNT) )
   {
     send_to_char("You can't summon another mount yet.\r\n", ch);
     return;
   }
 
   send_to_char("You begin calling for a mount..\r\n", ch);
-  sumtime =
-    number(70 - GET_LEVEL(ch), 100 + number(1, 200 - 2 * GET_LEVEL(ch)));
+  sumtime = number(70 - GET_LEVEL(ch), 100 + number(1, 200 - 2 * GET_LEVEL(ch)));
   add_event(mount_summoning_thing, sumtime, ch, 0, 0, 0, 0, 0);
 }
 
