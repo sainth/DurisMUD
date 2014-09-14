@@ -6341,6 +6341,8 @@ void do_users_DEPRECATED(P_char ch, char *argument, int cmd);
 void do_users(P_char ch, char *argument, int cmd)
 {
   char linebuf[MAX_STRING_LENGTH], connbuf[MAX_STRING_LENGTH], hostbuf[MAX_STRING_LENGTH];
+  bool nonplaying = FALSE;
+  bool getname = FALSE;
 
   half_chop(argument, linebuf, connbuf);
 
@@ -6350,61 +6352,80 @@ void do_users(P_char ch, char *argument, int cmd)
     do_users_DEPRECATED(ch, connbuf, cmd);
     return;
   }
-  
+  if( !strcmp("nonplaying", linebuf) )
+  {
+    nonplaying = TRUE;
+  }
+  else if( linebuf && *linebuf && is_abbrev(linebuf, "get_name") )
+  {
+debug( "PENIS");
+    getname = TRUE;
+  }
+
   send_to_char("\r\n Character   | State       | Idle | Hostname\r\n-----------------------------------------------------------------------------------\r\n", ch);
-  for (P_desc d = descriptor_list; d; d = d->next)
+  for( P_desc d = descriptor_list; d; d = d->next )
   {
     // don't show admins of higher level who are invisible
-    if( d->character && IS_PC(d->character) && WIZ_INVIS(ch, d->character))
-        continue;
-    
+    if( d->character && IS_PC(d->character) && WIZ_INVIS(ch, d->character) )
+    {
+      continue;
+    }
+
+    // non-playing chars only.
+    if( nonplaying && !(d->connected) )
+    {
+      continue;
+    }
+    // Descriptors at get name screen only.
+    if( getname && (d->connected != CON_NME) )
+    {
+      continue;
+    }
+
     sprinttype(d->connected, connected_types, connbuf);
-   
+
     if( d->host )
     {
-      if (!*d->host2)
+      if( !*d->host2 )
       {
         sprintf(hostbuf, "lib/etc/hosts/%d", d->descriptor);
         FILE *f = fopen(hostbuf, "r");
-        
-        if (f != NULL)
+
+        if( f != NULL )
         {
-          if (fscanf(f, "%s\n", hostbuf) == 1)
+          if( fscanf(f, "%s\n", hostbuf) == 1 )
           {
             strncpy(d->host2, hostbuf, 128);
           }
           else
           {
-            strncpy(d->host2, d->host, 128);            
+            strncpy(d->host2, d->host, 128);
           }
 
           fclose(f);
-        }        
+        }
       }
 
       if( got_dupe_host(d) )
       {
         sprintf(hostbuf, "&+R%s (%s)&n", d->host2, d->host);
       }
-      else 
+      else
       {
         sprintf(hostbuf, "%s (%s)", d->host2, d->host);
-      }      
+      }
     }
     else
     {
       sprintf(hostbuf, "&+Yunknown&n");
     }
-    
-    sprintf(linebuf, " %s | %s | %4d | %s\r\n", 
-            ((d->character && GET_NAME(d->character)) ? pad_ansi(GET_NAME(d->character), 11).c_str() : "-          "),
-            pad_ansi(connbuf, 11).c_str(),
-            (d->wait / 240),            
-            hostbuf
-            );
-            
+
+    sprintf(linebuf, " %s | %s | %4d | %s\r\n",
+      ((d->character && GET_NAME(d->character)) ? pad_ansi(GET_NAME(d->character), 11).c_str() : "-          "),
+      pad_ansi(connbuf, 11).c_str(), (d->wait / 240), hostbuf );
+
     send_to_char(linebuf, ch);
-  }  
+  }
 }
 
 

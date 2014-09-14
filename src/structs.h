@@ -1498,47 +1498,49 @@ struct txt_q {
 #define CON_HOMETOWN  41
 #define CON_ACCEPTWAIT 42
 #define CON_WELCOME   43
-#define CON_NEW_NAME  44
-#define CON_HOST_LOOKUP 45      /* looking up hostname... */
-#define CON_OEDIT     46             /*. OLC mode - object edit     .*/
-#define CON_REDIT     47             /*. OLC mode - room edit       .*/
-#define CON_ZEDIT     48             /*. OLC mode - zone info edit  .*/
-#define CON_MEDIT     49             /*. OLC mode - mobile edit     .*/
-#define CON_SEDIT     50             /*. OLC mode - shop edit       .*/
-#define CON_QEDIT     51
-#define CON_BONUS4    52       /* Krov: new 5 bonus system */
-#define CON_BONUS5    53
-#define CON_TEXTED    54
-#define CON_PICKSIDE  55       /* pick racewar side, for true neutral races */
-#define CON_ENTER_LOGIN 56
-#define CON_ENTER_HOST 57
-#define CON_CONFIRM_EMAIL 58
-#define CON_EXIT      59
-#define CON_GET_ACCT_NAME 60
-#define CON_GET_ACCT_PASSWD 61
-#define CON_IS_ACCT_CONFIRMED 62
-#define CON_DISPLAY_ACCT_MENU 63
-#define CON_CONFIRM_ACCT 64
+#define CON_NEW_NAME            44
+#define CON_HOST_LOOKUP         45      /* looking up hostname... */
+#define CON_OEDIT               46             /*. OLC mode - object edit     .*/
+#define CON_REDIT               47             /*. OLC mode - room edit       .*/
+#define CON_ZEDIT               48             /*. OLC mode - zone info edit  .*/
+#define CON_MEDIT               49             /*. OLC mode - mobile edit     .*/
+#define CON_SEDIT               50             /*. OLC mode - shop edit       .*/
+#define CON_QEDIT               51
+#define CON_BONUS4              52       /* Krov: new 5 bonus system */
+#define CON_BONUS5              53
+#define CON_TEXTED              54
+#define CON_PICKSIDE            55       /* pick racewar side, for true neutral races */
+#define CON_ENTER_LOGIN         56
+#define CON_ENTER_HOST          57
+#define CON_CONFIRM_EMAIL       58
+#define CON_EXIT                59
+#define CON_GET_ACCT_NAME       60
+#define CON_GET_ACCT_PASSWD     61
+#define CON_IS_ACCT_CONFIRMED   62
+#define CON_DISPLAY_ACCT_MENU   63
+#define CON_CONFIRM_ACCT        64
 #define CON_VERIFY_NEW_ACCT_NAME 65
-#define CON_GET_NEW_ACCT_EMAIL 66
+#define CON_GET_NEW_ACCT_EMAIL  66
 #define CON_VERIFY_NEW_ACCT_EMAIL 67
 #define CON_GET_NEW_ACCT_PASSWD 68
 #define CON_VERIFY_NEW_ACCT_PASSWD 69
 #define CON_VERIFY_NEW_ACCT_INFO 70
-#define CON_ACCT_SELECT_CHAR 71
-#define CON_ACCT_NEW_CHAR 72
-#define CON_ACCT_DELETE_CHAR 73
-#define CON_ACCT_DISPLAY_INFO 74
-#define CON_ACCT_CHANGE_EMAIL 75
-#define CON_ACCT_CHANGE_PASSWD 76
-#define CON_ACCT_DELETE_ACCT 77
+#define CON_ACCT_SELECT_CHAR    71
+#define CON_ACCT_NEW_CHAR       72
+#define CON_ACCT_DELETE_CHAR    73
+#define CON_ACCT_DISPLAY_INFO   74
+#define CON_ACCT_CHANGE_EMAIL   75
+#define CON_ACCT_CHANGE_PASSWD  76
+#define CON_ACCT_DELETE_ACCT    77
 #define CON_ACCT_VERIFY_DELETE_ACCT 78
-#define CON_VERIFY_ACCT_INFO 79
-#define CON_ACCT_NEW_CHAR_NAME 80
-#define CON_HARDCORE  81
-#define CON_NEWBIE    82
-#define CON_SWAPSTATYN 83
-#define CON_SWAPSTAT  84
+#define CON_VERIFY_ACCT_INFO    79
+#define CON_ACCT_NEW_CHAR_NAME  80
+#define CON_HARDCORE            81
+#define CON_NEWBIE              82
+#define CON_SWAPSTATYN          83
+#define CON_SWAPSTAT            84
+
+#define TOTAL_CON 85
 
 /* modes of confirmation- SAM 7-94 */
 #define CONFIRM_NONE    0
