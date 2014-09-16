@@ -17,3 +17,7 @@ Howto Add a Spell:
   Fifth, test the spell!
   Sixth, commit/push your new spell.
 
+Howto Add an Epic Type:
+  First, add the type in epic.h (EPIC_... <number> where number is next in line)
+  Second, use the type where the gain_epic function is called.
+  Third, edit gain_epic function in epic.c to realize the new type (in switch statement).

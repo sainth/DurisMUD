@@ -95,14 +95,17 @@ void clear_racial_skills(P_char ch);
 
 #define GET_EPIC_POINTS(ch) (IS_NPC(ch) ? 0 : ch->only.pc->epics)
 
-#define EPIC_ZONE 0
-#define EPIC_PVP 1
-#define EPIC_ELITE_MOB 2
-#define EPIC_QUEST 3
-#define EPIC_RANDOM_ZONE 4
-#define EPIC_NEXUS_STONE 5
-#define EPIC_SHIP_PVP 6
-#define EPIC_BOON 7
+#define EPIC_ZONE          0 // Touching epic stones.
+#define EPIC_PVP           1 // PvP encounters.
+#define EPIC_ELITE_MOB     2 // Killing Elite mobs of high lvls.
+#define EPIC_QUEST         3 // Bartender quests give epics at high lvls.
+#define EPIC_RANDOM_ZONE   4 // Completing random zones.
+#define EPIC_NEXUS_STONE   5 // Touching nexus.
+#define EPIC_SHIP_PVP      6 // Ship pvp.
+#define EPIC_BOON          7 // from boons.
+#define EPIC_BOTTLE        8 // Epic bottle bought in store for transferring epics.
+#define EPIC_STRAHDME      9 // You strahd me at hello achievement.
+#define EPIC_RANDOMMOB    10 // Single epic point randomly gained when killing mobs.
 
 #define SPILL_BLOOD -10
 

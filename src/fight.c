@@ -2900,17 +2900,7 @@ void kill_gain(P_char ch, P_char victim)
       if((number(1, 5000) < GET_C_LUK(ch)) || (GET_RACE(victim) == RACE_DRAGON && (GET_VNUM(victim) > 10) && (GET_VNUM(victim) != 1108) && (GET_LEVEL(victim) > 49)))
       {
         send_to_char("&+cAs your body absorbs the &+Cexperience&+c, you seem to feel a bit more epic!\r\n", ch);
-        ch->only.pc->epics += 1;
-        // Handle the total number of epics ch has gained.
-        if( afp = get_spell_from_char(ch, TAG_EPICS_GAINED) )
-        {
-          afp->modifier++;
-        }
-        else
-        {
-          afp = apply_achievement(ch, TAG_EPICS_GAINED);
-          afp->modifier = 1;
-        }
+        gain_epic(ch, EPIC_RANDOMMOB, 0, 1 );
       }
     }
     change_alignment(ch, victim);
@@ -3018,18 +3008,8 @@ void kill_gain(P_char ch, P_char victim)
         {
           send_to_char("&+cAs your body absorbs the &+Cexperience&+c, you seem to feel a bit more epic!\r\n", gl->ch);
           P_char recipient = gl->ch;
-          (gl->ch)->only.pc->epics += 1;
-          // Handle the total number of epics ch has gained.
-          if( afp = get_spell_from_char(ch, TAG_EPICS_GAINED) )
-          {
-            afp->modifier++;
-          }
-          else
-          {
-            afp = apply_achievement(ch, TAG_EPICS_GAINED);
-            afp->modifier = 1;
-          }
-        } 
+          gain_epic(gl->ch, EPIC_RANDOMMOB, 0, 1 );
+        }
       }
 
       change_alignment(gl->ch, victim);

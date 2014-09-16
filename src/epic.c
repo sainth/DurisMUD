@@ -361,7 +361,10 @@ void gain_epic(P_char ch, int type, int data, int amount)
     amount = (int) (amount * get_property("epic.witch.multiplier", 1.5));
   }
 
-  if( type != EPIC_PVP && type != EPIC_SHIP_PVP && has_epic_task(ch) )
+  // These don't get hacked by being tasked: randommob (only 1 epic to start with), strahdme (super acheivement),
+  //   bottle (epic bottles), PvP, or ship PvP.
+  if( type != EPIC_RANDOMMOB && type != EPIC_STRAHDME && type != EPIC_BOTTLE && type != EPIC_PVP && type != EPIC_SHIP_PVP
+    && has_epic_task(ch) )
   {
     send_to_char("You have not completed the task given to you by the Gods, \n" \
                  "so you are not able to progress at usual pace.\n", ch);
@@ -373,12 +376,13 @@ void gain_epic(P_char ch, int type, int data, int amount)
   amount = amount + (int)((float)amount * get_epic_bonus(ch, EPIC_BONUS_EPIC_POINT));
 
   if(GET_RACEWAR(ch) == RACEWAR_GOOD)
+  {
     amount = amount * (float)get_property("epic.gain.modifier.good", 1.000);
+  }
   if(GET_RACEWAR(ch) == RACEWAR_EVIL)
+  {
     amount = amount * (float)get_property("epic.gain.modifier.evil", 1.000);
-
-  //wipe2013 - Drannak
-  //amount = (int) (amount * 1.5);
+  }
 
   // add guild prestige
   check_assoc_prestige_epics(ch, amount, type);
@@ -415,6 +419,15 @@ void gain_epic(P_char ch, int type, int data, int amount)
       break;
     case EPIC_BOON:
       strcpy(type_str, "BOON");
+      break;
+    case EPIC_BOTTLE:
+      strcpy(type_str, "BOTTLE");
+      break;
+    case EPIC_STRAHDME:
+      strcpy(type_str, "STRAHD_ME");
+      break;
+    case EPIC_RANDOMMOB:
+      strcpy(type_str, "RANDOM_MOB");
       break;
     default:
       strcpy(type_str, "UNKNOWN");

@@ -4,6 +4,7 @@
 #include "prototypes.h"
 #include "structs.h"
 #include "achievements.h"
+#include "epic.h"
 #include "utils.h"
 #include "spells.h"
 #include "ships/ships.h"
@@ -377,17 +378,7 @@ void update_achievements(P_char ch, P_char victim, int cmd, int ach)
       apply_achievement(ch, ACH_YOUSTRAHDME);
       send_to_char("&+rCon&+Rgra&+Wtula&+Rtio&+rns! You have completed the &+RYou Strahd Me At Hello&+r achievement!&n\r\n", ch);
       send_to_char("&+yPlease see &+chelp you strahd me &+yfor reward details!&n\r\n", ch);
-      ch->only.pc->epics += 1000;
-      // Handle the total number of epics ch has gained.
-      if( afp = get_spell_from_char(ch, TAG_EPICS_GAINED) )
-      {
-        afp->modifier += 1000;
-      }
-      else
-      {
-        afp = apply_achievement(ch, TAG_EPICS_GAINED);
-        afp->modifier = 1000;
-      }
+      gain_epic(ch, EPIC_STRAHDME, 0, 1000 );
     }
     /* end You Strahd Me2 */
   }

@@ -17,6 +17,7 @@
 #include "comm.h"
 #include "sql.h"
 #include "db.h"
+#include "epic.h"
 #include "events.h"
 #include "interp.h"
 #include "justice.h"
@@ -3408,19 +3409,8 @@ void do_quaff(P_char ch, char *argument, int cmd)
   //epic potion
   if(GET_OBJ_VNUM(temp) == 400234)
   {
-   ch->only.pc->epics += 75;
-    // Handle the total number of epics ch has gained.
-    if( afp = get_spell_from_char(ch, TAG_EPICS_GAINED) )
-    {
-      afp->modifier += 75;
-    }
-    else
-    {
-      afp = apply_achievement(ch, TAG_EPICS_GAINED);
-      afp->modifier = 75;
-    }
-
-   send_to_char("&+CYou suddenly feel.. epic!\r\n", ch);
+    gain_epic(ch, EPIC_BOTTLE, 0, 75);
+    send_to_char("&+CYou suddenly feel.. epic!\r\n", ch);
   }
 
     /* value[5] specifies special functions for epic potions */
