@@ -4685,13 +4685,12 @@ void spell_etherportal(int level, P_char ch, char *arg, int type,
   spell_general_portal(level, ch, victim, &set, &msg);
 }
 
-void spell_cascading_elemental_beam(int level, P_char ch, char *arg, int type,
-          P_char victim, P_obj object)
+void spell_cascading_elemental_beam(int level, P_char ch, char *arg, int type, P_char victim, P_obj object)
 {
   int dam, damaged, mod = 0;
   bool deflect = FALSE;
   struct affected_type af;
-  
+
   struct damage_messages messages = {
   "You unleash &+Wp&+wu&+Wr&+we &+Rel&+rem&+yen&+Ltal en&+yer&+rgy&n at $N.",
   "&+wA &+Wb&+we&+Wa&+wm &nof &+Wp&+wu&+Wr&+we &+Rel&+rem&+yen&+Ltal en&+yer&+rgy&n slices into you!",
@@ -4707,32 +4706,38 @@ void spell_cascading_elemental_beam(int level, P_char ch, char *arg, int type,
       return;
 
   do_point(ch, victim);
-  
+
   if(IS_AFFECTED4(victim, AFF4_DEFLECT)) // Simple defect toggle.
+  {
     deflect = TRUE;
+  }
 
   if(resists_spell(ch, victim)) // Resisting the spell prevents affects and damage.
+  {
     return;
-  
+  }
+
   dam = dice((int) (level * 2.0), 7); // Less than iceball and sunray.
 
-  if(GET_LEVEL(ch) >= 56)
+  if( GET_LEVEL(ch) >= 56 )
+  {
     mod = 2; // NewSave modifier.
-  
-  if(GET_LEVEL(ch) >= 60)
+  }
+  if( GET_LEVEL(ch) >= 60 )
+  {
     mod = 4;
-  
-  if(IS_ELITE(ch))
+  }
+  if( IS_NPC(ch) && IS_ELITE(ch) )
+  {
     mod += 4;
-  
-  if(IS_AFFECTED3(victim, AFF3_COLDSHIELD) &&
-     !ENJOYS_FIRE_DAM(victim))
+  }
+
+  if( IS_AFFECTED3(victim, AFF3_COLDSHIELD) && !ENJOYS_FIRE_DAM(victim) )
   {
     spell_damage(ch, victim, dam, SPLDAM_FIRE, SPLDAM_NOSHRUG, &messages);
     // Chance to blind victim but affect can be deflected.
     // Same as sunray but with greater victim restrictions.
-    if(IS_ALIVE(victim) &&
-      !(deflect))
+    if( IS_ALIVE(victim) && !(deflect) )
     {
       if(!NewSaves(victim, SAVING_SPELL, mod))
       {
@@ -4740,8 +4745,7 @@ void spell_cascading_elemental_beam(int level, P_char ch, char *arg, int type,
       }
       // Victims with deflect will also deflect blind affect.
     }
-    else if(deflect &&
-           IS_ALIVE(ch))
+    else if( deflect && IS_ALIVE(ch) )
     {
       if(!NewSaves(victim, SAVING_SPELL, mod))
       {
@@ -4749,16 +4753,11 @@ void spell_cascading_elemental_beam(int level, P_char ch, char *arg, int type,
       }
     }
   }
-  else if(IS_AFFECTED2(victim, AFF2_FIRESHIELD) ||
-          ENJOYS_FIRE_DAM(victim) ||
-          IS_COLD_VULN(ch))
+  else if( IS_AFFECTED2(victim, AFF2_FIRESHIELD) || ENJOYS_FIRE_DAM(victim) || IS_COLD_VULN(ch) )
   {
     spell_damage(ch, victim, dam, SPLDAM_COLD, SPLDAM_NOSHRUG, &messages);
-    
-    if((IS_ALIVE(victim) &&
-      !(deflect)) &&
-      !IS_AFFECTED2(victim, AFF2_SLOW) &&
-      !NewSaves(victim, SAVING_PARA, mod))
+
+    if( (IS_ALIVE(victim) && !deflect) && !IS_AFFECTED2(victim, AFF2_SLOW) && !NewSaves(victim, SAVING_PARA, mod) )
     {
       bzero(&af, sizeof(af));
       af.type = SPELL_SLOW;
@@ -4772,26 +4771,20 @@ void spell_cascading_elemental_beam(int level, P_char ch, char *arg, int type,
       send_to_char("&+mYou feel yourself slowing down.\n", victim);
     }
   }
-  else if(IS_AFFECTED5(victim, AFF5_WET) ||
-          IS_WATER_ROOM(victim->in_room) ||
-          IS_OCEAN_ROOM(victim->in_room))
+  else if( IS_AFFECTED5(victim, AFF5_WET) || IS_WATER_ROOM(victim->in_room) || IS_OCEAN_ROOM(victim->in_room) )
   {
     spell_damage(ch, victim, dam, SPLDAM_LIGHTNING, SPLDAM_NOSHRUG, &messages);
     // Chance to stun.
-    if(IS_ALIVE(victim) &&
-      !(deflect) &&
-      !IS_AFFECTED2(victim, AFF2_STUNNED))
+    if( IS_ALIVE(victim) && !deflect && !IS_AFFECTED2(victim, AFF2_STUNNED) )
     {
       Stun(victim, ch, PULSE_VIOLENCE * 2, TRUE);
     } // Victims with deflect will also deflect stun affect.
-    else if(deflect &&
-            IS_ALIVE(ch) &&
-            !IS_AFFECTED2(ch, AFF2_STUNNED))
+    else if( deflect && IS_ALIVE(ch) && !IS_AFFECTED2(ch, AFF2_STUNNED) )
     {
       Stun(ch, ch, PULSE_VIOLENCE * 2, TRUE);
     }
   }
-  else if(IS_AFFECTED3(victim, AFF3_LIGHTNINGSHIELD))
+  else if( IS_AFFECTED3(victim, AFF3_LIGHTNINGSHIELD) )
   {
     spell_damage(ch, victim, dam, SPLDAM_GAS, SPLDAM_NOSHRUG, &messages);
     return;
@@ -4800,21 +4793,19 @@ void spell_cascading_elemental_beam(int level, P_char ch, char *arg, int type,
   {
     spell_damage(ch, victim, dam, SPLDAM_ACID, SPLDAM_NOSHRUG, &messages);
     // Chance to damage eq.
-    if(!deflect &&
-      IS_ALIVE(victim))
+    if( !deflect && IS_ALIVE(victim) )
     {
-      if(number(0, TOTALLVLS) < GET_LEVEL(ch))
+      if( number(0, TOTALLVLS) < GET_LEVEL(ch) )
       {
-        for(damaged = 0; (damaged < MAX_WEAR) &&
-         !((victim->equipment[damaged]) &&
-         (victim->equipment[damaged]->type == ITEM_ARMOR) &&
-         (victim->equipment[damaged]->value[0] > 0) &&
-         number(0, 1)); damaged++) ;
-        if((damaged < MAX_WEAR) &&
-            IS_ALIVE(victim))
+        for(damaged = 0; (damaged < MAX_WEAR) && !((victim->equipment[damaged])
+          && (victim->equipment[damaged]->type == ITEM_ARMOR)
+          && (victim->equipment[damaged]->value[0] > 0) && number(0, 1)); damaged++)
         {
-          act("&+L$p corrodes.", FALSE, victim, victim->equipment[damaged], 0,
-              TO_CHAR);
+          ;
+        }
+        if( (damaged < MAX_WEAR) && IS_ALIVE(victim) )
+        {
+          act("&+L$p corrodes.", FALSE, victim, victim->equipment[damaged], 0, TO_CHAR);
           GET_AC(victim) -= apply_ac(victim, damaged);
           victim->equipment[damaged]->value[0] -= number(1, 7);
           GET_AC(victim) += apply_ac(victim, damaged);
