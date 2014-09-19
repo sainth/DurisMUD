@@ -124,12 +124,12 @@ bool is_overload(P_char ch)
 
 bool is_silent(P_char ch, bool showit)
 {
-  if(ch->in_room != NOWHERE &&
-    ((IS_SET(zone_table[world[ch->in_room].zone].flags, ZONE_SILENT) ||
-    IS_SET(world[ch->in_room].room_flags, ROOM_SILENT) ||
-    IS_AFFECTED2(ch, AFF2_SILENCED) || 
-    affected_by_spell_flagged(ch, SKILL_THROAT_CRUSH, AFFTYPE_CUSTOM1)) &&
-    !IS_TRUSTED(ch)))
+  if( ch->in_room != NOWHERE
+    && ((IS_SET(zone_table[world[ch->in_room].zone].flags, ZONE_SILENT)
+    || IS_SET(world[ch->in_room].room_flags, ROOM_SILENT)
+    || IS_AFFECTED2(ch, AFF2_SILENCED) || IS_SET(ch->specials.act, PLR_SILENCE)
+    || affected_by_spell_flagged(ch, SKILL_THROAT_CRUSH, AFFTYPE_CUSTOM1))
+    && !IS_TRUSTED(ch)) )
   {
     if( showit )
     {
