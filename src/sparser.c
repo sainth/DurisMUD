@@ -1952,10 +1952,12 @@ void do_will(P_char ch, char *argument, int cmd)
       if (!number(0, 1))
         notch_skill(ch, SKILL_QUICK_CHANT, get_property("skill.notch.quickChant", 2.5));
     }*/
+    /*
     if (GET_CLASS(ch, CLASS_MINDFLAYER))
     {
       dura = 1;
     }
+    */
   }
 
   tmp_spl.timeleft = dura;
