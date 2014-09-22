@@ -3419,25 +3419,27 @@ void halfling_stealaction(P_char ch, char *arg, int cmd)
 
 void do_tupor(P_char ch, char *arg, int cmd)
 {
-  if (!ch)
+  if( !IS_ALIVE(ch) )
+  {
     return;
+  }
 
-  if (!has_innate(ch, INNATE_TUPOR))
+  if( !has_innate(ch, INNATE_TUPOR) )
   {
     send_to_char("You have no idea how to even begin.\n", ch);
     return;
   }
-  if (AWAKE(ch))
+  if( AWAKE(ch) )
   {
     send_to_char("You must be sleeping to begin your trance.\n", ch);
     return;
   }
-  if (IS_AFFECTED4(ch, AFF4_TUPOR))
+  if( IS_AFFECTED4(ch, AFF4_TUPOR) )
   {
     send_to_char("You are already in your trance.\n", ch);
     return;
   }
-  
+
   SET_BIT(ch->specials.affected_by4, AFF4_TUPOR);
   StartRegen(ch, EVENT_MANA_REGEN);
   send_to_char("You slip into a death-like trance...\n", ch);

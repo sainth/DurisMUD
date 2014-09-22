@@ -947,12 +947,13 @@ for ((IN_ROOM) = world[(PLAYER)->in_room].people; (IN_ROOM) != NULL; (IN_ROOM) =
 //    (IS_NPC(ch) || IS_SET((ch)->player.m_class, CLASS_PSIONICIST)) ||
 //
   //  (IS_SET((ch)->player.m_class, CLASS_MINDFLAYER))
+#define USES_TUPOR(ch) (IS_HARPY(ch) || GET_CLASS(ch, CLASS_ETHERMANCER))
+
 #define USES_SPELL_SLOTS(ch) ( \
         USES_COMMUNE(ch) || \
         USES_DEFOREST(ch) || \
         IS_PUNDEAD(ch) || \
-        IS_HARPY(ch) || \
-	 (GET_CLASS(ch, CLASS_ETHERMANCER)) || \
+        USES_TUPOR(ch) || \
         USES_FOCUS(ch) || \
         IS_ANGEL(ch))
 

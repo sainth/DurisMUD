@@ -490,7 +490,7 @@ void show_stop_memorizing(P_char ch)
     act("$n moans loudly in confusion as $s contact with &+Ldark powers&n is disturbed.", FALSE, ch, 0, 0, TO_ROOM);
     CharWait(ch, WAIT_SEC * 2);
   }
-  else if (IS_HARPY(ch) || GET_CLASS(ch, CLASS_ETHERMANCER))
+  else if( USES_TUPOR(ch) )
   {
     send_to_char("Your tupor has been disturbed!\n"
        "&+CThe interr&n&+cupted lin&+Wk with the st&+Corm spirits leav&n&+ces you in sho&+Wck.\r\n", ch);
@@ -572,11 +572,9 @@ int calculate_undead_time(P_char ch, int circle, bool bStatOnly)
 
 int calculate_harpy_time(P_char ch, int circle, bool bStatOnly)
 {
-  float    remem_time;
-  float    time_mult;
-  float    tick_factor;
+  float remem_time, time_mult, tick_factor;
 
-  if (IS_SEMI_CASTER(ch))
+  if( IS_SEMI_CASTER(ch) )
   {
     time_mult = 1.7;
   }
@@ -585,10 +583,10 @@ int calculate_harpy_time(P_char ch, int circle, bool bStatOnly)
     time_mult = 0.85;
   }
 
-  if(GET_CLASS(ch, CLASS_ETHERMANCER) || GET_CLASS(ch, CLASS_SHAMAN ))
+  if( GET_CLASS(ch, CLASS_ETHERMANCER) || GET_CLASS(ch, CLASS_SHAMAN) )
   {
     tick_factor = MAX(1, STAT_INDEX(GET_C_WIS(ch)));
-    if (GET_C_WIS(ch) > stat_factor[(int) GET_RACE(ch)].Wis)
+    if( GET_C_WIS(ch) > stat_factor[(int) GET_RACE(ch)].Wis )
     {
        tick_factor += GET_C_WIS(ch) - (stat_factor[(int) GET_RACE(ch)].Wis);
     }
@@ -600,25 +598,33 @@ int calculate_harpy_time(P_char ch, int circle, bool bStatOnly)
     {
        tick_factor += GET_C_INT(ch) - (stat_factor[(int) GET_RACE(ch)].Int);
     }
-  }   
+  }
 
-  tick_factor = tick_factor * get_property("memorize.factor.tupor", 1.0);     
+  tick_factor = tick_factor * get_property("memorize.factor.tupor", 1.0);
 
   // Move the following lines from above to calc remem_time after all mods
   // are made to tick_factor - Dalith 2/05
-
   remem_time = (int) ((time_mult * lfactor[circle - 1]) / (fake_sqrt_table[GET_LEVEL(ch) - 1] * tick_factor));
-  
-  /* harpies who tupor while awake get a slight disadvantage */
-  if (AWAKE(ch) || GET_POS(ch) != POS_PRONE)
+
+  /* harpies who tupor while awake or not reclining get a slight disadvantage */
+  if( !AWAKE(ch) && GET_POS(ch) == POS_PRONE )
   {
-    remem_time /= 0.8;
+    remem_time *= .75;
   }
 
+  if( !bStatOnly && IS_AFFECTED(ch, AFF_MEDITATE)
+    && (notch_skill(ch, SKILL_MEDITATE, (int) get_property("skill.notch.meditate", 3))
+    || GET_CHAR_SKILL(ch, SKILL_MEDITATE) < number(0, 100)) )
+  {
+    remem_time /= 2;
+  }
+/* Don't know what to do with this.  Ethermancers get meditate.
   // simulate meditate
-  if (!bStatOnly && (GET_LEVEL(ch) > number(0, 65)))
+  if( !bStatOnly && (GET_LEVEL(ch) > number(0, 65)) )
+  {
     remem_time *= 0.5;
-
+  }
+*/
   return (int) remem_time;
 }
 
@@ -635,7 +641,7 @@ int get_circle_memtime(P_char ch, int circle, bool bStatOnly)
   {
     return calculate_undead_time(ch, circle, bStatOnly);
   }
-  else if( IS_HARPY(ch) || GET_CLASS(ch, CLASS_ETHERMANCER) )
+  else if( USES_TUPOR(ch) )
   {
     return calculate_harpy_time(ch, circle, bStatOnly);
   }
@@ -891,7 +897,7 @@ void handle_undead_mem(P_char ch)
 
   if(!USES_COMMUNE(ch) && !USES_FOCUS(ch) && !GET_CLASS(ch, CLASS_WARLOCK)
     && !USES_DEFOREST(ch) && !((IS_UNDEADRACE(ch) || is_wearing_necroplasm(ch)
-    || IS_PUNDEAD(ch) || IS_HARPY(ch) || GET_CLASS(ch, CLASS_ETHERMANCER)
+    || IS_PUNDEAD(ch) || USES_TUPOR(ch)
     || IS_ANGEL(ch)) && IS_AFFECTED2(ch, AFF2_MEMORIZING)))
   {
     return;
@@ -923,7 +929,7 @@ void handle_undead_mem(P_char ch)
       sprintf(gbuf, "&+LYou feel infused by %d%s circle DARK powers!\n",
         i, i == 1 ? "st" : (i == 2 ? "nd" : (i == 3 ? "rd" : "th")));
     }
-    else if( IS_HARPY(ch) || GET_CLASS(ch, CLASS_ETHERMANCER) )
+    else if( USES_TUPOR(ch) )
     {
       sprintf(gbuf, "&+WEthereal e&+Cssences flo&+cw into you, res&+Ctoring your %d%s&+c &+Wcircle powers!\n",
         i, i == 1 ? "st" : (i == 2 ? "nd" : (i == 3 ? "rd" : "th")));
@@ -983,7 +989,7 @@ void handle_undead_mem(P_char ch)
     {
       send_to_char("The assimilation process leaves you momentarily shocked.\n", ch);
     }
-    else if (IS_HARPY(ch) || GET_CLASS(ch, CLASS_ETHERMANCER))
+    else if( USES_TUPOR(ch) )
     {
       send_to_char("&+CThe spir&n&+cits reced&+We, leaving y&+Cou in a m&n&+comentary stat&+We of lethargy.&n\n", ch);
     }
@@ -1139,9 +1145,9 @@ void event_memorize(P_char ch, P_char victim, P_obj obj, void *data)
     return;
   }
 
-  if(GET_CLASS(ch, CLASS_WARLOCK) || IS_PUNDEAD(ch) || USES_COMMUNE(ch)
-    || USES_DEFOREST(ch) || IS_HARPY(ch) || GET_CLASS(ch, CLASS_ETHERMANCER)
-    || IS_UNDEADRACE(ch) || is_wearing_necroplasm(ch) || USES_FOCUS(ch) || IS_ANGEL(ch))
+  if( GET_CLASS(ch, CLASS_WARLOCK) || IS_PUNDEAD(ch) || USES_COMMUNE(ch)
+    || USES_DEFOREST(ch) || USES_TUPOR(ch)
+    || IS_UNDEADRACE(ch) || is_wearing_necroplasm(ch) || USES_FOCUS(ch) || IS_ANGEL(ch) )
   {
     handle_undead_mem(ch);
   }
@@ -1171,7 +1177,7 @@ void do_assimilate(P_char ch, char *argument, int cmd)
     send_to_char("&+yYou wave your hands trying to absorb the forces of nature.\n", ch);
     return;
   }
-  else if( cmd == CMD_TUPOR && !IS_HARPY(ch) && !GET_CLASS(ch, CLASS_ETHERMANCER) )
+  else if( cmd == CMD_TUPOR && !USES_TUPOR(ch) )
   {
     send_to_char("You have no idea how to even begin.\n", ch);
     return;
@@ -1219,9 +1225,8 @@ void do_assimilate(P_char ch, char *argument, int cmd)
       }
     }
 
-    send_to_char("\n&+cYour mind dr&+Cifts int&+Wo a deep meditat&+cion "
-                 "and th&+Ce spirits of sto&+Wrms and i&+cce spe&+Cak "
-                 "to yo&+cu.&n\n", ch);
+    send_to_char("\n&+cYour mind dr&+Cifts int&+Wo a deep meditat&+cion and "
+                 "th&+Ce spirits of sto&+Wrms and i&+cce spe&+Cak to yo&+cu.&n\n", ch);
 
   }
   else if (cmd == CMD_ASSIMILATE)
@@ -1304,9 +1309,8 @@ void do_memorize(P_char ch, char *argument, int cmd)
     send_to_char("The gods ignore you.\n", ch);
     return;
   }
-  else if(cmd == CMD_MEMORIZE && (IS_PUNDEAD(ch) || IS_HARPY(ch)
-    || GET_CLASS(ch, CLASS_ETHERMANCER) || !meming_class(ch) || IS_UNDEADRACE(ch)
-    || is_wearing_necroplasm(ch)) || (IS_ANGEL(ch)) )
+  else if( cmd == CMD_MEMORIZE && (IS_PUNDEAD(ch) || USES_TUPOR(ch) || !meming_class(ch)
+    || IS_UNDEADRACE(ch) || is_wearing_necroplasm(ch)) || (IS_ANGEL(ch)) )
   {
     if( IS_ANGEL(ch) )
     {
@@ -2510,8 +2514,7 @@ void spell_mordenkainens_lucubration(int level, P_char ch, char *arg, int type, 
   if(!USES_COMMUNE(ch) && 
      !GET_CLASS(ch, CLASS_WARLOCK) &&
      !(IS_PUNDEAD(ch) ||
-       IS_HARPY(ch) ||
-       GET_CLASS(ch, CLASS_ETHERMANCER) ||
+       USES_TUPOR(ch) ||
        IS_UNDEADRACE(ch) |
        is_wearing_necroplasm(ch)) ||
      !USES_FOCUS(ch))

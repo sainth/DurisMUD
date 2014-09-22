@@ -1648,6 +1648,10 @@ bool parse_spell(P_char ch, char *argument, struct spell_target_data* target_dat
       {
 	      send_to_char("&+WYour illumination is not sufficient enough to cast that spell.&n\n", ch);
       }
+      else if( USES_TUPOR(ch) )
+      {
+	      send_to_char("&+CYour &+Wlucidity &+Cis not sufficient enough &+cto cast that spell.&n\n", ch);
+      }
       else
         send_to_char("&+LYour power reserves are not sufficient to cast that spell!\n", ch);
       return FALSE;
