@@ -15385,7 +15385,7 @@ void spell_resurrect(int level, P_char ch, char *arg, int type, P_char victim, P
           obj_to_room(t_obj, t_ch->in_room);
         }
       }
-    {
+    }
     char_from_room(t_ch);
   }
   char_to_room(t_ch, ch->in_room, -2);
