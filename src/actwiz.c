@@ -3776,8 +3776,11 @@ void do_nchat(P_char ch, char *argument, int cmd)
     {
       continue;
     }
-    if( ((racewar(ch, i->character) && !IS_TRUSTED(ch)) || (!all && evil && !RACE_EVIL(i->character))
-      || (!all && undead && !RACE_PUNDEAD(i->character)) || (!all && goodie && !RACE_GOOD(i->character)))
+    // Skip ch, if ch is a mortal skip anyone who's a mortal on diff't sides, and skip anyone it's not directed to.
+    //   I don't get how someone can nchat across racewar sides?  This makes the racewar(..) irrelevant?
+    //   However, it works right atm, so I'll leave it even though it might be a waste of time.
+    if( (!IS_TRUSTED(ch) && (racewar(ch, i->character) || (!all && evil && !RACE_EVIL(i->character))
+      || (!all && undead && !RACE_PUNDEAD(i->character)) || (!all && goodie && !RACE_GOOD(i->character))))
       || i->character == ch )
     {
       continue;
