@@ -480,6 +480,15 @@ void spell_stunning_visions(int level, P_char ch, char *arg, int type, P_char vi
     return;
   }
 
+  // If they're bashed/tripped/etc no stun until they at least come out of the lag.
+  //   Allow stun if they failed bash, or springleap.
+  if( GET_POS(victim) != POS_STANDING && IS_ACT2(victim, PLR2_WAIT)
+    && !(affected_by_spell(victim, SKILL_BASH) || affected_by_spell(ch, SKILL_SPRINGLEAP)) )
+  {
+    act("&+Y$N&+Y seems to be preoccupied at the moment.&n\r\n", FALSE, ch, 0, victim, TO_CHAR);
+    return;
+  }
+
   if( NewSaves(ch, SAVING_SPELL, 0) )
   {
     percent /= 2;

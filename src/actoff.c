@@ -8270,7 +8270,7 @@ void do_springleap(P_char ch, char *argument, int cmd)
     return;
   }
 
-  if(IS_CENTAUR(ch) ||  GET_RACE(ch) == RACE_QUADRUPED || GET_RACE(ch) == RACE_DRIDER)
+  if( IS_CENTAUR(ch) || GET_RACE(ch) == RACE_QUADRUPED || GET_RACE(ch) == RACE_DRIDER )
   {
     send_to_char("Show us how you'd do it, and you can do it.\n", ch);
     return;
@@ -8343,7 +8343,7 @@ void do_springleap(P_char ch, char *argument, int cmd)
        }            /* could find victim */
 
        appear(ch);
-       
+
        act("$n does a forward roll followed up by a hand-plant into a somersault\nand goes flying out of the room!",
            FALSE, ch, 0, 0, TO_ROOM);
 
@@ -8352,7 +8352,8 @@ void do_springleap(P_char ch, char *argument, int cmd)
 
        SET_POS(ch, POS_STANDING + GET_STAT(ch));
        a = do_simple_move(ch, dir, 0);
-       if(!a){
+       if( !a )
+       {
          send_to_char("Contact Tom Cruise, join his next movie, cause you just left the game!.\n", ch);
          return;                   /* failed move */
        }
@@ -8364,21 +8365,23 @@ void do_springleap(P_char ch, char *argument, int cmd)
   // done: speciality super springleap
   //------------------------------------------
 
-  if(!vict)
+  if( !vict )
   {
     send_to_char("Spring-leap at who?\n", ch);
     return;
   }
-  
-  if(!CanDoFightMove(ch, vict))
+
+  if( !CanDoFightMove(ch, vict) )
+  {
     return;
+  }
 
   appear(ch);
-  
+
   /* you must be size of centaur to springleap it */
-  if((has_innate(vict, INNATE_HORSE_BODY) ||
-      has_innate(vict, INNATE_SPIDER_BODY)) &&
-      (get_takedown_size(ch) < get_takedown_size(vict)))
+  if( (has_innate(vict, INNATE_HORSE_BODY)
+    || has_innate(vict, INNATE_SPIDER_BODY))
+    && (get_takedown_size(ch) < get_takedown_size(vict)) )
   {
     act("$n makes a futile attempt to springleap $N, but $E is simply immovable.",
         FALSE, ch, 0, vict, TO_NOTVICT);
@@ -8391,10 +8394,8 @@ void do_springleap(P_char ch, char *argument, int cmd)
     return;
   }
 
-  percent_chance =
-    (int) (percent_chance *
-           ((double) BOUNDED(80, 100 + GET_LEVEL(ch) - GET_LEVEL(vict), 125))
-           / 100);
+  percent_chance = (int) (percent_chance *
+    ((double) BOUNDED(80, 100 + GET_LEVEL(ch) - GET_LEVEL(vict), 125)) / 100);
   percent_chance =
     takedown_check(ch, vict, percent_chance, SKILL_SPRINGLEAP, APPLY_ALL);
 
@@ -8409,8 +8410,7 @@ void do_springleap(P_char ch, char *argument, int cmd)
     update_pos(ch);
     return;
   }
-  else if(affected_by_spell(ch, SKILL_BASH) ||
-           affected_by_spell(ch, SKILL_SPRINGLEAP))
+  else if( affected_by_spell(ch, SKILL_BASH) || affected_by_spell(ch, SKILL_SPRINGLEAP) )
   {
     send_to_char("Such skills take patience!\n", ch);
     return;
@@ -8459,11 +8459,9 @@ void do_springleap(P_char ch, char *argument, int cmd)
     return;
   }
 
-  percent_chance =
-    (int) (percent_chance *
-           ((double) BOUNDED(80, 100 + GET_LEVEL(ch) - GET_LEVEL(vict), 125))
-           / 100);
- 
+  percent_chance = (int) (percent_chance *
+    ((double) BOUNDED(80, 100 + GET_LEVEL(ch) - GET_LEVEL(vict), 125)) / 100);
+
   set_short_affected_by(ch, SKILL_SPRINGLEAP, (int) (2.8 * PULSE_VIOLENCE));
   if(RANGED_LEAP)
   {
@@ -8527,9 +8525,7 @@ void do_springleap(P_char ch, char *argument, int cmd)
 
     }
 
-    if(!damage
-        (ch, vict, number(20,80) + 40,
-         SKILL_SPRINGLEAP))
+    if(!damage(ch, vict, number(20,80) + 40, SKILL_SPRINGLEAP))
     {
       if(number(0, 1))
         Stun(vict, ch, PULSE_VIOLENCE, TRUE);
