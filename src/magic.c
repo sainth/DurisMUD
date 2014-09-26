@@ -12174,17 +12174,24 @@ void spell_prot_undead(int level, P_char ch, char *arg, int type,
 {
   struct affected_type af;
 
-  if(!IS_UNDEADRACE(victim) && !IS_ANGEL(victim)
-    && GET_RACE(victim) != RACE_GOLEM && !GET_CLASS(victim, CLASS_NECROMANCER))
+  if( !IS_UNDEADRACE(victim) && !IS_ANGEL(victim)
+    && GET_RACE(victim) != RACE_GOLEM && !GET_CLASS(victim, CLASS_NECROMANCER) )
   {
     send_to_char("The target is not undead!\r\n", ch);
     return;
   }
 
-  if(level > 45 &&
-     !IS_AFFECTED2(victim, AFF2_GLOBE))
-      spell_globe(level, ch, 0, 0, victim, obj);
+  if( level > 45 && !IS_AFFECTED2(victim, AFF2_GLOBE) )
+  {
+    spell_globe(level, ch, 0, 0, victim, obj);
+  }
 
+  // Prot undeads no longer stack on Aktosh.  This is cheesy for MindFlayer.
+  if( has_skin_spell(victim) && isname( GET_NAME(ch), "Aktosh") )
+  {
+    act("$N's skin seems to be already altered.", FALSE, ch, 0, victim, TO_CHAR);
+    return;
+  }
   /*
   if(has_skin_spell(victim) && IS_PC(victim))
   {
