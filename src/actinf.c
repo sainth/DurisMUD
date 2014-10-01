@@ -2855,6 +2855,7 @@ void new_look(P_char ch, char *argument, int cmd, int room_no)
 /* end of look */
 
 
+// mode: 2 == exits command, 1 == look command/move to new room/etc.
 void show_exits_to_char(P_char ch, int room_no, int mode)
 {
   int      i, vis_mode, count;
@@ -3025,6 +3026,35 @@ void show_exits_to_char(P_char ch, int room_no, int mode)
           strcat(buffer, "&+g#&n");
         }
         break;
+      case 5:
+      case 6:
+        if( IS_SET(exit->exit_info, EX_SECRET) || IS_SET(exit->exit_info, EX_BLOCKED)
+          || IS_SET(exit->exit_info, EX_ILLUSION) )
+        {
+          break;
+        }
+        count++;
+        if( !brief_mode )
+        {
+          sprintf(buffer + strlen(buffer), " &+c-%s&n", exits[i]);
+        }
+        else
+        {
+          sprintf(buffer + strlen(buffer), " &+c-%s&n", short_exits[i]);
+        }
+        if( IS_SET(exit->exit_info, EX_CLOSED) )
+        {
+          strcat(buffer, "&+g#&n");
+        }
+        else if( vis_mode == 5 )
+        {
+          strcat(buffer, "&+LD&n");
+        }
+        else
+        {
+          strcat(buffer, "&+WB&n");
+        }
+        break;
       }
     }
   }
@@ -3039,7 +3069,7 @@ void show_exits_to_char(P_char ch, int room_no, int mode)
         continue;
       }
       vis_mode = get_vis_mode(ch, exit->to_room);
-
+  
       switch( vis_mode )
       {
       case 1:
@@ -3137,12 +3167,44 @@ void show_exits_to_char(P_char ch, int room_no, int mode)
         }
         break;
       case 5:
-        strcat(buffer, "&+WToo bright to tell.&n.");
-        break;
-      case 6:
+        if( (exit->to_room == NOWHERE) || IS_SET(exit->exit_info, EX_SECRET)
+          || IS_SET(exit->exit_info, EX_BLOCKED) || (exit->key == -2) )
+        {
+          break;
+        }
+        count++;
+        sprintf(buffer + strlen(buffer), "%s- ", exits[i]);
+        if( IS_SET(exit->exit_info, EX_CLOSED) )
+        {
+          sprintf(buffer + strlen(buffer), "(closed %s) ", FirstWord(EXIT(ch, i)->keyword));
+          break;
+        }
         strcat(buffer, "&+LToo dark to tell.&n.");
         break;
+      case 6:
+        if( (exit->to_room == NOWHERE) || IS_SET(exit->exit_info, EX_SECRET)
+          || IS_SET(exit->exit_info, EX_BLOCKED) || (exit->key == -2) )
+        {
+          break;
+        }
+        count++;
+        sprintf(buffer + strlen(buffer), "%s- ", exits[i]);
+        if( IS_SET(exit->exit_info, EX_CLOSED) )
+        {
+          sprintf(buffer + strlen(buffer), "(closed %s) ", FirstWord(EXIT(ch, i)->keyword));
+          break;
+        }
+        strcat(buffer, "&+WToo bright to tell.&n.");
+        break;
       default:
+        if( (exit->to_room == NOWHERE) || IS_SET(exit->exit_info, EX_SECRET)
+          || IS_SET(exit->exit_info, EX_BLOCKED) || IS_SET(exit->exit_info, EX_PICKPROOF)
+          || (exit->key == -2) )
+        {
+          break;
+        }
+        count++;
+        sprintf(buffer + strlen(buffer), "%s- ", exits[i]);
         strcat(buffer, "Buggy vis mode, plz tell a god.");
         break;
       }
