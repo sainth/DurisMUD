@@ -2504,6 +2504,7 @@ void event_psionic_wave_blast(P_char ch, P_char victim, P_obj obj, void *data)
 
 void spell_enrage(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
+  int attdiff;
 
   if( !IS_ALIVE(ch) || !IS_ALIVE(victim) )
   {
@@ -2512,19 +2513,20 @@ void spell_enrage(int level, P_char ch, char *arg, int type, P_char victim, P_ob
 
   appear(ch);
 
-  int attdiff = GET_C_POW(ch) - GET_C_POW(victim);
+  attdiff = (GET_C_POW(ch) - GET_C_POW(victim)) + number(-2, 2) * WAIT_SEC;
   attdiff += 2 * (level - GET_LEVEL(victim));
-  attdiff = BOUNDED(WAIT_SEC, attdiff, WAIT_SEC*12);
+//debug( "attdiff(unbounded): %d, save(would be): %d.", attdiff, attdiff/WAIT_SEC );
+  attdiff = BOUNDED(WAIT_SEC, attdiff, WAIT_SEC*15);
 
-//debug( "attdiff: %d, save: %d.", attdiff, attdiff/WAIT_SEC );
+//debug( "attdiff(final): %d, save: %d.", attdiff, attdiff/WAIT_SEC );
   if( (ch != victim) && NewSaves(victim, SAVING_SPELL, attdiff/WAIT_SEC) )
   {
     send_to_char("You feel a brief bit of &+ranger&n, but it passes.\r\n", victim);
     return;
   }
 
-  // Min 1/2 sec - 1 1/2 sec, Max 5 sec - 15 sec.
-  berserk(victim, number(attdiff/2, (3*attdiff)/2));
+  // Min 2/3 sec - 1 1/3 sec, Max 10 sec - 20 sec.
+  berserk(victim, number((2*attdiff)/3, (4*attdiff)/3));
   return;
 }
 
