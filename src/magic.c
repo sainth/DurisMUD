@@ -21365,7 +21365,7 @@ void event_electrical_execution(P_char ch, P_char vict, P_obj obj, void *data)
     "The &+Celectrical arcs&n turn your exposed flesh &+Lblack!&n",
     "&+CElectrical arcs&n continue to &+Lblacken &+cand pincushion&n $N.",
     "$N's body &+Lsmokes&n and $M lifeless body turns &+Lblack.&n",
-    "&+RYour bain overloads causing immediate death!!!&N",
+    "&+RYour brain overloads causing immediate death!!!&N",
     "$N's body &+Lsmokes&n as $M body is consumed by the &+Celectric arcs.&n",
     0
   };
