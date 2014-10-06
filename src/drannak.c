@@ -880,8 +880,7 @@ void randomizeitem(P_char ch, P_obj obj)
         range = 3;
       else if( workingvalue == 10 )
         range = 0;
-      else if( workingvalue == 9
-        || workingvalue == 8 )
+      else if( workingvalue == 9 || workingvalue == 8 )
         range = 1;
       else if( workingvalue >= 5 )
         range = 2;
@@ -891,18 +890,21 @@ void randomizeitem(P_char ch, P_obj obj)
         range = -3;
       else if( workingvalue == -10 )
         range = 0;
-      else if( workingvalue == -9
-        || workingvalue == 8 )
+      else if( workingvalue == -9 || workingvalue == -8 )
         range = -1;
       else if( workingvalue <= -5 )
         range = -2;
       else if( workingvalue <= -1 )
         range = -1;
+      // Otherwise, workingvalue is 0.
+      else
+        range = 1;
 
       limit = range * -1;
       // Check for negative values
       if( range < 0 )
       {
+        // Assuming a negative stat is good here, although not always.
         if( luckroll > 90 && range < -1)
         {
           range--;
