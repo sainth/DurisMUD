@@ -2123,8 +2123,7 @@ void do_cast(P_char ch, char *argument, int cmd)
     send_to_char("Your binds are too tight for that!\n", ch);
     return;
   }
-  if( affected_by_spell(ch, SKILL_BERSERK) && !IS_TRUSTED(ch) && !GET_CLASS(ch, CLASS_SORCERER)
-    && !GET_CLASS(ch, CLASS_SHAMAN) && (GET_RACE(ch) != RACE_MINOTAUR) )
+  if( affected_by_spell(ch, SKILL_BERSERK) && !IS_TRUSTED(ch) && GET_RACE(ch) != RACE_MINOTAUR )
   {
     send_to_char("You are too filled with &+RRAGE&N to cast!\n", ch);
     return;
