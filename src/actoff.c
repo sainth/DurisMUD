@@ -4766,8 +4766,7 @@ bool single_stab(P_char ch, P_char victim, P_obj weapon)
 
   dam = (int) dam * final_mult;
 
-
-  if( (IS_AFFECTED(victim, AFF_AWARE) && IS_PC(victim) && ((GET_RACE(ch) != RACE_MOUNTAIN) && (GET_RACE(ch) != RACE_DUERGAR)))
+  if( (IS_AFFECTED(victim, AFF_AWARE) && ( (GET_RACE(ch) != RACE_MOUNTAIN) && (GET_RACE(ch) != RACE_DUERGAR) ))
     || affected_by_spell(victim, SKILL_BACKSTAB) )
   {
     int chance = GET_C_INT(victim);
@@ -5104,7 +5103,7 @@ bool backstab(P_char ch, P_char victim)
     percent_chance = 101;
   }
 
-  CharWait(ch, WAIT_SEC + 1);
+  CharWait(ch, 3 * WAIT_SEC / 2);
 
   if( IS_PC(ch) && (!on_front_line(ch) || !on_front_line(victim)) )
   {
@@ -5185,9 +5184,9 @@ bool backstab(P_char ch, P_char victim)
   }
 
   // Victim's timer resets each stab.. don't bother clearing it as it will auto-clear in 2.5sec anyway.
-  if( victim && IS_ALIVE(victim) && IS_PC(victim) )
+  if( victim && IS_ALIVE(victim) ) // PENIS: && IS_PC(victim) )
   {
-    set_short_affected_by(victim, SKILL_BACKSTAB, 5*WAIT_SEC/2 );
+    set_short_affected_by(victim, SKILL_BACKSTAB, 3*WAIT_SEC );
 /* Making this a short duration instead of PULSE_VIOLENCE ticks (like 20 min).
     bzero(&af, sizeof(af));
     af.type = SKILL_BACKSTAB;
