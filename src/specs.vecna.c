@@ -29,6 +29,7 @@
 #include "disguise.h"
 #include "damage.h"
 #include "grapple.h"
+#include "map.h"
 
 /*
    external variables
@@ -1085,11 +1086,22 @@ int krindor_monk(P_obj obj, P_char ch, int cmd, char *arg)
 // 13 Rogue
 int krindor_rogue(P_obj obj, P_char ch, int cmd, char *arg)
 {
-  if (ch && cmd == CMD_HIDE && OBJ_WORN(obj))
+  int room = ch->in_room;
+
+  // If they exist, are trying to hide, and not faerie fired.. then they can try to quick-hide.
+  if( ch && cmd == CMD_HIDE && OBJ_WORN(obj) && !affected_by_spell(ch, SPELL_FAERIE_FIRE) )
   {
+    // Ok, if they're not water and room is water, they can't hide, so fail here instead of checking twice.
+    if( !IS_WATERFORM(ch) && (IS_WATER(room) || IS_WATER_ROOM(room)) )
+    {
+      send_to_char("&+LYou swim around madly, but find no hiding spot...&n\r\n", ch);
+      return TRUE;
+    }
     // Enhanced hide for assassins. 100%, no-lag.
     send_to_char("&+LYou slide into the shadows quickly...&n\r\n", ch);
     SET_BIT(ch->specials.affected_by, AFF_HIDE);
+    // 1/6 the lag on regular hide.
+    CharWait(ch, PULSE_VIOLENCE / 2);
     return TRUE;
   }
   return FALSE;
