@@ -261,7 +261,7 @@ void display_surnames(P_char ch)
   if(affected_by_spell(ch, ACH_DECEPTICON))
   {
     sprintf(buf2, "   &+L%-49s\r\n",
-        "&+W6)&+LDe&+mceptic&+LoN&n");
+        "&+W7)&+LDe&+mceptic&+LoN&n");
     strcat(buf, buf2);
   }
 
