@@ -405,7 +405,6 @@ static void setbit_zone(P_char ch, char *name, char *flag, char *val, int on_off
 #define OFFSET(Field)   OFFSET_OF(struct zone_data*, Field)
 
   /* Table */
-// PENIS: These are strange...
   SetBitTable table[] = {
     {"difficulty", OFFSET(difficulty), NULL, ac_shintCopy},
     {"age", OFFSET(age), NULL, ac_intCopy}

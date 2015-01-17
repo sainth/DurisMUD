@@ -2798,7 +2798,8 @@ void new_look(P_char ch, char *argument, int cmd, int room_no)
       }
     }
 
-    show_exits_to_char(ch, room_no, 1);
+    // cmd == -5 -> Mode = -1 (for look out on ship).
+    show_exits_to_char(ch, room_no, (cmd == -5) ? -1 : 1);
     if (get_spell_from_room(&world[room_no], SPELL_WANDERING_WOODS))
     {
       sprintf(Gbuf5, "&+GAn air of bewildering enchantment lies heavy here.&n\n");
@@ -2856,6 +2857,7 @@ void new_look(P_char ch, char *argument, int cmd, int room_no)
 
 
 // mode: 2 == exits command, 1 == look command/move to new room/etc.
+//       1 == 'look out' on ship.
 void show_exits_to_char(P_char ch, int room_no, int mode)
 {
   int      i, vis_mode, count;
@@ -2904,6 +2906,10 @@ void show_exits_to_char(P_char ch, int room_no, int mode)
   {
 //    send_to_char("&+gObvious exits: &+RNone!\n", ch);
     return;
+  }
+  if( mode == -1 )
+  {
+    mode = 1;
   }
 
   brief_mode = IS_SET(ch->specials.act, PLR_BRIEF);
