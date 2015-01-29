@@ -131,6 +131,7 @@ extern struct TimedShutdownData shutdownData;
 int astral_clock_setMapModifiers(void);
 void unmulti(P_char ch, P_obj obj);
 void where_stat(P_char ch, char *argument);
+void list_ships_to_char( P_char ch, int room_no );
 
 const char *stat_names1[18] = {
   "bad",                        /* 0 */
@@ -2257,11 +2258,13 @@ void new_look(P_char ch, char *argument, int cmd, int room_no)
   if( vis_mode == 5 && cmd != -5 )
   {
     send_to_char("&+LIt is pitch black...\n", ch);
+    list_ships_to_char( ch, room_no );
     return;
   }
   if( vis_mode == 6 && cmd != -5 )
   {
     send_to_char("&+WArgh!!! It's too bright!\n", ch);
+    list_ships_to_char( ch, room_no );
     return;
   }
 
@@ -2835,7 +2838,8 @@ void new_look(P_char ch, char *argument, int cmd, int room_no)
       send_to_char(Gbuf5, ch);
     }  */
 
-    if( vis_mode == 2 || vis_mode == 1 )
+    // If we can see normally, or we're on a ship looking out.
+    if( (vis_mode == 2 || vis_mode == 1) || (( cmd == -5 ) && ( vis_mode == 5 || vis_mode == 6 )) )
     {
       list_obj_to_char(world[room_no].contents, ch, 0, FALSE);
     }
@@ -9298,3 +9302,46 @@ void where_stat(P_char ch, char *argument)
   }
 }
 
+// Making ships visible 24-7 to dayblind/nightblind.
+void list_ships_to_char( P_char ch, int room_no )
+{
+  P_obj obj;
+  static char buf[MAX_STRING_LENGTH];
+  static char buf2[MAX_STRING_LENGTH];
+
+  // Clear / initialize the buffer.  Necessary if no ships found.
+  buf[0] = '\0';
+
+  // Walk through items in room...
+  for( obj = world[room_no].contents; obj; obj = obj->next_content )
+  {
+    // If it's a ship
+    if( obj_index[obj->R_num].func.obj == ship_obj_proc )
+    {
+      // Add it's description to the buffer.
+      // Show vnum if applicable (this will probably never apply unless PLR_MORTAL is toggled on).
+      if( IS_TRUSTED(ch) && IS_SET(ch->specials.act, PLR_VNUM) )
+      {
+        sprintf( buf2, "[&+B%5d&N] ", (obj->R_num >= 0 ? obj_index[obj->R_num].virtual_number : -1));
+        strcat( buf, buf2 );
+      }
+
+      // Show long description (& don't crash if it doesn't have one).
+      if( obj->description )
+      {
+        strcat( buf, obj->description );
+        strcat( buf, "\n\r" );
+      }
+      else
+      {
+        strcat( buf, "&+RThis ship has no long description. &+B:&+g(&n\n\r" );
+      }
+    }
+  }
+
+  // If there were any ships in the room to show...
+  if( buf[0] != '\0' )
+  {
+    page_string(ch->desc, buf, 1);
+  }
+}

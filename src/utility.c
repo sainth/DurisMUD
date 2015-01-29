@@ -1510,6 +1510,13 @@ int ac_can_see_obj(P_char sub, P_obj obj)
 
   vis_mode = get_vis_mode(sub, rroom);
   // vis 1 == god, 2 == normal, 3 == infra, 4 == wraith, 5 == too dark, 6 == too bright.
+
+  // Ships are big enough to be visible regardless of light.
+  if( vis_mode != 4 && (obj_index[obj->R_num].func.obj == ship_obj_proc) )
+  {
+    return 1;
+  }
+
   // Allowing infravision to see items in room.  They can already see inventory/equipped.
   return (vis_mode == 1 || vis_mode == 2 || vis_mode == 3);
 }
