@@ -4543,7 +4543,8 @@ SPELL_ADD(CLASS_SUMMONER, 11);
   SKILL_ADD(CLASS_MERCENARY, 51, 100);
 
 // Creating this bogus skill so only the person being throat crushed receives the wear off message.
-  SKILL_CREATE("This does not matter at all.", SKILL_THROAT_CRUSHER, TAR_PHYS);
+//   This needs a good name for 'stat c George' where George is on cooldown.
+  SKILL_CREATE("throat crush cooldown.", SKILL_THROAT_CRUSHER, TAR_PHYS);
 
   
   SKILL_CREATE("guard", SKILL_GUARD, TAR_PHYS);

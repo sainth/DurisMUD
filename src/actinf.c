@@ -5507,6 +5507,7 @@ void do_score(P_char ch, char *argument, int cmd)
           case SKILL_AWARENESS:
           case SKILL_FIRST_AID:
           case SKILL_HEADBUTT:
+          case SKILL_THROAT_CRUSHER:
           case SKILL_SNEAK:
           case SPELL_RECHARGER:
           case SKILL_CAMP:
