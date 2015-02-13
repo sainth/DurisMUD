@@ -1167,7 +1167,7 @@ tilby halfling~
 &+Lrelaxing after a long day of dealing with the multiple
 &+Lproblems within the tavern.&n
 ~
-8 0 0 0 0 0 0 -100 S
+10 0 0 0 0 0 0 -100 S
 PF 0 1 -1
 55 0 0 1d1+1 1d1+1
 0.0.0.0 0
