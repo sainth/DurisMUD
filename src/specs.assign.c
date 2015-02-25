@@ -2320,6 +2320,7 @@ void assign_rooms(void)
   world[real_room0(10857)].funct = inn;
   world[real_room0(3398)].funct = inn;
   world[real_room0(1736)].funct = inn;
+  world[real_room0(139078)].funct = inn;
 
 
   /* Aracdrathos */
