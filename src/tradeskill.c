@@ -536,6 +536,12 @@ void do_forge(P_char ch, char *argument, int cmd)
           numLowQuality, lowQualityMaterial->short_description );
       }
     }
+    // If we're going to require multiple essences, need to edit this if statement.
+    if( has_affect(obj) )
+    {
+      strcat( recipe, "You must have &+W1 &nof &+ma &+Mm&+Ya&+Mg&+Yi&+Mc&+Ya&+Ml &+messence&n due to the &+mmagical &nproperties this item possesses.\r\n" );
+    }
+
     page_string(ch->desc, recipe, 1);
     extract_obj( obj, FALSE );
     extract_obj( highQualityMaterial, FALSE );
