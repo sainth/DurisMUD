@@ -88,7 +88,6 @@ int guildhall_golem(P_char ch, P_char pl, int cmd, char *arg)
     act("$n pops into existence.&n", FALSE, ch, 0, 0, TO_ROOM);
   }
 
-PENIS:
   // If there's someone fleeing and it's not the golem.
   if( cmd == CMD_FLEE && pl && pl != ch )
   {

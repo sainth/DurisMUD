@@ -10602,8 +10602,7 @@ void spell_shadow_breath_2(int level, P_char ch, char *arg, int type,
       return;
 }
 
-void spell_fire_breath(int level, P_char ch, char *arg, int type,
-                       P_char victim, P_obj obj)
+void spell_fire_breath(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
   struct damage_messages messages = {
     "$N is hit.",
@@ -10616,53 +10615,75 @@ void spell_fire_breath(int level, P_char ch, char *arg, int type,
   int save, dam;
   P_obj    burn = NULL;
 
-  if(!are_we_still_alive(ch , victim))
+  // Rofl.. shouldn't this just be a macro?
+  if( !are_we_still_alive(ch, victim) )
+  {
     return;
+  }
 
   save = calc_dragon_breath_save(ch, victim);
   dam = (int) (dice(level + get_property("dragon.Breath.DamageMod", 1), 8) + level);
 
-  if(IS_PC_PET(ch))
+  if( IS_PC_PET(ch) )
+  {
     dam /= 2;
+  }
 
-  if(NewSaves(victim, SAVING_BREATH, save))
+  if( NewSaves(victim, SAVING_BREATH, save) )
+  {
     dam = (int) (dam / get_property("dragon.Breath.savedDamage", 2));
+  }
   dam = BOUNDED(1, dam, 80);
 
-  if(spell_damage(ch, victim, dam, SPLDAM_FIRE, SPLDAM_BREATH | SPLDAM_NODEFLECT, &messages) !=
-    DAM_NONEDEAD)
-      return;
-
-  if(IS_AFFECTED(victim, AFF_PROT_FIRE) &&
-    number(0, 4))
-      return;
-
-  /*
-   * And now for the damage on inventory
-   */
-  if(number(0, TOTALLVLS) < GET_LEVEL(ch))
+  if( spell_damage(ch, victim, dam, SPLDAM_FIRE, SPLDAM_BREATH | SPLDAM_NODEFLECT, &messages) != DAM_NONEDEAD )
   {
-    if(!NewSaves(victim, SAVING_BREATH, save) &&
-      !CHAR_IN_ARENA(victim))
+    return;
+  }
+
+  if( IS_AFFECTED(victim, AFF_PROT_FIRE) && number(0, 4) )
+  {
+    return;
+  }
+
+  // And now for the damage on inventory (Why just one item?)
+  // High level breathers get a greater chance, victim can save, and !arena damage.
+  if( number(0, TOTALLVLS) < GET_LEVEL(ch) && !NewSaves(victim, SAVING_BREATH, save)
+    && !CHAR_IN_ARENA(victim) )
+  {
+    // While you could obfuscate things by putting all the checks in the for loop,
+    //   this is much easier to manage and understand.
+    for( burn = victim->carrying; burn; burn = burn->next_content )
     {
-      for (burn = victim->carrying;
-           burn && (((burn->type != ITEM_SCROLL) &&
-                     (burn->type != ITEM_WAND) &&
-                     (burn->type != ITEM_STAFF) &&
-                     (burn->type != ITEM_NOTE)) ||
-                    number(0, 2)); burn = burn->next_content) ;
-      if(burn)
+      // Skip artifacts.
+      if( IS_ARTIFACT(burn) )
       {
-        act("&+r$p is turned into ash!", FALSE, victim, burn, 0, TO_CHAR);
-        extract_obj(burn, TRUE);
-        burn = NULL;
+        continue;
       }
+      // look for a destroyable type.
+      // Dereference once (Stealing space, and decreasing run time).
+      type = burn->type;
+      if( type == ITEM_SCROLL || type == ITEM_WAND
+        || type == ITEM_STAFF || type == ITEM_NOTE )
+      {
+        break;
+      }
+      // 2/3 chance to burn up an item regardless?
+      if( number(0, 2) )
+      {
+        break;
+      }
+    }
+    if( burn )
+    {
+      act("&+r$p&+r is turned into ash!", FALSE, victim, burn, 0, TO_CHAR);
+      act("&+r$p&+r is turned into ash!", FALSE, victim, burn, 0, TO_ROOM);
+      extract_obj(burn, TRUE);
+      burn = NULL;
     }
   }
 }
 
-void spell_frost_breath(int level, P_char ch, char *arg, int type,
-                        P_char victim, P_obj obj)
+void spell_frost_breath(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
   int save, dam, mod;
   P_obj    frozen = NULL;
@@ -10675,51 +10696,74 @@ void spell_frost_breath(int level, P_char ch, char *arg, int type,
     "You are frozen to ice, as $n breathes on you.",
     "$n turns $N to ice.", 0
   };
-  if(!are_we_still_alive(ch , victim))
+
+  if( !are_we_still_alive(ch , victim) )
+  {
     return;
+  }
 
   save = calc_dragon_breath_save(ch, victim);
   dam = (int) (dice(level + get_property("dragon.Breath.DamageMod", 1), 8) + level);
-  if(IS_PC_PET(ch))
+  if( IS_PC_PET(ch) )
+  {
     dam /= 2;
-  if(NewSaves(victim, SAVING_BREATH, save))
+  }
+
+  if( NewSaves(victim, SAVING_BREATH, save) )
+  {
     dam = (int) (dam / get_property("dragon.Breath.savedDamage", 2));
+  }
   dam = BOUNDED(1, dam, 80);
 
-  if(spell_damage(ch, victim, dam, SPLDAM_COLD, SPLDAM_BREATH | SPLDAM_NODEFLECT, &messages) !=
-    DAM_NONEDEAD);
-      return;
-
-  if(IS_AFFECTED2(victim, AFF2_PROT_COLD) &&
-    number(0, 4))
-      return;
-
-  /*
-   * And now for the damage on inventory
-   */
-  if(number(0, TOTALLVLS) < GET_LEVEL(ch))
+  if( spell_damage(ch, victim, dam, SPLDAM_COLD, SPLDAM_BREATH | SPLDAM_NODEFLECT, &messages) != DAM_NONEDEAD )
   {
-    if(!NewSaves(victim, SAVING_BREATH, save) &&
-      !CHAR_IN_ARENA(victim))
+    return;
+  }
+
+  if( IS_AFFECTED2(victim, AFF2_PROT_COLD) && number(0, 4) )
+  {
+    return;
+  }
+
+PENIS:
+  // And now for the damage on inventory (Why just one item?)
+  // High level breathers get a greater chance, victim can save, and !arena damage.
+  if( number(0, TOTALLVLS) < GET_LEVEL(ch) && !NewSaves(victim, SAVING_BREATH, save)
+    && !CHAR_IN_ARENA(victim) )
+  {
+    // While you could obfuscate things by putting all the checks in the for loop,
+    //   this is much easier to manage and understand.
+    for( frozen = victim->carrying; frozen; frozen = frozen->next_content )
     {
-      for (frozen = victim->carrying;
-           frozen && (((frozen->type != ITEM_DRINKCON) &&
-                       (frozen->type != ITEM_FOOD) &&
-                       (frozen->type != ITEM_POTION)) ||
-                      number(0, 2)); frozen = frozen->next_content) ;
-      if(frozen)
+      // Skip artifacts.
+      if( IS_ARTIFACT(frozen) )
       {
-        act("&+W$p shatters into frozen scraps.", FALSE, victim, frozen, 0,
-            TO_CHAR);
-        extract_obj(frozen, TRUE);
-        frozen = NULL;
+        continue;
       }
+      // look for a destroyable type.
+      // Dereference once (Stealing space, and decreasing run time).
+      type = frozen->type;
+      if( type == ITEM_DRINKCON || type == ITEM_FOOD || type == ITEM_POTION )
+      {
+        break;
+      }
+      // 2/3 chance to shatter an item regardless?
+      if( number(0, 2) )
+      {
+        break;
+      }
+    }
+    if( frozen )
+    {
+      act("&+W$p&+W shatters into &+Cfrozen &+Wscraps.", FALSE, victim, frozen, 0, TO_CHAR );
+      act("&+W$p&+W shatters into &+Cfrozen &+Wscraps.", FALSE, victim, frozen, 0, TO_ROOM );
+      extract_obj(frozen, TRUE);
+      frozen = NULL;
     }
   }
 }
 
-void spell_acid_breath(int level, P_char ch, char *arg, int type,
-                       P_char victim, P_obj obj)
+void spell_acid_breath(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
   int save, dam;
   struct damage_messages messages = {
@@ -10779,8 +10823,7 @@ void spell_acid_breath(int level, P_char ch, char *arg, int type,
 #endif
 }
 
-void spell_gas_breath(int level, P_char ch, char *arg, int type,
-                      P_char victim, P_obj obj)
+void spell_gas_breath(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
   int save, dam;
   struct damage_messages messages = {
@@ -10812,8 +10855,7 @@ void spell_gas_breath(int level, P_char ch, char *arg, int type,
   }
 }
 
-void spell_lightning_breath(int level, P_char ch, char *arg, int type,
-                            P_char victim, P_obj obj)
+void spell_lightning_breath(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
   int save, dam;
   struct damage_messages messages = {
@@ -10883,8 +10925,8 @@ void spell_blinding_breath(int level, P_char ch, char *arg, int type,
   }
 }
 
-void spell_basalt_light_2(int level, P_char ch, char *arg, int type,
-                       P_char victim, P_obj obj)
+// Under construction?
+void spell_basalt_light_2(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
   spell_basalt_light(level, ch, arg, type, victim, obj);
   if (!number(0, 4))
@@ -10893,8 +10935,7 @@ void spell_basalt_light_2(int level, P_char ch, char *arg, int type,
   }
 }
 
-void spell_basalt_light(int level, P_char ch, char *arg, int type,
-                       P_char victim, P_obj obj)
+void spell_basalt_light(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
   int save, dam;
   struct damage_messages messages = {
@@ -10926,8 +10967,8 @@ void spell_basalt_light(int level, P_char ch, char *arg, int type,
     return;
 }
 
-void spell_jasper_light_2(int level, P_char ch, char *arg, int type,
-                       P_char victim, P_obj obj)
+// Under construction?
+void spell_jasper_light_2(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
   spell_jasper_light(level, ch, arg, type, victim, obj);
   if (!number(0, 3))
@@ -10936,8 +10977,7 @@ void spell_jasper_light_2(int level, P_char ch, char *arg, int type,
   }
 }
 
-void spell_jasper_light(int level, P_char ch, char *arg, int type,
-                      P_char victim, P_obj obj)
+void spell_jasper_light(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
   int save, dam;
   struct damage_messages messages = {
@@ -10969,8 +11009,8 @@ void spell_jasper_light(int level, P_char ch, char *arg, int type,
   }
 }
 
-void spell_azure_light_2(int level, P_char ch, char *arg, int type,
-                       P_char victim, P_obj obj)
+// Under construction?
+void spell_azure_light_2(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
   spell_azure_light(level, ch, arg, type, victim, obj);
   if (!number(0, 3))
@@ -10978,9 +11018,8 @@ void spell_azure_light_2(int level, P_char ch, char *arg, int type,
     
   }
 }
-  
-void spell_azure_light(int level, P_char ch, char *arg, int type,
-                            P_char victim, P_obj obj)
+
+void spell_azure_light(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
   int save, dam;
   struct damage_messages messages = {
@@ -11010,8 +11049,8 @@ void spell_azure_light(int level, P_char ch, char *arg, int type,
   spell_damage(ch, victim, dam, SPLDAM_LIGHTNING, SPLDAM_BREATH | SPLDAM_NODEFLECT, &messages);
 }
 
-void spell_crimson_light_2(int level, P_char ch, char *arg, int type,
-                       P_char victim, P_obj obj)
+// Under construction?
+void spell_crimson_light_2(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
   spell_crimson_light(level, ch, arg, type, victim, obj);
   if (!number(0, 3))
@@ -11019,9 +11058,8 @@ void spell_crimson_light_2(int level, P_char ch, char *arg, int type,
     
   }
 }
-  
-void spell_crimson_light(int level, P_char ch, char *arg, int type,
-                       P_char victim, P_obj obj)
+
+void spell_crimson_light(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
   struct damage_messages messages = {
     "$N is hit.",
@@ -11056,26 +11094,40 @@ void spell_crimson_light(int level, P_char ch, char *arg, int type,
     number(0, 4))
       return;
 
-  /*
-   * And now for the damage on inventory
-   */
-  if(number(0, TOTALLVLS) < GET_LEVEL(ch))
+  // And now for the damage on inventory (Why just one item?)
+  // High level breathers get a greater chance, victim can save, and !arena damage.
+  if( number(0, TOTALLVLS) < GET_LEVEL(ch) && !NewSaves(victim, SAVING_BREATH, save)
+    && !CHAR_IN_ARENA(victim) )
   {
-    if(!NewSaves(victim, SAVING_BREATH, save) &&
-      !CHAR_IN_ARENA(victim))
+    // While you could obfuscate things by putting all the checks in the for loop,
+    //   this is much easier to manage and understand.
+    for( burn = victim->carrying; burn; burn = burn->next_content )
     {
-      for (burn = victim->carrying;
-           burn && (((burn->type != ITEM_SCROLL) &&
-                     (burn->type != ITEM_WAND) &&
-                     (burn->type != ITEM_STAFF) &&
-                     (burn->type != ITEM_NOTE)) ||
-                    number(0, 2)); burn = burn->next_content) ;
-      if(burn)
+      // Skip artifacts.
+      if( IS_ARTIFACT(burn) )
       {
-        act("&+r$p is turned into ash!", FALSE, victim, burn, 0, TO_CHAR);
-        extract_obj(burn, TRUE);
-        burn = NULL;
+        continue;
       }
+      // look for a destroyable type.
+      // Dereference once (Stealing space, and decreasing run time).
+      type = burn->type;
+      if( type == ITEM_SCROLL || type == ITEM_WAND
+        || type == ITEM_STAFF || type == ITEM_NOTE )
+      {
+        break;
+      }
+      // 2/3 chance to burn up an item regardless?
+      if( number(0, 2) )
+      {
+        break;
+      }
+    }
+    if( burn )
+    {
+      act("&+r$p&+r is turned into ash!", FALSE, victim, burn, 0, TO_CHAR);
+      act("&+r$p&+r is turned into ash!", FALSE, victim, burn, 0, TO_ROOM);
+      extract_obj(burn, TRUE);
+      burn = NULL;
     }
   }
 }

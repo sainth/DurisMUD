@@ -195,7 +195,7 @@ const struct innate_data
   {
   "reduce", do_reduce},
   {
-  "breath", do_breath},
+  "breathe", do_breathe},
   {
   "project image", do_project_image},
   {
@@ -3446,7 +3446,7 @@ void do_tupor(P_char ch, char *arg, int cmd)
   act("$n slips into a death-like trance...", TRUE, ch, 0, 0, TO_ROOM);
 }
 
-void do_breath(P_char ch, char *arg, int cmd)
+void do_breathe(P_char ch, char *arg, int cmd)
 {
   P_char   victim;
   char     buf[80];
@@ -3460,40 +3460,53 @@ void do_breath(P_char ch, char *arg, int cmd)
     "$N is killed instantly!  That's gotta hurt."
   };
 
-  if (has_innate(ch, INNATE_BARB_BREATH))
+  if( has_innate(ch, INNATE_BARB_BREATH) )
   {
-    if (!(victim = parse_victim(ch, arg, 0)))
+    if( !(victim = parse_victim(ch, arg, 0)) )
     {
       send_to_char("Target who?\n", ch);
       return;
     }
 
-    if (ch == victim)
+    if( ch == victim )
     {
-      send_to_char
-        ("Your breath suddenly fails you..  Perhaps the Great Gods of the North have other plans for you.\n",
-         ch);
+      send_to_char("Your breath suddenly fails you..  Perhaps the Great Gods of the North have other plans for you.\n", ch);
       return;
     }
-    if (!check_innate_time(ch, INNATE_BARB_BREATH))
+    if( !check_innate_time(ch, INNATE_BARB_BREATH) )
     {
       send_to_char("You're too tired to do that right now.\n", ch);
       return;
     }
     spell_damage(ch, victim, dice(GET_LEVEL(ch), 4), SPLDAM_COLD,
-                 SPLDAM_NOSHRUG | SPLDAM_NODEFLECT | SPLDAM_BREATH,
-                 &messages);
-    act("The wind dissipates, but a horrible stench remains..", TRUE, ch, 0,
-        0, TO_NOTVICT);
+      SPLDAM_NOSHRUG | SPLDAM_NODEFLECT | SPLDAM_BREATH, &messages);
+    act("The wind dissipates, but a horrible stench remains..", TRUE, ch, 0, 0, TO_NOTVICT);
     CharWait(ch, PULSE_VIOLENCE);
     return;
   }
 
-  if (!CAN_BREATHE(ch))
+  if( !CAN_BREATHE(ch) )
   {
-    send_to_char
-      ("Tis an involuntary action for most, but ne'ertheless, you breathe just to make sure.\n",
-       ch);
+    if( IS_TRUSTED(ch) )
+    {
+      arg = one_argument(arg, buf);
+      if( !(victim = parse_victim(ch, arg, 0)) )
+      {
+        send_to_char("Target who?\n", ch);
+        return;
+      }
+      if( !strcmp( buf, "fire" ) )
+      {
+        spell_fire_breath( GET_LEVEL(ch), ch, arg, 0, victim, NULL );
+        return;
+      }
+      if( !strcmp( buf, "frost" ) )
+      {
+        spell_frost_breath( GET_LEVEL(ch), ch, arg, 0, victim, NULL );
+        return;
+      }
+    }
+    send_to_char("Tis an involuntary action for most, but ne'ertheless, you breathe just to make sure.\n", ch);
     return;
   }
   else

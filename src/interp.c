@@ -752,7 +752,7 @@ const char *command[] = {
   "carve",
   "depiss",
   "repiss",
-  "breath",
+  "breathe",
   "ingame",
   "fire",
   "repair",
@@ -2519,7 +2519,7 @@ void assign_command_pointers(void)
   CMD_Y(CMD_PARLAY, STAT_NORMAL + POS_STANDING, do_parlay, 0);
   CMD_Y(CMD_THROWPOTION, STAT_NORMAL + POS_STANDING, do_throw_potion, 0);
   CMD_Y(CMD_GUARD, STAT_NORMAL + POS_STANDING, do_guard, 0);
-  CMD_Y(CMD_BREATH, STAT_RESTING + POS_PRONE, do_breath, 0);
+  CMD_Y(CMD_BREATH, STAT_RESTING + POS_PRONE, do_breathe, 0);
   CMD_Y(CMD_BUCK, STAT_NORMAL + POS_STANDING, do_buck, 0);
   CMD_Y(CMD_BUG, STAT_DEAD + POS_PRONE, do_bug, 0);
   CMD_Y(CMD_CHEAT, STAT_DEAD + POS_PRONE, do_cheat, 58);

@@ -443,7 +443,7 @@ void try_to_hide(P_char, P_obj);
 void do_balance(P_char, char *, int);
 void do_berserk(P_char, char *, int);
 void do_bodyslam(P_char, char *, int);
-void do_breath(P_char, char *, int);
+void do_breathe(P_char, char *, int);
 void do_bug(P_char, char *, int);
 void do_cheat(P_char, char *, int);
 void do_bury(P_char, char *, int);
