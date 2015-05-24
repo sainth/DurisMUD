@@ -41,6 +41,16 @@ void do_achievements(P_char ch, char *arg, int cmd)
       "-----------", "-------------", "-------------");
   strcat(buf, buf2);
 
+  //-----Achievement: Full Base Stats 100 - gellz
+  if(affected_by_spell(ch, ACH_DEATHSDOOR))
+    sprintf(buf2, "  &+L%-55s&+L%-45s&+L%s\r\n",
+        "&+MTo&+mug&+Mhe&+mn &+MU&+mp &+MPr&+min&+Mce&+mss&n", "&+BGet 100 in all stats", "&+BAbililty to use &+LDea&+wths&+L Do&+wor&n");
+  else
+    sprintf(buf2, "  &+L%-55s&+L%-45s&+L%s\r\n",
+        "&+MTo&+mug&+Mhe&+mn &+MU&+mp &+MPr&+min&+Mce&+mss&n", "&+wGet 100 in all stats", "&+wAbililty to use &+LDea&+wths&+L Do&+wor&n");
+  strcat(buf, buf2);
+  //-----END Achievement: Full Base Stats 100
+
   //-----Achievement: Soul Reaper
   if(get_frags(ch) >= 2000)
     sprintf(buf2, "  &+L%-50s&+L%-45s&+L%s\r\n",
@@ -228,6 +238,21 @@ void update_achievements(P_char ch, P_char victim, int cmd, int ach)
       ch->base_stats.Con = 100;
 
     apply_achievement(ch, ACH_LETSGETDIRTY);
+  }
+
+  /*  FULL STATS  - gellz  */ 
+  if((!affected_by_spell(ch, ACH_DEATHSDOOR)) && 
+    (ch->base_stats.Str == 100) &&
+    (ch->base_stats.Agi == 100) &&
+    (ch->base_stats.Dex == 100) &&
+    (ch->base_stats.Con == 100) &&
+    (ch->base_stats.Pow == 100) &&
+    (ch->base_stats.Wis == 100) &&
+    (ch->base_stats.Int == 100) &&
+    (ch->base_stats.Cha == 100))
+  {
+    send_to_char("&+rCon&+Rgra&+Wtula&+Rtio&+rns! You have completed the &+MTo&+mug&+Mhe&+mn &+MU&+mp &+MPr&+min&+Mce&+mss&+r achievement!&n\r\n", ch);
+    apply_achievement(ch, ACH_DEATHSDOOR);
   }
 
   /*  SERIAL KILLER */

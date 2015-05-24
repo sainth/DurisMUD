@@ -1078,6 +1078,7 @@ const char *command[] = {
   "blood",
   "deforest",
   "beep",
+  "deaths",
   "\n"                          /* MAX_CMD_LIST is now 1000 */
 };
 
@@ -2499,6 +2500,7 @@ void assign_command_pointers(void)
   CMD_N(CMD_INFUSE, STAT_NORMAL, do_infuse, 0);
   CMD_N(CMD_GATHER, STAT_NORMAL, do_gather, 0);
   CMD_N(CMD_AREA, STAT_RESTING + POS_PRONE, do_area, 0);
+  CMD_N(CMD_DEATHS_DOOR, STAT_NORMAL, do_deaths_door, 25);
   /*
    * normal commands (allowed while fighting)
    */

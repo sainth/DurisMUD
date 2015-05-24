@@ -5131,6 +5131,9 @@ void create_tags()
   TAG_CREATE("ach - strahd me at hello", ACH_YOUSTRAHDME);
   TAG_CREATE("aip - decepticon", AIP_DECEPTICON);
   TAG_CREATE("ach - decepticon", ACH_DECEPTICON);
+  TAG_CREATE("aip - deaths door 100 stats", AIP_DEATHSDOOR);
+  TAG_CREATE("ach - deaths door 100 stats", ACH_DEATHSDOOR);
+  TAG_CREATE("deaths door cooldown", TAG_DEATHSDOOR);
   TAG_CREATE("epic control", TAG_EPICS);
 
   TAG_CREATE("fragged victim", TAG_RECENTLY_FRAGGED);

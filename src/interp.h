@@ -855,6 +855,7 @@ extern unsigned int game_locked;
 #define CMD_ADDICTED_BLOOD 828 // 'blood' command: shows Addicted to Blood/Bloodlust info
 #define CMD_DEFOREST       829 // Blighter command
 #define CMD_BEEP           830 // Make <arg>'s computer beep
+#define CMD_DEATHS_DOOR    831 // gellz all base stats 100 achievement
 
 /* The CMD_s below are not real commands, they are used in item special procedures to identify
  * when wearer gets hit in melee or nuked and when an item is poofing on ground.

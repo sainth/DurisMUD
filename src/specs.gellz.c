@@ -56,6 +56,18 @@ int gellz_test_obj_procs(P_obj obj, P_char ch, int cmd, char *argument)
   argument = one_argument(argument, argstring2); //get one argument from list
   argument = one_argument(argument, argstring3); //get one argument from list
 
+  if (!strcmp(argstring1, "achieve"))
+  {
+      act("&+ySAID ACHIEVE\n&n", FALSE, ch, obj, obj, TO_CHAR );
+    if (!strcmp(argstring2, "reset"))
+    {
+      act("&+ySaid Achieve - RESET \n&n", FALSE, ch, obj, obj, TO_CHAR );
+      if(affected_by_spell(ch, ACH_DEATHSDOOR))
+        {affect_from_char(ch, ACH_DEATHSDOOR);
+      act("&+YWe ran the affect_from...\n&n", FALSE, ch, obj, obj, TO_CHAR );}
+    } //end reset keyword
+  } //end achieve keyword
+
   if( !strcmp(argstring1, "ship") )
   {
     if( !strcmp(argstring2, "all") )
@@ -772,3 +784,46 @@ int showhand(P_obj obj, P_char ch, int cmd, char *argument, int whoscard)
 //GELLZ Card Game Mains End
 //*****************************************************************************
 
+//*****************************************************************************
+//                              GELLZ ACTUAL USED PROCS
+//*****************************************************************************
+/*	Deaths Door achievment proc for all 100 base stats - gellz	*/
+void do_deaths_door(P_char ch, char *arg, int cmd)
+{
+    struct affected_type af;
+  if( cmd == CMD_SET_PERIODIC )
+  { return; }
+  if(!*arg || !IS_ALIVE(ch))
+  { act("Pardon? Im not sure what you are trying to do.\n", FALSE, ch, 0, 0, TO_CHAR);
+    return; 
+  }
+  if(!(affected_by_spell(ch, ACH_DEATHSDOOR)))
+    {act("&+yYou do not posess the ability to use &+LDea&+wths &+LDo&+wor&+y o rtals...\n&n", FALSE, ch, 0, 0, TO_CHAR );
+    return;}
+
+  if (!strcmp(arg, "door"))
+  {
+    if(affected_by_spell(ch, TAG_DEATHSDOOR))
+    { act("&+yYour &+LDea&+wths &+LDo&+wor&+y fails to open. You need to &+Lwa&+wit &+ylonger...", FALSE, ch, 0, 0, TO_CHAR);
+      return;
+    } //end timer delay
+    act("&+yYou draw a &+gmys&+Gti&+gcal &+Gpe&+gnt&+Gag&+gram&+y on the ground, and a &+LDea&+wths &+LDo&+wor&+y portal appears.\n&n", FALSE, ch, 0, 0, TO_CHAR );
+// RESET timer delay here
+    memset(&af, 0, sizeof(struct affected_type));
+    af.type = TAG_DEATHSDOOR;
+    af.modifier = 0;
+    af.duration = 10;
+    af.location = 0;
+    af.flags = AFFTYPE_NODISPEL;
+    affect_to_char(ch, &af);
+// END timer delay
+    spell_corpse_portal(60, ch, arg, 0, ch, 0);
+    return; 
+  } 
+  else { 
+    act("Pardon? Im not sure what you are trying to do.\n", FALSE, ch, 0, 0, TO_CHAR);
+    return; 
+  } //End ELSE - didnt say DOOR 
+} //End Deaths DOOR proc
+
+//*****************************************************************
