@@ -1078,7 +1078,7 @@ const char *command[] = {
   "blood",
   "deforest",
   "beep",
-  "deaths",
+  "deathsdoor",
   "\n"                          /* MAX_CMD_LIST is now 1000 */
 };
 

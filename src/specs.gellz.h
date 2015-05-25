@@ -7,6 +7,7 @@
 #define STR_CARDS_ARG_FAIL "&+yYou must offer a positive amount of a valid coin type (ie 1 p, or 2 gold)."
 #define STR_CARDS_TYPE_FAIL "&+ySorry, we only accept &+Yvalid cash&+y amounts here. Please ensure you offer a valid amount and selection of coins!!&n"
 #define STR_CARDS_CASH_FAIL "&+yYou &+Ydont have enough &+ycoins of that type available!&n"
+#define STR_CARDS_BIGBID_FAIL "&+ySorry, we don't accept bids that large!&n"
 #define STR_CARDS_CASH_OK "&+ySeeing that you &+Yhave enough &+ycoins available to cover your &+Wbet&+y it looks like its time to &+Wdeal&+y!!&n"
 #define STR_CARDS_FAILED "&+yYou mouth the word and are &+Mmagically&+y understood."
 #define STR_CARDS_BID_FAIL "&+yYou must make a bid first, using the offer command."

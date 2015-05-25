@@ -28,9 +28,9 @@
 using namespace std;
 #include "ships.h"
 
-//*****************************************************************
+// *****************************************************************
 //	Gellz TEST Object procedure... ONLY for testing
-//*****************************************************************
+// *****************************************************************
 int gellz_test_obj_procs(P_obj obj, P_char ch, int cmd, char *argument)
 { //PLACEHOLDER ONLY
   int         curr_time;
@@ -138,10 +138,10 @@ int gellz_test_obj_procs(P_obj obj, P_char ch, int cmd, char *argument)
   return FALSE;
 } //End gellz_test_obj_procs
 
-//*****************************************************************************
-//*****************************************************************************
+// *****************************************************************************
+// *****************************************************************************
 //                              GELLZ CARD GAME
-//*****************************************************************************
+// *****************************************************************************
 int magic_deck(P_obj obj, P_char ch, int cmd, char *argument)
 {
   static int game_on = BJ_PREBID;
@@ -239,6 +239,11 @@ int magic_deck(P_obj obj, P_char ch, int cmd, char *argument)
       {
         act(STR_CARDS_CASH_FAIL, FALSE, ch, obj, obj, TO_CHAR);
       }
+      // 1000 Copper per Platinum.
+      else if( betamt > 1000 * get_property("blackjack.MaxBetInPlatinum", 100) )
+      {
+        act(STR_CARDS_BIGBID_FAIL, FALSE, ch, obj, obj, TO_CHAR);
+      }
       else
       {
         act(STR_CARDS_CASH_OK, FALSE, ch, obj, obj, TO_CHAR);
@@ -251,6 +256,11 @@ int magic_deck(P_obj obj, P_char ch, int cmd, char *argument)
       if( betamt > GET_SILVER(ch) )
       {
         act( STR_CARDS_CASH_FAIL, FALSE, ch, obj, obj, TO_CHAR);
+      }
+      // 100 Silver per Platinum.
+      else if( betamt > 100 * get_property("blackjack.MaxBetInPlatinum", 100) )
+      {
+        act(STR_CARDS_BIGBID_FAIL, FALSE, ch, obj, obj, TO_CHAR);
       }
       else
       {
@@ -265,6 +275,11 @@ int magic_deck(P_obj obj, P_char ch, int cmd, char *argument)
       {
         act( STR_CARDS_CASH_FAIL, FALSE, ch, obj, obj, TO_CHAR);
       }
+      // 10 Gold per Platinum.
+      else if( betamt > 10 * get_property("blackjack.MaxBetInPlatinum", 100) )
+      {
+        act(STR_CARDS_BIGBID_FAIL, FALSE, ch, obj, obj, TO_CHAR);
+      }
       else
       {
         act (STR_CARDS_CASH_OK, FALSE, ch, obj, obj, TO_CHAR);
@@ -277,6 +292,10 @@ int magic_deck(P_obj obj, P_char ch, int cmd, char *argument)
       if( betamt > GET_PLATINUM(ch) )
       {
         act( STR_CARDS_CASH_FAIL, FALSE, ch, obj, obj, TO_CHAR);
+      }
+      else if( betamt > get_property("blackjack.MaxBetInPlatinum", 100) )
+      {
+        act(STR_CARDS_BIGBID_FAIL, FALSE, ch, obj, obj, TO_CHAR);
       }
 	    else
       {
@@ -584,7 +603,7 @@ int do_win(P_char ch, int bettype, int betamt, int winloose)
 {
    if (winloose==1)
    { //WINNING Tasks
-     send_to_char_f(ch, "\n&+yYour bank account is &+Mcredited &+W%d ", betamt);
+     send_to_char_f(ch, "\n&+yYour account is &+Mcredited &+W%d ", betamt);
      if (bettype==0) 
        {GET_COPPER(ch)+=betamt;
        send_to_char_f(ch, STR_COPP);}
@@ -598,10 +617,12 @@ int do_win(P_char ch, int bettype, int betamt, int winloose)
        {GET_PLATINUM(ch)+=betamt;
        send_to_char_f(ch, STR_PLAT);}
      send_to_char_f(ch, "&+y.&n\n");
+     logit(LOG_CARDGAMES, "%s won %d %s at blackjack.", J_NAME(ch), betamt,
+      (bettype==0)?"copper":(bettype==1)?"silver":(bettype==2)?"gold":(bettype==3)?"platinum":"unknown");
    } else if (winloose==2)
    {
      // TASKS FOR LOOSING
-     send_to_char_f(ch, "\n&+yYour bank account is &+Rdebited &+W%d ", betamt);
+     send_to_char_f(ch, "\n&+yYour account is &+Rdebited &+W%d ", betamt);
      if (bettype==0) 
        {GET_COPPER(ch)-=betamt;
        send_to_char_f(ch, STR_COPP);}
@@ -615,6 +636,8 @@ int do_win(P_char ch, int bettype, int betamt, int winloose)
        {GET_PLATINUM(ch)-=betamt;
        send_to_char_f(ch, STR_PLAT);}
      send_to_char_f(ch, "&+y.&n\n");
+     logit(LOG_CARDGAMES, "%s lost %d %s at blackjack.", J_NAME(ch), betamt,
+      (bettype==0)?"copper":(bettype==1)?"silver":(bettype==2)?"gold":(bettype==3)?"platinum":"unknown");
    // END TASKS FOR LOOSING 
    }
 }
@@ -791,20 +814,27 @@ int showhand(P_obj obj, P_char ch, int cmd, char *argument, int whoscard)
 void do_deaths_door(P_char ch, char *arg, int cmd)
 {
     struct affected_type af;
-  if( cmd == CMD_SET_PERIODIC )
-  { return; }
-  if(!*arg || !IS_ALIVE(ch))
-  { act("Pardon? Im not sure what you are trying to do.\n", FALSE, ch, 0, 0, TO_CHAR);
-    return; 
+
+  if( !IS_ALIVE(ch) )
+  {
+    return;
   }
   if(!(affected_by_spell(ch, ACH_DEATHSDOOR)))
-    {act("&+yYou do not posess the ability to use &+LDea&+wths &+LDo&+wor&+y o rtals...\n&n", FALSE, ch, 0, 0, TO_CHAR );
-    return;}
-
-  if (!strcmp(arg, "door"))
   {
-    if(affected_by_spell(ch, TAG_DEATHSDOOR))
-    { act("&+yYour &+LDea&+wths &+LDo&+wor&+y fails to open. You need to &+Lwa&+wit &+ylonger...", FALSE, ch, 0, 0, TO_CHAR);
+    act("&+yYou do not posess the ability to use &+LDea&+wths &+LDo&+wor&+y portals...\n&n", FALSE, ch, 0, 0, TO_CHAR );
+    return;
+  }
+  if( !*arg )
+  {
+    act("Pardon? Im not sure what you are trying to do.  Maybe open a &+Wdoor&n?\n", FALSE, ch, 0, 0, TO_CHAR);
+    return;
+  }
+
+  if( !strcmp(arg, "door") )
+  {
+    if( affected_by_spell(ch, TAG_DEATHSDOOR) )
+    {
+      act("&+yYour &+LDea&+wths &+LDo&+wor&+y fails to open. You need to &+Lwa&+wit &+ylonger...", FALSE, ch, 0, 0, TO_CHAR);
       return;
     } //end timer delay
     act("&+yYou draw a &+gmys&+Gti&+gcal &+Gpe&+gnt&+Gag&+gram&+y on the ground, and a &+LDea&+wths &+LDo&+wor&+y portal appears.\n&n", FALSE, ch, 0, 0, TO_CHAR );
@@ -812,17 +842,20 @@ void do_deaths_door(P_char ch, char *arg, int cmd)
     memset(&af, 0, sizeof(struct affected_type));
     af.type = TAG_DEATHSDOOR;
     af.modifier = 0;
-    af.duration = 10;
+    af.duration = 15;
     af.location = 0;
     af.flags = AFFTYPE_NODISPEL;
     affect_to_char(ch, &af);
 // END timer delay
     spell_corpse_portal(60, ch, arg, 0, ch, 0);
-    return; 
-  } 
-  else { 
-    act("Pardon? Im not sure what you are trying to do.\n", FALSE, ch, 0, 0, TO_CHAR);
-    return; 
+
+    CharWait(ch, 5*WAIT_SEC);
+    return;
+  }
+  else
+  {
+    act("Pardon? Im not sure what you are trying to do.  Maybe open a &+Wdoor&n?\n", FALSE, ch, 0, 0, TO_CHAR);
+    return;
   } //End ELSE - didnt say DOOR 
 } //End Deaths DOOR proc
 

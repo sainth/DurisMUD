@@ -41,16 +41,6 @@ void do_achievements(P_char ch, char *arg, int cmd)
       "-----------", "-------------", "-------------");
   strcat(buf, buf2);
 
-  //-----Achievement: Full Base Stats 100 - gellz
-  if(affected_by_spell(ch, ACH_DEATHSDOOR))
-    sprintf(buf2, "  &+L%-55s&+L%-45s&+L%s\r\n",
-        "&+MTo&+mug&+Mhe&+mn &+MU&+mp &+MPr&+min&+Mce&+mss&n", "&+BGet 100 in all stats", "&+BAbililty to use &+LDea&+wths&+L Do&+wor&n");
-  else
-    sprintf(buf2, "  &+L%-55s&+L%-45s&+L%s\r\n",
-        "&+MTo&+mug&+Mhe&+mn &+MU&+mp &+MPr&+min&+Mce&+mss&n", "&+wGet 100 in all stats", "&+wAbililty to use &+LDea&+wths&+L Do&+wor&n");
-  strcat(buf, buf2);
-  //-----END Achievement: Full Base Stats 100
-
   //-----Achievement: Soul Reaper
   if(get_frags(ch) >= 2000)
     sprintf(buf2, "  &+L%-50s&+L%-45s&+L%s\r\n",
@@ -158,6 +148,16 @@ void do_achievements(P_char ch, char *arg, int cmd)
         "&+LMa&+rst&+Rer of De&+rcep&+Ltion&n", "&+wSuccessfully use 500 disguise kits", "&+wDisguise doesnt consume a kit&n", get_progress(ch, AIP_DECEPTICON, 500));
   strcat(buf, buf3);
   //-----Master of Deception
+
+  //-----Achievement: Full Base Stats 100 - gellz
+  if(affected_by_spell(ch, ACH_DEATHSDOOR))
+    sprintf(buf2, "  &+L%-55s&+L%-45s&+L%s\r\n",
+        "&+MTo&+mug&+Mhe&+mn &+MU&+mp &+MPr&+min&+Mce&+mss&n", "&+BGet 100 in all stats", "&+BAbililty to use &+LDea&+wths&+L Do&+wor&n");
+  else
+    sprintf(buf2, "  &+L%-55s&+L%-45s&+L%s\r\n",
+        "&+MTo&+mug&+Mhe&+mn &+MU&+mp &+MPr&+min&+Mce&+mss&n", "&+wGet 100 in all stats", "&+wAbililty to use &+LDea&+wths&+L Do&+wor&n");
+  strcat(buf, buf2);
+  //-----END Achievement: Full Base Stats 100
 
   if(GET_CLASS(ch, CLASS_NECROMANCER))
   {

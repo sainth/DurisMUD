@@ -1179,9 +1179,8 @@
 #define TAG_WELLRESTED               2108
 #define TAG_EPICS_GAINED             2109
 #define ACH_CARGOCOUNT               2110
-#define AIP_DEATHSDOOR               2111
-#define ACH_DEATHSDOOR               2112
-#define TAG_DEATHSDOOR               2113
+#define ACH_DEATHSDOOR               2111
+#define TAG_DEATHSDOOR               2112
 
 #define SAVING_PARA   0
 #define SAVING_ROD    1
