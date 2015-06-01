@@ -224,7 +224,7 @@ E 1 6811 1 16 100 0 0 0            *   a dragon tooth trident
 M 0 6820 1 6844 100 0 0 0          * the priest dragon
 E 1 6828 6 16 100 0 0 0            *   a dull black mace
 M 0 6821 1 6845 100 0 0 0          * a dragon statue
-E 1 6863 1 18 100 0 0 0            *   a glowing magical stone
+E 1 6863 1 18 10 0 0 0             *   a glowing magical stone
 G 1 6702 1 0 100 0 0 0             *    a black and blue key
 M 0 6822 1 6848 100 0 0 0          * the Sacristan dragon
 E 1 6830 2 16 100 0 0 0            *   a strange warhammer
