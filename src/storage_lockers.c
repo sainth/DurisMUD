@@ -46,6 +46,8 @@ extern struct zone_data *zone_table;
 
 extern P_nevent get_scheduled(P_char ch, event_func func);
 extern int itemvalue(P_char ch, P_obj obj);
+void event_memorize(P_char, P_char, P_obj, void *);
+int is_wearing_necroplasm(P_char);
 
 #define LOCKERS_START           65201
 #define LOCKERS_MAX             99
@@ -801,7 +803,6 @@ bool EqAffectChest::ItemFits(P_obj obj)
   return false;
 }
 
-
 /* storage locker room proc */
 int storage_locker(int room, P_char ch, int cmd, char *arg);
 
@@ -835,7 +836,38 @@ static void locker_access_remAccess(P_char locker, char *ch_name);
 
 int storage_locker_room_hook(int room, P_char ch, int cmd, char *arg);
 
-
+void display_no_mem( P_char ch )
+{
+  if( IS_PUNDEAD(ch) || GET_CLASS(ch, CLASS_WARLOCK) || IS_UNDEADRACE(ch)
+    || is_wearing_necroplasm(ch) )
+  {
+    send_to_char("You can not manage your link with your &+Lnegative powers&N!\n", ch);
+  }
+  else if( USES_COMMUNE(ch) )
+  {
+    send_to_char( "&+yYou don't seem to see any nature in this closet.\n\r", ch );
+  }
+  else if( USES_DEFOREST(ch) )
+  {
+    send_to_char( "&+yYou don't seem to see any &+gnature&+y in this closet.\n\r", ch );
+  }
+  else if( USES_TUPOR(ch) )
+  {
+    send_to_char("You seem unable to relax enough to commune with the storm spirits.\r\n", ch );
+  }
+  else if (book_class(ch))
+  {
+    send_to_char("It's too quiet to read here.\n", ch);
+  }
+  else if (GET_CLASS(ch, CLASS_SHAMAN))
+  {
+    send_to_char("You seem unable to manage your trance.\n", ch);
+  }
+  else
+  {
+    send_to_char("Your prayers don't seem to be heard here.\n", ch);
+  }
+}
 
 /* obj proc - put on bank counter objects instead of in bank rooms */
 int storage_locker_obj_hook(P_obj obj, P_char ch, int cmd, char *argument)
@@ -975,14 +1007,10 @@ int storage_locker_room_hook(int room, P_char ch, int cmd, char *arg)
     }
 #endif
 
-  send_to_char
-    ("A member of the &+YStorage Locker Safety Commission&n escorts you to the locker\r\n",
-     ch);
-  act
-    ("A member of the &+YStorage Locker Safety Commission&n escorts $n to a private room.",
-     FALSE, ch, 0, ch, TO_ROOM);
+  send_to_char("A member of the &+YStorage Locker Safety Commission&n escorts you to the locker.\r\n", ch);
+  act("A member of the &+YStorage Locker Safety Commission&n escorts $n to a private room.", FALSE, ch, 0, ch, TO_ROOM);
 
-    send_to_char("&+RWARNING: &+WStorage Lockers are not meant to have multiple containers in them. There is a possibility you may &+RLOSE &+Wyour container and all items in it. Store them at your own risk! NO REIMBURSEMENTS!\r\n", ch);
+  send_to_char("&+RWARNING: &+WStorage Lockers are not meant to have multiple containers in them. There is a possibility you may &+RLOSE &+Wyour container and all items in it. Store them at your own risk! NO REIMBURSEMENTS!\r\n", ch);
 
   // PFileToLocker
 
@@ -994,36 +1022,33 @@ int storage_locker_room_hook(int room, P_char ch, int cmd, char *arg)
   char_to_room(ch, locker_room, 0);
 
   StorageLocker *pLocker = GetChestList(locker_room);
-  
+
   int temp = 1 + ( 3 * pLocker->m_itemCount);
-  
+
   if(pLocker->m_itemCount >= 401)
   {
     send_to_char("\r\n&+RYou have a ton of &+WSTUFF&+R, as in more than 400 items - so there's a surcharge!\r\n", ch);
     temp += (pLocker->m_itemCount - 400) * 2000;
   }
-  
+
   if(is_guild_locker)
   {
     temp =1 + ( 1 * pLocker->m_itemCount);
   }
-  
-  char     money_string[MAX_INPUT_LENGTH];
 
+  char money_string[MAX_INPUT_LENGTH];
   sprintf(money_string, "\r\nThe escort says 'You have &+W%d items&n, this cost you %s'&n\r\n", pLocker->m_itemCount , coin_stringv(temp) );
-
   send_to_char(money_string, ch);
-  
-  if(GET_MONEY(ch) < temp &&
-     GET_BALANCE(ch) < temp)
+
+  if( GET_MONEY(ch) < temp && GET_BALANCE(ch) < temp )
   {
     send_to_char("..but you don't have the money not even in your bank account!, GET OUT!\r\n\r\n", ch);
-        room = ch->in_room;
-        char_from_room(ch);
-        char_to_room(ch, world[room].dir_option[0]->to_room, 0);
-    return (TRUE);
+    room = ch->in_room;
+    char_from_room(ch);
+    char_to_room(ch, world[room].dir_option[0]->to_room, 0);
+    return TRUE;
   }
-  
+
   if(GET_MONEY(ch) < temp)
   {
     SUB_BALANCE(ch, temp, 0);
@@ -1032,24 +1057,34 @@ int storage_locker_room_hook(int room, P_char ch, int cmd, char *arg)
   {
     SUB_MONEY(ch, temp, 0);
   }
-
 //End Money hack
+
+  // Stop deforest/commune/etc.
+  if( IS_AFFECTED2(ch, AFF2_MEMORIZING) || get_scheduled(ch, event_memorize) )
+  {
+    REMOVE_BIT( ch->specials.affected_by2, AFF2_MEMORIZING );
+    disarm_char_events(ch, event_memorize);
+    send_to_char( "\n\r", ch );
+    display_no_mem( ch );
+    CharWait(ch, WAIT_SEC * 3);
+  }
+
   strcpy(lockerName, GET_NAME(chLocker));
-  
-  if (strrchr(lockerName, '.'))
+
+  if( strrchr(lockerName, '.') )
+  {
     *(strrchr(lockerName, '.')) = '\0';
-  
+  }
+
   // warn them that they can't idle in the locker...
-  if (str_cmp(lockerName, GET_NAME(ch)))
+  if( str_cmp(lockerName, GET_NAME(ch)) )
   {
     logit(LOG_WIZ, "LOCKER: (%s) entered (%s's) locker.", GET_NAME(ch), lockerName);
-    send_to_char
-      ("&+RWARNING:&n This isn't your own locker.  Therefore, you'll be ejected if\r\n"
-       "you are idle for more then 2 minutes.\r\n", ch);
+    send_to_char("&+RWARNING:&n This isn't your own locker.  Therefore, you'll be ejected if\r\n"
+      "you are idle for more then 2 minutes.\r\n", ch);
   }
-  
-  return TRUE;
 
+  return TRUE;
 }
 
 /* room proc put in guildhalls, etc to allow a person to enter their guild locker */
@@ -1197,22 +1232,27 @@ int storage_locker(int room, P_char ch, int cmd, char *arg)
   char     name[MAX_INPUT_LENGTH], buf[MAX_INPUT_LENGTH + 4];
 
 
-  if ((cmd == CMD_SHAPECHANGE) || (cmd == CMD_DISGUISE) || (cmd == CMD_SWITCH)
-      || (cmd == CMD_AT) || (cmd == CMD_CAMP) || (cmd == CMD_QUIT) ||
-      cmd == CMD_USE || cmd == CMD_SUMMON || cmd == CMD_INNATE || cmd == CMD_BANDAGE ||
-        cmd == CMD_QUEST)
+  if( (cmd == CMD_SHAPECHANGE) || (cmd == CMD_DISGUISE) || (cmd == CMD_SWITCH) || (cmd == CMD_AT)
+    || (cmd == CMD_CAMP) || (cmd == CMD_QUIT) || cmd == CMD_USE || cmd == CMD_SUMMON || cmd == CMD_INNATE
+    || cmd == CMD_BANDAGE || cmd == CMD_QUEST )
   {
     send_to_char("You can't do that in here!  Leave first.\r\n", ch);
     return TRUE;
   }
-  
+
+  if( cmd == CMD_ASSIMILATE || cmd == CMD_COMMUNE || cmd == CMD_DEFOREST || cmd == CMD_TUPOR
+    || cmd == CMD_FOCUS || cmd == CMD_PRAY || cmd == CMD_MEMORIZE )
+  {
+    display_no_mem(ch);
+    return TRUE;
+  }
+
   if ((cmd == CMD_DOORBASH) || (cmd == CMD_DOORKICK))
   {
     send_to_char("Instead, just open the door and walk out, okay?\r\n", ch);
     return TRUE;
   }
 
- 
   one_argument(arg, name);
 
   // check legend lore
