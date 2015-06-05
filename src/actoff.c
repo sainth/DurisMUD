@@ -3575,7 +3575,7 @@ void kick(P_char ch, P_char victim)
         target_room = world[victim->in_room].dir_option[door]->to_room;
         char_from_room(victim);
         
-        if(!char_to_room(victim, target_room, -1))
+        if( char_to_room(victim, target_room, -1))
         {
           act("$n flies in, crashing on the floor!", TRUE, victim, 0, 0,
               TO_ROOM);
@@ -7684,7 +7684,7 @@ void do_rearkick(P_char ch, char *argument, int cmd)
         FALSE, ch, 0, victim, TO_NOTVICT);
       target_room = world[victim->in_room].dir_option[door]->to_room;
       char_from_room(victim);
-      if(!char_to_room(victim, target_room, -1))
+      if( char_to_room(victim, target_room, -1))
       {
         act("$n &+Lflies in, crashing on the floor!&n",
           TRUE, victim, 0, 0, TO_ROOM);

@@ -3204,7 +3204,7 @@ int spell_solbeeps_single_missile(int level, P_char ch, char *arg, int type, P_c
             victim, TO_NOTVICT);
           int target_room = world[victim->in_room].dir_option[door]->to_room;
           char_from_room(victim);
-          if(!char_to_room(victim, target_room, -1))
+          if(char_to_room(victim, target_room, -1))
           {
             act("$n flies in, crashing on the floor!", TRUE, victim, 0, 0,
               TO_ROOM);

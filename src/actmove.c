@@ -1673,7 +1673,7 @@ int do_simple_move_skipping_procs(P_char ch, int exitnumb, unsigned int flags)
   if( world[new_room].people )
   {
     char_from_room(ch);
-    if( char_to_room(ch, new_room, -2) )
+    if( !char_to_room(ch, new_room, -2) )
     {
       return FALSE;
     }
@@ -1795,7 +1795,7 @@ int do_simple_move_skipping_procs(P_char ch, int exitnumb, unsigned int flags)
 
   char_from_room(ch);
   ch->specials.was_in_room = world[was_in].number;
-  if( char_to_room(ch, new_room, exitnumb) )
+  if( !char_to_room(ch, new_room, exitnumb) )
   {
     return FALSE;
   }
@@ -3463,7 +3463,7 @@ void do_drag(P_char ch, char *argument, int cmd)
 
       char_from_room(tch);      /* move dragee */
       
-      if( !char_to_room(tch, ch->in_room, 0))
+      if( char_to_room(tch, ch->in_room, 0))
       {
         act("$n drags $N along behind $m.", TRUE, ch, 0, tch, TO_ROOM);
         act("You drag $N along behind you.", TRUE, ch, 0, tch, TO_CHAR);

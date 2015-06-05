@@ -742,7 +742,7 @@ void nexus_guardian_energy_burst(P_char ch, bool show_message = true)
         act("The wave slams into $N, throwing $M from the room!", FALSE, ch, 0, tch, TO_NOTVICT);
         int target_room = world[tch->in_room].dir_option[door]->to_room;
         char_from_room(tch);
-        if (!char_to_room(tch, target_room, -1))
+        if (char_to_room(tch, target_room, -1))
         {
           act("$n flies in, crashing on the floor!", TRUE, tch, 0, 0, TO_ROOM);
           SET_POS(tch, POS_PRONE + GET_STAT(tch));

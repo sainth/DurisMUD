@@ -2026,7 +2026,7 @@ void do_shift_prime(P_char ch, char *arg, int cmd)
   act("$n slowly fades away...", 0, ch, 0, 0, TO_ROOM);
   char_from_room(ch);
   send_to_char("You materialize elsewhere!\n", ch);
-  if (char_to_room(ch, r_room, -1))
+  if (!char_to_room(ch, r_room, -1))
     return;
   act("$n slowly materializes...", 0, ch, 0, 0, TO_ROOM);
   CharWait(ch, PULSE_VIOLENCE);
@@ -2390,7 +2390,7 @@ void do_project_image(P_char ch, char *arg, int cmd)
   GET_SIZE(image) = GET_SIZE(ch);
   remove_plushit_bits(image);
 
-  if (!char_to_room(image, ch->in_room, 0) && arg && *arg)
+  if (char_to_room(image, ch->in_room, 0) && arg && *arg)
   {
     int      dir = search_block(arg, dirs, FALSE);
 
@@ -2994,7 +2994,7 @@ void do_doorbash(P_char ch, char *arg, int cmd)
     a = EXIT(ch, dir)->to_room;
     b = ch->in_room;
     char_from_room(ch);
-    if (char_to_room(ch, a, -1))
+    if (!char_to_room(ch, a, -1))
       return;                   /* have to fix later */
 
     act
@@ -3145,7 +3145,7 @@ void do_doorkick(P_char ch, char *arg, int cmd)
     b = ch->in_room;
 
     char_from_room(ch);
-    if (char_to_room(ch, a, -1))
+    if (!char_to_room(ch, a, -1))
       return;
 
     sprintf(Gbuf1, "With a great crash, the door to the %s is destroyed!",
@@ -3159,7 +3159,7 @@ void do_doorkick(P_char ch, char *arg, int cmd)
       REMOVE_BIT(EXIT(ch, rev_dir[dir])->exit_info, EX_SECRET);
     }
     char_from_room(ch);
-    if (char_to_room(ch, b, -1))
+    if (!char_to_room(ch, b, -1))
       return;
 
 /*

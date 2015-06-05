@@ -13760,7 +13760,7 @@ int conj_specpet_golem(P_char ch, P_char pl, int cmd, char *arg)
             TO_NOTVICT);
         target_room = world[vict->in_room].dir_option[door]->to_room;
         char_from_room(vict);
-        if (!char_to_room(vict, target_room, -1))
+        if (char_to_room(vict, target_room, -1))
         {
           act("$n &+Yflies in &+Yface first&+y, crashing on the floor!", TRUE,
               vict, 0, 0, TO_ROOM);

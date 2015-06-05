@@ -1361,7 +1361,7 @@ int door, target_room;
             FALSE, ch, 0, victim, TO_NOTVICT);
           target_room = world[victim->in_room].dir_option[door]->to_room;
           char_from_room(victim);
-          if(!char_to_room(victim, target_room, -1))
+          if( char_to_room(victim, target_room, -1))
           {
             act("$n flies in looking slightly dazed!", TRUE, victim, 0, 0, TO_ROOM);
             CharWait(victim, PULSE_VIOLENCE * 1);
