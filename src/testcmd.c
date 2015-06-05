@@ -3,6 +3,7 @@
 #include "epic.h"
 #include "sql.h"
 #include "db.h"
+#include "graph.h"
 #include "map.h"
 #include "spells.h"
 #include "interp.h"
@@ -31,6 +32,7 @@ extern struct zone_random_data {
 extern int get_mincircle( int spell );
 
 void display_map(P_char ch, int n, int show_map_regardless);
+void do_test_radiate(P_char ch, char *arg, int cmd);
 
 void disproom(P_char ch, int x, int y)
 {
@@ -253,6 +255,11 @@ void do_test(P_char ch, char *arg, int cmd)
   if( isname("room", buff) )
   {
     do_test_room(ch, arg, cmd);
+    return;
+  }
+  if( isname("radiate", buff) )
+  {
+    do_test_radiate(ch, arg, cmd);
     return;
   }
   if( isname("lava", buff) )
@@ -551,3 +558,32 @@ void do_test(P_char ch, char *arg, int cmd)
   }
 }
 
+// Function to test the radiate message from room code.
+void do_test_radiate(P_char ch, char *arg, int cmd)
+{
+  char  buff[MAX_STRING_LENGTH];
+  char *message;
+  int   num_rooms;
+
+  arg = one_argument(arg, buff);
+
+  if( !is_number(buff) )
+  {
+    send_to_char( "You dork.  You must specify a number of rooms to radiate as a first argument.\n\r"
+      "Then, supply the string you want to radiate.\n\r", ch );
+    return;
+  }
+
+  num_rooms = atoi(buff);
+  message = skip_spaces(arg);
+
+  sprintf(buff, "%s in %s [%d] radiates \"%s\" %d rooms.", J_NAME(ch), world[ch->in_room].name,
+    world[ch->in_room].number, message, num_rooms );
+  wizlog(56, buff);
+  logit(LOG_WIZ, buff);
+
+  // Radiate from ch's room, the message, outward by num_rooms rooms, dracolich flags, and show 100% of the time.
+  radiate_message_from_room(ch->in_room, message, num_rooms,
+    (RMFR_FLAGS) (RMFR_RADIATE_ALL_DIRS | RMFR_PASS_WALL | RMFR_PASS_DOOR | RMFR_CROSS_ZONE_BARRIER), 100 );
+
+}
