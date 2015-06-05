@@ -885,7 +885,9 @@ bool char_to_room(P_char ch, int room, int dir)
   int      y_distance = 0;
 
   if( !IS_ALIVE(ch) )
+  {
     return FALSE;
+  }
 
   if (room < 0)
   {
@@ -1087,8 +1089,17 @@ bool char_to_room(P_char ch, int room, int dir)
    * but does some checking before it continues. JAB
    */
 
-  if (GET_STAT(ch) == STAT_DEAD)
-    return TRUE;
+  if(GET_STAT(ch) == STAT_DEAD)
+  {
+    if( ch->in_room == room )
+    {
+      return TRUE;
+    }
+    else
+    {
+      return FALSE;
+    }
+  }
 
   // Room procs.
   if (world[ch->in_room].funct)
@@ -1096,7 +1107,9 @@ bool char_to_room(P_char ch, int room, int dir)
     (*world[ch->in_room].funct) (ch->in_room, ch, (-50 + dir), NULL);
     // Room proc killed them.
     if( !char_in_list(ch) || (room != ch->in_room) || (GET_STAT(ch) == STAT_DEAD) )
+    {
       return FALSE;
+    }
   }
   if( (world[room].sector_type == SECT_FIREPLANE)
     || (world[room].sector_type == SECT_LAVA)
@@ -1140,7 +1153,12 @@ bool char_to_room(P_char ch, int room, int dir)
     {
       // FALSE -> can't kill char, FALSE -> This is not an event.
       if( falling_char(ch, FALSE, FALSE) )
+      {
+        if( ch->in_room != room )
+        {
         return FALSE;
+        }
+      }
     }
   }
 
@@ -1163,6 +1181,10 @@ bool char_to_room(P_char ch, int room, int dir)
     if (!IS_AFFECTED2(ch, AFF2_IS_DROWNING) &&
         !IS_AFFECTED2(ch, AFF2_HOLDING_BREATH))
       underwatersector(ch);
+    if( !IS_ALIVE(ch) )
+    {
+      return FALSE;
+    }
   }
   if (IS_SET(ch->specials.affected_by3, AFF3_SWIMMING) &&
       ch->specials.z_cord < 1 && IS_WATER_ROOM(ch->in_room))
@@ -1242,7 +1264,9 @@ bool char_to_room(P_char ch, int room, int dir)
   }
 
   if( ALONE(ch) )
-    return FALSE;
+  {
+    return TRUE;
+  }
 
   // This check is important because we want to make sure ch isn't a newly created mob.
   if( was_in > 0 )
@@ -1368,7 +1392,7 @@ bool char_to_room(P_char ch, int room, int dir)
       }
     }
   }
-  return FALSE;
+  return TRUE;
 }
 
 /*
