@@ -688,7 +688,7 @@ void CharWait(P_char ch, int delay)
     return;
   }
 
-  if( !CAN_ACT(ch) && !IS_TRUSTED(ch) )
+  if( !CAN_ACT(ch) )
   {
     // The event event_wait just turns off the PLR2_WAIT bit (and updates position).
     e = get_scheduled(ch, event_wait);
@@ -705,16 +705,14 @@ void CharWait(P_char ch, int delay)
         // Kill the shorter event and add a new one.. why not just update e->timer??
         // Because we bucket-sort events and this is faster than moving the event to a new bucket.
         disarm_char_nevents(ch, event_wait);
-        SET_BIT(ch->specials.act2, PLR2_WAIT);
-        add_event(event_wait, delay, ch, 0, 0, 0, 0, 0);
       }
     }
   }
-  else if( IS_TRUSTED(ch) )
+  if( !IS_TRUSTED(ch) )
   {
-    REMOVE_BIT(ch->specials.act2, PLR2_WAIT);
-    return;
+    SET_BIT(ch->specials.act2, PLR2_WAIT);
   }
+  add_event(event_wait, delay, ch, 0, 0, 0, 0, 0);
 }
 
 /*
