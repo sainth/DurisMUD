@@ -2276,7 +2276,7 @@ void new_look(P_char ch, char *argument, int cmd, int room_no)
   vis_mode = get_vis_mode(ch, room_no);
   if( vis_mode == 5 && cmd != CMD_LOOKOUT )
   {
-    if( IS_MAP_ROOM(room_no) && *arg1 == '\0' )
+    if( IS_MAP_ROOM(ch->in_room) && IS_MAP_ROOM(room_no) && *arg1 == '\0' )
     {
       map_look( ch, MAP_USE_TOGGLE );
     }
@@ -2286,7 +2286,7 @@ void new_look(P_char ch, char *argument, int cmd, int room_no)
   }
   if( vis_mode == 6 && cmd != CMD_LOOKOUT )
   {
-    if( IS_MAP_ROOM(room_no) && *arg1 == '\0' )
+    if( IS_MAP_ROOM(ch->in_room) && IS_MAP_ROOM(room_no) && *arg1 == '\0' )
     {
       map_look( ch, MAP_USE_TOGGLE );
     }
@@ -2311,7 +2311,7 @@ void new_look(P_char ch, char *argument, int cmd, int room_no)
   tmp_char = NULL;
   tmp_desc = NULL;
 
-  // If we have no args, and CMD_LOOKOUT or -4 ?
+  // If we have no args, and CMD_LOOKOUT or CMD_LOOKAFAR
   if( (keyword_no == 8) && (cmd != CMD_LOOK) )
   {
     keyword_no = 20;
@@ -2749,7 +2749,7 @@ void new_look(P_char ch, char *argument, int cmd, int room_no)
 
   case 8:                      /* look COMMAND, with NULL args, brief is forced */
   case 9:                      /* look 'room', brief is overridden */
-  case 20:                     /* look called with cmd -4, brief mode is honored */
+  case 20:                     /* look called with CMD_LOOKOUT or CMD_LOOKAFAR */
 
   case 18:                     // looking 'inside' something - so we can show a room w/o the map
 
@@ -2772,7 +2772,7 @@ void new_look(P_char ch, char *argument, int cmd, int room_no)
           map_look_room(ch, room_no, MAP_IGNORE_TOGGLE);
         }
         // CMD_LOOKAFAR -> look in a room that ch isn't in.
-        if( IS_MAP_ROOM(room_no) && (cmd == CMD_LOOKAFAR) )
+        if( IS_MAP_ROOM(ch->in_room) && IS_MAP_ROOM(room_no) && (cmd == CMD_LOOKAFAR) )
         {
           map_look_room(ch, room_no, MAP_USE_TOGGLE);
         }

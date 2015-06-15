@@ -107,6 +107,7 @@ void     add_quest_data(char *map);
 #define CONTAINS_CARGO       22
 #define CONTAINS_CTF_FLAG    23
 #define CONTAINS_GEMMINE     24
+#define CONTAINS_CH          25
 
 #define HIDDEN_BY_FOREST(from_room,to_room) ( world[to_room].sector_type == SECT_FOREST && world[from_room].sector_type != SECT_FOREST )
 
@@ -274,10 +275,14 @@ int whats_in_maproom(P_char ch, int room, int distance, int show_regardless)
   int percentroll = number(1, 100);
   /*  int room; */
 
-  if(!ch ||
-    !IS_ALIVE(ch))
+  if( !IS_ALIVE(ch) )
   {
     return 0;
+  }
+
+  if( room == ch->in_room )
+  {
+    return CONTAINS_CH;
   }
 
 #if defined(CTF_MUD) && (CTF_MUD == 1)
@@ -300,12 +305,12 @@ int whats_in_maproom(P_char ch, int room, int distance, int show_regardless)
   {
     return 0;
   }
-  
-  if(!room)
+
+  if( room <= 0 )
   {
     return 0;
   }
-  
+
   if(IS_SET(world[room].room_flags, BLOCKS_SIGHT))
   {
     return 0;
@@ -654,7 +659,7 @@ void display_map_room(P_char ch, int from_room, int n, int show_map_regardless)
         strcat(buf, " ");
       }
       /* you */
-      else if (x == 0 && y == 0)
+      else if( x == 0 && y == 0 && ch->in_room == from_room )
       {
         P_ship ship;
         // If we're on an undocked ship..
@@ -683,6 +688,10 @@ void display_map_room(P_char ch, int from_room, int n, int show_map_regardless)
         {
           strcat(buf, "&+W@&n");
         }
+      }
+      else if (whats_in == CONTAINS_CH)
+      {
+        strcat(buf, "&+W@&n");
       }
       else if (whats_in == CONTAINS_MAGIC_DARK)
       {
