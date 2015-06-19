@@ -3224,8 +3224,6 @@ void enter_game(P_desc d)
     if(affected_by_spell(ch, AIP_YOUSTRAHDME2))
       affect_from_char(ch, AIP_YOUSTRAHDME2);
 
-    ch->specials.z_cord = 0;    /* prevent swim crash bug */
-
     /* remove any morph flag that might be leftover */
     REMOVE_BIT(ch->specials.act, PLR_MORPH | PLR_WRITE | PLR_MAIL);
 

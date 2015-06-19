@@ -144,7 +144,7 @@ void clear_nevent( P_nevent e )
         if( !e1 )
         {
           debug( "clear_nevent: obj '%s' does not have event '%s' in its event list head(%s).", OBJ_SHORT(obj),
-            (e->func != NULL) ? get_function_name((void *)e1->func) : "NoFunc",
+            (e->func != NULL) ? get_function_name((void *)e->func) : "NoFunc",
             (obj->nevents != NULL) ? ((obj->nevents->func != NULL) ? get_function_name((void *)obj->nevents->func) : "NoFunc") : "NULL" );
         }
         else

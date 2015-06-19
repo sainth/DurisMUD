@@ -4086,9 +4086,7 @@ int restoreItemsOnly(P_char ch, int flatrate)
             "Problem restoring save file of: %s was %d, should be %d\n",
             GET_NAME(ch), affect_off, item_off);
     logit(LOG_FILE, "Problem restoring save file of %s.", GET_NAME(ch));
-    send_to_char
-      ("There is something wrong with your save file!  Please talk to a God.\r\n",
-       ch);
+    send_to_char("There is something wrong with your save file!  Please talk to a God.\r\n", ch);
     return -2;
   }
 

@@ -889,7 +889,7 @@ bool char_to_room(P_char ch, int room, int dir)
     return FALSE;
   }
 
-  if (room < 0)
+  if( room < 0 )
   {
     if( IS_NPC(ch) )
     {
@@ -923,13 +923,14 @@ bool char_to_room(P_char ch, int room, int dir)
   }
 #endif
 
-  if (!IS_SET(world[room].room_flags, SINGLE_FILE))
+  if( !IS_SET(world[room].room_flags, SINGLE_FILE) )
   {
     ch->next_in_room = world[room].people;
     world[room].people = ch;
   }
   else
   {
+    // Find the first two valid exits and the last one.
     for (j = 0; j < NUM_EXITS; j++)
       if (world[room].dir_option[j])
         if (exit1 == -1)
@@ -956,11 +957,11 @@ bool char_to_room(P_char ch, int room, int dir)
     }
     else
     {
-      if (!(k = world[room].people))
+      if( !(k = world[room].people) )
         world[room].people = ch;
       else
       {
-        while (k->next_in_room)
+        while( k->next_in_room )
           k = k->next_in_room;
         k->next_in_room = ch;
         ch->next_in_room = 0;
