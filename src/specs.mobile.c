@@ -14575,7 +14575,7 @@ int witch_doctor(P_char ch, P_char customer, int cmd, char *arg)
   };
 
   if (cmd == CMD_SET_PERIODIC)
-    return FALSE;               // change to TRUE to enable wandering
+    return TRUE;               // change to TRUE to enable wandering
 
   if (cmd == CMD_LIST)
   {
