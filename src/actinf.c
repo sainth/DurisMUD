@@ -7468,7 +7468,7 @@ void do_where(P_char ch, char *argument, int cmd)
     argument++;
   }
 
-  if( strcmp( argument, "?" ) )
+  if( !*argument || !strcmp( argument, "?" ) )
   {
     send_to_char( "&+YValid arguments: &+Wevils, goods, undeads, neutrals, <vnum>, zone, trap, stat.\n\r", ch );
   }
