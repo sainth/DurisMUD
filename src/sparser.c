@@ -2193,7 +2193,7 @@ void do_cast(P_char ch, char *argument, int cmd)
     }
   }
 
-  if( affected_by_spell(ch, FIRST_INSTRUMENT) )
+  if( affected_by_spell(ch, TAG_BARDSONG_FAILURE) )
   {
     send_to_char("You haven't regained your composure.\n", ch);
     return;
