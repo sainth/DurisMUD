@@ -60,7 +60,6 @@ extern struct mm_ds *dead_trophy_pool;
 extern int portal_id;
 extern void obj_affect_remove(P_obj, struct obj_affect *);
 void     delete_knownShapes(P_char ch);
-P_nevent get_scheduled(P_obj obj, event_func func);
 void     proclib_obj_event(P_char, P_char, P_obj obj, void*);
 int proclibObj_add(P_obj obj, char *procName, char *args);
 extern void event_mob_mundane(P_char, P_char, P_obj, void*);

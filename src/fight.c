@@ -1594,26 +1594,33 @@ void make_bloodstain(P_char ch)
     "&+rFresh blood covers everything in the area.&n"
   };
 
-  if (!HAS_FOOTING(ch))
+  if( !HAS_FOOTING(ch) )
     return;
 
-  if (ch->specials.fighting && 
-      (IS_UNDEADRACE(ch->specials.fighting) || IS_ANGEL(ch->specials.fighting)))
+  if( ch->specials.fighting && (IS_UNDEADRACE(ch->specials.fighting) || IS_ANGEL(ch->specials.fighting)) )
     return;
 
   if (IS_UNDEADRACE(ch) || IS_ANGEL(ch))
     return;
 
   if (world[ch->in_room].contents)
+  {
     for (obj = world[ch->in_room].contents; obj; obj = next_obj)
     {
       next_obj = obj->next_content;
-      if (obj->R_num == real_object(4))
+      if( obj->R_num == real_object(4) )
+      {
         obj_from_room(obj);
+        extract_obj( obj, TRUE );
+      }
     }
+  }
+
   blood = read_object(4, VIRTUAL);
-  if (!blood)
+  if( !blood )
+  {
     return;
+  }
 
   blood->str_mask = (STRUNG_DESC1);
 
@@ -1627,9 +1634,9 @@ void make_bloodstain(P_char ch)
   // Becomes NOSHOW at 90 seconds.
   set_obj_affected(blood, 3600, TAG_OBJ_DECAY, 0);
 
-  if (ch->in_room == NOWHERE)
+  if( ch->in_room == NOWHERE )
   {
-    if (real_room(ch->specials.was_in_room) != NOWHERE)
+    if( real_room(ch->specials.was_in_room) != NOWHERE )
       obj_to_room(blood, real_room(ch->specials.was_in_room));
     else
     {
@@ -1638,8 +1645,9 @@ void make_bloodstain(P_char ch)
     }
   }
   else
+  {
     obj_to_room(blood, ch->in_room);
-
+  }
 }
 
 /*

@@ -49,7 +49,6 @@ extern bool exit_wallable(int room, int dir, P_char ch);
 extern bool create_walls(int room, int exit, P_char ch, int level, int type,
                          int power, int decay, char *short_desc, char *desc,
                          ulong flags);
-extern void disarm_single_event(P_nevent);
 
 
 void cast_call_lightning(int level, P_char ch, char *arg, int type,

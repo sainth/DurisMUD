@@ -2503,12 +2503,11 @@ void Decay(P_obj obj)
   {
     dest = 1;
 
-    // Mossimment:     if the proc returns TRUE (it has done its own decay proc)
+    // Mossimment:     if the proc returns TRUE (it has done its own decay proc message)
     //                 so genericdecay = false -- no need to do a default decay
     if (obj_index[obj->R_num].func.obj)
     {
-      genericdecay =
-        !(*obj_index[obj->R_num].func.obj) (obj, NULL, CMD_DECAY, NULL);
+      genericdecay = !(*obj_index[obj->R_num].func.obj) (obj, NULL, CMD_DECAY, NULL);
     }
     else if (obj->R_num == real_object(2))
     {
@@ -2517,31 +2516,25 @@ void Decay(P_obj obj)
        */
       if (world[obj->loc.room].people)
       {
-        act("The winds of time have reclaimed $p.",
-            0, world[obj->loc.room].people, obj, 0, TO_ROOM);
-        act("The winds of time have reclaimed $p.",
-            0, world[obj->loc.room].people, obj, 0, TO_CHAR);
+        act("The winds of time have reclaimed $p.", 0, world[obj->loc.room].people, obj, 0, TO_ROOM);
+        act("The winds of time have reclaimed $p.", 0, world[obj->loc.room].people, obj, 0, TO_CHAR);
       }
-      if IS_SET
-        (obj->value[1], PC_CORPSE)
+      if IS_SET(obj->value[1], PC_CORPSE)
       {
-        logit(LOG_CORPSE, "%s decayed in room %d.", obj->short_description,
-              world[obj->loc.room].number);
+        logit(LOG_CORPSE, "%s decayed in room %d.", obj->short_description, world[obj->loc.room].number);
         corpselog = TRUE;
       }
     }
 
-    if (genericdecay)
+    if( genericdecay )
     {
       /*
        * everything else
        */
       if (world[obj->loc.room].people)
       {
-        act("$p crumbles to dust and blows away.",
-            TRUE, world[obj->loc.room].people, obj, 0, TO_ROOM);
-        act("$p crumbles to dust and blows away.",
-            TRUE, world[obj->loc.room].people, obj, 0, TO_CHAR);
+        act("$p crumbles to dust and blows away.", TRUE, world[obj->loc.room].people, obj, 0, TO_ROOM);
+        act("$p crumbles to dust and blows away.", TRUE, world[obj->loc.room].people, obj, 0, TO_CHAR);
         /*
          * if its a wall, and we blocked the exitbit, remove it
          */

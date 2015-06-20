@@ -104,7 +104,6 @@ extern char *get_function_name(void *func);
 void     unlink_char_affect(P_char, struct affected_type *);
 struct link_description link_types[LNK_MAX + 1];
 
-extern void disarm_single_event(P_nevent);
 int damroll_cap;
 int hitroll_cap;
 
@@ -2286,28 +2285,29 @@ void recalculate_obj_extra(P_obj obj)
 void obj_affect_remove(P_obj obj, struct obj_affect *af)
 {
   struct obj_affect *t_af;
+  P_nevent e;
 
-  if(!obj)
+  if( !obj )
   {
     return;
   }
 
- // This should fix a crash bug that occurs when an item's condition < 0.
-  if(obj->condition < 0) 
+  // This should fix a crash bug that occurs when an item's condition < 0.
+  if( obj->condition < 0 )
   {
     obj->condition = 1;
   }
 
-  if(obj->affects == af)
+  if( obj->affects == af )
   {
     obj->affects = af->next;
   }
   else
   {
-    for (t_af = obj->affects; t_af && t_af->next != af; t_af = t_af->next)
-    
-    ;
-    if (t_af)
+    for( t_af = obj->affects; t_af && t_af->next != af; t_af = t_af->next )
+      ;
+
+    if( t_af )
       t_af->next = af->next;
     else
     {
@@ -2337,22 +2337,23 @@ void obj_affect_remove(P_obj obj, struct obj_affect *af)
     }
   }
 
-  if (af->extra2 && af->type != TAG_ALTERED_EXTRA2)
+  if( af->extra2 && af->type != TAG_ALTERED_EXTRA2 )
   {
     recalculate_obj_extra(obj);
-    for (t_af = obj->affects; t_af; t_af = t_af->next)
-      if (t_af->extra2 && t_af->type != TAG_ALTERED_EXTRA2)
+    for( t_af = obj->affects; t_af; t_af = t_af->next)
+      if( t_af->extra2 && t_af->type != TAG_ALTERED_EXTRA2 )
         break;
 
-    if (!t_af && (t_af = get_obj_affect(obj, TAG_ALTERED_EXTRA2)))
+    if( !t_af && (t_af = get_obj_affect(obj, TAG_ALTERED_EXTRA2)) )
       obj_affect_remove(obj, t_af);
   }
 
-  // find an assoicated event and disarm it
-  P_nevent e;
-  for( e = get_scheduled(obj, event_obj_affect); e; e = get_next_scheduled_obj(e, event_obj_affect))
+  // Find the assoicated event and disarm it
+  LOOP_EVENTS_OBJ( e, obj->nevents )
   {
-    if (*((struct obj_affect **)e->data) == af)
+    if( e->func != event_obj_affect )
+      continue;
+    if( *((struct obj_affect **)e->data) == af )
     {
       disarm_single_event(e);
       break;
@@ -2365,7 +2366,7 @@ void obj_affect_remove(P_obj obj, struct obj_affect *af)
 void event_obj_affect(P_char, P_char, P_obj obj, void *data)
 {
   struct obj_affect *af = *((struct obj_affect **)data);
-  if (af->type == TAG_OBJ_DECAY)
+  if( af->type == TAG_OBJ_DECAY )
     Decay(obj);
   obj_affect_remove(obj, af);
 }
@@ -2391,10 +2392,15 @@ struct obj_affect *get_spell_from_obj(P_obj obj, int spell)
   return NULL;
 }
 
-void set_obj_affected_extra(P_obj obj, int time, sh_int spell, sh_int data,
-                            ulong extra2)
+void set_obj_affected_extra(P_obj obj, int time, sh_int spell, sh_int data, ulong extra2)
 {
   struct obj_affect *af;
+
+  if( !obj )
+  {
+    debug( "set_obj_affected_extra: NULL obj!?" );
+    return;
+  }
 
   if (!dead_obj_affect_pool)
     dead_obj_affect_pool = mm_create("OBJ_AFFECTS", sizeof(struct obj_affect),
@@ -2407,16 +2413,14 @@ void set_obj_affected_extra(P_obj obj, int time, sh_int spell, sh_int data,
   af->next = obj->affects;
   obj->affects = af;
 
-  if (extra2 && !get_obj_affect(obj, TAG_ALTERED_EXTRA2) &&
-      spell != TAG_ALTERED_EXTRA2)
+  if( extra2 && !get_obj_affect(obj, TAG_ALTERED_EXTRA2) && spell != TAG_ALTERED_EXTRA2 )
     set_obj_affected_extra(obj, -1, TAG_ALTERED_EXTRA2, 0, obj->extra2_flags);
 
   obj->extra2_flags |= extra2;
 
   if (time >= 0)
   {
-    add_event(event_obj_affect, time, 0, 0, obj, 0,
-              &af, sizeof(struct obj_affect*));
+    add_event(event_obj_affect, time, 0, 0, obj, 0, &af, sizeof(struct obj_affect*));
   }
 }
 
@@ -2428,9 +2432,13 @@ void set_obj_affected(P_obj obj, int time, sh_int spell, sh_int data)
 int obj_affect_time(P_obj obj, struct obj_affect *af)
 {
   P_nevent e;
-  for( e = get_scheduled(obj, event_obj_affect); e; e = get_next_scheduled_obj(e, event_obj_affect))
+
+  LOOP_EVENTS_OBJ( e, obj->nevents )
   {
-    if (*((struct obj_affect **)e->data) == af)
+    if( e->func != event_obj_affect )
+      continue;
+
+    if( *((struct obj_affect **)e->data) == af )
       return ne_event_time(e);
   }
   return -1;

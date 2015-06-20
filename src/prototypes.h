@@ -864,6 +864,7 @@ void zone_purge(int);
 /* new_events.c */
 
 void check_nevents();
+void disarm_single_event(P_nevent);
 
 /* fight.c */
 bool rapier_dirk(P_char, P_char);

@@ -3486,9 +3486,10 @@ P_obj restoreObjects(char *buf, P_char ch, int not_room)
 
         obj_to_char(obj, ch);
 #else
-        if (IS_SET(obj->extra_flags, ITEM_PROCLIB) &&
-           (NULL == get_scheduled(obj, proclib_obj_event)))
+        if( IS_SET(obj->extra_flags, ITEM_PROCLIB) && (NULL == get_scheduled(obj, proclib_obj_event)) )
+        {
           add_event(proclib_obj_event, PULSE_MOBILE + number(-4, 4), NULL, NULL, obj, 0, NULL, 0);
+        }
 
         if (c_obj && (c_obj->type == ITEM_QUIVER || !ch))
           obj_to_obj(obj, c_obj);
@@ -3819,10 +3820,11 @@ P_obj read_one_object(char *read_buf)
     }
 
 #ifndef _PFILE_
-    if (IS_SET(obj->extra_flags, ITEM_PROCLIB) &&
-       (NULL == get_scheduled(obj, proclib_obj_event)))
+    if( IS_SET(obj->extra_flags, ITEM_PROCLIB) && (NULL == get_scheduled(obj, proclib_obj_event)) )
+    {
       add_event(proclib_obj_event, PULSE_MOBILE + number(-4, 4), NULL, NULL, obj, 0, NULL, 0);
-#endif      
+    }
+#endif
 
 	return obj;
 }

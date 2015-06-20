@@ -22,7 +22,6 @@
 
 extern P_room world;
 extern P_index mob_index;
-extern void disarm_single_event(P_nevent);
 extern P_event current_event;
 extern const char *get_event_name(P_event);
 

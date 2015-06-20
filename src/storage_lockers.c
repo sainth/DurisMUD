@@ -2032,7 +2032,7 @@ static int save_locker_char(P_char ch, int bTerminal)
           ("&+R&-LWARNING:  The locker is not saving properly.  This may be due to having too much stuff in it, or another error.  Please pick items up until this error goes away.&n\r\n",
            ch);
       }
-      
+
       /* prevent storage locker chars from idle-renting */
       chLocker->specials.timer = 0;
       if (bTerminal)
@@ -2042,8 +2042,7 @@ static int save_locker_char(P_char ch, int bTerminal)
       else
       {
         if (!get_scheduled(chLocker, StorageLocker::event_resortLocker))
-          add_event(StorageLocker::event_resortLocker, 1, chLocker, ch, NULL,
-                    0, NULL, 0);
+          add_event(StorageLocker::event_resortLocker, 1, chLocker, ch, NULL, 0, NULL, 0);
       }
     }
     else

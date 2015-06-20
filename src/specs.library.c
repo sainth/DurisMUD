@@ -412,9 +412,11 @@ int proclibObj_add(P_obj obj, char *procName, char *args)
   obj->str_mask |= STRUNG_EDESC;
   SET_BIT(obj->extra_flags, ITEM_PROCLIB);
 
-  if ((NULL == get_scheduled(obj, proclib_obj_event)) &&
-      object_proc_libs[libIdx].func(obj, NULL, -10, NULL))
+  if( (NULL == get_scheduled(obj, proclib_obj_event))
+    && object_proc_libs[libIdx].func(obj, NULL, CMD_SET_PERIODIC, NULL) )
+  {
     add_event(proclib_obj_event, PULSE_MOBILE + number(-4, 4), NULL, NULL, obj, 0, NULL, 0);
+  }
 
   return 0;
 }

@@ -11384,32 +11384,31 @@ int blood_stains(P_obj obj, P_char ch, int cmd, char *argument)
     "&+rPuddles of crusty blood cover the ground.&n",
     "&+rCrusty blood covers everything in the area.&n"
   };
-  
-  if (cmd == CMD_DECAY)
-  {
-    return TRUE;
-  }
-  
+
   // Set the timer when obj is loaded
-  if (cmd == CMD_SET_PERIODIC)
+  if( cmd == CMD_SET_PERIODIC )
   {
     obj->timer[0] = time(NULL);
     return TRUE;
   }
- 
-  if (cmd == CMD_PERIODIC)
+
+  // We don't show a decay message.
+  if( cmd == CMD_DECAY )
+  {
+    return TRUE;
+  }
+
+  if( cmd == CMD_PERIODIC && obj->value[1] < BLOOD_DRY )
   {
     // Change it up after 90 seconds
-    if ( (obj->timer[0] < (time(NULL) - 90)) && 
-         !IS_SET(obj->extra_flags, ITEM_NOSHOW) )
+    if( !IS_SET(obj->extra_flags, ITEM_NOSHOW) && (obj->timer[0] < (time(NULL) - 90)) )
     {
       SET_BIT(obj->extra_flags, ITEM_NOSHOW);
       return TRUE;
     }
 
     // Change it up after 3 minutes
-    if ( (obj->timer[0] < (time(NULL) - 180)) && 
-         (obj->value[1] == BLOOD_FRESH) )
+    if( (obj->value[1] == BLOOD_FRESH) && (obj->timer[0] < (time(NULL) - 180)) )
     {
       sprintf(buf, "%s", long_desc_reg[obj->value[0]]);
       obj->description = str_dup(buf);
@@ -11418,8 +11417,7 @@ int blood_stains(P_obj obj, P_char ch, int cmd, char *argument)
     }
 
     // Change it up after 7 minutes
-    if ( (obj->timer[0] < (time(NULL) - 420)) &&
-         (obj->value[1] == BLOOD_REG) )
+    if( (obj->value[1] == BLOOD_REG) && (obj->timer[0] < (time(NULL) - 420)) )
     {
       sprintf(buf, "%s", long_desc_dry[obj->value[0]]);
       obj->description = str_dup(buf);
@@ -14529,8 +14527,12 @@ int moonstone(P_obj obj, P_char ch, int cmd, char *argument)
     if( aff )
     {
       // Find decay event.
-      for( e = get_scheduled(obj, event_obj_affect); e; e = get_next_scheduled_obj(e, event_obj_affect) )
+      LOOP_EVENTS_OBJ( e, obj->nevents )
       {
+        if( e->func != event_obj_affect )
+        {
+          continue;
+        }
         // If event found, set it's timer to 1 min.
         if( *((struct obj_affect **)e->data) == aff )
         {
