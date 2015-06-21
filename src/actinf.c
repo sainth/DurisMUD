@@ -5643,7 +5643,7 @@ void do_score(P_char ch, char *argument, int cmd)
             secs = 0;
             LOOP_EVENTS_CH( ne, ch->nevents )
             {
-              if (ne->func == event_short_affect)
+              if( ne->func == event_short_affect && ne->data != NULL )
               {
                 if( aff == ((struct event_short_affect_data *)(ne->data))->af )
                 {
