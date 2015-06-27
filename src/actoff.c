@@ -1672,20 +1672,27 @@ void do_backstab(P_char ch, char *argument, int cmd)
 {
   P_char   victim;
 
-  if(!(ch))
+  if( !(ch) )
   {
     logit(LOG_EXIT, "assert: bogus params (do_backstab)");
     raise(SIGSEGV);
   }
-  
+
+  // Toggle debugging on / off
+  if( IS_TRUSTED(ch) && !strcmp( argument, "debug" ) )
+  {
+    backstab( ch, NULL );
+    return;
+  }
+
   if(GET_CHAR_SKILL(ch, SKILL_BACKSTAB) < 1)
   {
     send_to_char("You don't know how to backstab.\n", ch);
     return;
   }
- 
+
   victim = ParseTarget(ch, argument);
-  
+
   backstab(ch, victim);
 }
 
@@ -4756,9 +4763,12 @@ void do_sneaky_strike(P_char ch, char *argument, int cmd)
    they end up in different rooms */
 bool single_stab(P_char ch, P_char victim, P_obj weapon)
 {
+  // Note: This DEBUG should always match the one in bool backstab(...).
+  static bool DEBUG = TRUE;
+
   int room = ch->in_room, skill, dice_mult, dam = 0;
   float dice_mod, level_mult, final_mult, damroll_mult, strdex_mod, spinal_tap, critical_stab, critical_stab_mult;
-  bool spinal = FALSE, quarter = FALSE;
+  bool spinal = FALSE, quarter = FALSE, crit = FALSE;
   struct damage_messages messages = {
     "$N makes a strange sound as you place $p in $S back.",
     "Out of nowhere, $n stabs you in the back.",
@@ -4768,6 +4778,14 @@ bool single_stab(P_char ch, P_char victim, P_obj weapon)
     "$n places $p in the back of $N, resulting in some strange noises, a lot of blood and a corpse.",
     0, weapon
   };
+
+  // I know.. the hack here..
+  if( ch && IS_TRUSTED(ch) && victim == NULL && weapon == NULL )
+  {
+    DEBUG = !DEBUG;
+    debug( "backstab: DEBUG display turned %s.", DEBUG ? "ON" : "OFF" );
+    return TRUE;
+  }
 
   if( !ch || !victim || !IS_ALIVE(ch) || !IS_ALIVE(victim) )
   {
@@ -4796,13 +4814,22 @@ bool single_stab(P_char ch, P_char victim, P_obj weapon)
   dice_mult = (int) (weapon->value[1] + (weapon->value[2] / 2)) / 2;
   dice_mult += weapon->value[1] + (weapon->value[1] / 2);
   level_mult = (float) GET_LEVEL(ch) / 56;
+
   dam = (int) dam * (dice_mult * dice_mod);
-
   dam = (int) dam * level_mult;
-
   dam = (int) dam * final_mult;
 
-  if( (IS_AFFECTED(victim, AFF_AWARE) && ( (GET_RACE(ch) != RACE_MOUNTAIN) && (GET_RACE(ch) != RACE_DUERGAR) ))
+  spinal_tap = get_property("backstab.SpinalTap", 0.150);
+  critical_stab = get_property("backstab.CriticalStab", 0.200);
+  critical_stab_mult = get_property("backstab.CriticalStab.Multiplier", 1.000);
+
+  if( GET_CHAR_SKILL(ch, SKILL_CRITICAL_STAB) )
+  {
+    crit = notch_skill(ch, SKILL_CRITICAL_STAB, get_property("skill.notch.offensive", 7))
+      || ((critical_stab * GET_CHAR_SKILL(ch, SKILL_CRITICAL_STAB)) > number(1, 100));
+  }
+
+  if( (IS_AFFECTED(victim, AFF_AWARE) && !crit && ( (GET_RACE(ch) != RACE_MOUNTAIN) && (GET_RACE(ch) != RACE_DUERGAR) ))
     || affected_by_spell(victim, SKILL_BACKSTAB) )
   {
     // A little higher than just int.
@@ -4821,10 +4848,6 @@ bool single_stab(P_char ch, P_char victim, P_obj weapon)
 
   if( IS_IMMOBILE(victim) || GET_STAT(victim) <= STAT_SLEEPING )
     dam = MAX(80, dam);
-
-  spinal_tap = get_property("backstab.SpinalTap", 0.150);
-  critical_stab = get_property("backstab.CriticalStab", 0.200);
-  critical_stab_mult = get_property("backstab.CriticalStab.Multiplier", 1.000);
 
   // Yeah.. we want them really dead.
   if( GET_STAT(victim) <= STAT_INCAP )
@@ -4891,26 +4914,15 @@ bool single_stab(P_char ch, P_char victim, P_obj weapon)
       FALSE, ch, 0, victim, TO_NOTVICTROOM);
   }
 
-  if(GET_CHAR_SKILL(ch, SKILL_SPINAL_TAP)
-    && (notch_skill(ch, SKILL_SPINAL_TAP, get_property("skill.notch.offensive", 7))
-    || (spinal_tap * GET_CHAR_SKILL(ch, SKILL_SPINAL_TAP)) > number(1, 100)))
-  {
-    debug("single_stab: (%s) stabbing (%s) dam (%d) weapon (%dd%d) skill (%d).", GET_NAME(ch), GET_NAME(victim), dam, weapon->value[1], weapon->value[2], skill );
-    if( melee_damage(ch, victim, dam, PHSDAM_NOREDUCE | PHSDAM_NOPOSITION, &messages)
-      || !is_char_in_room(ch, room) )
-    {
-      return TRUE;
-    }
-    spinal = TRUE;
-  }
-  //else if - can not spinal as well as critical stab. (drannak 1/7/14)
-  else if(GET_CHAR_SKILL(ch, SKILL_CRITICAL_STAB)
-    && (notch_skill(ch, SKILL_CRITICAL_STAB, get_property("skill.notch.offensive", 7))
-    || (critical_stab * GET_CHAR_SKILL(ch, SKILL_CRITICAL_STAB)) > number(1, 100)))
+  if( crit )
   {
     dam = dam + (dam * critical_stab_mult);
     send_to_char("&=LWYou score a CRITICAL HIT!!!&N\n", ch);
-    debug("single_stab: (%s) stabbing (%s) dam (%d) weapon (%dd%d) skill (%d).", GET_NAME(ch), GET_NAME(victim), dam, weapon->value[1], weapon->value[2], skill );
+    if( DEBUG )
+    {
+      debug("single_stab: (%s) stabbing (%s) dam (%d) weapon (%dd%d) skill (%d).",
+        GET_NAME(ch), GET_NAME(victim), dam, weapon->value[1], weapon->value[2], skill );
+    }
     if(melee_damage(ch, victim, dam, PHSDAM_NOREDUCE | PHSDAM_NOPOSITION, &messages)
       || !is_char_in_room(ch, room))
     {
@@ -4924,9 +4936,30 @@ bool single_stab(P_char ch, P_char victim, P_obj weapon)
     act("$n twists the blade causing $N to writhe in agony,",
       FALSE, ch, 0, victim, TO_NOTVICTROOM);
   }
+  // else if - can not spinal as well as critical stab. (drannak 1/7/14)
+  else if(GET_CHAR_SKILL(ch, SKILL_SPINAL_TAP)
+    && (notch_skill(ch, SKILL_SPINAL_TAP, get_property("skill.notch.offensive", 7))
+    || (spinal_tap * GET_CHAR_SKILL(ch, SKILL_SPINAL_TAP)) > number(1, 100)))
+  {
+    if( DEBUG )
+    {
+      debug("single_stab: (%s) stabbing (%s) dam (%d) weapon (%dd%d) skill (%d).",
+        GET_NAME(ch), GET_NAME(victim), dam, weapon->value[1], weapon->value[2], skill );
+    }
+    if( melee_damage(ch, victim, dam, PHSDAM_NOREDUCE | PHSDAM_NOPOSITION, &messages)
+      || !is_char_in_room(ch, room) )
+    {
+      return TRUE;
+    }
+    spinal = TRUE;
+  }
   else
   {
-    debug("single_stab: (%s) stabbing (%s) dam (%d) weapon (%dd%d) skill (%d).", GET_NAME(ch), GET_NAME(victim), dam, weapon->value[1], weapon->value[2], skill );
+    if( DEBUG )
+    {
+      debug("single_stab: (%s) stabbing (%s) dam (%d) weapon (%dd%d) skill (%d).",
+        GET_NAME(ch), GET_NAME(victim), dam, weapon->value[1], weapon->value[2], skill );
+    }
     if(melee_damage(ch, victim, dam, PHSDAM_NOREDUCE | PHSDAM_NOPOSITION, &messages)
       || (room < 1) || !is_char_in_room(ch, room))
     {
@@ -4984,6 +5017,9 @@ bool single_stab(P_char ch, P_char victim, P_obj weapon)
 
 bool backstab(P_char ch, P_char victim)
 {
+  // Note this DEBUG should match the one in single_stab always!
+  static bool DEBUG = TRUE;
+
   struct affected_type af, *af_ptr;
   int      learned, old_pos, old_victhp, duergarcrit = 0;
   P_obj    first_w, second_w;
@@ -4993,13 +5029,21 @@ bool backstab(P_char ch, P_char victim)
   if( !IS_ALIVE(ch) )
     return FALSE;
 
+  // I know.. the double hack here..
+  if( IS_TRUSTED(ch) && victim == NULL )
+  {
+    DEBUG = !DEBUG;
+    single_stab(ch, NULL, NULL);
+    return TRUE;
+  }
+
   if( !SanityCheck(ch, "do_backstab") )
     return FALSE;
 
   if( IS_IMMOBILE(ch) )
   {
     send_to_char("In your present condition, just relax and take in the sights.\r\n", ch);
-    return false;
+    return FALSE;
   }
 
   if( IS_SET(world[ch->in_room].room_flags, SINGLE_FILE) )
@@ -5092,7 +5136,7 @@ bool backstab(P_char ch, P_char victim)
   {
      percent_chance = (int) (percent_chance * 1.1);
   }
-
+  /* Commenting out the aware stuff and having aware just be damage reduction. - Lohrr 6/27/2015
   if( IS_AFFECTED(victim, AFF_AWARE) && AWAKE(victim) && !IS_DWARF(ch) )
   {
     percent_chance = (int) (percent_chance * get_property("backstab.AwareModifier", 0.850));
@@ -5107,12 +5151,13 @@ bool backstab(P_char ch, P_char victim)
         break;
       }
     }
-    /* calculated in do_awareness() */
+    // Calculated in do_awareness()
     if(af_ptr)
       percent_chance = (int) (percent_chance * 0.01 * (100 - af_ptr->modifier));
     else
       logit(LOG_DEBUG, "aware, but no affected structure");
   }
+  */
 
   if( IS_FIGHTING(victim) && !IS_IMMOBILE(victim) )
   {
@@ -5173,7 +5218,10 @@ bool backstab(P_char ch, P_char victim)
     percent_chance = MAX(0, percent_chance - GET_LEVEL(victim));
   }
 
-  debug( "backstab: (%s) stabbing (%s) final percentage %d", J_NAME(ch), J_NAME(victim), percent_chance );
+  if( DEBUG )
+  {
+    debug( "backstab: (%s) stabbing (%s) final percentage %d", J_NAME(ch), J_NAME(victim), percent_chance );
+  }
 
   if( first_w && IS_BACKSTABBER(first_w) )
   {
