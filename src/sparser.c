@@ -1298,27 +1298,33 @@ bool parse_spell_arguments(P_char ch, struct spell_target_data * data, char *arg
   /* **************** Locate targets ****************  */
 
   target_ok = FALSE;
-  data->t_char = vict = 0;
-  data->t_obj = obj = 0;
+  data->t_char = vict = NULL;
+  data->t_obj = obj = NULL;
 
   if( !IS_SET(skills[spl].targets, TAR_IGNORE) && !IS_SET(skills[spl].targets, TAR_OFFAREA) )
   {
     argument = one_argument(argument, Gbuf1);
 
-    if (*Gbuf1)
+    if( *Gbuf1 )
     {
-      if (!target_ok && IS_SET(skills[spl].targets, TAR_SELF_ONLY))
-        if (str_cmp(GET_NAME(ch), Gbuf1) == 0)
+      if( !target_ok && IS_SET(skills[spl].targets, TAR_SELF_ONLY) )
+      {
+        if( str_cmp(GET_NAME(ch), Gbuf1) == 0 )
         {
           vict = ch;
           target_ok = TRUE;
         }
+      }
 
       if (!target_ok && IS_SET(skills[spl].targets, TAR_CHAR_ROOM))
       {
         if (!*argument)
+        {
           if ((vict = get_char_room_vis(ch, Gbuf1)))
+          {
             target_ok = TRUE;
+          }
+        }
       }
 
       if (!target_ok && IS_SET(skills[spl].targets, TAR_OBJ_INV))
@@ -1347,16 +1353,14 @@ bool parse_spell_arguments(P_char ch, struct spell_target_data * data, char *arg
         {
           if (world[vict->in_room].room_flags & SINGLE_FILE)
           {
-            send_to_char("It's too cramped in there to cast accurately.\n",
-                         ch);
+            send_to_char("It's too cramped in there to cast accurately.\n", ch);
             return FALSE;
           }
 
           if ((world[vict->in_room].room_flags & ARENA) !=
               (world[ch->in_room].room_flags & ARENA))
           {
-            send_to_char
-              ("You wouldn't want to piss off the arena authorities..\n", ch);
+            send_to_char("You wouldn't want to piss off the arena authorities..\n", ch);
             return FALSE;
           }
 
@@ -1377,7 +1381,8 @@ bool parse_spell_arguments(P_char ch, struct spell_target_data * data, char *arg
 
       if (!target_ok && IS_SET(skills[spl].targets, TAR_CHAR_WORLD))
       {
-        target_ok = TRUE;       /*ALWAYS true for tar_char_world - let spells handle the situation */
+        // ALWAYS true for tar_char_world - let spells handle the situation!
+        target_ok = TRUE;
         vict = get_char_vis(ch, Gbuf1);
         if (!vict || (!is_introd(vict, ch)) ||
             (IS_PC(ch) && IS_PC(vict) && racewar(ch, vict)))
@@ -1531,25 +1536,25 @@ bool parse_spell_arguments(P_char ch, struct spell_target_data * data, char *arg
   }
   if (IS_SET(world[ch->in_room].room_flags, SINGLE_FILE))
   {
-    if (IS_SET(skills[spl].targets, TAR_AREA))
+    // TAR_AREA + TAR_CHAR_ROOM = Can target either the whole room, or a single character
+    //   This is NOT the same as targetting a group within the room via TAR_AREA + target name argument.
+    //   The only two spells like this are 'creeping doom' and 'acid rain' as of 6/28/2015.
+    if( IS_SET(skills[spl].targets, TAR_AREA) && !IS_SET(skills[spl].targets, TAR_CHAR_ROOM) )
     {
-      send_to_char
-        ("&+WThere's no way you can safely cast such a spell in such a tight area.\n",
-         ch);
+      send_to_char("&+WThere's no way you can safely cast such a spell in such a tight area.\n", ch);
       return FALSE;
     }
 
     // ranged spells arleady checked elsewhere
 
-    if (!AdjacentInRoom(ch, vict) && (vict != ch))
+    if( !AdjacentInRoom(ch, vict) && (vict != ch) )
     {
-      send_to_char
-        ("&+WYou feel too uncomfortable casting at someone that far away in such tight quarters.\n",
-         ch);
+      send_to_char("&+WYou feel too uncomfortable casting at someone that far away in such tight quarters.\n", ch);
       return FALSE;
     }
   }
-  if (GET_MASTER(ch))
+  if( GET_MASTER(ch) )
+  {
     if ((((                     /*IS_SET(skills[spl].targets, TAR_CHAR_WORLD) || */
             IS_SET(skills[spl].targets, TAR_CHAR_RANGE) ||
             IS_SET(skills[spl].targets, TAR_CHAR_ROOM)) &&
@@ -1560,10 +1565,11 @@ bool parse_spell_arguments(P_char ch, struct spell_target_data * data, char *arg
       send_to_char("You are afraid that it could harm your master.\n", ch);
       return FALSE;
     }
+  }
   data->t_char = vict;
   data->t_obj = obj;
   data->arg = tar_arg;
-  
+
   return TRUE;
 }
 
