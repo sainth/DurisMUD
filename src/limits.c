@@ -1644,9 +1644,10 @@ void point_update(void)
       extract_char(i);
       if (i->desc)
         close_socket(i->desc);
+      /* extract_char frees memory.
       else
         free_char(i);
-
+      */
       continue;
     }
   }
