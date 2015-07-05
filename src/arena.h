@@ -16,7 +16,7 @@
 #define DEFAULT_TIMER_MATCH	900
 #define DEFAULT_TIMER_AFTERMATH	60
 
-#define MAX_RACEWAR 		3
+#define MAX_RACES 		3
 #define MAX_MAP 		1
 #define MAX_TEAM 		20
 #define MAX_GOODIE_TEAM		14
@@ -62,7 +62,7 @@
 struct arena_map
 {
   int num;
-  int spawn[MAX_RACEWAR];
+  int spawn[MAX_RACES];
   int startroom, endroom;
 };
 
@@ -90,7 +90,7 @@ struct arena_data
   int stage;
   int deathmode;
   int timer[MAX_ARENA_TIMER];
-  struct arena_team team[MAX_RACEWAR];
+  struct arena_team team[MAX_RACES];
   struct arena_map map;
   
 };

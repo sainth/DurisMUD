@@ -2,7 +2,6 @@
    ***************************************************************************
    *  File: artifact.c                                         Part of Duris *
    *  Usage: routines for artifact-tracking system                           *
-
    *  Copyright 1994 - 2008 - Duris Systems Ltd.                             *
    ***************************************************************************
  */

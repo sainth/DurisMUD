@@ -70,6 +70,8 @@ void arti_remove_sql( int vnum, bool mortalToo );
 void arti_swap_sql( P_char ch, char *arg );
 void arti_timer_sql( P_char ch, char *arg );
 void arti_hunt_sql( P_char ch, char *arg );
+P_char load_dummy_char( char *name );
+void nuke_eq( P_char ch );
 
 /* This is an example of what the current artifacts table looks like. - 2/23/2015
 +------+-------+-----------+----------+---------------------+------+---------------------+
@@ -202,12 +204,14 @@ void list_artifacts_sql( P_char ch, int type, bool Godlist, bool allArtis )
   char       buf[MAX_STRING_LENGTH];
   char      *locName, locNameBuf[MAX_STRING_LENGTH], locNameBuf2[MAX_STRING_LENGTH];
   char       timer[MAX_STRING_LENGTH];
-  int        vnum, ownerID, locType, totalTime, days, hours, minutes;
+  int        vnum, ownerID, locType, totalTime, days, hours, minutes, articount[MAX_RACEWAR+1];
   bool       negTime, owned, shownData;
   P_obj      obj;
   P_char     owner;
   MYSQL_RES *res;
   MYSQL_ROW  row;
+
+  memset(articount, 0, sizeof(articount));
 
   if( type != ARTIFACT_MAIN && type != ARTIFACT_UNIQUE && type != ARTIFACT_IOUN )
   {
@@ -259,21 +263,16 @@ void list_artifacts_sql( P_char ch, int type, bool Godlist, bool allArtis )
       if( !strcmp(row[3], "Y") )
       {
         owned = TRUE;
-        /* Showing Immortals the entire arti list for debugging atm.
-        continue;
-        */
       }
 
       obj = read_object( vnum, VIRTUAL );
       if( !obj || !IS_ARTIFACT(obj) )
       {
-        debug("Removing non artifact from arti list: '%s' %d.", (obj == NULL) ? "NULL" : obj->short_description, vnum );
+        debug("list_artifacts_sql: Non artifact on arti list: '%s' %d.", (obj == NULL) ? "NULL" : obj->short_description, vnum );
         // Pull obj if it loaded.
         if( obj )
         {
-          // If it loaded, it's a non-arti, so remove the line from both the arti tables.
-          arti_remove_sql( vnum, TRUE );
-          // FALSE because we don't want to clear the arti list.
+          // FALSE because we have a MySQL result open.
           extract_obj( obj, FALSE );
         }
         continue;
@@ -307,6 +306,7 @@ void list_artifacts_sql( P_char ch, int type, bool Godlist, bool allArtis )
             sprintf( locNameBuf, "%s", J_NAME(owner) );
             locName = locNameBuf;
             extract_char( owner );
+            owner = NULL;
           }
           else
           {
@@ -315,6 +315,7 @@ void list_artifacts_sql( P_char ch, int type, bool Godlist, bool allArtis )
           break;
         case ARTIFACT_ON_PC:
           locName = get_player_name_from_pid(ownerID);
+          owner = load_dummy_char( locName );
           break;
         case ARTIFACT_ONGROUND:
           locName = world[real_room0(ownerID)].name;
@@ -332,6 +333,7 @@ void list_artifacts_sql( P_char ch, int type, bool Godlist, bool allArtis )
           {
             locName = get_player_name_from_pid(ownerID);
           }
+          owner = load_dummy_char( get_player_name_from_pid(ownerID) );
           break;
         default:
           debug( "list_artifacts_sql: Bad locType: %d.", locType );
@@ -340,6 +342,19 @@ void list_artifacts_sql( P_char ch, int type, bool Godlist, bool allArtis )
           break;
       }
 
+      // Increment total artis.
+      articount[RACEWAR_NONE]++;
+      // Increment the appropriate racewarside.
+      if( owner )
+      {
+        if( GET_RACEWAR(owner) != RACEWAR_NONE )
+        {
+          articount[GET_RACEWAR(owner)]++;
+        }
+        nuke_eq(owner);
+        extract_char(owner);
+        owner = NULL;
+      }
       // Mortals only see name and artifact.
       if( !Godlist )
       {
@@ -374,8 +389,7 @@ void list_artifacts_sql( P_char ch, int type, bool Godlist, bool allArtis )
       // Trim locName: NAX_NAME_LENGTH + strlen("'s corpse") == 12 + 9 == 21.
       sprintf( locNameBuf2, "%s", pad_ansi(locName, MAX_NAME_LENGTH + 9, TRUE).c_str() );
       locName = locNameBuf2;
-      sprintf(buf, "%-21s&n%-11s %-22s%s (#%d)\r\n",
-              locName, timer, row[5], obj->short_description, vnum );
+      sprintf(buf, "%-21s&n%-11s %-22s%s (#%d)\r\n", locName, timer, row[5], obj->short_description, vnum );
       send_to_char( buf, ch );
       shownData = TRUE;
       extract_obj( obj, FALSE );
@@ -390,6 +404,19 @@ void list_artifacts_sql( P_char ch, int type, bool Godlist, bool allArtis )
   if( !shownData )
   {
     send_to_char( "No artifacts found.\n\r", ch );
+  }
+  else
+  {
+    sprintf(buf, "\r\n       &+r------&+LSummary&+r------&n\r\n" );
+    sprintf(buf + strlen(buf), "         &+WGoodies:      %d&n\r\n", articount[RACEWAR_GOOD]);
+    sprintf(buf + strlen(buf), "         &+rEvils:        %d&n\r\n", articount[RACEWAR_EVIL]);
+    if( articount[RACEWAR_UNDEAD] )
+      sprintf(buf + strlen(buf), "         &+LUndead:       %d&n\r\n", articount[RACEWAR_UNDEAD]);
+    if( articount[RACEWAR_NEUTRAL] )
+      sprintf(buf + strlen(buf), "         &+MNeutral:      %d&n\r\n", articount[RACEWAR_NEUTRAL]);
+    sprintf(buf + strlen(buf), "         &+WTotal:        %d\r\n",
+      articount[RACEWAR_NONE]);
+    send_to_char( buf, ch );
   }
 }
 

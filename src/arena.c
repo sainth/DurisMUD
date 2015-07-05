@@ -82,7 +82,7 @@ const int map_spec[MAX_MAP][5] = {
   {67906, 67986, 67907, 67983, -1}
 };
 
-const int arena_start_room[MAX_RACEWAR][2] = {
+const int arena_start_room[MAX_RACES][2] = {
 /* Meeting room, vault */
   {67904, 67905},
   {67902, 67903},
@@ -137,7 +137,7 @@ void send_to_arena(char *msg, int race)
       }
       if (race == -1)
       {
-        for (i = 0; i < MAX_RACEWAR; i++)
+        for (i = 0; i < MAX_RACES; i++)
         {
           if (arena_hometown_location[i] != -1)
           {
@@ -162,7 +162,7 @@ int arena_id(P_char ch)
 {
   int      i, j;
 
-  for (i = 0; i < MAX_RACEWAR; i++)
+  for (i = 0; i < MAX_RACES; i++)
   {
     for (j = 0; j < MAX_TEAM; j++)
     {
@@ -201,7 +201,7 @@ void init_teams()
 {
   int      i, j;
 
-  for (i = 0; i < MAX_RACEWAR; i++)
+  for (i = 0; i < MAX_RACES; i++)
   {
     for (j = 0; j < MAX_TEAM; j++)
     {
@@ -219,7 +219,7 @@ int arena_team_count(int team)
 {
   int      i, count = 0;
 
-  if ((team < MAX_RACEWAR) && (team > -1))
+  if ((team < MAX_RACES) && (team > -1))
   {
     for (i = 0; i < MAX_TEAM; i++)
     {
@@ -251,7 +251,7 @@ void players_to_map()
   P_char   ch, next_ch = NULL;
   int      i, j, k;
 
-  for (i = 0; i < MAX_RACEWAR; i++)
+  for (i = 0; i < MAX_RACES; i++)
   {
     k = 0;
     for (j = 0; j < 2; j++)
@@ -693,7 +693,7 @@ void arena_activity()
       {
 
         j = 3;
-        for (i = 0; i < MAX_RACEWAR; i++)
+        for (i = 0; i < MAX_RACES; i++)
         {
           ch1 = world[real_room(arena_start_room[i][0])].people;
           ch2 = world[real_room(arena_start_room[i][1])].people;

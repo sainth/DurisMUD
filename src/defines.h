@@ -976,6 +976,7 @@ struct attr_names_struct {
 #define RACEWAR_EVIL         2
 #define RACEWAR_UNDEAD       3
 #define RACEWAR_NEUTRAL      4
+#define MAX_RACEWAR          4
 
 /* class defn's (PC) */
 #define CLASS_NONE            0
