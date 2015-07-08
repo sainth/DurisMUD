@@ -34,7 +34,23 @@ int lucrot_mindstone(P_obj obj, P_char ch, int cmd, char *arg)
 {
   int curr_time;
 
-  if( cmd == CMD_SET_PERIODIC || !IS_ALIVE(ch) || !OBJ_WORN_BY(obj, ch))
+  if( cmd == CMD_SET_PERIODIC )
+  {
+    return TRUE;
+  }
+
+  if( cmd == CMD_PERIODIC )
+  {
+    if( !IS_OBJ_STAT2(obj, ITEM2_MAGIC) && (obj->timer[0] + 1800 <= curr_time) )
+    {
+      SET_BIT(obj->extra2_flags, ITEM2_MAGIC);
+      if( OBJ_WORN(obj) && (ch = obj->loc.wearing) )
+        act("&+cYour&n $q &+cvibrates softly for a second.&n\n", FALSE, ch, obj, obj, TO_CHAR);
+    }
+    return TRUE;
+  }
+
+  if( !IS_ALIVE(ch) || !OBJ_WORN_BY(obj, ch))
   {
     return FALSE;
   }
@@ -82,6 +98,7 @@ int lucrot_mindstone(P_obj obj, P_char ch, int cmd, char *arg)
         act("$n materializes suddenly...", 0, ch, 0, 0, TO_ROOM);
         CharWait(ch, PULSE_VIOLENCE * 4);
 
+        REMOVE_BIT(obj->extra2_flags, ITEM2_MAGIC);
         obj->timer[0] = curr_time;
         return TRUE;
       }
