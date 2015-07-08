@@ -649,15 +649,11 @@ void advance_level(P_char ch)
     ch->specials.undead_spell_slots[(GET_LEVEL(ch)+4)/5] = 0;
   }
 
-  send_to_char("&+WYou raise a level!&N\r\n",
-               IS_SET(ch->specials.act, PLR_MORPH) ?
-               ch->only.pc->switched : ch);
+  send_to_char("&+WYou raise a level!&N\r\n", IS_SET(ch->specials.act, PLR_MORPH) ? ch->only.pc->switched : ch);
   logit(LOG_LEVEL, "Level %2d: %s", GET_LEVEL(ch), GET_NAME(ch));
   ch->only.pc->prestige++;
 
-  if( IS_PC(ch) &&  GET_A_NUM(ch) &&
-     ch->only.pc->highest_level < GET_LEVEL(ch) &&
-     ch->group )
+  if( IS_PC(ch) && GET_A_NUM(ch) && ch->only.pc->highest_level < GET_LEVEL(ch) && ch->group )
   {
     int group_size = 1;
     for( struct group_list *gl = ch->group; gl; gl = gl->next )
@@ -672,10 +668,10 @@ void advance_level(P_char ch)
 
       send_to_char("&+bYour guild gained prestige!\r\n", ch);
       prestige = check_nexus_bonus(ch, prestige, NEXUS_BONUS_PRESTIGE);
-      add_assoc_prestige(GET_A_NUM(ch), prestige);      
+      add_assoc_prestige(GET_A_NUM(ch), prestige);
     }
   }
-  
+
   /* level out skills */
 //#ifdef SKILLPOINTS
 //  advance_skillpoints( ch );
@@ -700,13 +696,12 @@ void advance_level(P_char ch)
   if (IS_PC(ch) && (ch->only.pc->highest_level < GET_LEVEL(ch)))
     ch->only.pc->highest_level = GET_LEVEL(ch);
 
-  if ((GET_LEVEL(ch) == get_property("exp.maxExpLevel", 45)) && !IS_HARDCORE(ch) && (!GET_RACE(ch) == RACE_PLICH)) {
+  if ((GET_LEVEL(ch) == get_property("exp.maxExpLevel", 45)) && !IS_HARDCORE(ch) && (!GET_RACE(ch) == RACE_PLICH))
+  {
     char buf[512];
-    sprintf(buf, 
-        "You are now level %d and are considered among "
-        "the high level adventurers\n"
-        "of Duris!  The path now set before you is a difficult one, "
-        "as you must now\n"
+    sprintf(buf,
+        "You are now level %d and are considered among the high level adventurers\n"
+        "of Duris!  The path now set before you is a difficult one, as you must now\n"
         "battle the higher forces of the realms to further your conquest!\n",
         get_property("exp.maxExpLevel", 45));
     send_to_char(buf, ch);
@@ -1434,8 +1429,9 @@ int gain_exp(P_char ch, P_char victim, const int value, int type)
 
   if (XP_final > 0)
   {
-    if( (IS_HARDCORE(ch) && (GET_LEVEL(ch) <= 55)) )
-// || (IS_PC(ch) && GET_RACE(ch) == RACE_PLICH)) //Hardcores should level via exp only. - Drannak 11/30/12
+    // Hardcores should level via exp only. - Drannak 11/30/12
+    // Liches can lvl exp only too since they are solo on 3rd racewar side (again). 7/7/2015
+    if( (IS_HARDCORE(ch) || GET_RACE(ch) == RACE_PLICH) && (GET_LEVEL(ch) <= 55) )
     {
       for(int i = GET_LEVEL(ch) + 1;i <= 56 && (new_exp_table[i] <= GET_EXP(ch)); i++ )
   	  {
