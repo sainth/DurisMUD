@@ -13348,7 +13348,7 @@ void spell_shatter(int level, P_char ch, char *arg, int type, P_char victim, P_o
         {
           obj = victim->equipment[i];
           // Hits 2 out of 3 non-artifact eq'd items.
-          if( number(0, 2) && IS_ARTIFACT(victim->equipment[i]) )
+          if( number(0, 2) && !IS_ARTIFACT(victim->equipment[i]) )
           {
             // 4% chance to destroy it outright.
             int destroy = !number(0, 24);
