@@ -1330,37 +1330,55 @@ void bard_discord(int l, P_char ch, P_char victim, int song)
       spell_dispel_good((int) l, ch, 0, SPELL_TYPE_SPELL, victim, 0);
 }
 
-void bard_storms(int l, P_char ch, P_char victim, int song)
+// Song of storms: does lightning bolts on victim.
+// Note: called once per valid target in room with the bard.
+void bard_storms(int songLevel, P_char ch, P_char victim, int song)
 {
-  int num_strikes = 0, i = 0;
+  int num_strikes, i;
   int empower = GET_CHAR_SKILL(ch, SKILL_EMPOWER_SONG);
 
-
-  if(IS_NPC(ch))
-	empower += 100;
-
-  for (i = 0; i < l / 6; i++)
+  if( IS_NPC(ch) )
   {
-    if(number(0, 2))
+  	empower = 100;
+  }
+
+  // For each 6 levels, we have a recursive 1/3 chance to have a lightning bolt.
+  // So, at 56, we have max 9 bolts (1/20K chance) on one character.  Ouch.
+  // Probabilities: 1: 1/3, 2: 1/9, 3: 1/27, 4: 1/81, 5: 1/243, 6: 1/729, 7: 1/2187, 8: 6561, 9: 1/19683
+  for( num_strikes = i = 0; i < songLevel / 6; i++ )
+  {
+    // 1/3 chance.
+    if( number(0, 2) )
       break;
     num_strikes++;
   }
-  while (--num_strikes >= 0)
+
+  // For each strike, we cast a lightning bolt on victim.
+  while( num_strikes-- > 0 )
   {
-    spell_lightning_bolt(l * 2, ch, 0, SPELL_TYPE_SPELL, victim, 0);
-    if(!char_in_list(victim))
-      return;
-  }
-  if(GET_SPEC(ch, CLASS_BARD, SPEC_MINSTREL))
-  {
-    if(GET_CHAR_SKILL(ch, SONG_STORMS) >= 70 )
+    spell_lightning_bolt(songLevel * 2, ch, 0, SPELL_TYPE_SPELL, victim, 0);
+    if( !IS_ALIVE(victim) || !char_in_list(victim) )
     {
-      if(!number(0, 4))
-        spell_cyclone(GET_LEVEL(ch), ch, 0, SPELL_TYPE_SPELL, victim, 0);
+      return;
     }
   }
-  if((empower > 90) && (!number(0, 4)))
-    spell_call_lightning(GET_LEVEL(ch), ch, victim, 0);
+  if( GET_SPEC(ch, CLASS_BARD, SPEC_MINSTREL) )
+  {
+    // If a Minstrel has 70+ skill, there's a 20% cyclone chance.
+    if( GET_CHAR_SKILL(ch, SONG_STORMS) >= 70 && !number(0,4) )
+    {
+      spell_cyclone(songLevel, ch, 0, SPELL_TYPE_SPELL, victim, 0);
+    }
+    if( !IS_ALIVE(victim) || !char_in_list(victim) )
+    {
+      return;
+    }
+  }
+  // If they have empower song up to 100%, then they have a 20% chance to call lightning.
+  if( (empower == 100) && (!number(0, 4)) )
+  {
+    spell_call_lightning(songLevel, ch, victim, 0);
+  }
 }
 
 void bard_chaos(int l, P_char ch, P_char victim, int song)
