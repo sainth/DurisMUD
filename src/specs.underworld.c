@@ -572,6 +572,9 @@ int dispator(P_obj obj, P_char ch, int cmd, char *arg)
 
 int orb_of_the_sea(P_obj obj, P_char ch, int cmd, char *arg)
 {
+//  static float avg = 0;
+//  static int num_drops = 0;
+  static int count = 0;
   struct proc_data *data;
   int      dam = cmd / 1000, loc;
   P_char   victim;
@@ -588,24 +591,6 @@ int orb_of_the_sea(P_obj obj, P_char ch, int cmd, char *arg)
     {
       hummer(obj);
     }
-    else if( OBJ_WORN(obj) && (ch = obj->loc.wearing) )
-    {
-      // Slippery when wet! 5% chance .. :)
-      if( !IS_NPC(ch) && !can_prime_class_use_item(ch, obj) && !number(0,19) )
-      {
-        for( loc = 0; loc < MAX_WEAR; loc++ )
-        {
-          if( obj == ch->equipment[loc] )
-          {
-            act("&+b$p&+b slips out of your hands!&n", FALSE, ch, obj, NULL, TO_CHAR);
-            act("&+b$p&+b slips out of $n&+b's hands.&n", TRUE, ch, obj, NULL, TO_ROOM);
-            unequip_char( ch, loc );
-            obj_to_char( obj, ch );
-            break;
-          }
-        }
-      }
-    }
     return TRUE;
   }
 
@@ -615,10 +600,6 @@ int orb_of_the_sea(P_obj obj, P_char ch, int cmd, char *arg)
     return FALSE;
   }
 
-/*
-   if (!OBJ_WORN_POS(obj, WIELD) || !OBJ_WORN_POS(obj, WIELD2))
-    return (FALSE);
-*/
   // If we can't find the victim
   if( cmd == CMD_GOTHIT )
   {
@@ -634,6 +615,31 @@ int orb_of_the_sea(P_obj obj, P_char ch, int cmd, char *arg)
     {
       debug("orb_of_the_sea: CMD_MELEE_HIT: no victim.");
       return FALSE;
+    }
+    else if( OBJ_WORN(obj) && (ch == obj->loc.wearing) )
+    {
+      // Slippery when wet! 1% chance per hit after each 40 hits (Should drop after about 90 hits).
+      if( !IS_NPC(ch) && !can_prime_class_use_item(ch, obj) && number(1,100) <= count++/40 )
+      {
+        for( loc = 0; loc < MAX_WEAR; loc++ )
+        {
+          if( obj == ch->equipment[loc] )
+          {
+            act("&+b$p&+b slips out of your hands!&n", FALSE, ch, obj, NULL, TO_CHAR);
+            act("&+b$p&+b slips out of $n&+b's hands.&n", TRUE, ch, obj, NULL, TO_ROOM);
+            unequip_char( ch, loc );
+            obj_to_char( obj, ch );
+            /* For testing purposes.  Currently avg is somewhere around 110 hits/drop with % <= count++/40
+             * If you want to use this, uncomment avg and num_drops in the variable declarations.
+            avg = (avg * num_drops) + count;
+            avg = avg / ++num_drops;
+            debug( "&+C%s&+C dropped orb after %d hits (avg %3.3f).", J_NAME(ch), count, avg );
+            */
+            count = 0;
+            return TRUE;
+          }
+        }
+      }
     }
   }
 
