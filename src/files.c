@@ -1651,22 +1651,25 @@ int writeCharacter(P_char ch, int type, int room)
 {
   FILE    *f;
   P_obj    obj, obj2;
-  char    *buf, *skill_off, *affect_off, *item_off, *size_off, *witness_off,
-    *tmp;
+  char    *buf, *skill_off, *affect_off, *item_off, *size_off, *witness_off, *tmp;
   char     Gbuf1[MAX_STRING_LENGTH], Gbuf2[MAX_STRING_LENGTH];
   int      i, bak;
+  struct affected_type *af;
   static char buff[SAV_MAXSIZE * 2];
 
-/*  struct affected_type *af; */
   struct stat statbuf;
 
-  if (!ch || !GET_NAME(ch))
+  if( !ch || !GET_NAME(ch) )
     return 0;
 
-  if (IS_MORPH(ch))
+  if( IS_MORPH(ch) )
+  {
     ch = MORPH_ORIG(ch);
-  if (!ch || !GET_NAME(ch))
-    return 0;
+    if( !ch || !GET_NAME(ch) )
+    {
+      return 0;
+    }
+  }
 
   if (IS_NPC(ch))
   {
@@ -1674,10 +1677,24 @@ int writeCharacter(P_char ch, int type, int room)
    writePet(ch); */
     return 0;
   }
+
   /* hook needed for lockers - call a room proc when saving a character in the room */
-  if (IS_SET(world[ch->in_room].room_flags, LOCKER) &&
-      (world[ch->in_room].funct))
+  if( IS_SET(world[ch->in_room].room_flags, LOCKER) && (world[ch->in_room].funct) )
+  {
     room = (*world[ch->in_room].funct) (ch->in_room, ch, (-80), NULL);
+  }
+
+  // Remove race change if applicable.
+  if( (af = get_spell_from_char(ch, TAG_RACE_CHANGE)) )
+  {
+    ch->player.race = af->modifier;
+    ch->player.time.birth = time(NULL) - (racial_data[GET_RACE(ch)].base_age) * 2;
+    // Set birthdate + base_age + 5 years.
+    ch->player.time.birth = time(NULL);
+    // Add base_age to birthdate + base_age + 5 years.
+    ch->player.time.birth -= (racial_data[GET_RACE(ch)].base_age) * SECS_PER_MUD_YEAR;
+    affect_remove(ch, af);
+  }
 
   writeShapechangeData(ch);
   room = calculate_save_room(ch, type, room);

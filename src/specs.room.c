@@ -354,7 +354,7 @@ int inn(int room, P_char ch, int cmd, char *arg)
 
     GET_HOME(ch) = world[ch->in_room].number;
 
-    if( !writeCharacter(ch, 1, ch->in_room) )
+    if( !writeCharacter(ch, RENT_CRASH, ch->in_room) )
     {
       send_to_char("Failed to save this character, most likely too much eq.\r\n", ch);
       wizlog(56, "%s was unable to rent [specs.room.c()].", GET_NAME(ch));
@@ -362,7 +362,7 @@ int inn(int room, P_char ch, int cmd, char *arg)
     }
     else
     {
-      writeCharacter(ch, 3, ch->in_room);
+      writeCharacter(ch, RENT_INN, ch->in_room);
     }
 
     if( !(ch) )

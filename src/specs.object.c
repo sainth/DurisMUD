@@ -2405,26 +2405,22 @@ void event_revenant_crown(P_char ch, P_char victim, P_obj obj, void *data)
 {
   struct affected_type *af;
   P_obj armor = ch->equipment[WEAR_HEAD];
-  
-  if(GET_RACE(ch) != RACE_REVENANT)
-  { 
+
+  if( GET_RACE(ch) != RACE_REVENANT )
+  {
     act("Your skin blisters and boils start to form!&n",
       FALSE, ch, obj, 0, TO_CHAR);
     wizlog(57," Reverant crown worn by %s begins to melt due race check conflict!", GET_NAME(ch));
     GET_HIT(ch) >> 1;
     CharWait(ch, 2 * WAIT_SEC);
   }
-  else if ((af = get_spell_from_char(ch, TAG_RACE_CHANGE)) == NULL)
+  else if( (af = get_spell_from_char(ch, TAG_RACE_CHANGE)) == NULL )
   {
-    send_to_char
-      ("&+WPossible serious screwup in the revenant helm proc! Tell a coder as once!&n\r\n",
-       ch);
-    wizlog(57,
-        "Char %s found with racechange event but without racechange affect! revenant proc",
-        GET_NAME(ch));
+    send_to_char("&+WPossible serious screwup in the revenant helm proc! Tell a coder as once!&n\r\n", ch);
+    wizlog(57, "Char %s found with racechange event but without racechange affect! revenant proc", GET_NAME(ch));
     return;
   }
-  else if ( armor != NULL && obj_index[armor->R_num].virtual_number == REVENANT_CROWN_VNUM)
+  else if( armor != NULL && obj_index[armor->R_num].virtual_number == REVENANT_CROWN_VNUM )
   {
     add_event(event_revenant_crown, (int) (0.5 * PULSE_VIOLENCE), ch, 0, 0, 0, 0, 0);
     return;
@@ -2432,15 +2428,13 @@ void event_revenant_crown(P_char ch, P_char victim, P_obj obj, void *data)
   else
   {
     ch->player.race = af->modifier;
-    affect_remove(ch, af);
 //    GET_AGE(ch) = racial_data[(int) GET_RACE(ch)].base_age*2;
     // Set birthdate + base_age + 5 years.
     ch->player.time.birth = time(NULL);
     // Add base_age to birthdate + base_age + 5 years.
     ch->player.time.birth -= (racial_data[GET_RACE(ch)].base_age) * SECS_PER_MUD_YEAR;
-    send_to_char
-      ("The curse of the dark powers fade and your soul restores the body.\r\n",
-       ch);
+    affect_remove(ch, af);
+    send_to_char("The curse of the dark powers fade and your soul restores the body.\r\n", ch);
     int k = 0;
     P_obj temp_obj;
     for (k = 0; k < MAX_WEAR; k++)
@@ -2540,18 +2534,16 @@ void event_dragonlord_check(P_char ch, P_char victim, P_obj obj, void *data)
   int temp, dragonlord_slot = MAX_WEAR;
   bool bHasOtherArti = false;
 
-  if(GET_RACE(ch) != RACE_DRAGONKIN)
+  if( GET_RACE(ch) != RACE_DRAGONKIN )
   {
-    act("Your scales smoke and burn as they &+Rdisintegrate!&n",
-      FALSE, ch, obj, 0, TO_CHAR);
+    act("Your scales smoke and burn as they &+Rdisintegrate!&n", FALSE, ch, obj, 0, TO_CHAR);
     wizlog(57,"Dragonlord armor worn by %s begins to melt due race check conflict!", GET_NAME(ch));
     GET_HIT(ch) >> 1;
     CharWait(ch, 2 * WAIT_SEC);
   }
   if((af = get_spell_from_char(ch, TAG_RACE_CHANGE)) == NULL)
   {
-    send_to_char
-      ("&+WPossible serious screwup in the dragonlord proc! Tell a coder as once!&n\r\n", ch);
+    send_to_char("&+WPossible serious screwup in the dragonlord proc! Tell a coder as once!&n\r\n", ch);
     wizlog(57, "Char %s found with racechange event but without racechange affect! Dragonlord proc", GET_NAME(ch));
     return;
   }
@@ -2569,35 +2561,32 @@ void event_dragonlord_check(P_char ch, P_char victim, P_obj obj, void *data)
       bHasOtherArti = true;
     }
   }
-  
-  if(bHasOtherArti &&
-    (dragonlord_slot != MAX_WEAR) &&
-    ch->equipment[dragonlord_slot])
+
+  if( bHasOtherArti && (dragonlord_slot != MAX_WEAR) && ch->equipment[dragonlord_slot] )
   {
     act("The &+Wplatemail&n of the &+YDragonLord&n erupts acid and detaches from $n's body!&n",
       FALSE, ch, obj, 0, TO_ROOM);
     act("The &+Wplatemail&n of the &+YDragonLord&n erupts acid as it detaches from your body!",
       FALSE, ch, obj, 0, TO_CHAR);
     obj_to_char(unequip_char(ch, dragonlord_slot), ch);
-    add_event(event_dragonlord_check, (int)(0.5 * PULSE_VIOLENCE), ch, 0, 0, 0, 0, 0); 
+    add_event(event_dragonlord_check, (int)(0.5 * PULSE_VIOLENCE), ch, 0, 0, 0, 0, 0);
   }
-  else if(armor != NULL &&
-          obj_index[armor->R_num].virtual_number == DRAGONLORD_PLATE_VNUM &&
-          GET_STAT(ch) > STAT_DEAD)
+  else if(armor != NULL && obj_index[armor->R_num].virtual_number == DRAGONLORD_PLATE_VNUM
+    && GET_STAT(ch) > STAT_DEAD)
   {
-    add_event(event_dragonlord_check, (int)(0.5 * PULSE_VIOLENCE), ch, 0, 0, 0, 0, 0); 
+    add_event(event_dragonlord_check, (int)(0.5 * PULSE_VIOLENCE), ch, 0, 0, 0, 0, 0);
     return;
   }
   else
   {
     ch->player.race = af->modifier;
-    affect_remove(ch, af);
     ch->player.time.birth = time(NULL) - (racial_data[GET_RACE(ch)].base_age) * 2;
 //    GET_AGE(ch) = racial_data[(int) GET_RACE(ch)].base_age*2;
     // Set birthdate + base_age + 5 years.
     ch->player.time.birth = time(NULL);
     // Add base_age to birthdate + base_age + 5 years.
     ch->player.time.birth -= (racial_data[GET_RACE(ch)].base_age) * SECS_PER_MUD_YEAR;
+    affect_remove(ch, af);
     send_to_char("The curse of the dark powers fade and your soul restores the body.\r\n", ch);
 
     int k = 0;
@@ -2612,9 +2601,7 @@ void event_dragonlord_check(P_char ch, P_char victim, P_obj obj, void *data)
         obj_to_char(unequip_char(ch, k), ch);
       }
     }
-    send_to_char
-      ("Brr, you suddenly feel very naked.\r\n",
-       ch);
+    send_to_char("Brr, you suddenly feel very naked.\r\n", ch);
 
     return;
   }
