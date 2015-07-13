@@ -44,12 +44,21 @@ void event_firesector(P_char ch, P_char victim, P_obj obj, void *data)
 {
   struct affected_type *af, *next;
 
-  if (IS_TRUSTED(ch) || GET_RACE(ch) == RACE_F_ELEMENTAL ||
-      ch->in_room == NOWHERE ||
-      ((world[ch->in_room].sector_type != SECT_FIREPLANE) &&
-       (world[ch->in_room].sector_type != SECT_LAVA) &&
-       (world[ch->in_room].sector_type != SECT_UNDRWLD_LIQMITH)))
+  if( IS_TRUSTED(ch) || ch->in_room == NOWHERE
+    || ((world[ch->in_room].sector_type != SECT_FIREPLANE)
+    && (world[ch->in_room].sector_type != SECT_LAVA)
+    && (world[ch->in_room].sector_type != SECT_UNDRWLD_LIQMITH)) )
     return;
+
+  if( ENJOYS_FIRE_DAM(ch) )
+  {
+    if( GET_HIT(ch) < GET_MAX_HIT(ch) )
+    {
+      GET_HIT(ch) += 3;
+      add_event(event_firesector, 3, ch, 0, 0, 0, 0, 0);
+    }
+    return;
+  }
 
   if (IS_AFFECTED(ch, AFF_PROT_FIRE))
   {
