@@ -4478,6 +4478,8 @@ void event_bleedproc(P_char ch, P_char victim, P_obj obj, void *data)
 
 void event_sneaky_strike(P_char ch, P_char victim, P_obj obj, void *data)
 {
+  static bool DEBUG = TRUE;
+
   int      dam = 0;
   int      skill = 0;
   P_obj    weapon;
@@ -4493,6 +4495,13 @@ void event_sneaky_strike(P_char ch, P_char victim, P_obj obj, void *data)
     "Before you can react $n suddenly leaps at you, getting past all your defenses.",
     "$n finishes $N off with a sudden surprise attack!", 0, 0
   };
+
+  if( IS_TRUSTED(ch) && !victim && (bool)data )
+  {
+    DEBUG = !DEBUG;
+    debug( "sneaky_strike: DEBUG display turned %s.", DEBUG ? "ON" : "OFF" );
+    return;
+  }
 
   affect_from_char(ch, SKILL_SNEAKY_STRIKE);
 
@@ -4559,7 +4568,10 @@ void event_sneaky_strike(P_char ch, P_char victim, P_obj obj, void *data)
 	  dam /= 20*4;
 	}
 
-  debug("event_sneaky_strike: (%s) striking (%s) dam (%d).", GET_NAME(ch), GET_NAME(victim), dam );
+  if( DEBUG )
+  {
+    debug("event_sneaky_strike: (%s) striking (%s) dam (%d).", GET_NAME(ch), GET_NAME(victim), dam );
+  }
   melee_damage(ch, victim, dam, PHSDAM_NOREDUCE | PHSDAM_NOPOSITION, &messages);
   if( !ch || !victim || !IS_ALIVE(victim) || !IS_ALIVE(ch) )
   {
@@ -4705,10 +4717,11 @@ bool is_preparing_for_sneaky_strike(P_char ch)
     return FALSE;
 }
 
-void sneaky_strike(P_char ch, P_char victim)
+void sneaky_strike(P_char ch, P_char victim )
 {
   struct affected_type af;
   P_obj weapon = ch->equipment[WIELD];
+
   if(!weapon)
   {
     send_to_char("You must be wielding a weapon.\r\n", ch);
@@ -4746,8 +4759,11 @@ void do_sneaky_strike(P_char ch, char *argument, int cmd)
   P_char   victim = NULL;
   char     target[128];
 
-  if(!ch)
+  if( IS_TRUSTED(ch) && !strcmp(argument, "debug") )
+  {
+    event_sneaky_strike(ch, NULL, NULL, (void *)(TRUE));
     return;
+  }
 
   if(GET_CHAR_SKILL(ch, SKILL_SNEAKY_STRIKE) == 0)
   {
