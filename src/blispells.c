@@ -36,6 +36,7 @@
 #include "achievements.h"
 
 extern P_room world;
+extern const int top_of_world;
 
 void spell_thornskin(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
@@ -722,22 +723,10 @@ void spell_implosion(int level, P_char ch, char *arg, int type, P_char victim, P
 
 }
 
-// Just display growing messages..
-void event_sandstorm_message(P_char ch, P_char victim, P_obj obj, void *data)
-{
-  int room;
-
-  if( IS_ALIVE(ch) && ch->in_room )
-  {
-    room = ch->in_room;
-    send_to_room( "&+yA MASS&+YIV&+yE wall of s&+Ya&+ynd engulfs the area, crashing into everything in sight!&n\n", room );
-  }
-}
-
 void event_sandstorm(P_char ch, P_char victim, P_obj obj, void *data)
 {
-  int    level = *((int *)data);
-  int    room;
+  int    level = GET_LEVEL(ch);
+  int    rroom;
   P_char next;
   struct damage_messages messages = {
     "&+yYou en&+Ygu&+ylf $N&+y in s&+Ya&+ynd which &+Rsh&+rre&+Rds&+y $S &+Yskin&+y and gets in $S &+Weyes&+y!&n",
@@ -753,12 +742,22 @@ void event_sandstorm(P_char ch, P_char victim, P_obj obj, void *data)
   {
     return;
   }
+  rroom = ch->in_room;
+  if( ROOM_VNUM(rroom) == NOWHERE )
+  {
+    return;
+  }
 
-  room = ch->in_room;
+  if( IS_WATER_ROOM(rroom) )
+  {
+    act( "&+yYour wall of s&+Ya&+ynd becomes &+Cwet, &+cclumps up, and &+Bcollapses in a &+bsplash!&n", FALSE, ch, 0, victim, TO_CHAR );
+    act("&+yThe wall of s&+Ya&+ynd following $n becomes &+Cwet, &+cclumps up, and &+Bcollapses in a &+bsplash!&n", FALSE, ch, 0, 0, TO_ROOM );
+    return;
+  }
 
-  send_to_room( "&+YA &+RM&+rA&+RSSI&+rV&+RE &+yw&+Ya&+yll of s&+Yan&+yd engulfs the area crashing into everything!!!&n\n", room );
+  send_to_room( "&+YA &+RM&+rA&+RSSI&+rV&+RE &+yw&+Ya&+yll of s&+Yan&+yd engulfs the area crashing into everything!!!&n\n", rroom );
 
-  for( victim = world[room].people; victim; victim = next )
+  for( victim = world[rroom].people; victim; victim = next )
   {
     next = victim->next_in_room;
     if( victim == ch || ( ch->group && ch->group == victim->group ) )
@@ -776,29 +775,73 @@ void event_sandstorm(P_char ch, P_char victim, P_obj obj, void *data)
       spell_damage(ch, victim, dice(level * 3, 6)/2, SPLDAM_GAS, 0, &messages);
     }
   }
+}
 
+// Just display growing messages..
+void event_sandstorm_message(P_char ch, P_char victim, P_obj obj, void *data)
+{
+  int rroom, num_rounds = *((int *)data);
+
+  // If ch isn't alive in a room, we can't very well have a room-area damage spell, can we?
+  if( !IS_ALIVE(ch) )
+  {
+    return;
+  }
+  rroom = ch->in_room;
+  if( ROOM_VNUM(rroom) == NOWHERE )
+  {
+    return;
+  }
+
+  if( IS_WATER_ROOM(rroom) )
+  {
+    act( "&+yYour wall of s&+Ya&+ynd becomes &+Cwet, &+cclumps up, and &+Bcollapses in a &+bsplash!&n", FALSE, ch, 0, victim, TO_CHAR );
+    act("&+yThe wall of s&+Ya&+ynd following $n becomes &+Cwet, &+cclumps up, and &+Bcollapses in a &+bsplash!&n", FALSE, ch, 0, 0, TO_ROOM );
+    return;
+  }
+
+  send_to_room( "&+yA MASS&+YIV&+yE wall of s&+Ya&+ynd engulfs the area, crashing into everything in sight!&n\n", rroom );
+
+  if( --num_rounds > 0 )
+  {
+    add_event( event_sandstorm_message, PULSE_VIOLENCE*2, ch, victim, 0, 0, &(num_rounds), sizeof(num_rounds) );
+  }
+  else
+  {
+    add_event( event_sandstorm, PULSE_VIOLENCE*2, ch, victim, 0, 0, NULL, 0 );
+  }
 }
 
 // Area Damage on timer.
 void spell_sandstorm(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
-  // j = number of rounds before sandstorm hits.
-  int i, j = number( 1, 3 );
+  // number of rounds before sandstorm hits.
+  int num_rounds = number( 1, 3 );
+  int rroom = ch->in_room;
+  P_char roomie;
 
-  if( !IS_ALIVE(ch) )
+  if( !IS_ALIVE(ch) || ROOM_VNUM(ch->in_room) == NOWHERE )
   {
     return;
   }
+
   act( "&+yYour &+Weyes roll&+y back into your head as you begin to &+Ysummon&+y the fury of the &+Ys&+ya&+Yn&+yd&+Ys&+y!&n", FALSE, ch, 0, victim, TO_CHAR );
+
+  if( IS_WATER_ROOM(rroom) )
+  {
+    act( "&+BA &+cwave&+B comes up and soaks everyone in the room!&n", FALSE, ch, 0, victim, TO_CHAR );
+    act("The &+Weyes&n in $n's head roll back, and a &+cwave&n rises from the &+bwater!&n", FALSE, ch, 0, 0, TO_ROOM );
+    for( roomie = world[rroom].people; roomie; roomie = roomie->next_in_room )
+    {
+      act("&+BThe &+cwave&+B soaks you!&N", FALSE, ch, 0, roomie, TO_VICT );
+      make_wet(roomie, WAIT_MIN);
+    }
+    return;
+  }
+
   act( "&+yA MASS&+YIV&+yE wall of s&+Ya&+ynd engulfs the area, crashing into everything in sight!&n",0, ch, 0, 0, TO_ROOM);
 
-  // For rounds before sandstorm hits, display message.
-  for( i = 1; i < j; i++ )
-  {
-    add_event( event_sandstorm_message, i * PULSE_VIOLENCE*2, ch, victim, 0, 0, &(level), sizeof(level) );
-  }
-  // At j rounds, have it hit!
-  add_event( event_sandstorm, j*PULSE_VIOLENCE*2, ch, victim, 0, 0, &(level), sizeof(level) );
+  add_event( event_sandstorm_message, PULSE_VIOLENCE*2, ch, victim, 0, 0, &(num_rounds), sizeof(num_rounds) );
 }
 
 // Target Damage.
