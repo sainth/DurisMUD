@@ -580,12 +580,12 @@ struct scribing_data_type {
   void (*done_func) (P_char);  // optional function to call when done scribing.  used by 'scribe all'
 };
 
-#define SBOOK_MODE_AT_HAND   1
-#define SBOOK_MODE_IN_INV    2
-#define SBOOK_MODE_NO_SCROLL 4
-#define SBOOK_MODE_NO_BOOK   8
-#define SBOOK_MODE_ON_BELT   16
-#define SBOOK_MODE_ON_GROUND 32
+#define SBOOK_MODE_AT_HAND   BIT_1
+#define SBOOK_MODE_IN_INV    BIT_2
+#define SBOOK_MODE_NO_SCROLL BIT_3
+#define SBOOK_MODE_NO_BOOK   BIT_4
+#define SBOOK_MODE_ON_BELT   BIT_5
+#define SBOOK_MODE_ON_GROUND BIT_6
 
 struct climate {
   char season_wind[MAX_SEASONS];

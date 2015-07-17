@@ -740,14 +740,8 @@ void do_spells(P_char ch, char *argument, int cmd)
       if (target)
       {
         if (meming_class(target))
-          strcat(buf,
-                 (SpellInSpellBook
-                  (target, spell,
-                   (SBOOK_MODE_IN_INV + SBOOK_MODE_AT_HAND +
-                    SBOOK_MODE_ON_BELT))) ? circle >
-                 get_max_circle(target) ?
-                 " [in spellbook, but too high level]" : " [in spellbook]" :
-                 "");
+          strcat(buf, (SpellInSpellBook(target, spell, SBOOK_MODE_IN_INV | SBOOK_MODE_AT_HAND | SBOOK_MODE_ON_BELT))
+            ? circle > get_max_circle(target) ? " [in spellbook, but too high level]" : " [in spellbook]" : "");
       }
       strcat(buf, "\n");
       strcat(buf1, buf);
@@ -931,12 +925,10 @@ void prac_all_spells(P_char ch)
   }
   qsort(spell_list, nSpellCnt, sizeof(struct spl_list), spell_cmp);
 
-  // now find the first one in that SORTED list that they don't already
-  // have in a spellbook
-
+  // Now find the first one in that SORTED list that they don't already have in a spellbook
   for (spl = 0; spl < nSpellCnt; spl++)
   {
-    if( !SpellInSpellBook(ch, spell_list[spl].spell, SBOOK_MODE_IN_INV + SBOOK_MODE_AT_HAND + SBOOK_MODE_ON_BELT ) )
+    if( !SpellInSpellBook(ch, spell_list[spl].spell, SBOOK_MODE_IN_INV | SBOOK_MODE_AT_HAND | SBOOK_MODE_ON_BELT ) )
     {
       // yes!  found a spell to scribe!
       char buf[MAX_STRING_LENGTH];
@@ -1182,7 +1174,7 @@ void do_practice(P_char ch, char *arg, int cmd)
 
     if( IS_SPELL(skl) )
     {
-      if( SpellInSpellBook(ch, skl, SBOOK_MODE_IN_INV + SBOOK_MODE_AT_HAND + SBOOK_MODE_NO_SCROLL + SBOOK_MODE_ON_BELT) )
+      if( SpellInSpellBook(ch, skl, SBOOK_MODE_IN_INV | SBOOK_MODE_AT_HAND | SBOOK_MODE_NO_SCROLL | SBOOK_MODE_ON_BELT) )
       {
         send_to_char("You know that spell already!\n", ch);
         return;

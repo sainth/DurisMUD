@@ -1057,11 +1057,8 @@ void handle_memorize(P_char ch)
       else
       {
 #if !defined(CHAOS_MUD) || (CHAOS_MUD != 1)
-        if (book_class(ch) &&
-          !(SpellInSpellBook(ch, af->modifier, SBOOK_MODE_IN_INV +
-                                               SBOOK_MODE_AT_HAND + 
-                                               SBOOK_MODE_ON_BELT + 
-                                               SBOOK_MODE_ON_GROUND)))
+        if( book_class(ch) && !(SpellInSpellBook(ch, af->modifier, SBOOK_MODE_IN_INV | SBOOK_MODE_AT_HAND
+          | SBOOK_MODE_ON_BELT | SBOOK_MODE_ON_GROUND)) )
         {
           send_to_char("You have managed to misplace your spellbook!\n", ch);
           show_stop_memorizing(ch);
@@ -1441,8 +1438,8 @@ void do_memorize(P_char ch, char *argument, int cmd)
           }
           sprintf(Gbuf1 + strlen(Gbuf1), "%5d seconds:  (%2d%s) %s%s\n", time / 4, circle, (circle == 1)
             ? "st" : (circle == 2) ? "nd" : (circle == 3) ? "rd" : "th", skills[af->modifier].name,
-            book_class(ch) ? (SpellInSpellBook(ch, af->modifier, (SBOOK_MODE_IN_INV+SBOOK_MODE_AT_HAND+SBOOK_MODE_ON_BELT
-            +SBOOK_MODE_ON_GROUND)) ? "" : "  [not in spell book]") : "");
+            book_class(ch) ? (SpellInSpellBook(ch, af->modifier, (SBOOK_MODE_IN_INV | SBOOK_MODE_AT_HAND
+            | SBOOK_MODE_ON_BELT | SBOOK_MODE_ON_GROUND)) ? "" : "  [not in spell book]") : "");
         }
       }
     }
@@ -1501,8 +1498,8 @@ void do_memorize(P_char ch, char *argument, int cmd)
       }
       else if (book_class(ch))
       {
-        sbook = SpellInSpellBook(ch, first_to_mem, SBOOK_MODE_IN_INV + SBOOK_MODE_AT_HAND +
-          SBOOK_MODE_ON_BELT + SBOOK_MODE_ON_GROUND);
+        sbook = SpellInSpellBook(ch, first_to_mem, SBOOK_MODE_IN_INV | SBOOK_MODE_AT_HAND |
+          SBOOK_MODE_ON_BELT | SBOOK_MODE_ON_GROUND);
         send_to_char("You continue your study.\n", ch);
         strcpy(Gbuf1, "$n opens $p and begins studying it intently.");
       }
@@ -1544,8 +1541,8 @@ void do_memorize(P_char ch, char *argument, int cmd)
 
   if( book_class(ch) )
   {
-    sbook = SpellInSpellBook(ch, spl, SBOOK_MODE_IN_INV + SBOOK_MODE_AT_HAND
-      + SBOOK_MODE_ON_BELT + SBOOK_MODE_ON_GROUND);
+    sbook = SpellInSpellBook(ch, spl, SBOOK_MODE_IN_INV | SBOOK_MODE_AT_HAND
+      | SBOOK_MODE_ON_BELT | SBOOK_MODE_ON_GROUND);
   }
 
   circle = get_spell_circle(ch, spl);
@@ -1907,7 +1904,7 @@ P_obj FindSpellBookWithSpell(P_char ch, int spl, int mode)
   {
     return foo;
   }
-  
+
   /*
      current format: value[0] = language spell is in value[1] = class the
      spellbook is for value[2] = number of pages in spellbook value[3] = number
@@ -2107,60 +2104,56 @@ int ScriberSillyChecks(P_char ch, int spl)
       "nor teach/scribe at same time.\nYou are not UNIX compatible.\n*bonk*\n\n", ch);
     return FALSE;
   }
-  if( (GET_STAT(ch) != STAT_RESTING) ||
-      ((GET_POS(ch) != POS_SITTING) && (GET_POS(ch) != POS_KNEELING)) )
+  if( (GET_STAT(ch) != STAT_RESTING) || ((GET_POS(ch) != POS_SITTING) && (GET_POS(ch) != POS_KNEELING)) )
   {
-    send_to_char("You don't feel comfortable enough to start to scribe.\n",
-                 ch);
+    send_to_char("You don't feel comfortable enough to start to scribe.\n", ch);
     return FALSE;
   }
-  /*
-     modified by DTS 7/9/95 - yet another possible null ptr. dereference
-   */
+
+  // Modified by DTS 7/9/95 - yet another possible null ptr. dereference
   if (!(o1 = ch->equipment[WIELD]) || !(o2 = ch->equipment[HOLD]) )
   {
     send_to_char("You lack one of the necessary implements for scribing!\n", ch);
     return FALSE;
   }
 
-  if (o1->type == ITEM_PEN)
+  // If o1 is a PEN, swap o1 and o2, so o2 is the PEN, and o1 is the SPELLBOOK, hopefully.
+  if( o1->type == ITEM_PEN )
   {
     o3 = o1;
     o1 = o2;
     o2 = o3;
   }
-  if (o1->type != ITEM_PEN && o2->type != ITEM_PEN)
+
+  if( o2->type != ITEM_PEN )
   {
     send_to_char("You need a quill with which to scribe to spellbook! [held]\n", ch);
     return FALSE;
   }
-  if (o1->type != ITEM_SPELLBOOK && o2->type != ITEM_SPELLBOOK)
+  if( o1->type != ITEM_SPELLBOOK )
   {
     send_to_char("You need a spellbook to write to at hand! [held]\n", ch);
     return FALSE;
   }
 /*
-   if (o1->value[0] && (GET_LANGUAGE (ch, o1->value[0]) < 70)) {
-   send_to_char ("You need to be more fluent in the language before adding anything to\nthe book at hand.\n", ch);
-   return FALSE;
-   }
-  if (o1->value[1] && !GET_CLASS(ch, o1->value[1])) {
+  if( o1->value[0] && (GET_LANGUAGE(ch, o1->value[0]) < 70) )
+  {
+    send_to_char ("You need to be more fluent in the language before adding anything to\nthe book at hand.\n", ch);
+    return FALSE;
+  }
+  if( o1->value[1] && !GET_CLASS(ch, o1->value[1]) )
+  {
     send_to_char("The spellbook you are holding is of the wrong class so you can't add to it..\n", ch);
     return FALSE;
   }*/
-#if 0                           /*
-                                   nah, I gladly let fellow waste his
-                                   spellbook-space by copying unusable spells
-                                 */
 
-  if (o3->type == ITEM_SPELLBOOK)
-    if (!((o3->value[1] == o1->value[1]) || !o1->value[1]))
-    {
-      send_to_char
-        ("You cannot copy spells from one classes spellbook to another!\n",
-         ch);
-      return;
-    }
+#if 0 // nah, I gladly let fellow waste his spellbook-space by copying unusable spells
+  o3 = FindSpellBookWithSpell(ch, spl, SBOOK_MODE_IN_INV | SBOOK_MODE_ON_BELT | SBOOK_MODE_ON_GROUND );
+  if( o3 && (o3->type == ITEM_SPELLBOOK) && !((o3->value[1] == 0) || (o3->value[1] == o1->value[1])) )
+  {
+    send_to_char("You cannot copy spells from one classes spellbook to another!\n", ch);
+    return;
+  }
 #endif
 
   d = find_spell_description(o1);
@@ -2169,14 +2162,15 @@ int ScriberSillyChecks(P_char ch, int spl)
     send_to_char("You have the spell already in your spellbook, boggle?\n", ch);
     return FALSE;
   }
-  if ((GetSpellPages(ch, spl) + o1->value[3]) > o1->value[2])
+  if( (GetSpellPages(ch, spl) + o1->value[3]) > o1->value[2] )
   {
     send_to_char("Sorry, the spellbook at hand has no room for more spells.\n", ch);
     return FALSE;
   }
-  /*
-     added to prevent scribing/teaching quest spells
-   */
+
+  // Added to prevent scribing/teaching quest spells
+  // Added what??
+
   return TRUE;
 }
 
@@ -2269,7 +2263,7 @@ void do_teach(P_char ch, char *arg, int cmd)
     send_to_char("Teach _WHAT_ spell?? That your target cannot learn, at least.\n", ch);
     return;
   }
-  if( !(o3 = FindSpellBookWithSpell(ch, tmp, SBOOK_MODE_IN_INV + SBOOK_MODE_ON_BELT))
+  if( !(o3 = FindSpellBookWithSpell(ch, tmp, SBOOK_MODE_IN_INV | SBOOK_MODE_ON_BELT))
     && !IS_TRUSTED(ch) && !IS_NPC(ch) )
   {
     send_to_char("You don't have such spell in your _own_ spellbooks!\n", ch);
@@ -2349,7 +2343,7 @@ void do_scribe(P_char ch, char *arg, int cmd)
   }
 
   // If ch doesn't have a book with spl in it already,
-  if( !(o3 = FindSpellBookWithSpell(ch, spl, SBOOK_MODE_IN_INV + SBOOK_MODE_ON_BELT)) )
+  if( !(o3 = FindSpellBookWithSpell(ch, spl, SBOOK_MODE_IN_INV | SBOOK_MODE_ON_BELT | SBOOK_MODE_ON_GROUND)) )
   {
     // Only fail if there's no teacher to teach it.
     teacher = FindTeacher(ch);
