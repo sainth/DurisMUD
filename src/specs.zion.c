@@ -575,7 +575,7 @@ void event_zion_dispator(P_char ch, P_char victim, P_obj obj, void *data)
     }
   }
 */
-  if( ch->equipment[wield] &&  obj_index[ch->equipment[WIELD]->R_num].func.obj == zion_dispator )
+  if( ch->equipment[WIELD] &&  obj_index[ch->equipment[WIELD]->R_num].func.obj == zion_dispator )
   {
     has_item = TRUE;
   }
