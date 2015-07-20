@@ -18,7 +18,8 @@
 #define HIGHEST_MAT_VNUM  400210
 #define MAG_ESSENCE_VNUM  400211
 
-#define LOWEST_ORE_VNUM 400260
+#define LOWEST_ORE_VNUM   400260
+#define NUMBER_ORE_TYPES       8
 
 // The below reg ore vnums are outdated; the new vnums are in order starting with above.
 #define SMALL_IRON_ORE 194

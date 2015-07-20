@@ -17,7 +17,6 @@
 #include "specs.prototypes.h"
 #include "utils.h"
 #include "proc-libs.h"
-#include "vnum.obj.h"
 #include "specs.jubilex.h"
 #include "specs.winterhaven.h"
 #include "specs.zion.h"
@@ -30,6 +29,8 @@
 #include "specs.firep.h"
 #include "outposts.h"
 #include "buildings.h"
+#include "vnum.mob.h"
+#include "vnum.obj.h"
 
 extern const int top_of_world;
 extern P_index mob_index;
@@ -2655,6 +2656,7 @@ void assign_rooms(void)
   mob_index[real_mobile0(83414)].func.mob = rentacleric;
   obj_index[real_object0(120051)].func.obj = wh_corpse_decay;
   mob_index[real_mobile0(120051)].func.mob = wh_corpse_to_object;
+  mob_index[real_mobile0(VMOB_ALATORIN_STEELGRIP)].func.mob = smelter;
 
   // Gellz Special Procs added 2015 (gellz)
   obj_index[real_object0(55433)].func.obj = magic_deck;

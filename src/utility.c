@@ -1584,16 +1584,19 @@ bool can_char_multi_to_class(P_char ch,  int m_class)
 
 int coin_type(char *s)
 {
-  if (LOWER(*s) == 'c')
-    return 0;
-  else if (LOWER(*s) == 's')
-    return 1;
-  else if (LOWER(*s) == 'g')
-    return 2;
-  else if (LOWER(*s) == 'p')
-    return 3;
-  else
+  if( !*s )
+  {
     return -1;
+  }
+  if( is_abbrev(s, "copper") )
+    return 0;
+  if( is_abbrev(s, "silver") )
+    return 1;
+  if( is_abbrev(s, "gold") )
+    return 2;
+  if( is_abbrev(s, "platinum") )
+    return 3;
+  return -1;
 }
 
 int ScaleAreaDamage(P_char ch, int orig_dam)

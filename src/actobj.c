@@ -2159,8 +2159,6 @@ void do_give(P_char ch, char *argument, int cmd)
 
   argument = one_argument(argument, obj_name);
 
-
-
   if (is_number(obj_name))
   {
     if (strlen(obj_name) > 7)
@@ -2176,19 +2174,16 @@ void do_give(P_char ch, char *argument, int cmd)
     if ((ctype == -1) || (amount <= 0))
     {
       send_to_char("Sorry, you can't do that!\r\n", ch);
-      if (amount <= 0)
-        wizlog(57, "&-L&+R%s just tried to give %d %s in room %d!",
-               GET_NAME(ch), amount,
-               (ctype == 3) ? "plat" : (ctype ==
-                                        2) ? "gold" : "coper or silver",
-               world[ch->in_room].number);
+      if( amount <= 0 )
+        wizlog(57, "&-L&+R%s just tried to give %d %s in room %d!", GET_NAME(ch), amount,
+          (ctype == 3) ? "plat" : (ctype == 2) ? "gold" : (ctype == 1) ? "silver" : "copper",
+          world[ch->in_room].number);
       return;
     }
     if ((ch->points.cash[ctype] < amount) &&
         (IS_NPC(ch) || (GET_LEVEL(ch) < MAXLVL)))
     {
-      sprintf(Gbuf1, "You do not have that many %s coins!\r\n",
-              coin_names[ctype]);
+      sprintf(Gbuf1, "You do not have that many %s coins!\r\n", coin_names[ctype]);
       send_to_char(Gbuf1, ch);
       return;
     }
