@@ -9008,16 +9008,20 @@ void spell_invigorate(int level, P_char ch, char *arg, int type, P_char victim, 
 
   if((movepoints + GET_VITALITY(victim)) > GET_MAX_VITALITY(victim))
   {
+/* Old debugging message:
     if( GET_VITALITY(victim) != GET_MAX_VITALITY(victim) )
     {
       debug("INVIGORATE: Movement points (%d) %s to %s.",
         GET_MAX_VITALITY(victim) - GET_VITALITY(victim), GET_NAME(ch), GET_NAME(victim));
     }
+*/
     GET_VITALITY(victim) = GET_MAX_VITALITY(victim);
   }
   else
   {
+/* Old debugging message:
     debug("INVIGORATE: Movement points (%d) %s to %s.", movepoints, GET_NAME(ch), GET_NAME(victim));
+*/
     GET_VITALITY(victim) += movepoints;
   }
 
