@@ -3367,304 +3367,252 @@ int chance_kick(P_char ch, P_char victim)
 {
   int percent_chance;
 
-  if(!(ch))
-  {
-    logit(LOG_EXIT, "assert: bogus params (chance_kick)");
-    raise(SIGSEGV);
+  if( !IS_ALIVE(ch) || !IS_ALIVE(victim) )
     return 0;
-  }
 
-  if(!IS_ALIVE(ch) ||
-    !IS_ALIVE(victim))
-      return 0;
-
-  if(!GET_CHAR_SKILL(ch, SKILL_KICK))
+  if( (percent_chance = GET_CHAR_SKILL(ch, SKILL_KICK)) == 0 )
   {
     send_to_char("You don't know how to kick.\n", ch);
     return 0;
   }
 
-  if(IS_IMMOBILE(ch))
+  if( IS_IMMOBILE(ch) )
   {
     send_to_char("Wait a sec, you can't kick anyone right now.\n", ch);
     return 0;
   }
 
-  if(IS_NPC(ch) &&
-    LEGLESS(ch))
+  if( LEGLESS(ch) )
   {
     send_to_char("You haven't the necessary body parts to do that.\n", ch);
     return 0;
   }
-    
-  if(!on_front_line(ch))
+
+  if( !on_front_line(ch) )
   {
     send_to_char("You can't seem to break the ranks!\n", ch);
     return 0;
   }
 
-  if((IS_PC(ch) || 
-    IS_PC_PET(ch)) &&
-    !on_front_line(victim))
+  if( (IS_PC(ch) || IS_PC_PET(ch)) && !on_front_line(victim) )
   {
     send_to_char("You can't quite seem to reach them...\n", ch);
     return 0;
   }
 
-  if(!CanDoFightMove(ch, victim))
+  if( !CanDoFightMove(ch, victim) )
+  {
     return 0;
+  }
 
-  percent_chance = GET_CHAR_SKILL(ch, SKILL_KICK);
-  
   if(GET_RACE(ch) == RACE_CENTAUR)
-  percent_chance *= 2;
+    percent_chance *= 2;
 
-  percent_chance =
-    (int) (percent_chance * ((double) BOUNDED(80, GET_C_DEX(ch), 125)) / 100);
+  percent_chance = (int) (percent_chance * ((double) BOUNDED(80, GET_C_DEX(ch), 125)) / 100);
 
-  percent_chance = 
-    (int) (percent_chance *
-          ((int) BOUNDED(80, GET_C_STR(ch) + GET_C_AGI(ch) -
-          GET_C_AGI(victim), 125)) / 100);
+  percent_chance = (int) (percent_chance *
+    ((int) BOUNDED(80, GET_C_STR(ch) + GET_C_AGI(ch) - GET_C_AGI(victim), 125)) / 100);
 
-  if((int) (GET_C_LUK(ch) / 10) > number(1, 100))
+  if( GET_C_LUK(ch) / 10 > number(1, 100) )
   {
     percent_chance = (int) (percent_chance * 1.05);
   }
-  
-  if((int)(GET_C_LUK(victim) / 10) > number(1, 100))
+
+  if( GET_C_LUK(victim) / 10 > number(1, 100) )
   {
     percent_chance = (int) (percent_chance * 0.95);
   }
 
-  if(IS_AFFECTED(victim, AFF_AWARE))
+  if( IS_AFFECTED(victim, AFF_AWARE) )
   {
     percent_chance = (int) (percent_chance * 0.9);
   }
 
-  if(IS_NPC(ch))
+  if( IS_NPC(ch) )
   {
     percent_chance = (int) (percent_chance * 1.30);
   }
 
-  if(IS_IMMOBILE(victim) ||
-    GET_STAT(victim) <= STAT_SLEEPING)
+  if( IS_IMMOBILE(victim) || GET_STAT(victim) <= STAT_SLEEPING )
   {
     percent_chance = 100;
   }
 
-  return (int) percent_chance;
+  return percent_chance;
 }
 
 void kick(P_char ch, P_char victim)
 {
   struct damage_messages messages;
-  int takedown_chance = 0, dam = 0, door, target_room;
+  int takedown_chance, dam = 0, door, target_room;
   int random_number = number(1, 100);
   int vsize = get_takedown_size(victim);
   int csize = get_takedown_size(ch);
   int percent_chance = 0;
+  bool in_gh;
 
-  if(!(ch))
+  if( !IS_ALIVE(ch) || !IS_ALIVE(victim) )
   {
-    logit(LOG_EXIT, "assert: bogus params (kick) in actoff.c");
-    raise(SIGSEGV);
+    return;
   }
-  
-  if(ch && // Just making sure.
-    victim)
+
+  if( (percent_chance = chance_kick(ch, victim)) == 0 )
   {
-    if(!IS_ALIVE(ch) ||
-      !IS_ALIVE(victim))
-    {
-      return;
-    }
-    
-    if((percent_chance = chance_kick(ch, victim)) == 0)
-    {
-      return;
-    }
-    
-    dam = MAX((int) (GET_C_STR(ch) / 2),
-           GET_CHAR_SKILL(ch, SKILL_MARTIAL_ARTS)) +
-           GET_CHAR_SKILL(ch, SKILL_KICK);
+    return;
+  }
 
-// Randomize damage a bit. Jan08 -Lucrot
-    dam = number( (int) (dam/2), dam );
+  dam = MAX( (int) (GET_C_STR(ch) / 2), GET_CHAR_SKILL(ch, SKILL_MARTIAL_ARTS)) + GET_CHAR_SKILL(ch, SKILL_KICK);
 
-// Adjust property for dragon damage. Jan08 -Lucrot
-    dam = (int) (dam * get_property("kick.damage.modifier", 1.000));
+  // Randomize damage a bit. Jan08 -Lucrot
+  dam = number( (int) (dam/2), dam );
 
-// Dragons do more damage and adjusted by level and a bit quicker.
-// Includes dracoliches. Jan08 -Lucrot
-    if(IS_DRAGON(ch) || IS_CENTAUR(ch))
-    {
-      dam = (int) ( dam * 2 * (GET_LEVEL(ch) / 60) );
-      CharWait(ch, (int) (PULSE_VIOLENCE * 1.500));
-    }
-    else
-    {
-      CharWait(ch, PULSE_VIOLENCE * 2);
-    }
+  // Adjust property for dragon damage. Jan08 -Lucrot
+  dam = (int) (dam * get_property("kick.damage.modifier", 1.000));
 
-    //debug("&+gKick&n (%s) chance (%d) at (%s).", GET_NAME(ch), percent_chance, GET_NAME(victim));
+  // Dragons do more damage and adjusted by level and a bit quicker.
+  // Includes dracoliches. Jan08 -Lucrot
+  if( IS_DRAGON(ch) || IS_CENTAUR(ch) )
+  {
+    dam = (int) ( dam * 2 * (GET_LEVEL(ch) / 60) );
+    CharWait(ch, (int) ((PULSE_VIOLENCE * 2) / 3));
+  }
+  else
+  {
+    CharWait(ch, (PULSE_VIOLENCE * 3) / 2 + number(-WAIT_SEC, WAIT_SEC));
+  }
 
-    if(!notch_skill(ch, SKILL_KICK, get_property("skill.notch.offensive", 7))
-      && (percent_chance <= number(1, 100) || IS_IMMATERIAL(victim)))
-    {
-      kick_messages(ch, victim, FALSE, &messages);
-      act(messages.attacker, FALSE, ch, 0, victim, TO_CHAR);
-      act(messages.victim, FALSE, ch, 0, victim, TO_VICT);
-      act(messages.room, FALSE, ch, 0, victim, TO_NOTVICT);
-      
-      engage(ch, victim);
+  //debug("&+gKick&n (%s) chance (%d) at (%s).", GET_NAME(ch), percent_chance, GET_NAME(victim));
 
-      return;
-    }
+  if( !notch_skill(ch, SKILL_KICK, get_property("skill.notch.offensive", 7))
+    && (percent_chance < number(1, 100) || IS_IMMATERIAL(victim)) )
+  {
+    kick_messages(ch, victim, FALSE, &messages);
+    act(messages.attacker, FALSE, ch, 0, victim, TO_CHAR);
+    act(messages.victim, FALSE, ch, 0, victim, TO_VICT);
+    act(messages.room, FALSE, ch, 0, victim, TO_NOTVICT);
 
-    kick_messages(ch, victim, TRUE, &messages);
-    
-    if(melee_damage(ch, victim, dam , PHSDAM_TOUCH, &messages) != DAM_NONEDEAD)
-    {
-      return;
-    }
-    
-    if(!IS_ALIVE(ch))
-    {
-      return;
-    }
-    
-    if(LEGLESS(ch) ||
-      !IS_ALIVE(victim))
-    {
-      return;
-    }
-    
-    if(csize <= (vsize - 2))
-    {
-      takedown_chance = (vsize - csize) * 4 ; // This was 5 per level.
-    }
-    else if(csize >= (vsize + 2))
-    {
-      takedown_chance = (csize - vsize) * 4 ; // This was 5 per level.
-    }
-    else 
-    {
-      return;
-    }
-    
-    if(IS_NPC(ch) &&
-      !GET_MASTER(ch))
-    {
-      takedown_chance = (int) (takedown_chance * 1.2);
-    }
+    engage(ch, victim);
 
-    if((IS_CENTAUR(ch) || IS_OGRE(ch) || (GET_RACE(ch) == RACE_FIRBOLG) || (GET_RACE(ch) == RACE_BARBARIAN) || (GET_RACE(ch) == RACE_TROLL)) && !IS_NPC(ch))
-    {
-      takedown_chance = (int) (takedown_chance * 1.4);
-    }
+    return;
+  }
 
+  kick_messages(ch, victim, TRUE, &messages);
 
-    takedown_chance = takedown_check(ch, victim, takedown_chance, SKILL_KICK, APPLY_ALL ^ AGI_CHECK ^ FOOTING);
+  if( melee_damage(ch, victim, dam, PHSDAM_TOUCH, &messages) != DAM_NONEDEAD )
+  {
+    return;
+  }
 
-    if(takedown_chance == TAKEDOWN_CANCELLED ||
-      takedown_chance == TAKEDOWN_PENALTY)
-    {
-      return;
-    }
-    
-    if(GET_POS(victim) !=  POS_STANDING)
-    {
-      takedown_chance = (int) (takedown_chance / 5);
-    }
-    
-    if(GET_RACE(ch) == RACE_CENTAUR)
+  if( csize <= (vsize - 2) )
+  {
+    takedown_chance = (vsize - csize) * 4 ; // This was 5 per level.
+  }
+  else if( csize >= (vsize + 2) )
+  {
+    takedown_chance = (csize - vsize) * 4 ; // This was 5 per level.
+  }
+  else
+  {
+    return;
+  }
+
+  if( IS_NPC(ch) && !GET_MASTER(ch) )
+  {
+    takedown_chance = (int) (takedown_chance * 1.2);
+  }
+
+  if( (IS_CENTAUR(ch) || IS_OGRE(ch) || (GET_RACE(ch) == RACE_FIRBOLG) || (GET_RACE(ch) == RACE_BARBARIAN) || (GET_RACE(ch) == RACE_TROLL)) && !IS_NPC(ch) )
+  {
+    takedown_chance = (int) (takedown_chance * 1.4);
+  }
+
+  takedown_chance = takedown_check(ch, victim, takedown_chance, SKILL_KICK, APPLY_ALL ^ AGI_CHECK ^ FOOTING);
+
+  if( takedown_chance == TAKEDOWN_CANCELLED || takedown_chance == TAKEDOWN_PENALTY )
+  {
+    return;
+  }
+
+  if( GET_POS(victim) !=  POS_STANDING )
+  {
+    takedown_chance /= 5;
+  }
+
+  if( GET_RACE(ch) == RACE_CENTAUR )
+  {
     takedown_chance *= 2;
+  }
 
-    int gh = (zone_table[world[ch->in_room].zone].number == GH_ZONE_NUMBER);
-    if(takedown_chance > random_number &&
-      csize > (vsize + 1))
+  in_gh = (zone_table[world[ch->in_room].zone].number == GH_ZONE_NUMBER);
+
+  if( takedown_chance > random_number && csize > (vsize + 1) )
+  {
+    door = number(0, 9);
+
+    if( (door == UP) || (door == DOWN) )
     {
-      door = number(0+gh, 9);
-      
-      if((door == UP) || (door == DOWN))
-      {
-        door = number(0+gh, 3);
-      }
-      
-      if(CAN_GO(victim, door) &&
-        (!check_wall(victim->in_room, door)))
-      {
-        act("Your mighty kick sends $N flying out of the room!", FALSE, ch, 0,
-            victim, TO_CHAR);
-        act("$n's mighty kick sends you flying out of the room!", FALSE, ch, 0,
-            victim, TO_VICT);
-        act("$n's mighty kick sends $N flying out of the room!", FALSE, ch, 0,
-            victim, TO_NOTVICT);
-        target_room = world[victim->in_room].dir_option[door]->to_room;
-        char_from_room(victim);
-        
-        if( char_to_room(victim, target_room, -1))
-        {
-          act("$n flies in, crashing on the floor!", TRUE, victim, 0, 0,
-              TO_ROOM);
-          SET_POS(victim, POS_PRONE + GET_STAT(victim));
-          
-          stop_fighting(victim);
-          if( IS_DESTROYING(victim) )
-            stop_destroying(victim);
+      door = number(0, 3);
+    }
 
-          CharWait(victim, (int) (PULSE_VIOLENCE *
-            get_property("kick.roomkick.victimlag", 1.000)));
-        }
-      }
-      else
+    if( CAN_GO(victim, door) && (!check_wall(victim->in_room, door)) )
+    {
+      act("Your mighty kick sends $N flying out of the room!", FALSE, ch, 0, victim, TO_CHAR);
+      act("$n's mighty kick sends you flying out of the room!", FALSE, ch, 0, victim, TO_VICT);
+      act("$n's mighty kick sends $N flying out of the room!", FALSE, ch, 0, victim, TO_NOTVICT);
+      target_room = world[victim->in_room].dir_option[door]->to_room;
+      char_from_room(victim);
+
+      if( char_to_room(victim, target_room, -1))
       {
-        act("Your mighty kick sends $N crashing onto the ground!", FALSE, ch, 0,
-            victim, TO_CHAR);
-        act("$n's mighty kick sends you crashing onto the ground!", FALSE, ch, 0,
-            victim, TO_VICT);
-        act("$n's mighty kick sends $N crashing onto the ground!", FALSE, ch, 0,
-            victim, TO_NOTVICT);
+        act("$n flies in, crashing on the floor!", TRUE, victim, 0, 0, TO_ROOM);
         SET_POS(victim, POS_PRONE + GET_STAT(victim));
-        
-        if(!number(0, 24) &&
-           !IS_STUNNED(victim))
-        {
-          Stun(victim, ch, (PULSE_VIOLENCE * number(1, 2)), TRUE);
-        }
         stop_fighting(victim);
         if( IS_DESTROYING(victim) )
           stop_destroying(victim);
-        CharWait(victim, (int) (PULSE_VIOLENCE *
-          get_property("kick.wallkick.victimlag", 1.5)));
+
+        CharWait(victim, (int) (PULSE_VIOLENCE * get_property("kick.roomkick.victimlag", 1.000)));
       }
-      return;
     }
-    if(IS_HUMANOID(victim) &&
-      takedown_chance > random_number &&
-      csize < vsize &&
-      !number(0, 10))
+    else
     {
-      act("Your nimble kick slams into $N's groin, and $N whimpers before crashing to the ground!", FALSE, ch, 0,
-          victim, TO_CHAR);
-      act("$n's nimble kick crashes into your groin .. OUCH!!! .. and down you go!", FALSE, ch, 0,
-          victim, TO_VICT);
-      act("$n's nimble kick connects with $N's groin...\r$N crashes to the ground!", FALSE, ch, 0,
-          victim, TO_NOTVICT);
-      SET_POS(victim, POS_SITTING + GET_STAT(victim));
-      
-      if(!number(0, 24))
+      act("Your mighty kick sends $N crashing onto the ground!", FALSE, ch, 0, victim, TO_CHAR);
+      act("$n's mighty kick sends you crashing onto the ground!", FALSE, ch, 0, victim, TO_VICT);
+      act("$n's mighty kick sends $N crashing onto the ground!", FALSE, ch, 0, victim, TO_NOTVICT);
+      SET_POS(victim, POS_PRONE + GET_STAT(victim));
+
+      if( !number(0, 24) && !IS_STUNNED(victim) )
       {
-        Stun(victim, ch, (PULSE_VIOLENCE * number(1, 3)), TRUE);
+        // Added a little more play in the stun time (from 1 pulse vio. to 2 1/4 pulse vio's).
+        Stun(victim, ch, (PULSE_VIOLENCE * number(4, 9))/4, TRUE);
       }
       stop_fighting(victim);
       if( IS_DESTROYING(victim) )
         stop_destroying(victim);
-      CharWait(victim, (int) (PULSE_VIOLENCE * get_property("kick.groinkick.victimlag", 1.000)));
+      CharWait(victim, (int) (PULSE_VIOLENCE * get_property("kick.wallkick.victimlag", 1.5)));
     }
     return;
   }
+  if(IS_HUMANOID(victim) && takedown_chance > random_number && csize < vsize && !number(0, 10))
+  {
+    act("Your nimble kick slams into $N's groin, and $N whimpers before crashing to the ground!", FALSE, ch, 0,
+        victim, TO_CHAR);
+    act("$n's nimble kick crashes into your groin .. OUCH!!! .. and down you go!", FALSE, ch, 0,
+        victim, TO_VICT);
+    act("$n's nimble kick connects with $N's groin...\r$N crashes to the ground!", FALSE, ch, 0,
+        victim, TO_NOTVICT);
+    SET_POS(victim, POS_SITTING + GET_STAT(victim));
+
+    if( !number(0, 24) )
+    {
+      // Added a little more play in the stun time (from 1 pulse vio. to 3 1/4 pulse vio's).
+      Stun(victim, ch, (PULSE_VIOLENCE * number(4, 13))/4, TRUE);
+    }
+    stop_fighting(victim);
+    if( IS_DESTROYING(victim) )
+      stop_destroying(victim);
+    CharWait(victim, (int) (PULSE_VIOLENCE * get_property("kick.groinkick.victimlag", 1.000)));
+  }
+  return;
 }
 
 void do_kick(P_char ch, char *argument, int cmd)
