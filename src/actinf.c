@@ -6556,8 +6556,8 @@ void do_who(P_char ch, char *argument, int cmd)
     tchReal = (tch->desc->original != NULL) ? tch->desc->original : tch->desc->character;
     sprinttype(tch->desc->connected, connected_types, buf5);
 
-    sprintf(buf4, "Desc: %3d, Idle: %3ld, Lvl:%3d, Switched: %c, Name: %s\n\r"
-      "Room: %6d, Vis level: %d, Connection: %-11s %15s\n\r\n\r",
+    sprintf(buf4, "&+YDesc: &n%3d&+Y, Idle: &n%3ld&+Y, Lvl:&n%3d&+Y, Switched: &n%c&+Y, Name: &n%s\n\r"
+      "&+YRoom: &n%6d&+Y, Vis level: &n%d&+Y, Connection: &n%-11s %15s\n\r\n\r",
       tch->desc->descriptor, timer, GET_LEVEL( tchReal ), (tch->desc->original) ? 'Y' : 'N', GET_NAME(tchReal),
       (tchReal->in_room > NOWHERE) ? world[tchReal->in_room].number : -1, tchReal->only.pc->wiz_invis, buf5,
       (tch->desc->host) ? tch->desc->host : "UNKNOWN" );
@@ -6567,26 +6567,28 @@ void do_who(P_char ch, char *argument, int cmd)
 
     if( USES_MANA(tch) )
     {
-      sprintf(buf, "      Hit Points = %d(%d),  Mana = %d(%d),  Movement Points = %d(%d)\n",
+      sprintf(buf, "      &+YHit Points = &n%d&+Y(&n%d&+Y),  Mana = &n%d&+Y(&n%d&+Y),  Movement Points = &n%d&+Y(&n%d&+Y)\n",
         GET_HIT(tch), GET_MAX_HIT(tch), GET_MANA(tch), GET_MAX_MANA(tch), GET_VITALITY(tch), GET_MAX_VITALITY(tch));
     }
     else
     {
-      sprintf(buf, "      Hit Points = %d(%d), Movement Points = %d(%d), Alignment = %d\n",
+      sprintf(buf, "      &+YHit Points = &n%d&+Y(&n%d&+Y), Movement Points = &n%d&+Y(&n%d&+Y), Alignment = &n%d\n",
         GET_HIT(tch), GET_MAX_HIT(tch), GET_VITALITY(tch), GET_MAX_VITALITY(tch), GET_ALIGNMENT(tch));
     }
+    
+    /*Wrecks heh! &+YArmor Class = &n0&+Y, Hitroll = &n0&+Y, Damroll = &n0\n*/
 
-    sprintf(buf3, "      Experience to next level = %d.\n",
+    sprintf(buf3, "      &+YExperience to next level = &n%d&+Y.\n",
             (new_exp_table[GET_LEVEL(tch) + 1] - GET_EXP(tch)));
     strcat(buf, buf3);
 
     pafepics = get_spell_from_char(tch, TAG_EPICS_GAINED);
-    sprintf(buf3, "      Epic points = %ld.   Total epics gained = %d.\n",
+    sprintf(buf3, "      &+YEpic points = &n%ld&+Y.   Total epics gained = &n%d&+Y.\n",
       tch->only.pc->epics, pafepics ? pafepics->modifier : 0 );
     strcat(buf, buf3);
 
-    sprintf(buf3, "      Stats: STR = %d, DEX = %d, AGI = %d, CON = %d, LUCK = %d\n"
-      "             POW = %d, INT = %d, WIS = %d, CHA = %d\n",
+    sprintf(buf3, "      &+YStats: STR = &n%d&+Y, DEX = &n%d&+Y, AGI = &n%d&+Y, CON = &n%d&+Y, LUCK = &n%d\n"
+      "             &+YPOW = &n%d&+Y, INT = &n%d&+Y, WIS = &n%d&+Y, CHA = &n%d\n",
       GET_C_STR(tch), GET_C_DEX(tch), GET_C_AGI(tch), GET_C_CON(tch), GET_C_LUK(tch),
       GET_C_POW(tch), GET_C_INT(tch), GET_C_WIS(tch), GET_C_CHA(tch));
     strcat(buf, buf3);
@@ -6596,11 +6598,11 @@ void do_who(P_char ch, char *argument, int cmd)
 #else
     playing_time = real_time_passed((long)((time(0) - tch->player.time.logon) + tch->player.time.played - EQ_WIPE), 0);
 #endif
-    sprintf(buf3, "      Playing time = %d days and %d hours, Age = %d years\n",
+    sprintf(buf3, "      &+YPlaying time = &n%d &+Ydays and &n%d &+Yhours, Age = &n%d &+Yyears\n",
       playing_time.day, playing_time.hour, GET_AGE(tch));
     strcat(buf, buf3);
 
-    sprintf(buf3, "      Client: %s&n\n", (strlen(tch->desc->client_str) > 2) ? tch->desc->client_str : "Unknown" );
+    sprintf(buf3, "      &+YClient: &n%s&n\n", (strlen(tch->desc->client_str) > 2) ? tch->desc->client_str : "Unknown" );
     strcat(buf, buf3);
 
     send_to_char(buf, ch);
