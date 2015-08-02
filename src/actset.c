@@ -593,7 +593,7 @@ static void setbit_char(P_char ch, char *name, char *flag, char *val, int on_off
   {
     // Allowing Ashyel, my admin assistant, to be Greater God and setbit.
     // Note: she still has to be Greater God to use setbit at all.
-    if( strcmp( ch->player.name, "Ashyel" ) )
+    if( strcmp(ch->player.name, "Ashyel") || GET_LEVEL(ch) <= GET_LEVEL(ppl) )
     {
       send_to_char("Nope, you are too wimpy to affect them.\r\n", ch);
       return;
