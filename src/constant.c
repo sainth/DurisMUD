@@ -156,7 +156,7 @@ const mcname multiclass_names[] = {
   {CLASS_RANGER, CLASS_ANTIPALADIN,      "&+LBleak &+GHero&n"},
   {CLASS_RANGER, CLASS_CLERIC,           "&+GWild &+YZealot&n"},  
   {CLASS_RANGER, CLASS_MONK,             "&+GGreen Ninja&n"},  
-  {CLASS_RANGER, CLASS_DRUID,            "&+gForrestal&n"},
+  {CLASS_RANGER, CLASS_DRUID,            "&+gFor&+Gres&+gtal&n"},
   {CLASS_RANGER, CLASS_SHAMAN,           "&+GG&+Ca&+Gr&+Co&+Gu&n"},  
   {CLASS_RANGER, CLASS_SORCERER,         "&+GOutland &+MMagi&n"},  
   {CLASS_RANGER, CLASS_NECROMANCER,      "&+GPu&+mtr&+Gif&+mie&+Gr&n"},
