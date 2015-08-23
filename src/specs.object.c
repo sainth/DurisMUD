@@ -13273,21 +13273,11 @@ int bel_sword(P_obj obj, P_char ch, int cmd, char *arg)
     return FALSE;
   }
 
-  if( !IS_ALIVE(ch) )
-  {
-    if( OBJ_WORN(obj) )
-    {
-      ch = obj->loc.wearing;
-    }
-    else
-    {
-      return FALSE;
-    }
-  }
-  if( !IS_ALIVE(ch) )
+  if( !IS_ALIVE(ch) || !OBJ_WORN(obj) )
   {
     return FALSE;
   }
+  ch = obj->loc.wearing;
 
   if( arg && (cmd == CMD_REMOVE) )
   {
