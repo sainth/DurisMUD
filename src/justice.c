@@ -1797,41 +1797,30 @@ void justice_action_invader(P_char ch)
   struct zone_data *zone_struct;
   int room;
 
-  if (IS_TRUSTED(ch))
+  if( IS_TRUSTED(ch) )
     return;
-
-
-/*
-#if 1
-return;
-#endif
-*/
 
 /*
   if (mini_mode)
    return;
 */
 
-
-  if (!CHAR_IN_TOWN(ch))
+  if( !CHAR_IN_TOWN(ch) )
     return;
 
   if (!IS_INVADER(ch) && !IS_OUTCAST(ch))
     return;
 
 
-  /*Original Justice 
-  if (!justice_send_guards(NOWHERE, ch, MOB_SPEC_J_OUTCAST,
-                           (MAX(11, GET_LEVEL(ch)) / 11) + 1))
+  /*Original Justice
+  if (!justice_send_guards(NOWHERE, ch, MOB_SPEC_J_OUTCAST, (MAX(11, GET_LEVEL(ch)) / 11) + 1))
    {
     return;
    }
-*/
-
-
+  */
 
   zone_struct = &zone_table[world[ch->in_room].zone];
-  room = ch->in_room;  
+  room = ch->in_room;
 
   //  Re-doing justice here.  Major idea is to get rid of the overkill response
   //  which doesn't allow for any hometown raiding, but still not make it far
@@ -1844,9 +1833,9 @@ return;
   //  squad issued from another hometown that will 'encourage' the invaders to
   //  leave.  Hopefully this works out better than justice ever has...  - Jexni 3/4/11
 
-  if(IS_INVADER(ch) && IS_PC(ch) && get_scheduled(ch, event_justice_raiding))
+  if( IS_INVADER(ch) && IS_PC(ch) && get_scheduled(ch, event_justice_raiding) )
   {
-    if(!number(0, 1))
+    if( !number(0, 1) )
       return;
   }
   else
@@ -1855,18 +1844,16 @@ return;
     add_event(event_justice_raiding, WAIT_SEC * 200, ch, 0, 0, 0, &room, sizeof(room));
   }
 
-  if(IS_INVADER(ch))
+  if( IS_INVADER(ch) )
   {
-    if (!number(0, 2))
+    if( !number(0, 2) )
+    {
       justice_send_guards(NOWHERE, ch, MOB_SPEC_J_OUTCAST, 1);
-  /*
-    if((GET_RACEWAR(ch) == RACEWAR_EVIL) &&
-        !(number(0, 15)) &&
-        get_property("justice.alarms.good", 1.000))
-*/
-    
-    if(GET_RACEWAR(ch) == RACEWAR_EVIL)
-    { 
+    }
+
+    if( IS_SET(hometowns[CHAR_IN_TOWN(ch) - 1].flags, JUSTICE_GOODHOME)
+      && !(number(0, 15)) && get_property("justice.alarms.good", 1) )
+    {
       int rnum = number(1, 4);
       if(rnum == 1)
         justice_hometown_echo(CHAR_IN_TOWN(ch), "&+RAlarm bells sound, &+rsignalling an invasion!&n");
@@ -1876,12 +1863,10 @@ return;
         justice_hometown_echo(CHAR_IN_TOWN(ch), "&+LMilitia forces muster to bolster the town's defenses against the &=Lrinvaders!!!&n");
       if(rnum == 4)
         justice_hometown_echo(CHAR_IN_TOWN(ch), "&+RAlarm bells sound, &+rsignalling an invasion!&n");
-      
       return;
     }
-    else if((GET_RACEWAR(ch) == RACEWAR_GOOD) &&
-              !number(0, 15) &&
-	      (int)get_property("justice.alarms.evil", 1.000))
+    else if( IS_SET(hometowns[CHAR_IN_TOWN(ch) - 1].flags, JUSTICE_EVILHOME)
+      && !number(0, 15) && get_property("justice.alarms.evil", 1) )
     {
       justice_hometown_echo(CHAR_IN_TOWN(ch), "&+yHorns begin to &+Ybellow &+yand drums &+cthunder&n &+yto the &+Rcall to arms!&n");
       return;

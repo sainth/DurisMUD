@@ -292,15 +292,10 @@ extern const char *justice_flag_names[];
                              (!IS_CENTAURIE(a) && ((b) == HOME_MARIGOT))))
 
 
-#define PC_INVADER(a,b) (IS_PC(a) && \
-                        !TRUSTED_NPC(a) && \
-                        !IS_DISGUISE(a) && \
-                        ((IS_SET(hometowns[b - 1].flags, JUSTICE_GOODHOME) && \
-                        (EVIL_RACE(a))) || \
-                        (IS_SET(hometowns[b - 1].flags, JUSTICE_EVILHOME) && \
-                        (GOOD_RACE(a))) || \
-                        (!IS_ELFIE(a) && ((b) == HOME_CHARIN)) || \
-                        (!IS_CENTAURIE(a) && ((b) == HOME_MARIGOT))))
+#define PC_INVADER(a,b) (IS_PC(a) && !TRUSTED_NPC(a) && !IS_DISGUISE(a) \
+  && ((IS_SET(hometowns[b - 1].flags, JUSTICE_GOODHOME) && (!GOOD_RACE(a))) \
+   || (IS_SET(hometowns[b - 1].flags, JUSTICE_EVILHOME) && (!EVIL_RACE(a))) \
+   || (!IS_ELFIE(a) && ((b) == HOME_CHARIN)) || (!IS_CENTAURIE(a) && ((b) == HOME_MARIGOT))) )
 
   /* special macros for justice that also check NPC races! */
 #define EVILRACE(a) (RACE_EVIL(a) || \
