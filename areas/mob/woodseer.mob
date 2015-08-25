@@ -7,7 +7,7 @@ Despite his friendly grin, the jailer looks tough and immovable.  Like all the
 halfling guards he takes great pride in his work, and the fact that HE is the
 one trusted with the only key to the jail door.
 ~
-100665422 672 0 0 536879144 12480 0 0 1000 S
+100665422 928 0 0 536879144 12480 0 0 1000 S
 PF 0 1 0 -1
 35 6 -12 35d83+595 4d6+7
 9.9.1.2 45360
@@ -24,7 +24,7 @@ sunburst tattoo that is rumored to give them the ability to see even invisible
 and sneaking thieves.  This guard may not be as burly as some of his friends
 but it is certain that one swift cry will bring many more.
 ~
-1174407244 672 0 0 8232 0 0 0 1000 S
+1174407244 928 0 0 8232 0 0 0 1000 S
 PF 0 1 0 -1
 36 15 61 12d27+72 2d5+2
 6.4.2.0 5832
@@ -41,7 +41,7 @@ sunburst tattoo that is rumored to give them the ability to see even invisible
 and sneaking thieves.  This guard may not be as burly as some of his friends
 but it is certain that one swift cry will bring many more.
 ~
-1174407246 672 0 0 0 0 0 0 1000 S
+1174407246 928 0 0 0 0 0 0 1000 S
 PF 0 1 0 -1
 12 15 61 12d27+72 2d5+2
 6.4.2.0 5832
@@ -58,7 +58,7 @@ the strange tattoo on his forehead is supposed to allow him to see both
 invisible and sneaking thieves as well as helping detect whether or not any
 particular individual has any evil intentions.
 ~
-1140852812 672 0 0 8 0 0 0 1000 S
+1140852812 928 0 0 8 0 0 0 1000 S
 PF 0 1 0 -1
 45 8 3 30d65+390 3d6+4
 0.5.7.1 26730
@@ -75,7 +75,7 @@ the strange tattoo on his forehead is supposed to allow him to see both
 invisible and sneaking thieves as well as helping detect whether or not any
 particular individual has any evil intentions.
 ~
-1174407246 672 0 0 536879144 12480 0 0 1000 S
+1174407246 928 0 0 536879144 12480 0 0 1000 S
 PF 0 1 0 -1
 35 6 -12 35d83+595 4d6+7
 9.9.1.2 45360
@@ -91,7 +91,7 @@ Woodseer and his adventuring in the nearby jungle.  His alligatorskin armor is
 a sign of his status among the guards.  Such armor is expensive, the Woodseer
 Council must value his service a great deal.
 ~
-1174407244 672 0 0 0 0 0 0 1000 S
+1174407244 928 0 0 0 0 0 0 1000 S
 PF 0 1 0 -1
 40 -3 -95 50d119+2750 6d6+25
 0.3.1.5 121500
@@ -107,7 +107,7 @@ Woodseer and his adventuring in the nearby jungle.  His alligatorskin armor is
 a sign of his status among the guards.  Such armor is expensive, the Woodseer
 Council must value his service a great deal.
 ~
-1174407244 672 0 0 0 0 0 0 1000 S
+1174407244 928 0 0 0 0 0 0 1000 S
 PF 0 1 0 -1
 46 -3 -95 50d119+2750 6d6+25
 0.3.1.5 121500
@@ -125,7 +125,7 @@ jarus halfling guard~
 &+Wtimes.  He bears the scars of battle, and even though he is but a halfling, he
 &+Whas amassed an impressive collection of wins upon the battlefield.&N
 ~
-1174407180 672 0 0 8 0 0 0 1000 S
+1174407180 928 0 0 8 0 0 0 1000 S
 PF 0 1 0 -1
 58 -7 -114 56d143+5880 7d6+35
 1.3.8.6 226800
@@ -194,7 +194,7 @@ can be easily overcome.  His face shows his youth and a certain amount of
 innocence, but his arms show the strength that got him the job in the first
 place.
 ~
-1140852810 672 0 0 8232 0 0 0 1000 S
+1140852810 928 0 0 8232 0 0 0 1000 S
 PF 0 1 0 -1
 15 15 51 15d27+90 2d5+2
 7.6.2.0 7290
@@ -211,7 +211,7 @@ halfling judge~
 &+Cthe legal experts in Woodseer.  Though kindly looking, one can be assured that&N
 &+Cthe law, and punishments for breaking it, shall be followed to the letter.&N
 ~
-100665422 640 0 0 8232 0 0 0 0 S
+100665422 896 0 0 8232 0 0 0 0 S
 PF 0 32 0 -1
 45 -1 -69 45d99+1980 6d6+12
 5.9.8.4 109350
@@ -227,7 +227,7 @@ here to pay tribute to his own god.  He wears a beautiful white tunic that
 glows with a holy magic, but still looks to flimsy to provide any real
 protection.
 ~
-1174407242 672 0 0 8192 0 0 0 1000 S
+1174407242 928 0 0 8192 0 0 0 1000 S
 PF 7 1 0 -1
 15 15 51 15d27+90 2d5+2
 7.6.2.0 7290
@@ -409,7 +409,7 @@ human warrior paladin~
 &+Wcertainly has involved many difficult battles which have left him with many&N
 &+Wscars.&N
 ~
-1174407240 160 0 0 8192 0 0 0 1000 S
+1174407240 416 0 0 8192 0 0 0 1000 S
 PH 0 8 0 -1
 12 15 61 12d27+72 2d5+2
 6.4.2.0 5832
@@ -956,7 +956,7 @@ graeme halfling warrior~
 &+Rclear he could hit most opponents three times before being hit even once
 &+Rhimself.&N
 ~
-1073776712 672 0 0 16 0 0 0 0 S
+1073776712 928 0 0 16 0 0 0 0 S
 PF 7 1 0 -1
 56 -7 -114 56d143+5880 7d6+35
 1.3.8.6 226800
@@ -1009,7 +1009,7 @@ that he once collected a bounty on someone that was trying to hide out with
 the trolls, an unlikely story but quite impressive, if true.  Light brown hair
 highlights his tawny form, making him look more like a lion than a halfling.
 ~
-1174407244 640 0 0 1048608 0 0 0 0 S
+1174407244 896 0 0 1048608 0 0 0 0 S
 PF 7 16384 0 -1
 56 -7 -114 56d143+5880 7d6+35
 1.3.8.6 226800
@@ -1787,7 +1787,7 @@ When he concentrates, he squeezes his eyes together highlighting the wrinkles
 that already line his face.  Despite his age his hands move swiftly as he cuts
 and stiches leather together.
 ~
-2122 128 0 0 0 0 0 0 400 S
+2122 384 0 0 0 0 0 0 400 S
 PF 7 4096 0 -1
 8 18 74 8d18+28 2d3+1
 4.2.0.0 1036
@@ -1803,7 +1803,7 @@ and belts, but those he makes are of exceptional quality.  His bright blue
 eyes dart from what he is doing to watch the other more experienced leather-
 workers in the room, learning by watchin what they are doing.
 ~
-2122 128 0 0 0 0 0 0 500 S
+2122 384 0 0 0 0 0 0 500 S
 PF 7 1 0 -1
 6 18 80 6d21+33 2d3+1
 3.2.0.0 777
@@ -1818,7 +1818,7 @@ He is clearly in charge of the work that is going on here, but does little in
 the way of giving orders.  It is his responsibility to acquire all the
 materials and contracts, as well as selling everything that is made.
 ~
-1107298378 128 0 0 0 0 0 0 500 S
+1107298378 384 0 0 0 0 0 0 500 S
 PF 7 1 0 -1
 50 -3 -95 50d119+2750 6d6+25
 0.3.1.5 121500
@@ -1832,7 +1832,7 @@ This halfling lies on his bed with his hat drawn down over his eyes trying to
 get a bit of rest.  His shoes lie on the ground beside him as he hangs his bare
 feet over the edge of the bed.
 ~
-2120 128 0 0 0 0 0 0 200 S
+2120 384 0 0 0 0 0 0 200 S
 PF 7 1 0 -1
 6 18 80 6d21+33 2d3+1
 3.2.0.0 777
@@ -1876,7 +1876,7 @@ red robes go well with his dark eyes and hair, giving him a mysterious, yet
 somehow trustworthy air.  Several of his mannerisms indicate that he has
 traveled widely and wants people to know it.
 ~
-1073743944 128 0 0 0 0 0 0 0 S
+1073743944 384 0 0 0 0 0 0 0 S
 PF 7 512 0 -1
 26 8 16 26d44+286 3d6+4
 7.2.6.1 23166
@@ -1908,7 +1908,7 @@ and the mountains while his wife is away shopping in the market.  His dark hair
 is highlighted by silver streaks that seem to add a distinguished look to his
 already handsome features.
 ~
-1107298378 128 0 0 0 0 0 0 300 S
+1107298378 384 0 0 0 0 0 0 300 S
 PF 7 4096 0 -1
 25 11 19 25d40+200 3d5+3
 6.2.6.1 22275
@@ -2004,7 +2004,7 @@ weth halfling~
 &+yforest for many years, and this soft bouncey step looks more like the gait&N
 &+yof a cat than a halfling.&N
 ~
-1174407244 672 0 0 16 0 0 0 800 S
+1174407244 928 0 0 16 0 0 0 800 S
 PF 7 1 0 -1
 40 2 -28 40d95+920 4d7+10
 3.3.3.3 51840
@@ -2020,7 +2020,7 @@ and demonstrates his abilities to all that see him.  As he works he continually
 mutters to himself, as he mumbles words such as "polish", "stain" and "grain"
 can be made out.
 ~
-2126 128 0 0 0 0 0 0 500 S
+2126 384 0 0 0 0 0 0 500 S
 PF 7 1 0 -1
 8 18 74 8d21+44 2d3+1
 4.2.0.0 1036
@@ -2195,7 +2195,7 @@ the tower, marking him as a guard as well as a mage.  His stern eyes and grim
 face are a reminder that he has all the power and authority of one of the
 regular guards, and is more than capable of doing his job.
 ~
-1174407244 672 0 0 0 0 0 0 1000 S
+1174407244 928 0 0 0 0 0 0 1000 S
 PF 7 1 0 -1
 40 2 -28 40d95+920 4d7+10
 3.3.3.3 51840
@@ -2321,7 +2321,7 @@ a youthful innocence that will soon depart, if he survives long that is.  Hair
 the color of the wooden spear he holds has been tied back behind his head to
 keep it out of his way.
 ~
-1073743948 640 0 0 0 0 0 0 300 S
+1073743948 896 0 0 0 0 0 0 300 S
 PF 7 16384 0 -1
 5 20 83 5d17+27 1d5+0
 3.1.0.0 648
@@ -2338,7 +2338,7 @@ that sometime soon they won't have such a bright outlook on life.  Something
 about having to hunt down and deal with criminals tends to make anybody a
 cynic.
 ~
-1073743948 640 0 0 0 0 0 0 300 S
+1073743948 896 0 0 0 0 0 0 300 S
 PF 7 16384 0 -1
 10 18 67 10d21+55 2d3+1
 5.3.0.0 1296
@@ -2355,7 +2355,7 @@ she watches the others practice, it is clear that though one of only a few
 halfling woman to ever take up bounty-hunting, she is one of the finest bounty-
 hunters that money can buy.
 ~
-1073743948 640 0 0 0 0 0 0 1000 S
+1073743948 896 0 0 0 0 0 0 1000 S
 PF 7 1 0 -1
 15 15 51 15d27+90 2d5+2
 7.6.2.0 7290
@@ -2511,7 +2511,7 @@ halflings that surround him.  If he weren't sitting down it would be impossible
 to see his deeply set pale green eyes.  In fact, the color of his eyes alone
 detracts from the ferocious appearance that he wants to portray.
 ~
-2142 128 0 0 0 0 0 0 300 S
+2142 384 0 0 0 0 0 0 300 S
 PB 0 1 0 -1
 17 13 45 17d35+119 3d4+2
 8.6.2.0 8262
@@ -2525,7 +2525,7 @@ This suave dark-haired woman has a quiet charm about her that makes her tales
 quite believable.  Her light brown eyes scan the room, looking for people that
 might supply her with information to send her off on another quest.
 ~
-2126 128 0 0 0 0 0 0 500 S
+2126 384 0 0 0 0 0 0 500 S
 PH 0 1 0 -1
 16 13 48 16d35+112 3d4+2
 8.6.2.0 7776
@@ -2539,7 +2539,7 @@ This stout warrior is a bit clumsy and clearly needs to practice a bit more
 before trying to go out on his own.  His light brown eyes match his sweat-
 soaked hair and he has the muscles that go with long hours of practice.
 ~
-2126 128 0 0 0 0 0 0 500 S
+2126 384 0 0 0 0 0 0 500 S
 PF 7 1 0 -1
 8 18 74 8d21+44 2d3+1
 4.2.0.0 1036
@@ -2553,7 +2553,7 @@ This pale halfling warrior needs to spend a bit more time in the sun.  His
 pasty skin and pale green eyes contrast strongly with the callouses on his
 hands and the scars he has received in training.
 ~
-2126 128 0 0 0 0 0 0 500 S
+2126 384 0 0 0 0 0 0 500 S
 PF 7 1 0 -1
 7 18 77 7d21+38 2d3+1
 3.2.0.0 907
@@ -2568,7 +2568,7 @@ has already seen more of the world than most in this city will see during their
 entire lives.  His brown eyes have a slightly yellow tint and survey the
 surroundings with a vague hint of amusement.
 ~
-2124 128 0 0 0 0 0 0 500 S
+2124 384 0 0 0 0 0 0 500 S
 PF 7 1 0 -1
 12 15 61 12d27+72 2d5+2
 6.4.2.0 5832
@@ -2583,7 +2583,7 @@ town.  Blue eyes with green flecks observe everything he passes by, it is clear
 from his attitude that he is in search of some hint of adventure, or a simple
 excuse to fight something.
 ~
-1073743948 128 0 0 0 0 0 0 500 S
+1073743948 384 0 0 0 0 0 0 500 S
 PF 7 1 0 -1
 10 18 67 10d21+55 2d3+1
 5.3.0.0 1296
@@ -2645,7 +2645,7 @@ very hard to help keep Woodseer safe.  He is getting some well-deserved sleep
 now before his next shift.  It is odd to note that he has already bathed so
 that he can begin duty as soon as he wakes and puts on his clothes.
 ~
-1140852812 672 0 0 8232 0 0 0 1000 S
+1140852812 928 0 0 8232 0 0 0 1000 S
 PF 7 1 0 -1
 12 15 61 12d27+72 2d5+2
 6.4.2.0 5832
@@ -2661,7 +2661,7 @@ something unintelligible though, probably associated with his dreams.  He has
 locked all of his weapons away, and sleeps naked certain nobody would be
 foolish enough to bother him.
 ~
-1140852812 672 0 0 536879144 0 0 0 1000 S
+1140852812 928 0 0 536879144 0 0 0 1000 S
 PF 7 1 0 -1
 45 -1 -69 45d107+2025 6d6+12
 5.9.8.4 109350
@@ -2753,7 +2753,7 @@ protect the people of Woodseer.  He carries a shield with the symbol of
 Woodseer as well as a sturdy short sword.  Despite his friendly smile, his coal
 black eyes are clear and hard and study everyone that enters the room.
 ~
-100665422 672 0 0 8248 0 0 0 1000 S
+100665422 928 0 0 8248 0 0 0 1000 S
 PF 7 1 0 -1
 40 2 -28 40d95+920 4d7+10
 3.3.3.3 51840
@@ -2945,7 +2945,7 @@ back the rare and valuable woods.  He looks extremely tough, yet has a patience
 about him that is difficult to fathom.  Clearly, whatever he does, he has
 enough money to drink at the most expensive bar in town.
 ~
-2126 128 0 0 0 0 0 0 500 S
+2126 384 0 0 0 0 0 0 500 S
 PF 7 1 0 -1
 12 15 61 12d27+72 2d5+2
 6.4.2.0 5832
@@ -3049,7 +3049,7 @@ the criminals that try to use magic to sneak by.  His grim green eyes survey
 everything that goes by, it is hard to believe that such a vigilant guard
 would even need magical assistance to help keep watch.
 ~
-100665418 672 0 0 8 0 0 0 1000 S
+100665418 928 0 0 8 0 0 0 1000 S
 PF 7 1 0 -1
 50 -7 -114 56d143+5880 7d6+35
 1.3.8.6 226800
@@ -3086,7 +3086,7 @@ tattoos that all of the guards possess are clearly shown on his forehead and,
 though they may be marred by a scar through them, they certainly retain their
 power.
 ~
-1174407246 672 0 0 0 2048 0 0 1000 S
+1174407246 928 0 0 0 2048 0 0 1000 S
 PF 7 512 0 -1
 50 -3 -95 50d80+2650 6d6+25
 0.3.1.5 121500
@@ -3105,7 +3105,7 @@ into a tight pony tail to keep from blocking her view of the world.  Though
 she wears a constant smile, it is clear that she is more than capable of doing
 anything she is required to do.
 ~
-1174407246 672 0 0 0 0 0 0 1000 S
+1174407246 928 0 0 0 0 0 0 1000 S
 PF 7 32 0 -1
 50 -3 -95 50d110+2700 6d6+25
 0.3.1.5 121500
@@ -3189,7 +3189,7 @@ scattered through her pale green eyes, eyes which seem to absorb every
 detail around her.  She gives every customer a smile, but pays special
 attention to those that clearly care for their animals well.
 ~
-100665422 128 0 0 553689276 12480 0 0 1000 S
+100665422 384 0 0 553689276 12480 0 0 1000 S
 PF 7 1 0 -1
 56 -7 -114 56d143+5880 7d6+35
 1.3.8.6 226800
@@ -3252,7 +3252,7 @@ the strange tattoo on his forehead is supposed to allow him to see both
 invisible and sneaking thieves as well as helping detect whether or not any
 particular individual has any evil intentions.
 ~
-1174407244 672 0 0 536879144 12480 0 0 1000 S
+1174407244 928 0 0 536879144 12480 0 0 1000 S
 PF 0 1 0 -1
 30 8 3 30d65+390 3d6+4
 0.5.7.1 26730
@@ -3300,7 +3300,7 @@ the strange tattoo on his forehead is supposed to allow him to see both
 invisible and sneaking thieves as well as helping detect whether or not any
 particular individual has any evil intentions.
 ~
-1174407242 672 0 0 536879144 12480 0 0 1000 S
+1174407242 928 0 0 536879144 12480 0 0 1000 S
 PF 0 1 0 -1
 50 8 3 30d65+390 3d6+4
 0.5.7.1 26730
@@ -3317,7 +3317,7 @@ sunburst tattoo that is rumored to give them the ability to see even invisible
 and sneaking thieves.  This guard may not be as burly as some of his friends
 but it is certain that one swift cry will bring many more.
 ~
-1174407246 672 0 0 8232 0 0 0 1000 S
+1174407246 928 0 0 8232 0 0 0 1000 S
 PF 0 1 0 -1
 41 15 61 12d27+72 2d5+2
 6.4.2.0 5832
@@ -3336,7 +3336,7 @@ the criminals that try to use magic to sneak by.  His grim green eyes survey
 everything that goes by, it is hard to believe that such a vigilant guard
 would even need magical assistance to help keep watch.
 ~
-100665418 160 0 0 536879292 2048 0 0 1000 S
+100665418 416 0 0 536879292 2048 0 0 1000 S
 PF 7 1 0 -1
 56 -7 -114 56d143+5880 7d6+35
 1.3.8.6 226800
@@ -3352,7 +3352,7 @@ Woodseer and his adventuring in the nearby jungle.  His alligatorskin armor is
 a sign of his status among the guards.  Such armor is expensive, the Woodseer
 Council must value his service a great deal.
 ~
-1174407244 672 0 0 536879144 12480 0 0 1000 S
+1174407244 928 0 0 536879144 12480 0 0 1000 S
 PF 0 1 0 -1
 50 -3 -95 50d119+2750 6d6+25
 0.3.1.5 121500
@@ -3369,7 +3369,7 @@ the strange tattoo on his forehead is supposed to allow him to see both
 invisible and sneaking thieves as well as helping detect whether or not any
 particular individual has any evil intentions.
 ~
-1174407244 672 0 0 536879144 12480 0 0 1000 S
+1174407244 928 0 0 536879144 12480 0 0 1000 S
 PF 0 1 0 -1
 60 8 3 30d65+390 3d6+4
 0.5.7.1 26730
@@ -3386,7 +3386,7 @@ the strange tattoo on his forehead is supposed to allow him to see both
 invisible and sneaking thieves as well as helping detect whether or not any
 particular individual has any evil intentions.
 ~
-1174407242 672 0 0 536879144 12480 0 0 1000 S
+1174407242 928 0 0 536879144 12480 0 0 1000 S
 PF 0 1 0 -1
 40 8 3 30d65+390 3d6+4
 0.5.7.1 26730
@@ -3401,7 +3401,7 @@ minotaur guard mercenary _spec1_~
 &+yA most mercenaries groups, there are a wide variety of skills and
 &+Yexpertise.
 ~
-1073969226 640 0 0 939524152 4 0 67121152 0 S
+1073969226 896 0 0 939524152 4 0 67121152 0 S
 mt 0 16384 0 -1
 51 0 -250 50d50+2000 10d10+60
 0.0.0.0 0
@@ -3416,7 +3416,7 @@ minotaur guard wizard _spec1_ _nosneak_~
 &+yA most mercenaries groups, there are a wide variety of skills and
 &+Yexpertise.
 ~
-1073969226 640 0 0 939524152 4 0 67121152 0 S
+1073969226 896 0 0 939524152 4 0 67121152 0 S
 mt 0 512 0 -1
 51 0 0 50d50+1000 8d8+20
 0.0.0.0 0
@@ -3427,7 +3427,7 @@ dwarf mercenary guard _nosneak_~
 &+YA dwarf mercenary stands guard over the halflings&n
 ~
 ~
-1107785866 128 0 0 941096986 4 0 101724160 0 S
+1107785866 384 0 0 941096986 4 0 101724160 0 S
 pm 0 8192 0 -1
 46 0 0 50d50+1000 8d10+40
 0.0.0.0 0
