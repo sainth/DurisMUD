@@ -11,7 +11,7 @@ across his lips.  A &+Rpink&n chef's hat rests upon his perfectly combed hair, h
 in place by two &+Lbobby-pins&n.  He rests one of his hands on his hip, and the
 other he lets hang loosly at the wrist.
 ~
-33556490 128 0 0 33554432 0 0 0 500 S
+33556490 384 0 0 33554432 0 0 0 500 S
 PE 1 2 0 -1
 50 -3 -95 50d119+2750 6d6+25
 0.3.1.5 121500
@@ -42,7 +42,7 @@ he had served in the city militia.  He spends most of his time infront of the
 forge, bent diligently to his most favorite of passtimes.  His head is
 completely shaved, and a slight grey beard impresses itself upon his face.
 ~
-1107298314 640 0 0 0 0 0 0 1000 S
+1107298314 896 0 0 0 0 0 0 1000 S
 PH 1 8 0 -1
 46 -3 -72 46d119+2530 6d6+25
 6.0.9.4 111780
@@ -200,7 +200,7 @@ expressions cold.   The only thing that convinces you he is alive, is the
 rythmic rise and fall of his ribs, along with the perpetual shifting of his
 blue eyes.
 ~
-100665358 640 0 0 200 0 0 0 1000 S
+100665358 896 0 0 200 0 0 0 1000 S
 PH 1 1 0 -1
 50 -3 -95 50d119+2750 6d6+25
 0.3.1.5 121500
@@ -220,7 +220,7 @@ had turned its back on him.  He stands nearly four feet tall, his legs bowed
 and misshapen, and one of his arms devoid of all musculature.  His hair grows
 in dark tufts, offset by patches of hairless gooselike flesh.
 ~
-1174669454 672 0 0 33554632 0 0 0 1000 S
+1174669454 928 0 0 33554632 0 0 0 1000 S
 H 1 2 0 -1
 50 -3 -95 50d119+2750 6d6+25
 0.3.1.5 121500
@@ -234,7 +234,7 @@ a &+Wlighthouse attendant&n~
 clean and in operating order.  He is wearing a pair of thick white dungaree
 overalls, the huge pockets of which are filled with various tools.
 ~
-1073744012 640 0 0 0 0 0 0 1000 S
+1073744012 896 0 0 0 0 0 0 1000 S
 PH 1 0 0 -1
 4 20 87 4d15+14 1d5+0
 2.1.0.0 518
@@ -308,7 +308,7 @@ sarn banker~
 &+cHe wears a pair of half-spectacles upon the lower bridge of his nose, and
 &+cpeers over them at you.&n
 ~
-33554442 128 0 0 216 0 0 67108864 1000 S
+33554442 384 0 0 216 0 0 67108864 1000 S
 PH 1 20480 0 -1
 55 -3 -95 50d100+2650 6d6+25
 0.3.1.5 121500
@@ -322,7 +322,7 @@ a &+Lmilitia &+Wguard&n~
 &+WTharnadia's&+L militia.  The serious look in his eyes shows his pride as a guard
 &+Lin the city's militia, and his dedication to defending its people.&n
 ~
-67111113 128 0 0 0 0 0 0 0 S
+67111113 384 0 0 0 0 0 0 0 S
 PH 1 1 0 -1
 12 15 61 12d27+72 2d5+2
 6.4.2.0 5832
@@ -337,7 +337,7 @@ an &+Lelite &+Wguard&n~
 &+Lrespect from his men.  He bears the insignia of the &+WTharnadian&+R Elite&+L upon his
 &+Lbreastplate.&n
 ~
-100665355 128 0 0 8 0 0 0 0 S
+100665355 384 0 0 8 0 0 0 0 S
 PH 1 1 0 -1
 53 -3 -95 50d119+2750 6d6+25
 0.3.1.5 121500
@@ -671,7 +671,7 @@ a jailor~
 &+Lall business.  His stern gaze alone is enough to elicit respect from his men.
 &+LHe bears the insignia of the &+WTharnadian&+L court upon his tunic.&n
 ~
-100665354 640 0 0 8 0 0 0 800 S
+100665354 896 0 0 8 0 0 0 800 S
 PH 1 2 0 -1
 50 -3 -95 50d119+2750 6d6+25
 0.3.1.5 121500
@@ -685,7 +685,7 @@ Although he bears the emblems of a city militia guard, his happy-go-lucky
 expression and drunken nature do not do much for his aura of respect.  His
 cheeks have taken on a reddish hue due to all the alcohol in his system.
 ~
-67110986 640 0 0 0 0 0 0 1000 S
+67110986 896 0 0 0 0 0 0 1000 S
 PH 1 8 0 -1
 12 15 61 12d27+72 2d5+2
 6.4.2.0 5832
@@ -699,7 +699,7 @@ a &+Bhonor &+Wguard&n~
 has taken residency here to rest his weary bones.  He looks at you, smiles,
 and turns back to his copy of 'Modern Guardsman'.
 ~
-1174538312 128 0 0 33554604 30 0 0 1000 S
+1174538312 384 0 0 33554604 30 0 0 1000 S
 PB 1 2 2 -1
 60 -3 -95 50d119+2750 6d6+25
 0.3.1.5 121500
@@ -849,7 +849,7 @@ a &+Wmilitia &+Lguard&n~
 guarding over the hustle and bustle of the bazaar. His gaze continuously
 shifts from side to side, looking for trouble.
 ~
-67110989 640 0 0 0 0 0 0 1000 S
+67110989 896 0 0 0 0 0 0 1000 S
 PH 1 2 0 -1
 12 15 61 12d27+72 2d5+2
 6.4.2.0 5832
@@ -994,7 +994,7 @@ Faith.  His duty is to protect the faithful from persecution and infidel
 attacks and his religious devotion combined with his superior skill makes him
 a deadly opponent.
 ~
-67110922 640 0 0 24 0 0 0 800 S
+67110922 896 0 0 24 0 0 0 800 S
 PH 1 8 0 -1
 27 8 13 27d65+351 3d6+4
 8.3.7.1 24057
@@ -1088,7 +1088,7 @@ a &+Lcontroller~
    The controller is alert and ready to prevent mischief and arrest those who
 break the laws of the city.
 ~
-100665418 640 0 0 216 0 0 0 1000 S
+100665418 896 0 0 216 0 0 0 1000 S
 PH 1 1 0 -1
 36 2 -15 36d88+792 4d7+10
 0.1.2.2 46656
@@ -1236,7 +1236,7 @@ chastity lafey shopkeeper~
 &+LHer long &+Yblonde&+L hair falls in cascades around her face, framing her &+Bazure&+L eyes
 &+Land aqualine nose.&n
 ~
-33556490 640 0 0 24 0 0 0 0 S
+33556490 896 0 0 24 0 0 0 0 S
 PH 1 8 0 -1
 35 6 -12 35d83+595 4d6+7
 9.9.1.2 45360
@@ -1294,7 +1294,7 @@ tarn bloodblade outlaw~
 &+Lobviously knows his way around with a sword.  He looks at you with the icy
 &+Lstare of hatred, and spits in your direction.&n
 ~
-1107298382 640 0 0 8 0 0 0 0 S
+1107298382 896 0 0 8 0 0 0 0 S
 PH 1 16384 0 -1
 40 2 -28 40d95+920 4d7+10
 3.3.3.3 51840
@@ -1366,7 +1366,7 @@ a &+Wmilitia &+Rarcher&n~
 guarding over the hustle and bustle of the city gates. His gaze continuously
 shifts from side to side, looking for trouble.
 ~
-100665423 640 0 0 0 0 0 0 1000 S
+100665423 896 0 0 0 0 0 0 1000 S
 PH 1 2 0 -1
 30 8 3 30d65+390 3d6+4
 0.5.7.1 26730
@@ -1380,7 +1380,7 @@ a &+Lmilitia &+Wguard&n~
 &+WTharnadia's&+L militia.  The serious look in his eyes shows his pride as a guard
 &+Lin the city's militia, and his dedication to defending its people.&n
 ~
-67111113 640 0 0 0 0 0 0 0 S
+67111113 896 0 0 0 0 0 0 0 S
 PH 1 1 0 -1
 8 18 74 8d21+44 2d3+1
 4.2.0.0 1036
@@ -1581,7 +1581,7 @@ a &+Lmilitia &+Wguard&n~
 &+LCaer Tannad's&+w militia.  The look in his eyes shows his pride as a guard in the
 &+wkeep's militia, and his dedication to defending its people.&n
 ~
-67111115 128 0 0 0 0 0 0 0 S
+67111115 384 0 0 0 0 0 0 0 S
 PH 1 1 0 -1
 26 13 35 20d35+140 3d4+2
 0.9.3.0 9720
@@ -1683,7 +1683,7 @@ kieta shopkeeper~
 &+LHer long &+Yblonde&+L hair falls in cascades around her face, framing her &+Bazure&+L eyes
 &+Land aqualine nose.&n
 ~
-33556490 640 0 0 24 0 0 0 0 S
+33556490 896 0 0 24 0 0 0 0 S
 PH 0 8 0 -1
 35 6 -12 35d83+595 4d6+7
 9.9.1.2 45360
@@ -1697,7 +1697,7 @@ Although he bears the emblems of a city militia guard, his happy-go-lucky
 expression and drunken nature do not do much for his aura of respect.  His
 cheeks have taken on a reddish hue due to all the alcohol in his system.
 ~
-67110986 640 0 0 0 0 0 0 1000 S
+67110986 896 0 0 0 0 0 0 1000 S
 PH 1 8 0 -1
 12 15 61 12d27+72 2d5+2
 6.4.2.0 5832
@@ -1712,7 +1712,7 @@ an &+Lelite &+Wguard&n~
 &+Lrespect from his men.  He bears the insignia of the &+WTharnadian&+R Elite&+L upon his
 &+Lbreastplate.&n
 ~
-100665355 128 0 0 8 0 0 0 0 S
+100665355 384 0 0 8 0 0 0 0 S
 PH 1 1 0 -1
 50 -3 -95 50d119+2750 6d6+25
 0.3.1.5 121500
@@ -1727,7 +1727,7 @@ an &+Lelite &+Wguard&n~
 &+Lrespect from his men.  He bears the insignia of the &+WTharnadian&+R Elite&+L upon his
 &+Lbreastplate.&n
 ~
-100665355 128 0 0 8 0 0 0 0 S
+100665355 384 0 0 8 0 0 0 0 S
 PH 1 1 0 -1
 50 -3 -95 50d119+2750 6d6+25
 0.3.1.5 121500
@@ -1742,7 +1742,7 @@ an &+Lelite &+Wguard&n~
 &+Lrespect from his men.  He bears the insignia of the &+WTharnadian&+R Elite&+L upon his
 &+Lbreastplate.&n
 ~
-100665355 128 0 0 8 0 0 0 0 S
+100665355 384 0 0 8 0 0 0 0 S
 PH 1 1 0 -1
 50 -3 -95 50d119+2750 6d6+25
 0.3.1.5 121500
@@ -1778,7 +1778,7 @@ a &+ydock &+Lguard&n~
 guarding over the hustle and bustle of the city docks. His gaze continuously
 shifts from side to side, looking for trouble.
 ~
-67110989 640 0 0 0 0 0 0 1000 S
+67110989 896 0 0 0 0 0 0 1000 S
 PH 0 2 0 -1
 41 15 51 15d27+90 2d5+2
 7.6.2.0 7290
@@ -1793,7 +1793,7 @@ an &+Lelite &+Wguard&n~
 &+Lrespect from his men.  He bears the insignia of the &+WTharnadian&+R Elite&+L upon his
 &+Lbreastplate.&n
 ~
-100665355 128 0 0 8 0 0 0 0 S
+100665355 384 0 0 8 0 0 0 0 S
 PH 0 1 0 -1
 50 -3 -95 50d119+2750 6d6+25
 0.3.1.5 121500
@@ -1994,7 +1994,7 @@ a &+Lmilitia &+Wguard&n~
 &+LCaer Tannad's&+w militia.  The look in his eyes shows his pride as a guard in the
 &+wkeep's militia, and his dedication to defending its people.&n
 ~
-67111113 128 0 0 0 0 0 0 0 S
+67111113 384 0 0 0 0 0 0 0 S
 PH 1 1 0 -1
 35 13 35 20d35+140 3d4+2
 0.9.3.0 9720
@@ -2009,7 +2009,7 @@ an &+Lelite &+Wkeepguard&n~
 &+wrespect from his men.  He bears the insignia of the &+LCaer Tannad&+R Elite&+w upon
 &+whis breastplate.&n
 ~
-67110923 128 0 0 8 0 0 0 1000 S
+67110923 384 0 0 8 0 0 0 1000 S
 PH 1 1 0 -1
 50 -3 -95 50d119+2750 6d6+25
 0.3.1.5 121500
@@ -2037,7 +2037,7 @@ a &+ydock &+Lguard&n~
 guarding over the hustle and bustle of the city docks. His gaze continuously
 shifts from side to side, looking for trouble.
 ~
-67110989 640 0 0 0 0 0 0 1000 S
+67110989 896 0 0 0 0 0 0 1000 S
 PH 1 2 0 -1
 15 15 51 15d27+90 2d5+2
 7.6.2.0 7290
@@ -2065,7 +2065,7 @@ a &+Wmilitia &+Rarcher&n~
 guarding over the hustle and bustle of the city gates. His gaze continuously
 shifts from side to side, looking for trouble.
 ~
-100673615 640 0 0 0 0 0 0 1000 S
+100673615 896 0 0 0 0 0 0 1000 S
 PH 1 2 0 -1
 30 8 3 30d65+390 3d6+4
 0.5.7.1 26730
@@ -2093,7 +2093,7 @@ a &+Ldungeon jailor&n~
 &+Lall business.  His hard gaze alone is enough to elicit respect from his men.
 &+LHe bears the insignia of the &+WTharnadian&+L court upon his tunic.&n
 ~
-67110938 640 0 0 8 0 0 0 800 S
+67110938 896 0 0 8 0 0 0 800 S
 PH 1 2 0 -1
 35 6 -12 35d83+595 4d6+7
 9.9.1.2 45360
