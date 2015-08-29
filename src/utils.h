@@ -1396,8 +1396,8 @@ char *CRYPT2( char *passwd, char *name );
 // Derived this via 1.3 for slow, 1.0 for normal and .5 for fast pulsers:
 //   Base + Modifier * ( (.08/3) Base^2 - (2.20/3) Base + 5.46 )
 #define COMBAT_PULSE(ch) (ch->specials.base_combat_round \
-  + ch->points.combat_pulse * ( (.08/3) * ch->specials.base_combat_round * ch->specials.base_combat_round \
-  - (2.20/3) * ch->specials.base_combat_round + 5.46 ))
+  + ch->points.combat_pulse * ( (.04/3) * ch->specials.base_combat_round * ch->specials.base_combat_round \
+  - (1.10/3) * ch->specials.base_combat_round + 2.73 ))
 
 // New effects of attributes:
 // Vamp multiplier for ch: value between 1.1 and 2.2.
