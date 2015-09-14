@@ -5081,7 +5081,7 @@ int melee_damage(P_char ch, P_char victim, double dam, int flags, struct damage_
       }
       if (get_linked_char(ch, LNK_CIRCLING) == victim)
       {
-        dam = (dam * get_property("damage.modifier.circle", 2));
+        dam = (dam * get_property("damage.modifier.circle", 2.0));
       }
     }
     else if (MIN_POS(victim, POS_SITTING + STAT_RESTING)
