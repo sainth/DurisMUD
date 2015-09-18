@@ -2685,6 +2685,12 @@ void do_eat(P_char ch, char *argument, int cmd)
     return;
   }
 
+  // NPCs don't eat for now.
+  if( IS_NPC(ch) )
+  {
+    return;
+  }
+
   if (!(temp = get_obj_in_list_vis(ch, Gbuf1, ch->carrying)))
   {
     act("You can't find it!", FALSE, ch, 0, 0, TO_CHAR);
