@@ -3178,6 +3178,7 @@ void reset_zone(int zone, int force_item_repop)
           if( !ITEM_LOAD_CHECK(ival) )
           {
             extract_obj(obj);
+            last_cmd = 1;
             break;
           }
 
@@ -3240,6 +3241,7 @@ void reset_zone(int zone, int force_item_repop)
         if( !ITEM_LOAD_CHECK(ival) )
         {
           extract_obj(obj);
+ 	        last_cmd = 1;
           break;
         }
 
@@ -3287,6 +3289,7 @@ void reset_zone(int zone, int force_item_repop)
           if( !ITEM_LOAD_CHECK(ival) )
           {
             extract_obj(obj);
+            last_cmd = 1;
             break;
           }
           if( mob )              /* last mob */
@@ -3373,6 +3376,7 @@ void reset_zone(int zone, int force_item_repop)
                 if( !ITEM_LOAD_CHECK(ival) )
                 {
                   extract_obj(obj);
+                  last_cmd = 1;
                   break;
                 }
                 obj_to_room(obj, ZCMD.arg3);
@@ -3431,6 +3435,7 @@ void reset_zone(int zone, int force_item_repop)
                 if( !ITEM_LOAD_CHECK(ival) )
                 {
                   extract_obj(obj);
+                  last_cmd = 1;
                   break;
                 }
             		obj_to_obj(obj, obj_to);
@@ -3483,6 +3488,7 @@ void reset_zone(int zone, int force_item_repop)
               if( !ITEM_LOAD_CHECK(ival) )
               {
                 extract_obj(obj);
+                last_cmd = 1;
                 break;
               }
               if( mob )
@@ -3551,6 +3557,7 @@ void reset_zone(int zone, int force_item_repop)
               if( !ITEM_LOAD_CHECK(ival) )
               {
                 extract_obj(obj);
+                last_cmd = 1;
                 break;
               }
               if( mob && (ZCMD.arg3 > 0) && (ZCMD.arg3 <= CUR_MAX_WEAR) )
