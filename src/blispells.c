@@ -887,6 +887,11 @@ void spell_firelance(int level, P_char ch, char *arg, int type, P_char victim, P
   }
   dam = dice( 4 * MIN(17, level / 2 + 1), 7 );
 
+  if( GET_SPEC(ch, CLASS_BLIGHTER, SPEC_RUINER) )
+  {
+    dam = (dam * 112) / 100;
+  }
+
   if(NewSaves(victim, SAVING_SPELL, 1.5))
   {
     dam /= 1.5;
