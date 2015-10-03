@@ -444,7 +444,7 @@ int summon_ship( P_char ch, P_ship ship, bool time_only )
   pvp = ocean_pvp_state();
 
   if( IS_TRUSTED(ch) )
-      summontime = 0;
+      summontime = 1;
   else if (SHIP_CLASS(ship) == SH_SLOOP || SHIP_CLASS(ship) == SH_YACHT)
   {
     // 1/2 to 25 mud hrs.

@@ -1951,6 +1951,7 @@ void summon_ship_event(P_char ch, P_char victim, P_obj obj, void *data)
         send_to_room_f(to_room, "&+y%s arrives at port.\r\n&N", ship->name);
         dock_ship(ship, to_room);
         check_contraband(ship, ship->location);
+        clear_cargo(ship);
         REMOVE_BIT(ship->flags, SUMMONED);
         if(IS_SET(ship->flags, ATTACKBYNPC)) 
           REMOVE_BIT(ship->flags, ATTACKBYNPC); 
