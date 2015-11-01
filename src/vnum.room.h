@@ -6,6 +6,8 @@
 #define VROOM_VOID                       0
 #define VROOM_LIMBO                      1
 
+#define VROOM_CAGE                    1134
+
 #define VROOM_DRAGONNIA_ARCHBISHOP    6855
 #define VROOM_DRAGONNIA_BISHOP        6857
 

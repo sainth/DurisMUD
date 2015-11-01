@@ -5259,6 +5259,8 @@ void create_tags()
   TAG_CREATE("establish camp", TAG_CAMP );
 
   TAG_CREATE("old newbie zone tag", TAG_LIFESTREAMNEWBIE );
+
+  TAG_CREATE("times recently suicided", TAG_SUICIDE_COUNT );
 }
 
 #ifdef SKILLPOINTS

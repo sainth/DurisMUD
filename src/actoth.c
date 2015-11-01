@@ -36,6 +36,7 @@
 #include "achievements.h"
 #include "tradeskill.h"
 #include "vnum.obj.h"
+#include "vnum.room.h"
 /*
  * external variables
  */
@@ -5766,11 +5767,12 @@ void do_swim(P_char ch, char *argument, int cmd)
 void do_suicide(P_char ch, char *argument, int cmd)
 {
   char     buf[MAX_STRING_LENGTH];
+  struct affected_type *paf, af;
 
-  if (!ch)
+  if( !ch )
     return;
 
-  if (IS_NPC(ch))
+  if( IS_NPC(ch) )
   {
     send_to_char("Your not skilled enough to kill yourself\r\n", ch);
     return;
@@ -5782,21 +5784,21 @@ void do_suicide(P_char ch, char *argument, int cmd)
     return;
   }*/
 
- if (IS_TRUSTED(ch))
+  if( IS_TRUSTED(ch) )
   {
     send_to_char("Suicide is not an option at your level, sorry.\r\n", ch);
     ch->desc->confirm_state = CONFIRM_NONE;
     return;
   }
 
-  if ((world[ch->in_room].room_flags & JAIL) || IS_AFFECTED(ch, AFF_BOUND))
+  if( (world[ch->in_room].room_flags & JAIL) || IS_AFFECTED(ch, AFF_BOUND) )
   {
     send_to_char("You can't do that in your current state.\r\n", ch);
     ch->desc->confirm_state = CONFIRM_NONE;
     return;
   }
 
-  if ((IS_AFFECTED(ch, AFF_SLEEP)) || (GET_STAT(ch) == STAT_SLEEPING))
+  if( (IS_AFFECTED(ch, AFF_SLEEP)) || (GET_STAT(ch) == STAT_SLEEPING) )
   {
     send_to_char("Please wake up to kill yourself.\r\n", ch);
     return;
@@ -5822,8 +5824,35 @@ void do_suicide(P_char ch, char *argument, int cmd)
   else if (ch->desc)
     ch->desc->confirm_state = CONFIRM_NONE;
 
-  statuslog(ch->player.level, "%s committed suicide at %s [%d]",
-            GET_NAME(ch), world[ch->in_room].name, world[ch->in_room].number);
+  // Suicide spam counter - less than 5 in 10 minutes is ok.
+  paf = get_spell_from_char(ch, TAG_SUICIDE_COUNT);
+  if( paf == NULL )
+  {
+      bzero(&af, sizeof(af));
+
+      af.type = TAG_SUICIDE_COUNT;
+      af.duration = 10;
+      af.modifier = 1;
+      af.flags = AFFTYPE_NOSHOW | AFFTYPE_PERM | AFFTYPE_NODISPEL | AFFTYPE_NOMSG | AFFTYPE_NOAPPLY | AFFTYPE_OFFLINE;
+      affect_to_char(ch, &af);
+  }
+  else
+  {
+    if( (paf->modifier)++ >= 5 )
+    {
+      send_to_char( "You are being caged for spamming suicide.\n", ch );
+      // Set a 3 day countdown timer that ticks while offline (see above), so we know if they've been there for 3 days.
+      paf->duration = 3 * MINS_PER_REAL_DAY;
+      // The latest attempt was thwarted.
+      paf->modifier--;
+      char_from_room(ch);
+      char_to_room( ch, real_room0(VROOM_CAGE), -1 );
+      return;
+    }
+  }
+
+  statuslog(ch->player.level, "%s committed suicide at %s [%d]", GET_NAME(ch),
+    world[ch->in_room].name, world[ch->in_room].number);
   die(ch, ch);
 }
 
