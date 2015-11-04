@@ -33,6 +33,8 @@
 #include "boon.h"
 #include "ctf.h"
 #include "epic_bonus.h"
+#include "files.h"
+#include "utility.h"
 
 /*
  * external variables
@@ -1541,6 +1543,7 @@ int gain_condition(P_char ch, int condition, int value)
   return FALSE;
 }
 
+// Handle afk / linkdead ppl.
 void point_update(void)
 {
   P_char   i, i_next;
@@ -1548,95 +1551,115 @@ void point_update(void)
 
   *Gbuf1 = '\0';
 
-  for (i = character_list; i; i = i_next)
+  for( i = character_list; i; i = i_next )
   {
     i_next = i->next;
-    if (IS_NPC(i))
+    if( IS_NPC(i) )
       continue;
 
-    if (i->desc && (i->desc->connected != CON_PLYNG))
+    if( i->desc && (i->desc->connected != CON_PLYNG) )
       continue;
 
-    if (!IS_AFFECTED(i, AFF_WRAITHFORM))
-      if (gain_condition(i, ALL_CONDS, -1))
+    if( !IS_AFFECTED(i, AFF_WRAITHFORM) )
+    {
+      if( gain_condition(i, ALL_CONDS, -1) )
+      {
         continue;
+      }
+    }
 
     /* this is idle rent */
 
     /* DO NOT IDLE RENT PEOPLE WHO ARE MORPHED!!!!!!!!! */
-    if (IS_SET(i->specials.act, PLR_MORPH))
-      continue;
-      
-// No idle rent for imprisonment as it crashes the game. Mar09 -Lucrot
-    if(IS_SET(i->specials.affected_by5, AFF5_IMPRISON))
+    if( IS_SET(i->specials.act, PLR_MORPH) )
     {
       continue;
     }
-  
+
+    // No idle rent for imprisonment as it crashes the game. Mar09 -Lucrot
+    if( IS_SET(i->specials.affected_by5, AFF5_IMPRISON) )
+    {
+      continue;
+    }
+
     /* it's an int, but >3 digits would mess up do_users */
-
-    if (i->specials.timer < 999)
+    if( i->specials.timer < 999 )
+    {
       i->specials.timer++;
+    }
 
-    if (i->specials.timer > 3)
-      if (!IS_SET(i->specials.act, PLR_AFK))
+    if( i->specials.timer > 3 )
+    {
+      if( !IS_SET(i->specials.act, PLR_AFK) )
       {
         SET_BIT(i->specials.act, PLR_AFK);
 #if defined (CTF_MUD) && (CTF_MUD == 1)
-	if (affected_by_spell(i, TAG_CTF))
-	{
-	  send_to_char("You're idling has caused you to forget about the flag.\r\n", i);
-	  while (affected_by_spell(i, TAG_CTF))
-	    drop_ctf_flag(i);
-	}
+      	if( affected_by_spell(i, TAG_CTF) )
+      	{
+  	      send_to_char("You're idling has caused you to drop the flag.\r\n", i);
+	        while( affected_by_spell(i, TAG_CTF) )
+          {
+	          drop_ctf_flag(i);
+        	}
+      	}
 #endif
       }
 
-    if ((i->specials.timer > 15) &&
-        ((GET_LEVEL(i) <= 56) || ((!i->desc) && (GET_LEVEL(i) > 58))))
-    {
-      act("$n disappears into the void.", TRUE, i, 0, 0, TO_ROOM);
-      send_to_char("You have been idle, and are pulled into a void.\r\n", i);
+      // Void if mortal idle for 15 min, or Immortal linkdead and idle for over 15 min.
+      if( (i->specials.timer > 15) && (GET_LEVEL(i) < MINLVLIMMORTAL || !i->desc) )
+      {
+        act("$n disappears into the void.", TRUE, i, 0, 0, TO_ROOM);
+        send_to_char("You have been idle, and are pulled into a void.\r\n", i);
 
-      logit(LOG_COMM, "idle rent for %s in %d.",
-            GET_NAME(i), world[i->in_room].number);
-      sql_log(i, CONNECTLOG, "Idle rent");
-      
-      if (!GET_NAME(i))
+        logit(LOG_COMM, "idle rent for %s in %d.", GET_NAME(i), world[i->in_room].number);
+        loginlog(i->player.level, "%s has voided in [%d].", GET_NAME(i), world[i->in_room].number);
+        sql_log(i, CONNECTLOG, "Idle rent");
+
+        // How could this ever be TRUE?  Won't ch->player.name always exist for an in-game char?
+        if( !GET_NAME(i) )
+        {
+          if( i->only.pc != NULL )
+          {
+            debug( "Char pid %d (%s) has no name!", GET_PID(i), get_player_name_from_pid(GET_PID(i)) );
+          }
+          else
+          {
+            logit( LOG_DEBUG, "Messed up PC on char list has no name, is a pc, but no pc data, attempting to remove." );
+            if( i->desc )
+              close_socket(i->desc);
+            extract_char(i);
+          }
+          continue;
+        }
+
+        /* Getting tired of this giving free recalls.
+        int reloghere = GET_BIRTHPLACE(i);
+
+        if (!reloghere)
+          reloghere = GET_HOME(i);
+        if (!reloghere)
+          reloghere = GET_ORIG_BIRTHPLACE(i);
+        if (!reloghere)
+          reloghere = i->in_room;
+        */
+
+        strcat(Gbuf1, GET_NAME(i));
+        strcat(Gbuf1, ", ");
+        //writeCharacter(i, 5, reloghere);
+        writeCharacter(i, RENT_LINKDEAD, i->in_room);
+        if( i->desc )
+          close_socket(i->desc);
+        extract_char(i);
         continue;
-
-      // Getting tired of this giving free recalls.
-      /*
-      int reloghere = GET_BIRTHPLACE(i);
-      
-      if (!reloghere)
-        reloghere = GET_HOME(i);
-      if (!reloghere)
-        reloghere = GET_ORIG_BIRTHPLACE(i);
-      if (!reloghere)
-        reloghere = i->in_room;
-      */
-      
-      strcat(Gbuf1, GET_NAME(i));
-      strcat(Gbuf1, ", ");
-      //writeCharacter(i, 5, reloghere);
-      writeCharacter(i, 5, i->in_room);
-      extract_char(i);
-      if (i->desc)
-        close_socket(i->desc);
-      /* extract_char frees memory.
-      else
-        free_char(i);
-      */
-      continue;
+      }
     }
   }
 
-  if (*Gbuf1)
+  if( *Gbuf1 )
   {
     Gbuf1[strlen(Gbuf1) - 2] = '.';
     Gbuf1[strlen(Gbuf1) - 1] = '\0';
-    statuslog(57, "Idle rent for: %s", Gbuf1);
+    statuslog(MINLVLIMMORTAL, "Idle rent for: %s", Gbuf1);
   }
 }
 

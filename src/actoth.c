@@ -37,6 +37,8 @@
 #include "tradeskill.h"
 #include "vnum.obj.h"
 #include "vnum.room.h"
+#include "files.h"
+
 /*
  * external variables
  */
@@ -47,6 +49,7 @@ extern const char *target_locs[];
 extern P_desc descriptor_list;
 extern P_event current_event;
 extern P_room world;
+extern const int top_of_world;
 extern P_index mob_index;
 extern bool command_confirm;
 extern char msg_of_today[];
@@ -310,9 +313,13 @@ void do_camp(P_char ch, char *arg, int cmd)
                                  snoop_by_list, ch->desc->character);
       ch->desc->snoop.snooping = 0;
     }
+
+    logit(LOG_COMM, "%s has quit in [%d].", GET_NAME(ch), world[ch->in_room].number);
+    loginlog( GET_LEVEL(ch), "%s has quit in [%d].", GET_NAME(ch), ROOM_VNUM(ch->in_room));
+    sql_log(ch, CONNECTLOG, "Quit game");
     act("$n has left the game.", TRUE, ch, 0, 0, TO_ROOM);
 
-    writeCharacter(ch, 3, ch->in_room);
+    writeCharacter(ch, RENT_INN, ch->in_room);
     extract_char(ch);
     ch = NULL;
     return;
@@ -1304,6 +1311,7 @@ void do_qui(P_char ch, char *argument, int cmd)
   return;
 }
 
+// CMD_QUIT now goes to do_camp instead of do_quit.
 void do_quit(P_char ch, char *argument, int cmd)
 {
   int      i, l;
@@ -1350,7 +1358,8 @@ void do_quit(P_char ch, char *argument, int cmd)
   if( IS_AFFECTED(ch, AFF_WRAITHFORM) )
     BackToUsualForm(ch);
   i = ch->in_room;
-  loginlog( ch->player.level, "%s has quit in [%d].", GET_NAME(ch), world[ch->in_room].number);
+  logit(LOG_COMM, "%s has quit in [%d].", GET_NAME(ch), world[ch->in_room].number);
+  loginlog( GET_LEVEL(ch), "%s has quit in [%d].", GET_NAME(ch), world[ch->in_room].number);
   sql_log(ch, CONNECTLOG, "Quit game");
 
   /*
