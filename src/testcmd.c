@@ -292,7 +292,7 @@ void do_test(P_char ch, char *arg, int cmd)
   if( isname("mapzones", buff) )
   {
     send_to_char( "&=LCNum) Zone Name                           (Zon#)&n\n", ch );
-    for( int i = 0, count = 0; i < top_of_zone_table; i++ )
+    for( int i = 0, count = 0; i <= top_of_zone_table; i++ )
     {
       if( IS_SET(zone_table[i].flags, ZONE_MAP) )
       {

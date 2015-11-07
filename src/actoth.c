@@ -67,6 +67,7 @@ extern struct command_info cmd_info[];
 extern struct dex_app_type dex_app[];
 extern struct str_app_type str_app[];
 extern struct zone_data *zone_table;
+extern int top_of_zone_table;
 extern struct time_info_data time_info;
 extern P_index obj_index;
 extern char *specdata[][MAX_SPEC];
@@ -3307,7 +3308,9 @@ void do_cheat(P_char ch, char *argument, int cmd)
 
 void do_area(P_char ch, char *argument, int cmd)
 {
-  char  buf[MAX_STRING_LENGTH], buf2[MAX_STRING_LENGTH];
+  char  buf[MAX_STRING_LENGTH], buf2[MAX_STRING_LENGTH], *rest;
+  int zone_id;
+  struct zone_data *zone = NULL;
 
 	if (IS_NPC(ch) && !IS_MORPH(ch))
 	{
@@ -3315,23 +3318,109 @@ void do_area(P_char ch, char *argument, int cmd)
     return;
   }
 
-  sprintf(buf, "&+LZone Name: %s\r\n", pad_ansi(zone_table[world[ch->in_room].zone].name, 30).c_str());
-  int zone_id, zone_number;
-  struct zone_data *zone = 0;
-  zone_id = world[ch->in_room].zone;
-  zone = &zone_table[zone_id];
-
-
-  sprintf(buf2, "&+LAverage &+rmob&+L level in zone: &n%d\r\n ",
-            zone->avg_mob_level);
-  int zdiff = (zone->avg_mob_level - GET_LEVEL(ch));
-  if (zdiff > 15)
+  // Mortals get basic zone info.
+  if( !*argument || !IS_TRUSTED(ch) )
   {
-  sprintf(buf2, "&-L&+RWarning&-L, some mobs in this zone may be very hazardous for you! Travel with care!&n\r\n");
-  strcat (buf, buf2);
+    zone_id = world[ch->in_room].zone;
+    zone = &zone_table[zone_id];
+
+    if( IS_TRUSTED(ch) )
+    {
+      sprintf(buf, "&+LZone Name: %s %d\r\n", pad_ansi(zone->name, 30).c_str(), zone_id);
+    }
+    else
+    {
+      sprintf(buf, "&+LZone Name: %s\r\n", pad_ansi(zone->name, 30).c_str());
+    }
+
+    sprintf(buf2, "&+LAverage &+rmob&+L level in zone: &n%d\r\n ", zone->avg_mob_level);
+    strcat(buf, buf2);
+    if( (zone->avg_mob_level - GET_LEVEL(ch)) > 15 )
+    {
+      sprintf(buf2, "&-L&+RWarning&-L, some mobs in this zone may be very hazardous for you! Travel with care!&n\r\n");
+      strcat(buf, buf2);
+    }
+    send_to_char(buf, ch);
+    return;
   }
-  send_to_char(buf, ch);
-  send_to_char(buf2, ch);
+  // Immortal arguments:
+  argument = one_argument(argument, buf);
+  if( is_abbrev(buf, "rooms") )
+  {
+    rest = one_argument(argument, buf);
+    // If we're checking another zone.
+    if( *buf && is_number(buf) )
+    {
+      // Move argument only if we have a number to start.  Otherwise, it's a search string.
+      argument = rest;
+      zone_id = real_zone(atoi(buf));
+      if( zone_id == -1 )
+      {
+        send_to_char_f( ch, "'%d' is a bad zone vnum.\n&+YValid zone vnums are:&n\n", atoi(buf) );
+        buf[0] = '\0';
+        // Skipping zone 0 which doesn't seem valid for some reason.
+        for( zone_id = 1; zone_id <= top_of_zone_table; zone_id++ )
+        {
+          sprintf( buf2, "%4d, ", zone_table[zone_id].number );
+          strcat( buf, buf2 );
+          if( (zone_id % 12) == 0 )
+            strcat( buf, "\n" );
+        }
+        if( (zone_id % 12) == 0 )
+        {
+           buf[strlen(buf)-2] = '.';
+        }
+        else
+        {
+           buf[strlen(buf)-2] = '.';
+           buf[strlen(buf)-1] = '\n';
+        }
+        send_to_char( buf, ch );
+        return;
+      }
+      zone = &zone_table[zone_id];
+    }
+    else
+    {
+      zone_id = world[ch->in_room].zone;
+      zone = &zone_table[zone_id];
+    }
+
+    if( *argument )
+    {
+      argument = skip_spaces( argument );
+      send_to_char_f( ch, "Rooms in zone %d '%s'\nName includes '%s'\n", zone_id, zone->name, argument );
+    }
+    else
+    {
+      send_to_char_f( ch, "Rooms in zone %d '%s'\n", zone_id, zone->name );
+    }
+    send_to_char("R-Num   V-Num   Room-Name\n", ch);
+    buf[0] = '\0';
+    for( int rrnum = 0, length = 0; rrnum <= top_of_world; rrnum++ )
+    {
+      if( world[rrnum].zone == zone_id )
+      {
+        // Skip if we're looking for certain rooms and this one does not apply.
+        if( *argument && !sub_string( strip_ansi(world[rrnum].name).c_str(), argument) )
+        {
+          continue;
+        }
+        sprintf( buf2, "%5d  %6d  %-s\n", rrnum, world[rrnum].number, world[rrnum].name );
+        if( (strlen(buf2) + length + 40) < MAX_STRING_LENGTH )
+        {
+          strcat(buf, buf2);
+          length += strlen(buf2);
+        }
+        else
+        {
+          strcat(buf, "Too many rooms to list...\n");
+          break;
+        }
+      }
+    }
+    send_to_char( buf, ch );
+  }
 }
 
 void do_quaff(P_char ch, char *argument, int cmd)

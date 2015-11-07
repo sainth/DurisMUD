@@ -78,17 +78,20 @@ extern void event_reset_zone(P_char, P_char, P_obj, void*);
 
 struct reset_q_type reset_q;
 
-P_room   world;                 /* dyn alloc'ed array of rooms     */
-P_town   towns;                 /* List of towns for defenses      */
-int      top_of_world = 0;      /* ref to the top element of world - LAST VALID ROOM INDEX world[top_of_world] is valid world[top_of_world+1] is out of bounds */
-P_obj    object_list = NULL;    /* the global linked list of obj's */
-P_char   character_list = NULL; /* global l-list of chars          */
+P_room   world;                                   /* dyn alloc'ed array of rooms     */
+P_town   towns;                                   /* List of towns for defenses      */
+int      top_of_world = 0;                        /* ref to the top element of world - LAST VALID ROOM INDEX
+                                                   * world[top_of_world] is valid world[top_of_world+1] is out
+                                                   * of bounds.
+                                                   */
+P_obj    object_list = NULL;                      /* the global linked list of obj's */
+P_char   character_list = NULL;                   /* global l-list of chars          */
 struct ban_t *ban_list = NULL;
 struct wizban_t *wizconnect = NULL;
-struct zone_data *zone_table;   /* table of reset data             */
-struct sector_data *sector_table;       /* mostly weather info           */
-int      top_of_zone_table = 0;
-struct message_list fight_messages[MAX_MESSAGES];       /* fighting messages  */
+struct zone_data *zone_table;                     /* table of reset data             */
+struct sector_data *sector_table;                 /* mostly weather info             */
+int      top_of_zone_table = 0;                   /* The highest valid zone rnum     */
+struct message_list fight_messages[MAX_MESSAGES]; /* fighting messages  */
 
 char    *guild_frags = NULL;
 char    *credits = NULL;        /* * the Credits List                */
