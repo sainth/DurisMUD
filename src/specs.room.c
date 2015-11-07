@@ -1482,3 +1482,144 @@ int player_council_room(int room, P_char ch, int cmd, char *argument)
   return FALSE;
 
 }
+
+// Just some sadistic fun with caged people.
+int cage_room1(int room, P_char ch, int cmd, char *argument)
+{
+  static int tries = 0;
+  int knob;
+
+  if( cmd == CMD_WIGGLE )
+  {
+    if( (sscanf(argument, "%d.knob", &knob) == 1) && knob > 0 && knob < 18 )
+    {
+      if( number( 1, 1000 ) == 666 )
+      {
+        send_to_char("You finally find the right knob.  As you turn it, you blink and find yourself elsewhere.\n", ch);
+        char_from_room(ch);
+        if( !char_to_room( ch, real_room(42), -2 ) )
+        {
+          send_to_char("Wait.. this is the same room!", ch );
+          char_to_room( ch, real_room(1134), -2 );
+        }
+      }
+      else
+      {
+        if( ++tries > number(5, 10) )
+        {
+          send_to_char( "The knobs seem to move around.\n", ch );
+          tries = 1;
+        }
+        if( tries == 1 )
+        {
+          send_to_char( "Nope, that knob doesn't seem to work.\n", ch );
+        }
+        else
+        {
+          switch( number(1, 20) )
+          {
+            case  1:
+            case  2:
+            case  3:
+            case  4:
+            case  5:
+            case  6:
+            case  7:
+              send_to_char( "That one doesn't work either.\n", ch );
+              break;
+            case  8:
+            case  9:
+              send_to_char( "This one shocks you as you touch it!\n", ch );
+              break;
+            case 10:
+            case 11:
+              send_to_char( "This knob is really cold.\n", ch );
+              break;
+            case 12:
+            case 13:
+            case 14:
+              send_to_char( "Something about this knob feels right.\n", ch );
+              break;
+            case 15:
+            case 16:
+            case 17:
+            case 18:
+              send_to_char( "Something about this knob just doesn't feel right.\n", ch );
+              break;
+            case 19:
+            default:
+              send_to_char( "Your hand slips off the knob!\n", ch );
+              break;
+            case 20:
+              send_to_char( "This one seems to move a bit.\n", ch );
+              break;
+          }
+        }
+        return TRUE;
+      }
+    }
+  }
+  return FALSE;
+}
+
+// Really bad boy tried to escape!
+int cage_room2(int room, P_char ch, int cmd, char *argument)
+{
+  if( cmd == CMD_SET_PERIODIC )
+  {
+    return TRUE;
+  }
+  // Randomly eat 1/8th of commands.
+  if( ch && cmd != CMD_PERIODIC && (number(1, 8) == 6) )
+  {
+    return TRUE;
+  }
+  if( cmd != CMD_PERIODIC )
+  {
+    return FALSE;
+  }
+  room = real_room(room);
+  if( room < 0 || world[room].people == NULL )
+  {
+    return FALSE;
+  }
+  switch( number(1, 40) )
+  {
+    case  1:
+    case  2:
+    case  3:
+    case  4:
+      send_to_room( "&+LYou hear the sounds of &+yfootsteps&+L moving quickly towards you.&n\n", room );
+      break;
+    case  5:
+    case  6:
+    case  7:
+      send_to_room( "&+LYou hear &+Cpiercing &+Lcries from behind you!&n\n", room );
+    case  8:
+    case  9:
+    case 10:
+    case 11:
+    case 12:
+      send_to_room( "&+LYou hear horrible &+rwailing&+L.&n\n", room );
+      break;
+    case 13:
+    case 14:
+      send_to_room( "&+LThe &+wsilence&+L here is unbearable.&n\n", room );
+      break;
+    case 15:
+    case 16:
+      send_to_room( "&+LWhen will the &+rscreams&+L stop?!&n\n", room );
+      break;
+    case 17:
+    case 18:
+    case 19:
+      send_to_room( "&+LYou hear quiet &+bsobs&+L, then realize it's you who's crying.&n\n", room );
+      break;
+    case 20:
+      send_to_room( "&+LYou break into a &+ccold&+L sweat.&n\n", room );
+      break;
+    default:
+      break;
+  }
+  return TRUE;
+}

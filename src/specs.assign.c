@@ -2290,6 +2290,8 @@ void assign_rooms(void)
     world[real_room0(x)].funct = shaboath_enchantment_tower;
   }
 
+  world[real_room0(1134)].funct = cage_room1;
+  world[real_room0(42)].funct = cage_room2;
   world[real_room0(1201)].funct = player_council_room;
 
 

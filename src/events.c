@@ -1324,8 +1324,7 @@ void room_event(P_char ch, P_char victim, P_obj obj, void *data)
   if (room && room->funct)
   {
     (room->funct) (room->number, 0, 0, 0);
-    add_event(room_event, PULSE_MOBILE + number(-4, 4), 0, 0, 0, 0, data,
-              sizeof(P_room));
+    add_event(room_event, PULSE_MOBILE + number(-4, 4), 0, 0, 0, 0, data, sizeof(int));
   }
 }
 

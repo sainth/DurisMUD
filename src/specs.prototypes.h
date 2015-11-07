@@ -16,6 +16,8 @@
 #define WALL_OF_BONES 13
 
 int player_council_room(int, P_char, int, char *);
+int cage_room1(int, P_char, int, char *);
+int cage_room2(int, P_char, int, char *);
 
 int dildo_test(P_obj obj, P_char ch, int cmd, char *arg);
 int newbie_portal(P_obj obj, P_char ch, int cmd, char *arg);
