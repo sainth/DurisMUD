@@ -3237,7 +3237,9 @@ void reset_zone(int zone, int force_item_repop)
 
         break;
 
-      case 'C':
+      case 'C': /* As of 11/8/2015, no zones have a case 'C' .. hrm.
+                 *   Checked via 'grep "^C" gmud/areas/zon/*' - only zone names starting with C show up.
+                 */
         last_cmd = 0;
         temp = get_obj_table(ZCMD.arg1);
         if (!temp)
@@ -3292,7 +3294,9 @@ void reset_zone(int zone, int force_item_repop)
 
         break;
 
-      case 'A':
+      case 'A': /* As of 11/8/2015, no zones have a case 'A' .. hrm.
+                 *   Checked via 'grep "^A" gmud/areas/zon/*' - only zone names starting with A show up.
+                 */
         last_cmd = 0;
         temp = get_obj_table(ZCMD.arg1);
         if (!temp)
@@ -3326,7 +3330,8 @@ void reset_zone(int zone, int force_item_repop)
             break;
           }
           ival = itemvalue(obj);
-          if( !ITEM_LOAD_CHECK(obj, ival) )
+          // Load all shopkeeper eq.
+          if( !ITEM_LOAD_CHECK(obj, ival) && (!mob || !IS_SHOPKEEPER(mob)) )
           {
             extract_obj(obj);
             last_cmd = 1;
@@ -3337,6 +3342,12 @@ void reset_zone(int zone, int force_item_repop)
             obj_to_char(obj, mob);
             last_cmd = 1;
             break;
+          }
+          else
+          {
+            logit(LOG_DEBUG, "reset_zone: object '%s' %d could not be placed on bad mob - zone %s.",
+              OBJ_SHORT(obj), GET_OBJ_VNUM(obj), zone_table[zone].filename);
+            extract_obj(obj);
           }
         }
         break;
@@ -3525,7 +3536,8 @@ void reset_zone(int zone, int force_item_repop)
                 break;
               }
               ival = itemvalue(obj);
-              if( !ITEM_LOAD_CHECK(obj, ival) )
+              // Load all shopkeeper eq.
+              if( !ITEM_LOAD_CHECK(obj, ival) && (!mob || !IS_SHOPKEEPER(mob)) )
               {
                 extract_obj(obj);
                 last_cmd = 1;
@@ -3545,6 +3557,7 @@ void reset_zone(int zone, int force_item_repop)
               {
                 logit(LOG_MOB, "G cmd: obj: %d  chance: %d, limit %d(%d) (no char)", obj_index[ZCMD.arg1].virtual_number, ZCMD.arg4,
                   ZCMD.arg2, obj_index[ZCMD.arg1].number);
+                extract_obj(obj);
                 break;
               }
             }
@@ -3604,10 +3617,11 @@ void reset_zone(int zone, int force_item_repop)
               {
                 // Drannak trying out item stat randomization 3/28/14
                 // Added check for shopkeeper so their wares don't look goofy.
-                if( !IS_ARTIFACT(obj) && !IS_SHOPKEEPER(mob) )
+                //   Removed shopkeeper check: this is eq'd items not for-sale items.
+                if( !IS_ARTIFACT(obj) )
                   randomizeitem(mob, obj);
                 if (mob->equipment[ZCMD.arg3])
-                  unequip_char(mob, ZCMD.arg3);
+                  obj_to_char( unequip_char(mob, ZCMD.arg3), mob );
                 equip_char(mob, obj, ZCMD.arg3, 1);
                 last_cmd = 1;
                 break;
