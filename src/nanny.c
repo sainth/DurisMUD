@@ -3562,11 +3562,11 @@ void enter_game(P_desc d)
   }
 
   // Add well-rested or rested bonus, if applicable.
-  // 22 hrs -> 2h well-rested bonus.
   if( nobonus )
   {
   }
-  else if( rest / 3600 >= 22 )
+  // 20 hrs (almost a day) -> 2.5h well-rested bonus.
+  else if( rest / 3600 >= 20 )
   {
     affect_from_char(ch, TAG_WELLRESTED);
     affect_from_char(ch, TAG_RESTED);
@@ -3574,15 +3574,15 @@ void enter_game(P_desc d)
     memset(&af1, 0, sizeof(struct affected_type));
     af1.type = TAG_WELLRESTED;
     af1.modifier = 0;
-    af1.duration = 120;
+    af1.duration = 150;
     af1.location = 0;
     af1.flags = AFFTYPE_PERM | AFFTYPE_NODISPEL | AFFTYPE_OFFLINE;
     affect_to_char(ch, &af1);
 
     debug( "'%s' getting well-rested bonus!", J_NAME(ch) );
   }
-  // 10 hrs -> 2h rested bonus.
-  else if( rest / 3600 >= 10 )
+  // 9 hrs (sleep + eat) -> 2.5h rested bonus.
+  else if( rest / 3600 >= 9 )
   {
     affect_from_char(ch, TAG_WELLRESTED);
     affect_from_char(ch, TAG_RESTED);
@@ -3590,7 +3590,7 @@ void enter_game(P_desc d)
     memset(&af1, 0, sizeof(struct affected_type));
     af1.type = TAG_RESTED;
     af1.modifier = 0;
-    af1.duration = 120;
+    af1.duration = 150;
     af1.location = 0;
     af1.flags = AFFTYPE_PERM | AFFTYPE_NODISPEL | AFFTYPE_OFFLINE;
     affect_to_char(ch, &af1);
