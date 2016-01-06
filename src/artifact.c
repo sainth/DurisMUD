@@ -2623,7 +2623,7 @@ void arti_clear_sql( P_char ch, char *arg )
     send_to_char("&+WThat's not a vnum for any object, wth?&n\n\r", ch );
     return;
   }
-  if( IS_ARTIFACT(arti) )
+  if( !IS_ARTIFACT(arti) )
   {
     act("$p &+Wis not an artifact.", FALSE, ch, arti, 0, TO_CHAR);
   }
