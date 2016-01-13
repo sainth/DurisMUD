@@ -1,17 +1,9 @@
 #66
 &n&+LThe &n&+GSh&n&+gau&n&+Ggh&n&+gi&n&+Gn &n&+RH&n&+runtin&n&+Rg &n&+WGrounds&n~
-6700 1 0 1 5 2
+6699 1 0 1 5 2
 *
 * Zone edited with durisEdit v3.00
 *
-*
-D 0 6686 2 0 100 0 0 0
-*     south exit from "An Old Campfire in the Maze" to
-*     "A Secret Hunting Passage" - open
-*
-D 0 6700 0 0 100 0 0 0
-*     north exit from "A Secret Hunting Passage" to
-*     "An Old Campfire in the Maze" - open
 *
 D 0 6696 3 5 100 0 0 0
 *     west exit from "A Cavern off the Underdark Depths" to

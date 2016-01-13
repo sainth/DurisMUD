@@ -1,0 +1,605 @@
+#6700
+swirling portal seasons~
+&+ca &+Cs&+Gw&+gi&+wr&+Cl&+gi&+Gn&+cg &+wpo&+Wrt&+wal &+cof the &+gse&+Ga&+gs&+go&+Cn&+cs&N~
+&+LA swirling portal of the seasons spins about in a whirlwind.&N~
+~
+25 1 4 0 15 0 0 0 1088 0 0
+6796 7 0 0 0 0 0 0
+5000 10000 100
+E
+swirling portal seasons~
+&+c   A swirling portal hovers in the air here.&N
+~
+#6701
+feathered wings pegasus saddle~
+&+wthe &+cgreat &+cf&+Ce&+wa&+Wt&+ch&+we&+Wr&+We&+cd &+Wwings &+cof a &+cpe&+Cg&+Wa&+Cs&+cus&N~
+&+cSome rather large feathered wings of a pegasus lie here.&N~
+~
+9 50 4 0 13 0 12289 553648129 0 0 0
+35 9 1 5 0 0 0 0
+1 59282 100 134217728 0 0 0
+E
+feathered wings pegasus saddle~
+&+W   These feathered wings have a majestic and impressive wingspan.&N
+~
+#6702
+fish scale koi~
+&+Ba &+cs&+Cc&+Wa&+Cl&+ce &+Lof a &+Bk&+co&+wi &+cfish&N~
+&+BA worthless fish scale lies here.&N~
+~
+11 47 1 0 15 0 12288 10485761 32768 0 0
+0 0 0 0 0 0 0 0
+0 10000 100
+E
+fish scale koi~
+&+c   This small scale of a fish smells funny... you may smell funny too if you wear it!&N
+~
+A
+26 3
+A
+13 5
+#6703
+druidic necklace fish scales~
+&+ca &+gdr&+Gui&+gdic &+cnecklace &+gof &+cfish &+Ws&+wc&+Wa&+wl&+We&+ws&N~
+&+cA necklace lies here in the dust and dirt.&N~
+~
+11 47 2 0 12 0 8192 5 0 268435327 0
+0 0 0 0 0 0 0 0
+0 100000 100
+E
+druidic necklace fish scales~
+&+g   This appears to be a very well-made and beloved necklace of whoever had it prior to you...&N
+~
+A
+4 5
+A
+34 2
+#6704
+long elegant peacock feather~
+&+La long elegant &+gp&+Be&+ma&+Mc&+mo&+Bc&+gk &+mfeather&N~
+&+mA long elegant peacock feather lies in the dirt.&N~
+~
+11 50 1 0 15 0 274432 10485761 0 0 0
+0 0 0 0 0 0 0 0
+0 10000 100
+E
+long elegant peacock feather~
+&+MA wise elven saying has been known: Become a peacock in a world of ugly ducks.&N
+~
+A
+13 5
+A
+24 -2
+#6705
+enchanted stone arch~
+&+wan &+cen&+Cch&+Wa&+Cnt&+ced &+Wstone &+warch&N~
+&+gA &+Wstone &+warch&+g, crackling with &+mfa&+Mer&+mie &+mm&+Ma&+mg&+Mi&+mc&+g, stands alone in the woods.&N~
+~
+25 11 6 0 15 0 262145 0 1088 0 0
+6720 7 0 0 0 0 0 0
+0 0 100
+E
+enchanted stone arch~
+&+WA very large stone arch has been erected here, covered in elven and fae markings.&N
+~
+#6706
+red apple~
+&+ra &+Rred &+ra&+Rpp&+rle&N~
+&+rAn apple lies here on the ground, ready to be eaten by a hungry adventurer.&N~
+~
+19 48 2 0 7 0 0 1 0 0 0
+2 6 6 0 0 0 0 0
+0 500 100
+E
+red apple~
+&+RThis apple looks quite delicious, doesn't it?&N
+~
+#6707
+dagger autumn decay~
+&+La dagger called '&+yA&+ru&+ytu&+rm&+yn &+LDecay'&N~
+&+yA dagger has been left here.&N~
+~
+5 20 2 0 15 0 8480 8193 64 268308479 0
+2 3 4 0 0 0 0 0
+1 100000 100
+E
+dagger autumn decay~
+&+LThis modest dagger ought feel quite nice in the hands of one who is up to no good...&N
+~
+A
+18 4
+A
+19 4
+T
+2 12 1 21
+#6708
+rusted knife~
+&+ya &+rr&+yu&+rs&+yt&+re&+yd &+Lknife &+wwith a &+Lt&+ca&+Lr&+cn&+Li&+cs&+Lh&+ce&+Ld &+csilver &+whilt&N~
+&+yA rusted knife lies here in the dust.&N~
+~
+5 22 2 0 15 0 73728 8193 0 0 0
+2 2 2 0 0 0 0 0
+1 10000 100
+E
+rusted knife~
+&+cThis dagger has a very rusted blade that has been set into a rather tarnished silver hilt.&N
+~
+A
+18 3
+A
+19 2
+#6709
+dying tree stump~
+&+La dying tree stump&N~
+&+LIf you can see this object, inform a god. It should be no-see.&N~
+~
+25 15 3 0 7 0 2 0 1024 0 0
+6770 7 0 0 0 0 0 0
+50000 0 100
+E
+dying tree stump~
+&+L   This stump appears to have a deep hole one might fall down into...&N
+~
+#6710
+codex book spellbook tome muse dreams~
+&+Lthe &+cc&+Co&+Wd&+Ce&+cx&+L of the &+mm&+Mus&+me &+Lof &+Wd&+wr&+Le&+wa&+Wm&+ws&N~
+&+LA book lies here, abandoned and forgotten.&N~
+~
+33 28 2 0 15 0 8192 8404993 64 261976575 0
+0 0 450 0 0 0 0 0
+0 10000 100
+E
+codex book spellbook tome muse dreams~
+&+MThis is the spellbook of a rather powerful mage, for it has many pages upon which to write their lores and incantations...&N
+~
+A
+3 5
+A
+26 5
+#6711
+veil dreams nightmares~
+&+La &+mveil &+Lof &+cdr&+Cea&+cms&+L and &+Wn&+wi&+Lg&+wh&+Wt&+wm&+La&+wr&+We&+ws&N~
+&+mA silken veil has been left behind here.&N~
+~
+9 1 2 0 15 0 73728 262145 64 264237567 0
+20 0 0 2 0 0 0 0
+0 540000 100 0 0 0 67108864
+E
+veil dreams nightmares~
+&+WThis veil shimmers in and out of reality, allowing the wearer to discern what is truly here and what is truly of another plane of existence.&N
+~
+T
+2 0 1 31
+#6712
+blade ethereal magic~
+&+ca blade of &+Cethereal &+cmagic&N~
+&+CA blade of fae magic lies here.&N~
+~
+5 1 3 0 15 0 524288 8193 0 0 0
+5 4 4 0 1 0 0 0
+0 10000 100
+E
+blade ethereal magic~
+&+CThis blade looks as though it would fall apart if it were dropped...&N
+~
+#6713
+key small ethereal magic~
+&+ca small key of &+Cethereal &+cfae magic&N~
+&+cA small key lies here.&N~
+~
+18 1 1 0 7 0 8192 0 0 0 0
+0 100 0 0 0 0 0 0
+0 1 100
+E
+key small ethereal magic~
+&+CA small magical key to a magical yet elusive place!&N
+~
+#6714
+token fae court spring~
+&+ga &+Gtoken&+g of the &+cfae court&+g of &+GSpring&N~
+&+WA token of the fae courts has been discarded here.&N~
+~
+8 1 1 0 7 0 8192 1 32768 0 0
+0 0 0 0 0 0 0 0
+0 1 100
+E
+token fae court spring~
+&+GThis magical token appears to glow in your hands from the radiating intent within.&N
+~
+T
+2 9 1 16
+#6715
+token fae court autumn~
+&+La &+ytoken&+L of the &+rfae court&+y of &+yAutumn&N~
+&+WA token of the fae courts has been discarded here.&N~
+~
+8 1 1 0 7 0 8192 1 32768 0 0
+0 0 0 0 0 0 0 0
+0 1 100
+E
+token fae court autumn~
+&+yThis magical token appears to glow in your hands from the radiating intent within.&N
+~
+T
+2 12 1 16
+#6716
+token fae court summer~
+&+ga &+Rtoken&+g of the &+wfae court&+g of &+rSu&+Rmm&+rer&N~
+&+WA token of the fae courts has been discarded here.&N~
+~
+8 1 1 0 7 0 8192 1 32768 0 0
+0 0 0 0 0 0 0 0
+0 1 100
+E
+token fae court summer~
+&+RThis magical token appears to glow in your hands from the radiating intent within.&N
+~
+T
+2 9 1 16
+#6717
+token fae court winter~
+&+wa &+Ctoken&+w of the &+cfae court&+w of &+wWi&+Wnt&+wer&N~
+&+WA token of the fae courts has been discarded here.&N~
+~
+8 1 1 0 7 0 8192 1 32768 0 0
+0 0 0 0 0 0 0 0
+0 1 100
+E
+token fae court winter~
+&+CThis magical token appears to glow in your hands from the radiating intent within.&N
+~
+T
+2 3 1 16
+#6718
+shimmering portal~
+&+ca &+Cs&+ch&+Ci&+cm&+Cm&+ce&+Cr&+ci&+Cn&+cg &+weth&+Wer&+weal &+Cportal&N~
+&+LIf you can see this notify an imm. It is supposed to be no-show.&N~
+~
+25 15 3 0 7 0 2 0 1024 0 0
+6706 7 0 0 0 0 0 0
+0 0 100
+E
+shimmering portal~
+&+WA shimmering portal hovers here.&N
+~
+#6719
+discarded travellers journal tattered~
+&+ya tattered traveller's journal&N~
+&+gA &+ydiscarded traveller's journal&+g lies here on the forest ground.&N~
+~
+33 28 1 0 15 0 8192 8404993 0 0 0
+0 0 200 0 0 0 0 0
+0 10000 100
+E
+discarded travellers journal~
+&+cWe shall not cease from exploration
+&+gAnd the end of all our exploring
+&+cWill be to arrive where we started
+&+gAnd know the place for the first time.
+
+&+cWhen the last of earth left to discover
+&+gIs that which was the beginning;
+&+cAt the source of the longest river
+&+gThe voice of the hidden waterfall
+&+cAnd the children in the apple-tree
+
+&+gNot known, because not looked for
+&+cBut heard, half-heard, in the stillness
+&+gBetween two waves of the sea.&N
+~
+#6720
+perfect red leaf~
+&+ra perfect red leaf&N~
+&+rA perfect red leaf lies upon the ground here.&N~
+~
+8 30 1 0 15 0 8400896 1 32768 0 0
+0 0 0 0 0 0 0 0
+0 1 100
+E
+perfect red leaf~
+&+rA perfect red leaf in all symmetical ways.&N
+~
+#6721
+mask autumn leaves~
+&+La &+ymask &+Lof &+rau&+Rtu&+rmn &+yleaves&N~
+&+yA mask of leaves lays here in the dust.&N~
+~
+9 30 1 0 13 0 8192 262145 0 0 0
+20 0 0 2 0 0 0 0
+0 10000 100 33554464 0 0 0
+E
+mask autumn leaves~
+&+ySeveral leaves pulled from the ethereal realm into this assemble to make this mask.&N
+~
+T
+2 12 1 31
+#6722
+perfect snowflake~
+&+Wa perfect snowflake&N~
+&+wThe perfect snowflake has fallen here.&N~
+~
+8 1 1 0 15 0 8400904 1 32768 0 0
+0 0 0 0 0 0 0 0
+0 1 100
+E
+perfect snowflake~
+&+WThis snowflake is the absolute most perfect fractal impression ever created by the magic of ice.&N
+~
+#6723
+glacial icepick~
+&+ca &+Cg&+cl&+Ca&+cc&+Ci&+ca&+Cl &+Wice&+Lpick&N~
+&+wAn icepick made of glacial ice is preserved by magic here.&N~
+~
+5 1 2 0 15 0 3284992 8193 0 0 0
+2 2 3 0 0 0 0 0
+0 10000 100
+E
+glacial icepick~
+&+CThis glacial icepick is quite sharp, and perhaps dangerous!&N
+~
+A
+18 3
+A
+19 2
+#6724
+perfect dew drop dewdrop~
+&+wthe &+cperfect &+Cdew drop &+wupon &+ga leaf&N~
+&+wThe perfect dew drop has settled onto a leaf.&N~
+~
+8 1 1 0 15 0 8400904 1 32768 0 0
+0 0 0 0 0 0 0 0
+0 1 100
+E
+perfect dew drop dewdrop~
+&+cThis is the absolute most perfect drop of dew.&N
+~
+#6725
+delicate enchanted snowflake snow flake~
+&+wa d&+We&+wl&+Wi&+wc&+Wa&+wt&+We &+cenchanted &+Wsnowflake&N~
+&+CA snowflake frozen in time hovers here.&N~
+~
+11 1 1 0 15 0 8192 524289 0 0 0
+0 0 0 0 0 0 0 0
+0 1 100 0 192 0 0
+E
+delicate enchanted snowflake snow flake~
+&+LA lovely snowflake indeed.&N
+~
+A
+18 3
+A
+3 8
+#6726
+bracelet woven willow leaves~
+&+ga &+ybracelet &+cof &+gw&+co&+gv&+ce&+gn &+gw&+Gi&+Yll&+Go&+gw &+gleaves&N~
+&+yA bracelet made of woven flexible willow branches lies here.&N~
+~
+11 30 1 0 15 0 270336 4097 64 0 0
+0 0 0 0 0 0 0 0
+0 10000 100 73728 0 0 0
+E
+bracelet woven willow leaves~
+&+gThis bracelet has been formed with the braiding of willow branches.&N
+~
+A
+55 5
+A
+5 4
+#6727
+perfect sunflower pouch~
+&+ya small leather pouch of &+Ysunflower petals&N~
+&+yA perfect sunflower has been dropped here on the ground.&N~
+~
+8 30 1 0 15 0 8400896 1 32768 0 0
+0 0 0 0 0 0 0 0
+0 1 100
+E
+perfect sunflower pouch~
+&+yThis small leather pouch contains &+Ysunflower&+y petals.&N
+~
+#6728
+ring water nymph~
+&+ca &+Bring &+cof &+wthe &+ww&+Wa&+Ct&+We&+cr &+Bnymph&N~
+&+BA small ring has been left here.&N~
+~
+11 33 1 0 15 0 270336 3 0 0 0
+0 0 0 0 0 0 0 0
+0 10000 100 2048 0 0 0
+E
+ring water nymph~
+&+WThis small round ring appears to be studded with &+Bsapphires.&N
+~
+A
+13 10
+#6729
+small pool water~
+&+ca &+Bsmall pool &+cof &+Bs&+ch&+Bi&+cm&+Bm&+ce&+Br&+ci&+Bn&+cg water&N~
+&+BA small pool of water forms next to the brook.&N~
+~
+17 15 3 0 7 0 8192 0 64 0 0
+20 20 17 0 0 0 0 0
+0 0 100
+E
+small pool water~
+&+BThis pool of water looks rather inviting.&N
+~
+#6730
+waterfall water fall~
+&+Bthe waterfall&N~
+&+LIf you can see this, contact an imm. This is no-show.&N~
+~
+25 15 3 0 7 0 8194 0 0 0 0
+6713 264 0 0 0 0 0 0
+0 0 100
+E
+waterfall water fall~
+&+BWouldn't it be fun to jump right into this waterfall?&N
+~
+#6731
+shimmering ball ethereal light~
+&+ca &+ws&+Wh&+ci&+Cm&+wm&+We&+cr&+Ci&+wn&+Wg &+Wball &+Lof &+ceth&+Cer&+ceal &+Wlight&N~
+&+YA shimmering ball of sunlight hovers here.&N~
+~
+11 1 1 0 15 0 270336 16385 0 0 0
+0 0 0 0 0 0 0 0
+0 1000 100 0 0 0 131072
+E
+shimmering ball ethereal light~
+&+WA very bright ball of light indeed.&N
+~
+#6732
+essence lost soul~
+&+Lthe essence of a lost soul&N~
+&+LThe essence of a lost soul shimmers with shadows here.&N~
+~
+8 1 1 0 15 0 77824 1 32768 0 0
+0 0 0 0 0 0 0 0
+0 1 100
+E
+essence lost soul~
+&+LA soul has been displaced between planes and somehow stuck within the confines of this magical prison...&N
+~
+#6733
+vial essence decay~
+&+La vial containing the essence of decay&N~
+&+LA thin vial with a slightly cracked glass side lies here.&N~
+~
+10 1 1 0 7 0 8192 1 64 0 0
+51 318 357 44 3 0 0 0
+0 10000 100
+E
+vial essence decay~
+&+LThis vial appears to have pure entropy within, and would not be wise for the living to consume...&N
+~
+#6734
+obsidian volcanic rock~
+&+Lan obsidian rock&N~
+&+LA small shiny black rock perhaps a decent size to throw lies to the side.&N~
+~
+5 11 1 0 15 0 12288 8193 32768 0 0
+6 1 3 0 0 0 0 0
+2 10000 100
+E
+obsidian volcanic rock~
+&+LThis small rock appears to be of sufficient size to hit someone with and inflict damage, but it also might be good to use as a skipping rock upon the pond...&N
+~
+A
+18 1
+A
+19 1
+#6735
+small vial sunshine~
+&+ya small vial of &+Ys&+yu&+Yn&+Wsh&+Yi&+yn&+Ye&+y&N~
+&+yA glowing bottle lies here.&N~
+~
+10 40 1 0 15 0 8193 1 64 0 0
+36 15 34 81 0 0 0 0
+0 10000 100
+E
+small vial sunshine~
+&+YA bright light radiates from this small glass vial.&N
+~
+#6736
+wisp shimmering faerie light~
+&+wa &+cwisp &+wof &+ws&+Wh&+wi&+cm&+wm&+Ce&+wr&+ci&+Wn&+wg &+cfa&+Cer&+cie &+Wlight&N~
+&+WA wisp of shimmering faerie light hovers here.&N~
+~
+11 1 1 0 15 0 262144 2097153 0 0 0
+0 0 0 0 0 0 0 0
+0 320000 100 0 2 0 131072
+E
+wisp shimmering faerie light~
+&+WThis wisp radiates a bright light indeed.&N
+~
+A
+13 10
+#6737
+silk flowing embroidered robes robe~
+&+wsome &+Wf&+wl&+Wo&+ww&+Wi&+wn&+Wg &+csilk &+mem&+Mbr&+coi&+Mde&+mred &+wrobes&N~
+&+cSome embroidered silken robes lie here.&N~
+~
+11 3 2 0 15 0 0 1033 0 96301183 0
+0 0 0 0 0 0 0 0
+0 100000 100
+E
+silk flowing embroidered robes robe~
+&+cThese robes have a series of vines and magestic forest elk in its patterns of embroidery.&N
+~
+A
+13 25
+A
+24 -4
+#6738
+silken sash silk strip~
+&+ca &+Cs&+Wi&+wl&+ck&+Ce&+Wn &+wsash &+Lof &+craw &+Csilk&N~
+&+wA long strip of raw white silk lies here.&N~
+~
+11 3 1 0 15 0 8192 2049 0 0 0
+0 0 0 0 0 0 0 0
+0 10000 100
+E
+silken sash silk strip~
+&+wThis smooth raw silk has been woven by a master weaver of the elven kind.&N
+~
+A
+13 20
+A
+14 20
+#6739
+spirit heart forest elf beating~
+&+ythe &+Lspirit &+rhe&+Rar&+rt &+Lof a &+yf&+go&+cr&+ge&+ys&+gt &+yelk&N~
+&+rA still-beating heart lies upon the ground here.&N~
+~
+8 2 1 0 15 0 12288 16385 0 0 0
+0 0 0 0 0 0 0 0
+0 1 100
+E
+spirit heart forest elf beating~
+&+rThis heart appears to be still beating by some gruesome magical enchantment.&N
+~
+A
+20 -8
+#6740
+glittering diamond stud earring~
+&+wa small &+Wg&+wl&+Wi&+wt&+Wt&+we&+Wr&+wi&+Wn&+wg &+Wdiamond &+wstud&N~
+&+WA small glittering diamond stud is nearly hidden on the ground.&N~
+~
+11 27 1 0 15 0 68296704 0 0 0 0
+0 0 0 0 0 0 0 0
+0 10000 100
+E
+glittering diamond stud earring~
+&+WA very lovely and priceless diamond.&N
+~
+A
+12 25
+T
+2 16 1 16
+#6741
+small wand diamond encrusted~
+&+wa small wand encrusted with a &+Wdiamond&N~
+&+WA small wand has been lost here under the snow and ice.&N~
+~
+3 27 1 0 15 0 12288 16385 32832 0 0
+21 5 5 191 0 0 0 0
+0 10000 100
+E
+small wand diamond encrusted~
+&+wA lost elven wand, covered in etchings, has a single diamond as its prize adornment.&N
+~
+#6742
+silvery ring crystal crystals rubies~
+&+wa &+Ws&+wi&+Wl&+wv&+We&+wr&+Wy &+wring &+Lset &+wwith &+rr&+Ru&+rb&+Ri&+re&+Rs&N &+Land &+ccry&+Cst&+cals&N~
+&+CA crystal ring has been left on the ground.&N~
+~
+11 31 1 0 15 0 8192 3 0 0 0
+0 0 0 0 0 0 0 0
+0 10000 100
+E
+silvery ring crystal crystals~
+&+cThis fine ring has been made and inset with crystals.&N
+~
+A
+28 5
+A
+38 3

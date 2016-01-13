@@ -1,0 +1,478 @@
+#6700
+satyr creature~
+&+ga sa&+Gty&n&+gr&n~
+&+gA truly beautiful creature of Pan plays an enamorous song.&n
+~
+&+g   This creature is half goat, half man, yet extremely and shamelessly sensual.
+&+gIt has elegantly curved horns about six inches long, and locks of flowing hair
+&+gall over. The Sa&+Gty&n&+gr plays a melody that reminds you of summer dew in the
+&+gmorning: soft, subtle, sensual.&n
+~
+33556552 0 0 0 131104 0 0 0 0 S
+h 0 32768 3 -1
+36 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 1
+#6701
+satyr creature~
+&+ga &+gs&+Ga&n&+Yt&+Gy&n&+gr&n~
+&+gA truly beautiful &+Gcreature of Pan&n&+g plays an enamorous song.&n
+~
+&+g   This creature is half goat, half man, yet extremely and shamelessly sensual.
+&+gIt has elegantly curved horns about six inches long, and locks of flowing hair
+&+gall over. The &+GSa&+Yty&n&+Gr&n&+g plays a melody that reminds you of spring flowers:
+&+gcolorful, delicate, young.&n
+~
+33556552 0 0 0 131104 0 0 0 0 S
+h 0 32768 3 -1
+36 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 1
+#6702
+satyr creature~
+&n&+ga &+gs&+ya&+rt&+yy&n&+gr&n~
+&+gA truly beautiful &+ycreature of Pan&+g plays an enamorous song.&n
+~
+&+g   This creature is half goat, half man, yet extremely and shamelessly sensual.
+&+gIt has elegantly curved horns about six inches long, and locks of flowing hair
+&+gall over. The Sa&+yty&n&+gr plays a melody that reminds you of autumn leaves
+&+gat night: vulnerable, tragic, dying.&n
+~
+33556552 0 0 0 131104 0 0 0 0 S
+h 0 32768 1 -1
+36 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 1
+#6703
+satyr creature~
+&n&+ga &+gsa&+cty&n&+gr&n~
+&+gA truly beautiful &+ccreature of Pan&+g plays an enamorous song.&n
+~
+&+g   This creature is half goat, half man, yet extremely and shamelessly sensual.
+&+gIt has elegantly curved horns about six inches long, and locks of flowing hair
+&+gall over. The Sa&+cty&n&+gr plays a melody that reminds you of winter frost at
+&+gsunrise: elegant, dignified, disappearing.&n
+~
+33556552 0 0 0 131104 0 0 0 0 S
+h 0 32768 2 -1
+36 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 1
+#6704
+imp decay~
+&n&+yi&+rm&+yp&+L of decay&n~
+&+LA short, quick &n&+rimp&+L scurries past you.&n
+~
+&+y   This small creature appears to be quite agile and quick with its blade. It
+&+ywears fallen leaves from the forest woven together. It has deep &+rcr&+Rims&n&+ron&+y
+&+yeyes, like the dying leaves of autumn.&n
+~
+1107433672 1 0 0 1573128 2 0 0 -1000 S
+HF 0 4096 2 -1
+51 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 1
+#6705
+liseu muse spirit~
+&n&+mLi&+Mse&n&+mu&+g, the Muse of &n&+mDr&+Mea&n&+mms&n~
+&+gA magnificent sp&+Gir&n&+git is the center of all attention here.&n
+~
+&+g   The pure energy in this area eminates such beauty and creativity, of which
+&n&+mLi&+Mse&n&+mu&+g inspires in all she greets. This being has eyes of &+cwin&+Cter fr&n&+cost&+g,
+&+ga voice more beautiful than any &n&+g spr&+Ging b&n&+gird, hair that &+wgl&+Wiste&n&+wns&+g like
+&+gthe summer dew, and the delicacy of &+ra&+yu&+rtu&+ym&+rn &+yleaves&+g.&n
+~
+302004298 0 0 0 671162776 2240 134349024 33563648 0 S
+HF 0 4194304 2 -1
+59 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 2
+#6706
+sieck pixie frost~
+&+cSi&+Cec&n&+ck, the &+wf&+Cr&n&+wo&+Cs&n&+wt &+cpixie&n~
+&+cA rather small pixie f&+Cl&n&+cu&+Ctt&n&+ce&+Cr&n&+cs here.&n
+~
+&+c   Si&+Cec&n&+ck is perhaps as small as a gnome. She has delicate wings of frost,
+&+ceyes of win&+Cter fr&n&+cost, and skin of a pale blue shade.&n
+~
+33601610 0 0 0 134218016 0 0 0 0 S
+HF 0 33554432 2 -1
+55 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 2
+#6707
+kithaya child~
+&n&+rKi&+Rtha&n&+rya&+c, the child of &+gSu&+Gmm&n&+ger&n~
+&+gA small child plays among the trees.&n
+~
+&+gThis fairie child has small, colorful wings, and &+rcr&+Rims&n&+ron&+g hair that softly twinkles when the light hits it. She smiles at you and giggles softly.&n
+
+&+GShe seems to delight in plotting with her imaginary friend...&N
+~
+33699912 0 0 0 134742024 0 0 0 0 S
+HF 0 2 1 -1
+51 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 2
+#6708
+kithapa child~
+&n&+rKi&+Rtha&n&+rpa&+c, the child of &+gS&+Gp&+Yri&+Gn&N&+gg&n~
+&+gA small child plays among the trees.&n
+~
+&+g   This fairie child has small, colorful wings, and &+rcr&+Rims&n&+ron&+g hair that softly twinkles when the light hits it. She smiles at you and giggles softly.&n
+
+&+G"My friend says that we need a dew drop of the perfect Springtime morning. We need it!" &+gShe smiles again, and leans back against a tree branch.&N
+~
+33699914 0 0 0 134742040 2 0 0 0 S
+HF 0 128 2 -1
+55 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 2
+#6709
+nymph fairie faerie fey~
+&n&+ga beautiful ny&+Gmp&n&+gh&n~
+&+gA beautiful fairie flutters about the area.&n
+~
+&+g   This minor goddess of nature is one of the attendants to the Sacred Muse.
+&+gThis beautiful ny&+Gmp&n&+gh radiates of the essence of Su&+Gmm&n&+ger.&n
+~
+1174538312 0 0 0 134742016 0 0 0 0 S
+HF 0 1 2 -1
+48 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 2
+#6710
+nymph fairie faerie fey~
+&n&+ga beautiful &+gn&+Gy&+Ym&+Gp&n&+gh&n~
+&+gA beautiful &+Gfairie&n&+g flutters about the area.&n
+~
+&+g   This minor goddess of nature is one of the attendants to the Sacred Muse.
+&+gThis beautiful &+Gny&+Ymp&+Gh&n&+g radiates of the essence of &+GSp&+Yri&n&+Gng&n&+g.&n
+~
+1174538312 0 0 0 134742016 0 0 0 0 S
+HF 0 1 2 -1
+48 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 2
+#6711
+nymph fairie faerie fey~
+&n&+ga beautiful &+gn&+yy&+rm&+yp&+gh&n~
+&+gA beautiful &+yfairie&n&+g flutters about the area.&n
+~
+&+gThis minor goddess of nature is one of the attendants to the Sacred Muse.
+&+gThis beautiful &+gn&+yy&+rm&+yp&+gh&n&+g radiates the essence of &+ra&+yu&+rtu&+ym&+rn&n&+g.&n
+~
+1174538312 0 0 0 134742016 0 0 0 0 S
+HF 0 1 2 -1
+48 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 2
+#6712
+nymph fairie faerie fey~
+&n&+ga beautiful &+gny&+cmp&+gh&n~
+&+gA beautiful &+cfairie&n&+g flutters about the area.&n
+~
+&+g   This minor goddess of nature is one of the attendants to the Sacred Muse.
+&+gThis beautiful &+gny&+cmp&+gh&n&+g radiates of the essence of &+cwi&+Cnt&n&+cer&n&+g.&n
+~
+1174538312 0 0 0 134742016 0 0 0 0 S
+HF 0 1 2 -1
+48 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 2
+#6713
+pegasus horse~
+&n&+ca &+cP&+Ceg&+Wa&+Csu&n&+cs guardian &+wof the &+Ws&+we&+ca&+gs&+Co&+Gn&+ca&+gl &+yportal&n~
+&+cA magnificent horse with perfect &+Wwhite&n&+c wings trots here.&n
+~
+&+c   This large white horse has perfect &+Wwhite&n&+c wings. Its mane flows like two
+&+cwaves of the sea, and a small child-like braid sets off to one side of its
+&+cmane.&n
+~
+168212554 0 0 0 419430408 2 0 0 0 S
+ae 0 128 0 -1
+53 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 1
+#6714
+zialh father faerie old spirit~
+&n&+rZialh&+L, spirit of &+ydecay&n~
+&+LAn old, crooked faerie floats in mid-air, spreading decay in his wake.
+~
+&+yThis pixie appears bitter and worn by time. Zialh is tired and old, as are the trees around him. He turns and eyes you wearily as you drift up the tree.
+
+&+L"All things have decayed here and shall be no good for my ritual... If only I had one perfect leaf, in its prime colors and yet undecayed."&N
+~
+570570826 0 0 0 33685784 2 0 0 0 S
+HF 0 128 0 -1
+51 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 1
+#6715
+koi fish~
+&n&+Bk&n&+bo&+Bi &n&+cfish&n~
+&+cA &+Cc&+co&+Bl&+Co&+cr&+Wf&+cu&+Bl&+c fish swims here.
+~
+&+bThis long, slender fish has spots on its side. It glides under the water with
+&+bease.
+~
+262216 0 0 0 134219776 0 0 0 0 S
+f 0 1 0 -1
+31 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 0
+#6716
+imaginary friend~
+&+can im&+Cagina&n&+cry friend&n~
+&+cAn imaginary friend plays with the child.&n
+~
+&+cThis creature doesn't have a tangible shape, and keeps changing shapes as suits its needs. It seems to be having a great time entertaining the child.&n
+
+&+C"Do you have some rocks we might play with? I'd like to teach the child to skip stones on the pond..."&N
+~
+1140852746 0 0 0 437911722 0 0 0 0 S
+HF 0 262144 0 -1
+46 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 0
+#6717
+frost spirit~
+&+ca fr&+Cos&n&+ct spirit&n~
+&+cA small spirit keeps Sieck company.&n
+~
+&+cThis small spirit looks like a cloud of snowflakes suspended in place to form
+&+ca pixie-like shape. A &+Cbright cold glow&n&+c eminates from within it.&n
+~
+1174411272 0 0 0 337248266 64 0 0 0 S
+HF 0 33554432 2 -1
+36 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 0
+#6718
+kyra banshee decay ghost~
+&+LKyra, the banshee of decay&N~
+&+LA ghostly banshee fades in and out of the shadows.&N
+~
+&+L   This ghastly apparition is a banshee, usually seen as an omen of death and a messenger from the underworld. It slips in and out of the shadows within the forest of rot, looking for the perpetual death that it may feast upon. It completely disregards your presence, though it has been said its screeches may be terrifying to those that startle this creature... it appears to be looking for souls to devour...&N
+~
+2182252618 0 0 0 0 0 0 0 -1000 S
+sh 0 1024 2 -1
+51 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 2
+#6719
+bird peacock~
+&+Lan elegant &+Bpe&n&+ma&+Mc&n&+mo&+Bck&n~
+&+LA &+Bco&n&+mlo&+Rr&n&+mfu&+Bl bird &n&+Lstruts around here.
+~
+&+BA rather beautiful, fat bird with &+Bext&n&+mra&+Rv&n&+meg&+Bant feathers.&n
+~
+2248 0 0 0 0 0 0 0 0 S
+b 0 1 0 -1
+26 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 0
+#6720
+creature tree sprite~
+&+ga tre&+Ge spr&n&+gite&n~
+&+gThis small cre&+Gat&n&+gure blends in with the trees.&n
+~
+&+gThis small being has a glittering aura of faerie magic. It resembles an elf to
+&+ga small degree.
+~
+33691848 0 0 0 151683072 0 0 0 750 S
+HF 0 8 0 -1
+30 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 0
+#6721
+creature tree sprite~
+&+ga tr&+Ge&+Ye sp&+Gri&n&+gte&n~
+&+gThis small cr&+Ge&+Yat&+Gu&n&+gre blends in with the trees.&n
+~
+&+g   This small being has a glittering aura of faerie magic. It resembles an elf
+&+gto a small degree.&n
+~
+33691848 0 0 0 151683072 0 0 0 750 S
+HF 0 8 0 -1
+30 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 0
+#6722
+creature tree sprite~
+&+ga tre&+ce spr&n&+gite&n~
+&+gThis small cre&+cat&n&+gure blends in with the trees.&n
+~
+&+c   This small being has a glittering aura of faerie magic. It resembles an elf
+&+cto a small degree. Its skin has a slightly blue tint to it, and her her aura
+&+cglitters like new-fallen snow.&n
+~
+33691848 0 0 0 151683072 0 0 0 0 S
+HF 0 8 0 -1
+30 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 0
+#6723
+creature tree sprite~
+&+ga tr&+ye&+re sp&+yri&n&+gte&n~
+&+gThis small cr&+ye&+rat&+yu&n&+gre blends in with the trees.&n
+~
+&+g   This small being has a glittering aura of faerie magic. It resembles an elf
+&+gto a small degree. It appears rather bitter.&n
+~
+33691848 0 0 0 151683072 0 0 0 -750 S
+HF 0 8 0 -1
+30 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 0
+#6724
+tookles cat~
+&+BTookles&n&+L, the mischievous imaginary cat&n~
+&+BA rather p&n&+be&+Bc&n&+bu&+Bl&n&+bi&+Ba&n&+br&+B cat peers at you from its hiding place.&n
+~
+&+B   This small cat-like spirit has long hair, oddly enough blue. Its eyes are
+&+Bwide and crazed, you cannot tell if it will sit there lazily or pounce.&n
+~
+33560778 0 0 0 270139416 0 0 0 0 S
+ac 0 65536 0 -1
+48 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 1
+#6725
+water pixie~
+&+Ba water pixie&n~
+&+BThis small water pixie bathes in the nearby enchanted waters.&n
+~
+&+B   This small creature has blue transluscent wings that reflect light like a
+&+Bstained glass window. It appears to breathe by little gills on its neck.&n
+~
+268298 0 0 0 133152 64 0 0 0 S
+HF 0 2048 2 -1
+46 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 0
+#6726
+water pixie~
+&+Ba water pixie&n~
+&+gThis small pixie bathes in the brook here.&n
+~
+&+B   This small creature has blue transluscent wings that reflect light like a
+&+Bstained glass window. It appears to breathe by little gills on its neck.&n
+~
+268298 0 0 0 133152 64 0 0 0 S
+HF 0 1 0 -1
+40 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 0
+#6727
+elven fisherman wood elf~
+&+ca &+gw&+Goo&+gd &+gelven &+cfisherman&N~
+&+cAn elven &+gfisherman&+c rests along the edge of the brook fishing for &+Bk&+co&+wi&+c.&N
+~
+&+c   This elven fisherman watches the water calmly and attempts to catch some of the fish that occupy this spot. He swears at having no luck at all at catching fish.&N
+~
+403530 0 0 0 16777224 0 0 0 0 S
+we 0 128 1 -1
+51 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 1
+#6728
+fiera wood elf wood-elven applefarmer apple farmer~
+&+gF&+Gie&+gra&+L, the &+gw&+Goo&+gd&+L-&+ce&+Clv&+cen &+ra&+Rpp&+rle &+Lfarmer&N~
+&+cA short &+gw&+Goo&+gd &+gelf &+cstands here, selling her &+ra&+Rppl&+res&+c.&N
+~
+&+g   This wood elf is slight and short of stature, and appears to be humming a melody to herself as she inspects her bushels of apples.&N
+~
+33687626 0 0 0 318767240 2 192 0 0 S
+we 0 128 1 -1
+51 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 2
+#6729
+priestess grey elf elven~
+&+Lthe &+cgrey elven &+Cpriestess&+L of the &+mM&+Mus&+me&N~
+&+LAn elegantly adorned &+cGrey Elf&+L tends to guests waiting to see the Muse.&N
+~
+&+c   This elegant Grey Elf wears long flowing robes of the finest silk, embroidered in silver and beaded with pearls and gemstones. Her hair is braided into a single braid behind her. She levels her lavender eyes upon you.
+
+&+C"Are you here to visit the Court of the &+MMuse&+C?"
+~
+33564746 0 0 0 402653336 2 2097152 0 0 S
+pe 0 4194304 2 -1
+46 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 2
+#6730
+large raven bird~
+&+La large raven&N~
+&+LA large raven rests upon a nearby tree branch, watching everything.&N
+~
+&+L   This large raven is perched upon a branch, and watches absolutely everything in the area with caution and paranoia.&N
+~
+133192 1 0 0 134217744 0 0 0 0 S
+b 0 65536 0 -1
+26 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 0
+#6731
+imp frost thief~
+&+wthe &+cf&+Cro&+cst &+wth&+Wie&+wf&N~
+&+WA small &+ctran&+Cslu&+ccent &+Limp &+Wflutters in and out of the snow-covered forest.&n
+~
+&+W   This small creature appears to be quite agile and quick with its blade, and even better, nearly invisible to the surrounding frost and snow. It seems to draw its power from the essences of the season...&N
+~
+1107433672 0 0 0 1573128 2 0 0 -1000 S
+HF 0 65536 0 -1
+48 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 1
+#6732
+snowy spotted owl~
+&+Wa &+wsnowy &+ws&+yp&+wo&+Wt&+wt&+ye&+wd &+Wowl&N~
+&+WA snowy spotted owl rests in a nearby branch and watches all.&N
+~
+&+W   This owl's amber-colored eyes never leave their gaze upon you as you wander through the snow-covered forest.&N
+~
+1073875016 0 0 0 134217744 0 0 0 0 S
+b 0 33554432 0 -1
+26 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 0
+#6733
+petite bird robin red-breasted~
+&+ca petite red-breasted &+Crobin&N~
+&+cA &+Cpetite robin&+c hops about the area, seeking the early spoils of spring.&N
+~
+&+C   This small robin flutters and hops about the area, every so often picking at the ground and looking for worms or seeds.&N
+~
+131144 0 0 0 0 0 0 0 0 S
+b 0 1 0 -1
+16 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 0
+#6734
+grielda grey elf enchantress~
+&+cGrielda&+g, the &+Gen&+gch&+Ga&+Yn&+Gt&+gre&+Gss&+g of harvest &+Ggrowth&N~
+&+cA Grey Elf rests here, examining potential leaves and buds.&N
+~
+&+c   This Grey Elf watches your approach with caution, but does not deign to cease her research simply because of your presence. She mutters an incantation under her breath about a dew drop, and then continues on to the next leaf.&N
+~
+33687562 0 0 0 24 0 0 0 0 S
+pe 0 128 1 -1
+48 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 2
+#6735
+ice pixie larissa snow~
+&+WLarissa&+w, the pixie of snow and ice&N~
+&+wA small elegant pixie wanders the woods casting ice gracefully upon branches.&N
+~
+&+w   This elegant snow pixie seems to enjoy the art of magically collecting the dew in the air and turning it into snowflake and icicles about her. She gracefully turns her wrist and the mist swirls into forms of fractal art.&N
+
+&+W"Have you seen my wand? It's a small wand with a diamond upon it... I must have laid it down somewhere... I would reward you well for it!&N
+~
+1107429960 0 0 0 403177496 0 2097152 0 0 S
+hf 0 4 3 -1
+46 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 2

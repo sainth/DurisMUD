@@ -1,0 +1,243 @@
+#1
+&+gC&+Go&n&+gu&+Gr&n&+gt of the &+GMuse~
+6798 1 0 30 50 1
+*
+* Zone edited with durisEdit v3.00
+*
+*
+D 0 6704 4 6 100 0 0 0
+*     up exit from "A Dream-Crafted Tree" to
+*     "Upon an Branch made of Ethereal Fae Magic" - closed/locked/secret
+*
+D 0 6798 5 2 100 0 0 0
+*     down exit from "Upon an Branch made of Ethereal Fae Magic" to
+*     "A Dream-Crafted Tree" - closed/locked
+*
+D 0 6709 0 6 100 0 0 0
+*     north exit from "Deeper into the Cave Behind the Waterfall" to
+*     "Deeper into the Cave Behind the Waterfall" - closed/locked/secret
+*
+D 0 6710 2 6 100 0 0 0
+*     south exit from "Deeper into the Cave Behind the Waterfall" to
+*     "Deeper into the Cave Behind the Waterfall" - closed/locked/secret
+*
+D 0 6710 0 6 100 0 0 0
+*     north exit from "Deeper into the Cave Behind the Waterfall" to
+*     "Deeper into the Cave Behind the Waterfall" - closed/locked/secret
+*
+D 0 6711 2 6 100 0 0 0
+*     south exit from "Deeper into the Cave Behind the Waterfall" to
+*     "Deeper into the Cave Behind the Waterfall" - closed/locked/secret
+*
+D 0 6768 2 5 100 0 0 0
+*     south exit from "A Dead End in an Enchanted Forest" to
+*     "A Hollowed-Out Tree Stump" - closed/secret
+*
+D 0 6769 0 5 100 0 0 0
+*     north exit from "A Hollowed-Out Tree Stump" to
+*     "A Dead End in an Enchanted Forest" - closed/secret
+*
+*
+O 0 6719 1 6718 100 0 0 0          * a tattered traveller's journal
+O 0 6705 1 6719 100 0 0 0          * an enchanted stone arch
+O 0 6729 1 6753 100 0 0 0          * a small pool of shimmering water
+O 0 6730 1 6760 100 0 0 0          * the waterfall
+O 0 6720 1 6771 100 0 0 0          * a perfect red leaf
+O 0 6709 1 6772 100 0 0 0          * a dying tree stump
+O 0 6741 1 6786 100 0 0 0          * a small wand encrusted with a diamond
+O 0 6700 1 6797 100 0 0 0          * a swirling portal of the seasons
+O 0 6718 1 6798 100 0 0 0          * a shimmering ethereal portal
+*
+M 0 6700 4 6702 100 0 0 0          * a satyr
+G 1 6732 8 0 100 0 0 0             *    the essence of a lost soul
+M 0 6702 5 6702 100 0 0 0          * a satyr
+G 1 6732 8 0 100 0 0 0             *    the essence of a lost soul
+M 0 6703 4 6702 100 0 0 0          * a satyr
+G 1 6732 8 0 100 0 0 0             *    the essence of a lost soul
+M 0 6701 6 6702 100 0 0 0          * a satyr
+G 1 6732 8 0 100 0 0 0             *    the essence of a lost soul
+M 0 6721 5 6703 100 0 0 0          * a tree sprite
+G 1 6732 8 0 100 0 0 0             *    the essence of a lost soul
+M 0 6723 9 6703 100 0 0 0          * a tree sprite
+G 1 6732 8 0 100 0 0 0             *    the essence of a lost soul
+M 0 6720 6 6703 100 0 0 0          * a tree sprite
+G 1 6732 8 0 100 0 0 0             *    the essence of a lost soul
+M 0 6722 4 6703 100 0 0 0          * a tree sprite
+G 1 6732 8 0 100 0 0 0             *    the essence of a lost soul
+M 0 6729 1 6704 100 0 0 0          * the grey elven priestess of the Muse
+E 1 6737 1 5 100 0 0 0             *   some flowing silk embroidered robes
+E 1 6738 1 13 100 0 0 0            *   a silken sash of raw silk
+M 0 6705 1 6706 100 0 0 0          * Liseu, the Muse of Dreams
+E 1 6710 1 18 100 0 0 0            *   the codex of the muse of dreams
+E 1 6711 1 20 100 0 0 0            *   a veil of dreams and nightmares
+E 1 6736 1 24 100 0 0 0            *   a wisp of shimmering faerie light
+G 1 359 1 0 100 0 0 0              *    (object type not in this .obj file)
+M 0 6709 10 6706 100 0 0 0         * a beautiful nymph
+E 1 6712 4 16 100 0 0 0            *   a blade of ethereal magic
+M 0 6710 8 6706 100 0 0 0          * a beautiful nymph
+E 1 6712 4 16 100 0 0 0            *   a blade of ethereal magic
+M 0 6711 8 6706 100 0 0 0          * a beautiful nymph
+E 1 6712 4 16 100 0 0 0            *   a blade of ethereal magic
+M 0 6712 6 6706 100 0 0 0          * a beautiful nymph
+E 1 6712 4 16 100 0 0 0            *   a blade of ethereal magic
+M 0 6713 1 6715 100 0 0 0          * a Pegasus guardian of the seasonal portal
+G 1 6701 1 0 100 0 0 0             *    the great feathered wings of a pegasus
+M 0 6710 8 6727 100 0 0 0          * a beautiful nymph
+M 0 6721 5 6728 100 0 0 0          * a tree sprite
+M 0 6721 5 6730 100 0 0 0          * a tree sprite
+M 0 6701 6 6730 100 0 0 0          * a satyr
+M 0 6701 6 6731 100 0 0 0          * a satyr
+M 0 6733 3 6731 100 0 0 0          * a petite red-breasted robin
+M 0 6733 3 6731 100 0 0 0          * a petite red-breasted robin
+M 0 6733 3 6731 100 0 0 0          * a petite red-breasted robin
+M 0 6701 6 6732 100 0 0 0          * a satyr
+M 0 6710 8 6734 100 0 0 0          * a beautiful nymph
+M 0 6710 8 6735 100 0 0 0          * a beautiful nymph
+M 0 6710 8 6735 100 0 0 0          * a beautiful nymph
+M 0 6721 5 6735 100 0 0 0          * a tree sprite
+M 0 6701 6 6735 100 0 0 0          * a satyr
+M 0 6710 8 6736 100 0 0 0          * a beautiful nymph
+M 0 6701 6 6737 100 0 0 0          * a satyr
+M 0 6710 8 6737 100 0 0 0          * a beautiful nymph
+M 0 6721 5 6738 100 0 0 0          * a tree sprite
+M 0 6708 1 6740 100 0 0 0          * Kithapa, the child of Spring
+E 1 6726 1 14 100 0 0 0            *   a bracelet of woven willow leaves
+F 1 6716 2 6740 100 0 0 0          * an imaginary friend (following)
+M 0 6710 8 6740 100 0 0 0          * a beautiful nymph
+M 0 6700 4 6742 100 0 0 0          * a satyr
+M 0 6720 6 6743 100 0 0 0          * a tree sprite
+M 0 6709 10 6743 100 0 0 0         * a beautiful nymph
+M 0 6709 10 6744 100 0 0 0         * a beautiful nymph
+M 0 6720 6 6744 100 0 0 0          * a tree sprite
+M 0 6719 4 6744 100 0 0 0          * an elegant peacock
+G 1 6704 4 0 100 0 0 0             *    a long elegant peacock feather
+M 0 6700 4 6746 100 0 0 0          * a satyr
+M 0 6709 10 6746 100 0 0 0         * a beautiful nymph
+M 0 6719 4 6746 100 0 0 0          * an elegant peacock
+G 1 6704 4 0 100 0 0 0             *    a long elegant peacock feather
+M 0 6719 4 6746 100 0 0 0          * an elegant peacock
+G 1 6704 4 0 100 0 0 0             *    a long elegant peacock feather
+M 0 6700 4 6747 100 0 0 0          * a satyr
+M 0 6709 10 6747 100 0 0 0         * a beautiful nymph
+M 0 6720 6 6747 100 0 0 0          * a tree sprite
+M 0 6707 1 6749 100 0 0 0          * Kithaya, the child of Summer
+E 1 6731 1 18 100 0 0 0            *   a shimmering ball of ethereal light
+F 1 6716 2 6749 100 0 0 0          * an imaginary friend (following)
+F 1 6709 10 6749 100 0 0 0         * a beautiful nymph (following)
+F 1 6709 10 6749 100 0 0 0         * a beautiful nymph (following)
+M 0 6720 6 6750 100 0 0 0          * a tree sprite
+M 0 6709 10 6750 100 0 0 0         * a beautiful nymph
+M 0 6709 10 6751 100 0 0 0         * a beautiful nymph
+M 0 6709 10 6751 100 0 0 0         * a beautiful nymph
+M 0 6720 6 6751 100 0 0 0          * a tree sprite
+M 0 6719 4 6751 100 0 0 0          * an elegant peacock
+G 1 6704 4 0 100 0 0 0             *    a long elegant peacock feather
+M 0 6724 1 6752 100 0 0 0          * Tookles, the mischievous imaginary cat
+G 1 6727 1 0 100 0 0 0             *    a small leather pouch of sunflower petals
+M 0 6715 15 6755 100 0 0 0         * koi fish
+G 1 6702 15 0 100 0 0 0            *    a scale of a koi fish
+M 0 6715 15 6755 100 0 0 0         * koi fish
+G 1 6702 15 0 100 0 0 0            *    a scale of a koi fish
+M 0 6715 15 6755 100 0 0 0         * koi fish
+G 1 6702 15 0 100 0 0 0            *    a scale of a koi fish
+M 0 6715 15 6755 100 0 0 0         * koi fish
+G 1 6702 15 0 100 0 0 0            *    a scale of a koi fish
+M 0 6715 15 6755 100 0 0 0         * koi fish
+G 1 6702 15 0 100 0 0 0            *    a scale of a koi fish
+M 0 6715 15 6758 100 0 0 0         * koi fish
+G 1 6702 15 0 100 0 0 0            *    a scale of a koi fish
+M 0 6715 15 6758 100 0 0 0         * koi fish
+G 1 6702 15 0 100 0 0 0            *    a scale of a koi fish
+M 0 6715 15 6758 100 0 0 0         * koi fish
+G 1 6702 15 0 100 0 0 0            *    a scale of a koi fish
+M 0 6715 15 6761 100 0 0 0         * koi fish
+G 1 6702 15 0 100 0 0 0            *    a scale of a koi fish
+M 0 6715 15 6761 100 0 0 0         * koi fish
+G 1 6702 15 0 100 0 0 0            *    a scale of a koi fish
+M 0 6715 15 6761 100 0 0 0         * koi fish
+G 1 6702 15 0 100 0 0 0            *    a scale of a koi fish
+M 0 6715 15 6761 100 0 0 0         * koi fish
+G 1 6702 15 0 100 0 0 0            *    a scale of a koi fish
+M 0 6715 15 6761 100 0 0 0         * koi fish
+G 1 6702 15 0 100 0 0 0            *    a scale of a koi fish
+M 0 6715 15 6761 100 0 0 0         * koi fish
+G 1 6702 15 0 100 0 0 0            *    a scale of a koi fish
+M 0 6715 15 6761 100 0 0 0         * koi fish
+G 1 6702 15 0 100 0 0 0            *    a scale of a koi fish
+M 0 6725 1 6762 100 0 0 0          * a water pixie
+E 1 6728 1 1 100 0 0 0             *   a ring of the water nymph
+M 0 6727 1 6763 100 0 0 0          * a wood elven fisherman
+M 0 6730 6 6766 100 0 0 0          * a large raven
+M 0 6730 6 6766 100 0 0 0          * a large raven
+M 0 6730 6 6766 100 0 0 0          * a large raven
+M 0 6723 9 6766 100 0 0 0          * a tree sprite
+G 1 6734 7 0 100 0 0 0             *    an obsidian rock
+M 0 6723 9 6766 100 0 0 0          * a tree sprite
+G 1 6734 7 0 100 0 0 0             *    an obsidian rock
+M 0 6723 9 6766 100 0 0 0          * a tree sprite
+G 1 6734 7 0 100 0 0 0             *    an obsidian rock
+M 0 6704 3 6769 100 0 0 0          * imp of decay
+E 1 6708 5 16 100 0 0 0            *   a rusted knife with a tarnished silver hilt
+E 1 6708 5 17 100 0 0 0            *   a rusted knife with a tarnished silver hilt
+M 0 6704 3 6769 100 0 0 0          * imp of decay
+E 1 6708 5 16 100 0 0 0            *   a rusted knife with a tarnished silver hilt
+E 1 6708 5 17 100 0 0 0            *   a rusted knife with a tarnished silver hilt
+M 0 6704 3 6771 100 0 0 0          * imp of decay
+E 1 6707 1 16 100 0 0 0            *   a dagger called 'Autumn Decay'
+E 1 6708 5 17 100 0 0 0            *   a rusted knife with a tarnished silver hilt
+M 0 6723 9 6772 100 0 0 0          * a tree sprite
+M 0 6702 5 6772 100 0 0 0          * a satyr
+M 0 6702 5 6774 100 0 0 0          * a satyr
+M 0 6711 8 6774 100 0 0 0          * a beautiful nymph
+M 0 6723 9 6774 100 0 0 0          * a tree sprite
+M 0 6723 9 6774 100 0 0 0          * a tree sprite
+M 0 6714 1 6776 100 0 0 0          * Zialh, spirit of decay
+E 1 6739 1 18 100 0 0 0            *   the spirit heart of a forest elk
+E 1 6721 1 20 100 0 0 0            *   a mask of autumn leaves
+M 0 6711 8 6776 100 0 0 0          * a beautiful nymph
+M 0 6711 8 6776 100 0 0 0          * a beautiful nymph
+M 0 6702 5 6777 100 0 0 0          * a satyr
+M 0 6711 8 6777 100 0 0 0          * a beautiful nymph
+M 0 6711 8 6777 100 0 0 0          * a beautiful nymph
+M 0 6723 9 6777 100 0 0 0          * a tree sprite
+M 0 6718 1 6779 100 0 0 0          * Kyra, the banshee of decay
+M 0 6702 5 6780 100 0 0 0          * a satyr
+G 1 6734 7 0 100 0 0 0             *    an obsidian rock
+M 0 6723 9 6780 100 0 0 0          * a tree sprite
+G 1 6734 7 0 100 0 0 0             *    an obsidian rock
+M 0 6730 6 6780 100 0 0 0          * a large raven
+M 0 6730 6 6780 100 0 0 0          * a large raven
+M 0 6730 6 6780 100 0 0 0          * a large raven
+M 0 6735 1 6783 100 0 0 0          * Larissa, the pixie of snow and ice
+M 0 6712 6 6785 100 0 0 0          * a beautiful nymph
+M 0 6703 4 6785 100 0 0 0          * a satyr
+M 0 6706 1 6787 100 0 0 0          * Sieck, the frost pixie
+E 1 6725 1 21 100 0 0 0            *   a delicate enchanted snowflake
+F 1 6717 1 6787 100 0 0 0          * a frost spirit (following)
+G 1 6742 1 0 100 0 0 0             *    a silvery ring set with rubies and crystals
+M 0 6712 6 6787 100 0 0 0          * a beautiful nymph
+M 0 6712 6 6787 100 0 0 0          * a beautiful nymph
+M 0 6722 4 6788 100 0 0 0          * a tree sprite
+M 0 6722 4 6788 100 0 0 0          * a tree sprite
+M 0 6712 6 6788 100 0 0 0          * a beautiful nymph
+M 0 6703 4 6789 100 0 0 0          * a satyr
+M 0 6732 3 6790 100 0 0 0          * a snowy spotted owl
+M 0 6732 3 6790 100 0 0 0          * a snowy spotted owl
+M 0 6732 3 6790 100 0 0 0          * a snowy spotted owl
+M 0 6703 4 6791 100 0 0 0          * a satyr
+M 0 6712 6 6791 100 0 0 0          * a beautiful nymph
+M 0 6722 4 6791 100 0 0 0          * a tree sprite
+M 0 6731 1 6792 100 0 0 0          * the frost thief
+E 1 6723 2 16 100 0 0 0            *   a glacial icepick
+E 1 6723 2 17 100 0 0 0            *   a glacial icepick
+G 1 6722 1 0 100 0 0 0             *    a perfect snowflake
+M 0 6734 1 6793 100 0 0 0          * Grielda, the enchantress of harvest growth
+G 1 6724 1 0 100 0 0 0             *    the perfect dew drop upon a leaf
+M 0 6728 1 6794 100 0 0 0          * Fiera, the wood-elven apple farmer
+G 1 6706 999 0 100 0 0 0           *    a red apple
+M 0 6711 8 6795 100 0 0 0          * a beautiful nymph
+G 1 6734 7 0 100 0 0 0             *    an obsidian rock
+M 0 6711 8 6795 100 0 0 0          * a beautiful nymph
+G 1 6734 7 0 100 0 0 0             *    an obsidian rock
+*
+S

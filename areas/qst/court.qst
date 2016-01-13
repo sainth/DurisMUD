@@ -1,0 +1,131 @@
+#6706
+MA
+hi quest snowflake favor token frost stolen~
+&+wThe pixie frowns slightly.
+
+&+W"The frost of the season appears to melt just as I send it forth through my lands. I simply don't have the proper specimen of snowflake crystal to initiate my storm with. I blame the frost thief, as I can only assume it was he who stole my perfect enchanted snowflake!"
+
+&+wShe pauses, then looks at you. "Would you return that snowflake to me? You seem quite capable."&N
+~
+QA
+&+cThe pixie smiles brightly.
+
+&+c"Yes! This snowflake shall do perfectly to pair with my ritual incantation. For that, you have my thanks."&N
+~
+R I 6717
+R E 50000
+G I 6722
+S
+#6707
+MA
+quest hi sunflower token favor plotting pouch~
+&+gThe child sighs.
+
+&+G"I think that the cat has taken my pouch of sunflower petals. He sometimes steals things because I'm playing with my other imaginary friend. But I need the sunflower petals to exptend daylight..."
+&N
+~
+QA
+&+gThe child takens the sunflower and examines it over, and begins to pull each petal off of the flower in a very focused manner, almost forgetting that you are here. She looks up again, startled to see that you are still here...
+
+&+G"Oh, yes. Thank you. Take this," she says dismissively, then goes back to extracting her sunflower petals.&N
+~
+R I 6716
+R E 50000
+G I 6727
+S
+#6708
+QA
+&+CThe child giggles and whispers something to her imaginary friend. She then nods in agreement...&N
+
+&+c"Yes! This dew drop shall work perfectly... it's just what my friend was looking for!&N
+~
+R I 6714
+R E 50000
+G I 6724
+S
+#6714
+MA
+quest hi leaf token favor~
+&+LZialh looks up wearily at you.
+
+&+L"I require a perfect and yet undecayed red leaf for a spell that I must cast. If you do this, I would be quite pleased with you, and would make it worth your while."&N
+~
+QA
+&+LZialh picks up the perfect red lead and looks it over.
+
+&+L"Ah yes, this shall do perfect."&N
+~
+R I 6715
+R E 50000
+G I 6720
+S
+#6716
+M
+rocks rock quest~
+&+C"Yes, some rocks would be nice... maybe something made of obsidian would work best!"&N
+~
+Q
+&+Y"These should do quite nicely! Thank you, have this to help you on your way.&N
+~
+R I 6735
+G I 6734
+S
+#6718
+QA
+&+LThe banshee howls a terrifying screech as it consumes the soul, leaving but these meager remnants...&N
+~
+R I 6733
+G I 6732
+S
+#6727
+MA
+fishing hi quest koi fish~
+&+cThe elderly &+gw&+Goo&+gd &+gelf&+g turns to you and smiles gently.
+
+&+w"Why yes, there is something you can help me with. I am in need of several koi fish scales for a rather experimental druidic ritual that I am developing, and I've had poor luck today in fishing. If you can bring me a dozen, I can make it worth your while."&N
+~
+QA
+&+B"Ah yes, these should do quite nicely!&N
+~
+R I 6703
+G I 6702
+G I 6702
+G I 6702
+G I 6702
+G I 6702
+G I 6702
+G I 6702
+G I 6702
+G I 6702
+G I 6702
+G I 6702
+G I 6702
+D
+&+cA &+gw&+Goo&+gd elven &+cfisherman&n fades into the forest.
+~
+S
+#6729
+MA
+muse tokens token key~
+&+cThe Grey Elf looks at you with hesitation.
+
+&+C"In order to see the Muse, you must first collect a token of each of the seasons. You must show that you have earned the favor of Her Court. Then and only then will I give you admittance!"&N
+~
+QA
+&+cThe Grey Elf priestess smiles.
+
+&+C"I see you are a welcomed guest to our realm. Here is the key to enter her Court... when you find it."&N
+~
+R I 6713
+G I 6714
+G I 6715
+G I 6716
+G I 6717
+S
+#6735
+Q
+&+W"You found it! Thank you. Here,"&+w she says as she takes a trinket from her pouch, &+W"Have this as a reward."&N
+~
+R I 6740
+G I 6741
+S
