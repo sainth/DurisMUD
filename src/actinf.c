@@ -6174,7 +6174,7 @@ void do_who(P_char ch, char *argument, int cmd)
   long     timer = 0;
   snoop_by_data *snoop_by_ptr;
   int      align = RACEWAR_NONE, min_level = MAXLVL + 1, max_level = -1;
-  bool     sort = FALSE, zone = FALSE, lfg = FALSE, mortalsonly = FALSE;
+  bool     sort = FALSE, zone = FALSE, lfg = FALSE, mortalsonly = FALSE, mudconnector_limited = FALSE;
   struct affected_type *pafepics;
 
   if( !IS_ALIVE(ch) )
@@ -6219,6 +6219,13 @@ void do_who(P_char ch, char *argument, int cmd)
     send_to_char("You may not use this command until level two.\n", ch );
     statuslog( 56, "&+R%s&+R is trying to check who at level 1.&n", GET_NAME(ch) );
     return;
+  }
+  // Mudconnector -> who list is limited for now.. Immortals ok.
+  if( !IS_TRUSTED(ch) && ch->desc && !strcmp(ch->desc->host, "204.209.44.14") )
+  {
+    send_to_char( "Due to issues with scouting, the &+wwho&n command has been limited on mudconnector.\n", ch );
+    send_to_char( "However, you can still use nchat to communicate with people.\n", ch );
+    mudconnector_limited = TRUE;
   }
 
   *pattern = 0;
@@ -6378,8 +6385,14 @@ void do_who(P_char ch, char *argument, int cmd)
   {
     k = 1;
     sprintf(who_output, "\n Short Listing for Mortals\n-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
-    if( who_list_size == 0 )
+    if( mudconnector_limited )
+    {
+      strcat(who_output, "Short list is unavailable to mudconnector users.\n");
+    }
+    else if( who_list_size == 0 )
+    {
       strcat(who_output, "<None>\n");
+    }
     else
     {
       for( j = 0; j < who_list_size; j++ )
@@ -6424,8 +6437,7 @@ void do_who(P_char ch, char *argument, int cmd)
 
       if( IS_TRUSTED(ch) )
       {
-        sprintf(who_output + strlen(who_output), " (%d)",
-                who_gods[j]->only.pc->wiz_invis);
+        sprintf(who_output + strlen(who_output), " (%d)", who_gods[j]->only.pc->wiz_invis);
         if( IS_AFFECTED(who_gods[j], AFF_INVISIBLE) || IS_AFFECTED2(who_gods[j], AFF2_MINOR_INVIS)
           || IS_AFFECTED3(who_gods[j], AFF3_ECTOPLASMIC_FORM) )
         {
@@ -6445,7 +6457,7 @@ void do_who(P_char ch, char *argument, int cmd)
       strcat(who_output, "\n Listing of the Mortals!\n" "-=-=-=-=-=-=-=-=-=-=-=-=-\n");
       for( j = 0; j < who_list_size; j++ )
       {
-        if( !IS_SET((who_list[j])->specials.act, PLR_ANONYMOUS) || IS_TRUSTED(ch) )
+        if( (!mudconnector_limited && !IS_SET((who_list[j])->specials.act, PLR_ANONYMOUS)) || IS_TRUSTED(ch) )
         {
           sprintf(who_output + strlen(who_output), "&n[&+w%2d&n%s%s&n]%s", GET_LEVEL(who_list[j]),
             (IS_TRUSTED(ch) && (IS_SET(who_list[j]->specials.act, PLR_ANONYMOUS)) ? "*" : " "),
@@ -6454,76 +6466,83 @@ void do_who(P_char ch, char *argument, int cmd)
         }
         else
         {
-          strcat(who_output, "[&+L - Anonymous -  &N] ");
+          strcat(who_output, "[&+L   - Anonymous -   &N] ");
         }
 
-        strcat(who_output, GET_NAME(who_list[j]));
-
-        if( GET_TITLE(who_list[j]) )
+        if( mudconnector_limited )
         {
-          strcat(who_output, " ");
-          strcat(who_output, GET_TITLE(who_list[j]));
+          strcat(who_output, "Someone");
         }
-
-        if( IS_AFFECTED(who_list[j], AFF_INVISIBLE) || IS_AFFECTED2(who_list[j], AFF2_MINOR_INVIS)
-          || IS_AFFECTED3(who_list[j], AFF3_ECTOPLASMIC_FORM) )
+        else
         {
-          strcat(who_output, " (inv)");
-        }
+          strcat(who_output, GET_NAME(who_list[j]));
 
-        strcat(who_output, " &N(");
-        strcat(who_output, race_names_table[(int) GET_RACE(who_list[j])].ansi);
-        strcat(who_output, "&N)");
+          if( GET_TITLE(who_list[j]) )
+          {
+            strcat(who_output, " ");
+            strcat(who_output, GET_TITLE(who_list[j]));
+          }
 
-        if( who_list[j]->desc && who_list[j]->desc->olc )
-          strcat(who_output, " (&+MOLC&N)");
-        if( IS_HARDCORE(who_list[j]) )
-          strcat(who_output, "&+L (&+rHard&+RCore&+L)&n");
-        if( IS_SET((who_list[j])->specials.act, PLR_AFK) )
-          strcat(who_output, " (&+RAFK&N)");
-        if( IS_SET((who_list[j])->specials.act2, PLR2_LGROUP) )
-          strcat(who_output, " (&+WGroup Needed&N)");
-        if( IS_SET((who_list[j])->specials.act2, PLR2_NEWBIE_GUIDE) )
-          strcat(who_output, " (&+GGuide&N)");
-        if( IS_SET((who_list[j])->specials.act3, PLR3_FRAGLEAD) )
-          strcat(who_output, " (&+rF&+Rr&+ra&+Rg &+rL&+Ro&+rr&+Rd&n&N)");
+          if( IS_AFFECTED(who_list[j], AFF_INVISIBLE) || IS_AFFECTED2(who_list[j], AFF2_MINOR_INVIS)
+            || IS_AFFECTED3(who_list[j], AFF3_ECTOPLASMIC_FORM) )
+          {
+            strcat(who_output, " (inv)");
+          }
 
-        // Surtitles - Drannak ... You did this so wrong.. should've used a mask and numbers... not on/off bits.
-        if(IS_SET((who_list[j])->specials.act3, PLR3_SURSERF))
-          strcat(who_output, "&n[&+ySerf&n]");
-        if(IS_SET((who_list[j])->specials.act3, PLR3_SURCOMMONER))
-          strcat(who_output, "&n[&+YCommoner&n]");
-        if(IS_SET((who_list[j])->specials.act3, PLR3_SURKNIGHT))
-          strcat(who_output, "&n[&+LK&+wn&+Wig&+wh&+Lt&n]");
-        if(IS_SET((who_list[j])->specials.act3, PLR3_SURNOBLE))
-          strcat(who_output, "&n[&+mN&+Mobl&+me&n]");
-        if(IS_SET((who_list[j])->specials.act3, PLR3_SURLORD))
-          strcat(who_output, "&n[&+rL&+Ror&+rd&n]");
-        if(IS_SET((who_list[j])->specials.act3, PLR3_SURKING))
-          strcat(who_output, "&n[&+yK&+Yin&+yg&n]");
-        if(IS_SET((who_list[j])->specials.act3, PLR3_SURLIGHT))
-          strcat(who_output, "&n[&+WLight&+wbri&+Lnger&n]");
-        if(IS_SET((who_list[j])->specials.act3, PLR3_SURDRAGON))
-          strcat(who_output, "&n[&+gDr&+Gag&+Lon &+gS&+Glaye&+gr&n]");
-        if(IS_SET((who_list[j])->specials.act3, PLR3_SURHEALS))
-          strcat(who_output, "&n[&+WD&+Ro&+rct&+Ro&+Wr&n]");
-        if(IS_SET((who_list[j])->specials.act3, PLR3_SURSERIAL))
-          strcat(who_output, "&n[&+LSe&+wr&+Wi&+wa&+Ll &+rKiller&n]");
-        if(IS_SET((who_list[j])->specials.act3, PLR3_SURREAPER))
-          strcat(who_output, "&n[&+LGr&+wi&+Wm Rea&+wp&+Ler&n]");
-        if(IS_SET((who_list[j])->specials.act3, PLR3_SURDECEPTICON))
-          strcat(who_output, "&n[&+LDe&+mCePTiC&+LoN&n]");
-        if(IS_SET((who_list[j])->specials.act3, PLR3_SURDEATHSDOOR))
-          strcat(who_output, "&n[&+MTo&+mug&+Mh G&+muy&n]");
+          strcat(who_output, " &N(");
+          strcat(who_output, race_names_table[(int) GET_RACE(who_list[j])].ansi);
+          strcat(who_output, "&N)");
 
-        /* No frag food title? :(
-        if( IS_SET((who_list[j])->specials.act3, PLR3_FRAGLOW) )
-          strcat(who_output, " (&+yFrag &+YFood&n&N)");
-        */
+          if( who_list[j]->desc && who_list[j]->desc->olc )
+            strcat(who_output, " (&+MOLC&N)");
+          if( IS_HARDCORE(who_list[j]) )
+            strcat(who_output, "&+L (&+rHard&+RCore&+L)&n");
+          if( IS_SET((who_list[j])->specials.act, PLR_AFK) )
+            strcat(who_output, " (&+RAFK&N)");
+          if( IS_SET((who_list[j])->specials.act2, PLR2_LGROUP) )
+            strcat(who_output, " (&+WGroup Needed&N)");
+          if( IS_SET((who_list[j])->specials.act2, PLR2_NEWBIE_GUIDE) )
+            strcat(who_output, " (&+GGuide&N)");
+          if( IS_SET((who_list[j])->specials.act3, PLR3_FRAGLEAD) )
+            strcat(who_output, " (&+rF&+Rr&+ra&+Rg &+rL&+Ro&+rr&+Rd&n&N)");
 
-        if( ( IS_TRUSTED(ch) || IS_NEWBIE_GUIDE(ch) ) && IS_NEWBIE(who_list[j]) )
-        {
-          strcat(who_output, " (&+GNewbie&N)");
+          // Surtitles - Drannak ... You did this so wrong.. should've used a mask and numbers... not on/off bits.
+          if(IS_SET((who_list[j])->specials.act3, PLR3_SURSERF))
+            strcat(who_output, "&n[&+ySerf&n]");
+          if(IS_SET((who_list[j])->specials.act3, PLR3_SURCOMMONER))
+            strcat(who_output, "&n[&+YCommoner&n]");
+          if(IS_SET((who_list[j])->specials.act3, PLR3_SURKNIGHT))
+            strcat(who_output, "&n[&+LK&+wn&+Wig&+wh&+Lt&n]");
+          if(IS_SET((who_list[j])->specials.act3, PLR3_SURNOBLE))
+            strcat(who_output, "&n[&+mN&+Mobl&+me&n]");
+          if(IS_SET((who_list[j])->specials.act3, PLR3_SURLORD))
+            strcat(who_output, "&n[&+rL&+Ror&+rd&n]");
+          if(IS_SET((who_list[j])->specials.act3, PLR3_SURKING))
+            strcat(who_output, "&n[&+yK&+Yin&+yg&n]");
+          if(IS_SET((who_list[j])->specials.act3, PLR3_SURLIGHT))
+            strcat(who_output, "&n[&+WLight&+wbri&+Lnger&n]");
+          if(IS_SET((who_list[j])->specials.act3, PLR3_SURDRAGON))
+            strcat(who_output, "&n[&+gDr&+Gag&+Lon &+gS&+Glaye&+gr&n]");
+          if(IS_SET((who_list[j])->specials.act3, PLR3_SURHEALS))
+            strcat(who_output, "&n[&+WD&+Ro&+rct&+Ro&+Wr&n]");
+          if(IS_SET((who_list[j])->specials.act3, PLR3_SURSERIAL))
+            strcat(who_output, "&n[&+LSe&+wr&+Wi&+wa&+Ll &+rKiller&n]");
+          if(IS_SET((who_list[j])->specials.act3, PLR3_SURREAPER))
+            strcat(who_output, "&n[&+LGr&+wi&+Wm Rea&+wp&+Ler&n]");
+          if(IS_SET((who_list[j])->specials.act3, PLR3_SURDECEPTICON))
+            strcat(who_output, "&n[&+LDe&+mCePTiC&+LoN&n]");
+          if(IS_SET((who_list[j])->specials.act3, PLR3_SURDEATHSDOOR))
+            strcat(who_output, "&n[&+MTo&+mug&+Mh G&+muy&n]");
+
+          /* No frag food title? :(
+          if( IS_SET((who_list[j])->specials.act3, PLR3_FRAGLOW) )
+            strcat(who_output, " (&+yFrag &+YFood&n&N)");
+          */
+
+          if( ( IS_TRUSTED(ch) || IS_NEWBIE_GUIDE(ch) ) && IS_NEWBIE(who_list[j]) )
+          {
+            strcat(who_output, " (&+GNewbie&N)");
+          }
         }
 
         strcat(who_output, "\n");
