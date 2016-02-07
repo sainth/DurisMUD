@@ -16,6 +16,7 @@ extern P_index mob_index;
 extern P_index obj_index;
 extern Skill skills[];
 extern P_room world;
+extern struct race_names race_names_table[];
 
 epic_reward epic_rewards[] = {
   {EPIC_REWARD_SKILL, SKILL_ANATOMY, 25, 25, 250000,
@@ -73,7 +74,7 @@ epic_reward epic_rewards[] = {
   {EPIC_REWARD_SKILL, SKILL_SPELL_PENETRATION, 500, 200, 2000000,
     CLASS_SORCERER | CLASS_CONJURER | CLASS_SUMMONER },
   {EPIC_REWARD_SKILL, SKILL_DEVASTATING_CRITICAL, 200, 75, 750000,
-    CLASS_ANTIPALADIN | CLASS_PALADIN | CLASS_AVENGER | CLASS_DREADLORD },
+    CLASS_WARRIOR | CLASS_BERSERKER | CLASS_AVENGER | CLASS_DREADLORD },
   {EPIC_REWARD_SKILL, SKILL_TOUGHNESS, 100, 50, 500000,
     0 },
   {EPIC_REWARD_SKILL, SKILL_SPATIAL_FOCUS, 100, 100, 1000000,
@@ -270,6 +271,12 @@ void do_epic_skills(P_char ch, char *arg, int cmd)
     if(skill <= 0 || skill >= (LAST_SKILL + 1))
       continue;
 
+    // Handle anti-race - Thris dev crit.
+    if( IS_THRIKREEN(ch) && skill == SKILL_DEVASTATING_CRITICAL )
+    {
+      continue;
+    }
+
     for(t = 0; epic_teachers[t].vnum; t++)
     {
       if(epic_teachers[t].skill == skill)
@@ -368,6 +375,7 @@ int epic_teacher(P_char ch, P_char pl, int cmd, char *arg)
               "There are few adventurers willing to seek out the knowledge of &+W%s&n.\n\n", skills[skill].name);
       send_to_char(buffer, pl);
 
+      // Handle anti-classes
       if(epic_rewards[s].classes &&
          !IS_SET(epic_rewards[s].classes, pl->player.m_class) &&
          !IS_SET(epic_rewards[s].classes, pl->player.secondary_class))
@@ -376,9 +384,17 @@ int epic_teacher(P_char ch, P_char pl, int cmd, char *arg)
         return TRUE;
       }
 
+      // Handle anti-race - Thris dev crit.
+      if( IS_THRIKREEN(pl) && skill == SKILL_DEVASTATING_CRITICAL )
+      {
+        sprintf(buffer, "I cannot with good conscience teach this skill to a %s!\n", race_names_table[RACE_THRIKREEN].ansi );
+        send_to_char(buffer, pl);
+        return TRUE;
+      }
+
       if(epic_teachers[t].deny_skill && GET_CHAR_SKILL(pl, epic_teachers[t].deny_skill))
       {
-        sprintf(buffer, "I cannot with good conscience teach that skill to someone who has already studied &+W%s&n!\n", skills[epic_teachers[s].deny_skill].name);
+        sprintf(buffer, "I cannot with good conscience teach this skill to someone who has already studied &+W%s&n!\n", skills[epic_teachers[s].deny_skill].name);
         send_to_char(buffer, pl);
         return TRUE;
       }
@@ -395,7 +411,7 @@ int epic_teacher(P_char ch, P_char pl, int cmd, char *arg)
         send_to_char("Unfortunately, I cannot teach you anything more, you have already mastered this skill!\n", pl);
         return TRUE;
       }
-      
+
       sprintf(buffer, "It will cost you &+W%d&n epic points and &+W%s&n.\n", points_cost, coin_stringv(coins_cost));
       send_to_char(buffer, pl);
       return TRUE;
@@ -408,6 +424,14 @@ int epic_teacher(P_char ch, P_char pl, int cmd, char *arg)
           !IS_SET(epic_rewards[s].classes, pl->player.secondary_class))
       {
         send_to_char("Unfortunately, I am not able to teach people of your class.\n", pl);
+        return TRUE;
+      }
+
+      // Handle anti-race - Thris dev crit.
+      if( IS_THRIKREEN(pl) && skill == SKILL_DEVASTATING_CRITICAL )
+      {
+        sprintf(buffer, "I cannot with good conscience teach this skill to a %s!\n", race_names_table[RACE_THRIKREEN].ansi );
+        send_to_char(buffer, pl);
         return TRUE;
       }
 

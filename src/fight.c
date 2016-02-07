@@ -9145,6 +9145,12 @@ int calculate_attacks(P_char ch, int attacks[])
       {
         ADD_ATTACK(THIRD_WEAPON);
       }
+      // Can swing second secondary hand - 94% chance max.
+      if( HAS_FOUR_HANDS(ch) && ch->equipment[FOURTH_WEAPON]
+        && (( GET_CHAR_SKILL(ch, SKILL_DUAL_WIELD) / 2 + 45 ) > number( 1, 100 )) )
+      {
+        ADD_ATTACK(FOURTH_WEAPON);
+      }
     }
 
     if (notch_skill(ch, SKILL_TRIPLE_ATTACK, get_property("skill.notch.offensive.auto", 4))
@@ -9156,6 +9162,12 @@ int calculate_attacks(P_char ch, int attacks[])
         && (( GET_CHAR_SKILL(ch, SKILL_DUAL_WIELD) / 2 + 40 ) > number( 1, 100 )) )
       {
         ADD_ATTACK(THIRD_WEAPON);
+      }
+      // Can swing second secondary hand - 94% chance max.
+      if( HAS_FOUR_HANDS(ch) && ch->equipment[FOURTH_WEAPON]
+        && (( GET_CHAR_SKILL(ch, SKILL_DUAL_WIELD) / 2 + 45 ) > number( 1, 100 )) )
+      {
+        ADD_ATTACK(FOURTH_WEAPON);
       }
     }
 
