@@ -203,14 +203,14 @@ char *where_obj(P_obj w_obj, int flag)
   }
   if(OBJ_ROOM(w_obj))
   {
-    sprintf(GS_buf1 + strlen(GS_buf1), "in [%4d:%6d] &n%s",
+    sprintf(GS_buf1 + strlen(GS_buf1), "in [&+R%4d&+W:&+C%6d&n] &n%s",
             ROOM_ZONE_NUMBER(w_obj->loc.room), world[w_obj->loc.room].number, world[w_obj->loc.room].name);
     return (GS_buf1);
   }
   if(OBJ_CARRIED(w_obj))
   {
     sprintf(GS_buf1 + strlen(GS_buf1),
-            "in [%4d:%6d] &+Ycarried by &n%s&n",
+            "in [&+R%4d&+W:&+C%6d&n] &+Ycarried by &n%s&n",
             ((w_obj->loc.carrying->in_room != NOWHERE) ? ROOM_ZONE_NUMBER(w_obj->loc.carrying->in_room) : -1),            
             ((w_obj->loc.carrying->in_room != NOWHERE) ? world[w_obj->loc.carrying->in_room].number : -1),
             GET_NAME(w_obj->loc.carrying));
@@ -219,7 +219,7 @@ char *where_obj(P_obj w_obj, int flag)
   if(OBJ_WORN(w_obj))
   {
     sprintf(GS_buf1 + strlen(GS_buf1),
-            "in [%4d:%6d] &+Yequipped by &n%s&n",
+            "in [&+R%4d&+W:&+C%6d&n] &+Yequipped by &n%s&n",
             ((w_obj->loc.carrying->in_room != NOWHERE) ? ROOM_ZONE_NUMBER(w_obj->loc.carrying->in_room) : -1),            
             ((w_obj->loc.carrying->in_room != NOWHERE) ? world[w_obj->loc.carrying->in_room].number : -1),
             GET_NAME(w_obj->loc.wearing));    
@@ -12126,11 +12126,11 @@ void do_where(P_char ch, char *argument, int cmd)
           (d->character->in_room != NOWHERE) && CAN_SEE(ch, t_ch))
       {
         if (d->original)        /* If switched */
-          sprintf(buf2, "%-20s - [%4d:%6d] %s &n(In body of %s&n)\n",
+          sprintf(buf2, "%-20s &+Y- &n[&+R%4d&+W:&+C%6d&n] %s &n(In body of %s&n)\n",
                   t_ch->player.name, ROOM_ZONE_NUMBER(d->character->in_room), world[d->character->in_room].number,
                   world[d->character->in_room].name, FirstWord(d->character->player.name));
         else
-          sprintf(buf2, "%-20s - [%4d:%6d] %s\n",
+          sprintf(buf2, "%-20s &+Y- &n[&+R%4d&+W:&+C%6d&n] %s&n\n",
                   t_ch->player.name, ROOM_ZONE_NUMBER(d->character->in_room), world[d->character->in_room].number,
                   world[d->character->in_room].name);
 
@@ -12190,11 +12190,11 @@ void do_where(P_char ch, char *argument, int cmd)
         && (d->character->in_room != NOWHERE) && CAN_SEE(ch, t_ch) && t_ch->player.racewar == racewar )
       {
         if (d->original)        /* If switched */
-          sprintf(buf2, "%-20s - [%4d:%6d] %s &n(In body of %s&n)\n",
+          sprintf(buf2, "%-20s &+Y- &n[&+R%4d&+W:&+C%6d&n] %s &n(In body of %s&n)\n",
                   t_ch->player.name, ROOM_ZONE_NUMBER(d->character->in_room), world[d->character->in_room].number,
                   world[d->character->in_room].name, FirstWord(d->character->player.name));
         else
-          sprintf(buf2, "%-20s - [%4d:%6d] %s\n",
+          sprintf(buf2, "%-20s &+Y- &n[&+R%4d&+W:&+C%6d&n] %s&n\n",
                   t_ch->player.name, ROOM_ZONE_NUMBER(d->character->in_room), world[d->character->in_room].number,
                   world[d->character->in_room].name);
 
@@ -12227,7 +12227,7 @@ void do_where(P_char ch, char *argument, int cmd)
         if( (i->in_room != NOWHERE) && (IS_TRUSTED(ch) || (world[i->in_room].zone == world[ch->in_room].zone)) )
         {
           count++;
-          sprintf(buf2, "%3d. [%6d] %s - [%4d:%6d] %s\n", count, v_num, pad_ansi(i->player.short_descr, 40).c_str(),
+          sprintf(buf2, "%3d. [%6d] %s &+Y- &n[&+R%4d&+W:&+C%6d&n] %s&n\n", count, v_num, pad_ansi(i->player.short_descr, 40).c_str(),
             ROOM_ZONE_NUMBER(i->in_room), world[i->in_room].number, world[i->in_room].name);
           if( (length + strlen(buf2) + 35) > MAX_STRING_LENGTH )
           {
@@ -12269,7 +12269,7 @@ void do_where(P_char ch, char *argument, int cmd)
         o_count++;
         count++;
 
-        sprintf(buf2, "%3d. [%6d] %s - %s\n", o_count, v_num, pad_ansi(k->short_description, 40).c_str(), where_obj(k, FALSE));
+        sprintf(buf2, "%3d. [%6d] %s &+Y-&n %s\n", o_count, v_num, pad_ansi(k->short_description, 40).c_str(), where_obj(k, FALSE));
 
         if( (strlen(buf2) + length + 35) > MAX_STRING_LENGTH )
         {
@@ -12307,7 +12307,7 @@ void do_where(P_char ch, char *argument, int cmd)
         {
           if (d->original)
           {
-            sprintf(buf2, "%-20s - [%6d] %s (In body of %s&n)\n",
+            sprintf(buf2, "%-20s &+Y- &n[&+C%6d&n] &n%s (In body of %s&n)\n",
                     d->original->player.name,
                     world[d->character->in_room].number,
                     world[d->character->in_room].name,
@@ -12315,7 +12315,7 @@ void do_where(P_char ch, char *argument, int cmd)
           }
           else
           {
-            sprintf(buf2, "%-20s - [%6d] %s\n",
+            sprintf(buf2, "%-20s &+Y- &n[&+C%6d&n] %s&n\n",
                     d->character->player.name,
                     world[d->character->in_room].number,
                     world[d->character->in_room].name);
@@ -12364,10 +12364,10 @@ void do_where(P_char ch, char *argument, int cmd)
 
         count++;
         if (IS_NPC(i))
-          sprintf(buf2, "%3d. [%6d] %s - [%4d:%6d] %s ", count, GET_VNUM(i), pad_ansi(i->player.short_descr, 40).c_str(),
+          sprintf(buf2, "%3d. [%6d] %s &+Y- &n[&+R%4d&+W:&+C%6d&n] %s&n ", count, GET_VNUM(i), pad_ansi(i->player.short_descr, 40).c_str(),
                   ROOM_ZONE_NUMBER(i->in_room), world[i->in_room].number, world[i->in_room].name);
         else
-          sprintf(buf2, "%3d. %s - [%4d:%6d] %s ", count, pad_ansi(i->player.name, 40).c_str(),
+          sprintf(buf2, "%3d. %s &+Y- &n[&+R%4d&+W:&+C%6d&n] %s&n ", count, pad_ansi(i->player.name, 40).c_str(),
                   ROOM_ZONE_NUMBER(i->in_room), world[i->in_room].number, world[i->in_room].name);
 
         strcat(buf2, "\n");
@@ -12411,7 +12411,7 @@ void do_where(P_char ch, char *argument, int cmd)
 
       o_count++;
       count++;
-      sprintf(buf2, "%3d. [%6d] %s - %s\n",
+      sprintf(buf2, "%3d. [%6d] %s &+Y- &n%s\n",
               o_count, GET_OBJ_VNUM(k), pad_ansi(k->short_description, 40).c_str(), where_obj(k, FALSE));
       if ((strlen(buf2) + length + 35) > MAX_STRING_LENGTH)
       {
