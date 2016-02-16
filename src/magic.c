@@ -11903,12 +11903,10 @@ void spell_grow_spike(int level, P_char ch, char *arg, int type, P_char victim, 
    */
 }
 
-void spell_entangle(int level, P_char ch, char *arg, int type, P_char victim,
-                    P_obj obj)
+void spell_entangle(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
   struct affected_type af;
-  int      skl_lvl;
-  int      chance;
+  int                  skl_lvl, chance, sect;
 
   chance = 5;
   // 56 / 5 - 1 = 10 => -50 svpara to always save
@@ -11916,7 +11914,8 @@ void spell_entangle(int level, P_char ch, char *arg, int type, P_char victim,
   //   .. and 50 svpara to never save.
   skl_lvl = MAX(1, ((level / 5) - 1));
 
-  if( !IS_OUTSIDE(ch->in_room) )
+  sect = SECTOR_TYPE(ch->in_room);
+  if( !IS_OUTSIDE(ch->in_room) || !HAS_VEGETATION(sect) )
   {
     send_to_char("Not too much to entangle yer opponent with here..\n", ch);
     return;
@@ -11927,8 +11926,7 @@ void spell_entangle(int level, P_char ch, char *arg, int type, P_char victim,
     return;
   }
 
-  if( affected_by_spell(victim, SPELL_ENTANGLE)
-    || IS_AFFECTED2(victim, AFF2_MINOR_PARALYSIS) )
+  if( affected_by_spell(victim, SPELL_ENTANGLE) || IS_AFFECTED2(victim, AFF2_MINOR_PARALYSIS) )
   {
     send_to_char("Nothing happens.\n", ch);
     return;
