@@ -327,7 +327,7 @@ int can_raise_draco(P_char ch, int level, bool bGreater)
 
   //return numb <= maxAllowed;
 
-  int necro_power = GET_LEVEL(ch) * 2;
+  int necro_power = level * 2;
   int cost = 0;
   if( GET_SPEC(ch, CLASS_NECROMANCER, SPEC_NECROLYTE) ||
      GET_SPEC(ch, CLASS_THEURGIST, SPEC_TEMPLAR) )
@@ -491,7 +491,7 @@ void raise_undead(int level, P_char ch, P_char victim, P_obj obj, int which_type
     typ = which_type;
   }
 
-  int necro_power = GET_LEVEL(ch) * 2;
+  int necro_power = level * 2;
   if( GET_SPEC(ch, CLASS_NECROMANCER, SPEC_NECROLYTE)
     || GET_SPEC(ch, CLASS_THEURGIST, SPEC_TEMPLAR) )
   {
