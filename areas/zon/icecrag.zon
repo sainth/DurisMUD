@@ -743,7 +743,7 @@ E 1 97092 1 5 100 0 0 0            *   a black suit of brigandine platemail
 E 1 97090 1 11 100 0 0 0           *   a shield of the frostmaiden
 E 1 97091 1 16 100 0 0 0           *   a silvery war axe
 G 1 97016 1 0 100 0 0 0            *    the bloody heart of the Captain
-G 1 97018 1 0 100 0 0 0            *    the key to the Mausoleum
+G 1 97018 2 0 100 0 0 0            *    the key to the Mausoleum
 M 0 97037 2 97084 100 0 0 0        * a member of the Upper Echelon
 E 1 97034 23 8 100 0 0 0           *   a pair of blue and white plate boots
 E 1 97033 23 9 100 0 0 0           *   a pair of blue and white gauntlets
