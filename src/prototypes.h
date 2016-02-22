@@ -1230,7 +1230,7 @@ void do_engulf(P_char, char *, int);
 void engulf(P_char, P_char);
 void do_slime(P_char, char *, int);
 void slime(P_char, P_char);
-
+void do_squidrage(P_char ch, char *arg, int cmd);
 /* interp.c */
 
 bool special(P_char, int, char *);

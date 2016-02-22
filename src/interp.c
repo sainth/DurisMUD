@@ -760,7 +760,7 @@ const char *command[MAX_CMD] = {
   "project",
   "absorbe",
   "fly",
-  "tedit",
+  "squidrage",
   "fraglist",
   "lwitness",
   "pay",
@@ -3110,6 +3110,8 @@ void assign_command_pointers(void)
   CMD_SOC(CMD_DISGUST, STAT_NORMAL + POS_STANDING);
   CMD_SOC(CMD_NAFK, STAT_NORMAL + POS_STANDING);
   CMD_SOC(CMD_GRIMACE, STAT_NORMAL + POS_STANDING);
+
+  CMD_N(CMD_SQUIDRAGE, STAT_NORMAL + POS_STANDING, do_squidrage, 41);
 }
 
 /*

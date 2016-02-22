@@ -5251,6 +5251,7 @@ void create_tags()
   TAG_CREATE("old newbie zone tag", TAG_LIFESTREAMNEWBIE );
 
   TAG_CREATE("times recently suicided", TAG_SUICIDE_COUNT );
+  TAG_CREATE_WITH_MESSAGES("squidrage timer", TAG_SQUIDRAGE, "You feel ready to &+rr&+Rag&+re&n again!", "" );
 }
 
 #ifdef SKILLPOINTS

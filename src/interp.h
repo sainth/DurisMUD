@@ -539,7 +539,7 @@ extern unsigned int game_locked;
 #define CMD_PROJECT        512
 #define CMD_ABSORBE        513
 #define CMD_FLY            514
-#define CMD_TEDIT          515 // Unused command.
+#define CMD_SQUIDRAGE      515
 #define CMD_FRAGLIST       516
 #define CMD_LWITNESS       517
 #define CMD_PAY            518

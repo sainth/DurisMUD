@@ -345,8 +345,8 @@ void spell_molecular_agitation(int level, P_char ch, char *arg, int type, P_char
   spell_damage(ch, victim, dam, SPLDAM_PSI, 0, &messages);
 
 }
-void spell_adrenaline_control(int level, P_char ch, char *arg, int type,
-                              P_char victim, P_obj obj)
+
+void spell_adrenaline_control(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
   struct affected_type af;
 
@@ -779,9 +779,7 @@ spell_cell_adjustment(int level, P_char ch, char *arg, int type,
   return;
 }
 
-void
-spell_combat_mind(int level, P_char ch, char *arg, int type, P_char victim,
-                  P_obj obj)
+void spell_combat_mind(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
   struct affected_type af;
 

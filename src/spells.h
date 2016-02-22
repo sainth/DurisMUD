@@ -1187,6 +1187,7 @@
 #define TAG_PERMINVIS                2115
 #define TAG_LIFESTREAMNEWBIE         2116
 #define TAG_SUICIDE_COUNT            2117
+#define TAG_SQUIDRAGE                2118
 
 #define SAVING_PARA   0
 #define SAVING_ROD    1

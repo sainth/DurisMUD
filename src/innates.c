@@ -1124,22 +1124,21 @@ int get_innate_property(int innate, const char *prefix, int default_value)
 // an additional function, for when one needs to check the innate timer without altering it
 bool can_use_innate(P_char ch, int innate)
 {
-  struct affected_type af, *afp;	
+  struct affected_type af, *afp;
 
   for (afp = ch->affected; afp; afp = afp->next)
-    if (afp->type == TAG_INNATE_TIMER &&
-        afp->location == innate)
-      break;
-
-  if (afp)
-    if (afp->modifier == 1)
+  {
+    if( afp->type == TAG_INNATE_TIMER && afp->location == innate )
     {
-      return FALSE;
+      break;
     }
-    else {
-      return TRUE;
-    }
-  
+  }
+
+  if( afp && afp->modifier == 1 )
+  {
+    return FALSE;
+  }
+
   return TRUE;
 }
 
@@ -4997,3 +4996,85 @@ void do_list_innates( P_char ch, char *args )
   }
 }
 
+void do_squidrage(P_char ch, char *arg, int cmd)
+{
+  int level;
+  struct affected_type af;
+
+  if( !IS_ALIVE(ch) )
+  {
+    return;
+  }
+
+  if( !GET_CLASS(ch, CLASS_WARRIOR) || GET_RACE(ch) != RACE_ILLITHID )
+  {
+    send_to_char( "Pardon?\n", ch );
+    return;
+  }
+
+  if( level < 41 )
+  {
+    send_to_char( "Nothing happens.\n", ch );
+    return;
+  }
+
+  if( affected_by_spell( ch, TAG_SQUIDRAGE ) )
+  {
+    send_to_char( "You're still too tired to try this again.\n", ch );
+    return;
+  }
+
+  send_to_char( "You &+rr&+Rag&+re&n against the &+MElder Brain&n!\n", ch );
+  memset(&af, 0, sizeof(af));
+  af.type = TAG_SQUIDRAGE;
+  af.flags = AFFTYPE_NOSHOW | AFFTYPE_NODISPEL | AFFTYPE_NOAPPLY;
+  af.duration = 24;
+
+  affect_to_char(ch, &af);
+
+  level = GET_LEVEL(ch);
+  // 1st
+  spell_adrenaline_control(level, ch, "", 0, ch, NULL);
+  spell_combat_mind(level, ch, "", 0, ch, NULL);
+  if( level < 42 )
+  {
+    return;
+  }
+  // 2nd
+  spell_enhanced_agility(level, ch, "", 0, ch, NULL);
+  spell_enhanced_constitution(level, ch, "", 0, ch, NULL);
+  spell_enhanced_dexterity(level, ch, "", 0, ch, NULL);
+  spell_enhanced_strength(level, ch, "", 0, ch, NULL);
+  if( level < 43 )
+  {
+    return;
+  }
+  // 3rd
+  spell_aura_sight(level, ch, "", 0, ch, NULL);
+  if( level < 44 )
+  {
+    return;
+  }
+  // 4th
+  spell_energy_containment(level, ch, "", 0, ch, NULL);
+  if( level < 45 )
+  {
+    return;
+  }
+  // 5th
+  spell_flesh_armor(level, ch, "", 0, ch, NULL);
+  spell_fly(level, ch, "", 0, ch, NULL);
+  spell_intellect_fortress(level, ch, "", 0, ch, NULL);
+  if( level < 46 )
+  {
+    return;
+  }
+  // 6th
+  spell_enhance_armor(level, ch, "", 0, ch, NULL);
+  if( level < 48 )
+  {
+    return;
+  }
+  // 8th
+  spell_displacement(level, ch, "", 0, ch, NULL);
+}

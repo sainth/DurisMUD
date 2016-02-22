@@ -58,7 +58,7 @@ Howto Add a Boon Reward Type:
 
 Howto Add a Command:
   First, in interp.h, add CMD_<new command>.
-  Second, in interp.c, add "<new command", to the end of command[] (before the "\n").
+  Second, in interp.c, add "<new command>", to the end of command[] (before the "\n").
   Third, in interp.c, add CMD_*(CMD_<new command>, STAT_<MIN STAT> + POS_<MIN POS>, do_<new function name>, <MIN LVL>)
     CMD_* refers to the type of command you are creating (CMD_GRT/CMD_N/CMD_Y/CMD_CNF_N/etc).
     STAT_<MIN STAT> is the minimum state of the char necessary to execute the command (NORMAL/SLEEPING/DEAD/etc).
