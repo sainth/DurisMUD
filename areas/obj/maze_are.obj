@@ -269,7 +269,7 @@ stone coffin sarcophagus lid large~
 a&+L stone &+ysarcophagus~
 &+LA large stone &+ysarcophagus &+Llies here, its lid is thick and heavy.~
 ~
-15 11 4 0 3 0 16384 0 0 0 0
+15 11 4 0 3 0 16384 0 65536 0 0
 150 29 94023 150 0 0 0 0
 1000 10 77
 E

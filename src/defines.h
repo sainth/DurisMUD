@@ -229,6 +229,7 @@ typedef unsigned int uint;
 #define ITEM2_SOULBIND     BIT_14  /* Item is Soulbound */
 #define ITEM2_CRAFTED      BIT_15
 #define ITEM2_QUESTITEM    BIT_16
+#define ITEM2_TRANSPARENT  BIT_17  /* Item shows contents when looked at */
 
 /* Bitvector for 'anti_flags' */
 /*

@@ -2473,7 +2473,7 @@ void do_stat(P_char ch, char *argument, int cmd)
         page_string(ch->desc, o_buf, 1);
 
         if(j->contains)
-           list_obj_to_char(j->contains, ch, 2, TRUE);
+           list_obj_to_char(j->contains, ch, LISTOBJ_SHORTDESC | LISTOBJ_STATS, TRUE);
     }
 
     if(t_obj)

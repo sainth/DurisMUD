@@ -490,6 +490,11 @@
 #define SHIELDSIZE_HUGE     5  // huge shields (might not need this)
 #define SHIELDSIZE_HIGHEST  5
 
+#define LISTOBJ_LONGDESC          BIT_1
+#define LISTOBJ_SHORTDESC         BIT_2
+#define LISTOBJ_ACTIONDESC        BIT_3
+#define LISTOBJ_STATS             BIT_4
+
 #ifndef _DE_
 int obj_zone_id(P_obj o);
 int obj_room_id(P_obj o);

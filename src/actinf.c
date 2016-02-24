@@ -703,7 +703,7 @@ int ageCorpse(P_char ch, P_obj obj, char *s)
 
 }
 
-char *show_obj_to_char(P_obj object, P_char ch, int mode, int print)
+char *show_obj_to_char(P_obj object, P_char ch, int mode, bool print)
 {
   bool     found;
   static char buf[MAX_STRING_LENGTH];
@@ -714,15 +714,15 @@ char *show_obj_to_char(P_obj object, P_char ch, int mode, int print)
   else
     buf[0] = 0;
 
-  if ((mode == 0) && object->description)
+  if( IS_SET(mode, LISTOBJ_LONGDESC ) && object->description )
   {
     strcat(buf, object->description);
   }
-  else if (object->short_description && (mode == BOUNDED(1, mode, 4)))
+  else if( IS_SET(mode, LISTOBJ_SHORTDESC) && object->short_description )
   {
     strcat(buf, object->short_description);
   }
-  else if (mode == 5)
+  else if( IS_SET(mode, LISTOBJ_ACTIONDESC) )
   {
     if (object->type == ITEM_NOTE)
     {
@@ -746,7 +746,7 @@ char *show_obj_to_char(P_obj object, P_char ch, int mode, int print)
       strcat(buf, "It looks like a drink container.");
     }
   }
-  if (mode != 3)
+  if( IS_SET(mode, LISTOBJ_STATS) )
   {
     found = FALSE;
 
@@ -801,6 +801,13 @@ char *show_obj_to_char(P_obj object, P_char ch, int mode, int print)
       strcat(buf, " (&+Willuminating&n)");
       found = TRUE;
     }
+
+    if( IS_SET(object->extra2_flags, ITEM2_TRANSPARENT) )
+    {
+      strcat(buf, " (&+Lt&+wr&+La&+wn&+Lspa&+wren&+Lt&n)");
+      found = TRUE;
+    }
+
     /*if (OBJ_WORN(object) &&
         affected_by_spell(object->loc.wearing, SPELL_HEALING_BLADE))
     {
@@ -818,6 +825,7 @@ char *show_obj_to_char(P_obj object, P_char ch, int mode, int print)
       if (object->type == ITEM_WEAPON && (IS_SWORD(object) || IS_AXE(object)))
       {
         strcat(buf, " &+L(&+rf&+Rl&+Ya&+Wm&+Yi&+Rn&+rg&+L)&N");
+        found = TRUE;
       }
     }
 
@@ -826,6 +834,7 @@ char *show_obj_to_char(P_obj object, P_char ch, int mode, int print)
       if (object->type == ITEM_WEAPON && IS_BLUDGEON(object) )
       {
         strcat(buf, " &+L(&+Cch&+Bill&+Cing&+L)&N"); // XXX zion
+        found = TRUE;
       }
     }
 
@@ -834,6 +843,7 @@ char *show_obj_to_char(P_obj object, P_char ch, int mode, int print)
       if (object->type == ITEM_WEAPON && !IS_BLUDGEON(object) && !IS_AXE(object) )
       {
         strcat(buf, " &+L(&+Bele&+Wctri&+Bfied&+L)&N"); // XXX zion
+        found = TRUE;
       }
     }
 
@@ -842,6 +852,7 @@ char *show_obj_to_char(P_obj object, P_char ch, int mode, int print)
       if (object->type == ITEM_WEAPON && IS_SWORD(object) )
       {
         strcat(buf, " &+L(&+Wh&+wol&+Wy&+L)&N");
+        found = TRUE;
       }
     }
 
@@ -865,19 +876,19 @@ char *show_obj_to_char(P_obj object, P_char ch, int mode, int print)
       strcat(buf, " &N(above you)");
 
   strcat(buf, "\n");
+
   if (print)
     page_string(ch->desc, buf, 1);
 
   return buf;
 }
 
-void list_obj_to_char(P_obj list, P_char ch, int mode, int show)
+void list_obj_to_char(P_obj list, P_char ch, int mode, bool show)
 {
   P_obj    i;
   bool     found;
   char     buf[MAX_STRING_LENGTH], *s, buf2[20];
   int      count;
-
 
   buf[0] = 0;
   count = 0;
@@ -889,24 +900,28 @@ void list_obj_to_char(P_obj list, P_char ch, int mode, int show)
     /* thieves notice things are 'odd' */
     if (IS_OBJ_STAT(i, ITEM_BURIED) && GET_CLASS(ch, CLASS_THIEF))
       send_to_char("The ground appears recently turned...\n", ch);
-    if (CAN_SEE_OBJ(ch, i))
+    if( CAN_SEE_OBJ(ch, i) )
     {
-      s = show_obj_to_char(i, ch, mode, 0);
-      if (!str_cmp(s, buf))
+      s = show_obj_to_char(i, ch, mode, FALSE);
+      // If same string, then just increase count
+      if( !str_cmp(s, buf) )
       {
         count++;
       }
+      // Otherwise, print count (if applicable) and buf (the description of the item(s)).
       else
       {
-        if (count)
+        if( count )
         {
           sprintf(buf2, "[%d] ", count + 1);
           send_to_char(buf2, ch);
           count = 0;
         }
-        if (buf[0])
+        if( buf[0] )
+        {
           send_to_char(buf, ch);
-        if (s)
+        }
+        if( s )
           strcpy(buf, s);
         else
           logit(LOG_DEBUG, "Fubar strcpy in list_obj_to_char.");
@@ -914,15 +929,17 @@ void list_obj_to_char(P_obj list, P_char ch, int mode, int show)
       found = TRUE;
     }
   }
-  if (found)
+  if( found )
   {
-    if (count)
+    if( count )
     {
       sprintf(buf2, "[%d] ", count + 1);
       send_to_char(buf2, ch);
     }
-    if (buf[0])
+    if( buf[0] )
+    {
       send_to_char(buf, ch);
+    }
   }
   if ((!found) && (show))
     send_to_char("Nothing.\n", ch);
@@ -1856,7 +1873,7 @@ void show_char_to_char(P_char i, P_char ch, int mode)
         }
         if( visobj )
         {
-          show_obj_to_char(i->equipment[wear_order[j]], ch, 1, 1);
+          show_obj_to_char(i->equipment[wear_order[j]], ch, LISTOBJ_SHORTDESC | LISTOBJ_STATS, TRUE);
         }
         else if( ch == i )
         {
@@ -1874,7 +1891,7 @@ void show_char_to_char(P_char i, P_char ch, int mode)
         if (CAN_SEE_OBJ(ch, tmp_obj) &&
             (number(1, GET_LEVEL(i) * 4) < GET_LEVEL(ch)))
         {
-          show_obj_to_char(tmp_obj, ch, 1, 1);
+          show_obj_to_char(tmp_obj, ch, LISTOBJ_SHORTDESC | LISTOBJ_STATS, TRUE);
           found = TRUE;
         }
       }
@@ -1885,7 +1902,7 @@ void show_char_to_char(P_char i, P_char ch, int mode)
   else if ((mode == 2) && IS_TRUSTED(ch))
   {
     act("\n\r$n is carrying:", FALSE, i, 0, ch, TO_VICT);
-    list_obj_to_char(i->carrying, ch, 1, TRUE);
+    list_obj_to_char(i->carrying, ch, LISTOBJ_SHORTDESC | LISTOBJ_STATS, TRUE);
   }
 }
 
@@ -1997,7 +2014,7 @@ void do_do(P_char ch, char *argument, int cmd)
 
 // func assumes only PCs get in here
 
-void ShowCharSpellBookSpells(P_char ch, P_obj obj)
+void ShowCharSpellBookSpells(P_char ch, P_obj obj, char *short_desc)
 {
   struct extra_descr_data *desc;
   char     buf[MAX_STRING_LENGTH], buf3[MAX_STRING_LENGTH];
@@ -2005,15 +2022,14 @@ void ShowCharSpellBookSpells(P_char ch, P_obj obj)
 
   if( IS_NPC(ch) )
   {
-    send_to_char("you're an npc, leave me alone.\n", ch);
+    send_to_char("You're an npc, leave me alone.\n", ch);
     return;
   }
 
   desc = find_spell_description(obj);
   if( !desc )
   {
-    sprintf(buf, "$p appears to be unused and has %d pages left.",
-            obj->value[2]);
+    sprintf(buf, "%s appears to be unused and has %d pages left.", short_desc, obj->value[2]);
     act(buf, TRUE, ch, obj, 0, TO_CHAR);
     return;
   }
@@ -2027,8 +2043,8 @@ void ShowCharSpellBookSpells(P_char ch, P_obj obj)
  */
   if( obj->value[1] && !GET_CLASS(ch, obj->value[1]) )
   {
-    sprintf(buf, "The original writer of $p appears to have been a %s.",
-            class_names_table[flag2idx(obj->value[1])].ansi);
+    sprintf(buf, "%s appears to have been originally written by a %s.",
+      short_desc, class_names_table[flag2idx(obj->value[1])].ansi);
     act(buf, TRUE, ch, obj, 0, TO_CHAR);
   }
   if( obj->value[1] )
@@ -2076,33 +2092,27 @@ void ShowCharSpellBookSpells(P_char ch, P_obj obj)
     m++;
     strcat(buf, skills[j].name);
   }
-#if 0
-  if( m )
-    strcat(buf, ".");
-#endif
+
   if( !buf[0] )
   {
-    send_to_char("It contains no spells you recognize outright ", ch);
+    send_to_char_f(ch, "%s contains no spells you recognize outright.\n", short_desc);
   }
   else if( m == 1 )
   {
-    sprintf(buf, "It has just one spell you recognize : %s ", buf);
-    send_to_char(buf, ch);
+    send_to_char_f(ch, "%s has just one spell you recognize: %s.\n", short_desc, buf);
   }
   else
   {
-    sprintf(buf3, "It contains the spells %s ", buf);
-    send_to_char(buf3, ch);
+    send_to_char_f(ch, "%s contains the spells: %s.\n", short_desc, buf);
   }
 
   if( obj->value[2] <= obj->value[3] )
   {
-    send_to_char("and has no free pages.\n", ch);
+    send_to_char_f(ch, "%s has no free pages.\n", short_desc);
   }
   else
   {
-    sprintf(buf, "and has %d free pages.\n", obj->value[2] - obj->value[3]);
-    send_to_char(buf, ch);
+    send_to_char_f(ch, "%s has %d free pages.\n", short_desc, obj->value[2] - obj->value[3]);
   }
   if( k )
     notch_skill( ch, k, 5 );
@@ -2188,9 +2198,8 @@ void display_room_auras(P_char ch, int room_no)
 // new_look(ch, 0, CMD_LOOKOUT, ship->location) == 'look out' while on ship.
 void new_look(P_char ch, char *argument, int cmd, int room_no)
 {
-  char     buffer[MAX_STRING_LENGTH], buf[MAX_STRING_LENGTH];
-  char     arg1[MAX_STRING_LENGTH], arg2[MAX_STRING_LENGTH];
-  char     Gbuf5[MAX_STRING_LENGTH];
+  char     buffer[MAX_STRING_LENGTH], buf[MAX_STRING_LENGTH], *short_desc;
+  char     arg1[MAX_INPUT_LENGTH], arg2[MAX_INPUT_LENGTH];
   int      keyword_no, j, bits, temp, vis_mode = 0;
   bool     found, brief_mode;
   P_obj    tmp_object, found_object;
@@ -2559,13 +2568,17 @@ void new_look(P_char ch, char *argument, int cmd, int room_no)
         bits = generic_find(arg2, FIND_OBJ_INV | FIND_OBJ_ROOM | FIND_OBJ_EQUIP | FIND_NO_TRACKS,
           ch, &tmp_char, &tmp_object);
       }
+      // Found something
       if( bits != 0 )
-      {                         /* Found something */
+      {
+        short_desc = show_obj_to_char( tmp_object, ch, LISTOBJ_SHORTDESC, FALSE);
+        CAP(short_desc);
+        short_desc[strlen(short_desc)-1] = '\0';
         if (GET_ITEM_TYPE(tmp_object) == ITEM_DRINKCON)
         {
           if( tmp_object->value[1] == 0 )
           {
-            act("It is empty.", FALSE, ch, 0, 0, TO_CHAR);
+            send_to_char_f(ch, "%s is empty.\n", short_desc );
           }
           else
           {
@@ -2574,34 +2587,49 @@ void new_look(P_char ch, char *argument, int cmd, int room_no)
             else
               temp = ((tmp_object->value[1] * 3) / tmp_object->value[0]);
 
-	    temp = BOUNDED(0, temp, 3);
-            sprintf(buffer, "It's %sfull of a %s liquid.\n",
-                    fullness[temp], color_liquid[tmp_object->value[2]]);
+            temp = BOUNDED(0, temp, 3);
+            sprintf(buffer, "%s is %sfull of a %s liquid.\n", short_desc, fullness[temp],
+              color_liquid[tmp_object->value[2]]);
             send_to_char(buffer, ch);
           }
         }
         else if (GET_ITEM_TYPE(tmp_object) == ITEM_CORPSE)
         {
-          sprintf(buf, "It appears to be the corpse of %s.\n",
-                  tmp_object->action_description);
+          sprintf(buf, "It appears to be the corpse of %s.\n", tmp_object->action_description);
           send_to_char(buf, ch);
-          list_obj_to_char(tmp_object->contains, ch, 2, TRUE);
+          list_obj_to_char(tmp_object->contains, ch, LISTOBJ_SHORTDESC | LISTOBJ_STATS, TRUE);
         }
         else if (GET_ITEM_TYPE(tmp_object) == ITEM_SPELLBOOK)
         {
-          ShowCharSpellBookSpells(ch, tmp_object);
+          ShowCharSpellBookSpells(ch, tmp_object, short_desc);
         }
         else if ((GET_ITEM_TYPE(tmp_object) == ITEM_CONTAINER) ||
                  (GET_ITEM_TYPE(tmp_object) == ITEM_STORAGE))
         {
           if (IS_SET(tmp_object->value[1], CONT_CLOSED))
-            send_to_char("It is closed.\n", ch);
+          {
+            if( IS_SET(tmp_object->extra2_flags, ITEM2_TRANSPARENT) )
+            {
+              send_to_char_f(ch, "%s is transparent and contains: \n", short_desc);
+              list_obj_to_char(tmp_object->contains, ch, LISTOBJ_SHORTDESC | LISTOBJ_STATS, TRUE);
+            }
+            else
+            {
+              send_to_char_f(ch, "%s is closed.\n", short_desc);
+            }
+          }
           else
-            list_obj_to_char(tmp_object->contains, ch, 2, TRUE);
+          {
+            sprintf( buf, "%s contains:%s", short_desc, IS_SET(ch->specials.act, PLR_COMPACT) ? "\n" : "\n\n" );
+            send_to_char(buf, ch);
+            list_obj_to_char(tmp_object->contains, ch, LISTOBJ_SHORTDESC | LISTOBJ_STATS, TRUE);
+          }
         }
         else if (GET_ITEM_TYPE(tmp_object) == ITEM_QUIVER)
         {
-          list_obj_to_char(tmp_object->contains, ch, 2, TRUE);
+          sprintf( buf, "%s contains:%s", short_desc, IS_SET(ch->specials.act, PLR_COMPACT) ? "\n" : "\n\n" );
+          send_to_char(buf, ch);
+          list_obj_to_char(tmp_object->contains, ch, LISTOBJ_SHORTDESC | LISTOBJ_STATS, TRUE);
         }
         else
           send_to_char("That is not a container.\n", ch);
@@ -2676,8 +2704,9 @@ void new_look(P_char ch, char *argument, int cmd, int room_no)
               tmp_desc = find_ex_description(arg2, ch->equipment[j]->ex_description);
               if( tmp_desc )
               {
+                show_obj_to_char(ch->equipment[j], ch, LISTOBJ_SHORTDESC | LISTOBJ_STATS, TRUE);
                 page_string(ch->desc, tmp_desc, 1);
-                found = TRUE;
+                return;
               }
             }
           }
@@ -2686,7 +2715,7 @@ void new_look(P_char ch, char *argument, int cmd, int room_no)
       if (vis_mode != 4)
       {
         /* In inventory */
-        if( !found)
+        if( !found )
         {
           for( tmp_object = ch->carrying; tmp_object && !found; tmp_object = tmp_object->next_content )
           {
@@ -2695,8 +2724,9 @@ void new_look(P_char ch, char *argument, int cmd, int room_no)
               tmp_desc = find_ex_description(arg2, tmp_object->ex_description);
               if( tmp_desc )
               {
-                page_string(ch->desc, tmp_desc, 1);
-                found = TRUE;
+                show_obj_to_char(tmp_object, ch, LISTOBJ_SHORTDESC | LISTOBJ_STATS, TRUE);
+              	page_string(ch->desc, tmp_desc, 1);
+                return;
               }
             }
           }
@@ -2714,8 +2744,9 @@ void new_look(P_char ch, char *argument, int cmd, int room_no)
               	tmp_desc = find_ex_description(arg2, tmp_object->ex_description);
               	if( tmp_desc )
               	{
+                  show_obj_to_char(tmp_object, ch, LISTOBJ_SHORTDESC | LISTOBJ_STATS, TRUE);
                 	page_string(ch->desc, tmp_desc, 1);
-                	found = TRUE;
+                  return;
               	}
 							}
             }
@@ -2727,11 +2758,11 @@ void new_look(P_char ch, char *argument, int cmd, int room_no)
       {                         /* If an object was found */
         if( !found )
         {
-          show_obj_to_char(found_object, ch, 5, 1);     /* Show no-description */
+          show_obj_to_char(found_object, ch, LISTOBJ_ACTIONDESC, TRUE);     /* Show no-description */
         }
         else
         {
-          show_obj_to_char(found_object, ch, 6, 1);     /* Find hum, glow etc */
+          show_obj_to_char(found_object, ch, LISTOBJ_SHORTDESC | LISTOBJ_STATS, TRUE);     /* Find hum, glow etc */
         }
       }
       else if( !found )
@@ -2829,43 +2860,37 @@ void new_look(P_char ch, char *argument, int cmd, int room_no)
     show_exits_to_char(ch, room_no, (cmd == CMD_LOOKOUT) ? -1 : 1);
     if (get_spell_from_room(&world[room_no], SPELL_WANDERING_WOODS))
     {
-      sprintf(Gbuf5, "&+GAn air of bewildering enchantment lies heavy here.&n\n");
-      send_to_char(Gbuf5, ch);
+      send_to_char("&+GAn air of bewildering enchantment lies heavy here.&n\n", ch);
     }
     if (get_spell_from_room(&world[room_no], SPELL_CONSECRATE_LAND))
     {
-      sprintf(Gbuf5, "&+CA series of magical runes are dispersed about this area.&n\n");
-      send_to_char(Gbuf5, ch);
+      send_to_char("&+CA series of magical runes are dispersed about this area.&n\n", ch);
     }
     if (get_spell_from_room(&world[room_no], SPELL_DESECRATE_LAND))
     {
-      sprintf(Gbuf5, "&+LA series of &+Revil&+L runes are dispersed about this area.&n\n");
-      send_to_char(Gbuf5, ch);
+      send_to_char("&+LA series of &+Revil&+L runes are dispersed about this area.&n\n", ch);
     }
     if (get_spell_from_room(&world[room_no], SPELL_FORBIDDANCE))
     {
-      sprintf(Gbuf5, "&+LA strange unwelcoming energy flows through the area.&n\n");
-      send_to_char(Gbuf5, ch);
+      send_to_char("&+LA strange unwelcoming energy flows through the area.&n\n", ch);
     }
-		if (get_spell_from_room(&world[room_no], SPELL_BINDING_WIND)) 
+		if (get_spell_from_room(&world[room_no], SPELL_BINDING_WIND))
 		{
-			sprintf(Gbuf5, "&+CThe wind has picked up so that it is hard to move!&n\n");
-			send_to_char(Gbuf5, ch);
+			send_to_char("&+CThe wind has picked up so that it is hard to move!&n\n", ch);
 		}
-		if (get_spell_from_room(&world[room_no], SPELL_WIND_TUNNEL)) {
-			sprintf(Gbuf5, "&+cThe wind has picked up so that is easier to move!&n\n");
-			send_to_char(Gbuf5, ch);
+		if (get_spell_from_room(&world[room_no], SPELL_WIND_TUNNEL))
+    {
+		  send_to_char("&+cThe wind has picked up so that is easier to move!&n\n", ch);
 		}
 /*    if(world[room_no].troop_info)
     {
-      sprintf(Gbuf5,"&+RThere are some troops here, bearing the mark of Kingdom #%d&n\n", world[room_no].troop_info->kingdom_num);
-      send_to_char(Gbuf5, ch);
+      send_to_char("&+RThere are some troops here, bearing the mark of Kingdom #%d&n\n", world[room_no].troop_info->kingdom_num);
     }  */
 
     // If we can see normally, or we're on a ship looking out.
     if( (vis_mode == 2 || vis_mode == 1) || (( cmd == CMD_LOOKOUT ) && ( vis_mode == 5 || vis_mode == 6 )) )
     {
-      list_obj_to_char(world[room_no].contents, ch, 0, FALSE);
+      list_obj_to_char(world[room_no].contents, ch, LISTOBJ_LONGDESC | LISTOBJ_STATS, FALSE);
     }
 
     list_char_to_char(world[room_no].people, ch, 0);
@@ -7098,7 +7123,7 @@ void do_inventory(P_char ch, char *argument, int cmd)
   {
     sprintf(buf, "You are carrying: (%d/%d)\n", IS_CARRYING_N(ch), CAN_CARRY_N(ch));
     send_to_char(buf, ch);
-    list_obj_to_char(ch->carrying, ch, 1, TRUE);
+    list_obj_to_char(ch->carrying, ch, LISTOBJ_SHORTDESC | LISTOBJ_STATS, TRUE);
   }
 }
 
@@ -8371,7 +8396,7 @@ void do_glance(P_char ch, char *argument, int cmd)
         }
         if( CAN_SEE_OBJ(ch, tar_char->equipment[wear_order[j]]) )
         {
-          show_obj_to_char(tar_char->equipment[wear_order[j]], ch, 1, 1);
+          show_obj_to_char(tar_char->equipment[wear_order[j]], ch, LISTOBJ_SHORTDESC | LISTOBJ_STATS, TRUE);
         }
         else if (ch == tar_char)
         {

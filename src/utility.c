@@ -2711,17 +2711,17 @@ void CAP(char *str)
   if (!str || !*str)
     return;
 
-  if (*str == '&')
+  // This is a while loop in case we have &n&N&+R&-Lthe ugly colored coat.&n
+  while(str[pos] == '&')
   {
-    if (*(str + 1) == '=')
-      pos = 4;
-    else if ((*(str + 1) == 'n') || (*(str + 1) == 'N'))
-      pos = 2;
-    else if ((*(str + 1) == '-') || (*(str + 1) == '+'))
-      pos = 3;
+    if( str[pos + 1] == '=' && is_ansi_char(str[pos + 2]) && is_ansi_char(str[pos+3]) )
+      pos += 4;
+    else if( str[pos + 1] == 'n' || str[pos + 1] == 'N' )
+      pos += 2;
+    else if( str[pos + 1] == '-' || str[pos + 1] == '+' && is_ansi_char(str[pos+2]) )
+      pos += 3;
   }
-  if (pos < strlen(str))
-    *(str + pos) = UPPER(*(str + pos));
+  str[pos] = UPPER(str[pos]);
 }
 
 char *PERS(P_char ch, P_char vict, int short_d)
