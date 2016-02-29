@@ -565,7 +565,7 @@ int leave_by_exit(P_char ch, int exitnumb)
          * in a SINGLE FILE room, of another character (ch) who is
          * trying to move. Three cases: 1. t_ch is prone, and not
          * fighting, ch can climb over t_ch. 2. t_ch is not prone,
-         * and not fighting, but ch is prone, ch can slither past
+         * and not fighting, but ch is prone, ch can slither passed
          * t_ch. 3. all other cases, ch bumps into t_ch, and ch
          * can't move in that direction, move aborts. JAB
          */
@@ -614,13 +614,13 @@ int leave_by_exit(P_char ch, int exitnumb)
           /*
            * case 2:  ch is prone, and can slither by t_ch.
            */
-          
-          act("Ummph! You slither past $N.", FALSE, ch, 0, t_ch, TO_CHAR);
-          act("$n slithers past $N.", FALSE, ch, 0, t_ch, TO_NOTVICT);
-          act("Damn! $n just slithered past you!", FALSE, ch, 0, t_ch, TO_VICT);
-          
-          CharWait(ch, 8);          
-          
+
+          act("Ummph! You slither passed $N.", FALSE, ch, 0, t_ch, TO_CHAR);
+          act("$n slithers passed $N.", FALSE, ch, 0, t_ch, TO_NOTVICT);
+          act("Damn! $n just slithered passed you!", FALSE, ch, 0, t_ch, TO_VICT);
+
+          CharWait(ch, 8);
+
           /*
            * if they are just normally sleeping, they are damn
            * well gonna wake up!  Incap, paralyzed, or slept
