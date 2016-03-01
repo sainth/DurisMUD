@@ -356,24 +356,25 @@ int say(P_char ch, const char *argument)
 {
   int      i;
   P_char   kala;
-  char     Gbuf1[MAX_STRING_LENGTH], Gbuf2[MAX_STRING_LENGTH],
-    Gbuf3[MAX_STRING_LENGTH];
+  bool     mind = FALSE;
+  char     Gbuf1[MAX_STRING_LENGTH], Gbuf2[MAX_STRING_LENGTH], Gbuf3[MAX_STRING_LENGTH];
 
-  for (i = 0; *(argument + i) == ' '; i++) ;
+  // Skip whitespace.
+  for( i = 0; *(argument + i) == ' '; i++ )
+    ;
 
   if (!*(argument + i))
     send_to_char("Yes, but WHAT do you want to say?\r\n", ch);
-  else if (IS_AFFECTED(ch, AFF_KNOCKED_OUT))
+  else if( IS_AFFECTED(ch, AFF_KNOCKED_OUT) )
   {
     send_to_avatar(ch, argument + i);
     return TRUE;
   }
-  else if ((IS_SET(world[ch->in_room].room_flags, UNDERWATER) ||
-            ch->specials.z_cord < 0) && !IS_TRUSTED(ch) && !IS_NPC(ch))
+  else if( (IS_SET(world[ch->in_room].room_flags, UNDERWATER) || ch->specials.z_cord < 0)
+    && !IS_TRUSTED(ch) && !IS_NPC(ch) )
   {
     send_to_char("You try to say something in the water...", ch);
-    act("$n's mouth moves, but all that comes forth is bubbles...", TRUE, ch,
-        0, 0, TO_ROOM);
+    act("$n's mouth moves, but all that comes forth is bubbles...", TRUE, ch, 0, 0, TO_ROOM);
     return FALSE;
   }
   else if ( ( IS_AFFECTED2(ch, AFF2_SILENCED) || affected_by_spell(ch, SPELL_SUPPRESSION) ) && !IS_ILLITHID(ch)  && !IS_PILLITHID(ch))
@@ -386,9 +387,7 @@ int say(P_char ch, const char *argument)
   else if(affected_by_spell_flagged(ch, SKILL_THROAT_CRUSH, AFFTYPE_CUSTOM1))
   {
     send_to_char("Your throat hurts far too much to speak!\r\n", ch);
-    
     act("$n seems to hoarsely grumble something unintelligable.", TRUE, ch, 0, 0, TO_ROOM);
-    
     return FALSE;
   }
   else if (IS_AFFECTED(ch, AFF_WRAITHFORM))
@@ -398,16 +397,18 @@ int say(P_char ch, const char *argument)
   }
   else if (!is_silent(ch, TRUE) && can_talk(ch))
   {
-    for (kala = world[ch->in_room].people; kala; kala = kala->next_in_room)
+    if( IS_ILLITHID(ch) || IS_PILLITHID(ch) || !strcmp(GET_NAME(ch), "Xzthu") )
+      mind = TRUE;
+    for( kala = world[ch->in_room].people; kala; kala = kala->next_in_room )
     {
-      if ((kala != ch) && (ch->specials.z_cord == kala->specials.z_cord))
+      if( (kala != ch) && (ch->specials.z_cord == kala->specials.z_cord) )
       {
-        if (IS_ILLITHID(ch) || IS_PILLITHID(ch) || !strcmp(GET_NAME(ch), "Xzthu"))
+        if( mind )
         {
-          if (IS_ILLITHID(kala) || IS_PILLITHID(kala) || IS_TRUSTED(kala))
-            sprintf(Gbuf2, "$n invades your mind with '%s'", argument + i);
-          else
+          if( IS_ILLITHID(kala) || IS_PILLITHID(kala) || IS_TRUSTED(kala) )
             sprintf(Gbuf2, "$n projects '%s'", argument + i);
+          else
+            sprintf(Gbuf2, "$n invades your mind with '%s'", argument + i);
         }
         else
         {
@@ -415,15 +416,15 @@ int say(P_char ch, const char *argument)
 
           if (IS_THRIKREEN(ch))
           {
-            sprintf(Gbuf2, "$n chitters %s'%s'", language_known(ch, kala),
-                    language_CRYPT(ch, kala, Gbuf3));
+            sprintf(Gbuf2, "$n chitters %s'%s'", language_known(ch, kala), language_CRYPT(ch, kala, Gbuf3));
           }
           else
-            sprintf(Gbuf2, "$n says %s'%s'", language_known(ch, kala),
-                    language_CRYPT(ch, kala, Gbuf3));
+            sprintf(Gbuf2, "$n says %s'%s'", language_known(ch, kala), language_CRYPT(ch, kala, Gbuf3));
         }
-
-        act(Gbuf2, FALSE, ch, 0, kala, TO_VICT | ACT_SILENCEABLE);
+        if( mind || IS_TRUSTED(ch) )
+          act(Gbuf2, FALSE, ch, 0, kala, TO_VICT);
+        else
+          act(Gbuf2, FALSE, ch, 0, kala, TO_VICT | ACT_SILENCEABLE);
       }
     }
 
@@ -432,19 +433,17 @@ int say(P_char ch, const char *argument)
       if (IS_ILLITHID(ch) || IS_PILLITHID(ch) || !strcmp(GET_NAME(ch), "Id"))
         sprintf(Gbuf1, "You project '%s'\r\n", argument + i);
       else
-        sprintf(Gbuf1, "You %s %s'%s'\r\n",
-                IS_THRIKREEN(ch) ? "chitter" : "say", language_known(ch, ch),
-                argument + i);
+        sprintf(Gbuf1, "You %s %s'%s'\r\n", IS_THRIKREEN(ch) ? "chitter" : "say", language_known(ch, ch), argument + i);
       send_to_char(Gbuf1, ch);
     }
     else
       send_to_char("Ok.\r\n", ch);
-    
-    if (get_property("logs.chat.status", 0.000) && IS_PC(ch))
+
+    if( get_property("logs.chat.status", 0.000) && IS_PC(ch) )
       logit(LOG_CHAT, "%s says '%s'", GET_NAME(ch), argument + i);
-    
+
     listen_broadcast(ch, (argument + i), LISTEN_SAY);
-    
+
     check_magic_doors(ch, argument + i);
   }
 

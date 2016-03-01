@@ -2541,7 +2541,8 @@ int process_input(P_desc t)
           return (-1);
 
         /* skip the rest of the line */
-        for (; *(t->buf + i) && !ISNEWL(*(t->buf + i)); i++) ;
+        for( ; *(t->buf + i) && !ISNEWL(*(t->buf + i)); i++ )
+          ;
       }
       /* handle '!' to repeat last command */
       if ((*tmp != '!') || !t->last_input || !t->character || t->connected)
@@ -2868,8 +2869,7 @@ void send_to_room_except_two(const char *messg, int room, P_char ch1,
 }
 
 
-void act_convert(char *buf, const char *str, P_char ch, P_char to, P_obj obj,
-                 void *vict_obj, int type)
+void act_convert(char *buf, const char *str, P_char ch, P_char to, P_obj obj, void *vict_obj, int type)
 {
   P_char   vict;
   char     tbuf[MAX_STRING_LENGTH];
@@ -3206,11 +3206,14 @@ void act(const char *str, int hide_invisible, P_char ch, P_obj obj, void *vict_o
 {
   P_char   to, vict;
   bool     found;
-  char     buf[MAX_STRING_LENGTH], tbuf[MAX_STRING_LENGTH];
-  char     mybuf[MAX_STRING_LENGTH], tbuf2[MAX_STRING_LENGTH];
+  // The array buf contains our primary string (final to be sent to target).
+  char     buf[MAX_STRING_LENGTH], tbuf[MAX_STRING_LENGTH], tbuf2[MAX_STRING_LENGTH];
+  /* Debugging
+  char     mybuf[MAX_STRING_LENGTH];
   int      mycheck;
+   */
   int      j, tbp, skip, which_z, sil = type & ACT_SILENCEABLE;
-  bool ig_zc = type & ACT_IGNORE_ZCOORD;
+  bool     ignore_zcoord = type & ACT_IGNORE_ZCOORD;
   register char *point;
   register const char *strp, *i;
   int      terseonly = type & ACT_TERSE;
@@ -3220,30 +3223,32 @@ void act(const char *str, int hide_invisible, P_char ch, P_obj obj, void *vict_o
 
   type &= 7;
 
-  if (!str || !*str)
+  if( !str || !*str )
     return;
 
   which_z = (ch ? ch->specials.z_cord : 0);
 
-  if (type == TO_VICT)
+  if( type == TO_VICT )
   {
     to = (P_char) vict_obj;
-    if (to && !to->desc)
+    if( to == NULL || !to->desc )
       return;
 /*    which_z = (to ? to->specials.z_cord : 0); */
   }
-  else if (type == TO_CHAR)
+  else if( type == TO_CHAR )
   {
-    if (ch && !ch->desc)
+    if( ch == NULL || !ch->desc )
+    {
       return;
+    }
     to = ch;
   }
-  else if (type == TO_VICTROOM || type == TO_NOTVICTROOM)
+  else if( type == TO_VICTROOM || type == TO_NOTVICTROOM )
   {
     vict = (P_char) vict_obj;
-    if (vict)
+    if( vict )
     {
-      if (vict->in_room == NOWHERE)
+      if( vict->in_room == NOWHERE )
       {
         logit(LOG_DEBUG, "act TO_VICTROOM in NOWHERE %s (%s).", GET_NAME(vict), str);
         return;
@@ -3258,11 +3263,11 @@ void act(const char *str, int hide_invisible, P_char ch, P_obj obj, void *vict_o
   }
   else
   {
-    if (!ch && obj)
+    if( !ch && obj )
     {
-      if (!OBJ_ROOM(obj))
+      if( !OBJ_ROOM(obj) )
       {
-        logit(LOG_DEBUG, "Comm.c act: no ch but obj (%d) in nowhere.", OBJ_VNUM(obj));
+        logit(LOG_DEBUG, "Comm.c act: no ch, has obj, but obj (%d) not in a room.", OBJ_VNUM(obj));
         return;
       }
       to = world[obj->loc.room].people;
@@ -3270,7 +3275,7 @@ void act(const char *str, int hide_invisible, P_char ch, P_obj obj, void *vict_o
     }
     else
     {
-      if (!ch || ch->in_room == NOWHERE)
+      if( !ch || ch->in_room == NOWHERE )
       {
 /*        logit(LOG_DEBUG, "act TO_ROOM in NOWHERE %s (%s).", GET_NAME(ch), str);*/
         return;
@@ -3280,33 +3285,41 @@ void act(const char *str, int hide_invisible, P_char ch, P_obj obj, void *vict_o
     }
   }
 
-  if (!to)
+  if( !to )
     return;                     /* if a tree falls in the forest... */
 
-  for (; to; to = to->next_in_room)
+  for( ; to; to = to->next_in_room )
   {
-    if ((ig_zc || (to->specials.z_cord == which_z)) &&
-        (to->desc && AWAKE(to) &&
-         (IS_NPC(to) || !to->only.pc->ignored || (to->only.pc->ignored != ch))
-         && ((to != ch) || (type == TO_CHAR)) && !((type == TO_NOTVICT) &&
-                                                   (to == (P_char) vict_obj))
-         && !((type == TO_NOTVICTROOM) && (to == (P_char) vict_obj)) &&
-         !(IS_PC(to) && (terseonly && !IS_SET(to->specials.act2, PLR2_TERSE)))
-         && !(IS_PC(to) &&
-              (notterse && IS_SET(to->specials.act2, PLR2_TERSE))) &&
-         (!hide_invisible || (to == ch) ||
-          (ch ? CAN_SEE(to, ch) : CAN_SEE_OBJ(to, obj)))))
+    // Viewing character needs a descriptor to send to, needs to be awake, and match z-requirements...
+    if( to->desc && AWAKE(to) && (ignore_zcoord || ( to->specials.z_cord == which_z ))
+    //   needs to not be ignoring target ch
+      && (IS_NPC( to ) || !to->only.pc->ignored || ( to->only.pc->ignored != ch ))
+    //   needs to match the target type: Only TO_CHAR is shown to ch, NOTVICT/NOTVICTROOM doesn't show to victim.
+      && (( type == TO_CHAR ) || ( to != ch ))
+      && !(( type == TO_NOTVICT || type == TO_NOTVICTROOM ) && ( to == (P_char) vict_obj ))
+    //   needs to have terse toggled appropriately
+      && (IS_NPC( to ) || ( !terseonly && !notterse ) || ( (terseonly && IS_SET( to->specials.act2, PLR2_TERSE ))
+      || (notterse && !IS_SET( to->specials.act2, PLR2_TERSE )) ))
+    //   and message shouldn't be hidden due to an invisible ch or obj.
+      && (!hide_invisible || ( to == ch ) || ( ch ? CAN_SEE(to, ch) : CAN_SEE_OBJ(to, obj) )) )
     {
-      for (strp = str, point = buf;;)
+      // If it's silencable, and not to an Imm, and there is a flag flag to not show it.
+      if( sil && !IS_TRUSTED(to)
+        && (IS_SET( world[to->in_room].room_flags, ROOM_SILENT ) || IS_AFFECTED4( to, AFF4_DEAF )) )
       {
-        if (*strp == '$')
+        continue;
+      }
+
+      for( strp = str, point = buf; ; )
+      {
+        if( *strp == '$' )
         {
           j = 0;
 
-          switch (*(++strp))
+          switch( *(++strp) )
           {
           case 'n':
-            if (ch && to)
+            if( ch )
             {
               if( ch == to )
               {
@@ -3319,13 +3332,12 @@ void act(const char *str, int hide_invisible, P_char ch, P_obj obj, void *vict_o
             }
             else
             {
-              i = NULL;
+              i = "(NULL)";
             }
-
             break;
 
           case 'N':
-            if (vict_obj && to)
+            if( vict_obj )
             {
               if( (P_char)vict_obj == to )
               {
@@ -3338,338 +3350,385 @@ void act(const char *str, int hide_invisible, P_char ch, P_obj obj, void *vict_o
             }
             else
             {
-              i = NULL;
+              i = "(NULL)";
             }
-
             break;
 
           case 'm':
-            if (ch)
+            if( ch )
               i = HMHR(ch);
             else
-              i = NULL;
-
+              i = "(NULL)";
             break;
 
           case 'M':
-            if (vict_obj)
+            if( vict_obj )
               i = HMHR((P_char) vict_obj);
             else
-              i = NULL;
-
+              i = "(NULL)";
             break;
 
           case 's':
-            if (ch)
-              i = HSHR(ch);
+            if( ch )
+            {
+              if( type == TO_CHAR )
+                i = "your";
+              else
+                i = HSHR(ch);
+            }
             else
-              i = NULL;
-
+              i = "(NULL)'s";
             break;
 
           case 'S':
-            if (vict_obj)
+            if( vict_obj )
             {
-              if (type == TO_VICT)
+              if( type == TO_VICT )
                 i = "your";
               else
                 i = HSHR((P_char) vict_obj);
             }
             else
-              i = NULL;
-
+              i = "(NULL)'s";
             break;
 
           case 'e':
-            if (ch)
+            if( ch )
               i = HSSH(ch);
             else
-              i = NULL;
-
+              i = "(NULL)";
             break;
 
           case 'E':
-            if (vict_obj)
+            if( vict_obj )
               i = HSSH((P_char) vict_obj);
             else
-              i = NULL;
-
+              i = "(NULL)";
             break;
 
           case 'o':
-            if (obj && to)
+            if( obj )
               i = OBJN(obj, to);
             else
-              i = NULL;
+              i = "(NULL)";
 
             break;
 
           case 'O':
-            if (vict_obj && to)
+            if( vict_obj )
               i = OBJN((P_obj) vict_obj, to);
             else
-              i = NULL;
-
+              i = "(NULL)";
             break;
 
           case 'p':
-            if (obj && to)
+            if( obj )
               i = OBJS(obj, to);
             else
-              i = NULL;
-
+              i = "(NULL)";
             break;
 
           case 'P':
-            if (vict_obj && to)
+            if( vict_obj )
               i = OBJS((P_obj) vict_obj, to);
             else
-              i = NULL;
-
+              i = "(NULL)";
             break;
 
             /*
-             * 'q's' are same as p's except it kills 'A |An
-             * |The' from the start of the string, it's ugly,
-             * cause we have to skip leading ansi stuff. JAB
+             * 'q's' are same as p's except it kills 'A | An | The | Some' from
+             * the start of the string, it's ugly, cause we have to skip leading ansi stuff. JAB
              */
           case 'q':
           case 'Q':
-            *tbuf = '\0';
-            tbp = 0;
-            skip = 0;
-            found = FALSE;
-
-            if (*strp == 'Q')
+            if( *strp == 'Q' )
             {
-              if (vict_obj && to)
+              if( vict_obj )
                 i = OBJS((P_obj) vict_obj, to);
               else
                 i = NULL;
             }
             else
             {
-              if (obj && to)
+              if( obj )
                 i = OBJS(obj, to);
               else
                 i = NULL;
             }
 
-            if (i == NULL)
-              break;
-
-            for (; *i; i++)
+            if( i == NULL )
             {
-              if (skip)
-              {
-                skip--;
-              }
-              else
-              {
-                /*
-                 * ANSI skipping
-                 */
-                if (!found && (*i == '&'))
-                {
-                  if ((*(i + 1) == 'N') || (*(i + 1) == 'N'))
-                    skip = 1;
-                  else if ((*(i + 1) == '-') || (*(i + 1) == '+'))
-                    skip = 2;
-                  else if (*(i + 1) == '=')
-                    skip = 3;
-		}
-
-                // a and an
-
-                if (!found && (LOWER(*i) == 'a') && (*(i + 1)))
-                {
-                  if (*(i + 1) == ' ')
-                  {
-                    found = TRUE;
-                    i++;
-                    continue;
-                  }
-
-                  if ((LOWER(*(i + 1)) == 'n') && *(i + 2) &&
-                      (*(i + 2) == ' '))
-                  {
-                    found = TRUE;
-                    i += 2;
-                    continue;
-                  }
-                }
-
-                // the
-
-                if (!found && (LOWER(*i) == 't'))
-                {
-                  if ((LOWER(*(i + 1)) == 'h') && (LOWER(*(i + 2)) == 'e') &&
-                      (*(i + 3) == ' '))
-                  {
-                    found = TRUE;
-                    i += 3;
-                    continue;
-                  }
-                }
-
-                // some
-
-                if (!found && (LOWER(*i) == 's') && (LOWER(*(i + 1)) == 'o')
-                    && (LOWER(*(i + 2)) == 'm') && (LOWER(*(i + 3)) == 'e') &&
-                    (LOWER(*(i + 4)) == ' '))
-                {
-                  found = TRUE;
-                  i += 4;
-                  continue;
-                }
-              }
-
-              tbuf[tbp++] = *i;
+              i = "(NULL)";
+              break;
             }
 
-            tbuf[tbp++] = 0;
-            i = tbuf;
+            tbuf[0] = '\0';
+            tbp = 0;
+            // First _copy_ ansi to tbuf.
+            while( *i == '&' )
+            {
+              if( i[1] == 'n' || i[1] == 'N' )
+              {
+                tbuf[tbp++] = '&';
+                i++;
+                tbuf[tbp++] = *(i++);
+              }
+              // Begins with && -> actual & to target.  What to do here is debatable.
+              // Decided to just break and leave && as beginning of i.
+              else if( i[1] == '&' )
+              {
+                break;
+              }
+              else if( (i[1] == '+' || i[1] == '-') && is_ansi_char(i[2]) )
+              {
+                tbuf[tbp++] = '&';
+                i++;
+                tbuf[tbp++] = *(i++);
+                tbuf[tbp++] = *(i++);
+              }
+              else if( i[1] == '=' && is_ansi_char(i[2]) && is_ansi_char(i[3]) )
+              {
+                tbuf[tbp++] = '&';
+                i++;
+                tbuf[tbp++] = *(i++);
+                tbuf[tbp++] = *(i++);
+                tbuf[tbp++] = *(i++);
+              }
+              // Not an ansi code.
+              else
+                break;
+            }
 
+            // Now, if the rest starts with "A " or "An " skip those chars.
+            if( (LOWER(*i) == 'a') )
+            {
+              if( i[1] == ' ' )
+              {
+                i += 2;
+              }
+              else if( (LOWER( i[1] ) == 'n') && ( i[2] == ' ') )
+              {
+                i += 3;
+              }
+            }
+            // Same for "The "
+            else if( (LOWER( *i ) == 't') && (LOWER( i[1] ) == 'h') && (LOWER( i[2] ) == 'e')
+              && (LOWER( i[3] ) == ' ') )
+            {
+              i += 4;
+            }
+            // And same for "Some "
+            else if( (LOWER( *i ) == 's') && (LOWER( i[1] ) == 'o') && (LOWER( i[2] ) == 'm')
+              && (LOWER( i[3] ) == 'e') && (LOWER( i[3] ) == ' ') )
+            {
+              i += 5;
+            }
+
+            // If the whole string was just ansi chars with optional article (smh.. but zone writers).
+            if( *i == '\0' )
+              i = "(NULL)";
+            // Otherwise, add the rest of the string to the end of tbuf (contains ansi).
+            else
+            {
+              sprintf( tbuf + tbp, "%s", i );
+              i = tbuf;
+            }
             break;
 
           case 'a':
-            if (obj)
+            if( obj )
               i = SANA(obj);
             else
-              i = NULL;
-
+              i = "(NULL)";
             break;
 
           case 'A':
-            if (vict_obj)
+            if( vict_obj )
               i = SANA((P_obj) vict_obj);
             else
-              i = NULL;
-
+              i = "(NULL)";
             break;
 
           case 'T':
-            if (vict_obj)
+            if( vict_obj )
               i = (char *) vict_obj;
             else
-              i = NULL;
-
+              i = "(NULL)";
             break;
 
           case 'F':
-            if (vict_obj)
+            if( vict_obj )
               i = FirstWord((char *) vict_obj);
             else
-              i = NULL;
-
+              i = "(NULL)";
             break;
 
           case 'w':            /* complicated crap, I use it for dam_messages() */
-            if (type == TO_VICT)
+            if( type == TO_VICT )
             {
-              if (ch && to)
+              if( ch )
                 i = "you";
               else
-                i = NULL;
+                i = "(NULL)";
             }
-            else if (type == TO_CHAR)
+            else if( type == TO_CHAR )
             {
-              if (vict_obj && to)
+              if( vict_obj )
                 i = PERS((P_char) vict_obj, to, FALSE);
               else
-                i = NULL;
+                i = "(NULL)";
             }
-            else if (type == TO_NOTVICT)
+            else if( type == TO_NOTVICT )
             {
-              if (ch && to)
+              if( ch )
                 i = PERS((P_char) vict_obj, to, FALSE);
               else
-                i = NULL;
+                i = "(NULL)";
             }
-            else if (type == TO_NOTVICTROOM)
+            else if( type == TO_NOTVICTROOM )
             {
-              if (ch && to)
+              if( ch )
                 i = PERS((P_char) vict_obj, to, FALSE);
               else
-                i = NULL;
+                i = "(NULL)";
             }
-
             break;
 
           case 'W':
-            if (type == TO_VICT)
+            if( type == TO_VICT )
               i = "r";          /* changes you to your */
             else
               i = "'s";         /* changes joe to joe's */
-
             break;
 
           case '$':
             i = "$";
-
             break;
 
           default:
-            logit(LOG_DEBUG, "Invalid $-code, act(): $%c %s", *strp, str);
-            i = NULL;
-
+            logit(LOG_DEBUG, "act(): Invalid $-code: '$%c' in '%s'.", *strp, str);
+            i = "(NULL)";
             break;
           }
 
-          if (i)
-	  {
-	    // Making it so we don't get A or An in the middle of a sentence!
-            *tbuf2 = '\0';
-            tbp = 0;
-	    for (; *i; i++)
-	    {
-	      found = FALSE;
-	      // a and an
-	      if (!found && (*i == 'A') && (*(i + 1)))
-	      {
-		if (*(i + 1) == ' ')
-		  found = TRUE;
-		if ((LOWER(*(i + 1)) == 'n') && *(i + 2) &&
-		    (*(i + 2) == ' '))
-		  found = TRUE;
-	      }
+          if( i )
+          {
+            // Note: This doesn't handle ansi in the middle of the lower-cased words.
+            // Making it so we don't get 'A', 'An', 'The', or 'Some' in the middle of a sentence (removing caps)!
+            // For each word,
+            for( tbp = 0; *i; )
+            {
+              // Copy beginning ansi.
+              while( *i == '&' )
+              {
+                if( i[1] == 'n' || i[1] == 'N' )
+                {
+                  tbuf2[tbp++] = '&';
+                  i++;
+                  tbuf2[tbp++] = *(i++);
+                }
+                // Begins with && -> actual & to target.  We just copy the && over in this case.
+                else if( i[1] == '&' )
+                {
+                  tbuf2[tbp++] = '&';
+                  tbuf2[tbp++] = '&';
+                  i += 2;
+                }
+                else if( (i[1] == '+' || i[1] == '-') && is_ansi_char(i[2]) )
+                {
+                  tbuf2[tbp++] = '&';
+                  i++;
+                  tbuf2[tbp++] = *(i++);
+                  tbuf2[tbp++] = *(i++);
+                }
+                else if( i[1] == '=' && is_ansi_char(i[2]) && is_ansi_char(i[3]) )
+                {
+                  tbuf2[tbp++] = '&';
+                  i++;
+                  tbuf2[tbp++] = *(i++);
+                  tbuf2[tbp++] = *(i++);
+                  tbuf2[tbp++] = *(i++);
+                }
+              }
 
-	      // the
-	      if (!found && (*i == 'T'))
-		if ((LOWER(*(i + 1)) == 'h') && (LOWER(*(i + 2)) == 'e') &&
-		    (*(i + 3) == ' '))
-		  found = TRUE;
+              // "A " or "An "
+              if( *i == 'A' )
+              {
+                if( i[1] == ' ' )
+                {
+                  tbuf2[tbp++] = 'a';
+                  i++;
+                }
+                else if( (LOWER( i[1] ) == 'n') && (i[2] == ' ') )
+                {
+                  tbuf2[tbp++] = 'a';
+                  tbuf2[tbp++] = 'n';
+                  i += 2;
+                }
+                else
+                {
+                  tbuf2[tbp++] = 'A';
+                  i++;
+                }
+              }
+              // "The "
+              else if( (*i == 'T') && (LOWER( i[1] ) == 'h') && (LOWER( i[2] ) == 'e') && (i[3] == ' ') )
+              {
+                tbuf2[tbp++] = 't';
+                tbuf2[tbp++] = 'h';
+                tbuf2[tbp++] = 'e';
+                i += 3;
+              }
+              // "Some "
+              else if( (*i == 'S') && (LOWER( i[1] ) == 'o') && (LOWER( i[2] ) == 'm')
+                && (LOWER( i[3] ) == 'e') && (LOWER( i[4] ) == ' ') )
+              {
+                tbuf2[tbp++] = 's';
+                tbuf2[tbp++] = 'o';
+                tbuf2[tbp++] = 'm';
+                tbuf2[tbp++] = 'e';
+                i += 4;
+              }
+              // Any other word, just copy.
+              else
+              {
+                while( !isspace(*i) && *i != '\0' )
+                {
+                  tbuf2[tbp++] = *(i++);
+                }
+              }
 
-	      // some
-	      if (!found && (*i == 'S') && (LOWER(*(i + 1)) == 'o')
-		  && (LOWER(*(i + 2)) == 'm') && (LOWER(*(i + 3)) == 'e') &&
-		  (LOWER(*(i + 4)) == ' '))
-		found = TRUE;
-	      if (found)
-		tbuf2[tbp++] = LOWER(*i);
-	      else
-		tbuf2[tbp++] = *i;
+              // Copy following white-space
+              while( isspace(*i) )
+              {
+                tbuf2[tbp++] = *(i++);
+              }
             }
-            tbuf2[tbp++] = 0;
+            tbuf2[tbp++] = '\0';
             i = tbuf2;
-	    
-	    while (*(i + j))
-              *(point++) = *(i + j++);
-	  }
 
+            for( j = 0; *(i + j) != '\0'; j++ )
+            {
+              *(point++) = *(i + j);
+            }
+          }
+          // Move past the character following the $.
           ++strp;
         }
-        else if (!(*(point++) = *(strp++)))
+        // If it's not a $, just copy it, breaking at end of char *.
+        else if( (*( point++ ) = *( strp++ )) == '\0' )
           break;
       }
 
-      if (!no_eol)
+      // Add \n\r to end of char *.
+      if( !no_eol )
       {
         *(--point) = '\n';
         *(++point) = '\r';
         *(++point) = '\0';
       }
 
+      /* CAP does this now...
       // Skip beginning ansi(s) and capitalize the first char.
       point = buf;
       while( *point == '&' && ( LOWER(*(point+1)) == 'n'
@@ -3690,19 +3749,17 @@ void act(const char *str, int hide_invisible, P_char ch, P_obj obj, void *vict_o
           point += 2;
         }
       }
-      CAP(point);
+      */
 
-      act_convert(mybuf, str, ch, to, obj, vict_obj, type);
-      mycheck = strcmp(mybuf, buf);
+//      act_convert(mybuf, str, ch, to, obj, vict_obj, type);
+//      mycheck = strcmp(mybuf, buf);
 
-      if( !sil || IS_TRUSTED(to)
-        || (!IS_SET(world[to->in_room].room_flags, ROOM_SILENT) && !IS_AFFECTED4(to, AFF4_DEAF)) )
-      {
-        send_to_char(buf, to, (flags & ACT_PRIVATE) ? LOG_PRIVATE : LOG_PUBLIC);
-      }
+      CAP(buf);
+      send_to_char(buf, to, (flags & ACT_PRIVATE) ? LOG_PRIVATE : LOG_PUBLIC);
     }
 
-    if ((type == TO_VICT) || (type == TO_CHAR))
+    // If there's only one recipient and we've sent the message to them, go ahead and return.
+    if( (type == TO_VICT) || (type == TO_CHAR) )
       return;
   }
 }

@@ -9686,14 +9686,9 @@ void perform_violence(void)
          IS_SET(ch->specials.act2, PLR2_BATTLEALERT)) ? "&+G]=-&n" : "",
         num_hits);
     act(GBuf1, FALSE, ch, 0, opponent, TO_CHAR | ACT_TERSE);
-    sprintf(GBuf1, "%s$n attacks you.%s [&+R%d&n hits]",
-        (IS_PC(opponent) &&
-         IS_SET(opponent->specials.act2,
-           PLR2_BATTLEALERT)) ? "&+R-=[&n" : "", (IS_PC(opponent) &&
-           IS_SET(opponent->
-             specials.
-             act2,
-             PLR2_BATTLEALERT)) ? "&+R]=-&n" : "", num_hits);
+    sprintf( GBuf1, "%s$n attacks you.%s [&+R%d&n hits]",
+      (IS_PC( opponent ) && IS_SET( opponent->specials.act2, PLR2_BATTLEALERT )) ? "&+R-=[&n" : "",
+      (IS_PC( opponent ) && IS_SET( opponent->specials.act2, PLR2_BATTLEALERT )) ? "&+R]=-&n" : "", num_hits);
     act(GBuf1, FALSE, ch, 0, opponent, TO_VICT | ACT_TERSE);
     sprintf(GBuf1, "$n attacks $N. [&+R%d&n hits]", num_hits);
     act(GBuf1, FALSE, ch, 0, opponent, TO_NOTVICT | ACT_TERSE);

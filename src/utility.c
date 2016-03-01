@@ -1205,7 +1205,7 @@ int exist_in_equipment(P_char ch, int bitflag)
 /* Determine visibility of a person */
 
 /*
- * this function is called about a billion times a minute (ok, so I exaggerated a little), don't even
+ * This function is called about a billion times a minute (ok, so I exaggerated a little), don't even
  * THINK about doing anything to it that would make it slower, even a LITTLE bit.  JAB
  */
 bool ac_can_see(P_char sub, P_char obj, bool check_z)
@@ -1221,7 +1221,7 @@ bool ac_can_see(P_char sub, P_char obj, bool check_z)
   }
 
   // No idea what happened, but let's hack this until we figure it out.
-  if( sub->in_room == -1 )
+  if( sub->in_room == NOWHERE )
     return FALSE;
 
   /* minor detail, sleeping chars can't see squat! */
@@ -2720,6 +2720,9 @@ void CAP(char *str)
       pos += 2;
     else if( str[pos + 1] == '-' || str[pos + 1] == '+' && is_ansi_char(str[pos+2]) )
       pos += 3;
+    // It's an actual & at the start of the string.. go figure.
+    else
+      break;
   }
   str[pos] = UPPER(str[pos]);
 }
