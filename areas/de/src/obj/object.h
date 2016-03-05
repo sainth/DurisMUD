@@ -114,5 +114,8 @@ typedef struct _objectType
 
 int itemvalue( objectType *obj );
 
+#define OBJ_DEFAULT_LONG_DESC "An unnamed object lies here, looking lonely and forelorn."
+#define OBJ_DEFAULT_SHORT_DESC "an unnamed object"
+
 #define _OBJECT_H_
 #endif

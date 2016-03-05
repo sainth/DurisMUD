@@ -1401,6 +1401,9 @@ size_t numbPercentS(const char *strn);
 bool lastCharLF(const char *strn);
 size_t numbLinefeeds(const char *strn);
 size_t truestrlen(const char *strn);
+void CAP(char *strn);
+void DECAP(char *strn);
+bool bleeding_ansi( const char *strn);
 
 // strnnode.cpp
 

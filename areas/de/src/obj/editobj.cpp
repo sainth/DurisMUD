@@ -80,61 +80,72 @@ void displayEditObjTypeMenu(const objectType *obj, const uint origVnum)
 //   *obj : object to edit
 //
 
+// Edit obj type, applies, values - needs original object vnum to properly check if it's okay
+//   to change the type of a container object.
 bool interpEditObjTypeMenu(const usint ch, objectType *obj, const uint origVnum)
 {
   const menu *activeObjMenu;
+  bool default_long = !strcmp(obj->objLongName, OBJ_DEFAULT_LONG_DESC);
 
+  // Check to see if it's set to the generic message
+  if( !default_long )
+  {
+    char buf[2048];
+    sprintf( buf, "%s lies here.", obj->objShortName );
+    CAP(buf);
+    default_long = !strcmp( obj->objLongName, buf );
+  }
 
-  if (getObjAffectVal())
+  if( getObjAffectVal() )
     activeObjMenu = &g_objMenu;
   else
     activeObjMenu = &g_objNoAffMenu;
 
-
- // edit obj type, applies, values - needs original object vnum to properly check if it's okay to change
- // the type of a container object
-
-  if (ch == 'I')
+  if( ch == 'I' )
   {
     editObjMisc(obj, origVnum);
 
     displayEditObjTypeMenu(obj, origVnum);
   }
-  else
-
- // edit obj weight, dam bonus, etc
-
-  if (ch == 'J')
+  // Edit obj weight, dam bonus, etc
+  else if( ch == 'J' )
   {
     editObjMisc2(obj);
 
     displayEditObjTypeMenu(obj, origVnum);
   }
-  else
-
- // edit obj trap info
-
-  if (ch == 'M')
+  // Edit obj trap info
+  else if( ch == 'M' )
   {
     editObjTrapInfo(obj);
 
     displayEditObjTypeMenu(obj, origVnum);
   }
-  else
-
- // hit menu for most
-
-  if (interpretMenu(activeObjMenu, obj, ch))
+  // Hit menu for most
+  else if( interpretMenu(activeObjMenu, obj, ch) )
   {
+    // Make a quick'n easy long desc out of new short desc.
+    if( ch == 'A' )
+    {
+      if( bleeding_ansi(obj->objShortName) )
+      {
+        strcat( obj->objShortName, "&n" );
+      }
+      // Make sure the first letter of the short description is lowercase.
+      DECAP(obj->objShortName);
+      if( default_long )
+      {
+        sprintf( obj->objLongName, "%s lies here.", obj->objShortName );
+        // Make sure the first letter of the long description is uppercase.
+        CAP(obj->objLongName);
+      }
+    }
     displayEditObjTypeMenu(obj, origVnum);
 
     return false;
   }
-  else
-
- // change limit
-
-  if (ch == 'L')
+  // Change limit
+  else if( ch == 'L' )
   {
     const uint numbLoad = getNumbEntities(ENTITY_OBJECT, origVnum, false);
     const uint numbOverride = getNumbEntities(ENTITY_OBJECT, origVnum, true);
@@ -142,21 +153,19 @@ bool interpEditObjTypeMenu(const usint ch, objectType *obj, const uint origVnum)
 
     editUIntVal(&val, true, "&+CNew limit on loads for this object type (0 = number loaded): ");
 
-   // check user input
-
-    if ((val <= numbLoad) && (val != 0))
+    // Check user input
+    if( (val <= numbLoad) && (val != 0) )
     {
-      if (val < numbLoad)
+      if( val < numbLoad )
       {
-        displayAnyKeyPrompt("&+CError: Attempting to set limit lower than the number loaded - press a key");
+        displayAnyKeyPrompt("&+CAborting: Attempting to set limit lower than the number loaded - press a key");
       }
-
       displayEditObjTypeMenu(obj, origVnum);
 
       return false;
     }
 
-    if (val != numbOverride)
+    if( val != numbOverride )
     {
       setEntityOverride(ENTITY_OBJECT, origVnum, val);
       g_madeChanges = true;
@@ -164,28 +173,23 @@ bool interpEditObjTypeMenu(const usint ch, objectType *obj, const uint origVnum)
 
     displayEditObjTypeMenu(obj, origVnum);
   }
-  else
-
- // change vnum
-
-  if ((ch == 'V') && !obj->defaultObj)
+  // Change vnum
+  else if( (ch == 'V') && !obj->defaultObj )
   {
     uint vnum;
     char strn[256];
 
+    sprintf(strn, "&+CNew object vnum (highest allowed %u): ", g_numbLookupEntries - 1);
 
-    sprintf(strn, "&+CNew object vnum (highest allowed %u): ",
-            g_numbLookupEntries - 1);
-
-    while (true)
+    while( true )
     {
       vnum = obj->objNumber;
 
       editUIntVal(&vnum, false, strn);
 
-      if ((vnum >= g_numbLookupEntries) || (objExists(vnum) && (origVnum != vnum)))
+      if( (vnum >= g_numbLookupEntries) || (objExists(vnum) && (origVnum != vnum)) )
       {
-        if (vnum != obj->objNumber)
+        if( vnum != obj->objNumber )
         {
           displayAnyKeyPrompt("&+CError: vnum already exists or is too high - press a key");
         }
@@ -200,11 +204,8 @@ bool interpEditObjTypeMenu(const usint ch, objectType *obj, const uint origVnum)
 
     displayEditObjTypeMenu(obj, origVnum);
   }
-  else
-
- // quit
-
-  if (checkMenuKey(ch, false) == MENUKEY_SAVE) 
+  // Quit
+  else if( checkMenuKey(ch, false) == MENUKEY_SAVE )
     return true;
 
   return false;

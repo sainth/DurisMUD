@@ -85,8 +85,8 @@ objectType *createObjectType(const bool incLoaded, const uint objNumb, const boo
   {
     memset(newObj, 0, sizeof(objectType));
 
-    strcpy(newObj->objShortName, "an unnamed object");
-    strcpy(newObj->objLongName, "An unnamed object lies here, looking lonely and forelorn.");
+    strcpy(newObj->objShortName, OBJ_DEFAULT_SHORT_DESC);
+    strcpy(newObj->objLongName, OBJ_DEFAULT_LONG_DESC);
 
     newObj->keywordListHead = createKeywordList("object unnamed~");
 

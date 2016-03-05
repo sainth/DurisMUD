@@ -819,3 +819,71 @@ size_t truestrlen(const char *strn)
 
   return len;
 }
+
+// Make the first non-ansi char uppercase.
+void CAP( char *strn )
+{
+  int count = 0, tmp;
+
+  // While possible ansi start.
+  while( strn[count] == '&' )
+  {
+    // If we don't have an actual ansi code, break instead of endless loop.
+    if( (tmp = durisANSIcode( strn, count )) == 0 )
+    {
+      break;
+    }
+    count += tmp;
+  }
+  strn[count] = toupper(strn[count]);
+}
+
+// Make the first non-ansi char lowercase.
+void DECAP( char *strn )
+{
+  int count = 0, tmp;
+
+  // While possible ansi start.
+  while( strn[count] == '&' )
+  {
+    // If we don't have an actual ansi code, break instead of endless loop.
+    if( (tmp = durisANSIcode( strn, count )) == 0 )
+    {
+      break;
+    }
+    count += tmp;
+  }
+  strn[count] = tolower(strn[count]);
+}
+
+// Returns true iff there's no &n or &N terminating any color codes.
+bool bleeding_ansi( const char *strn )
+{
+  bool bleeding = FALSE;
+  int count = 0, tmp;
+
+  // While there's more to peruse
+  while( strn[count] != '\0' )
+  {
+    if( strn[count] == '&' )
+    {
+      // If we don't have an actual ansi code, move to the next character.
+      if( (tmp = durisANSIcode( strn, count )) == 0 )
+      {
+        count++;
+      }
+      else
+      {
+        // Jump past the ansi code.
+        count += tmp;
+        // If tmp == 2, then we have an &n, so not bleeding..
+        bleeding = (tmp != 2);
+      }
+    }
+    else
+    {
+      count++;
+    }
+  }
+  return bleeding;
+}
