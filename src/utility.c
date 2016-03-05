@@ -2703,7 +2703,6 @@ bool StatSave(P_char ch, int stat, int mod)
  * capitalize the first alpha character in string, had to replace the old
  * macro because so many strings have ansi at the start of them now.  JAB
  */
-
 void CAP(char *str)
 {
   int      pos = 0;
@@ -2725,6 +2724,30 @@ void CAP(char *str)
       break;
   }
   str[pos] = UPPER(str[pos]);
+}
+
+// Makes the first non-ansi char in the string lower case.
+void DECAP(char *str)
+{
+  int      pos = 0;
+
+  if (!str || !*str)
+    return;
+
+  // This is a while loop in case we have &n&N&+R&-Lthe ugly colored coat.&n
+  while(str[pos] == '&')
+  {
+    if( str[pos + 1] == '=' && is_ansi_char(str[pos + 2]) && is_ansi_char(str[pos+3]) )
+      pos += 4;
+    else if( str[pos + 1] == 'n' || str[pos + 1] == 'N' )
+      pos += 2;
+    else if( str[pos + 1] == '-' || str[pos + 1] == '+' && is_ansi_char(str[pos+2]) )
+      pos += 3;
+    // It's an actual & at the start of the string.. go figure.
+    else
+      break;
+  }
+  str[pos] = LOWER(str[pos]);
 }
 
 char *PERS(P_char ch, P_char vict, int short_d)

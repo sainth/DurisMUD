@@ -208,7 +208,7 @@ A
 19 3
 #93717
 sack silk~
-A &+Cs&+cpid&+Wer &+ws&+Wi&+Clk &+wsack~
+a &+Cs&+cpid&+Wer &+ws&+Wi&+Clk &+wsack~
 A pile of spun spider web lies here.~
 ~
 15 1 3 0 9 0 24640 8388609 64 0 0
@@ -346,8 +346,8 @@ A
 5 15
 #93728
 key~
-An ancient &+rrusted &+Lcast iron &+wkey~
-A &+rkey &+whas been dropped here &+bweathered &+wby age and appears ready to &+Lcrumble &+wat any touch~
+an ancient &+rrusted &+Lcast iron &+wkey~
+A &+rkey &+whas been dropped here &+bweathered &+wby age and appears ready to &+Lcrumble &+wat any touch.~
 ~
 18 15 2 0 7 0 8388616 1 0 0 0
 0 0 0 0 0 0 0 0
@@ -398,8 +398,8 @@ T
 1540 5 -1 51
 #93734
 belt~
-&+RSi&+rm&+Rp&+rl&+Re &+ybelt with &+Lblack &+ytips.~
-A plain &+ybelt with &+Rin&+rt&+Rr&+ric&+Rat&+re &+wpatterns and &+Lblack &+wtips lies here~
+a &+RSi&+rm&+Rp&+rl&+Re &+ybelt with &+Lblack &+ytips~
+A plain &+ybelt with &+Rin&+rt&+Rr&+ric&+Rat&+re &+wpatterns and &+Lblack &+wtips lies here.~
 ~
 9 14 3 0 13 0 3145728 2049 0 0 0
 15 0 0 2 0 0 0 0
@@ -410,8 +410,8 @@ A
 26 10
 #93735
 belt~
-&+BSi&+bm&+Bp&+bl&+Be &+cbelt with &+Wwhite &+ctips.~
-A plain &+ybelt with &+Rin&+rt&+Rr&+ric&+Rat&+re &+wpatterns and &+Lblack &+wtips lies here~
+a &+BSi&+bm&+Bp&+bl&+Be &+cbelt with &+Wwhite &+ctips~
+A plain &+ybelt with &+Rin&+rt&+Rr&+ric&+Rat&+re &+wpatterns and &+Wwhite &+wtips lies here.~
 ~
 11 14 3 0 13 0 0 2049 0 0 0
 0 0 0 2 0 0 0 0
@@ -470,8 +470,8 @@ A &+bk&+Le&+by &+wto a castle room has been left here.~
 0 1 100 100
 #93741
 key~
-&+rGue&+bst &+rkey~
-A &+rk&+be&+ry &+wto a castle room has been left here~
+a &+rGue&+bst &+rkey&n~
+A &+rk&+be&+ry &+wto a castle room has been left here.~
 ~
 18 15 3 0 7 0 4096 1 0 0 0
 0 10 0 0 0 0 0 0
@@ -520,8 +520,8 @@ A
 26 8
 #93746
 splinter sliver~
-&+LE&+wt&+Lh&+Wer&+Le&+wa&+Wl &+Wsplinter~
-A sliver of ethereal matter drifts around here~
+a &+LE&+wt&+Lh&+Wer&+Le&+wa&+Wl &+Wsplinter&n~
+A sliver of ethereal matter drifts around here.~
 ~
 5 1 2 0 15 0 545896 8193 96 110592 0
 2 2 7 0 1 0 0 0

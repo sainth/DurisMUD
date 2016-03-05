@@ -756,7 +756,7 @@ rare stone ebon ruby~
 #132540
 jewel fine violet~
 a fine &+Mviolet&n jewel~
-A fine &+Mviolet&n jewel~
+A fine &+Mviolet&n jewel lies here.~
 ~
 8 26 0 0 7 0 0 16385 0 0 0
 0 0 0 0 0 0 0 0
@@ -3007,7 +3007,7 @@ A
 #132681
 sharpened long steel sword _id_~
 &+wa sharpened long steel sword&n~
-a long steel sword is here in the dirt.~
+A long steel sword is here in the dirt.~
 ~
 5 15 3 0 5 0 1024 8193 0 87572483 0
 5 1 8 0 0 0 0 0

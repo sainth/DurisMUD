@@ -3001,6 +3001,7 @@ struct time_info_data real_time_passed(time_t, time_t);
 struct time_info_data real_time_countdown(time_t, time_t, int);
 void ADD_MONEY(P_char, int);
 void CAP(char *);
+void DECAP(char *);
 void InitGrantFastLookup(void);
 void logit(const char *, const char *,...);
 void sprint64bit(ulong *, const char **, char *);

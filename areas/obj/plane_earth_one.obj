@@ -1,7 +1,7 @@
 #23801
 earth endurance potion~
 &+ba potion of earth endurance~
-A potion of earth endurance has been left here~
+A potion of earth endurance has been left here.~
 ~
 10 7 2 4 7 0 0 1 64 0 0
 50 75 1 3 0 0 0 0
@@ -12,8 +12,8 @@ The potion in this vial seems to be composed of a bright gel-like liquid.
 ~
 #23802
 grey potion of stone skin~
-&+La grey stone skin potion~
-A potion of stone skin is here~
+&+La grey stone skin potion&n~
+A potion of stone skin is here.~
 ~
 10 7 2 4 7 0 0 1 64 0 0
 50 36 0 0 0 0 0 0

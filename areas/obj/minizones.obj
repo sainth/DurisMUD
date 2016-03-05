@@ -417,8 +417,8 @@ T
 1 3 1 40
 #5732
 battle-axe axe _id_~
-&+La large&+r battle&+L-axe&n~
-a huge battle-axe radiates might and power.~
+&+La large &+rbattle&+L-axe&n~
+A &+Llarge &+rbattle&+L-axe&n radiating might and power lies on the ground.~
 ~
 5 19 3 0 11 80 16844040 8193 0 85458945 4096
 1 3 4 3 0 0 0 0
@@ -710,7 +710,7 @@ A
 #5754
 skirt woven reed reeds~
 &+ga woven reed skirt&n~
-A skirt woven of reed lies here~
+A skirt woven of reed lies here.~
 ~
 9 42 3 2 7 0 0 33 0 0 0
 2 5 0 1 0 0 0 0
@@ -724,7 +724,7 @@ A
 #5755
 ring rubies gold~
 &+Ya gold ring set with&n &+rrubies&n~
-A gold ring has been left here, decorated with rubies~
+A gold ring has been left here, decorated with rubies.~
 ~
 9 24 3 2 12 0 0 3 0 0 0
 2 1 0 2 0 0 0 0

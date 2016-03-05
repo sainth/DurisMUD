@@ -1353,6 +1353,7 @@ P_obj make_corpse(P_char ch, int loss)
       race_names_table[ch->player.race].normal);
   }
   sprintf(buf, "The corpse of %s is lying here.", IS_PC(ch) ? buf2 : ch->player.short_descr);
+  DECAP(buf + 14);
 
   corpse->description = str_dup(buf);
 

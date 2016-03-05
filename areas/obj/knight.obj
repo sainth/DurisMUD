@@ -281,7 +281,7 @@ A &+ysleek leather suit&N lies crumpled here.~
 #70927
 small blue piercer _id_~
 a &+bsmall blue piercer&N~
-a &+bsmall blue piercer&N lies here.~
+A &+bsmall blue piercer&N lies here.~
 ~
 5 16 2 0 7 0 0 8193 0 4198895524 0
 2 2 4 11 0 0 0 0
@@ -321,7 +321,7 @@ A &+Wbopper&N lies here.~
 #70931
 stabber~
 a &+Wstabber&N~
-a &+Wstabber&N lies here.~
+A &+Wstabber&N lies here.~
 ~
 5 16 3 0 7 0 0 8193 0 4194697632 0
 2 2 4 11 0 0 0 0
@@ -591,7 +591,7 @@ A
 #70951
 warm light~
 a &+Wwarm light&N~
-a &+Wwarm light&N lies here lit.~
+A &+Wwarm light&N lies here lit.~
 ~
 1 1 0 0 7 0 262144 16385 64 0 0
 0 0 -1 0 0 0 0 0

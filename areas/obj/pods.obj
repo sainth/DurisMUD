@@ -393,7 +393,7 @@ A
 #28523
 shelf shelves~
 &+ya set of shelves&n~
-A set of no-show shelves sits here~
+A set of no-show shelves sits here.~
 ~
 15 6 4 1000 11 50 10 0 0 0 0
 1000 0 0 1000 0 0 0 0
@@ -497,7 +497,7 @@ egg~
 #28531
 lair cave~
 &+ya &+wbone-&+ystrewn lair&n~
-A no-show lair is hidden here~
+A no-show lair is hidden here.~
 ~
 15 5 4 1000 7 0 2 0 0 0 0
 100 1 0 100 0 0 0 0
@@ -537,7 +537,7 @@ A
 #28534
 stone stones~
 &+wa crum&+Wb&+wlin&+Wg&+w st&+Wo&+wne wa&+Wl&+wl&n~
-A hidden wall blocks access here~
+A hidden wall blocks access here.~
 ~
 29 11 4 1000 11 50 2 0 0 0 0
 340 28774 0 1 0 0 0 0
@@ -569,7 +569,7 @@ A no-show wall blocks passage here.~
 #28538
 stone stones~
 &+wa c&+Wr&+wum&+Wbl&+wing s&+Wt&+wone w&+Wa&+wll&n~
-A no-show wall blocks passage here~
+A no-show wall blocks passage here.~
 ~
 29 11 4 1000 10 50 2 0 0 0 0
 340 28793 1 1 0 0 0 0

@@ -1,7 +1,7 @@
 #24400
 frozen potion~
 &+ba frozen potion&n~
-A frozen potion has been left here~
+A frozen potion has been left here.~
 ~
 10 7 2 4 7 0 0 1 64 0 0
 50 10 10 28 0 0 0 0
@@ -13,8 +13,8 @@ gel-like liquid!
 ~
 #24401
 grey potion of stone skin~
-&+La grey stone skin potion~
-A potion of stone skin is here~
+&+La grey stone skin potion&n~
+A potion of stone skin is here.~
 ~
 10 7 2 4 7 0 0 1 64 0 0
 50 36 0 0 0 0 0 0

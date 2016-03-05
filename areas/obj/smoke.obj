@@ -61,7 +61,7 @@ A
 #139805
 mass swirling smoke ash~
 &+BA &+Csw&+ci&+Crl&+ci&+Cng&+B mass of &+Lblack smoke&+b and &+rho&+Rt as&+rh~
-&+CA swirling mass of &+Lblack smoke &+Band &+rhot ash lies here~
+&+CA swirling mass of &+Lblack smoke &+Band &+rhot ash lies her.e~
 ~
 11 1 1 0 15 0 33554560 8389633 64 0 0
 0 0 0 0 0 0 0 0
@@ -101,7 +101,7 @@ charred ehkahk heart~
 #139809
 veil smoke ash _id_~
 &+La veil of smoke and &+Rh&+ro&+Rt &+ra&+Rs&+rh~
-&+LA veil of solid smoke and ash lies here~
+&+LA veil of solid smoke and ash lies here.~
 ~
 9 1 10 0 15 0 8193 262145 0 0 0
 20 0 0 0 0 0 0 0
@@ -125,7 +125,7 @@ A
 #139811
 box obsidian~
 &+LA massive box of solid obsidian~
-&+LA massive box of solid obsidian encrusted in &+rash&+L rests here~
+&+LA massive box of solid obsidian encrusted in &+rash&+L rests here.~
 ~
 15 36 4 0 13 0 32 0 1024 0 0
 100 29 139812 100 0 0 0 0
@@ -134,7 +134,7 @@ T
 512 2 1 60
 #139812
 obsidian key~
-A tiny key made of a single shard of &+Lobsidian~
+a tiny key made of a single shard of &+Lobsidian&n~
 A tiny piece of obsidian lies here.~
 ~
 18 36 1 0 13 0 0 1 0 0 0
@@ -155,7 +155,7 @@ A
 #139814
 wretched broadsword hate~
 &+LA wretched broadsword named &+W'&+RHate&+W'~
-A massive broadsword lies here~
+A massive broadsword lies here.~
 ~
 5 36 3 0 15 0 33558528 8193 32832 265273316 0
 5 6 4 0 0 0 0 0
@@ -165,7 +165,7 @@ A
 #139815
 script fortitude ancient~
 &+yAn ancient script called '&+mFortitude&+y'~
-A script lays here collecting dust~
+A script lays here collecting dust.~
 ~
 2 28 1 0 7 0 1 16385 64 0 0
 60 190 190 304 0 0 0 0
@@ -173,7 +173,7 @@ A script lays here collecting dust~
 #139816
 potion viscous escape~
 &+YAn viscous potion called '&+CEscape&+Y'~
-A tiny bubbling potion with some words scribbled on the side lies here~
+A tiny bubbling potion with some words scribbled on the side lies here.~
 ~
 10 28 1 0 7 0 1 16385 64 0 0
 51 264 2 0 50 0 0 0
@@ -193,7 +193,7 @@ A
 #139818
 ehkahk vault key~
 &+WEhkahk's Vault Key~
-A tiny key lies here~
+A tiny key lies here.~
 ~
 18 10 1 0 13 0 33816577 16385 64 0 0
 0 100 0 0 0 0 0 0
@@ -208,7 +208,7 @@ portal~
 0 0 100
 #139820
 swirling red portal~
-A &+rRed&+w Portal~
+a &+rRed&+w Portal~
 &+WA swirling &+rred&+W portal spins to the north~
 ~
 25 1 3 0 7 0 33554433 0 1088 0 0
@@ -216,7 +216,7 @@ A &+rRed&+w Portal~
 0 0 100
 #139821
 swirling blue portal~
-A &+CBlue&+w Portal~
+a &+CBlue&+w Portal~
 &+WA swirling &+Cblue&+W portal spins to the south~
 ~
 25 1 3 0 7 0 33554433 0 1088 0 0
@@ -225,7 +225,7 @@ A &+CBlue&+w Portal~
 #139822
 ring jewel encrusted~
 &+mA &+Cj&+Ye&+Mw&+Ge&+Yl&+w-&+Re&+Cn&+yc&+Br&+mu&+ys&+Wt&+Ye&+Md &+Wring~
-a ring encrusted with many &+Cj&+Ye&+Mw&+Ge&+Yl&+Ws &+wsits here~
+A ring encrusted with many &+Cj&+Ye&+Mw&+Ge&+Yl&+Ws &+wsits here.~
 ~
 11 19 3 0 7 0 1 3 32768 0 0
 0 0 0 0 0 0 0 0
@@ -237,7 +237,7 @@ A
 #139823
 earring jewel encrusted~
 &+mA &+Cj&+Ye&+Mw&+Ge&+Yl&+w-&+Re&+Cn&+yc&+Br&+mu&+ys&+Wt&+Ye&+Md &+Wearring~
-an earring encrusted with many &+Cj&+Ye&+Mw&+Ge&+Yl&+Ws &+wsits here~
+an earring encrusted with many &+Cj&+Ye&+Mw&+Ge&+Yl&+Ws &+wsits here.~
 ~
 11 19 3 0 7 0 1 3 32768 0 0
 0 0 0 0 0 0 0 0
@@ -249,7 +249,7 @@ A
 #139824
 backpack smoke~
 &+LA m&+wys&+Wti&+wca&+Ll ba&+wck&+Wpa&+wck m&+Lad&+we &+Wo&+wf s&+Lol&+wi&+Wd s&+wmo&+Lke~
-a backpack made of solid &+Ls&+wm&+Wo&+wk&+Le&+w lies here~
+A backpack made of solid &+Ls&+wm&+Wo&+wk&+Le&+w lies here.~
 ~
 15 19 3 0 7 0 33554432 12582913 0 0 0
 800 5 0 250 0 0 0 0
@@ -269,7 +269,7 @@ A
 #139826
 puddle goo make-up make disgusting~
 &+YSo&+yme &+CD&+yis&+Yg&+Cus&+Mti&+Yng &+RMa&+Yk&+Ge&+W-&+Yu&+Mp~
-a puddle of disgusting looking goo lies here~
+A puddle of disgusting looking goo lies here.~
 ~
 11 15 3 0 7 0 128 393217 0 0 0
 0 0 0 0 0 0 0 0
@@ -293,7 +293,7 @@ A
 #139828
 quiver alacrity~
 &+ythe b&+Yo&+wt&+wt&+Yo&+ym&+Yl&+we&+ys&+Ys &+Wquiver &+w'&+CAlacrity&+w'~
-a seemingly unimportant quiver lies here~
+A seemingly unimportant quiver lies here.~
 ~
 11 15 3 0 7 0 33554432 1048577 0 0 0
 0 0 0 0 0 0 0 0
@@ -305,7 +305,7 @@ A
 #139829
 wretched broadsword hate~
 &+LA wretched broadsword named &+W'&+rDiscontent&+W'~
-A massive broadsword lies here~
+A massive broadsword lies here.~
 ~
 5 36 3 0 15 0 33558528 8193 32832 265273316 0
 5 6 4 0 0 0 0 0
@@ -323,7 +323,7 @@ massive forge~
 #139831
 wretched greatsword sword hate discontent~
 &+LA massive double-bladed greatsword named &+W'&+RHate &+W& &+rDiscontent&+W'~
-A massive doublebladed greatsword lies here~
+A massive doublebladed greatsword lies here.~
 ~
 5 36 3 0 15 0 33554432 8193 64 264749044 0
 13 8 5 0 0 14545072 56 30
@@ -353,7 +353,7 @@ A
 #139833
 potion viscous escape~
 &+YAn viscous potion called '&+CEscape&+Y'~
-A tiny bubbling potion with some words scribbled on the side lies here~
+A tiny bubbling potion with some words scribbled on the side lies here.~
 ~
 10 28 1 0 7 0 1 16385 64 0 0
 51 264 2 0 50 0 0 0

@@ -34,7 +34,7 @@ A
 #96001
 adamantium thick bracelet~
 &+ma thick adamantium bracelet&N~
-a thick bracelet of pure adamantium sparkles on the ground.~
+A &+mthick bracelet of pure adamantium&n sparkles on the ground.~
 ~
 9 19 3 3 7 0 262144 4097 64 0 0
 8 0 0 4 0 0 0 0
@@ -51,7 +51,7 @@ A
 #96002
 shiny mithril torque~
 &+Wa shiny mithril torque&N~
-a large mithril torque glitters on the ground.~
+A &+Wlarge mithril torque&N glitters on the ground.~
 ~
 9 18 0 0 7 0 1052672 5 0 0 0
 10 2 1 3 0 0 0 0
@@ -85,15 +85,15 @@ A
 #96004
 hideous red leather mask~
 &+ra hideous red leather mask&N~
-a piece of leather died red and shaped somewhat like a face.~
+A piece of leather died &+rred&n and shaped somewhat like a face.~
 ~
 9 13 3 3 7 0 0 262145 32832 0 0
 5 13 1 3 0 0 0 0
 1 19 100
 E
 hideous red leather mask~
-a gruesome looking leather mask died a deep red.  Slits cut into
-the leather provide spaces for sight and breathing.
+This is a gruesome looking leather mask died a deep red.  Slits cut
+into the leather provide spaces for sight and breathing.
 ~
 A
 23 -2
@@ -234,7 +234,7 @@ A
 #96014
 iron key~
 a large iron key~
-a large iron key collecting dust.~
+A large iron key collecting dust.~
 ~
 18 15 1 1 7 0 8388608 1 0 0 0
 2 0 0 0 0 0 0 0
@@ -247,7 +247,7 @@ shape.
 #96015
 raven feather eyepatch~
 &+La raven feather eyepatch&N~
-a pile of black feathers.~
+A &+Lpile of black feathers&n lies here.~
 ~
 9 50 1 1 7 0 0 131073 0 0 0
 4 12 2 3 0 0 0 0
@@ -312,7 +312,7 @@ A
 #96019
 ring protection cold~
 &+Ca ring of protection from cold&N~
-a gleaming iron ring rests on the ground.~
+A &+Cgleaming&n iron ring rests on the ground.~
 ~
 9 16 1 1 7 0 4096 3 0 0 0
 3 1 0 3 0 0 0 0
@@ -328,7 +328,7 @@ A
 #96020
 thick woolen scarf~
 a thick woolen scarf~
-a thick knit wool scarf sits on the ground.~
+A thick knit wool scarf sits on the ground.~
 ~
 9 3 3 3 7 0 0 5 0 0 0
 6 2 1 4 0 0 0 0
@@ -375,7 +375,7 @@ A
 #96023
 tankard pewter~
 &+La heavy tankard made of pewter&n~
-a large pewter tankard full of mead.~
+A &+Llarge pewter tankard&n lies here.~
 ~
 17 16 0 0 7 0 0 1 32768 0 0
 500 500 3 0 0 0 0 0
@@ -405,7 +405,7 @@ A
 #96025
 ring jagged~
 &+ya jagged&+W metal ring~
-a thin jagged piece of metal.~
+A thin, jagged piece of &+ymetal&n lies here.~
 ~
 9 16 1 1 7 0 4096 3 0 0 0
 4 1 0 3 0 0 0 0
@@ -435,8 +435,8 @@ A
 26 5
 #96027
 leather vest studded~
-&+ya leather vest&+L studded with jagged iron spikes~
-a smelly old vest studded with spikes lies on the ground.~
+&+ya leather vest &+Lstudded with jagged iron spikes~
+A &+ysmelly, old vest &+Lstudded with spikes&n lies here.~
 ~
 9 13 0 0 7 0 0 9 0 4165209604 0
 6 3 1 3 0 0 0 0
@@ -450,9 +450,9 @@ A
 A
 18 -2
 #96028
-heavy iron axe~
+heavy large iron axe~
 a heavy iron axe~
-a large iron axe lies carelessly on the ground.~
+A large iron axe lies carelessly on the ground.~
 ~
 5 15 3 8 7 0 4195328 8193 0 87572571 0
 1 4 4 3 0 0 0 0
@@ -462,9 +462,9 @@ heavy iron axe~
 A well-crafted iron axe with razor-sharp edge.
 ~
 #96029
-mithril axe polished~
+mithril axe polished gleaming magnificent~
 &+Wa gleaming mithril axe&N~
-a magnificent mithril axe lies abandoned.~
+A &+Wmagnificent, mithril axe&n lies abandoned here.~
 ~
 5 18 3 8 7 0 1024 8193 0 87572571 0
 1 4 3 3 0 0 0 0
@@ -495,9 +495,9 @@ A
 A
 23 -4
 #96031
-elaborate pike mithril~
+elaborate pike mithril long~
 &+Wan elaborate pike of polished mithril~
-a long mithril pike lies abandoned on the ground.~
+A &+Wlong, mithril pike&n lies abandoned on the ground.~
 ~
 5 18 3 0 7 0 4195328 8193 0 87572571 0
 8 3 7 11 0 0 0 0
@@ -513,7 +513,7 @@ A
 #96032
 belt aquamarine~
 &+Wa mithril belt&+C encrusted with aquamarines~
-&+Ca gem encrusted&N &+Wmithril belt&N lies on the ground.~
+&+CA gem encrusted&N &+Wmithril belt&N lies on the ground.~
 ~
 9 18 3 3 7 0 0 2049 0 0 0
 8 10 0 3 0 0 0 0
@@ -530,7 +530,7 @@ A
 #96033
 broadsword mithril shining~
 &+Wa shining mithril broadsword~
-a huge mithril broadsword shines with an inner glow.~
+A huge mithril broadsword shines with an inner glow.~
 ~
 5 18 3 0 7 0 4195328 8193 0 87572571 0
 5 4 6 3 0 0 0 0
@@ -544,9 +544,9 @@ A
 A
 18 4
 #96034
-helm horned great~
+helm horned great huge~
 &+ya great&+W horned&+L helm&N~
-a huge horned helm.~
+&+yA huge&+W horned&+L helm&N lies here.~
 ~
 9 16 3 10 7 0 0 17 0 4173708804 0
 15 4 1 3 0 0 0 0
@@ -563,7 +563,7 @@ A
 #96035
 blood leggings fur~
 &+Wa pair of fur leggings&+r splattered with blood~
-&+Wa pair of fur leggings&N &+rspattered with blood&N are piled here.~
+&+WA pair of fur leggings&N &+rspattered with blood&N are piled here.~
 ~
 9 3 3 8 7 0 0 33 32768 0 0
 5 5 1 3 0 0 0 0
@@ -591,7 +591,7 @@ A thin hoop of jade sheds an eerie green light.
 #96037
 shield polished rose quartz~
 &+Wa glowing shield of &+Mpolished rose quartz&N~
-a &+Mquartz shield&N lies discarded on the ground.~
+A &+Mquartz shield&N lies discarded on the ground.~
 ~
 37 26 3 15 7 0 262144 513 32832 0 0
 2 1 3 156 3 0 0 0
@@ -624,7 +624,7 @@ A
 #96039
 barbed whip~
 &+La barbed whip&N~
-a cruelly barbed whip lies on the ground.~
+A cruelly barbed whip lies on the ground.~
 ~
 5 13 3 0 7 0 0 8193 32768 4198895524 0
 14 2 6 2 0 0 0 0
@@ -642,7 +642,7 @@ A
 #96040
 chainmail steel~
 a suit of steel chainmail with a &+mmace&N and &+Wskull&N emblem~
-An elaborate suit of steel chainmail.~
+An elaborate suit of steel chainmail lies here.~
 ~
 9 16 3 10 7 0 0 9 0 4165209604 0
 16 3 1 3 0 0 0 0
@@ -674,7 +674,7 @@ A
 #96042
 cloak feathers~
 &+Wa cloak of deva's feathers~
-a feather cloak drapes over the ground.~
+A &+Wfeather cloak&n drapes over the ground.~
 ~
 9 50 3 8 7 0 4096 1025 32768 0 0
 10 9 1 3 0 0 0 0
@@ -690,7 +690,7 @@ A
 #96043
 gaudy golden crown~
 a &+Mg&+Ca&+Gu&+Wd&+Ly&+Y golden crown&N~
-a garish looking &+Ygold crown&N has been tossed on the ground.~
+A garish looking &+Ygold crown&N has been tossed on the ground.~
 ~
 9 24 3 8 7 0 128 17 0 0 0
 10 4 16 3 0 0 0 0
@@ -710,28 +710,28 @@ A
 #96044
 black whip~
 &+La long black whip&N~
-a cruel looking long whip lies on the ground.~
+A &+Lcruel-looking, long whip&n lies on the ground.~
 ~
 5 13 3 0 7 0 0 8193 0 0 0
 14 2 6 2 0 0 0 0
 2 20 100
 E
 black whip~
-a cruel looking whip encrusted with the blood of countless
-slaves.
+This is a cruel looking whip encrusted with the blood of
+countless slaves.
 ~
 #96045
 leather sleeves~
 &+Lsome leather sleeves studded with&+r rusty iron spikes&N~
-a nasty looking pair of leather sleeves.~
+A &+Lnasty looking pair of leather sleeves&n lies here.~
 ~
 9 13 3 8 7 0 0 257 0 0 0
 5 8 1 3 0 0 0 0
 2 22 100
 E
 leather sleeves~
-a nasty look pair of leather sleeves.  Huge rusty iron spikes
-have been affixed to the sleeves at irregular intervals.
+This is a nasty looking pair of leather sleeves.  Huge rusty
+iron spikes have been affixed to the sleeves at irregular intervals.
 ~
 A
 19 2
@@ -756,7 +756,7 @@ A
 #96047
 steel gauntlets rusty spikes~
 &+ra pair of steel gauntlets studded with rusty iron spikes&N~
-a pair of steel gauntlets studded with rusty spikes.~
+A &+rpair of steel gauntlets studded with rusty spikes&n lies here.~
 ~
 9 16 3 5 7 0 0 129 0 4165209604 0
 8 7 1 3 0 0 0 0
@@ -773,7 +773,7 @@ A
 #96048
 jewelers eyepiece~
 &+Ya jeweler's eyepiece&N~
-a clear lens held in a gold mounting sits on the ground.~
+A clear lens held in a &+Ygold mounting&n sits on the ground.~
 ~
 9 16 0 0 7 0 0 131073 0 0 0
 2 12 12 3 0 0 0 0
@@ -790,14 +790,14 @@ A
 #96049
 obsidian earring skull~
 &+Lan obsidian earring shaped like a skull&N~
-a small obsidian earring fashioned to resemble a skull.~
+A &+Lsmall obsidian earring fashioned to resemble a skull&n lies here.~
 ~
 9 36 1 1 7 0 4096 524289 0 0 0
 3 14 0 3 0 0 0 0
 0 2000 100 0 16 0 0
 E
 obsidian earring skull~
-a small chunk of obsidian, exquisitely carved to resemble a human
+This is a small chunk of obsidian, exquisitely carved to resemble a human
 skull. It's quite spooky looking.
 ~
 A
@@ -805,14 +805,14 @@ A
 #96050
 heavy fire giant boots~
 &+La heavy pair of&+r fire giant&+L boots&N~
-a heavy pair of spiked iron boots.~
+A &+Lpair of spiked iron boots&n lies here.~
 ~
 9 12 3 8 7 0 0 65 0 4173708804 0
 10 6 1 4 0 0 0 0
 4 15000 100
 E
 heavy fire giant boots~
-A heavy set of iron boots; sharp spikes jut out from the tip.
+This is a heavy set of iron boots; sharp spikes jut out from the tip.
 ~
 A
 19 2
@@ -821,7 +821,7 @@ A
 #96051
 leather mask garnets~
 &+ra soft leather mask encrusted with garnets&N~
-a small piece of leather encrusted with garnets.~
+A &+ysmall piece of leather encrusted with &+rgarnets&n lies here.~
 ~
 9 13 3 3 7 0 8192 262145 64 0 0
 6 13 1 3 0 0 0 0
@@ -838,7 +838,7 @@ A
 #96052
 belt thick leather fur~
 &+ya thick leather belt&+W lined with fur&N~
-a thick leather belt lined with fur.~
+A &+ythick leather belt&+W lined with fur&N lies here.~
 ~
 9 12 3 3 7 0 0 2049 0 0 0
 3 10 0 4 0 0 0 0
@@ -881,7 +881,7 @@ provides enough water for the entire city of Utgard.
 #96055
 token~
 &+La token of allegiance to &+CThrym&N~
-a small metallic token lies on the ground.~
+A &+Lsmall metallic token&n lies on the ground.~
 ~
 9 16 0 0 7 0 4096 5 0 0 0
 5 2 1 3 0 0 0 0
@@ -1103,7 +1103,7 @@ A
 #96067
 ring valkyrie valkyries~
 &+Wa ring of the valkyries&N~
-a gleaming metallic ring has been left on the ground.~
+A &+Wgleaming metallic ring&n has been left on the ground.~
 ~
 9 16 1 1 7 0 262144 3 0 0 0
 4 1 0 3 0 0 0 0
@@ -1121,7 +1121,7 @@ A
 #96068
 amulet dwarven runes~
 &+Lan amulet inscribed with dwarven runes&N~
-a small metal amulet emits a soft glow on the ground here.&N~
+A &+Lsmall metal amulet&n emits a soft glow on the ground here.&N~
 ~
 9 11 3 2 7 0 262144 5 0 0 0
 7 2 0 3 0 0 0 0
@@ -1262,7 +1262,7 @@ sulfurous soil such as that near a volcano.
 #96077
 tiny earring fireweed~
 &+La tiny earring&+r woven of fireweed&N~
-a tiny earring has been woven from a reddish plant.~
+A &+Ltiny earring&n, woven from a &+rreddish plant&n, lies here.~
 ~
 9 42 1 1 7 0 0 524289 64 0 0
 2 14 0 3 0 0 0 0

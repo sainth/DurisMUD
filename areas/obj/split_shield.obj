@@ -17,7 +17,7 @@ steel scimitar~
 #10303
 steel broadaxe axe~
 a broadaxe~
-a steel broadaxe is here on the ground.~
+A steel broadaxe is here on the ground.~
 ~
 5 16 3 8 7 0 1024 8193 0 87572571 0
 1 1 8 3 0 0 0 0
@@ -25,7 +25,7 @@ a steel broadaxe is here on the ground.~
 #10304
 sword bastard~
 a fine bastard sword~
-a fine bastard sword lies here.~
+A fine bastard sword lies here.~
 ~
 5 16 3 10 7 0 1024 8193 0 87572571 0
 5 1 8 3 0 0 0 0
@@ -99,7 +99,7 @@ There is a long pike here on the ground.~
 #10311
 suit armor leather~
 &+ya full suit of leather armor&N~
-a suit of leather armor lies here.~
+A suit of &+yleather armor&n lies here.~
 ~
 9 13 0 0 7 0 536879104 9 0 4165209604 0
 16 3 1 3 0 0 0 0
@@ -115,15 +115,15 @@ Some leather leggings lie here.~
 #10314
 boots leather soft high~
 &+ya pair of high-soft leather boots&N~
-a pair of leather boots lies here.~
+A pair of &+yleather boots&n lies here.~
 ~
 9 13 3 8 7 0 0 65 0 0 0
 4 6 1 3 0 0 0 0
 3 276 100
 #10315
 gloves black leather~
-&+La pair of black leather gloves&N~
-a pair of gloves there.~
+&+La pair of &+Lblack leather gloves&N~
+A pair of &+Lgloves&n lies here.~
 ~
 9 13 3 6 7 0 0 129 0 0 0
 4 7 6 3 0 0 0 0
@@ -205,7 +205,7 @@ A small leather purse lies here.~
 #10327
 collar neck leather~
 &+ya leather neck collar&N~
-a leather neck collar lies here.~
+A &+yleather neck collar&N lies here.~
 ~
 9 13 0 0 7 0 0 5 64 0 0
 0 2 1 3 0 0 0 0
@@ -215,7 +215,7 @@ A
 #10328
 studded leather neck collar~
 &+ya studded &+yleather neck collar&N~
-a studded leather collar lies here.~
+A &+ystudded leather collar&n lies here.~
 ~
 9 13 0 0 7 0 0 5 64 0 0
 0 2 1 3 0 0 0 0
@@ -251,7 +251,7 @@ A suit of splintmail armor lies here.~
 #10332
 wooden shield~
 &+ya wooden shield&N~
-A wooden shield lies here~
+A wooden shield lies here.~
 ~
 37 6 3 15 7 0 0 513 0 4165209604 0
 2 1 2 60 0 0 0 0
@@ -283,7 +283,7 @@ A leather jacket lies here.~
 #10337
 cap leather~
 &+ya leather cap&N~
-A leather cap lies here~
+A leather cap lies here.~
 ~
 9 13 3 3 7 0 0 17 0 0 0
 3 4 16 3 0 0 0 0
@@ -887,15 +887,15 @@ A well polished steel short sword lies here.~
 #10412
 polished long sword steel~
 &+Wa polished steel long sword&N~
-a polished steel long sword lies here.~
+A &+Wpolished steel long sword&N lies here.~
 ~
 5 16 3 10 7 0 262144 8193 0 4198895524 0
 5 1 7 3 0 0 0 0
 3 500 100
 #10413
 dull black long sword steel~
-&+Ldull black steel long sword&N~
-a dull black steel long sword lies here.~
+a &+Ldull black steel long sword&N~
+A &+Ldull black steel long sword&n lies here.~
 ~
 5 16 3 10 7 0 262144 8193 0 4198895524 0
 5 1 6 3 0 0 0 0
@@ -903,7 +903,7 @@ a dull black steel long sword lies here.~
 #10414
 thin polished long sword steel~
 a thin polished steel long sword~
-a thin polished steel long sword lies here.~
+A thin polished steel long sword lies here.~
 ~
 5 16 3 10 7 0 262144 8193 0 4198895524 0
 5 1 7 3 0 0 0 0
@@ -911,7 +911,7 @@ a thin polished steel long sword lies here.~
 #10415
 thin steel spike~
 a thin steel spike~
-a thin steel spike is dropped here.~
+A thin steel spike is dropped here.~
 ~
 5 16 2 0 7 0 262144 8193 0 4194697632 0
 2 3 4 11 0 0 0 0
@@ -922,8 +922,8 @@ A
 19 1
 #10416
 steel war hammer~
-&+ya steel war hammer&N~
-a steel war is resting here.~
+&+wa steel war hammer&N~
+A &+wsteel war hammer&n is resting here.~
 ~
 5 16 3 8 7 0 0 8193 2 4173708804 0
 4 1 4 7 0 0 0 0
@@ -935,7 +935,7 @@ A
 #10417
 polished steel war hammer~
 &+Wa polished steel war hammer&N~
-a polished steel war is resting here.~
+A &+Wpolished steel war hammer&n is resting here.~
 ~
 5 16 3 8 7 0 0 8193 2 4173708804 0
 4 3 6 7 0 0 0 0
@@ -947,7 +947,7 @@ A
 #10418
 dull black steel war hammer~
 &+La dull black steel war hammer&N~
-a dull black steel war is blanced here.~
+A &+Ldull black steel war hammer&n is balanced here.~
 ~
 5 16 3 8 7 0 0 8193 2 4173708804 0
 4 1 4 7 0 0 0 0
@@ -959,15 +959,15 @@ A
 #10419
 dull steel war hammer~
 &+La dull steel war hammer&N~
-a dull steel war is blanced here.~
+A &+Ldull steel war hammer&N is balanced here.~
 ~
 5 16 3 8 7 0 0 8193 2 4173708804 0
 4 1 3 7 0 0 0 0
 3 700 100
 #10420
 steel chain~
-&+ya steel chain&N~
-a steel chain is coiled here.~
+&+wa steel chain&N~
+A &+wsteel chain&n is coiled here.~
 ~
 5 16 3 0 7 0 0 8193 0 4165209604 0
 3 1 4 2 0 0 0 0
@@ -990,7 +990,7 @@ fountain~
 #10423
 food trail ration~
 a trail ration~
-a portion of trail ration is left here.~
+A portion of trail ration is left here.~
 ~
 19 2 2 2 7 0 8388608 16385 0 0 0
 12 2 2 0 0 0 0 0
@@ -1002,7 +1002,7 @@ This trail mix is light and easy to carry.
 #10424
 food small slab meat~
 a small slab of meat~
-a small slab of meat is left here.~
+A small slab of meat is left here.~
 ~
 19 2 2 2 7 0 8388608 16385 0 0 0
 2 3 3 0 1 1 0 0
@@ -1010,23 +1010,23 @@ a small slab of meat is left here.~
 #10425
 food large slab meat~
 a large slab of meat~
-a large slab of meat is left here.~
+A large slab of meat is left here.~
 ~
 19 2 2 2 7 0 8388608 16385 0 0 0
 10 3 3 0 1 1 0 0
 1 1 100
 #10426
 food slab orc meat~
-a slab of orc meat~
-a slab of orc meat is left here.~
+a slab of &+Lorc&n meat~
+A slab of &+Lorc&n meat is left here.~
 ~
 19 2 2 2 7 0 8388608 16385 0 0 0
 5 3 3 0 1 1 0 0
 1 1 100
 #10427
 food slab rotten meat~
-a rotten slab of meat~
-a rotten slab of meat is left here.~
+a &+yrotten&n slab of meat~
+A &+yrotten&n slab of meat is left here.~
 ~
 19 2 2 2 7 0 8388608 16385 0 0 0
 36 -1 0 0 0 0 0 0
@@ -1034,7 +1034,7 @@ a rotten slab of meat is left here.~
 #10428
 small rock~
 a small rock~
-a small rock lies here.~
+A small rock lies here.~
 ~
 13 11 0 50 7 0 0 16385 0 0 0
 0 0 0 0 0 0 0 0
@@ -1042,7 +1042,7 @@ a small rock lies here.~
 #10429
 large rock~
 a large rock~
-a large rock lies here.~
+A large rock lies here.~
 ~
 13 11 0 50 7 0 0 16385 0 0 0
 0 0 0 0 0 0 0 0
@@ -1050,7 +1050,7 @@ a large rock lies here.~
 #10430
 huge rock~
 a huge rock~
-a huge rock lies here.~
+A huge rock lies here.~
 ~
 13 11 0 50 7 0 0 16385 0 0 0
 0 0 0 0 0 0 0 0
@@ -1058,7 +1058,7 @@ a huge rock lies here.~
 #10431
 rock~
 a rock~
-a rock lies here.~
+A rock lies here.~
 ~
 13 11 0 50 7 0 0 16385 0 0 0
 0 0 0 0 0 0 0 0
@@ -1066,7 +1066,7 @@ a rock lies here.~
 #10432
 small stick~
 a small stick~
-a small stick lays discarded here.~
+A small stick lays discarded here.~
 ~
 12 6 0 0 7 0 0 16385 0 0 0
 0 0 0 0 0 0 0 0
@@ -1074,7 +1074,7 @@ a small stick lays discarded here.~
 #10433
 large stick~
 a large stick~
-a large stick lays discarded here.~
+A large stick lays discarded here.~
 ~
 12 6 0 0 7 0 0 16385 0 0 0
 0 0 0 0 0 0 0 0
@@ -1082,7 +1082,7 @@ a large stick lays discarded here.~
 #10434
 tree branch~
 a tree branch~
-a tree branch lies here broken from a tree.~
+A tree branch lies here broken from a tree.~
 ~
 12 6 0 0 7 0 0 16385 0 0 0
 0 0 0 0 0 0 0 0
@@ -1098,7 +1098,7 @@ an ace of shades is hidden here.~
 #10436
 king card playing shades~
 a king of shades~
-a king of shades is hidden here.~
+A king of shades is hidden here.~
 ~
 4 28 3 10 7 0 1024 16385 0 37883812 0
 20 1 1 1 0 0 0 0
@@ -1106,7 +1106,7 @@ a king of shades is hidden here.~
 #10437
 queen card playing shades~
 a queen of shades~
-a queen of shades is hidden here.~
+A queen of shades is hidden here.~
 ~
 4 28 3 10 7 0 1024 16385 0 37883812 0
 20 1 1 3 0 0 0 0
@@ -1114,7 +1114,7 @@ a queen of shades is hidden here.~
 #10438
 jack card playing shades~
 a jack of shades~
-a jack of shades is hidden here.~
+A jack of shades is hidden here.~
 ~
 4 28 3 10 7 0 1024 16385 0 37883812 0
 20 1 1 4 0 0 0 0
@@ -1122,7 +1122,7 @@ a jack of shades is hidden here.~
 #10439
 ten card playing shades~
 a ten of shades~
-a ten of shades is hidden here.~
+A ten of shades is hidden here.~
 ~
 4 28 3 10 7 0 1024 16385 0 37883812 0
 20 1 1 13 0 0 0 0
@@ -1130,7 +1130,7 @@ a ten of shades is hidden here.~
 #10440
 nine card playing shades~
 a nine of shades~
-a nine of shades is hidden here.~
+A nine of shades is hidden here.~
 ~
 4 28 3 10 7 0 1024 16385 0 37883812 0
 20 1 1 14 0 0 0 0
@@ -1146,7 +1146,7 @@ an eight of shades is hidden here.~
 #10442
 seven card playing shades~
 a seven of shades~
-a seven of shades is hidden here.~
+A seven of shades is hidden here.~
 ~
 4 28 3 10 7 0 1024 16385 0 37883812 0
 20 1 1 16 0 0 0 0
@@ -1154,7 +1154,7 @@ a seven of shades is hidden here.~
 #10443
 six card playing shades~
 a six of shades~
-a six of shades is hidden here.~
+A six of shades is hidden here.~
 ~
 4 28 3 10 7 0 1024 16385 0 37883812 0
 20 1 1 29 0 0 0 0
@@ -1162,7 +1162,7 @@ a six of shades is hidden here.~
 #10444
 five card playing shades~
 a five of shades~
-a five of shades is hidden here.~
+A five of shades is hidden here.~
 ~
 4 28 3 10 7 0 1024 16385 0 37883812 0
 20 1 1 22 0 0 0 0
@@ -1170,7 +1170,7 @@ a five of shades is hidden here.~
 #10445
 four card playing shades~
 a four of shades~
-a four of shades is hidden here.~
+A four of shades is hidden here.~
 ~
 4 28 3 10 7 0 1024 16385 0 37883812 0
 20 1 1 23 0 0 0 0
@@ -1178,7 +1178,7 @@ a four of shades is hidden here.~
 #10446
 three card playing shades~
 a three of shades~
-a three of shades is hidden here.~
+A three of shades is hidden here.~
 ~
 4 28 3 10 7 0 1024 16385 0 37883812 0
 20 1 1 27 0 0 0 0
@@ -1186,7 +1186,7 @@ a three of shades is hidden here.~
 #10447
 two card playing shades~
 a two of shades~
-a two of shades is hidden here.~
+A two of shades is hidden here.~
 ~
 4 28 3 10 7 0 1024 16385 0 37883812 0
 20 1 1 28 0 0 0 0
@@ -1202,7 +1202,7 @@ an ace of clubs is hidden here.~
 #10449
 king card playing clubs~
 a king of clubs~
-a king of clubs is hidden here.~
+A king of clubs is hidden here.~
 ~
 4 28 3 10 7 0 1024 16385 0 37883812 0
 20 1 1 35 0 0 0 0
@@ -1210,7 +1210,7 @@ a king of clubs is hidden here.~
 #10450
 queen card playing clubs~
 a queen of clubs~
-a queen of clubs is hidden here.~
+A queen of clubs is hidden here.~
 ~
 4 28 3 10 7 0 1024 16385 0 37883812 0
 20 1 1 37 0 0 0 0
@@ -1218,7 +1218,7 @@ a queen of clubs is hidden here.~
 #10451
 jack card playing clubs~
 a jack of clubs~
-a jack of clubs is hidden here.~
+A jack of clubs is hidden here.~
 ~
 4 28 3 10 7 0 1024 16385 0 37883812 0
 20 1 1 44 0 0 0 0
@@ -1226,7 +1226,7 @@ a jack of clubs is hidden here.~
 #10452
 ten card playing clubs~
 a ten of clubs~
-a ten of clubs is hidden here.~
+A ten of clubs is hidden here.~
 ~
 4 28 3 10 7 0 1024 16385 0 37883812 0
 20 1 1 62 0 0 0 0
@@ -1234,7 +1234,7 @@ a ten of clubs is hidden here.~
 #10453
 nine card playing clubs~
 a nine of clubs~
-a nine of clubs is hidden here.~
+A nine of clubs is hidden here.~
 ~
 4 28 3 10 7 0 1024 16385 0 37883812 0
 20 1 1 63 0 0 0 0
@@ -1250,7 +1250,7 @@ an eight of clubs is hidden here.~
 #10455
 seven card playing clubs~
 a seven of clubs~
-a seven of clubs is hidden here.~
+A seven of clubs is hidden here.~
 ~
 4 28 3 10 7 0 1024 167788545 0 37883812 0
 20 1 1 1 0 0 0 0
@@ -1258,7 +1258,7 @@ a seven of clubs is hidden here.~
 #10456
 six card playing clubs~
 a six of clubs~
-a six of clubs is hidden here.~
+A six of clubs is hidden here.~
 ~
 4 28 3 10 7 0 1024 16385 0 37883812 0
 20 1 1 29 0 0 0 0
@@ -1266,7 +1266,7 @@ a six of clubs is hidden here.~
 #10457
 five card playing clubs~
 a five of clubs~
-a five of clubs is hidden here.~
+A five of clubs is hidden here.~
 ~
 4 28 3 10 7 0 1024 16385 0 37883812 0
 20 1 1 22 0 0 0 0
@@ -1274,7 +1274,7 @@ a five of clubs is hidden here.~
 #10458
 four card playing clubs~
 a four of clubs~
-a four of clubs is hidden here.~
+A four of clubs is hidden here.~
 ~
 4 28 3 10 7 0 1024 16385 0 37883812 0
 20 1 1 23 0 0 0 0
@@ -1282,7 +1282,7 @@ a four of clubs is hidden here.~
 #10459
 three card playing clubs~
 a three of clubs~
-a three of clubs is hidden here.~
+A three of clubs is hidden here.~
 ~
 4 28 3 10 7 0 1024 16385 0 37883812 0
 20 1 1 27 0 0 0 0
@@ -1290,7 +1290,7 @@ a three of clubs is hidden here.~
 #10460
 two card playing clubs~
 a two of clubs~
-a two of clubs is hidden here.~
+A two of clubs is hidden here.~
 ~
 4 28 3 10 7 0 1024 16385 0 37883812 0
 20 1 1 28 0 0 0 0
@@ -1306,7 +1306,7 @@ an ace of hearts is hidden here.~
 #10462
 king card playing hearts~
 a king of hearts~
-a king of hearts is hidden here.~
+A king of hearts is hidden here.~
 ~
 4 28 3 10 7 0 1024 16385 0 37883812 0
 20 1 1 35 0 0 0 0
@@ -1314,7 +1314,7 @@ a king of hearts is hidden here.~
 #10463
 queen card playing hearts~
 a queen of hearts~
-a queen of hearts is hidden here.~
+A queen of hearts is hidden here.~
 ~
 4 28 3 10 7 0 1024 16385 0 37883812 0
 20 1 1 37 0 0 0 0
@@ -1322,7 +1322,7 @@ a queen of hearts is hidden here.~
 #10464
 jack card playing hearts~
 a jack of hearts~
-a jack of hearts is hidden here.~
+A jack of hearts is hidden here.~
 ~
 4 28 3 10 7 0 1024 16385 0 37883812 0
 20 1 1 44 0 0 0 0
@@ -1330,7 +1330,7 @@ a jack of hearts is hidden here.~
 #10465
 ten card playing hearts~
 a ten of hearts~
-a ten of hearts is hidden here.~
+A ten of hearts is hidden here.~
 ~
 4 28 3 10 7 0 1024 16385 0 37883812 0
 20 1 1 62 0 0 0 0
@@ -1338,7 +1338,7 @@ a ten of hearts is hidden here.~
 #10466
 nine card playing hearts~
 a nine of hearts~
-a nine of hearts is hidden here.~
+A nine of hearts is hidden here.~
 ~
 4 28 3 10 7 0 1024 16385 0 37883812 0
 20 1 1 63 0 0 0 0
@@ -1354,7 +1354,7 @@ an eight of hearts is hidden here.~
 #10468
 seven card playing hearts~
 a seven of hearts~
-a seven of hearts is hidden here.~
+A seven of hearts is hidden here.~
 ~
 4 28 3 10 7 0 1024 16385 0 37883812 0
 20 1 1 42 0 0 0 0
@@ -1362,7 +1362,7 @@ a seven of hearts is hidden here.~
 #10469
 six card playing hearts~
 a six of hearts~
-a six of hearts is hidden here.~
+A six of hearts is hidden here.~
 ~
 4 28 3 10 7 0 1024 16385 0 37883812 0
 20 1 1 29 0 0 0 0
@@ -1370,7 +1370,7 @@ a six of hearts is hidden here.~
 #10470
 five card playing hearts~
 a five of hearts~
-a five of hearts is hidden here.~
+A five of hearts is hidden here.~
 ~
 4 28 3 10 7 0 1024 16385 0 37883812 0
 20 1 1 22 0 0 0 0
@@ -1378,7 +1378,7 @@ a five of hearts is hidden here.~
 #10471
 four card playing hearts~
 a four of hearts~
-a four of hearts is hidden here.~
+A four of hearts is hidden here.~
 ~
 4 28 3 10 7 0 1024 16385 0 37883812 0
 20 1 1 23 0 0 0 0
@@ -1386,7 +1386,7 @@ a four of hearts is hidden here.~
 #10472
 three card playing hearts~
 a three of hearts~
-a three of hearts is hidden here.~
+A three of hearts is hidden here.~
 ~
 4 28 3 10 7 0 1024 16385 0 37883812 0
 20 1 1 27 0 0 0 0
@@ -1394,7 +1394,7 @@ a three of hearts is hidden here.~
 #10473
 two card playing hearts~
 a two of hearts~
-a two of hearts is hidden here.~
+A two of hearts is hidden here.~
 ~
 4 28 3 10 7 0 1024 16385 0 37883812 0
 20 1 1 28 0 0 0 0
@@ -1410,7 +1410,7 @@ an ace of diamonds is hidden here.~
 #10475
 king card playing diamonds~
 a king of diamonds~
-a king of diamonds is hidden here.~
+A king of diamonds is hidden here.~
 ~
 4 28 3 10 7 0 1024 16385 0 37883812 0
 20 1 1 1 0 0 0 0
@@ -1418,7 +1418,7 @@ a king of diamonds is hidden here.~
 #10477
 jack card playing diamonds~
 a jack of diamonds~
-a jack of diamonds is hidden here.~
+A jack of diamonds is hidden here.~
 ~
 4 28 3 10 7 0 1024 16385 0 37883812 0
 20 1 1 4 0 0 0 0
@@ -1426,7 +1426,7 @@ a jack of diamonds is hidden here.~
 #10478
 ten card playing diamonds~
 a ten of diamonds~
-a ten of diamonds is hidden here.~
+A ten of diamonds is hidden here.~
 ~
 4 28 3 10 7 0 1024 16385 0 37883812 0
 20 1 1 13 0 0 0 0
@@ -1434,7 +1434,7 @@ a ten of diamonds is hidden here.~
 #10479
 nine card playing diamonds~
 a nine of diamonds~
-a nine of diamonds is hidden here.~
+A nine of diamonds is hidden here.~
 ~
 4 28 3 10 7 0 1024 16385 0 37883812 0
 20 1 1 14 0 0 0 0
@@ -1450,7 +1450,7 @@ an eight of diamonds is hidden here.~
 #10481
 seven card playing diamonds~
 a seven of diamonds~
-a seven of diamonds is hidden here.~
+A seven of diamonds is hidden here.~
 ~
 4 28 3 10 7 0 1024 16385 0 37883812 0
 20 1 1 16 0 0 0 0
@@ -1458,7 +1458,7 @@ a seven of diamonds is hidden here.~
 #10482
 six card playing diamonds~
 a six of diamonds~
-a six of diamonds is hidden here.~
+A six of diamonds is hidden here.~
 ~
 4 28 3 10 7 0 1024 16385 0 37883812 0
 20 1 1 29 0 0 0 0
@@ -1466,7 +1466,7 @@ a six of diamonds is hidden here.~
 #10483
 five card playing diamonds~
 a five of diamonds~
-a five of diamonds is hidden here.~
+A five of diamonds is hidden here.~
 ~
 4 28 3 10 7 0 1024 16385 0 37883812 0
 20 1 1 22 0 0 0 0
@@ -1474,7 +1474,7 @@ a five of diamonds is hidden here.~
 #10484
 four card playing diamonds~
 a four of diamonds~
-a four of diamonds is hidden here.~
+A four of diamonds is hidden here.~
 ~
 4 28 3 10 7 0 1024 16385 0 37883812 0
 20 1 1 23 0 0 0 0
@@ -1482,7 +1482,7 @@ a four of diamonds is hidden here.~
 #10485
 three card playing diamonds~
 a three of diamonds~
-a three of diamonds is hidden here.~
+A three of diamonds is hidden here.~
 ~
 4 28 3 10 7 0 1024 16385 0 37883812 0
 20 1 1 27 0 0 0 0
@@ -1490,15 +1490,15 @@ a three of diamonds is hidden here.~
 #10486
 two card playing diamonds~
 a two of diamonds~
-a two of diamonds is hidden here.~
+A two of diamonds is hidden here.~
 ~
 4 28 3 10 7 0 1024 16385 0 37883812 0
 20 1 1 28 0 0 0 0
 1 10 100
 #10487
 potion light green _id_~
-&+ga light green potion&n~
-a light green potion is laying here.~
+&+Ga light green potion&n~
+A &+Glight green potion&n lies here.~
 ~
 10 7 2 4 7 0 0 1 0 0 0
 15 1 -1 -1 0 0 0 0
@@ -1514,7 +1514,7 @@ _id_short_~
 #10488
 potion light blue _id_~
 &+ca light blue potion&n~
-a light blue potion is laying here.~
+A &+clight blue potion&n lies here.~
 ~
 10 7 2 4 7 0 0 1 0 0 0
 15 1 3 -1 0 0 0 0
@@ -1529,8 +1529,8 @@ _id_short_~
 ~
 #10489
 potion light red _id_~
-&+ra light red potion&n~
-a light red potion is laying here.~
+&+Ra light red potion&n~
+A &+Rlight red potion&N lies here.~
 ~
 10 7 2 4 7 0 0 1 0 0 0
 15 1 3 16 0 0 0 0
@@ -1544,9 +1544,9 @@ _id_short_~
 &+ra potion of blessed healing protection&n
 ~
 #10490
-potion light orange~
-&+ya light orange potion&n~
-a light orange potion is laying here.~
+potion orange~
+&+yan orange potion&n~
+An &+yorange potion&n lies here.~
 ~
 10 7 2 4 7 0 0 1 0 0 0
 15 15 -1 -1 0 0 0 0
@@ -1554,7 +1554,7 @@ a light orange potion is laying here.~
 #10491
 potion light brown~
 &+ya light brown potion&n~
-a light brown potion is laying here.~
+A &+ylight brown potion&n lies here.~
 ~
 10 7 2 4 7 0 0 1 0 0 0
 15 15 1 3 0 0 0 0
@@ -1562,15 +1562,15 @@ a light brown potion is laying here.~
 #10492
 potion light yellow~
 &+Ya light yellow potion&n~
-a light yellow potion is laying here.~
+A &+Ylight yellow potion&n lies here.~
 ~
 10 7 2 4 7 0 0 1 0 0 0
 15 57 -1 -1 0 0 0 0
 1 700 100
 #10493
 potion blur clear~
-&+La blur clear potion&n~
-a blur clear potion is laying here.~
+&+La blurry clear potion&n~
+A &+Lblurry clear potion&n lies here.~
 ~
 10 7 2 4 7 0 0 1 0 0 0
 15 41 56 83 0 0 0 0
@@ -1578,7 +1578,7 @@ a blur clear potion is laying here.~
 #10494
 potion warrior~
 a warrior's potion~
-a warrior's potion is dropped here.~
+A warrior's potion is dropped here.~
 ~
 10 7 2 4 7 0 0 1 0 0 0
 50 36 61 56 0 0 0 0
@@ -1601,8 +1601,8 @@ _id_short_~
 ~
 #10496
 brown chair~
-a brown chair~
-a plain brown chair sits here.~
+&+ya brown chair&n~
+A &+yplain brown chair&n sits here.~
 ~
 12 6 0 0 7 0 0 0 0 0 0
 0 0 0 0 0 0 0 0
@@ -1614,7 +1614,7 @@ This wooden chair look uncomfortable.
 #10497
 operating table~
 an operating table~
-a long operating table is here.~
+A long operating table is here.~
 ~
 12 6 0 0 7 0 0 0 0 0 0
 0 0 0 0 0 0 0 0
@@ -1626,7 +1626,7 @@ This long wooden tables has trovels for blood and fluid drainage.
 #10498
 large feather bed~
 a large feather bed~
-a large feather bed rest comfortable on the floor.~
+A large feather bed rest comfortable on the floor.~
 ~
 12 6 1 1 7 0 0 0 0 0 0
 0 0 0 0 0 0 0 0

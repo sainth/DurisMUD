@@ -162,7 +162,7 @@ signpost sign~
 #34510
 longsword rusted~
 a rusted longsword~
-a rusted longsword rests here.~
+A rusted longsword rests here.~
 ~
 5 16 3 0 14 0 1024 8193 0 87572635 0
 5 2 4 3 0 0 0 0
@@ -174,7 +174,7 @@ A
 #34511
 mace rusted~
 a rusted mace~
-a rusted mace has been left behind.~
+A rusted mace has been left behind.~
 ~
 5 16 3 0 14 0 0 8193 0 4173708868 0
 6 2 4 6 0 0 0 0
@@ -186,7 +186,7 @@ A
 #34512
 rusted battleaxe axe~
 a rusted battleaxe~
-a rusted battleaxe gathers dust.~
+A rusted battleaxe gathers dust here.~
 ~
 5 16 3 0 14 0 4195328 8193 0 87572507 0
 1 5 5 3 0 0 0 0
@@ -216,7 +216,7 @@ A
 #34514
 totem alchemist alchemists~
 &+man &+galchemist's &+mtotem~
-a strange &+mtotem&n has been left here.~
+A strange &+mtotem&n has been left here.~
 ~
 34 10 2 0 12 0 5120 16385 64 256 0
 60 0 0 0 0 0 0 0
@@ -233,7 +233,7 @@ A
 #34515
 bone sleeves~
 &+Wb&no&+Wn&Ne &+Wsl&ne&+Wev&ne&+Ws~
-a pair of &+Wbone sleeves&n rest here.~
+A pair of &+Wbone sleeves&n rest here.~
 ~
 9 10 3 0 14 0 0 257 64 0 0
 12 0 0 4 0 0 0 0
@@ -267,7 +267,7 @@ A
 #34517
 rusted dagger~
 a rusted dagger~
-a rusted dagger sits here rotting away.~
+A rusted dagger sits here rotting away.~
 ~
 5 16 3 0 14 0 1024 8193 0 96071707 0
 2 2 4 11 0 0 0 0
@@ -316,7 +316,7 @@ A
 #34520
 longsword rusted~
 a rusted longsword~
-a rusted longsword rests here.~
+A rusted longsword rests here.~
 ~
 5 16 3 0 14 0 1024 8193 0 87572507 0
 5 2 4 3 0 0 0 0
@@ -472,7 +472,7 @@ A
 #34529
 zombie skin patch~
 &na patch of &+Gzom&+ybie &nskin~
-a retched patch of &+Gzom&+ybie &nskin has been left here.~
+A retched patch of &+Gzom&+ybie &nskin has been left here.~
 ~
 9 2 2 0 14 0 5120 2097153 64 1024 0
 2 0 0 1 0 0 0 0
@@ -502,7 +502,7 @@ preserved his corpse much better than the prime material plane could have.
 #34531
 tattered scroll~
 a tattered scroll~
-a tattered scroll rests here.~
+A tattered scroll rests here.~
 ~
 13 29 3 0 2 0 8392704 1 0 0 0
 0 0 0 0 0 0 0 0
@@ -582,7 +582,7 @@ key portcullis~
 #34536
 castle gate key~
 &na &+Lcastle gate &nkey~
-a &+Lcastle gate &nkey has been left behind.~
+A &+Lcastle gate &nkey has been left behind.~
 ~
 18 22 3 0 14 0 8388608 8388609 1 0 0
 0 100 0 0 0 0 0 0

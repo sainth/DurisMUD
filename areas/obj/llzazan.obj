@@ -505,7 +505,7 @@ of a lucky svirfneblin.
 #36234
 backpack bp skin~
 &+ya svrifneblinskin backpack&N~
-a big piece of skin has been made into a backpack.~
+A big piece of skin has been made into a backpack.~
 ~
 15 12 3 8 7 0 0 17409 0 0 0
 85 1 0 100 0 0 0 0
@@ -555,7 +555,7 @@ A svirfneblin died and had his skin used to craft these marvelous sleeves.
 #36238
 silk sleeves~
 &+Wsome silk sleeves&N~
-a pair of nicely made silk sleeves is here.~
+A pair of nicely-made &+Wsilk sleeves&N is here.~
 ~
 9 3 3 8 7 0 0 257 0 0 0
 3 8 1 3 0 0 0 0
@@ -585,7 +585,7 @@ A
 #36240
 silk leggings~
 &+Wsome silk leggings&N~
-a pair of nicely made silk leggings is here.~
+A pair of nicely made &+Wsilk leggings&n lies here.~
 ~
 9 3 3 8 7 0 0 33 0 0 0
 3 5 1 3 0 0 0 0

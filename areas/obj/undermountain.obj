@@ -411,7 +411,7 @@ The &+Wcorpse of a warrior&N lies within a coffin here.~
 #92039
 candlestick golden~
 a &+Ygolden candlestick&N~
-A &+Ygolden candlestick&N lies here collecting dust,~
+A &+Ygolden candlestick&N lies here collecting dust.~
 ~
 8 24 2 0 7 0 0 16385 0 0 0
 0 0 0 0 0 0 0 0
@@ -910,7 +910,7 @@ A &+Lpirates's cutlass&N lies on the ground.~
 #92089
 spear long magnificent~
 a &+bmagnificent long spear&N~
-a &+bmagnificent long spear&N lies on the ground here.~
+A &+bmagnificent long spear&N lies on the ground here.~
 ~
 5 6 4 0 7 0 6358016 8193 64 87572571 0
 8 3 6 11 0 0 0 0

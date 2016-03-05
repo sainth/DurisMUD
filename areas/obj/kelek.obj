@@ -75,8 +75,8 @@ A
 19 2
 #87956
 leather armor black suit~
-a &+Lsuit of black&N &+yleather armor&n lined with &+cmetal&n~
-a suit of &+yleather armor&n is crumpled here.~
+a &+Lsuit of black &+yleather armor&n lined with &+cmetal&n~
+A &+Lsuit of black &+yleather armor&n is crumpled here.~
 ~
 9 14 3 0 7 0 1024 9 0 53248 0
 15 3 0 0 0 0 0 0
@@ -88,7 +88,7 @@ A
 #87957
 wickedly dagger dread~
 a &+Lwickedly&n curved dagger named '&+LD&+rr&+We&+ra&+Ld&n'~
-a mean looking dagger blends in with the rocks around it.~
+A mean looking dagger blends in with the rocks around it.~
 ~
 5 18 3 0 10 0 1088 8193 0 53248 0
 2 2 4 11 0 0 0 0

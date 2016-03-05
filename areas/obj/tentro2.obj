@@ -520,7 +520,7 @@ well made and enchanted by a powerful sorcerer.&N
 #69034
 book~
 a &+ggreen&N book&N~
-a book rests here obviously forgotten.~
+A &+ggreen&N book rests here obviously forgotten.~
 ~
 13 29 3 0 14 0 4104 16385 0 0 0
 0 0 0 0 0 0 0 0
@@ -842,7 +842,7 @@ A
 #69053
 head~
 &Nthe &+rhead&N of the &+Csurgeon&N~
-a severed head lies upon the ground.~
+A severed head lies upon the ground.~
 ~
 8 2 3 0 9 0 8458280 16385 0 0 0
 0 0 0 0 0 0 0 0

@@ -136,7 +136,7 @@ bolt cloth~
 #29410
 web spider silk~
 &+Lspider&n &+Ws&+Ci&+Wl&+Ck&n~
-a small piece of &+Lspider&n &+Ws&+Ci&+Wl&+Ck&n lies here.~
+A small piece of &+Lspider&n &+Ws&+Ci&+Wl&+Ck&n lies here.~
 ~
 9 3 3 0 7 0 4096 17 32768 0 0
 -10 0 0 300 0 0 0 0
@@ -190,7 +190,7 @@ cloth~
 #29414
 scrap glass jagged~
 a &+cscrap&n of &+Cglass&n~
-a &+cjagged&n piece of &+Cglass&n lies here.~
+A &+cjagged&n piece of &+Cglass&n lies here.~
 ~
 8 7 2 1 7 0 4096 1 32768 1 0
 0 0 0 0 0 0 0 0
@@ -265,7 +265,7 @@ A
 #29419
 pretty doll~
 a &+mpretty&n &+bdoll&n~
-A simple &+mdoll&n with a pretty &+Bblue&n dress~
+A simple &+mdoll&n with a pretty &+Bblue&n dress.~
 ~
 8 3 3 0 7 0 4352 4210689 32768 0 0
 0 0 0 0 0 0 0 0
@@ -590,7 +590,7 @@ wet potion~
 #29447
 wooden toy box toybox~
 a &+yw&+Yoo&+yden&n &+gt&+Go&+gy&n &+gb&+Go&+gx&n~
-a small &+yw&+Yoo&+yden&n &+gt&+Go&+gy&n &+gb&+Go&+gx&n with a lid.~
+A small &+yw&+Yoo&+yden&n &+gt&+Go&+gy&n &+gb&+Go&+gx&n with a lid is here.~
 ~
 15 6 2 0 13 0 8192 16385 0 0 0
 150 1 0 150 0 0 0 0
@@ -893,7 +893,7 @@ A &+cceramic&n mask painted like a &+Mfa&+mer&+Mie&n lies here.~
 #29479
 flute multi-colored harmony~
 &+Rmu&+ylt&+Yi-c&+gol&+bor&+med&n &+Cglass&n &+cflute&n of &+Yharmony&n~
-a &+Rmu&+ylt&+Yi-c&+gol&+bor&+med&n &+Cglass&n &+cflute&n of &+Yharmony&n lies here.~
+A &+Rmu&+ylt&+Yi-c&+gol&+bor&+med&n &+Cglass&n &+cflute&n of &+Yharmony&n lies here.~
 ~
 32 7 3 0 13 0 3153920 16385 64 0 0
 184 50 0 10 0 0 0 0

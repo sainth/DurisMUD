@@ -1,6 +1,6 @@
 #4001
 potion purple~
-&+ma purple potion&+w~
+&+ma purple potion&n~
 A purple potion has been dropped here.~
 ~
 10 7 2 4 7 0 0 16385 0 0 0
@@ -29,7 +29,7 @@ A
 5 8
 #4003
 robe red flowing~
-&+ra flowing red robe&+w~
+&+ra flowing red robe&n~
 A red robe lies strewn on the ground here.~
 ~
 9 3 3 8 7 0 1024 9 0 4197892 0
@@ -58,8 +58,8 @@ This is a small key carved out of pure stone rock.
 ~
 #4005
 scepter bronze~
-&+ya bronze scepter&+w~
-a bronze scepter lies on the ground here.~
+&+ya bronze scepter&n~
+A &+ybronze scepter&n lies on the ground here.~
 ~
 5 20 3 0 7 0 0 8193 32768 4173708804 0
 10 2 5 7 0 0 0 0
@@ -91,8 +91,8 @@ A
 19 3
 #4007
 potion purple~
-&+ma purple potion&+w~
-a purple potion lays on the ground here.~
+&+ma purple potion&n~
+A &+mpurple potion&n lies on the ground here.~
 ~
 10 7 2 4 7 0 0 16385 0 0 0
 17 33 1 -1 0 0 0 0
@@ -118,7 +118,7 @@ looking.
 #4009
 sack moldy~
 a moldy sack~
-a moldy sack lays in the corner here smelling wreched.~
+A moldy sack lays in the corner here smelling wreched.~
 ~
 15 3 3 10 7 0 0 1 0 0 0
 10 0 -1 100 0 0 0 0
@@ -185,7 +185,7 @@ stubby legs.  There is elegant trim around its edges.
 ~
 #4014
 gloves warriors warrior's pair~
-&+ya pair of warrior's gloves&+w~
+&+ya pair of warrior's gloves&n~
 Some gloves that appear that they might be useful are here.~
 ~
 9 13 3 6 7 0 1024 129 0 87572571 0

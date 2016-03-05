@@ -192,7 +192,7 @@ A
 #22
 symmetry light sword uniform~
 &+W'&+cSymmetry&+W', &+gthe &+Guniform &+gsword of &+Wlight&N~
-a huge blade softly emanates power.~
+A huge blade softly emanates power.~
 ~
 5 1 3 0 15 0 306257920 8193 64 0 0
 13 8 5 3 0 0 0 0
@@ -2003,7 +2003,7 @@ A broken javelin lies here.~
 #159
 broken spear~
 a broken spear~
-a broken spear lies here.~
+A broken spear lies here.~
 ~
 12 16 0 0 7 0 0 1 0 0 0
 0 0 0 0 0 0 0 0
@@ -2270,7 +2270,7 @@ manual skills book~
 #188
 cyan potion~
 &+ca cyan potion&n~
-a small bottle of &+ccyan&n liquid sits here.~
+A small bottle of &+ccyan&n liquid sits here.~
 ~
 10 7 2 4 7 0 0 16385 0 0 0
 10 43 0 0 0 0 0 0
@@ -2278,7 +2278,7 @@ a small bottle of &+ccyan&n liquid sits here.~
 #189
 vial anti-venom small~
 a small vial of &+canti-venom&n~
-a small bottle of &+ccyan&n liquid sits here.~
+A small bottle of &+ccyan&n liquid sits here.~
 ~
 10 7 2 4 7 0 134217728 16385 0 0 0
 50 130 0 0 0 0 0 0
@@ -7568,7 +7568,7 @@ potion bottles~
 #850
 potion greater living stone~
 a potion of &+rgreater&+L living&+r stone&n~
-a potion of &+rgreater&+L living&+r stone&n lies here~
+A potion of &+rgreater&+L living&+r stone&n lies here.~
 ~
 10 15 3 0 7 0 0 16385 0 0 0
 0 425 0 0 0 0 0 0
@@ -7581,7 +7581,7 @@ potion greater living stone~
 #851
 smelly potion gaseous cloud~
 a &+ysmelly&n potion of &+ggaseous &+Gcloud&n~
-a &+ysmelly&n potion of &+ggaseous&+G cloud&n lies here~
+A &+ysmelly&n potion of &+ggaseous&+G cloud&n lies here.~
 ~
 10 15 3 0 7 0 0 16385 0 0 0
 0 366 0 0 0 0 0 0
@@ -7593,7 +7593,7 @@ smelly potion gaseous cloud~
 #852
 potion green disinitegration~
 a &+Ggreen&n potion of &+Gdisinitegration&n~
-a &+Ggreen&n potion of &+Gdisinitegration&n lies here.~
+A &+Ggreen&n potion of &+Gdisinitegration&n lies here.~
 ~
 10 15 3 0 7 0 0 16385 0 0 0
 0 112 0 0 0 0 0 0
@@ -7624,7 +7624,7 @@ potion bigby's fist~
 #854
 potion mossy entanglement~
 a &+Gmossy&n potion of &+gentanglement&n~
-a &+Gmossy&n potion of &+gentanglement&n lies here.~
+A &+Gmossy&n potion of &+gentanglement&n lies here.~
 ~
 10 15 3 0 7 0 16 16385 0 0 0
 0 139 0 0 0 0 0 0
@@ -7648,7 +7648,7 @@ potion negative deathly blast~
 #856
 potion flight~
 a potion of &+Wflight&n~
-a potion of &+Wflight&n lies here.~
+A potion of &+Wflight&n lies here.~
 ~
 10 15 3 0 7 0 8388608 16385 0 0 0
 0 84 0 0 0 0 0 0
@@ -7672,7 +7672,7 @@ potion fireball~
 #858
 potion feeblemind feeble mind~
 a potion of &+Rfeeblemind&n~
-a potion of &+Rfeeblemind&n lies here.~
+A potion of &+Rfeeblemind&n lies here.~
 ~
 10 15 3 0 7 0 0 16385 0 0 0
 0 126 0 0 0 0 0 0
@@ -7696,7 +7696,7 @@ A &+rfir&+Rey&n potion full of what appears to be molten &+rla&+Rva&n.
 #860
 potion chain lightning~
 a potion of &+bchain&+B lightning&n~
-a potion of &+bchain&+B lightning lies here.~
+A potion of &+bchain&+B lightning lies here.~
 ~
 10 15 3 0 7 0 0 16385 0 0 0
 0 62 0 0 0 0 0 0
@@ -7708,7 +7708,7 @@ This magical potion &+Ysparkles with electricty&n. It appears as though a small 
 #861
 potion living stone~
 a potion of &+Lliving &+rstone&n~
-a potion of &+Lliving &+rstone&n lies here.~
+A potion of &+Lliving &+rstone&n lies here.~
 ~
 10 15 3 0 7 0 0 16385 0 0 0
 0 398 0 0 0 0 0 0
@@ -7720,7 +7720,7 @@ potion living stone~
 #862
 potion cone cold~
 a potion of &+bcone of &+Bcold&n~
-a potion of &+bcone of&+B cold&n lies here.~
+A potion of &+bcone of&+B cold&n lies here.~
 ~
 10 7 3 0 7 0 0 16385 0 0 0
 0 10 0 0 0 0 0 0
@@ -7732,7 +7732,7 @@ potion cone cold~
 #863
 potion slowness~
 a potion of &+Wsloo&nowness~
-a potion of &+Wsloo&nowness lies here.~
+A potion of &+Wsloo&nowness lies here.~
 ~
 10 15 3 0 7 0 0 16385 0 0 0
 0 102 0 0 0 0 0 0
@@ -7744,7 +7744,7 @@ potion slowness~
 #864
 potion lightning bolt~
 a potion of &+blightning&n~
-a potion of &+blightning &+Bbolt&n lies here.~
+A potion of &+blightning &+Bbolt&n lies here.~
 ~
 10 15 3 0 7 0 0 16385 0 0 0
 0 30 0 0 0 0 0 0
@@ -7756,7 +7756,7 @@ potion lightning bolt~
 #865
 potion dark wither withering~
 a &+Ldark&n potion of &+Lwithering&n~
-a &+Ldark&n potion of &+Lwithering&n lies here.~
+A &+Ldark&n potion of &+Lwithering&n lies here.~
 ~
 10 15 3 0 7 0 0 16385 0 0 0
 0 103 0 0 0 0 0 0
@@ -7768,7 +7768,7 @@ potion dark wither withering~
 #866
 potion dispel magic anti-magic anti magic~
 a potion of &+Wanti-magic&n~
-a potion of &+Wdispel magic&n lies here.~
+A potion of &+Wdispel magic&n lies here.~
 ~
 10 15 3 0 7 0 0 16385 0 0 0
 0 93 0 0 0 0 0 0
@@ -7780,7 +7780,7 @@ potion dispel magic anti-magic anti magic~
 #867
 potion faerie fire~
 a potion of &+Mfaerie fire&n~
-a potion of &+Mfaerie fire&n lies here.~
+A potion of &+Mfaerie fire&n lies here.~
 ~
 10 15 3 0 7 0 0 16385 0 0 0
 0 117 0 0 0 0 0 0
@@ -7804,7 +7804,7 @@ potion chill touch~
 #869
 potion flame burst~
 a potion of &+rflame &+Rburst&n~
-a potion of &+rflame&+R burst&n lies here.~
+A potion of &+rflame&+R burst&n lies here.~
 ~
 10 15 3 0 7 0 0 16385 0 0 0
 0 195 0 0 0 0 0 0
@@ -7816,7 +7816,7 @@ potion flame burst~
 #870
 potion ice missile~
 a potion of &+Cice missile&n~
-a potion of &+Cice missle&n lies here.~
+A potion of &+Cice missle&n lies here.~
 ~
 10 15 3 0 7 0 0 16385 0 0 0
 0 191 0 0 0 0 0 0
@@ -7828,7 +7828,7 @@ potion ice missile~
 #871
 potion magic missile~
 a potion of &+Ymagic missile&n~
-a potion of &+Ymagic missile&n lies here.~
+A potion of &+Ymagic missile&n lies here.~
 ~
 10 15 3 0 7 0 0 16385 0 0 0
 0 32 0 0 0 0 0 0
@@ -9446,7 +9446,7 @@ chest~
 #1276
 track~
 a track~
-A track~
+A track is here.~
 ~
 13 15 3 0 5 0 106498 0 0 0 0
 0 0 0 0 0 0 0 0

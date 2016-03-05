@@ -889,7 +889,7 @@ A
 #11610
 honed dragonbone dragon bone sword db~
 a honed &+gdragon&+Wbone&N sword~
-a &+Wgleaming white&N blade is on the ground here.~
+A &+Wgleaming white&N blade is on the ground here.~
 ~
 5 10 3 10 7 0 4195328 8193 0 87572571 0
 5 1 6 3 0 0 0 0
@@ -901,7 +901,7 @@ A
 #11611
 polished dragonbone dragon bone bracelet~
 a polished &+gdragon&+Wbone&N bracelet~
-a &+Wgleaming white&N bracelet is on the ground here.~
+A &+Wgleaming white&N bracelet is on the ground here.~
 ~
 9 10 3 3 7 0 1024 4097 0 87572507 0
 5 11 24 3 0 0 0 0
@@ -913,7 +913,7 @@ A
 #11613
 egg alligator large~
 a large &+Walligator egg&N~
-a large &+Walligator egg&N is on the ground here.~
+A large &+Walligator egg&N is on the ground here.~
 ~
 19 10 2 2 7 0 0 1 0 0 0
 12 0 0 0 0 0 0 0
@@ -921,7 +921,7 @@ a large &+Walligator egg&N is on the ground here.~
 #11614
 egg alligator large~
 a large &+Walligator egg&N~
-a large &+Walligator egg&N is on the ground here.~
+A large &+Walligator egg&N is on the ground here.~
 ~
 19 10 2 2 7 0 0 1 0 0 0
 12 0 0 0 0 0 0 0
@@ -929,7 +929,7 @@ a large &+Walligator egg&N is on the ground here.~
 #11615
 egg alligator large~
 a large &+Walligator egg&N~
-a large &+Walligator egg&N is on the ground here.~
+A large &+Walligator egg&N is on the ground here.~
 ~
 19 10 2 2 7 0 0 1 0 0 0
 12 0 0 0 0 0 0 0
@@ -937,7 +937,7 @@ a large &+Walligator egg&N is on the ground here.~
 #11616
 egg alligator large~
 a large &+Walligator egg&N~
-a large &+Walligator egg&N is on the ground here.~
+A large &+Walligator egg&N is on the ground here.~
 ~
 19 10 2 2 7 0 0 1 0 0 0
 12 0 0 0 0 0 0 0
@@ -945,7 +945,7 @@ a large &+Walligator egg&N is on the ground here.~
 #11617
 egg alligator large~
 a large &+Walligator egg&N~
-a large &+Walligator egg&N is on the ground here.~
+A large &+Walligator egg&N is on the ground here.~
 ~
 19 10 2 2 7 0 0 1 0 0 0
 12 0 0 0 0 0 0 0
@@ -981,7 +981,7 @@ A &+rtrolls head&N on a &+ystick&N warns of danger.&N~
 #11621
 alligator tail~
 &+gan alligator tail&N~
-a severed &+galligator tail&N is on the ground here.~
+A severed &+galligator tail&N is on the ground here.~
 ~
 5 2 3 0 7 0 4194304 8193 0 0 0
 10 1 10 3 0 0 0 0

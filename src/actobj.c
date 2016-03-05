@@ -1213,22 +1213,7 @@ void do_junk(P_char ch, char *argument, int cmd)
           {
             sprintf(Gbuf3, "%s dissolves with a blinding light.\r\n", OBJ_SHORT(tmp_object));
             // Capitalize the first non-ansi char.
-            if( *Gbuf3 != '&' )
-            {
-              CAP( Gbuf3 );
-            }
-            else if( LOWER(*(Gbuf3+1)) == 'n' )
-            {
-              CAP( (Gbuf3+2) );
-            }
-            else if( *(Gbuf3+1) == '-' || *(Gbuf3+1) == '+' )
-            {
-              CAP( (Gbuf3+3) );
-            }
-            else if( *(Gbuf3+1) == '=' )
-            {
-              CAP( (Gbuf3+4) );
-            }
+            CAP( Gbuf3 );
 
             for (t_ch = world[ch->in_room].people; t_ch; t_ch = t_ch->next_in_room)
             {
@@ -1278,7 +1263,7 @@ void do_junk(P_char ch, char *argument, int cmd)
         {
           if (!IS_SET(tmp_object->extra_flags, ITEM_TRANSIENT))
           {
-            sprintf(Gbuf3, "You junk a %s.\r\n", FirstWord(tmp_object->name));
+            sprintf( Gbuf3, "You junk %s.\r\n", OBJ_SHORT(tmp_object) );
             send_to_char(Gbuf3, ch);
             act("$n junks $p.", 1, ch, tmp_object, 0, TO_ROOM);
             extract_obj(tmp_object, TRUE); // Just in case someone enables junking artis.
@@ -1287,7 +1272,8 @@ void do_junk(P_char ch, char *argument, int cmd)
           }
           else
           {
-            sprintf(Gbuf3, "The %s dissolves with a blinding light.\r\n", FirstWord(tmp_object->name));
+            sprintf( Gbuf3, "%s dissolves with a blinding light.\r\n", OBJ_SHORT(tmp_object) );
+            CAP(Gbuf3);
             for( t_ch = world[ch->in_room].people; t_ch; t_ch = t_ch->next_in_room )
             {
               if (CAN_SEE_OBJ(t_ch, tmp_object))

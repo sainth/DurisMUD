@@ -106,7 +106,7 @@ A small bag collects among the rubble here.~
 #75508
 warrior platemail shining suit~
 a &+Ys&Nh&+Yi&Nn&+Yi&Nn&+Yg&N suit of &+Wwarrior's platemail&N~
-a pile of &+Ys&Nh&+Yi&Nn&+Yi&Nn&+Yg&N plates lay here.~
+A pile of &+Ys&Nh&+Yi&Nn&+Yi&Nn&+Yg&N plates lay here.~
 ~
 9 16 3 25 7 0 271360 9 66 87572571 0
 22 0 0 4 0 0 0 0
@@ -837,7 +837,7 @@ small rhinestone~
 #75560
 shiny golden mask teka~
 a &+Yshiny golden&N mask of &+MTeka&N~
-&+Wa&N &+Yshiny golden&N &+Wmask of&N &+MTeka&N lies here~
+&+WA&N &+Yshiny golden&N &+Wmask of&N &+MTeka&N lies here.~
 ~
 9 24 3 3 7 0 8192 262145 66 0 0
 10 0 0 4 0 0 0 0
@@ -854,7 +854,7 @@ A
 #75561
 flaming mace ruzdo~
 a &+rflaming mace&N of the &+gRuzdo&N~
-a &+rflaming mace&N of the&N &+gRuzdo&N leans against the wall here.~
+A &+rflaming mace&N of the&N &+gRuzdo&N leans against the wall here.~
 ~
 5 16 3 8 7 0 1024 8193 64 37883812 0
 6 4 3 6 0 21 40 30
@@ -879,7 +879,7 @@ A small key has been tossed here.~
 #75563
 tekan amulet dragon blood~
 a &+Mtekan&N amulet of &+rdragon's &+rblood&N~
-a &+Mtekan&N amulet of &+rdragon's blood&N pulses here.~
+A &+Mtekan&N amulet of &+rdragon's blood&N pulses here.~
 ~
 9 2 3 2 12 0 12288 5 64 0 0
 9 0 0 5 0 0 0 0
@@ -938,7 +938,7 @@ A
 #75567
 mysterious blue belt~
 &+Ba mysterious blue belt&N~
-A belt lies here~
+A &+Bblue&n belt lies here.~
 ~
 9 3 3 3 7 0 67122177 2049 2 33685984 0
 8 0 0 4 0 0 0 0

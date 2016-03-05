@@ -623,7 +623,7 @@ However, it is resistant to fire and also is slightly more compact.
 #75638
 scroll acid blast blasting~
 a &+yscroll&n of &+gacid &+Gblasting&n~
-A small scroll has been left here~
+A small scroll has been left here.~
 ~
 2 29 1 2 7 0 0 16385 64 0 0
 40 116 116 -1 0 0 0 0
@@ -683,7 +683,7 @@ A
 #75642
 ring signet rolart~
 &+Ythe signet ring of &+BRolart&n~
-A small ring has been left here~
+A small ring has been left here.~
 ~
 9 16 1 1 7 0 1024 3 64 85458945 0
 7 1 0 3 0 0 0 0
@@ -896,7 +896,7 @@ obsidian citadel.
 #75655
 shadow steel shadowsteel longsword~
 &+La shadow&+bsteel &+Llongsword&n~
-A longsword has been left here~
+A longsword has been left here.~
 ~
 5 16 3 10 7 0 0 8193 64 0 0
 5 4 2 3 0 0 0 0
