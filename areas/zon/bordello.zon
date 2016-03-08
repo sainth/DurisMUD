@@ -2,7 +2,7 @@
 &+mVella's Bordello&n~
 93668 2 0 15 25 1
 *
-* Zone edited with durisEdit v3.00
+* Zone edited with durisEdit v3.02
 *
 *
 D 0 93631 3 0 100 0 0 0
@@ -32,7 +32,7 @@ M 0 93605 1 93603 100 0 0 0        * Padh, the big black bouncer
 E 1 93608 1 9 100 0 0 0            *   a pair of studded black leather gloves
 M 0 93609 5 93610 100 0 0 0        * an exotic woman
 E 1 93604 6 7 100 0 0 0            *   some tight silk pants
-M 0 93611 3 93610 100 0 0 0        * a sleezy prostitute
+M 0 93611 3 93610 100 0 0 0        * a sleazy prostitute
 M 0 93610 7 93610 100 0 0 0        * a tired traveler
 M 0 93601 5 93610 100 0 0 0        * a red headed slut
 M 0 93602 7 93610 100 0 0 0        * a sex crazed prostitute
@@ -71,8 +71,8 @@ E 1 93602 8 8 100 0 0 0            *   a pair of rugged outdoors boots
 M 0 93601 5 93649 100 0 0 0        * a red headed slut
 M 0 93610 7 93650 100 0 0 0        * a tired traveler
 G 1 93607 5 0 100 0 0 0            *    a studded leather cloak
-M 0 93611 3 93650 100 0 0 0        * a sleezy prostitute
-M 0 93611 3 93651 100 0 0 0        * a sleezy prostitute
+M 0 93611 3 93650 100 0 0 0        * a sleazy prostitute
+M 0 93611 3 93651 100 0 0 0        * a sleazy prostitute
 M 0 93606 8 93651 100 0 0 0        * a grinning merchant
 E 1 93602 8 8 100 0 0 0            *   a pair of rugged outdoors boots
 M 0 93609 5 93652 100 0 0 0        * an exotic woman
