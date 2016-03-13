@@ -125,9 +125,9 @@ D3
 0 0 701273
 S
 #701669
-&+WZone Entrance&n~
+&+cZone Marker: ashrumite&n~
 ~
-7000 0 0 0
+7000 134250688 0 0
 D0
 ~
 ~
@@ -41231,9 +41231,9 @@ D3
 0 0 723238
 S
 #723240
-&+WZone Entrance&n~
+&+cZone Marker: underworld3&n~
 ~
-7000 0 0 0
+7000 134250688 0 0
 D0
 ~
 ~
@@ -82097,9 +82097,9 @@ D3
 0 0 746502
 S
 #746504
-&+LThe Massive Mountain Walls of the &+mUnderdark&n~
+&+cZone Marker: herders&n~
 ~
-7000 0 0 0
+7000 134250688 0 0
 D2
 ~
 ~
@@ -132416,9 +132416,9 @@ D3
 0 0 789747
 S
 #789749
-&+LDeep &+mCavern &+LWalls of the Lower &+mUnderdark&n~
+&+cZone Marker: shaughin2&n~
 ~
-7000 0 0 0
+7000 134250688 0 0
 D0
 ~
 ~
@@ -147020,9 +147020,9 @@ D3
 0 0 801737
 S
 #801740
-&+WZone Entrance&n~
+&+cZone Marker: connectorzones&n~
 ~
-7000 0 0 0
+7000 134250688 0 0
 D1
 ~
 ~
@@ -155541,9 +155541,9 @@ D3
 0 0 804520
 S
 #804649
-&+LThe &+mMassive &+LStone Walls of the &+mUnderdark&n~
+&+cZone Marker: shaughin&n~
 ~
-7000 0 0 0
+7000 134250688 0 0
 D0
 ~
 ~
@@ -157121,9 +157121,9 @@ D3
 0 0 805114
 S
 #805116
-&+LThe &+mMassive &+LStone Walls of the &+mUnderdark&n~
+&+cZone Marker: llzazan&n~
 ~
-7000 0 0 0
+7000 134250688 0 0
 D0
 ~
 ~
@@ -163542,9 +163542,9 @@ D3
 0 0 807491
 S
 #807499
-&+LA &+mLarge &+LCaverned Covered with &+mMoss &+Land &+mFungi&n~
+&+cZone Marker: bugger&n~
 ~
-7000 0 0 0
+7000 134250688 0 0
 D0
 ~
 ~
@@ -172076,9 +172076,9 @@ D3
 0 0 811243
 S
 #811245
-&+LTall &+mMountain &+LWalls Riddled with &+gClaw &+LMarks&n~
+&+cZone Marker: nexus_roper&n~
 ~
-7000 0 0 0
+7000 134250688 0 0
 D0
 ~
 ~
@@ -172262,7 +172262,7 @@ D3
 0 0 811306
 S
 #811308
-Worms~
+&+cZone Marker: worms&n~
 ~
 7000 134250688 0 0
 D0
@@ -177557,7 +177557,7 @@ D3
 0 0 812255
 S
 #812257
-Bog~
+&+cZone Marker: bogentok&n~
 ~
 7000 134250688 0 0
 D0
@@ -179860,7 +179860,7 @@ D3
 0 0 812655
 S
 #812662
-Bog~
+&+cZone Marker: bogentok&n~
 ~
 7000 134250688 0 0
 D0
@@ -183394,9 +183394,9 @@ D3
 0 0 813645
 S
 #813647
-&+LTall &+mMountain &+LWalls Riddled with &+gClaw &+LMarks&n~
+&+cZone Marker: hall&n~
 ~
-7000 0 0 0
+7000 134250688 0 0
 D0
 ~
 ~
@@ -183700,7 +183700,7 @@ D3
 0 0 813740
 S
 #813742
-&+LThe Marker for Library zone.&n~
+&+cZone Marker: library&n~
 ~
 7000 134250688 0 0
 D0
@@ -184993,9 +184993,9 @@ D3
 0 0 814262
 S
 #814264
-&+LThe &+mMassive &+LStone Walls of the &+mUnderdark&n~
+&+cZone Marker: pworm&n~
 ~
-7000 0 0 0
+7000 134250688 0 0
 D0
 ~
 ~
@@ -188424,9 +188424,9 @@ D3
 0 0 815959
 S
 #816079
-&+LThe Massive Cavern Walls of the &+mUrusi&n~
+&+cZone Marker: kobold&n~
 ~
-7000 0 0 0
+7000 134250688 0 0
 D0
 ~
 ~
@@ -192711,9 +192711,9 @@ D3
 0 0 817725
 S
 #817727
-&+cThe Ocean&n~
+&+cZone Marker: faang&n~
 ~
-7000 0 0 0
+7000 134250688 0 0
 D0
 ~
 ~
@@ -196699,9 +196699,9 @@ D3
 0 0 819328
 S
 #819330
-&+cThe Ocean&n~
+&+cZone Marker: clwcvrn&n~
 ~
-7000 0 0 0
+7000 134250688 0 0
 D0
 ~
 ~
@@ -201053,9 +201053,9 @@ D3
 0 0 820716
 S
 #820718
-&+cThe Ocean&n~
+&+cZone Marker: gibber&n~
 ~
-7000 0 0 0
+7000 134250688 0 0
 D0
 ~
 ~
@@ -208160,9 +208160,9 @@ D3
 0 0 822913
 S
 #822915
-Connector~
+&+cZone Marker: mountaintracks&n~
 ~
-7000 0 0 0
+7000 134250688 0 0
 D0
 ~
 ~
@@ -216478,9 +216478,9 @@ D3
 0 0 825312
 S
 #825314
-&+cThe Ocean&n~
+&+cZone Marker: underworld&n~
 ~
-7000 0 0 0
+7000 134250688 0 0
 D0
 ~
 ~
@@ -217327,9 +217327,9 @@ D3
 0 0 825437
 S
 #825439
-&+cThe Ocean&n~
+&+cZone Marker: underworld&n~
 ~
-7000 0 0 0
+7000 134250688 0 0
 D0
 ~
 ~
@@ -218108,9 +218108,9 @@ D3
 0 0 825715
 S
 #825717
-&+cThe Ocean&n~
+&+cZone Marker: underworld&n~
 ~
-7000 0 0 0
+7000 134250688 0 0
 D0
 ~
 ~
@@ -223535,9 +223535,9 @@ D3
 0 0 827695
 S
 #827697
-&+cThe Ocean&n~
+&+cZone Marker: ixarkon&n~
 ~
-7000 0 0 0
+7000 134250688 0 0
 D0
 ~
 ~
@@ -227088,9 +227088,9 @@ D3
 0 0 829276
 S
 #829278
-&+cThe Ocean&n~
+&+cZone Marker: flind&n~
 ~
-7000 0 0 0
+7000 134250688 0 0
 D0
 ~
 ~
@@ -232300,9 +232300,9 @@ D3
 0 0 831729
 S
 #831731
-&+cThe Ocean&n~
+&+cZone Marker: valdrak&n~
 ~
-7000 0 0 0
+7000 134250688 0 0
 D0
 ~
 ~
@@ -235355,9 +235355,9 @@ D3
 0 0 832548
 S
 #832711
-&+LA &+mNarrow &+LPath Leading to a &+gVillage&n~
+&+cZone Marker: pworm&n~
 ~
-7000 0 0 0
+7000 134250688 0 0
 D0
 ~
 ~
@@ -236008,9 +236008,9 @@ D3
 0 0 832819
 S
 #832821
-&+cThe Ocean&n~
+&+cZone Marker: minopass&n~
 ~
-7000 0 0 0
+7000 134250688 0 0
 D0
 ~
 ~
@@ -239833,9 +239833,9 @@ D3
 0 0 833723
 S
 #833725
-&+cThe Ocean&n~
+&+cZone Marker: underworld&n~
 ~
-7000 0 0 0
+7000 134250688 0 0
 D0
 ~
 ~
@@ -243749,9 +243749,9 @@ D3
 0 0 834767
 S
 #834769
-&+LMountains&n~
+&+cZone Marker: lizard&n~
 ~
-7000 0 0 0
+7000 134250688 0 0
 D0
 ~
 ~
@@ -248221,9 +248221,9 @@ D3
 0 0 836904
 S
 #836906
-&+cThe Ocean&n~
+&+cZone Marker: underworld&n~
 ~
-7000 0 0 0
+7000 134250688 0 0
 D0
 ~
 ~
@@ -252166,9 +252166,9 @@ D3
 0 0 840285
 S
 #840287
-&+cThe Ocean&n~
+&+cZone Marker: drst&n~
 ~
-7000 0 0 0
+7000 134250688 0 0
 D0
 ~
 ~
@@ -254378,9 +254378,9 @@ D3
 0 0 841673
 S
 #841675
-&+cThe Ocean&n~
+&+cZone Marker: underworld&n~
 ~
-7000 0 0 0
+7000 134250688 0 0
 D0
 ~
 ~
@@ -254714,9 +254714,9 @@ D3
 0 0 841751
 S
 #841753
-&+cThe Ocean&n~
+&+cZone Marker: ixxillikor&n~
 ~
-7000 0 0 0
+7000 134250688 0 0
 D0
 ~
 ~
@@ -255004,9 +255004,9 @@ D3
 0 0 842046
 S
 #842048
-&+cThe Ocean&n~
+&+cZone Marker: goblincave&n~
 ~
-7000 0 0 0
+7000 134250688 0 0
 D0
 ~
 ~
@@ -257178,9 +257178,9 @@ D3
 0 0 842891
 S
 #842893
-&+cThe Ocean&n~
+&+cZone Marker: underworld&n~
 ~
-7000 0 0 0
+7000 134250688 0 0
 D0
 ~
 ~
@@ -264374,9 +264374,9 @@ D3
 0 0 845716
 S
 #845718
-&+cThe Ocean&n~
+&+cZone Marker: underworld&n~
 ~
-7000 0 0 0
+7000 134250688 0 0
 D0
 ~
 ~
@@ -266371,9 +266371,9 @@ D9
 0 0 835661
 S
 #846819
-Moregeeth~
+&+cZone Marker: truk&n~
 ~
-7000 0 0 0
+7000 134250688 0 0
 D0
 ~
 ~
@@ -270309,9 +270309,9 @@ D3
 0 0 848466
 S
 #848475
-&+cThe Ocean&n~
+&+cZone Marker: underworld&n~
 ~
-7000 0 0 0
+7000 134250688 0 0
 D0
 ~
 ~
@@ -272019,9 +272019,9 @@ D3
 0 0 848925
 S
 #849234
-&+LThe Massive Cavern Walls of the &+mUrusi&n~
+&+cZone Marker: malch&n~
 ~
-7000 0 0 0
+7000 134250688 0 0
 D0
 ~
 ~
@@ -279789,9 +279789,9 @@ D3
 0 0 854865
 S
 #854867
-&+cThe Ocean&n~
+&+cZone Marker: underworld&n~
 ~
-7000 0 0 0
+7000 134250688 0 0
 D0
 ~
 ~
@@ -281133,9 +281133,9 @@ D3
 0 0 856056
 S
 #856058
-&+cThe Ocean&n~
+&+cZone Marker: mush1&n~
 ~
-7000 0 0 0
+7000 134250688 0 0
 D0
 ~
 ~
