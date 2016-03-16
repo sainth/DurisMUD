@@ -1424,8 +1424,8 @@ PH 1 256 0 -1
 8 8 2
 #132600
 medium war horse mount~
-a magnificient medium &+ywarhorse&n~
-&+yA magnificient looking medium warhorse stands here.&n
+a magnificient medium &+ywar horse&n~
+&+yA magnificient looking medium war horse stands here.&n
 ~
 &+y   Long-haired fetlocks, indicating some cold-blooded breeding, and a sleek
 &+ysorrel coat give this gelding an air of steadfast power. His large bulk,
@@ -1433,9 +1433,9 @@ a magnificient medium &+ywarhorse&n~
 &+ywell of his battle prowess and excellent training.&n
 ~
 134217736 0 0 0 0 0 0 0 0 S
-A 0 0 0 -1
-7 18 77 7d18+24 2d3+1
-0.0.0.0 907
+AE 0 1 0 3
+8 18 77 7d18+24 2d3+1
+0.0.0.0 2709
 8 8 1
 #132601
 griffon mount~
@@ -1447,11 +1447,11 @@ the powerful &+Wgri&+Yff&+yon&n~
 &+Lfeathers all along its coat hint an the presence of &+rp&+Rh&+Yo&+Wenix&+L mixed in as well.
 &+LTaken as a whole, this mighty creature would make an awesome mount indeed.&n
 ~
-134350856 0 0 0 671088664 0 0 0 0 S
-G 0 0 0 -1
+134350856 0 0 0 671088640 0 0 0 0 S
+B 0 1 0 4
 25 11 29 25d40+325 3d5+3
 6.2.6.1 22275
-10 10 0
+8 8 0
 #132602
 vor mount~
 a powerful &+cv&+Co&+Wr&n~
@@ -1463,12 +1463,12 @@ a powerful &+cv&+Co&+Wr&n~
 &+Wdark, &+Lsmoky-&+wgray&+W on its muzzle and legs.&n
 ~
 134217738 0 0 0 0 0 0 0 0 S
-A 0 0 0 -1
+A 0 1 0 3
 15 15 51 15d23+60 2d5+2
 0.0.0.0 7290
 8 8 1
 #132603
-arabian black horse mount~
+arabian black horse mount gelding~
 a &+Lblack arabian mount&n~
 &+LA beautiful black Arabian gelding stands here.&n
 ~
@@ -1478,7 +1478,7 @@ a &+Lblack arabian mount&n~
 &+Lgreat speed and stamina.&n
 ~
 134217738 0 0 0 0 0 0 0 0 S
-A 0 0 0 -1
+AE 0 0 0 3
 3 20 90 3d15+11 1d5+0
 0.0.0.0 388
 8 8 0

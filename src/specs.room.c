@@ -888,9 +888,11 @@ int pet_shops(int room, P_char ch, int cmd, char *arg)
     }
     SUB_MONEY(ch, temp, 0);
 
-    if (!isname("_hireling_", GET_NAME(pet))) 
+    if( !isname("_hireling_", GET_NAME(pet)) )
     {
-    pet->player.m_class = CLASS_NONE;
+      // Allowing pets to be warriors.
+      if( pet->player.m_class != CLASS_WARRIOR )
+        pet->player.m_class = CLASS_NONE;
     }
 
     setup_pet(pet, ch, -1, PET_NOCASH);
