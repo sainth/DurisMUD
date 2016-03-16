@@ -18664,9 +18664,9 @@ void event_apocalypse(P_char ch, P_char victim, P_obj obj, void *data)
     {
       if( should_area_hit(ch, tch) && !number(0, 2) )
       {
-        act("The Horseman of &+gP&+Le&+gs&+Lt&+gi&+Ll&+ge&+Ln&+gc&+Le&N breaths on $n!&N",
+        act("The Horseman of &+gP&+Le&+gs&+Lt&+gi&+Ll&+ge&+Ln&+gc&+Le&N breathes on $n!",
           TRUE, tch, 0, 0, TO_ROOM);
-        act("The Horseman of &+gP&+Le&+gs&+Lt&+gi&+Ll&+ge&+Ln&+gc&+Le&N chokes you with its\n&+ywretched breath!",
+        act("The Horseman of &+gP&+Le&+gs&+Lt&+gi&+Ll&+ge&+Ln&+gc&+Le&N chokes you with its &+ywretched breath&n!",
           TRUE, tch, 0, 0, TO_CHAR);
 
         if( !affected_by_spell(tch, SPELL_WITHER) && !number(0, 2) )
