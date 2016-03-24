@@ -8999,7 +8999,7 @@ int calculate_attacks(P_char ch, int attacks[])
 {
   int number_attacks = 0;
 
-  if(IS_AFFECTED5(ch, AFF5_NOT_OFFENSIVE))
+  if( IS_AFFECTED5(ch, AFF5_NOT_OFFENSIVE) || !IS_ALIVE(ch->specials.fighting) )
   {
     return 0;
   }
