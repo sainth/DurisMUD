@@ -2510,12 +2510,12 @@ void event_asphyxiate(P_char ch, P_char victim, P_obj obj, void *data)
   int rounds = *( (int *)data );
   int dam;
   struct damage_messages messages = {
-    "Your &+wghastly hands&n choke $N.",
-    "&+wGhastly hands&n choke you!",
-    "$N chokes and gags.",
-    "$N succumbs to your &+wghastly hands&n.",
-    "Evertyhing be&+wgins to go &+Ldark...&n",
-    "$N falls to the floor and ceases to move.", 0
+    "&+cYou smirk as a pair of &+Wgh&+Los&+wtl&+Wy h&+Lan&+wds &+Rtighten &+caround $N&+c's throat!&n",
+    "&+cYou gasp for &+Cair &+cas a pair of &+Wgh&+Los&+wtl&+Wy h&+Lan&+wds &+ctighten around your throat!&n",
+    "&+c$N &+cgasps for &+Cair &+cas a pair of &+Wgh&+Los&+wtl&+Wy h&+Lan&+wds &+ctighten around $S throat!&n",
+    "&+cYour &+Cill&+Wusi&+cona&+Cry &+Whands &+Cchoke &+cthe life out of $N&+c, who falls over &+rdead &+cand &+Llifeless&+c.&n",
+    "&+LEverything suddenly goes black as a pair of &+Wgh&+Los&+wtl&+Wy h&+wa&+Lnd&+Ws &+Cchoke &+Lthe life out of you...&n",
+    "&+c$N &+Cgasps &+cfor air, &+Weyes &+Mbulging&+c, then falls over, slowly becoming &+Lmotionless&+c.&n", 0
   };
 
   if( !IS_ALIVE(ch) || !IS_ALIVE(victim) )
@@ -2555,9 +2555,12 @@ void spell_asphyxiate(int level, P_char ch, char *arg, int type, P_char victim, 
     act("But $N doesn't need to breathe!", TRUE, ch, NULL, victim, TO_CHAR);
     return;
   }
-  act("Your &+wghastly hands&n begin to choke $N.", TRUE, ch, NULL, victim, TO_CHAR);
-  act("$N begins to choke and gag.", TRUE, ch, NULL, victim, TO_NOTVICT);
-  act("&+wGhastly hands&n begin to choke you!", TRUE, victim, NULL, NULL, TO_CHAR);
+  act("&+LA pair of &+wGh&+Los&+Wt&+wly &+WH&+La&+wnd&+Ws &+Lappear before &+c$N&+L, close around $S neck and begin to &+Rsqueeze&+L!&n",
+    FALSE, ch, NULL, victim, TO_CHAR);
+  act("&+wGh&+Los&+Wt&+wly &+Wh&+La&+wnd&+Ws &+Lappear before &+c$N&+L, close around $S neck and begin to &+Rsqueeze&+L!&n",
+    FALSE, ch, NULL, victim, TO_NOTVICT);
+  act("&+wGh&+Los&+Wt&+wly &+Wh&+La&+wnd&+Ws &+Lappear before you, close around your neck and begin to &+Rsqueeze&+L!&n",
+    FALSE, victim, NULL, NULL, TO_CHAR);
 
   event_asphyxiate(ch, victim, NULL, &rounds);
 }
