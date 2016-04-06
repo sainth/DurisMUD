@@ -745,7 +745,7 @@ snarling firbolg~
 &+ybeast sends him.
 ~
 1140852812 1 0 0 0 0 0 0 -1000 S
-AC 0 1 0 4
+FB 0 1 0 4
 55 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 1
@@ -760,7 +760,7 @@ firbolg subdued~
 &+yher, yet her intellect is simply too weak to succeed.
 ~
 1140869192 1 0 0 16777224 0 536870912 8192 -1000 S
-AC 0 128 0 5
+FB 0 128 0 5
 53 0 0 1d1+1 1d1+1
 0.0.0.0 0
 8 8 2
