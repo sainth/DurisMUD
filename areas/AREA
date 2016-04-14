@@ -12,7 +12,7 @@ myconid                   *23
 castle                    *24-25
 breale                    *26
 headless                  *27
-verz1                     *28-33 (using objs)
+verz1                     *28-32 (using objs)
 flind                     *34
 mansion                   *35-36
 ako                       *37
@@ -40,7 +40,7 @@ willem                    *71-72
 prison                    *73-74
 bastine                   *76-77
 v2                        *78-79
-*jotinv                    *80-83
+temple_laduguer           *80,81
 grave                     *84-86
 gibber                    *87,88
 raiders                   *89

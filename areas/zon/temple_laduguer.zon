@@ -1,0 +1,457 @@
+#1
+&+rThe &+RTemple &+rof &+RLaduguer&N~
+8202 2 0 15 30 1
+*
+* Zone edited with durisEdit v3.02
+*
+*
+D 0 8103 0 1 100 0 0 0
+*     north exit from "A Gatehouse in a Basalt Volcanic Tunnel" to
+*     "The North Gatehouse Entrance" - closed
+*
+D 0 8104 2 1 100 0 0 0
+*     south exit from "The North Gatehouse Entrance" to
+*     "A Gatehouse in a Basalt Volcanic Tunnel" - closed
+*
+D 0 8103 1 1 100 0 0 0
+*     east exit from "A Gatehouse in a Basalt Volcanic Tunnel" to
+*     "A Foyer in the Temple of Laduguer" - closed
+*
+D 0 8130 3 1 100 0 0 0
+*     west exit from "A Foyer in the Temple of Laduguer" to
+*     "A Gatehouse in a Basalt Volcanic Tunnel" - closed
+*
+D 0 8103 2 1 100 0 0 0
+*     south exit from "A Gatehouse in a Basalt Volcanic Tunnel" to
+*     "The South Gatehouse Entrance" - closed
+*
+D 0 8105 0 1 100 0 0 0
+*     north exit from "The South Gatehouse Entrance" to
+*     "A Gatehouse in a Basalt Volcanic Tunnel" - closed
+*
+D 0 8104 1 1 100 0 0 0
+*     east exit from "The North Gatehouse Entrance" to
+*     "A Training Room in the Barracks" - closed
+*
+D 0 8128 3 1 100 0 0 0
+*     west exit from "A Training Room in the Barracks" to
+*     "The North Gatehouse Entrance" - closed
+*
+D 0 8106 3 1 100 0 0 0
+*     west exit from "A Hallway in the Temple Gatehouse" to
+*     "A Training Room in the Barracks" - closed
+*
+D 0 8129 1 1 100 0 0 0
+*     east exit from "A Training Room in the Barracks" to
+*     "A Hallway in the Temple Gatehouse" - closed
+*
+D 0 8108 1 1 100 0 0 0
+*     east exit from "A Hallway in the Temple Gatehouse" to
+*     "A Training Room in the Barracks" - closed
+*
+D 0 8126 3 1 100 0 0 0
+*     west exit from "A Training Room in the Barracks" to
+*     "A Hallway in the Temple Gatehouse" - closed
+*
+D 0 8109 3 1 100 0 0 0
+*     west exit from "A Hallway in the Temple Gatehouse" to
+*     "A Training Room in the Barracks" - closed
+*
+D 0 8127 1 1 100 0 0 0
+*     east exit from "A Training Room in the Barracks" to
+*     "A Hallway in the Temple Gatehouse" - closed
+*
+D 0 8114 1 1 100 0 0 0
+*     east exit from "The Lower Hallway in the Temple Gatehouse" to
+*     "The Guardhouse Barracks" - closed
+*
+D 0 8120 3 1 100 0 0 0
+*     west exit from "The Guardhouse Barracks" to
+*     "The Lower Hallway in the Temple Gatehouse" - closed
+*
+D 0 8115 3 1 100 0 0 0
+*     west exit from "The Lower Hallway in the Temple Gatehouse" to
+*     "The Guardhouse Barracks" - closed
+*
+D 0 8121 1 1 100 0 0 0
+*     east exit from "The Guardhouse Barracks" to
+*     "The Lower Hallway in the Temple Gatehouse" - closed
+*
+D 0 8116 1 1 100 0 0 0
+*     east exit from "The Lower Hallway in the Temple Gatehouse" to
+*     "The Guardhouse Barracks" - closed
+*
+D 0 8122 3 1 100 0 0 0
+*     west exit from "The Guardhouse Barracks" to
+*     "The Lower Hallway in the Temple Gatehouse" - closed
+*
+D 0 8117 3 1 100 0 0 0
+*     west exit from "The Lower Hallway in the Temple Gatehouse" to
+*     "The Guardhouse Barracks" - closed
+*
+D 0 8123 1 1 100 0 0 0
+*     east exit from "The Guardhouse Barracks" to
+*     "The Lower Hallway in the Temple Gatehouse" - closed
+*
+D 0 8118 1 1 100 0 0 0
+*     east exit from "The Lower Hallway in the Temple Gatehouse" to
+*     "The Guardhouse Barracks" - closed
+*
+D 0 8124 3 1 100 0 0 0
+*     west exit from "The Guardhouse Barracks" to
+*     "The Lower Hallway in the Temple Gatehouse" - closed
+*
+D 0 8119 3 1 100 0 0 0
+*     west exit from "The Lower Hallway in the Temple Gatehouse" to
+*     "The Guardhouse Barracks" - closed
+*
+D 0 8125 1 1 100 0 0 0
+*     east exit from "The Guardhouse Barracks" to
+*     "The Lower Hallway in the Temple Gatehouse" - closed
+*
+D 0 8130 0 1 100 0 0 0
+*     north exit from "A Foyer in the Temple of Laduguer" to
+*     "An Inn for the Visitors to the Temple of Laduguer" - closed
+*
+D 0 8200 2 1 100 0 0 0
+*     south exit from "An Inn for the Visitors to the Temple of Laduguer" to
+*     "A Foyer in the Temple of Laduguer" - closed
+*
+D 0 8140 0 1 100 0 0 0
+*     north exit from "A Curved Hallway in the Temple of Laduguer" to
+*     "An Tributary Chapel within the Temple to Laduguer" - closed
+*
+D 0 8193 2 1 100 0 0 0
+*     south exit from "An Tributary Chapel within the Temple to Laduguer" to
+*     "A Curved Hallway in the Temple of Laduguer" - closed
+*
+D 0 8148 1 1 100 0 0 0
+*     east exit from "An Eastern Upper Foyer in the Temple of Laduguer" to
+*     "The Entry Hallway in the Temple's Eastern Tower" - closed
+*
+D 0 8149 3 1 100 0 0 0
+*     west exit from "The Entry Hallway in the Temple's Eastern Tower" to
+*     "An Eastern Upper Foyer in the Temple of Laduguer" - closed
+*
+D 0 8153 3 1 100 0 0 0
+*     west exit from "A Hallway in the Temple's Eastern Tower" to
+*     "A Central Staircase in the Temple's Eastern Tower" - closed
+*
+D 0 8172 1 1 100 0 0 0
+*     east exit from "A Central Staircase in the Temple's Eastern Tower" to
+*     "A Hallway in the Temple's Eastern Tower" - closed
+*
+D 0 8157 1 1 100 0 0 0
+*     east exit from "A Steeder Stable Room" to
+*     "The Entrance to the Temple Stables" - closed
+*
+D 0 8199 3 1 100 0 0 0
+*     west exit from "The Entrance to the Temple Stables" to
+*     "A Steeder Stable Room" - closed
+*
+D 0 8158 3 1 100 0 0 0
+*     west exit from "An Western Upper Foyer in the Temple of Laduguer" to
+*     "The Entry Hallway in the Temple's Western Tower" - closed
+*
+D 0 8159 1 1 100 0 0 0
+*     east exit from "The Entry Hallway in the Temple's Western Tower" to
+*     "An Western Upper Foyer in the Temple of Laduguer" - closed
+*
+D 0 8163 1 1 100 0 0 0
+*     east exit from "A Hallway in the Temple's Western Tower" to
+*     "A Central Staircase in the Temple's Western Tower" - closed
+*
+D 0 8171 3 1 100 0 0 0
+*     west exit from "A Central Staircase in the Temple's Western Tower" to
+*     "A Hallway in the Temple's Western Tower" - closed
+*
+D 0 8167 5 2 100 0 0 0
+*     down exit from "An Upper Landing for the Forge Staircase" to
+*     "In the Volcanic Tunnel leading to the Subterranean Forge" - closed/locked
+*
+D 0 8168 4 1 100 0 0 0
+*     up exit from "In the Volcanic Tunnel leading to the Subterranean Forge" to
+*     "An Upper Landing for the Forge Staircase" - closed
+*
+D 0 8173 3 1 100 0 0 0
+*     west exit from "At the Top of the East Central Staircase in the Temple's Tower" to
+*     "A Bridge Across an Underdark Volcanic Hot Spring" - closed
+*
+D 0 8176 1 1 100 0 0 0
+*     east exit from "A Bridge Across an Underdark Volcanic Hot Spring" to
+*     "At the Top of the East Central Staircase in the Temple's Tower" - closed
+*
+D 0 8174 1 1 100 0 0 0
+*     east exit from "At the Top of the West Central Staircase in the Temple's Tower" to
+*     "A Bridge Across an Underdark Volcanic Hot Spring" - closed
+*
+D 0 8175 3 1 100 0 0 0
+*     west exit from "A Bridge Across an Underdark Volcanic Hot Spring" to
+*     "At the Top of the West Central Staircase in the Temple's Tower" - closed
+*
+D 0 8180 4 1 100 0 0 0
+*     up exit from "A Stairway ascending into a Column of Ash and Smoke" to
+*     "The Foyer to the Ashen Shrines of Laduguer" - closed
+*
+D 0 8188 5 1 100 0 0 0
+*     down exit from "The Foyer to the Ashen Shrines of Laduguer" to
+*     "A Stairway ascending into a Column of Ash and Smoke" - closed
+*
+D 0 8182 0 1 100 0 0 0
+*     north exit from "The Bottom of a Spiral Staircase into a Volcanic Hot Spring" to
+*     "The Foyer of the Shrine to Laduguer" - closed
+*
+D 0 8183 2 1 100 0 0 0
+*     south exit from "The Foyer of the Shrine to Laduguer" to
+*     "The Bottom of a Spiral Staircase into a Volcanic Hot Spring" - closed
+*
+D 0 8184 0 1 100 0 0 0
+*     north exit from "A Hallway in the Shrine to Laduguer" to
+*     "A Shrine to Laduguer" - closed
+*
+D 0 8187 2 1 100 0 0 0
+*     south exit from "A Shrine to Laduguer" to
+*     "A Hallway in the Shrine to Laduguer" - closed
+*
+D 0 8184 1 1 100 0 0 0
+*     east exit from "A Hallway in the Shrine to Laduguer" to
+*     "A Shrine to Laduguer" - closed
+*
+D 0 8185 3 1 100 0 0 0
+*     west exit from "A Shrine to Laduguer" to
+*     "A Hallway in the Shrine to Laduguer" - closed
+*
+D 0 8184 3 1 100 0 0 0
+*     west exit from "A Hallway in the Shrine to Laduguer" to
+*     "A Shrine to Laduguer" - closed
+*
+D 0 8186 1 1 100 0 0 0
+*     east exit from "A Shrine to Laduguer" to
+*     "A Hallway in the Shrine to Laduguer" - closed
+*
+D 0 8188 0 1 100 0 0 0
+*     north exit from "The Foyer to the Ashen Shrines of Laduguer" to
+*     "An Ashen Shrine to Laduguer" - closed
+*
+D 0 8189 2 1 100 0 0 0
+*     south exit from "An Ashen Shrine to Laduguer" to
+*     "The Foyer to the Ashen Shrines of Laduguer" - closed
+*
+D 0 8188 1 1 100 0 0 0
+*     east exit from "The Foyer to the Ashen Shrines of Laduguer" to
+*     "An Ashen Shrine to Laduguer" - closed
+*
+D 0 8190 3 1 100 0 0 0
+*     west exit from "An Ashen Shrine to Laduguer" to
+*     "The Foyer to the Ashen Shrines of Laduguer" - closed
+*
+D 0 8188 2 1 100 0 0 0
+*     south exit from "The Foyer to the Ashen Shrines of Laduguer" to
+*     "An Ashen Shrine to Laduguer" - closed
+*
+D 0 8191 0 1 100 0 0 0
+*     north exit from "An Ashen Shrine to Laduguer" to
+*     "The Foyer to the Ashen Shrines of Laduguer" - closed
+*
+D 0 8188 3 1 100 0 0 0
+*     west exit from "The Foyer to the Ashen Shrines of Laduguer" to
+*     "An Ashen Shrine to Laduguer" - closed
+*
+D 0 8192 1 1 100 0 0 0
+*     east exit from "An Ashen Shrine to Laduguer" to
+*     "The Foyer to the Ashen Shrines of Laduguer" - closed
+*
+D 0 8196 1 2 100 0 0 0
+*     east exit from "The Entrance to the Subterranean Forge" to
+*     "Within the Subterranean Forge" - closed/locked
+*
+D 0 8197 3 2 100 0 0 0
+*     west exit from "Within the Subterranean Forge" to
+*     "The Entrance to the Subterranean Forge" - closed/locked
+*
+D 0 8198 0 1 100 0 0 0
+*     north exit from "A Basalt Volcanic Tunnel before a Small Gate" to
+*     "The Entrance to the Temple Stables" - closed
+*
+D 0 8199 2 1 100 0 0 0
+*     south exit from "The Entrance to the Temple Stables" to
+*     "A Basalt Volcanic Tunnel before a Small Gate" - closed
+*
+D 0 8199 0 1 100 0 0 0
+*     north exit from "The Entrance to the Temple Stables" to
+*     "A Steeder Stable Room" - closed
+*
+D 0 8202 2 1 100 0 0 0
+*     south exit from "A Steeder Stable Room" to
+*     "The Entrance to the Temple Stables" - closed
+*
+D 0 8199 1 1 100 0 0 0
+*     east exit from "The Entrance to the Temple Stables" to
+*     "A Steeder Stable Room" - closed
+*
+D 0 8201 3 1 100 0 0 0
+*     west exit from "A Steeder Stable Room" to
+*     "The Entrance to the Temple Stables" - closed
+*
+*
+*
+M 0 8102 4 8103 100 0 0 0          * a Duergar Dwarf gatehouse guard
+M 0 8102 4 8103 100 0 0 0          * a Duergar Dwarf gatehouse guard
+M 0 8102 4 8103 100 0 0 0          * a Duergar Dwarf gatehouse guard
+M 0 8102 4 8103 100 0 0 0          * a Duergar Dwarf gatehouse guard
+M 0 8119 6 8110 100 0 0 0          * an inexperienced Duergar Dwarf guard
+M 0 8119 6 8110 100 0 0 0          * an inexperienced Duergar Dwarf guard
+M 0 8119 6 8110 100 0 0 0          * an inexperienced Duergar Dwarf guard
+M 0 8119 6 8112 100 0 0 0          * an inexperienced Duergar Dwarf guard
+M 0 8119 6 8112 100 0 0 0          * an inexperienced Duergar Dwarf guard
+M 0 8119 6 8112 100 0 0 0          * an inexperienced Duergar Dwarf guard
+M 0 8100 9 8120 100 0 0 0          * a young Duergar guard-in-training
+E 1 8100 18 16 100 0 0 0           *   a shortened cold-iron battle-axe
+M 0 8100 9 8120 100 0 0 0          * a young Duergar guard-in-training
+E 1 8100 18 16 100 0 0 0           *   a shortened cold-iron battle-axe
+M 0 8100 9 8120 100 0 0 0          * a young Duergar guard-in-training
+E 1 8100 18 16 100 0 0 0           *   a shortened cold-iron battle-axe
+M 0 8100 9 8121 100 0 0 0          * a young Duergar guard-in-training
+E 1 8100 18 16 100 0 0 0           *   a shortened cold-iron battle-axe
+M 0 8100 9 8121 100 0 0 0          * a young Duergar guard-in-training
+E 1 8100 18 16 100 0 0 0           *   a shortened cold-iron battle-axe
+M 0 8100 9 8121 100 0 0 0          * a young Duergar guard-in-training
+E 1 8100 18 16 100 0 0 0           *   a shortened cold-iron battle-axe
+M 0 8100 9 8122 100 0 0 0          * a young Duergar guard-in-training
+E 1 8100 18 16 100 0 0 0           *   a shortened cold-iron battle-axe
+M 0 8100 9 8122 100 0 0 0          * a young Duergar guard-in-training
+E 1 8100 18 16 100 0 0 0           *   a shortened cold-iron battle-axe
+M 0 8100 9 8122 100 0 0 0          * a young Duergar guard-in-training
+E 1 8100 18 16 100 0 0 0           *   a shortened cold-iron battle-axe
+M 0 8101 9 8123 100 0 0 0          * an adolescent Duergar guard-in-training
+E 1 8101 10 16 100 0 0 0           *   a two-handed cold-iron battle-axe
+M 0 8101 9 8123 100 0 0 0          * an adolescent Duergar guard-in-training
+E 1 8101 10 16 100 0 0 0           *   a two-handed cold-iron battle-axe
+M 0 8101 9 8123 100 0 0 0          * an adolescent Duergar guard-in-training
+E 1 8101 10 16 100 0 0 0           *   a two-handed cold-iron battle-axe
+M 0 8101 9 8124 100 0 0 0          * an adolescent Duergar guard-in-training
+E 1 8101 10 16 100 0 0 0           *   a two-handed cold-iron battle-axe
+M 0 8101 9 8124 100 0 0 0          * an adolescent Duergar guard-in-training
+E 1 8101 10 16 100 0 0 0           *   a two-handed cold-iron battle-axe
+M 0 8101 9 8124 100 0 0 0          * an adolescent Duergar guard-in-training
+E 1 8101 10 16 100 0 0 0           *   a two-handed cold-iron battle-axe
+M 0 8101 9 8125 100 0 0 0          * an adolescent Duergar guard-in-training
+E 1 8101 10 16 100 0 0 0           *   a two-handed cold-iron battle-axe
+M 0 8101 9 8125 100 0 0 0          * an adolescent Duergar guard-in-training
+E 1 8101 10 16 100 0 0 0           *   a two-handed cold-iron battle-axe
+M 0 8101 9 8125 100 0 0 0          * an adolescent Duergar guard-in-training
+E 1 8101 10 16 100 0 0 0           *   a two-handed cold-iron battle-axe
+M 0 8103 1 8126 100 0 0 0          * Murgol, the Warrior instructor
+E 1 8101 10 16 100 0 0 0           *   a two-handed cold-iron battle-axe
+M 0 8104 1 8127 100 0 0 0          * Weltha, the Mercenary instructor
+M 0 8105 1 8128 100 0 0 0          * Dorthis, the Rogue instructor
+M 0 8106 1 8129 100 0 0 0          * Ivar, the Anti-Paladin instructor
+M 0 8107 10 8131 100 0 0 0         * a Duergar Dwarf guard
+E 1 8100 18 16 100 0 0 0           *   a shortened cold-iron battle-axe
+M 0 8107 10 8131 100 0 0 0         * a Duergar Dwarf guard
+E 1 8100 18 16 100 0 0 0           *   a shortened cold-iron battle-axe
+M 0 8107 10 8133 100 0 0 0         * a Duergar Dwarf guard
+E 1 8100 18 16 100 0 0 0           *   a shortened cold-iron battle-axe
+M 0 8107 10 8135 100 0 0 0         * a Duergar Dwarf guard
+E 1 8100 18 16 100 0 0 0           *   a shortened cold-iron battle-axe
+M 0 8107 10 8137 100 0 0 0         * a Duergar Dwarf guard
+E 1 8100 18 16 100 0 0 0           *   a shortened cold-iron battle-axe
+M 0 8107 10 8139 100 0 0 0         * a Duergar Dwarf guard
+E 1 8100 18 16 100 0 0 0           *   a shortened cold-iron battle-axe
+M 0 8107 10 8141 100 0 0 0         * a Duergar Dwarf guard
+E 1 8100 18 16 100 0 0 0           *   a shortened cold-iron battle-axe
+M 0 8107 10 8143 100 0 0 0         * a Duergar Dwarf guard
+E 1 8100 18 16 100 0 0 0           *   a shortened cold-iron battle-axe
+M 0 8107 10 8145 100 0 0 0         * a Duergar Dwarf guard
+E 1 8100 18 16 100 0 0 0           *   a shortened cold-iron battle-axe
+M 0 8107 10 8147 100 0 0 0         * a Duergar Dwarf guard
+M 0 8112 8 8150 100 0 0 0          * a young Duergar cleric-in-training
+M 0 8112 8 8152 100 0 0 0          * a young Duergar cleric-in-training
+E 1 8118 1 14 100 0 0 0            *   a mithril engraved clerical bracelet
+M 0 8112 8 8154 100 0 0 0          * a young Duergar cleric-in-training
+E 1 8119 1 8 100 0 0 0             *   some plain clerical ash-covered sandals
+M 0 8112 8 8156 100 0 0 0          * a young Duergar cleric-in-training
+E 1 8120 1 9 100 0 0 0             *   a pair of embroidered ash-covered clerical gloves
+M 0 8122 6 8157 100 0 0 0          * a giant steeder
+M 0 8122 6 8157 100 0 0 0          * a giant steeder
+M 0 8112 8 8160 100 0 0 0          * a young Duergar cleric-in-training
+E 1 8114 1 5 100 0 0 0             *   some plain clerical robes of ash
+M 0 8112 8 8162 100 0 0 0          * a young Duergar cleric-in-training
+E 1 8115 1 6 100 0 0 0             *   an ash-covered clerical hood
+M 0 8112 8 8164 100 0 0 0          * a young Duergar cleric-in-training
+E 1 8116 1 1 100 0 0 0             *   a small clerical ring of pure mithril
+M 0 8112 8 8166 100 0 0 0          * a young Duergar cleric-in-training
+M 0 8114 4 8167 100 0 0 0          * a veteran Duergar Dwarf guard
+M 0 8114 4 8167 100 0 0 0          * a veteran Duergar Dwarf guard
+M 0 8114 4 8167 100 0 0 0          * a veteran Duergar Dwarf guard
+G 1 8125 1 0 100 0 0 0             *    a small mithril key
+M 0 8114 4 8167 100 0 0 0          * a veteran Duergar Dwarf guard
+M 0 8115 6 8169 100 0 0 0          * a rogue fire elemental
+M 0 8115 6 8169 100 0 0 0          * a rogue fire elemental
+M 0 8115 6 8170 100 0 0 0          * a rogue fire elemental
+M 0 8115 6 8170 100 0 0 0          * a rogue fire elemental
+M 0 8120 2 8171 100 0 0 0          * a young Duergar cleric adept
+M 0 8120 2 8172 100 0 0 0          * a young Duergar cleric adept
+E 1 8123 1 14 100 0 0 0            *   a small bracelet of woven mithril chain
+M 0 8108 6 8173 100 0 0 0          * an elite Duergar Dwarf guard
+E 1 8112 1 19 100 0 0 0            *   an ashen volcanic-forged visor
+M 0 8108 6 8173 100 0 0 0          * an elite Duergar Dwarf guard
+E 1 8110 2 14 100 0 0 0            *   an ashen volcanic-forged vambrace
+M 0 8108 6 8173 100 0 0 0          * an elite Duergar Dwarf guard
+M 0 8108 6 8174 100 0 0 0          * an elite Duergar Dwarf guard
+M 0 8108 6 8174 100 0 0 0          * an elite Duergar Dwarf guard
+E 1 8113 1 20 100 0 0 0            *   an ashen volcanic-forged mask
+M 0 8108 6 8174 100 0 0 0          * an elite Duergar Dwarf guard
+E 1 8109 1 9 100 0 0 0             *   an ashen volcanic-forged articulated finger gauntlets
+M 0 8109 6 8180 100 0 0 0          * an elite Duergar Dwarf guard of the Shrines
+E 1 8106 1 6 100 0 0 0             *   an ashen volcanic-forged sallet helmet
+M 0 8109 6 8180 100 0 0 0          * an elite Duergar Dwarf guard of the Shrines
+E 1 8107 1 7 100 0 0 0             *   a set of ashen volcanic-forged greaves
+M 0 8109 6 8180 100 0 0 0          * an elite Duergar Dwarf guard of the Shrines
+E 1 8108 1 8 100 0 0 0             *   a pair of ashen volcanic-forged sabatons
+M 0 8109 6 8182 100 0 0 0          * an elite Duergar Dwarf guard of the Shrines
+E 1 8105 1 5 100 0 0 0             *   an ashen volcanic-forged breastplate
+M 0 8109 6 8182 100 0 0 0          * an elite Duergar Dwarf guard of the Shrines
+E 1 8110 2 14 100 0 0 0            *   an ashen volcanic-forged vambrace
+M 0 8109 6 8182 100 0 0 0          * an elite Duergar Dwarf guard of the Shrines
+E 1 8111 1 10 100 0 0 0            *   a set of ashen volcanic-forged pauldrons
+M 0 8110 3 8185 100 0 0 0          * a Duergar Dwarf craftsman pilgrim
+E 1 8102 3 24 100 0 0 0            *   an ashen badge of the Laduguer artisans
+M 0 8110 3 8186 100 0 0 0          * a Duergar Dwarf craftsman pilgrim
+E 1 8102 3 24 100 0 0 0            *   an ashen badge of the Laduguer artisans
+M 0 8110 3 8187 100 0 0 0          * a Duergar Dwarf craftsman pilgrim
+E 1 8102 3 24 100 0 0 0            *   an ashen badge of the Laduguer artisans
+M 0 8111 4 8189 100 0 0 0          * a Duergar Dwarf craftsman pilgrim
+E 1 8103 2 1 100 0 0 0             *   an ashen volcanic-forged ring
+M 0 8111 4 8190 100 0 0 0          * a Duergar Dwarf craftsman pilgrim
+E 1 8104 2 3 100 0 0 0             *   an ashen volcanic-forged gorget
+M 0 8111 4 8191 100 0 0 0          * a Duergar Dwarf craftsman pilgrim
+E 1 8103 2 1 100 0 0 0             *   an ashen volcanic-forged ring
+M 0 8111 4 8192 100 0 0 0          * a Duergar Dwarf craftsman pilgrim
+E 1 8104 2 3 100 0 0 0             *   an ashen volcanic-forged gorget
+M 0 8113 1 8193 100 0 0 0          * Granhol, the Clerical instructor
+E 1 8124 1 3 100 0 0 0             *   a delicate woven mithril chain necklace
+E 1 8117 1 4 100 0 0 0             *   a mithril-chain clerical amulet
+M 0 8115 6 8194 100 0 0 0          * a rogue fire elemental
+M 0 8115 6 8194 100 0 0 0          * a rogue fire elemental
+M 0 8116 4 8196 100 0 0 0          * an elite Duergar Dwarf guard of the Forge
+M 0 8116 4 8196 100 0 0 0          * an elite Duergar Dwarf guard of the Forge
+M 0 8116 4 8196 100 0 0 0          * an elite Duergar Dwarf guard of the Forge
+G 1 8121 1 0 100 0 0 0             *    a small mithril key
+M 0 8116 4 8196 100 0 0 0          * an elite Duergar Dwarf guard of the Forge
+M 0 8117 1 8197 100 0 0 0          * Xaphan, Keeper of the Volcanic Forge
+G 1 8122 1 0 100 0 0 0             *    a swirling mass of dancing flames
+M 0 8118 3 8197 100 0 0 0          * a summoned fire elemental
+M 0 8118 3 8197 100 0 0 0          * a summoned fire elemental
+M 0 8118 3 8197 100 0 0 0          * a summoned fire elemental
+M 0 8121 1 8200 100 0 0 0          * Valkar, the innkeeper
+M 0 8122 6 8201 100 0 0 0          * a giant steeder
+M 0 8122 6 8201 100 0 0 0          * a giant steeder
+M 0 8123 1 8201 100 0 0 0          * a raiding Halfling assassin
+E 1 8127 2 16 100 0 0 0            *   a short glassteel dagger
+E 1 8127 2 17 100 0 0 0            *   a short glassteel dagger
+G 1 8126 1 0 100 0 0 0             *    a glistening black potion
+M 0 8122 6 8202 100 0 0 0          * a giant steeder
+M 0 8122 6 8202 100 0 0 0          * a giant steeder
+*
+S

@@ -1,0 +1,426 @@
+#8100
+shortened cold-iron axe ax battle-axe~
+&+ra shortened &+Lcold&+w-iron &+rba&+Rtt&+rle&+L-&+waxe&N~
+&+rA shortened battle-axe lies upon the ground here.&N~
+~
+5 18 3 0 15 0 16785664 8193 0 0 0
+1 2 3 0 0 0 0 0
+2 10000 100
+E
+shortened cold-iron axe ax battle-axe~
+&+rThis axe has been made by the finest artisans in the Temple.&N
+~
+A
+18 2
+A
+19 2
+#8101
+two-handed cold-iron axe ax battle-axe~
+&+La &+wtwo-handed &+Lcold&+w-iron &+rba&+Rtt&+rle&+L-&+waxe&N~
+&+rA shortened battle-axe lies upon the ground here.&N~
+~
+5 15 3 0 14 0 20979968 8193 0 0 0
+1 2 4 0 0 0 0 0
+5 1000 100
+E
+axe~
+&+rThis axe has been made by the finest artisans in the Temple.&N
+~
+A
+18 2
+A
+19 2
+#8102
+ashen badge laduguer artisans~
+&+Lan &+washen badge &+Lof the &+rLad&+Rug&+ruer &+Lartisans&N~
+&+LA badge of the artisans, covered in ash, lies here.&N~
+~
+11 18 1 0 15 0 67117065 2097153 0 0 0
+0 0 0 0 0 0 0 0
+0 10000 100 536870912 0 0 0
+E
+badge~
+&+LThis badge is covered in ash.&N
+~
+#8103
+ashen volcanic-forged ring~
+&+Lan &+washen &+rvo&+Rl&+rc&+Ra&+rnic&+L-&+wforged &+Wring&N~
+&+LAn ashen ring lies here in the dust.&N~
+~
+11 18 2 0 15 0 8200 3 0 0 0
+0 0 0 0 0 0 0 0
+0 10000 100
+E
+ring~
+&+LThis ring has been made by the master artisans at the Temple.&N
+~
+A
+13 10
+A
+18 1
+#8104
+ashen volcanic-forged gorget~
+&+Lan &+washen &+rvo&+Rl&+rc&+Ra&+rnic&+L-&+wforged &+Wgorget&N~
+&+LAn ashen gorget lies here in the dust.&N~
+~
+9 18 2 0 15 0 8200 5 0 0 0
+10 0 0 3 0 0 0 0
+0 10000 100
+E
+gorget~
+&+rThis gorget has been forged in the volcanic blacksmith forges of the Temple.&N
+~
+A
+18 1
+A
+2 3
+#8105
+ashen volcanic-forged breastplate~
+&+Lan &+washen &+rvo&+Rl&+rc&+Ra&+rnic&+L-&+wforged &+Wbreastplate&N~
+&+LAn ashen breastplate lies here in the dust.&N~
+~
+9 18 2 0 15 0 8200 9 0 0 0
+30 0 0 3 0 0 0 0
+0 10000 100
+E
+breastplate~
+&+rThis breastplate has been forged in the volcanic blacksmith forges of the Temple.&N
+~
+A
+18 2
+A
+13 10
+#8106
+ashen volcanic-forged sallet helmet~
+&+Lan &+washen &+rvo&+Rl&+rc&+Ra&+rnic&+L-&+wforged &+Wsallet &+whelmet&N~
+&+LAn ashen helmet lies here in the dust.&N~
+~
+9 18 2 0 15 0 8200 17 0 0 0
+5 0 0 3 0 0 0 0
+0 10000 100
+E
+helmet~
+&+rThis helmet has been forged in the volcanic blacksmith forges of the Temple.&N
+~
+A
+19 1
+A
+18 1
+#8107
+ashen volcanic-forged greaves~
+&+La &+wset &+Lof &+washen &+rvo&+Rl&+rc&+Ra&+rnic&+L-&+wforged &+Wgreaves&N~
+&+LA pair of ashen greaves lies here in the dust.&N~
+~
+9 18 2 0 15 0 8200 33 0 0 0
+8 0 0 3 0 0 0 0
+0 10000 100
+E
+greaves~
+&+rThese greaves have been forged in the volcanic blacksmith forges of the Temple.&N
+~
+A
+18 2
+A
+26 5
+#8108
+ashen volcanic-forged sabatons~
+&+La &+wpair &+Lof &+washen &+rvo&+Rl&+rc&+Ra&+rnic&+L-&+wforged &+Wsabatons&N~
+&+LA pair of ashen sabatons lies here in the dust.&N~
+~
+9 18 2 0 15 0 8200 65 0 0 0
+5 0 0 3 0 0 0 0
+0 10000 100
+E
+sabatons~
+&+rThese sabatons have been forged in the volcanic blacksmith forges of the Temple.&N
+~
+A
+18 1
+A
+19 1
+#8109
+ashen volcanic-forged finger gauntlets~
+&+Lan &+washen &+rvo&+Rl&+rc&+Ra&+rnic&+L-&+wforged &+Larticulated &+wfinger &+Wgauntlets&N~
+&+LAn ashen gauntlet lies here in the dust.&N~
+~
+9 18 2 0 15 0 8200 129 4 0 0
+10 0 0 3 0 0 0 0
+0 10000 100
+E
+gauntlets~
+&+rThese gauntlets have been forged in the volcanic blacksmith forges of the Temple.&N
+~
+A
+18 2
+A
+19 1
+#8110
+ashen volcanic-forged vambrace~
+&+Lan &+washen &+rvo&+Rl&+rc&+Ra&+rnic&+L-&+wforged &+Wvambrace&N~
+&+LAn ashen vambrace lies here in the dust.&N~
+~
+9 18 2 0 15 0 8200 4097 0 0 0
+5 0 0 3 0 0 0 0
+0 10000 100
+E
+vambrace~
+&+rThis vambrace has been forged in the volcanic blacksmith forges of the Temple.&N
+~
+A
+18 2
+A
+1 3
+#8111
+ashen volcanic-forged pauldrons~
+&+La &+wset &+Lof &+washen &+rvo&+Rl&+rc&+Ra&+rnic&+L-&+wforged &+Wpauldrons&N~
+&+LA set of ashen pauldrons lies here in the dust.&N~
+~
+9 18 2 0 15 0 8200 257 0 0 0
+10 0 0 3 0 0 0 0
+0 10000 100
+E
+pauldrons~
+&+rThese pauldrons have been forged in the volcanic blacksmith forges of the Temple.&N
+~
+A
+18 2
+A
+1 4
+#8112
+ashen volcanic-forged visor~
+&+Lan &+washen &+rvo&+Rl&+rc&+Ra&+rnic&+L-&+wforged &+Wvisor&N~
+&+LAn ashen visor lies here in the dust.&N~
+~
+9 18 2 0 15 0 8200 131073 0 0 0
+4 0 0 3 0 0 0 0
+0 10000 100 32 0 0 0
+E
+visor~
+&+rThis visor has been forged in the volcanic blacksmith forges of the Temple.&N
+~
+A
+18 2
+A
+3 5
+#8113
+ashen volcanic-forged mask~
+&+Lan &+washen &+rvo&+Rl&+rc&+Ra&+rnic&+L-&+wforged &+Wmask&N~
+&+LAn ashen mask lies here in the dust.&N~
+~
+9 18 2 0 15 0 8200 262145 0 0 0
+5 0 0 3 0 0 0 0
+0 10000 100
+E
+mask~
+&+rThis mask has been forged in the volcanic blacksmith forges of the Temple.&N
+~
+A
+18 2
+A
+4 5
+#8114
+plain clerical robes ash robe~
+&+Lsome &+wplain &+cc&+Ll&+ce&+Lr&+ci&+Lc&+ca&+Ll &+wrobes &+Lof &+Wa&+ws&+Lh&N~
+&+LAn ashen robe lies here in the dust.&N~
+~
+9 3 2 0 15 0 8200 9 0 268435015 0
+20 0 0 3 0 0 0 0
+0 10000 100
+E
+robe~
+&+LThis robe is quite plain, and covered in volcanic ash.&N
+~
+A
+4 5
+A
+13 10
+#8115
+ash-covered clerical hood~
+&+Lan &+Wa&+ws&+Lh-&+wcovered &+cc&+Ll&+ce&+Lr&+ci&+Lc&+ca&+Ll &+whood&N~
+&+LAn ashen hood lies here in the dust.&N~
+~
+9 3 2 0 15 0 8200 17 0 268434983 0
+10 0 0 3 0 0 0 0
+0 1000 100
+E
+hood~
+&+LThis hood is quite plain, and covered in volcanic ash.&N
+~
+A
+4 3
+A
+13 8
+#8116
+small clerical ring pure mithril~
+&+La small &+cc&+Ll&+ce&+Lr&+ci&+Lc&+ca&+Ll &+wring &+Lof &+wpure &+Wmithril&N~
+&+LAn ashen hood lies here in the dust.&N~
+~
+9 3 2 0 15 0 8200 3 0 268435015 0
+2 0 0 3 0 0 0 0
+0 10000 100
+E
+ring~
+&+LThis ring glitters from the shiny mithril that it is made of...&N
+~
+A
+34 1
+A
+13 10
+#8117
+mithril chain clerical amulet~
+&+La &+wmithril&+L-chain &+cc&+Ll&+ce&+Lr&+ci&+Lc&+ca&+Ll &+Wamulet&N~
+&+LAn ashen amulet lies here in the dust.&N~
+~
+9 18 2 0 15 0 8200 5 0 268435015 0
+2 0 0 3 0 0 0 0
+0 10000 100
+E
+amulet~
+&+WThis chain is quite delicate in its craftsmanship.&N
+~
+A
+34 1
+A
+5 4
+#8118
+mithril engraved clerical bracelet~
+&+La &+wmithril&+L engraved &+cc&+Ll&+ce&+Lr&+ci&+Lc&+ca&+Ll &+wbracelet&N~
+&+LAn ashen bracelet lies here in the dust.&N~
+~
+9 18 2 0 15 0 8200 4097 0 268435015 0
+3 0 0 3 0 0 0 0
+0 10000 100
+E
+bracelet~
+&+WThis bracelet is quite delicate in its craftsmanship.&N
+~
+A
+5 2
+A
+4 4
+#8119
+plain ash-covered clerical sandals~
+&+Lsome &+wplain &+cc&+Ll&+ce&+Lr&+ci&+Lc&+ca&+Ll &+Wa&+wsh&+L-covered &+wsandals&N~
+&+LAn ashen pair of sandals lies here in the dust.&N~
+~
+9 18 2 0 15 0 8200 65 0 268435015 0
+5 0 0 3 0 0 0 0
+0 10000 100 67108864 0 0 0
+E
+sandals~
+&+LThese sandals are quite plain, and covered in volcanic ash.&N
+~
+A
+4 4
+A
+14 20
+#8120
+ash-covered clerical gloves glove pair~
+&+La &+wpair&+L of embroidered &+Wa&+ws&+Lh-&+wcovered &+cc&+Ll&+ce&+Lr&+ci&+Lc&+ca&+Ll &+wgloves&N~
+&+LAn ashen pair of gloves lies here in the dust.&N~
+~
+9 3 2 0 15 0 8200 129 0 268434983 0
+5 0 0 3 0 0 0 0
+0 10000 100
+E
+gloves~
+&+LThese gloves are quite plain, and covered in volcanic ash.&N
+~
+A
+4 4
+A
+1 2
+#8121
+small mithril key~
+&+La &+wsmall &+Wmithril &+wkey&N~
+&+LA small mithril key lies here.&N~
+~
+18 15 3 0 7 0 8417288 1 64 0 0
+0 100 0 0 0 0 0 0
+0 1 100
+E
+small mithril key~
+&+wThis small key is made of mithril.&N
+~
+#8122
+swirling mass dancing flames~
+&+La &+ws&+Lw&+wi&+Wr&+wl&+Li&+wn&+Lg &+wmass &+Lof &+rda&+Rnci&+rng &+rf&+Rl&+Yam&+Re&+rs&N~
+&+rA swirling mass of dancing flames hovers here.&N~
+~
+11 1 1 0 14 0 0 16385 0 0 0
+0 0 0 0 0 0 0 0
+0 1 100 8 1 0 0
+E
+mass~
+&+RThe dancing flames are quite mesmerizing...&N
+~
+A
+13 25
+T
+2 2 3 35
+#8123
+small bracelet woven mithril chain~
+&+La &+wsmall bracelet &+Lof &+ww&+Wo&+wv&+Le&+wn &+Wmithril &+wchain&N~
+&+LA small bracelet of woven mithril chain lies here.&N~
+~
+11 18 2 0 15 0 1056776 4097 0 0 0
+0 0 0 0 0 0 0 0
+0 10000 100 32 0 0 0
+E
+bracelet~
+&+WThis is a small bracelet of woven mithril chain by master Duergar craftsmen.&N
+~
+A
+13 10
+#8124
+small necklace woven mithril chain~
+&+La delicate &+ww&+Wo&+wv&+Le&+wn &+Wmithril &+Lchain &+wnecklace&N~
+&+LA small necklace of woven mithril chain lies here.&N~
+~
+11 18 2 0 15 0 1056776 5 0 0 0
+0 0 0 0 0 0 0 0
+0 10000 100 4 0 0 0
+E
+necklace~
+&+WThis is a small necklace of woven mithril chain by master Duergar craftsmen.&N
+~
+#8125
+small mithril key~
+&+La &+wsmall &+Wmithril &+wkey&N~
+&+LA small mithril key lies here.&N~
+~
+18 18 3 0 7 0 8417288 1 64 0 0
+0 100 0 0 0 0 0 0
+0 1 100
+E
+small mithril key~
+&+wThis small key is made of mithril.&N
+~
+#8126
+glistening black potion~
+&+La glistening black potion&N~
+&+LA black potion lies here.&N~
+~
+10 15 3 0 7 0 4096 1 0 0 0
+36 189 90 34 0 0 0 0
+0 1000 100
+E
+glistening black potion~
+&+LA small inscription on this bottle indicates that it is used for invisibility.&N
+~
+#8127
+short glassteel dagger~
+&+ca &+wshort &+Cg&+cl&+wa&+Cs&+Ws&+ct&+We&+Ce&+cl&+L dagger&N~
+&+wA short dagger made from the rare glassteel lies here.&N~
+~
+5 44 2 0 15 0 256 8193 0 0 0
+2 2 3 0 2 0 0 0
+0 10000 100 32768 0 0 0
+E
+short glassteel dagger~
+&+cThese daggers glisten and shine as only glassteel can.&N
+~
+A
+18 2
+A
+19 2

@@ -1,0 +1,288 @@
+#8100
+duergar dwarf guard guard-in-training~
+&+La young &+rDuergar&+L guard-in-training&N~
+&+LA young &+rDuergar Dwarf&+L rests in the barracks in between training and guard duty.&N
+~
+&+r   This is a very young Duergar Dwarf, lucky enough to still have its hair which is porcupine-like in nature. Its skin is greyish. It appears to be a rather stocky and muscular Duergar for its age, likely as a result of its training.&N
+~
+1073743946 24 0 0 0 28 0 0 -1000 S
+pd 0 1 2 -1
+11 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 1
+#8101
+duergar dwarf guard guard-in-training adolescent~
+&+Lan adolescent &+rDuergar&+L guard-in-training&N~
+&+LAn adolescent &+rDuergar Dwarf&+L relaxes from his training here in the barracks.&N
+~
+&+r   This is a very young Duergar Dwarf, luck enough to still have its hair which is porcupine-like in nature. Its skin is greyish. It appears to be a rather stocky and muscular Duergar for its age, likely as a result of its training.&N
+~
+1073743946 24 0 0 0 28 0 0 -1000 S
+pd 0 1 2 -1
+18 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 1
+#8102
+duergar dwarf gatehouse guard~
+&+La &+rDuergar Dwarf&+L gatehouse guard&N~
+&+LA &+rDuergar&+L guard stands here at the gate entrance of the &+rTemple &+Lof &+rLad&+Rug&+ruer&+L.&N
+~
+&+r   This Duergar Dwarf stoically stands guard at the Temple of Laduguer, examining all of the potential visitors to the temple as a threat or not.&N
+~
+1107298314 33620248 0 0 0 0 0 0 -1000 S
+pd 0 1 2 -1
+36 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 1
+#8103
+murgol warrior instructor duergar dwarf~
+&+rMurgol&+L, the Warrior instructor&N~
+&+LThis stoic &+rDuergar Dwarf&+L is patiently examining a battle-axe.&N
+~
+&+r   This Duergar Dwarf has greyish-toned skin, and is completely bald. His eyes are golden in hue, and appear to have the weariness of age. He looks at you for a moment, considering if you are a worthwhile student for what he has to teach.&N
+~
+3321923658 0 0 0 134217736 24 0 0 -1000 S
+pd 0 1 2 -1
+41 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 1
+#8104
+weltha mercenary instructor duergar dwarf~
+&+rWeltha&+L, the Mercenary instructor&N~
+&+LAn elder &+rDuergar Dwarf&+L shield-maiden waits for her students to arrive.&N
+~
+&+r   This older Duergar Dwarf has a little greyish-purplelish hair braided just behind each ear. She has a few scars and obviously saw quite a bit of action in her day. She looks at you patiently, considering if you have what it takes to be a mercenary.&N
+~
+3321923658 0 0 0 134217736 24 0 0 -1000 S
+pd 0 16384 2 -1
+41 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 2
+#8105
+dorthis rogue instructor duergar dwarf~
+&+rDorthis&+L, the Rogue instructor&N~
+&+LA shady-looking &+rDuergar Dwarf&+L watches with with mistrust and casual interest.&N
+~
+&+r   This somewhat scrawny Duergar Dwarf has obviously been on several adventures and is now content to simply instruct the younger Duergar present at the training facility.&N
+~
+3321923658 0 0 0 134217736 24 0 0 -1000 S
+pd 0 4096 2 -1
+41 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 2
+#8106
+ivar anti-paladin instructor duergar dwarf~
+&+rIvar&+L, the Anti-Paladin instructor&N~
+&+LA shady-looking &+rDuergar Dwarf&+L watches with with mistrust and casual interest.&N
+~
+&+r   This Duergar Dwarf seems to have very few students, and sits in a corner reading a book. He has pale orange-yellow eyes that settle upon you as he notices your presence, and he looks you up and down to consider you. He appears to be quite grumpy and distrustful.&N
+~
+3321923658 0 0 0 134217736 24 0 0 -1000 S
+pd 0 16 2 -1
+41 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 1
+#8107
+duergar dwarf guard~
+&+La &+rDuergar Dwarf&+L guard&N~
+&+LA &+rDuergar&+L guard wanders the hallways of the &+rTemple &+Lof &+rLad&+Rug&+ruer&+L.&N
+~
+&+r   This Duergar Dwarf stoically stands guard at the Temple of Laduguer, examining all of the potential visitors to the temple as a threat or not.&N
+~
+1107298316 33619992 0 0 536870912 0 0 0 -1000 S
+pd 0 16384 2 -1
+31 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 2
+#8108
+duergar dwarf guard~
+&+Lan elite &+rDuergar Dwarf&+L guard&N~
+&+LA &+rDuergar&+L guards the bridge to the &+rvol&+Rca&+rnic &+wShrines&+L at the &+rTemple &+Lof &+rLad&+Rug&+ruer&+L.&N
+~
+&+r   This Duergar Dwarf stoically stands guard at the Temple of Laduguer, examining all of the potential visitors to the temple as a threat or not.&N
+~
+1107298318 33620248 0 0 536870912 0 0 0 -1000 S
+pd 0 1 3 -1
+46 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 1
+#8109
+duergar dwarf guard~
+&+Lan elite &+rDuergar Dwarf&+L guard of the Shrines&N~
+&+LA &+rDuergar&+L guards the entrance to the &+rvol&+Rca&+rnic &+wShrines&+L at the &+rTemple &+Lof &+rLad&+Rug&+ruer&+L.&N
+~
+&+r   This Duergar Dwarf stoically stands guard at the Temple of Laduguer, examining all of the potential visitors to the temple as a threat or not.&N
+~
+1107298318 33620248 0 0 536870912 0 0 0 -1000 S
+pd 0 1 3 -1
+36 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 1
+#8110
+dwarf duergar craftsman pilgrim~
+&+La &+rDuergar Dwarf&+L craftsman pilgrim&N~
+&+LA &+rDuergar Dwarf&+L dedicates his latest creation to the shrine of Laduguer.&N
+~
+&+r   This Duergar Dwarf stands at the anvil shrine to Laduguer, calmly in an almost meditative state, works his hammer about a piece of mithril to create a piece of armor that he will dedicate and leave as an offering to his god.&N
+~
+1107298318 33620248 0 0 536870912 0 0 0 -1000 S
+pd 0 1 2 -1
+46 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 2
+#8111
+dwarf duergar craftsman pilgrim~
+&+La &+rDuergar Dwarf&+L craftsman pilgrim&N~
+&+LA &+rDuergar Dwarf&+L dedicates his latest creation to the shrine of Laduguer.&N
+~
+&+r   This Duergar Dwarf stands at the anvil shrine to Laduguer, calmly in an almost meditative state, works his hammer about a piece of mithril to create a piece of armor that he will dedicate and leave as an offering to his god.&N
+~
+1107298318 33620248 0 0 536870912 0 0 0 -1000 S
+pd 0 16384 2 -1
+31 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 2
+#8112
+duergar dwarf cleric cleric-in-training young~
+&+La young &+rDuergar&+L cleric-in-training&N~
+&+LA young &+rDuergar Dwarf&+L cleric paces the towers before the shrines.&N
+~
+&+r   This is a young Duergar Dwarf, robed as a cleric, with its hair shaved to allow only a single braid down either side of its head. Its skin is greyish. It appears to be muttering something quietly in Dwarven.&N
+~
+1073743944 280 0 0 536870912 28 0 0 -1000 S
+pd 0 32 1 -1
+26 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 2
+#8113
+granhol clerical cleric instructor duergar dwarf~
+&+rGranhol&+L, the Clerical instructor&N~
+&+LThis elderly &+rDuergar Dwarf&+L is meditating upon the shrine.&N
+~
+&+r   This Duergar Dwarf has greyish-toned skin, and is completely bald. His eyes are blue-green in hue, and appear to have the weariness of age. He looks at you for a moment, considering if you are a worthwhile student for what he has to teach of the clerical arts.&N
+~
+3321923658 256 0 0 134217736 24 0 0 -1000 S
+pd 0 32 1 -1
+41 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 1
+#8114
+duergar dwarf guard~
+&+La veteran &+rDuergar Dwarf&+L guard&N~
+&+LA &+rDuergar Dwarf&+L guards the entrance to the &+rvol&+Rca&+rnic &+wForge &+Lof &+rLad&+Rug&+ruer&+L.&N
+~
+&+r   This Duergar Dwarf stoically stands guard at the Temple of Laduguer, examining all of the potential visitors to the temple as a threat or not.&N
+~
+1107298318 33620248 0 0 536870912 0 0 0 -1000 S
+pd 0 1 3 -1
+36 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 2
+#8115
+rogue fire elemental~
+&+ra rogue fire elemental&N~
+&+rA rogue fire elemental fluxes in and out of existence with the lava.&N
+~
+&+r   This fire elemental seems to phase in and out of existence as the lava sputters and bubbles. It flares up with dancing fire and sightless smoke.&N
+~
+1107298344 1 0 0 672661560 1 0 0 0 S
+ef 0 1 3 -1
+36 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 0
+#8116
+duergar dwarf guard~
+&+Lan elite &+rDuergar Dwarf&+L guard of the Forge&N~
+&+LA &+rDuergar&+L guards the entrance to the &+rvol&+Rca&+rnic &+wForge&+L of the &+rTemple &+Lof &+rLad&+Rug&+ruer&+L.&N
+~
+&+r   This Duergar Dwarf stoically stands guard at the Forge of Laduguer, examining all of the potential visitors to the Forge for permission to enter.&N
+~
+1174407242 33620248 0 0 536871064 0 0 0 -1000 S
+pd 0 1 3 -1
+41 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 1
+#8117
+xaphan fire demon keeper~
+&+rXa&+Rph&+ran&+L, Keeper of the &+rVolcanic Forge&N~
+&+rA large &+Rfire demon&+r tends to the &+Rvolcanic &+Lforge &+rof the &+Rgods&+L.&N
+~
+&+r   A large demon of the plane of fire floats here, within the room, summoning lava and fire elementals from deep within the volcano to keep the forge super-charged. Its tendrils of fire dance about in a flurry of blue and red and yellow flames, their light shimmering off of the black obsidian walls of the Forge cavern.&N
+~
+1107322986 1 0 0 939524120 4456477 0 8388608 -1000 S
+x 0 1 2 -1
+57 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 0
+#8118
+summoned fire elemental~
+&+ra summoned fire elemental&N~
+&+rA summoned &+Rfire elemental&+r phases in and out of existence with the lava.&N
+~
+&+r   This fire elemental seems to phase in and out of existence as the lava sputters and bubbles. It flares up with dancing fire and sightless smoke.&N
+~
+1107298344 1 0 0 672661504 1 0 0 0 S
+ef 0 1 3 -1
+41 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 0
+#8119
+duergar dwarf guard~
+&+Lan inexperienced &+rDuergar Dwarf&+L guard&N~
+&+LA young &+rDuergar&+L guard wanders the hallways of the &+rBarracks&+L.&N
+~
+&+r   This young Duergar Dwarf casually wanders the halls of the barracks, pushing the younger dwarves in training around. He hums to himself, kicks a bit of dust on the floor, then wanders on...&N
+~
+1174407180 33620248 0 0 536870912 0 0 0 -1000 S
+pd 0 16384 2 -1
+21 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 2
+#8120
+duergar dwarf cleric adept young~
+&+La young &+rDuergar&+L cleric adept&N~
+&+LA young &+rDuergar Dwarf&+L cleric tends to her prayers and studies.&N
+~
+&+r   This is a young Duergar Dwarf, robed as a cleric, with its hair shaved to allow only a single braid down either side of its head. Its skin is greyish. It appears to be quietly praying.&N
+~
+1140852810 24 0 0 536870912 28 0 0 -1000 S
+pd 0 32 1 -1
+31 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 2
+#8121
+valkar innkeeper duergar dwarf~
+&+rValkar&+L, the innkeeper&N~
+&+LA rather busy &+rDuergar Dwarf&+L provides rooms for travelers.&N
+~
+&+r   This Duergar Dwarf seems to be busy handling the running of this meager inn all to himself. He has pale orange-yellow eyes that settle upon you as he notices your presence, and he looks you up and down to consider you. He appears to be quite grumpy and distrustful.&N
+~
+1107298378 0 0 0 402653192 24 0 0 -1000 S
+pd 0 16 2 -1
+41 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 1
+#8122
+steeder large giant mount~
+&+La giant steeder&N~
+&+LA giant spider known as a steeder stands here.&N
+~
+&+L   These giant spiders of the underdark have been trained to serve as mounts for many of the denizens of the Underdark - primarily the Duergar Dwarves and the Drow Elves.&N
+~
+1207961608 0 0 0 67108864 0 0 2 -1000 S
+as 0 1 2 -1
+21 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 0
+#8123
+raiding halfling assassin~
+&+La raiding &+yHalfling&N &+Lassassin&N~
+&+LA short &+yHalfling&+L lurks in the shadows of the stables.&N
+~
+&+y   This short Halfling is known by many of the underdark, and feared for his extremely talented skill for disguise. With his many faces of disguise, he has been known to sneak into any hometown or guild hall and assassin even the greatest of adventurers from the Underdark.&N
+~
+1107298314 33620352 0 0 1572864 2 536870912 67108864 0 S
+pf 0 8192 2 -1
+41 0 0 1d1+1 1d1+1
+0.0.0.0 0
+8 8 1
