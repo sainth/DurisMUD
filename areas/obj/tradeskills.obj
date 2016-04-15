@@ -1746,6 +1746,7 @@ This sign contains information about the items for sale in this store:
 
 &+W 2) &+ya tightly wrapped vellum scroll named '&+LFix&+y'&n
 &+C-This item will repair any single item which it is recited on, even if it is otherwise unrepairable.&n
+&+C Note: This will &=LCNOT&N &+Cwork in no magic rooms.&n
 
 &+W 3) &+Wa &+mm&+My&+Ys&+Bt&+Gc&+Ra&+Gl &+MFaerie &+Wbag of &+Lstolen loot&n
 &+C-This item contains a random item from the entire world of &+rDuris&+C. When opened, the bag will disappear
