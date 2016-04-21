@@ -200,7 +200,7 @@ int setup_pet(P_char mob, P_char ch, int duration, int flag)
   }
   af.flags = AFFTYPE_NODISPEL;
   af.type = SPELL_CHARM_PERSON;
-  af.duration = IS_PC(ch) ? duration : -1;
+  af.duration = ( IS_PC(ch) || IS_PC_PET(ch) ) ? duration : -1;
 
   globe = get_globe( ch );
 
