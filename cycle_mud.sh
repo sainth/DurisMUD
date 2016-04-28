@@ -26,6 +26,9 @@ while [[ $RESULT != 0 && $RESULT != 55 ]]; do
     fi
   fi
 
+  echo "Backing up pfiles..."
+  ./backup_pfiles.sh
+
   echo "Generating list of function names.."
   nm --demangle dms | grep " T " | sed -e 's/[(].*//g' > lib/misc/event_names
 
@@ -36,7 +39,7 @@ while [[ $RESULT != 0 && $RESULT != 55 ]]; do
 	fi
 
   echo "Starting duris..."
-  ./dms 7777 # > dms.out
+  ./dms 7788 # > dms.out
 
 	# capture the exit code
   RESULT=${PIPESTATUS[0]}
