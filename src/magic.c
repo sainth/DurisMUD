@@ -13924,31 +13924,43 @@ void astral_banishment(P_char ch, P_char victim, int hwordtype, int level)
 {
   // hwordtype: 1 = holy word
   //            2 = unholy word
-  P_obj wispy_band = read_object(WISPY_BAND_VNUM, REAL);
+  P_obj wispy_band;
+  bool has_band;
   int new_room, lev = GET_LEVEL(victim), found;
 
-  if(GET_RACE(victim) == (hwordtype == BANISHMENT_HOLY_WORD ? RACE_GITHYANKI : RACE_GITHZERAI) &&
-     number(0,100) < 2 + BOUNDED(-2, level-lev, 2) &&
-     !IS_HOMETOWN(ch->in_room) &&
-     !IS_SET(world[ch->in_room].room_flags, NO_TELEPORT) &&
-     !(world[ch->in_room].sector_type == SECT_OCEAN))
+  if( IS_NPC(ch) || IS_NPC(victim) )
+    return;
+
+  has_band = FALSE;
+  for( int i = 0; i < MAX_WEAR; i++ )
   {
-    if(wispy_band &&
-      OBJ_WORN_BY(wispy_band, victim))
+    if( (( wispy_band = victim->equipment[i] ) != NULL) && (OBJ_VNUM( wispy_band ) == WISPY_BAND_VNUM) )
     {
-      act("You are protected by a powerful force, and the banishment fails.", FALSE, ch, 0, victim, TO_VICT);
+      has_band = TRUE;
+      break;
+    }
+  }
+
+  if( GET_RACE(victim) == (hwordtype == BANISHMENT_HOLY_WORD ? RACE_GITHYANKI : RACE_GITHZERAI)
+    && number(0,100) < 2 + BOUNDED(-2, level-lev, 2) && !IS_HOMETOWN(ch->in_room)
+    && !IS_SET(world[ch->in_room].room_flags, NO_TELEPORT) && !(world[ch->in_room].sector_type == SECT_OCEAN) )
+  {
+    if( has_band )
+    {
+      act("You are protected by a powerful force from $p, and the banishment fails.",
+        FALSE, ch, wispy_band, victim, TO_VICT);
       return;
     }
-    
-    if(hwordtype == BANISHMENT_HOLY_WORD)
+
+    if( hwordtype == BANISHMENT_HOLY_WORD )
     {
       act("You banish the evil $N to the astral plane with your holy word.", FALSE, ch, 0, victim, TO_CHAR);
-      act("The power of the holy word causes you to flee to astral plane.", FALSE, ch, 0, victim, TO_VICT);
+      act("The power of the holy word causes you to flee to the astral plane.", FALSE, ch, 0, victim, TO_VICT);
     }
-    if(hwordtype == BANISHMENT_UNHOLY_WORD)
+    if( hwordtype == BANISHMENT_UNHOLY_WORD )
     {
       act("You banish the good $N to the astral plane with your unholy word.", FALSE, ch, 0, victim, TO_CHAR);
-      act("The power of the unholy word causes you to flee to astral plane.", FALSE, ch, 0, victim, TO_VICT);
+      act("The power of the unholy word causes you to flee to the astral plane.", FALSE, ch, 0, victim, TO_VICT);
     }
     act("Terror flashes in $N's eyes and $E is no more.", FALSE, ch, 0, victim, TO_NOTVICT);
     affect_from_char(victim, TAG_PVPDELAY);
