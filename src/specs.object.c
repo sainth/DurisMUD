@@ -14584,7 +14584,7 @@ int gc_portal( P_obj obj, P_char ch, int cmd, char *argument )
     return FALSE;
   }
 
-  if( GET_LEVEL(ch) > 35 && !IS_TRUSTED(ch) )
+  if( (GET_LEVEL( ch ) < 10 || GET_LEVEL( ch ) > 35) && !IS_TRUSTED(ch) )
   {
     act("&+LA strong force pushes you away from $p&+L.", FALSE, ch, obj, 0, TO_CHAR);
     return TRUE;
@@ -14608,6 +14608,7 @@ int gc_portal( P_obj obj, P_char ch, int cmd, char *argument )
 
   return TRUE;
 }
+
 int random_ec_room( )
 {
   int rroom;
@@ -14643,7 +14644,7 @@ int ec_portal( P_obj obj, P_char ch, int cmd, char *argument )
     return FALSE;
   }
 
-  if( GET_LEVEL(ch) > 35 && !IS_TRUSTED(ch) )
+  if( (GET_LEVEL( ch ) < 10 || GET_LEVEL( ch ) > 35) && !IS_TRUSTED(ch) )
   {
     act("&+LA strong force pushes you away from $p&+L.", FALSE, ch, obj, 0, TO_CHAR);
     return TRUE;
