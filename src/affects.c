@@ -489,7 +489,7 @@ int calculate_hitpoints2(P_char ch)
   if( IS_ILLITHID(ch) )
   {
     // Could simplify as there are no Warrior/Pal/AP/Merc Illithids, but just in case.
-    return GET_LEVEL(ch) + 10 + MAX(GET_C_CON(ch), 100) - 100
+    return GET_MAX_HIT(ch) + GET_LEVEL(ch) + 10 + MAX(GET_C_CON(ch), 100) - 100
       + GET_CHAR_SKILL(ch, SKILL_TOUGHNESS) * get_property("epic.skill.toughness", 0.500)
       * (GET_CLASS(ch, CLASS_WARRIOR | CLASS_PALADIN | CLASS_ANTIPALADIN | CLASS_MERCENARY) ? 2 : 1);
   }
@@ -521,6 +521,7 @@ int calculate_hitpoints2(P_char ch)
 
   i = MIN(curr_con, racial_con);
   old_bonus = level * ((-14./152100.) * i * i + (28./390.) * i - 4.);
+  // 250 hps at lvl 50 and 100 con.  1000 hps at lvl 50 and 200 con.
   new_bonus = (((float) level) / 50. * racial_con * racial_con * get_property("hitpoints.conMultiplier", 0.025));
 
   // Calculate class mod
@@ -604,7 +605,7 @@ int calculate_hitpoints2(P_char ch)
     old_bonus, new_bonus, class_mod, age_mod, maxconbonus, toughness, newbie, hardcore );
  */
 
-return old_bonus + new_bonus + age_mod + maxconbonus + toughness + newbie + hardcore;
+  return (GET_MAX_HIT(ch) * racial_con) / 100 + old_bonus + new_bonus + age_mod + maxconbonus + toughness + newbie + hardcore;
 }
 
 void event_balance_affects(P_char ch, P_char victim, P_obj obj, void *data)
@@ -1688,10 +1689,10 @@ void all_affects(P_char ch, int mode)
    */
   if (IS_PC(ch))
   {
-    int      missing_hps = GET_MAX_HIT(ch) - GET_HIT(ch);
-    int      missing_mana = GET_MAX_MANA(ch) - GET_MANA(ch);
+    int missing_hps = GET_MAX_HIT(ch) - GET_HIT(ch);
+    int missing_mana = GET_MAX_MANA(ch) - GET_MANA(ch);
 
-    GET_MAX_HIT(ch) += calculate_hitpoints2(ch);
+    GET_MAX_HIT(ch) = calculate_hitpoints2(ch);
     GET_HIT(ch) = GET_MAX_HIT(ch) - missing_hps;
     GET_MAX_MANA(ch) += calculate_mana(ch);
     GET_MANA(ch) = GET_MAX_MANA(ch) - missing_mana;
