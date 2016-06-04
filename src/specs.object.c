@@ -36,6 +36,7 @@ using namespace std;
 #include "blispells.h"
 #include "utility.h"
 #include "vnum.obj.h"
+#include "vnum.room.h"
 
 /*
    external variables
@@ -14688,6 +14689,26 @@ int random_ec_room( )
   }
 }
 
+int random_ud_room( )
+{
+  int rroom;
+
+  // Pick a random map room
+  while( TRUE )
+  {
+    if( (rroom = real_room0( number(VROOM_UD_PORTAL_START, VROOM_UD_PORTAL_END) )) == 0 )
+    {
+      continue;
+    }
+    // If it's on gc and not on mountains, return it.
+    if( (rroom > 0) && (world[rroom].sector_type != SECT_UNDRWLD_MOUNTAIN)
+      && (world[rroom].sector_type != SECT_OCEAN) )
+    {
+      return rroom;
+    }
+  }
+}
+
 int ec_portal( P_obj obj, P_char ch, int cmd, char *argument )
 {
   char buf[MAX_INPUT_LENGTH];
@@ -14721,6 +14742,51 @@ int ec_portal( P_obj obj, P_char ch, int cmd, char *argument )
   // Move ch to random room on gc.
   char_from_room( ch );
   char_to_room( ch, random_ec_room(), -2 );
+
+  // Destroy eq here.
+
+  // Add ch appears here.
+  // Add message to ch here.
+  act("&+LSuddenly, you feel your body reform...", FALSE, ch, obj, 0, TO_CHAR);
+  act("&+LSuddenly, $n &+Lforms out of nothing...", FALSE, ch, obj, 0, TO_ROOM);
+  do_look( ch, NULL, -4 );
+
+  return TRUE;
+}
+
+int ud_portal( P_obj obj, P_char ch, int cmd, char *argument )
+{
+  char buf[MAX_INPUT_LENGTH];
+
+  if( cmd == CMD_SET_PERIODIC )
+    return FALSE;
+
+  if( !IS_ALIVE(ch) )
+    return FALSE;
+
+  if( cmd != CMD_ENTER )
+    return FALSE;
+
+  one_argument(argument, buf);
+  // If not the right portal..
+  if( obj != get_obj_in_list(buf, world[ch->in_room].contents) )
+  {
+    return FALSE;
+  }
+
+  if( (GET_LEVEL( ch ) < 10 || GET_LEVEL( ch ) > 35) && !IS_TRUSTED(ch) )
+  {
+    act("&+LA strong force pushes you away from $p&+L.", FALSE, ch, obj, 0, TO_CHAR);
+    return TRUE;
+  }
+
+  // Add ch enters portal message here.
+  act("&+L$n &+Lenters $p &+Land quickly fades to nothing!", FALSE, ch, obj, 0, TO_ROOM);
+  act("&+LAs you enter $p&+L, you feel your body begin to be torn apart!", FALSE, ch, obj, 0, TO_CHAR);
+
+  // Move ch to random room on gc.
+  char_from_room( ch );
+  char_to_room( ch, random_ud_room(), -2 );
 
   // Destroy eq here.
 

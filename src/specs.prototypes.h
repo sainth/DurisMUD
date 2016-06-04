@@ -601,6 +601,7 @@ int confusionsword(P_obj, P_char, int, char *);
 int guild_badge(P_obj, P_char, int, char *);
 int gc_portal(P_obj, P_char, int, char *);
 int ec_portal(P_obj, P_char, int, char *);
+int ud_portal(P_obj, P_char, int, char *);
 int druid_spring(P_obj, P_char, int, char *);
 int blighter_pond(P_obj, P_char, int, char *);
 int druid_sabre(P_obj, P_char, int, char *);

@@ -18,4 +18,6 @@
 
 #define VROOM_RAVENLOFT_SWORDCASE    58564
 
+#define VROOM_UD_PORTAL_START       829678
+#define VROOM_UD_PORTAL_END         850075
 #endif // _VNUM_ROOM_H_

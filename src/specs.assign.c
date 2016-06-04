@@ -1684,6 +1684,7 @@ void assign_objects(void)
   /* heavens */
   obj_index[real_object0(465)].func.obj = gc_portal;
   obj_index[real_object0(466)].func.obj = ec_portal;
+  obj_index[real_object0(467)].func.obj = ud_portal;
   obj_index[real_object0(750)].func.obj = druid_spring;
   obj_index[real_object0(749)].func.obj = blighter_pond;
 //  obj_index[real_object0(366)].func.obj = druid_sabre;

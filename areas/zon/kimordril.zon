@@ -2,7 +2,7 @@
 &+YKimordril&n~
 95658 2 4 8 18 1
 *
-* Zone edited with durisEdit v3.00
+* Zone edited with durisEdit v3.02
 *
 *
 D 0 95506 4 5 100 0 0 0
@@ -166,6 +166,7 @@ P 1 95528 999 95504 100 0 0 0      *   some standard rations
 P 1 95528 999 95504 100 0 0 0      *   some standard rations
 O 0 95503 1 95553 100 0 0 0        * a large fountain
 O 0 90 999 95553 100 0 0 0         * (object type not in this .obj file)
+O 0 467 1 95553 100 0 0 0          * (object type not in this .obj file)
 O 0 92 1 95556 100 0 0 0           * (object type not in this .obj file)
 O 0 95511 1 95558 100 0 0 0        * a small sign
 O 0 3097 999 95572 100 0 0 0       * (object type not in this .obj file)
