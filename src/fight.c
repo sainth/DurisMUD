@@ -6257,6 +6257,17 @@ int calculate_ac(P_char ch)
 
   victim_ac += io_agi_defense(ch);
 
+  if( has_innate(ch, INNATE_RRAKKMA) && ch->group )
+  {
+    for(struct group_list *gl = ch->group; gl; gl = gl->next)
+    {
+      if( ch != gl->ch && IS_PC(gl->ch) && ch->in_room == gl->ch->in_room && has_innate(gl->ch, INNATE_RRAKKMA) )
+      {
+        victim_ac -= 10;
+      }
+    }
+  }
+
   return BOUNDED(-750, victim_ac, 100);
 }
 
