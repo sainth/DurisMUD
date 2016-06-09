@@ -734,8 +734,8 @@ void setHeavenTime( P_char victim )
 
   /* level / 10 minutes in heaven, rounded up */
   //time_in_heaven = ((GET_LEVEL(victim) - 1) / 10 + 1) * 60;
-  // New value: level+20 seconds in heaven.
-  time_in_heaven = GET_LEVEL(victim)+20;
+  // New value: level + 20 seconds in heaven.
+  time_in_heaven = GET_LEVEL(victim) + 20;
 
   // Query the DB for the latest 20 deaths of victim in pvp
   qry( "SELECT event_id FROM pkill_info WHERE pid=%d AND pk_type='VICTIM' ORDER BY id DESC LIMIT 20", GET_PID(victim) );
@@ -768,8 +768,13 @@ void setHeavenTime( P_char victim )
       }
     }
 
-    // 3 extra minutes in heaven for each subsequent death.
-    time_in_heaven += counter * 180;
+    // Double the time for every death over 1 within the hour.
+    while( --counter > 0 )
+      time_in_heaven *= 2;
+    // If it's greater than 30 mins (then it'll reset while they're sitting there, so we want to cage them maybe?)
+    // For right now, make it 12 hrs+ <--- should stop feeding for a day at least.
+    if( time_in_heaven > 30 * 60 )
+      time_in_heaven *= 24;
   }
 
   victim->only.pc->pc_timer[PC_TIMER_HEAVEN] = time(NULL) + time_in_heaven;

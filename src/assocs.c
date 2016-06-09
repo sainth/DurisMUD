@@ -1397,6 +1397,7 @@ void do_prestige( P_char ch, char *argument, int cmd )
     }
     send_to_char(buf, ch);
   }
+  mysql_free_result(res);
 }
 
 

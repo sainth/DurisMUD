@@ -3110,6 +3110,7 @@ void no_reset_zone_reset(int zone_number)
     add_event(event_reset_zone, WAIT_MIN * 60, 0, 0, 0, 0, &zone_number, sizeof(zone_number));
     db_query("UPDATE zones SET reset_perc = '%d' WHERE id = '%d'", atoi(row[0]) + 1, zone_number);
   }
+  mysql_free_result(res);
 }
 
 #define ZCMD zone_table[zone].cmd[cmd_no]

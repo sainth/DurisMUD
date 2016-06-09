@@ -11559,6 +11559,7 @@ void do_whois(P_char ch, char *arg, int cmd)
     if( !(row = mysql_fetch_row(res)) )
     {
       send_to_char_f( ch, "Could not find last_ip in database (pid = %d)!\n", pid );
+      mysql_free_result(res);
       return;
     }
     strcpy( ip_address, row[0]);
@@ -11576,6 +11577,7 @@ void do_whois(P_char ch, char *arg, int cmd)
   if( !(row = mysql_fetch_row(res)) )
   {
     send_to_char_f( ch, "Could not find any names matching ip address '%s'.\n", ip_address );
+    mysql_free_result(res);
     return;
   }
   send_to_char( "&+YNames:&N ", ch );

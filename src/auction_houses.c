@@ -937,6 +937,7 @@ bool auction_pickup(P_char ch, char *args)
       }
 
       string obj_short(auction_row[1]);
+      mysql_free_result(res);
 
       if( !qry("INSERT INTO auction_item_pickups (pid, obj_blob_str) (SELECT '%d', obj_blob_str FROM auctions WHERE id = '%d')", GET_PID(ch), auction_id) )
         return FALSE;

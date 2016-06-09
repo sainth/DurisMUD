@@ -389,6 +389,7 @@ void get_level_cap( long *max_frags, int* racewar )
   {
     row = mysql_fetch_row(db);
   }
+  mysql_free_result(db);
 }
 
 // Returns the highest level achievable by mortals, limited by racewar side.
@@ -765,7 +766,7 @@ int sql_world_quest_can_do_another(P_char ch)
   // This crashed us when paly's horse called this function.
   if (!IS_PC(ch))
     return 0;
-  
+
   MYSQL_RES *db = 0;
   if(GET_LEVEL(ch) < 50)
 	 db = db_query("SELECT count(id) FROM world_quest_accomplished where pid = %d and player_level =%d and TO_DAYS( NOW() ) - TO_DAYS( timestamp ) <= 0", GET_PID(ch), GET_LEVEL(ch) );
@@ -794,7 +795,10 @@ int sql_world_quest_can_do_another(P_char ch)
     }
     else
    	   returning_value;
-    while ((row = mysql_fetch_row(db)));
+
+    while ((row = mysql_fetch_row(db)))
+      ;
+    mysql_free_result(db);
   }
   return MAX(returning_value, 0);
 }
@@ -812,10 +816,13 @@ int sql_world_quest_done_already(P_char ch, int quest_target)
 	    returning_value = atoi(row[0]);
     }
     else
-   	   returning_value =  0;
-    while ((row = mysql_fetch_row(db)));
+   	  returning_value = 0;
+
+    while ((row = mysql_fetch_row(db)))
+      ;
+		mysql_free_result(db);
   }
-return returning_value;
+  return returning_value;
 }
 
 const char *sql_select_IP_info(P_char ch, char *buf, size_t bufSize, time_t *lastConnect, time_t*lastDisconnect)
@@ -850,6 +857,7 @@ const char *sql_select_IP_info(P_char ch, char *buf, size_t bufSize, time_t *las
       // cycle out until a NULL return
       while ((row = mysql_fetch_row(db)));
     }
+    mysql_free_result(db);
   }
   return buf;
 }
@@ -883,9 +891,15 @@ int sql_find_racewar_for_ip( char *ip, int *racewar_side )
 
     while( row != NULL )
       row = mysql_fetch_row(db);
+
+		mysql_free_result(db);
+
     // Return an hour if they're still online, or time delta to an hour offline.
     return (last_disconnect < last_connect) ? 60 * 60 : last_disconnect - hour_ago;
   }
+
+  if( db )
+    mysql_free_result(db);
   return RACEWAR_NONE;
 }
 
@@ -907,7 +921,7 @@ MYSQL_RES *db  = db_query("SELECT UPPER(si_title) , old_id, REPLACE(REPLACE(REPL
 */
 
 
-MYSQL_RES *db  = db_query("SELECT REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(old_text,'<pre>',''),'</pre>',''), ']]', ''),'[[' ,'' ), '::', ':'), '<br>', ''), '\'\'', '') , '==', '') FROM `wikki_text`  WHERE old_id = (SELECT rev_text_id FROM `wikki_page`,`wikki_revision`  WHERE (page_id=rev_page) AND rev_id = (SELECT page_latest FROM `wikki_page`  WHERE page_id = (SELECT page_id  FROM `wikki_page`  WHERE page_namespace = '0' AND LOWER(page_title) = REPLACE(LOWER('%s'), ' ', '_')  LIMIT 1)  LIMIT 1)  LIMIT 1)  LIMIT 1", query);
+  MYSQL_RES *db = db_query("SELECT REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(old_text,'<pre>',''),'</pre>',''), ']]', ''),'[[' ,'' ), '::', ':'), '<br>', ''), '\'\'', '') , '==', '') FROM `wikki_text`  WHERE old_id = (SELECT rev_text_id FROM `wikki_page`,`wikki_revision`  WHERE (page_id=rev_page) AND rev_id = (SELECT page_latest FROM `wikki_page`  WHERE page_id = (SELECT page_id  FROM `wikki_page`  WHERE page_namespace = '0' AND LOWER(page_title) = REPLACE(LOWER('%s'), ' ', '_')  LIMIT 1)  LIMIT 1)  LIMIT 1)  LIMIT 1", query);
   if (db)
   {
     row = mysql_fetch_row(db);
@@ -917,7 +931,9 @@ MYSQL_RES *db  = db_query("SELECT REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLAC
     }
     else
     sprintf(buf, "&+WNothing matches, see &+mHelp wiki&+W how to add this help.&n");
-   while ((row = mysql_fetch_row(db)));
+    while ((row = mysql_fetch_row(db)))
+      ;
+    mysql_free_result(db);
   }
 
 /*
@@ -990,7 +1006,8 @@ void send_to_pid_offline(const char *msg, int pid) {
 	qry("INSERT INTO offline_messages (date, pid, message) VALUES (now(), '%d', '%s')", pid, buff);
 }
 
-void send_offline_messages(P_char ch) {
+void send_offline_messages(P_char ch)
+{
 	if( !ch ) return;
 
 	if( !qry("SELECT id, message FROM offline_messages WHERE pid = '%d' ORDER BY date ASC", GET_PID(ch)) ) {
@@ -1056,7 +1073,9 @@ int m_virtual = (obj->R_num >= 0) ? obj_index[obj->R_num].virtual_number : 0;
     }
     else
    	   returning_value =  0;
-    while ((row = mysql_fetch_row(db)));
+    while ((row = mysql_fetch_row(db)))
+      ;
+    mysql_free_result(db);
   }
 return returning_value;
 }
@@ -1089,7 +1108,9 @@ int sql_quest_trophy(P_char giver)
     }
     else
    	   returning_value =  0;
-    while ((row = mysql_fetch_row(db)));
+    while ((row = mysql_fetch_row(db)))
+      ;
+    mysql_free_result(db);
   }
 return returning_value;
 }
@@ -1186,7 +1207,7 @@ void do_sql(P_char ch, char *argument, int cmd)
       }
       if( strstr(third, "run" ) )
       {
-        MYSQL_RES *db = db_query("SELECT sql_code FROM prepstatement_duris_sql WHERE id=%d", prep_statement);
+        db = db_query("SELECT sql_code FROM prepstatement_duris_sql WHERE id=%d", prep_statement);
         if( db )
         {
           MYSQL_ROW row = mysql_fetch_row(db);
@@ -1200,7 +1221,9 @@ void do_sql(P_char ch, char *argument, int cmd)
             send_to_char("That prepped statement does not exist.\n\r", ch );
             tmp[0] = '\0';
           }
-          while( (row = mysql_fetch_row(db)) ) ;
+          while( (row = mysql_fetch_row(db)) )
+            ;
+          mysql_free_result(db);
 
           do_sql(ch, tmp, 0);
           return;
@@ -1284,6 +1307,7 @@ void do_sql(P_char ch, char *argument, int cmd)
     {
       send_to_char("Result to big, pls use limit. 'select * from blah &+Ylimit 10&n' will show 10 results.\n", ch);
     }
+    mysql_free_result(db);
     return;
   }
 }

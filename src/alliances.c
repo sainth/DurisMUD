@@ -58,6 +58,8 @@ void load_alliances()
     alliances.push_back(alliance);
   }
 
+  mysql_free_result(res);
+
   logit(LOG_STATUS, "Alliances loaded from database.");
 
 #endif //__NO_MYSQL__

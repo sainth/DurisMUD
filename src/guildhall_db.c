@@ -39,7 +39,6 @@ int next_guildhall_id()
     
     MYSQL_RES *res = mysql_store_result(DB);
     MYSQL_ROW row = mysql_fetch_row(res);
-    mysql_free_result(res);
     
     if( !row[0] )
     {
@@ -49,6 +48,7 @@ int next_guildhall_id()
     {
       _next_guildhall_id = atoi(row[0]);
     }
+    mysql_free_result(res);
   }
 #endif
   _next_guildhall_id++;
@@ -69,7 +69,6 @@ int next_guildhall_room_id()
     
     MYSQL_RES *res = mysql_store_result(DB);
     MYSQL_ROW row = mysql_fetch_row(res);
-    mysql_free_result(res);
 
     if( !row[0] )
     {
@@ -79,6 +78,7 @@ int next_guildhall_room_id()
     {
       _next_guildhall_room_id = atoi(row[0]);
     }
+    mysql_free_result(res);
   }
 #endif
   
@@ -165,6 +165,7 @@ void load_guildhall(int id, Guildhall *gh)
   if( !(row = mysql_fetch_row(res)) )
   {
     logit(LOG_GUILDHALLS, "load_guildhall(%d): guildhall with id not found!", id);
+    mysql_free_result(res);
     return;    
   }
 
@@ -245,6 +246,7 @@ void load_guildhall_rooms(Guildhall *guildhall)
     if( !room )
     {
       logit(LOG_GUILDHALLS, "load_guildhall_rooms(): couldn't allocate new guildhallroom!");
+      mysql_free_result(res);
       return;
     }
 

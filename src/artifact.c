@@ -3288,6 +3288,7 @@ void arti_fixit_sql( P_char ch )
 
   if( mysql_num_rows(res) < 1 )
   {
+    mysql_free_result(res);
     send_to_char( "Empty set; no artifacts on PC in table artifacts.\n\r", ch );
     return;
   }

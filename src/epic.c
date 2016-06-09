@@ -1376,7 +1376,6 @@ vector<string> get_epic_players(int racewar)
 
   if(!res)
   {
-    mysql_free_result(res);
     return names;
   }
 
@@ -1875,7 +1874,10 @@ float get_epic_zone_alignment_mod(int zone_number, ubyte racewar)
   MYSQL_RES *res = mysql_store_result(DB);
 
   if(mysql_num_rows(res) < 1)
+  {
+    mysql_free_result(res);
     return 1.0;
+  }
 
   MYSQL_ROW row = mysql_fetch_row(res);
 
@@ -1966,7 +1968,10 @@ float get_epic_zone_frequency_mod(int zone_number)
   MYSQL_RES *res = mysql_store_result(DB);
 
   if(mysql_num_rows(res) < 1)
+  {
+    mysql_free_result(res);
     return mod;
+  }
 
   MYSQL_ROW row = mysql_fetch_row(res);
 
