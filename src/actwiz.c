@@ -3816,9 +3816,9 @@ void do_nchat(P_char ch, char *argument, int cmd)
       argument += 2;
 
       if( all )
-        sprintf(Gbuf2, "&+C*all*&n");
+        sprintf(Gbuf2, "&+W*all*&n");
       else if( good )
-        sprintf(Gbuf2, "&+Wgood&n");
+        sprintf(Gbuf2, "&+Ygood&n");
       else if( evil )
         sprintf(Gbuf2, "&+Revil&n");
       else if( undead )
@@ -3826,10 +3826,10 @@ void do_nchat(P_char ch, char *argument, int cmd)
       else if( neutral )
         sprintf(Gbuf2, "&+Mneutral&n");
       else
-        sprintf(Gbuf2, "undefined");
+        sprintf(Gbuf2, "&+Cundefined&n");
 
 
-      sprintf(Gbuf1, "&+mYou racewar chat to %s '&+w%s&n&+w'\n", Gbuf2, argument);
+      sprintf(Gbuf1, "&+mYou racewar chat to &n(%s): '&+w%s&n&+w'\n", Gbuf2, argument);
       send_to_char(Gbuf1, ch, LOG_PRIVATE);
     }
     else if( IS_SET(ch->specials.act, PLR_ECHO) )
