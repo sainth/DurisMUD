@@ -1812,6 +1812,10 @@ int do_simple_move_skipping_procs(P_char ch, int exitnumb, unsigned int flags)
     obj_to_room(ch->vehicle, ch->in_room);
   }
 */
+  if( ch->in_room == NOWHERE || !IS_ALIVE(ch) )
+  {
+    return FALSE;
+  }
 
   char_light(ch);
   room_light(ch->in_room, REAL);
@@ -1841,10 +1845,6 @@ int do_simple_move_skipping_procs(P_char ch, int exitnumb, unsigned int flags)
 //    send_to_char("You stop your sacking.\n", ch);
 //    //clear_sacks(ch);
 //  }
-  if( ch->in_room == NOWHERE )
-  {
-    return 0;
-  }
   if( (flags & MVFLG_DRAG_FOLLOWERS) && ch->followers )
   {
     struct room_affect raf, *praf = NULL;
