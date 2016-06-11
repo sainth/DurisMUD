@@ -120,7 +120,9 @@
 #define SET_LEADER(asn)   (SET_M_BITS((asn), A_RK_MASK, A_LEADER))
 #define IS_GOD(asn)       (IS_M_BITS((asn),  A_RK_MASK, A_RK_MASK))
 #define SET_GOD(asn)      (SET_M_BITS((asn), A_RK_MASK, A_RK_MASK))
-#define IS_STT(asn) ((asn) & A_STATICTITLE)
+#define IS_STT(asn)       ((asn) & A_STATICTITLE)
+#define SET_STT(asn)      (SET_M_BITS((asn), A_STATICTITLE, A_STATICTITLE))
+#define REMOVE_STT(asn)   (SET_M_BITS((asn), A_STATICTITLE, ~A_STATICTITLE))
 #define IS_HIDDENTITLE(asn) ((asn) & A_HIDETITLE)
 #define IS_HIDDENSUBTITLE(asn) ((asn) & A_HIDESUBTITLE)
 

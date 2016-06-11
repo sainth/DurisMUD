@@ -686,10 +686,6 @@ void Guild::update_member( P_char ch )
       send_to_char( "You have been kicked out of your association in disgrace.\n", ch );
       // add_member( ch, (A_GET_RANK(ch) > 0) ? A_GET_RANK(ch) : A_NORMAL );
     }
-    else
-    {
-      GET_A_BITS(ch) = pMembers->bits;
-    }
   }
 
   // Check homed in someone else's guildhall.
@@ -1919,6 +1915,8 @@ void do_society( P_char member, char *argument, int cmd )
       {
         send_to_char( "Your title can now be changed by the leader/automatic rank title updates.\n", member );
       }
+      guild->update_member(member);
+      guild->save( );
       break;
     case SOC_CMD_WITHDRAW:
       guild->withdraw( member, platinum, gold, silver, copper );
@@ -2575,7 +2573,8 @@ void Guild::title( P_char member, P_char victim, char *arg )
   writeCharacter(victim, RENT_CRASH, victim->in_room );
 
   send_to_char_f( victim, "You are now known as '%s'.\n", GET_TITLE(victim) );
-  send_to_char_f( member, "%s is now known as '%s'.\n", GET_NAME(victim), GET_TITLE(victim) );
+  if( victim != member )
+    send_to_char_f( member, "%s is now known as '%s'.\n", GET_NAME(victim), GET_TITLE(victim) );
 
   if( !(GET_A_BITS(victim) & A_STATICTITLE) )
   {
@@ -2946,6 +2945,14 @@ void Guild::update_bits( P_char ch )
         {
           send_to_char( "You have been fined by your guild.\n", ch );
           SET_DEBT( GET_A_BITS(ch) );
+        }
+        if( IS_STT(ch_bits) )
+        {
+          SET_STT( pMembers->bits );
+        }
+        else
+        {
+          REMOVE_STT( pMembers->bits );
         }
       }
       return;
