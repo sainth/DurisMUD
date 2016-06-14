@@ -163,7 +163,7 @@ void spell_beholder_telekinesis(int level, P_char ch, P_char victim,
         
         SET_BIT(EXIT(ch, door)->exit_info, EX_CLOSED);
 
-        if ((door != DOWN) && (door != UP))     /* up to up/down */
+        if ((door != DIR_DOWN) && (door != DIR_UP))     /* up to up/down */
         {
           if (EXIT(ch, door)->keyword)
           {

@@ -526,246 +526,246 @@ void set_ship_layout(P_ship ship, int m_class)
     ship->bridge = 0;
     switch (m_class) {
     case SH_SLOOP:
-        SHIP_ROOM_EXIT(ship, 0, SOUTH) = 1;
-        SHIP_ROOM_EXIT(ship, 1, NORTH) = 0;
+        SHIP_ROOM_EXIT(ship, 0, DIR_SOUTH) = 1;
+        SHIP_ROOM_EXIT(ship, 1, DIR_NORTH) = 0;
         ship->entrance = 1;
         ship->room_count = 2;
         break;
 
     case SH_YACHT:
-        SHIP_ROOM_EXIT(ship, 0, NORTH) = 1;
-        SHIP_ROOM_EXIT(ship, 0, SOUTH) = 2;
-        SHIP_ROOM_EXIT(ship, 1, SOUTH) = 0;
-        SHIP_ROOM_EXIT(ship, 2, NORTH) = 0;
+        SHIP_ROOM_EXIT(ship, 0, DIR_NORTH) = 1;
+        SHIP_ROOM_EXIT(ship, 0, DIR_SOUTH) = 2;
+        SHIP_ROOM_EXIT(ship, 1, DIR_SOUTH) = 0;
+        SHIP_ROOM_EXIT(ship, 2, DIR_NORTH) = 0;
         ship->entrance = 2;
         ship->room_count = 3;
         break;
 
     case SH_CLIPPER:
-        SHIP_ROOM_EXIT(ship, 0, NORTH) = 1;
-        SHIP_ROOM_EXIT(ship, 0, SOUTH) = 2;
-        SHIP_ROOM_EXIT(ship, 1, SOUTH) = 0;
-        SHIP_ROOM_EXIT(ship, 2, NORTH) = 0;
-        SHIP_ROOM_EXIT(ship, 2, SOUTH) = 3;
-        SHIP_ROOM_EXIT(ship, 3, NORTH) = 2;
+        SHIP_ROOM_EXIT(ship, 0, DIR_NORTH) = 1;
+        SHIP_ROOM_EXIT(ship, 0, DIR_SOUTH) = 2;
+        SHIP_ROOM_EXIT(ship, 1, DIR_SOUTH) = 0;
+        SHIP_ROOM_EXIT(ship, 2, DIR_NORTH) = 0;
+        SHIP_ROOM_EXIT(ship, 2, DIR_SOUTH) = 3;
+        SHIP_ROOM_EXIT(ship, 3, DIR_NORTH) = 2;
         ship->entrance = 3;
         ship->room_count = 4;
         break;
 
     case SH_KETCH:
-        SHIP_ROOM_EXIT(ship, 0, SOUTH) = 2;
-        SHIP_ROOM_EXIT(ship, 1, EAST)  = 2;
-        SHIP_ROOM_EXIT(ship, 2, NORTH) = 0;
-        SHIP_ROOM_EXIT(ship, 2, EAST)  = 3;
-        SHIP_ROOM_EXIT(ship, 2, WEST)  = 1;
-        SHIP_ROOM_EXIT(ship, 3, WEST)  = 2;
+        SHIP_ROOM_EXIT(ship, 0, DIR_SOUTH) = 2;
+        SHIP_ROOM_EXIT(ship, 1, DIR_EAST)  = 2;
+        SHIP_ROOM_EXIT(ship, 2, DIR_NORTH) = 0;
+        SHIP_ROOM_EXIT(ship, 2, DIR_EAST)  = 3;
+        SHIP_ROOM_EXIT(ship, 2, DIR_WEST)  = 1;
+        SHIP_ROOM_EXIT(ship, 3, DIR_WEST)  = 2;
         ship->entrance = 2;
         ship->room_count = 4;
         break;
 
     case SH_CARAVEL:
-        SHIP_ROOM_EXIT(ship, 0, NORTH) = 1;
-        SHIP_ROOM_EXIT(ship, 0, SOUTH) = 5;
-        SHIP_ROOM_EXIT(ship, 0, EAST)  = 3;
-        SHIP_ROOM_EXIT(ship, 0, WEST)  = 2;
-        SHIP_ROOM_EXIT(ship, 1, SOUTH) = 0;
-        SHIP_ROOM_EXIT(ship, 2, SOUTH) = 4;
-        SHIP_ROOM_EXIT(ship, 2, EAST)  = 0;
-        SHIP_ROOM_EXIT(ship, 3, SOUTH) = 6;
-        SHIP_ROOM_EXIT(ship, 3, WEST)  = 0;
-        SHIP_ROOM_EXIT(ship, 4, NORTH) = 2;
-        SHIP_ROOM_EXIT(ship, 4, EAST)  = 5;
-        SHIP_ROOM_EXIT(ship, 5, NORTH) = 0;
-        SHIP_ROOM_EXIT(ship, 5, EAST)  = 6;
-        SHIP_ROOM_EXIT(ship, 5, WEST)  = 4;
-        SHIP_ROOM_EXIT(ship, 6, NORTH) = 3;
-        SHIP_ROOM_EXIT(ship, 6, WEST)  = 5;
+        SHIP_ROOM_EXIT(ship, 0, DIR_NORTH) = 1;
+        SHIP_ROOM_EXIT(ship, 0, DIR_SOUTH) = 5;
+        SHIP_ROOM_EXIT(ship, 0, DIR_EAST)  = 3;
+        SHIP_ROOM_EXIT(ship, 0, DIR_WEST)  = 2;
+        SHIP_ROOM_EXIT(ship, 1, DIR_SOUTH) = 0;
+        SHIP_ROOM_EXIT(ship, 2, DIR_SOUTH) = 4;
+        SHIP_ROOM_EXIT(ship, 2, DIR_EAST)  = 0;
+        SHIP_ROOM_EXIT(ship, 3, DIR_SOUTH) = 6;
+        SHIP_ROOM_EXIT(ship, 3, DIR_WEST)  = 0;
+        SHIP_ROOM_EXIT(ship, 4, DIR_NORTH) = 2;
+        SHIP_ROOM_EXIT(ship, 4, DIR_EAST)  = 5;
+        SHIP_ROOM_EXIT(ship, 5, DIR_NORTH) = 0;
+        SHIP_ROOM_EXIT(ship, 5, DIR_EAST)  = 6;
+        SHIP_ROOM_EXIT(ship, 5, DIR_WEST)  = 4;
+        SHIP_ROOM_EXIT(ship, 6, DIR_NORTH) = 3;
+        SHIP_ROOM_EXIT(ship, 6, DIR_WEST)  = 5;
         ship->entrance = 5;
         ship->room_count = 7;
         break;
 
     case SH_CARRACK:
-        SHIP_ROOM_EXIT(ship, 0, NORTH) = 1;
-        SHIP_ROOM_EXIT(ship, 0, SOUTH) = 5;
-        SHIP_ROOM_EXIT(ship, 0, EAST)  = 3;
-        SHIP_ROOM_EXIT(ship, 0, WEST)  = 2;
-        SHIP_ROOM_EXIT(ship, 1, SOUTH) = 0;
-        SHIP_ROOM_EXIT(ship, 2, SOUTH) = 4;
-        SHIP_ROOM_EXIT(ship, 2, EAST)  = 0;
-        SHIP_ROOM_EXIT(ship, 3, SOUTH) = 6;
-        SHIP_ROOM_EXIT(ship, 3, WEST)  = 0;
-        SHIP_ROOM_EXIT(ship, 4, NORTH) = 2;
-        SHIP_ROOM_EXIT(ship, 4, EAST)  = 5;
-        SHIP_ROOM_EXIT(ship, 5, NORTH) = 0;
-        SHIP_ROOM_EXIT(ship, 5, SOUTH) = 7;
-        SHIP_ROOM_EXIT(ship, 5, EAST)  = 6;
-        SHIP_ROOM_EXIT(ship, 5, WEST)  = 4;
-        SHIP_ROOM_EXIT(ship, 6, NORTH) = 3;
-        SHIP_ROOM_EXIT(ship, 6, WEST)  = 5;
-        SHIP_ROOM_EXIT(ship, 7, NORTH) = 5;
+        SHIP_ROOM_EXIT(ship, 0, DIR_NORTH) = 1;
+        SHIP_ROOM_EXIT(ship, 0, DIR_SOUTH) = 5;
+        SHIP_ROOM_EXIT(ship, 0, DIR_EAST)  = 3;
+        SHIP_ROOM_EXIT(ship, 0, DIR_WEST)  = 2;
+        SHIP_ROOM_EXIT(ship, 1, DIR_SOUTH) = 0;
+        SHIP_ROOM_EXIT(ship, 2, DIR_SOUTH) = 4;
+        SHIP_ROOM_EXIT(ship, 2, DIR_EAST)  = 0;
+        SHIP_ROOM_EXIT(ship, 3, DIR_SOUTH) = 6;
+        SHIP_ROOM_EXIT(ship, 3, DIR_WEST)  = 0;
+        SHIP_ROOM_EXIT(ship, 4, DIR_NORTH) = 2;
+        SHIP_ROOM_EXIT(ship, 4, DIR_EAST)  = 5;
+        SHIP_ROOM_EXIT(ship, 5, DIR_NORTH) = 0;
+        SHIP_ROOM_EXIT(ship, 5, DIR_SOUTH) = 7;
+        SHIP_ROOM_EXIT(ship, 5, DIR_EAST)  = 6;
+        SHIP_ROOM_EXIT(ship, 5, DIR_WEST)  = 4;
+        SHIP_ROOM_EXIT(ship, 6, DIR_NORTH) = 3;
+        SHIP_ROOM_EXIT(ship, 6, DIR_WEST)  = 5;
+        SHIP_ROOM_EXIT(ship, 7, DIR_NORTH) = 5;
         ship->entrance = 7;
         ship->room_count = 8;
         break;
 
     case SH_GALLEON:
-        SHIP_ROOM_EXIT(ship, 0, NORTH) = 1;
-        SHIP_ROOM_EXIT(ship, 0, SOUTH) = 5;
-        SHIP_ROOM_EXIT(ship, 0, EAST)  = 3;
-        SHIP_ROOM_EXIT(ship, 0, WEST)  = 2;
-        SHIP_ROOM_EXIT(ship, 1, SOUTH) = 0;
-        SHIP_ROOM_EXIT(ship, 2, SOUTH) = 4;
-        SHIP_ROOM_EXIT(ship, 2, EAST)  = 0;
-        SHIP_ROOM_EXIT(ship, 3, SOUTH) = 6;
-        SHIP_ROOM_EXIT(ship, 3, WEST)  = 0;
-        SHIP_ROOM_EXIT(ship, 4, NORTH) = 2;
-        SHIP_ROOM_EXIT(ship, 4, SOUTH) = 7;
-        SHIP_ROOM_EXIT(ship, 4, EAST)  = 5;
-        SHIP_ROOM_EXIT(ship, 5, NORTH) = 0;
-        SHIP_ROOM_EXIT(ship, 5, SOUTH) = 8;
-        SHIP_ROOM_EXIT(ship, 5, EAST)  = 6;
-        SHIP_ROOM_EXIT(ship, 5, WEST)  = 4;
-        SHIP_ROOM_EXIT(ship, 6, NORTH) = 3;
-        SHIP_ROOM_EXIT(ship, 6, SOUTH) = 9;
-        SHIP_ROOM_EXIT(ship, 6, WEST)  = 5;
-        SHIP_ROOM_EXIT(ship, 7, NORTH) = 4;
-        SHIP_ROOM_EXIT(ship, 7, EAST)  = 8;
-        SHIP_ROOM_EXIT(ship, 8, NORTH) = 5;
-        SHIP_ROOM_EXIT(ship, 8, EAST)  = 9;
-        SHIP_ROOM_EXIT(ship, 8, WEST)  = 7;
-        SHIP_ROOM_EXIT(ship, 9, NORTH) = 6;
-        SHIP_ROOM_EXIT(ship, 9, WEST)  = 8;
+        SHIP_ROOM_EXIT(ship, 0, DIR_NORTH) = 1;
+        SHIP_ROOM_EXIT(ship, 0, DIR_SOUTH) = 5;
+        SHIP_ROOM_EXIT(ship, 0, DIR_EAST)  = 3;
+        SHIP_ROOM_EXIT(ship, 0, DIR_WEST)  = 2;
+        SHIP_ROOM_EXIT(ship, 1, DIR_SOUTH) = 0;
+        SHIP_ROOM_EXIT(ship, 2, DIR_SOUTH) = 4;
+        SHIP_ROOM_EXIT(ship, 2, DIR_EAST)  = 0;
+        SHIP_ROOM_EXIT(ship, 3, DIR_SOUTH) = 6;
+        SHIP_ROOM_EXIT(ship, 3, DIR_WEST)  = 0;
+        SHIP_ROOM_EXIT(ship, 4, DIR_NORTH) = 2;
+        SHIP_ROOM_EXIT(ship, 4, DIR_SOUTH) = 7;
+        SHIP_ROOM_EXIT(ship, 4, DIR_EAST)  = 5;
+        SHIP_ROOM_EXIT(ship, 5, DIR_NORTH) = 0;
+        SHIP_ROOM_EXIT(ship, 5, DIR_SOUTH) = 8;
+        SHIP_ROOM_EXIT(ship, 5, DIR_EAST)  = 6;
+        SHIP_ROOM_EXIT(ship, 5, DIR_WEST)  = 4;
+        SHIP_ROOM_EXIT(ship, 6, DIR_NORTH) = 3;
+        SHIP_ROOM_EXIT(ship, 6, DIR_SOUTH) = 9;
+        SHIP_ROOM_EXIT(ship, 6, DIR_WEST)  = 5;
+        SHIP_ROOM_EXIT(ship, 7, DIR_NORTH) = 4;
+        SHIP_ROOM_EXIT(ship, 7, DIR_EAST)  = 8;
+        SHIP_ROOM_EXIT(ship, 8, DIR_NORTH) = 5;
+        SHIP_ROOM_EXIT(ship, 8, DIR_EAST)  = 9;
+        SHIP_ROOM_EXIT(ship, 8, DIR_WEST)  = 7;
+        SHIP_ROOM_EXIT(ship, 9, DIR_NORTH) = 6;
+        SHIP_ROOM_EXIT(ship, 9, DIR_WEST)  = 8;
         ship->entrance = 8;
         ship->room_count = 10;
         break;
 
     case SH_CORVETTE:
-        SHIP_ROOM_EXIT(ship, 0, SOUTH) = 2;
-        SHIP_ROOM_EXIT(ship, 0, WEST)  = 1;
-        SHIP_ROOM_EXIT(ship, 0, NORTH) = 4;
-        SHIP_ROOM_EXIT(ship, 0, EAST)  = 3;
-        SHIP_ROOM_EXIT(ship, 1, EAST)  = 0;
-        SHIP_ROOM_EXIT(ship, 2, NORTH) = 0;
-        SHIP_ROOM_EXIT(ship, 3, WEST)  = 0;
-        SHIP_ROOM_EXIT(ship, 4, SOUTH) = 0;
+        SHIP_ROOM_EXIT(ship, 0, DIR_SOUTH) = 2;
+        SHIP_ROOM_EXIT(ship, 0, DIR_WEST)  = 1;
+        SHIP_ROOM_EXIT(ship, 0, DIR_NORTH) = 4;
+        SHIP_ROOM_EXIT(ship, 0, DIR_EAST)  = 3;
+        SHIP_ROOM_EXIT(ship, 1, DIR_EAST)  = 0;
+        SHIP_ROOM_EXIT(ship, 2, DIR_NORTH) = 0;
+        SHIP_ROOM_EXIT(ship, 3, DIR_WEST)  = 0;
+        SHIP_ROOM_EXIT(ship, 4, DIR_SOUTH) = 0;
         ship->entrance = 2;
         ship->room_count = 5;
         break;
 
     case SH_DESTROYER:
-        SHIP_ROOM_EXIT(ship, 0, NORTH) = 1;
-        SHIP_ROOM_EXIT(ship, 0, SOUTH) = 7;
-        SHIP_ROOM_EXIT(ship, 0, EAST)  = 3;
-        SHIP_ROOM_EXIT(ship, 0, WEST)  = 2;
-        SHIP_ROOM_EXIT(ship, 1, SOUTH) = 0;
-        SHIP_ROOM_EXIT(ship, 2, EAST)  = 0;
-        SHIP_ROOM_EXIT(ship, 3, WEST)  = 0;
-        SHIP_ROOM_EXIT(ship, 4, EAST)  = 5;
-        SHIP_ROOM_EXIT(ship, 5, NORTH) = 7;
-        SHIP_ROOM_EXIT(ship, 5, EAST)  = 6;
-        SHIP_ROOM_EXIT(ship, 5, WEST)  = 4;
-        SHIP_ROOM_EXIT(ship, 6, WEST)  = 5;
-        SHIP_ROOM_EXIT(ship, 7, NORTH) = 0;
-        SHIP_ROOM_EXIT(ship, 7, SOUTH) = 5;
+        SHIP_ROOM_EXIT(ship, 0, DIR_NORTH) = 1;
+        SHIP_ROOM_EXIT(ship, 0, DIR_SOUTH) = 7;
+        SHIP_ROOM_EXIT(ship, 0, DIR_EAST)  = 3;
+        SHIP_ROOM_EXIT(ship, 0, DIR_WEST)  = 2;
+        SHIP_ROOM_EXIT(ship, 1, DIR_SOUTH) = 0;
+        SHIP_ROOM_EXIT(ship, 2, DIR_EAST)  = 0;
+        SHIP_ROOM_EXIT(ship, 3, DIR_WEST)  = 0;
+        SHIP_ROOM_EXIT(ship, 4, DIR_EAST)  = 5;
+        SHIP_ROOM_EXIT(ship, 5, DIR_NORTH) = 7;
+        SHIP_ROOM_EXIT(ship, 5, DIR_EAST)  = 6;
+        SHIP_ROOM_EXIT(ship, 5, DIR_WEST)  = 4;
+        SHIP_ROOM_EXIT(ship, 6, DIR_WEST)  = 5;
+        SHIP_ROOM_EXIT(ship, 7, DIR_NORTH) = 0;
+        SHIP_ROOM_EXIT(ship, 7, DIR_SOUTH) = 5;
         ship->entrance = 5;
         ship->room_count = 8;
         break;
 
     case SH_FRIGATE:
-        SHIP_ROOM_EXIT(ship, 0, NORTH) = 1;
-        SHIP_ROOM_EXIT(ship, 0, SOUTH) = 8;
-        SHIP_ROOM_EXIT(ship, 0, EAST)  = 3;
-        SHIP_ROOM_EXIT(ship, 0, WEST)  = 2;
-        SHIP_ROOM_EXIT(ship, 1, SOUTH) = 0;
-        SHIP_ROOM_EXIT(ship, 2, SOUTH) = 4;
-        SHIP_ROOM_EXIT(ship, 2, EAST)  = 0;
-        SHIP_ROOM_EXIT(ship, 3, SOUTH) = 6;
-        SHIP_ROOM_EXIT(ship, 3, WEST)  = 0;
-        SHIP_ROOM_EXIT(ship, 4, NORTH) = 2;
-        SHIP_ROOM_EXIT(ship, 4, EAST)  = 5;
-        SHIP_ROOM_EXIT(ship, 5, NORTH) = 8;
-        SHIP_ROOM_EXIT(ship, 5, SOUTH) = 7;
-        SHIP_ROOM_EXIT(ship, 5, EAST)  = 6;
-        SHIP_ROOM_EXIT(ship, 5, WEST)  = 4;
-        SHIP_ROOM_EXIT(ship, 6, NORTH) = 3;
-        SHIP_ROOM_EXIT(ship, 6, WEST)  = 5;
-        SHIP_ROOM_EXIT(ship, 7, NORTH) = 5;
-        SHIP_ROOM_EXIT(ship, 8, NORTH) = 0;
-        SHIP_ROOM_EXIT(ship, 8, SOUTH) = 5;
+        SHIP_ROOM_EXIT(ship, 0, DIR_NORTH) = 1;
+        SHIP_ROOM_EXIT(ship, 0, DIR_SOUTH) = 8;
+        SHIP_ROOM_EXIT(ship, 0, DIR_EAST)  = 3;
+        SHIP_ROOM_EXIT(ship, 0, DIR_WEST)  = 2;
+        SHIP_ROOM_EXIT(ship, 1, DIR_SOUTH) = 0;
+        SHIP_ROOM_EXIT(ship, 2, DIR_SOUTH) = 4;
+        SHIP_ROOM_EXIT(ship, 2, DIR_EAST)  = 0;
+        SHIP_ROOM_EXIT(ship, 3, DIR_SOUTH) = 6;
+        SHIP_ROOM_EXIT(ship, 3, DIR_WEST)  = 0;
+        SHIP_ROOM_EXIT(ship, 4, DIR_NORTH) = 2;
+        SHIP_ROOM_EXIT(ship, 4, DIR_EAST)  = 5;
+        SHIP_ROOM_EXIT(ship, 5, DIR_NORTH) = 8;
+        SHIP_ROOM_EXIT(ship, 5, DIR_SOUTH) = 7;
+        SHIP_ROOM_EXIT(ship, 5, DIR_EAST)  = 6;
+        SHIP_ROOM_EXIT(ship, 5, DIR_WEST)  = 4;
+        SHIP_ROOM_EXIT(ship, 6, DIR_NORTH) = 3;
+        SHIP_ROOM_EXIT(ship, 6, DIR_WEST)  = 5;
+        SHIP_ROOM_EXIT(ship, 7, DIR_NORTH) = 5;
+        SHIP_ROOM_EXIT(ship, 8, DIR_NORTH) = 0;
+        SHIP_ROOM_EXIT(ship, 8, DIR_SOUTH) = 5;
         ship->entrance = 7;
         ship->room_count = 9;
         break;
 
     case SH_CRUISER:
-        SHIP_ROOM_EXIT(ship, 0, SOUTH) = 1;
-        SHIP_ROOM_EXIT(ship, 1, NORTH) = 0;
-        SHIP_ROOM_EXIT(ship, 1, DOWN)  = 3;
-        SHIP_ROOM_EXIT(ship, 2, EAST)  = 3;
-        SHIP_ROOM_EXIT(ship, 3, WEST)  = 2;
-        SHIP_ROOM_EXIT(ship, 3, EAST)  = 4;
-        SHIP_ROOM_EXIT(ship, 3, NORTH) = 5;
-        SHIP_ROOM_EXIT(ship, 3, UP)    = 1;
-        SHIP_ROOM_EXIT(ship, 4, WEST)  = 3;
-        SHIP_ROOM_EXIT(ship, 5, NORTH) = 6;
-        SHIP_ROOM_EXIT(ship, 5, SOUTH) = 3;
-        SHIP_ROOM_EXIT(ship, 5, DOWN)  = 8;
-        SHIP_ROOM_EXIT(ship, 6, NORTH) = 7;
-        SHIP_ROOM_EXIT(ship, 6, SOUTH) = 5;
-        SHIP_ROOM_EXIT(ship, 7, SOUTH) = 6;
-        SHIP_ROOM_EXIT(ship, 8, NORTH) = 9;
-        SHIP_ROOM_EXIT(ship, 8, UP)    = 5;
-        SHIP_ROOM_EXIT(ship, 9, SOUTH) = 8;
-        SHIP_ROOM_EXIT(ship, 6, EAST)  = 10; // laungh
-        SHIP_ROOM_EXIT(ship,10, WEST)  = 6;
-        SHIP_ROOM_EXIT(ship, 6, WEST)  = 11; // laungh
-        SHIP_ROOM_EXIT(ship,11, EAST)  = 6;
+        SHIP_ROOM_EXIT(ship, 0, DIR_SOUTH) = 1;
+        SHIP_ROOM_EXIT(ship, 1, DIR_NORTH) = 0;
+        SHIP_ROOM_EXIT(ship, 1, DIR_DOWN)  = 3;
+        SHIP_ROOM_EXIT(ship, 2, DIR_EAST)  = 3;
+        SHIP_ROOM_EXIT(ship, 3, DIR_WEST)  = 2;
+        SHIP_ROOM_EXIT(ship, 3, DIR_EAST)  = 4;
+        SHIP_ROOM_EXIT(ship, 3, DIR_NORTH) = 5;
+        SHIP_ROOM_EXIT(ship, 3, DIR_UP)    = 1;
+        SHIP_ROOM_EXIT(ship, 4, DIR_WEST)  = 3;
+        SHIP_ROOM_EXIT(ship, 5, DIR_NORTH) = 6;
+        SHIP_ROOM_EXIT(ship, 5, DIR_SOUTH) = 3;
+        SHIP_ROOM_EXIT(ship, 5, DIR_DOWN)  = 8;
+        SHIP_ROOM_EXIT(ship, 6, DIR_NORTH) = 7;
+        SHIP_ROOM_EXIT(ship, 6, DIR_SOUTH) = 5;
+        SHIP_ROOM_EXIT(ship, 7, DIR_SOUTH) = 6;
+        SHIP_ROOM_EXIT(ship, 8, DIR_NORTH) = 9;
+        SHIP_ROOM_EXIT(ship, 8, DIR_UP)    = 5;
+        SHIP_ROOM_EXIT(ship, 9, DIR_SOUTH) = 8;
+        SHIP_ROOM_EXIT(ship, 6, DIR_EAST)  = 10; // laungh
+        SHIP_ROOM_EXIT(ship,10, DIR_WEST)  = 6;
+        SHIP_ROOM_EXIT(ship, 6, DIR_WEST)  = 11; // laungh
+        SHIP_ROOM_EXIT(ship,11, DIR_EAST)  = 6;
         ship->entrance = 9;
         ship->room_count = 12;
         break;
 
     case SH_DREADNOUGHT:
-        SHIP_ROOM_EXIT(ship, 0, DOWN)  = 6;
-        SHIP_ROOM_EXIT(ship, 1, SOUTH) = 2;
-        SHIP_ROOM_EXIT(ship, 1, NORTH) = 3; // launch
-        SHIP_ROOM_EXIT(ship, 1, WEST)  = 4;
-        SHIP_ROOM_EXIT(ship, 1, EAST)  = 5;
-        SHIP_ROOM_EXIT(ship, 1, DOWN)  = 11;
-        SHIP_ROOM_EXIT(ship, 2, NORTH) = 1;
-        SHIP_ROOM_EXIT(ship, 2, SOUTH) = 6;
-        SHIP_ROOM_EXIT(ship, 2, DOWN)  = 7; // hold
-        SHIP_ROOM_EXIT(ship, 2, WEST)  = 8; // launch
-        SHIP_ROOM_EXIT(ship, 2, EAST)  = 9; // launch
-        SHIP_ROOM_EXIT(ship, 6, UP)    = 0;
-        SHIP_ROOM_EXIT(ship, 6, NORTH) = 2;
-        SHIP_ROOM_EXIT(ship, 6, SOUTH) = 10;
-        SHIP_ROOM_EXIT(ship, 6, WEST)  = 12;
-        SHIP_ROOM_EXIT(ship, 6, EAST)  = 13;
-        SHIP_ROOM_EXIT(ship,11, UP)    = 1;
-        SHIP_ROOM_EXIT(ship,11, NORTH) = 14;
-        SHIP_ROOM_EXIT(ship, 3, SOUTH) = 1;
-        SHIP_ROOM_EXIT(ship, 4, EAST)  = 1;
-        SHIP_ROOM_EXIT(ship, 4, SOUTH) = 8;
-        SHIP_ROOM_EXIT(ship, 5, WEST)  = 1;
-        SHIP_ROOM_EXIT(ship, 5, SOUTH) = 9;
-        SHIP_ROOM_EXIT(ship, 7, UP)    = 2;
-        SHIP_ROOM_EXIT(ship, 8, EAST)  = 2;
-        SHIP_ROOM_EXIT(ship, 8, SOUTH) = 12;
-        SHIP_ROOM_EXIT(ship, 8, NORTH) = 4;
-        SHIP_ROOM_EXIT(ship, 9, WEST)  = 2;
-        SHIP_ROOM_EXIT(ship, 9, SOUTH) = 13;
-        SHIP_ROOM_EXIT(ship, 9, NORTH) = 5;
-        SHIP_ROOM_EXIT(ship,10, NORTH) = 6;
-        SHIP_ROOM_EXIT(ship,12, EAST)  = 6;
-        SHIP_ROOM_EXIT(ship,12, NORTH) = 8;
-        SHIP_ROOM_EXIT(ship,13, WEST)  = 6;
-        SHIP_ROOM_EXIT(ship,13, NORTH) = 9;
-        SHIP_ROOM_EXIT(ship,14, SOUTH) = 11;
+        SHIP_ROOM_EXIT(ship, 0, DIR_DOWN)  = 6;
+        SHIP_ROOM_EXIT(ship, 1, DIR_SOUTH) = 2;
+        SHIP_ROOM_EXIT(ship, 1, DIR_NORTH) = 3; // launch
+        SHIP_ROOM_EXIT(ship, 1, DIR_WEST)  = 4;
+        SHIP_ROOM_EXIT(ship, 1, DIR_EAST)  = 5;
+        SHIP_ROOM_EXIT(ship, 1, DIR_DOWN)  = 11;
+        SHIP_ROOM_EXIT(ship, 2, DIR_NORTH) = 1;
+        SHIP_ROOM_EXIT(ship, 2, DIR_SOUTH) = 6;
+        SHIP_ROOM_EXIT(ship, 2, DIR_DOWN)  = 7; // hold
+        SHIP_ROOM_EXIT(ship, 2, DIR_WEST)  = 8; // launch
+        SHIP_ROOM_EXIT(ship, 2, DIR_EAST)  = 9; // launch
+        SHIP_ROOM_EXIT(ship, 6, DIR_UP)    = 0;
+        SHIP_ROOM_EXIT(ship, 6, DIR_NORTH) = 2;
+        SHIP_ROOM_EXIT(ship, 6, DIR_SOUTH) = 10;
+        SHIP_ROOM_EXIT(ship, 6, DIR_WEST)  = 12;
+        SHIP_ROOM_EXIT(ship, 6, DIR_EAST)  = 13;
+        SHIP_ROOM_EXIT(ship,11, DIR_UP)    = 1;
+        SHIP_ROOM_EXIT(ship,11, DIR_NORTH) = 14;
+        SHIP_ROOM_EXIT(ship, 3, DIR_SOUTH) = 1;
+        SHIP_ROOM_EXIT(ship, 4, DIR_EAST)  = 1;
+        SHIP_ROOM_EXIT(ship, 4, DIR_SOUTH) = 8;
+        SHIP_ROOM_EXIT(ship, 5, DIR_WEST)  = 1;
+        SHIP_ROOM_EXIT(ship, 5, DIR_SOUTH) = 9;
+        SHIP_ROOM_EXIT(ship, 7, DIR_UP)    = 2;
+        SHIP_ROOM_EXIT(ship, 8, DIR_EAST)  = 2;
+        SHIP_ROOM_EXIT(ship, 8, DIR_SOUTH) = 12;
+        SHIP_ROOM_EXIT(ship, 8, DIR_NORTH) = 4;
+        SHIP_ROOM_EXIT(ship, 9, DIR_WEST)  = 2;
+        SHIP_ROOM_EXIT(ship, 9, DIR_SOUTH) = 13;
+        SHIP_ROOM_EXIT(ship, 9, DIR_NORTH) = 5;
+        SHIP_ROOM_EXIT(ship,10, DIR_NORTH) = 6;
+        SHIP_ROOM_EXIT(ship,12, DIR_EAST)  = 6;
+        SHIP_ROOM_EXIT(ship,12, DIR_NORTH) = 8;
+        SHIP_ROOM_EXIT(ship,13, DIR_WEST)  = 6;
+        SHIP_ROOM_EXIT(ship,13, DIR_NORTH) = 9;
+        SHIP_ROOM_EXIT(ship,14, DIR_SOUTH) = 11;
 
         ship->entrance = 14;
         ship->room_count = 15;
         break;
     case SH_ZONE_SHIP:
-        SHIP_ROOM_EXIT(ship, 0, SOUTH) = 1;
-        SHIP_ROOM_EXIT(ship, 1, NORTH) = 1;
+        SHIP_ROOM_EXIT(ship, 0, DIR_SOUTH) = 1;
+        SHIP_ROOM_EXIT(ship, 1, DIR_NORTH) = 1;
 
         ship->entrance = 1;
         ship->room_count = 2;
@@ -876,11 +876,11 @@ bool set_ship_physical_layout(P_ship ship)
         fprintf(stderr, "Failed to link zone ship to zone.\r\n");
       else
       {
-        world[real_room(ship->room[1].roomnum)].dir_option[NORTH]->to_room = to_room;
-        if (!world[to_room].dir_option[SOUTH]) 
-          CREATE(world[to_room].dir_option[SOUTH], room_direction_data, 1, MEM_TAG_DIRDATA);
-        world[to_room].dir_option[SOUTH]->to_room = real_room(ship->room[1].roomnum);
-        world[to_room].dir_option[SOUTH]->exit_info = 0;
+        world[real_room(ship->room[1].roomnum)].dir_option[DIR_NORTH]->to_room = to_room;
+        if (!world[to_room].dir_option[DIR_SOUTH]) 
+          CREATE(world[to_room].dir_option[DIR_SOUTH], room_direction_data, 1, MEM_TAG_DIRDATA);
+        world[to_room].dir_option[DIR_SOUTH]->to_room = real_room(ship->room[1].roomnum);
+        world[to_room].dir_option[DIR_SOUTH]->exit_info = 0;
       }
     }
     */
@@ -1057,10 +1057,10 @@ int ship_room_proc(int room, P_char ch, int cmd, char *arg)
        i = world[ch->in_room].number;
        j = i - ((int) (i / 10) * 10);
        k = 0;
-       if (SHIP_ROOM_EXIT(ship, j, NORTH) == -1 ||
-          SHIP_ROOM_EXIT(ship, j, SOUTH) == -1 ||
-          SHIP_ROOM_EXIT(ship, j, EAST) == -1 ||
-          SHIP_ROOM_EXIT(ship, j, WEST) == -1) {
+       if (SHIP_ROOM_EXIT(ship, j, DIR_NORTH) == -1 ||
+          SHIP_ROOM_EXIT(ship, j, DIR_SOUTH) == -1 ||
+          SHIP_ROOM_EXIT(ship, j, DIR_EAST) == -1 ||
+          SHIP_ROOM_EXIT(ship, j, DIR_WEST) == -1) {
           k = 1;
        }
 

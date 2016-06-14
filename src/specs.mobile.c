@@ -3682,11 +3682,11 @@ int automaton_unblock(P_char ch, P_char pl, int cmd, char *arg)
   if (!flag)
   {
     if (IS_SET
-        (world[real_room(12158)].dir_option[DOWN]->exit_info, EX_BLOCKED))
-      REMOVE_BIT(world[real_room(12158)].dir_option[DOWN]->exit_info,
+        (world[real_room(12158)].dir_option[DIR_DOWN]->exit_info, EX_BLOCKED))
+      REMOVE_BIT(world[real_room(12158)].dir_option[DIR_DOWN]->exit_info,
                  EX_BLOCKED);
-    if (IS_SET(world[real_room(12159)].dir_option[UP]->exit_info, EX_BLOCKED))
-      REMOVE_BIT(world[real_room(12159)].dir_option[UP]->exit_info,
+    if (IS_SET(world[real_room(12159)].dir_option[DIR_UP]->exit_info, EX_BLOCKED))
+      REMOVE_BIT(world[real_room(12159)].dir_option[DIR_UP]->exit_info,
                  EX_BLOCKED);
     return TRUE;
   }
@@ -13691,7 +13691,7 @@ int conj_specpet_golem(P_char ch, P_char pl, int cmd, char *arg)
 
       door = number(0, 9);
 
-      if ((door == UP) || (door == DOWN))
+      if ((door == DIR_UP) || (door == DIR_DOWN))
         door = number(0, 3);
 
       if ((CAN_GO(vict, door)) && (!check_wall(vict->in_room, door)))

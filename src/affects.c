@@ -3556,7 +3556,7 @@ bool falling_char(P_char ch, const int kill_char, bool caller_is_event)
     Using virtual can go, as it checks more door states */
     if ((world[ch->in_room].sector_type != SECT_NO_GROUND) &&
         (world[ch->in_room].sector_type != SECT_UNDRWLD_NOGROUND) &&
-        !VIRTUAL_CAN_GO(ch->in_room, DOWN) && 
+        !VIRTUAL_CAN_GO(ch->in_room, DIR_DOWN) && 
         (ch->specials.z_cord == 0))
       return FALSE;
     /* This isn't for sinking */
@@ -3564,8 +3564,8 @@ bool falling_char(P_char ch, const int kill_char, bool caller_is_event)
       return FALSE;
 
     /* Don't continue if a breakable wall is acting as a floor - Jexni 12/07/10 */    
-    if (world[ch->in_room].dir_option[DOWN])
-      if(IS_SET(world[ch->in_room].dir_option[DOWN]->exit_info, EX_BREAKABLE))
+    if (world[ch->in_room].dir_option[DIR_DOWN])
+      if(IS_SET(world[ch->in_room].dir_option[DIR_DOWN]->exit_info, EX_BREAKABLE))
         return FALSE;
 
     /* ch has just stepped into space, initiate the plunge  */
@@ -3598,7 +3598,7 @@ bool falling_char(P_char ch, const int kill_char, bool caller_is_event)
     else
       send_to_char("Just when it seemed things couldn't get any worse...\n", ch);
 
-    if (CAN_GO(ch, DOWN) || ch->specials.z_cord > 0)
+    if (CAN_GO(ch, DIR_DOWN) || ch->specials.z_cord > 0)
     {
       /*  send them falling */
       speed = 1;
@@ -3622,9 +3622,9 @@ bool falling_char(P_char ch, const int kill_char, bool caller_is_event)
   i = ch->in_room;
 
   if ((ch->specials.z_cord > 0) || 
-      (world[i].dir_option[DOWN] &&
-      !IS_SET(world[i].dir_option[DOWN]->exit_info, EX_CLOSED) &&
-      !IS_SET(world[i].dir_option[DOWN]->exit_info, EX_BREAKABLE)))
+      (world[i].dir_option[DIR_DOWN] &&
+      !IS_SET(world[i].dir_option[DIR_DOWN]->exit_info, EX_CLOSED) &&
+      !IS_SET(world[i].dir_option[DIR_DOWN]->exit_info, EX_BREAKABLE)))
   {
     if (ch->specials.z_cord > 0)
     {
@@ -3633,7 +3633,7 @@ bool falling_char(P_char ch, const int kill_char, bool caller_is_event)
       new_room = ch->in_room;
     }
     else
-      new_room = world[i].dir_option[DOWN]->to_room;
+      new_room = world[i].dir_option[DIR_DOWN]->to_room;
 
     if (speed < 45)
       act("$n drops from sight.", TRUE, ch, 0, 0, TO_ROOM);
@@ -3683,10 +3683,10 @@ bool falling_char(P_char ch, const int kill_char, bool caller_is_event)
                                    summoned/transed/teleported out
                                 */
 
-  if (!world[new_room].dir_option[DOWN] ||
-      (world[new_room].dir_option[DOWN]->to_room == NOWHERE) ||
-      IS_SET(world[new_room].dir_option[DOWN]->exit_info, EX_CLOSED) || 
-      IS_SET(world[new_room].dir_option[DOWN]->exit_info, EX_BREAKABLE) ||
+  if (!world[new_room].dir_option[DIR_DOWN] ||
+      (world[new_room].dir_option[DIR_DOWN]->to_room == NOWHERE) ||
+      IS_SET(world[new_room].dir_option[DIR_DOWN]->exit_info, EX_CLOSED) || 
+      IS_SET(world[new_room].dir_option[DIR_DOWN]->exit_info, EX_BREAKABLE) ||
       ((ch->specials.z_cord == 0) && had_zcord))
   {
 
@@ -3701,9 +3701,9 @@ bool falling_char(P_char ch, const int kill_char, bool caller_is_event)
       if (GET_CHAR_SKILL(ch, SKILL_SAFE_FALL) > number(1, 101))
         dam <<= 1;
 
-    if (world[ch->in_room].dir_option[DOWN])
+    if (world[ch->in_room].dir_option[DIR_DOWN])
     { 
-       if (IS_SET(world[ch->in_room].dir_option[DOWN]->exit_info, EX_BREAKABLE))
+       if (IS_SET(world[ch->in_room].dir_option[DIR_DOWN]->exit_info, EX_BREAKABLE))
        {
           P_obj Wall;
           for(Wall = world[ch->in_room].contents; Wall; Wall = Wall->next_content)
@@ -3941,7 +3941,7 @@ bool falling_obj(P_obj obj, int speed, bool caller_is_event)
   //   no height to fall, and no exit to fall through, it doesn't lead anywhere, or it's blocked.
   // Nowhere to fall: not in air (z_cord) and not without somewhere to fall and it can go through the exit.
   // And don't forget to check if it actually starts falling.
-  if( obj->z_cord == 0 && ( !(exit = world[obj->loc.room].dir_option[DOWN]) || exit->to_room == NOWHERE
+  if( obj->z_cord == 0 && ( !(exit = world[obj->loc.room].dir_option[DIR_DOWN]) || exit->to_room == NOWHERE
     || IS_SET(exit->exit_info, EX_CLOSED | EX_LOCKED | EX_BLOCKED | EX_WALLED | EX_BREAKABLE) || !sect_check ) )
   {
     // Hit the ground!
@@ -3951,7 +3951,7 @@ bool falling_obj(P_obj obj, int speed, bool caller_is_event)
       logit(LOG_DEBUG, "Room (%d) has falling object vnum (%d) but has no valid 'down' exit.",
         world[obj->loc.room].number, obj_index[obj->R_num].virtual_number);
       FREE( exit );
-      world[obj->loc.room].dir_option[DOWN] = exit = NULL;
+      world[obj->loc.room].dir_option[DIR_DOWN] = exit = NULL;
     }
     // At this point, we know that, if exit exists, it doesn't lead to NOWHERE.
     if(  ( world[obj->loc.room].sector_type == SECT_NO_GROUND )

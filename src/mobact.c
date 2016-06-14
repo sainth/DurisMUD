@@ -8703,7 +8703,7 @@ void mobact_rescueHandle(P_char mob, P_char attacker)
   for (door = 0; door < NUM_EXITS; door++)
   {
 
-    if((door == UP) || (door == DOWN))
+    if((door == DIR_UP) || (door == DIR_DOWN))
       continue;
     if(!EXIT(mob, door))
       continue;

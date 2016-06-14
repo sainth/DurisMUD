@@ -603,10 +603,10 @@ int outpost_generate(Building* building)
 
   room->name = str_dup("&+LInside an &+yOutpost Tower");
 
-  CREATE(room->dir_option[DOWN], room_direction_data, 1, MEM_TAG_DIRDATA);
+  CREATE(room->dir_option[DIR_DOWN], room_direction_data, 1, MEM_TAG_DIRDATA);
 
-  room->dir_option[DOWN]->to_room = building->location();
-  room->dir_option[DOWN]->exit_info = 0;
+  room->dir_option[DIR_DOWN]->to_room = building->location();
+  room->dir_option[DIR_DOWN]->exit_info = 0;
   
   room->funct = outpost_inside;
 
@@ -650,7 +650,7 @@ int outpost_inside(int room, P_char ch, int cmd, char *arg)
         int z = building->get_level();
         char_from_room(ch);
         ch->specials.z_cord = z;
-        char_to_room(ch, world[old_room].dir_option[DOWN]->to_room, -1);
+        char_to_room(ch, world[old_room].dir_option[DIR_DOWN]->to_room, -1);
         char_from_room(ch);
         ch->specials.z_cord = 0;
         char_to_room(ch, old_room, -2);

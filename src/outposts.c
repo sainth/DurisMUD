@@ -103,9 +103,9 @@ extern MYSQL* DB;
 // Location, entrance dir
 int outpost_locations[][2] = {
         // Outpost ID - 1
-  {588184, EAST},     // 0 - UC
-  {628856, WEST},     // 1 - KK
-  {531100, SOUTH},    // 2 - IC
+  {588184, DIR_EAST},     // 0 - UC
+  {628856, DIR_WEST},     // 1 - KK
+  {531100, DIR_SOUTH},    // 2 - IC
   {0, 0}
 };
 
@@ -1124,16 +1124,16 @@ int outpost_generate_walls(Building* building, int type, int numgolem)
   }
 
   // assign rooms
-  walllocal[NORTH] = world[location].dir_option[NORTH]->to_room;
-  walllocal[EAST] = world[location].dir_option[EAST]->to_room;
-  walllocal[SOUTH] = world[location].dir_option[SOUTH]->to_room;
-  walllocal[WEST] = world[location].dir_option[WEST]->to_room;
-  walllocal[NORTHWEST] = world[walllocal[NORTH]].dir_option[WEST]->to_room;
-  walllocal[NORTHEAST] = world[walllocal[NORTH]].dir_option[EAST]->to_room;
-  walllocal[SOUTHEAST] = world[walllocal[SOUTH]].dir_option[WEST]->to_room;
-  walllocal[SOUTHWEST] = world[walllocal[SOUTH]].dir_option[EAST]->to_room;
-  walllocal[UP] = 0;
-  walllocal[DOWN] = 0;
+  walllocal[DIR_NORTH] = world[location].dir_option[DIR_NORTH]->to_room;
+  walllocal[DIR_EAST] = world[location].dir_option[DIR_EAST]->to_room;
+  walllocal[DIR_SOUTH] = world[location].dir_option[DIR_SOUTH]->to_room;
+  walllocal[DIR_WEST] = world[location].dir_option[DIR_WEST]->to_room;
+  walllocal[DIR_NORTHWEST] = world[walllocal[DIR_NORTH]].dir_option[DIR_WEST]->to_room;
+  walllocal[DIR_NORTHEAST] = world[walllocal[DIR_NORTH]].dir_option[DIR_EAST]->to_room;
+  walllocal[DIR_SOUTHEAST] = world[walllocal[DIR_SOUTH]].dir_option[DIR_WEST]->to_room;
+  walllocal[DIR_SOUTHWEST] = world[walllocal[DIR_SOUTH]].dir_option[DIR_EAST]->to_room;
+  walllocal[DIR_UP] = 0;
+  walllocal[DIR_DOWN] = 0;
 
   for (x = 0; x < NUM_EXITS; x++)
   {
@@ -1148,32 +1148,32 @@ int outpost_generate_walls(Building* building, int type, int numgolem)
     
     switch(x)
     {
-    case NORTH:
-    case EAST:
-    case SOUTH:
-    case WEST:
+    case DIR_NORTH:
+    case DIR_EAST:
+    case DIR_SOUTH:
+    case DIR_WEST:
       world[walllocal[x]].sector_type = SECT_CASTLE_WALL;
       //outpost_create_wall(walllocal[x], x, type);
       break;
-    case NORTHWEST:
+    case DIR_NORTHWEST:
       world[walllocal[x]].sector_type = SECT_CASTLE_WALL;
-      //outpost_create_wall(walllocal[x], WEST, type);
-      //outpost_create_wall(walllocal[x], NORTH, type);
+      //outpost_create_wall(walllocal[x], DIR_WEST, type);
+      //outpost_create_wall(walllocal[x], DIR_NORTH, type);
       break;
-    case NORTHEAST:
+    case DIR_NORTHEAST:
       world[walllocal[x]].sector_type = SECT_CASTLE_WALL;
-      //outpost_create_wall(walllocal[x], NORTH, type);
-      //outpost_create_wall(walllocal[x], EAST, type);
+      //outpost_create_wall(walllocal[x], DIR_NORTH, type);
+      //outpost_create_wall(walllocal[x], DIR_EAST, type);
       break;
-    case SOUTHEAST:
+    case DIR_SOUTHEAST:
       world[walllocal[x]].sector_type = SECT_CASTLE_WALL;
-      //outpost_create_wall(walllocal[x], WEST, type);
-      //outpost_create_wall(walllocal[x], SOUTH, type);
+      //outpost_create_wall(walllocal[x], DIR_WEST, type);
+      //outpost_create_wall(walllocal[x], DIR_SOUTH, type);
       break;
-    case SOUTHWEST:
+    case DIR_SOUTHWEST:
       world[walllocal[x]].sector_type = SECT_CASTLE_WALL;
-      //outpost_create_wall(walllocal[x], SOUTH, type);
-      //outpost_create_wall(walllocal[x], EAST, type);
+      //outpost_create_wall(walllocal[x], DIR_SOUTH, type);
+      //outpost_create_wall(walllocal[x], DIR_EAST, type);
       break;
     default:
       break;
@@ -1236,7 +1236,7 @@ int outpost_gateguard_proc(P_char ch, P_char pl, int cmd, char *arg)
   
   int blocked_dir = direction_tag(ch);
   
-  if( blocked_dir < NORTH || blocked_dir >= NUM_EXITS )
+  if( blocked_dir < DIR_NORTH || blocked_dir >= NUM_EXITS )
   {
     logit(LOG_GUILDHALLS, "outpost_gateguard_proc() assigned to %s in %d has an invalid blocking direction (%d)!", GET_NAME(ch), world[ch->in_room].number, blocked_dir);
     REMOVE_BIT(ch->specials.act, ACT_SPEC);

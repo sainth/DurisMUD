@@ -1329,13 +1329,13 @@ bool load_cyrics_revenge_crew(P_ship ship)
     ship->npc_ai->crew_data = crew_data;
 
 
-    room_direction_data* dn_ex = world[real_room0(SHIP_ROOM_NUM(ship, 2))].dir_option[DOWN];
+    room_direction_data* dn_ex = world[real_room0(SHIP_ROOM_NUM(ship, 2))].dir_option[DIR_DOWN];
     dn_ex->general_description = str_dup("A heavy wooden hatch leads to ship's hold.");
     dn_ex->exit_info = EX_ISDOOR | EX_CLOSED | EX_LOCKED | EX_SECRET | EX_PICKPROOF;
     dn_ex->key = 40225;
     dn_ex->keyword = str_dup("hatch heavy");
 
-    room_direction_data* up_ex = world[real_room0(SHIP_ROOM_NUM(ship, 7))].dir_option[UP];
+    room_direction_data* up_ex = world[real_room0(SHIP_ROOM_NUM(ship, 7))].dir_option[DIR_UP];
     up_ex->general_description = str_dup("A heavy wooden hatch leads to ship's hold.");
     up_ex->exit_info = EX_ISDOOR | EX_CLOSED | EX_LOCKED | EX_PICKPROOF;
     up_ex->key = 40225;

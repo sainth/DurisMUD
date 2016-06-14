@@ -2982,6 +2982,10 @@ void spell_wall_of_bones(int level, P_char ch, char *arg, int type, P_char tar_c
     send_to_room(buf1, ch->in_room);
     send_to_room(buf2, (world[ch->in_room].dir_option[var])->to_room);
   }
+  else
+  {
+    send_to_char( "Something prevents you from making a wall there.\n", ch );
+  }
 }
 
 void spell_compact_corpse(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)

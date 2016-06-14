@@ -234,7 +234,7 @@ void create_zone(int theme, int map_room1, int map_room2, int level_range,
     //Make connect the first room to map!
     if (map_room)
     {
-      connect_rooms(world[map_room].number, world[room_nr].number, DOWN);
+      connect_rooms(world[map_room].number, world[room_nr].number, DIR_DOWN);
       random_zone_data[LOADED_RANDOM_ZONES].map_room = world[map_room].number;
       //First room is !mob.
 
@@ -242,18 +242,18 @@ void create_zone(int theme, int map_room1, int map_room2, int level_range,
 
       if (map_room1 == 999)
       {
-        if (world[map_room].dir_option[DOWN])
+        if (world[map_room].dir_option[DIR_DOWN])
         {
-          world[map_room].dir_option[DOWN]->exit_info |= EX_SECRET;
+          world[map_room].dir_option[DIR_DOWN]->exit_info |= EX_SECRET;
 
-          SET_BIT(world[map_room].dir_option[DOWN]->exit_info, EX_ISDOOR);
-          world[map_room].dir_option[DOWN]->keyword = str_dup("trapdoor");
-          SET_BIT(world[map_room].dir_option[DOWN]->exit_info, EX_CLOSED);
-          SET_BIT(world[room_nr].dir_option[rev_dir[DOWN]]->exit_info,
+          SET_BIT(world[map_room].dir_option[DIR_DOWN]->exit_info, EX_ISDOOR);
+          world[map_room].dir_option[DIR_DOWN]->keyword = str_dup("trapdoor");
+          SET_BIT(world[map_room].dir_option[DIR_DOWN]->exit_info, EX_CLOSED);
+          SET_BIT(world[room_nr].dir_option[rev_dir[DIR_DOWN]]->exit_info,
                   EX_ISDOOR);
-          world[room_nr].dir_option[rev_dir[DOWN]]->keyword =
+          world[room_nr].dir_option[rev_dir[DIR_DOWN]]->keyword =
             str_dup("trapdoor");
-          SET_BIT(world[room_nr].dir_option[rev_dir[DOWN]]->exit_info,
+          SET_BIT(world[room_nr].dir_option[rev_dir[DIR_DOWN]]->exit_info,
                   EX_CLOSED);
 
         }
@@ -295,7 +295,7 @@ void create_zone(int theme, int map_room1, int map_room2, int level_range,
           valid_to_room = 1;
 
         if (map_room2 != 999 && (rooms - i < 2))
-          if (direction == UP || direction == DOWN)
+          if (direction == DIR_UP || direction == DIR_DOWN)
             valid_to_room = 0;
 
 
@@ -399,7 +399,7 @@ void create_zone(int theme, int map_room1, int map_room2, int level_range,
   if (map_room2 != 999)
   {
     connect_rooms(world[map_room2].number,
-                  random_zone_data[LOADED_RANDOM_ZONES].last_room, DOWN);
+                  random_zone_data[LOADED_RANDOM_ZONES].last_room, DIR_DOWN);
     world[map_room2].sector_type = 34;
   }
 
@@ -714,7 +714,7 @@ int find_map_place()
   while ((IS_SET(world[to_room].room_flags, PRIVATE) || 
           IS_SET(world[to_room].room_flags, PRIV_ZONE) || 
           IS_SET(world[to_room].room_flags, NO_TELEPORT) || 
-          world[to_room].dir_option[DOWN] || IS_WATER_ROOM(to_room) || 
+          world[to_room].dir_option[DIR_DOWN] || IS_WATER_ROOM(to_room) || 
           world[to_room].sector_type == SECT_MOUNTAIN ||
           world[to_room].sector_type == SECT_UNDRWLD_MOUNTAIN ||
           world[to_room].sector_type == SECT_OCEAN) && tries++ < 1000);
@@ -1488,7 +1488,7 @@ int reset_lab(int type)
   }
 
 //Remove entrance!
-  world[real_room(entrance_room)].dir_option[DOWN] = 0;
+  world[real_room(entrance_room)].dir_option[DIR_DOWN] = 0;
 
 }
 int create_lab(int type)
@@ -1563,10 +1563,10 @@ int create_lab(int type)
   //Remove all exit if the room havent been used yet...
   if (world[real_room(start_room)].sector_type != 1)
   {
-    world[real_room(start_room)].dir_option[NORTH] = 0;
-    world[real_room(start_room)].dir_option[EAST] = 0;
-    world[real_room(start_room)].dir_option[SOUTH] = 0;
-    world[real_room(start_room)].dir_option[WEST] = 0;
+    world[real_room(start_room)].dir_option[DIR_NORTH] = 0;
+    world[real_room(start_room)].dir_option[DIR_EAST] = 0;
+    world[real_room(start_room)].dir_option[DIR_SOUTH] = 0;
+    world[real_room(start_room)].dir_option[DIR_WEST] = 0;
   }
 
 
@@ -1656,7 +1656,7 @@ int create_lab(int type)
   }
 
   connect_rooms(world[real_room(map_room)].number,
-                world[real_room(start_room)].number, DOWN);
+                world[real_room(start_room)].number, DIR_DOWN);
   world[real_room(map_room)].sector_type = 0;
 
 }
@@ -1668,10 +1668,10 @@ int connect_lab(int room, int dir)
   //Remove all exit if the room havent been used yet...
   if (world[real_room(room + dir_to_num(dir))].sector_type != 1)
   {
-    world[real_room(room + dir_to_num(dir))].dir_option[NORTH] = 0;
-    world[real_room(room + dir_to_num(dir))].dir_option[EAST] = 0;
-    world[real_room(room + dir_to_num(dir))].dir_option[SOUTH] = 0;
-    world[real_room(room + dir_to_num(dir))].dir_option[WEST] = 0;
+    world[real_room(room + dir_to_num(dir))].dir_option[DIR_NORTH] = 0;
+    world[real_room(room + dir_to_num(dir))].dir_option[DIR_EAST] = 0;
+    world[real_room(room + dir_to_num(dir))].dir_option[DIR_SOUTH] = 0;
+    world[real_room(room + dir_to_num(dir))].dir_option[DIR_WEST] = 0;
   }
 
 
@@ -1719,16 +1719,16 @@ int dir_to_num(int dir)
   int      S = 100;
   int      W = -1;
 
-  if (dir == NORTH)
+  if (dir == DIR_NORTH)
     return -100;
 
-  if (dir == EAST)
+  if (dir == DIR_EAST)
     return 1;
 
-  if (dir == SOUTH)
+  if (dir == DIR_SOUTH)
     return 100;
 
-  if (dir == WEST)
+  if (dir == DIR_WEST)
     return -1;
 
 }

@@ -80,10 +80,9 @@ extern int cast_as_damage_area(P_char,
                                float);
 
 
-bool     exit_wallable(int room, int dir, P_char ch);
-bool     create_walls(int room, int exit, P_char ch, int level, int type,
-                      int power, int decay, char *short_desc, char *desc,
-                      ulong flags);
+extern bool exit_wallable(int room, int dir, P_char ch);
+extern bool create_walls(int room, int exit, P_char ch, int level, int type, int power, int decay, char *short_desc,
+  char *desc, ulong flags);
 extern bool has_skin_spell(P_char);
 
 #define TITAN_NUMBER 650

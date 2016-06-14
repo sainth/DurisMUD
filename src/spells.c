@@ -1214,7 +1214,7 @@ void event_earthen_tomb(P_char ch, P_char victim, P_obj obj, void *data)
 
   for (i = 0; i < NUM_EXITS; i++)
   {
-    if (exit_wallable(room, i, NULL) && i != UP && i != DOWN)
+    if (exit_wallable(room, i, NULL) && i != DIR_UP && i != DIR_DOWN)
     {
       available_exits++;
     }
@@ -1234,7 +1234,7 @@ void event_earthen_tomb(P_char ch, P_char victim, P_obj obj, void *data)
 
   for (i = 0; i < NUM_EXITS; i++)
   {
-    if (exit_wallable(room, i, NULL) && i != UP && i != DOWN)
+    if (exit_wallable(room, i, NULL) && i != DIR_UP && i != DIR_DOWN)
     {
       if (!picked--)
       {
@@ -2646,6 +2646,13 @@ bool create_walls(int room, int exit, P_char ch, int level, int type, int power,
 
   dir_room = (world[room].dir_option[exit])->to_room;
   reverse_exit = rev_dir[exit];
+
+  // If there's no exit back to the room we're in.
+  if( (world[dir_room].dir_option[reverse_exit] == NULL)
+    || (world[dir_room].dir_option[reverse_exit])->to_room != room )
+  {
+    return FALSE;
+  }
 
   wall_inside = read_object(VOBJ_WALLS, VIRTUAL);
   wall_outside = read_object(VOBJ_WALLS, VIRTUAL);

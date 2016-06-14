@@ -1535,11 +1535,11 @@ int item_switch(P_obj obj, P_char ch, int cmd, char *arg)
     }
     else
     {
-      if( door == DOWN )
+      if( door == DIR_DOWN )
       {
         strcpy(buf, "Part of the floor seems to be moving.\n");
       }
-      else if( door == UP )
+      else if( door == DIR_UP )
       {
         strcpy(buf, "Part of the ceiling seems to be moving.\n");
       }
@@ -1565,11 +1565,11 @@ int item_switch(P_obj obj, P_char ch, int cmd, char *arg)
     }
     else
     {
-      if( door == DOWN )
+      if( door == DIR_DOWN )
       {
         strcpy(buf, "Part of the floor moves aside, revealing a passageway.\n");
       }
-      else if (door == UP)
+      else if (door == DIR_UP)
       {
         strcpy(buf, "Part of the ceiling moves aside, revealing a passageway.\n");
       }
@@ -6361,7 +6361,7 @@ int automaton_lever(P_obj obj, P_char ch, int cmd, char *arg)
 
   if( cmd == CMD_PULL )
   {
-    if (IS_SET(world[ch->in_room].dir_option[UP]->exit_info, EX_BLOCKED))
+    if (IS_SET(world[ch->in_room].dir_option[DIR_UP]->exit_info, EX_BLOCKED))
     {
       act("You pull $p.", FALSE, ch, obj, 0, TO_CHAR);
       act("$n pulls $p.", TRUE, ch, obj, 0, TO_ROOM);
@@ -6369,8 +6369,8 @@ int automaton_lever(P_obj obj, P_char ch, int cmd, char *arg)
                    ch->in_room);
       send_to_room("The trapdoor appears to hang ever so slightly lower.\n",
                    ch->in_room);
-      REMOVE_BIT(world[ch->in_room].dir_option[UP]->exit_info, EX_BLOCKED);
-      REMOVE_BIT(world[real_room(12158)].dir_option[DOWN]->exit_info, EX_BLOCKED);
+      REMOVE_BIT(world[ch->in_room].dir_option[DIR_UP]->exit_info, EX_BLOCKED);
+      REMOVE_BIT(world[real_room(12158)].dir_option[DIR_DOWN]->exit_info, EX_BLOCKED);
       return TRUE;
     }
     else
@@ -6867,7 +6867,7 @@ int wall_generic(P_obj obj, P_char ch, int cmd, char *arg)
 
   type = obj->value[3];
 
-  if(obj->value[1] == DOWN)
+  if(obj->value[1] == DIR_DOWN)
     downexit = TRUE;
 
   if (cmd == CMD_DECAY)

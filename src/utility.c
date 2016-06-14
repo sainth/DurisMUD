@@ -718,10 +718,10 @@ int cmd_to_exitnumb(int cmd)
 
 int exitnumb_to_cmd(int exitnumb)
 {
-  if ((exitnumb >= NORTH) && (exitnumb <= DOWN))
+  if ((exitnumb >= DIR_NORTH) && (exitnumb <= DIR_DOWN))
     return exitnumb + 1;
 
-  if ((exitnumb >= NORTHWEST) && (exitnumb <= SOUTHEAST))
+  if ((exitnumb >= DIR_NORTHWEST) && (exitnumb <= DIR_SOUTHEAST))
     return (exitnumb + CMD_NORTHWEST) - CMD_DOWN;
 
   return -1;
@@ -2103,9 +2103,9 @@ int move_cost(P_char ch, int dir)
   moves = a + b;
   moves = (load_modifier(ch) * moves) / 200;
 
-  if(dir == DOWN)
+  if(dir == DIR_DOWN)
     moves = (moves / 3) * 2;    /* slightly less going down */
-  if(dir == UP)
+  if(dir == DIR_UP)
     moves = (moves * 3) / 2;    /* slightly more going up */
 
   if(ch->specials.z_cord > 0 ||
@@ -2113,7 +2113,7 @@ int move_cost(P_char ch, int dir)
         moves = MAX(4, moves / 3);  /* Fly removes bunches of the cost */
 
   if(IS_AFFECTED(ch, AFF_FLY) ||      /* Fly/lev up/down costs very little */
-    (IS_AFFECTED(ch, AFF_LEVITATE) && ((dir == UP) || (dir == DOWN))))
+    (IS_AFFECTED(ch, AFF_LEVITATE) && ((dir == DIR_UP) || (dir == DIR_DOWN))))
   {
     if(world[ch->in_room].sector_type == SECT_MOUNTAIN ||
         world[ch->in_room].sector_type == SECT_OCEAN)
@@ -5831,25 +5831,25 @@ int cmd_from_dir(int dir)
 {
   switch(dir)
   {
-    case NORTH:
+    case DIR_NORTH:
       return CMD_NORTH;
-    case EAST:
+    case DIR_EAST:
       return CMD_EAST;
-    case SOUTH:
+    case DIR_SOUTH:
       return CMD_SOUTH;
-    case WEST:
+    case DIR_WEST:
       return CMD_WEST;
-    case UP:
+    case DIR_UP:
       return CMD_UP;
-    case DOWN:
+    case DIR_DOWN:
       return CMD_DOWN;
-    case NORTHWEST:
+    case DIR_NORTHWEST:
       return CMD_NORTHWEST;
-    case SOUTHWEST:
+    case DIR_SOUTHWEST:
       return CMD_SOUTHWEST;
-    case NORTHEAST:
+    case DIR_NORTHEAST:
       return CMD_NORTHEAST;
-    case SOUTHEAST:
+    case DIR_SOUTHEAST:
       return CMD_SOUTHEAST;
   }
   return CMD_NONE;

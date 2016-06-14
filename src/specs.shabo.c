@@ -363,7 +363,7 @@ int tower_summoning(P_obj obj, P_char ch, int cmd, char *arg)
 
   if (cmd == CMD_NORTH)
   {
-    if (!world[ch->in_room].dir_option[NORTH])
+    if (!world[ch->in_room].dir_option[DIR_NORTH])
     {
       logit(LOG_EXIT,
             "Tower of Summonings entrance room [%d] does not have north exit! Fix tower_summoning()",
@@ -372,10 +372,10 @@ int tower_summoning(P_obj obj, P_char ch, int cmd, char *arg)
       return FALSE;
     }
     else
-      if (IS_SET(world[ch->in_room].dir_option[NORTH]->exit_info, EX_BLOCKED))
+      if (IS_SET(world[ch->in_room].dir_option[DIR_NORTH]->exit_info, EX_BLOCKED))
       return FALSE;
     else
-      if (IS_SET(world[ch->in_room].dir_option[NORTH]->exit_info, EX_CLOSED)
+      if (IS_SET(world[ch->in_room].dir_option[DIR_NORTH]->exit_info, EX_CLOSED)
           && (!IS_AFFECTED4(ch, AFF4_PHANTASMAL_FORM)))
       return FALSE;
     else
@@ -441,11 +441,11 @@ int shabo_trap_north(P_obj obj, P_char ch, int cmd, char *arg)
 
   if (cmd == CMD_NORTH)
   {
-    if (world[ch->in_room].dir_option[NORTH])
-      if (IS_SET(world[ch->in_room].dir_option[NORTH]->exit_info, EX_BLOCKED))
+    if (world[ch->in_room].dir_option[DIR_NORTH])
+      if (IS_SET(world[ch->in_room].dir_option[DIR_NORTH]->exit_info, EX_BLOCKED))
         return FALSE;
       else
-        if (IS_SET(world[ch->in_room].dir_option[NORTH]->exit_info, EX_CLOSED)
+        if (IS_SET(world[ch->in_room].dir_option[DIR_NORTH]->exit_info, EX_CLOSED)
             && (!IS_AFFECTED4(ch, AFF4_PHANTASMAL_FORM)))
         return FALSE;
       else
@@ -476,12 +476,12 @@ int shabo_trap_south(P_obj obj, P_char ch, int cmd, char *arg)
 
   if (cmd == CMD_SOUTH)
   {
-    if (world[ch->in_room].dir_option[SOUTH])
+    if (world[ch->in_room].dir_option[DIR_SOUTH])
 
-      if (IS_SET(world[ch->in_room].dir_option[SOUTH]->exit_info, EX_BLOCKED))
+      if (IS_SET(world[ch->in_room].dir_option[DIR_SOUTH]->exit_info, EX_BLOCKED))
         return FALSE;
       else
-        if (IS_SET(world[ch->in_room].dir_option[SOUTH]->exit_info, EX_CLOSED)
+        if (IS_SET(world[ch->in_room].dir_option[DIR_SOUTH]->exit_info, EX_CLOSED)
             && (!IS_AFFECTED4(ch, AFF4_PHANTASMAL_FORM)))
         return FALSE;
       else
@@ -520,11 +520,11 @@ int shabo_trap_south_two(P_obj obj, P_char ch, int cmd, char *arg)
 
   if (cmd == CMD_SOUTH)
   {
-    if (world[ch->in_room].dir_option[SOUTH])
-      if (IS_SET(world[ch->in_room].dir_option[SOUTH]->exit_info, EX_BLOCKED))
+    if (world[ch->in_room].dir_option[DIR_SOUTH])
+      if (IS_SET(world[ch->in_room].dir_option[DIR_SOUTH]->exit_info, EX_BLOCKED))
         return FALSE;
       else
-        if (IS_SET(world[ch->in_room].dir_option[SOUTH]->exit_info, EX_CLOSED)
+        if (IS_SET(world[ch->in_room].dir_option[DIR_SOUTH]->exit_info, EX_CLOSED)
             && (!IS_AFFECTED4(ch, AFF4_PHANTASMAL_FORM)))
         return FALSE;
       else
@@ -554,11 +554,11 @@ int shabo_trap_down(P_obj obj, P_char ch, int cmd, char *arg)
 
   if (cmd == CMD_DOWN)
   {
-    if (world[ch->in_room].dir_option[DOWN])
-      if (IS_SET(world[ch->in_room].dir_option[DOWN]->exit_info, EX_BLOCKED))
+    if (world[ch->in_room].dir_option[DIR_DOWN])
+      if (IS_SET(world[ch->in_room].dir_option[DIR_DOWN]->exit_info, EX_BLOCKED))
         return FALSE;
       else
-        if (IS_SET(world[ch->in_room].dir_option[DOWN]->exit_info, EX_CLOSED)
+        if (IS_SET(world[ch->in_room].dir_option[DIR_DOWN]->exit_info, EX_CLOSED)
             && (!IS_AFFECTED4(ch, AFF4_PHANTASMAL_FORM)))
         return FALSE;
       else
@@ -588,11 +588,11 @@ int shabo_trap_up(P_obj obj, P_char ch, int cmd, char *arg)
 
   if (cmd == CMD_UP)
   {
-    if (world[ch->in_room].dir_option[UP])
-      if (IS_SET(world[ch->in_room].dir_option[UP]->exit_info, EX_BLOCKED))
+    if (world[ch->in_room].dir_option[DIR_UP])
+      if (IS_SET(world[ch->in_room].dir_option[DIR_UP]->exit_info, EX_BLOCKED))
         return FALSE;
       else
-        if (IS_SET(world[ch->in_room].dir_option[UP]->exit_info, EX_CLOSED)
+        if (IS_SET(world[ch->in_room].dir_option[DIR_UP]->exit_info, EX_CLOSED)
             && (!IS_AFFECTED4(ch, AFF4_PHANTASMAL_FORM)))
         return FALSE;
       else
@@ -634,11 +634,11 @@ int shabo_trap_up_two(P_obj obj, P_char ch, int cmd, char *arg)
 
   if (cmd == CMD_UP)
   {
-    if (world[ch->in_room].dir_option[UP])
-      if (IS_SET(world[ch->in_room].dir_option[UP]->exit_info, EX_BLOCKED))
+    if (world[ch->in_room].dir_option[DIR_UP])
+      if (IS_SET(world[ch->in_room].dir_option[DIR_UP]->exit_info, EX_BLOCKED))
         return FALSE;
       else
-        if (IS_SET(world[ch->in_room].dir_option[UP]->exit_info, EX_CLOSED)
+        if (IS_SET(world[ch->in_room].dir_option[DIR_UP]->exit_info, EX_CLOSED)
             && (!IS_AFFECTED4(ch, AFF4_PHANTASMAL_FORM)))
         return FALSE;
       else
@@ -682,12 +682,12 @@ int shabo_trap_north_two(P_obj obj, P_char ch, int cmd, char *arg)
 
   if (cmd == CMD_NORTH)
   {
-    if (world[ch->in_room].dir_option[NORTH])
+    if (world[ch->in_room].dir_option[DIR_NORTH])
 
-      if (IS_SET(world[ch->in_room].dir_option[NORTH]->exit_info, EX_BLOCKED))
+      if (IS_SET(world[ch->in_room].dir_option[DIR_NORTH]->exit_info, EX_BLOCKED))
         return FALSE;
       else
-        if (IS_SET(world[ch->in_room].dir_option[NORTH]->exit_info, EX_CLOSED)
+        if (IS_SET(world[ch->in_room].dir_option[DIR_NORTH]->exit_info, EX_CLOSED)
             && (!IS_AFFECTED4(ch, AFF4_PHANTASMAL_FORM)))
         return FALSE;
       else

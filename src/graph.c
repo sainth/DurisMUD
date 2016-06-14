@@ -2238,43 +2238,43 @@ bool rmfr_valid_exit(int room, int dir, int radius, RMFR_FLAGS flags, RMFR_Q_TYP
 
   switch(dir)
   {
-    case NORTH:
+    case DIR_NORTH:
       if(!(flags & RMFR_RADIATE_NORTH))
         return false;
       break;
-    case SOUTH:
+    case DIR_SOUTH:
       if(!(flags & RMFR_RADIATE_SOUTH))
         return false;
       break;
-    case EAST:
+    case DIR_EAST:
       if(!(flags & RMFR_RADIATE_EAST))
         return false;
       break;
-    case WEST:
+    case DIR_WEST:
       if(!(flags & RMFR_RADIATE_WEST))
         return false;
       break;
-    case UP:
+    case DIR_UP:
       if(!(flags & RMFR_RADIATE_UP))
         return false;
       break;
-    case DOWN:
+    case DIR_DOWN:
       if(!(flags & RMFR_RADIATE_DOWN))
         return false;
       break;
-    case NORTHEAST:
+    case DIR_NORTHEAST:
       if(!(flags & RMFR_RADIATE_NE))
         return false;
       break;
-    case SOUTHEAST:
+    case DIR_SOUTHEAST:
       if(!(flags & RMFR_RADIATE_SE))
         return false;
       break;
-    case SOUTHWEST:
+    case DIR_SOUTHWEST:
       if(!(flags & RMFR_RADIATE_SW))
         return false;
       break;
-    case NORTHWEST:
+    case DIR_NORTHWEST:
       if(!(flags & RMFR_RADIATE_NW))
         return false;
       break;

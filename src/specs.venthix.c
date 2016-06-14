@@ -207,22 +207,22 @@ void get_cannon_heading(void *data)
     if (cdata->x > 50.999)
     {
       cdata->x -= 1.000;
-      cdata->doxy[COORD_X] = EAST;
+      cdata->doxy[COORD_X] = DIR_EAST;
     }
     else if (cdata->x < 50.000)
     {
       cdata->x += 1.000;
-      cdata->doxy[COORD_X] = WEST;
+      cdata->doxy[COORD_X] = DIR_WEST;
     }
     if (cdata->y > 50.999)
     {
       cdata->y -= 1.000;
-      cdata->doxy[COORD_Y] = NORTH;
+      cdata->doxy[COORD_Y] = DIR_NORTH;
     }
     else if (cdata->y < 50.000)
     {
       cdata->y += 1.000;
-      cdata->doxy[COORD_Y] = SOUTH;
+      cdata->doxy[COORD_Y] = DIR_SOUTH;
     }
   }
   debug("dir: %d, doxy[x]: %d, doxy[y]: %d, x: %f, y: %f", cdata->dir, cdata->doxy[COORD_X], cdata->doxy[COORD_Y], cdata->x, cdata->y);
@@ -266,10 +266,10 @@ void event_super_cannon_fire(P_char ch, P_char vict, P_obj obj, void *data)
     {
       dir = -1;
       if (cdata->doxy[n] != -1 &&
-	  (cdata->doxy[n] == NORTH ||
-	   cdata->doxy[n] == EAST ||
-	   cdata->doxy[n] == SOUTH ||
-	   cdata->doxy[n] == WEST))
+	  (cdata->doxy[n] == DIR_NORTH ||
+	   cdata->doxy[n] == DIR_EAST ||
+	   cdata->doxy[n] == DIR_SOUTH ||
+	   cdata->doxy[n] == DIR_WEST))
 	dir = cdata->doxy[n];
       debug("dir: %d", dir); 
       if (dir < -1 || dir > 3)

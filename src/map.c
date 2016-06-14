@@ -1047,16 +1047,16 @@ bool is_in_line_of_sight_dir(P_char ch, P_char target, int current_room)
 
   for (count = 0; count < 5; count++)
   {
-    if (which_dir == NORTH || which_dir == NORTHEAST ||
-        which_dir == NORTHWEST)
+    if (which_dir == DIR_NORTH || which_dir == DIR_NORTHEAST ||
+        which_dir == DIR_NORTHWEST)
       x -= 100;
-    else if (which_dir == SOUTH || which_dir == SOUTHEAST ||
-             which_dir == SOUTHWEST)
+    else if (which_dir == DIR_SOUTH || which_dir == DIR_SOUTHEAST ||
+             which_dir == DIR_SOUTHWEST)
       x += 100;
-    if (which_dir == EAST || which_dir == NORTHEAST || which_dir == SOUTHEAST)
+    if (which_dir == DIR_EAST || which_dir == DIR_NORTHEAST || which_dir == DIR_SOUTHEAST)
       x2 -= 1;
-    else if (which_dir == WEST || which_dir == NORTHWEST ||
-             which_dir == SOUTHWEST)
+    else if (which_dir == DIR_WEST || which_dir == DIR_NORTHWEST ||
+             which_dir == DIR_SOUTHWEST)
       x2 += 1;
 
     /* Did the last bump toss us onto a new map? Adjust our figures then... */
@@ -1227,61 +1227,61 @@ void calculate_map_coordinates()
             BFSMARK(next_room);                                           
             switch(curr_dir)
             {                                                             
-            case NORTH:                                                   
+            case DIR_NORTH:                                                   
             {                                                             
               world[next_room].x_coord = world[curr_room].x_coord;        
               world[next_room].y_coord = world[curr_room].y_coord + 1;    
               world[next_room].z_coord = world[curr_room].z_coord;        
             } break;                                                      
-            case EAST:                                                    
+            case DIR_EAST:                                                    
             {                                                             
               world[next_room].x_coord = world[curr_room].x_coord + 1;    
               world[next_room].y_coord = world[curr_room].y_coord;        
               world[next_room].z_coord = world[curr_room].z_coord;        
             } break;                                                      
-            case SOUTH:                                                   
+            case DIR_SOUTH:                                                   
             {                                                             
               world[next_room].x_coord = world[curr_room].x_coord;        
               world[next_room].y_coord = world[curr_room].y_coord - 1;    
               world[next_room].z_coord = world[curr_room].z_coord;        
             } break;                                                      
-            case WEST:                                                    
+            case DIR_WEST:                                                    
             {                                                             
               world[next_room].x_coord = world[curr_room].x_coord - 1;    
               world[next_room].y_coord = world[curr_room].y_coord;        
               world[next_room].z_coord = world[curr_room].z_coord;        
             } break;                                                      
-            case UP:                                                      
+            case DIR_UP:                                                      
             {                                                             
               world[next_room].x_coord = world[curr_room].x_coord;        
               world[next_room].y_coord = world[curr_room].y_coord;        
               world[next_room].z_coord = world[curr_room].z_coord + 1;    
             } break;                                                      
-            case DOWN:                                                    
+            case DIR_DOWN:                                                    
             {                                                             
               world[next_room].x_coord = world[curr_room].x_coord;        
               world[next_room].y_coord = world[curr_room].y_coord;        
               world[next_room].z_coord = world[curr_room].z_coord - 1;    
             } break;                                                      
-            case NORTHWEST:                                               
+            case DIR_NORTHWEST:                                               
             {                                                             
               world[next_room].x_coord = world[curr_room].x_coord - 1;    
               world[next_room].y_coord = world[curr_room].y_coord + 1;    
               world[next_room].z_coord = world[curr_room].z_coord;        
             } break;                                                      
-            case SOUTHWEST:                                               
+            case DIR_SOUTHWEST:                                               
             {                                                             
               world[next_room].x_coord = world[curr_room].x_coord - 1;    
               world[next_room].y_coord = world[curr_room].y_coord - 1;    
               world[next_room].z_coord = world[curr_room].z_coord;        
             } break;                                                      
-            case NORTHEAST:                                               
+            case DIR_NORTHEAST:                                               
             {                                                             
               world[next_room].x_coord = world[curr_room].x_coord + 1;    
               world[next_room].y_coord = world[curr_room].y_coord + 1;    
               world[next_room].z_coord = world[curr_room].z_coord;        
             } break;                                                      
-            case SOUTHEAST:                                               
+            case DIR_SOUTHEAST:                                               
             {                                                             
               world[next_room].x_coord = world[curr_room].x_coord + 1;    
               world[next_room].y_coord = world[curr_room].y_coord - 1;    

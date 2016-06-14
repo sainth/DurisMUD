@@ -5889,7 +5889,7 @@ void do_fly(P_char ch, char *argument, int cmd)
   {
 
     /* if there's already an up exit here, let's move em up it */
-    if (EXIT(ch, UP))
+    if (EXIT(ch, DIR_UP))
     {
       do_move(ch, NULL, CMD_UP);
       ch->specials.z_cord = 0;
@@ -5944,7 +5944,7 @@ void do_fly(P_char ch, char *argument, int cmd)
   else if (!str_cmp(buf, "down"))
   {
     /* if there's already a down exit here, let's move em down it */
-    if (EXIT(ch, DOWN))
+    if (EXIT(ch, DIR_DOWN))
     {
       do_move(ch, NULL, CMD_DOWN);
       ch->specials.z_cord = 0;

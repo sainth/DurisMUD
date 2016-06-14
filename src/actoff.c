@@ -3659,7 +3659,7 @@ void kick(P_char ch, P_char victim)
   {
     door = number(0, 9);
 
-    if( (door == UP) || (door == DOWN) )
+    if( (door == DIR_UP) || (door == DIR_DOWN) )
     {
       door = number(0, 3);
     }
@@ -7865,7 +7865,7 @@ void do_rearkick(P_char ch, char *argument, int cmd)
 
     door = number(0, 9);
     // Exit that's not up or down.
-    if((door == UP) || (door == DOWN))
+    if((door == DIR_UP) || (door == DIR_DOWN))
       door = number(0, 3);
 
     if((CAN_GO(victim, door)) && (!check_wall(victim->in_room, door)))

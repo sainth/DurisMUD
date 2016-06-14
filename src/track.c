@@ -95,7 +95,7 @@ void event_track_move(P_char ch, P_char vict, P_obj obj, void *data)
       && IS_SET(EXIT(ch, dir)->exit_info, EX_CLOSED)
       && !IS_SET(EXIT(ch, dir)->exit_info, EX_LOCKED))
     {
-      if( (dir == DOWN) || (dir == UP) )
+      if( (dir == DIR_DOWN) || (dir == DIR_UP) )
       {
         sprintf(buf, "You open the %sward %s.\n", dirs[dir],
           EXIT(ch, dir)->keyword ? FirstWord(EXIT(ch, dir)->keyword) : "door" );

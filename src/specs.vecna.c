@@ -263,7 +263,7 @@ int vecna_torturerroom(P_obj obj, P_char ch, int cmd, char *arg)
     return TRUE;
   }
 
-  if( !world[obj->loc.room].dir_option[NORTH] || !world[obj->loc.room].dir_option[NORTH]->to_room )
+  if( !world[obj->loc.room].dir_option[DIR_NORTH] || !world[obj->loc.room].dir_option[DIR_NORTH]->to_room )
     return FALSE;
 
   for( corpse = world[obj->loc.room].contents; corpse; corpse = next_corpse )
@@ -275,7 +275,7 @@ int vecna_torturerroom(P_obj obj, P_char ch, int cmd, char *arg)
       sprintf(buf, "&+WGhostly hands &+Lrise from the ground and drag &n%s &+Linto the frigid earth.&n\r\n", corpse->short_description);
       send_to_room(buf, obj->loc.room);
       obj_from_room(corpse);
-      obj_to_room(corpse, world[obj->loc.room].dir_option[NORTH]->to_room);
+      obj_to_room(corpse, world[obj->loc.room].dir_option[DIR_NORTH]->to_room);
       sprintf(buf, "&+WGhostly hands &+Lappear overhead and pull &n%s &+Linto the room.&n\r\n", corpse->short_description);
       send_to_room(buf, corpse->loc.room);
       return FALSE;
@@ -295,7 +295,7 @@ int vecna_ghosthands(P_obj obj, P_char ch, int cmd, char *arg)
   }
 
   // If no down exit.
-  if( !world[obj->loc.room].dir_option[DOWN] || !world[obj->loc.room].dir_option[DOWN]->to_room )
+  if( !world[obj->loc.room].dir_option[DIR_DOWN] || !world[obj->loc.room].dir_option[DIR_DOWN]->to_room )
   {
     return FALSE;
   }
@@ -309,7 +309,7 @@ int vecna_ghosthands(P_obj obj, P_char ch, int cmd, char *arg)
       sprintf(buf, "&+WGhostly hands &+Lrise from the ground and drag &n%s &+Linto the frigid earth.&n\r\n", corpse->short_description);
       send_to_room(buf, obj->loc.room);
       obj_from_room(corpse);
-      obj_to_room(corpse, world[obj->loc.room].dir_option[DOWN]->to_room);
+      obj_to_room(corpse, world[obj->loc.room].dir_option[DIR_DOWN]->to_room);
       sprintf(buf, "&+WGhostly hands &+Lappear overhead and pull &n%s &+Linto the room.&n\r\n", corpse->short_description);
       send_to_room(buf, corpse->loc.room);
       return FALSE;

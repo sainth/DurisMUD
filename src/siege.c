@@ -100,13 +100,13 @@ int ballista( P_obj obj, P_char ch, int cmd, char *arg )
       dir = -1;
       // Figure out what direction.
       if( is_abbrev(arg2, "north") )
-        dir = NORTH;
+        dir = DIR_NORTH;
       else if( is_abbrev(arg2, "south") )
-        dir = SOUTH;
+        dir = DIR_SOUTH;
       else if( is_abbrev(arg2, "east") )
-        dir = EAST;
+        dir = DIR_EAST;
       else if( is_abbrev(arg2, "west") )
-        dir = WEST;
+        dir = DIR_WEST;
       if( dir == -1 || *arg2 == '\0' )
       {
         send_to_char( "Move the ballista what direction?\n", ch );
@@ -173,13 +173,13 @@ int ballista( P_obj obj, P_char ch, int cmd, char *arg )
 
       // Figure out what direction.
       if( is_abbrev(arg3, "north") )
-        dir = NORTH;
+        dir = DIR_NORTH;
       else if( is_abbrev(arg3, "south") )
-        dir = SOUTH;
+        dir = DIR_SOUTH;
       else if( is_abbrev(arg3, "east") )
-        dir = EAST;
+        dir = DIR_EAST;
       else if( is_abbrev(arg3, "west") )
-        dir = WEST;
+        dir = DIR_WEST;
       if( dir == -1 || *arg3 == '\0' )
       {
         send_to_char( "Fire the ballista at who what direction?\n", ch );
@@ -309,13 +309,13 @@ int battering_ram( P_obj obj, P_char ch, int cmd, char *arg )
       dir = -1;
       // Figure out what direction.
       if( is_abbrev(arg2, "north") )
-        dir = NORTH;
+        dir = DIR_NORTH;
       else if( is_abbrev(arg2, "south") )
-        dir = SOUTH;
+        dir = DIR_SOUTH;
       else if( is_abbrev(arg2, "east") )
-        dir = EAST;
+        dir = DIR_EAST;
       else if( is_abbrev(arg2, "west") )
-        dir = WEST;
+        dir = DIR_WEST;
       if( dir == -1 || *arg2 == '\0' )
       {
         send_to_char( "Move the battering ram what direction?\n", ch );
@@ -396,13 +396,13 @@ int catapult( P_obj obj, P_char ch, int cmd, char *arg )
       dir = -1;
       // Figure out what direction.
       if( is_abbrev(arg2, "north") )
-        dir = NORTH;
+        dir = DIR_NORTH;
       else if( is_abbrev(arg2, "south") )
-        dir = SOUTH;
+        dir = DIR_SOUTH;
       else if( is_abbrev(arg2, "east") )
-        dir = EAST;
+        dir = DIR_EAST;
       else if( is_abbrev(arg2, "west") )
-        dir = WEST;
+        dir = DIR_WEST;
       if( dir == -1 || *arg2 == '\0' )
       {
         send_to_char( "Move the catapult what direction?\n", ch );
@@ -467,13 +467,13 @@ int catapult( P_obj obj, P_char ch, int cmd, char *arg )
 
       // Figure out what direction.
       if( is_abbrev(arg2, "north") )
-        dir = NORTH;
+        dir = DIR_NORTH;
       else if( is_abbrev(arg2, "south") )
-        dir = SOUTH;
+        dir = DIR_SOUTH;
       else if( is_abbrev(arg2, "east") )
-        dir = EAST;
+        dir = DIR_EAST;
       else if( is_abbrev(arg2, "west") )
-        dir = WEST;
+        dir = DIR_WEST;
       if( dir == -1 || *arg2 == '\0' )
       {
         send_to_char( "Fire the catapult what direction?\n", ch );
@@ -633,10 +633,10 @@ int castlewall( P_obj obj, P_char ch, int cmd, char *arg )
     return FALSE;
 
   // Value0 of a castlewall is the direction it blocks.
-  if( (obj->value[0] == EAST  && cmd == CMD_EAST) 
-      || (obj->value[0] == WEST  && cmd == CMD_WEST) 
-      || (obj->value[0] == NORTH && cmd == CMD_NORTH) 
-      || (obj->value[0] == SOUTH && cmd == CMD_SOUTH) )
+  if( (obj->value[0] == DIR_EAST  && cmd == CMD_EAST) 
+      || (obj->value[0] == DIR_WEST  && cmd == CMD_WEST) 
+      || (obj->value[0] == DIR_NORTH && cmd == CMD_NORTH) 
+      || (obj->value[0] == DIR_SOUTH && cmd == CMD_SOUTH) )
   {
     if( isname( "gates", obj->name ) )
       act( "$p block your path.", FALSE, ch, obj, NULL, TO_CHAR );

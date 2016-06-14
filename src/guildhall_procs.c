@@ -149,7 +149,7 @@ int guildhall_golem(P_char ch, P_char pl, int cmd, char *arg)
 
   int blocked_dir = direction_tag(ch);
 
-  if( blocked_dir < NORTH || blocked_dir >= NUM_EXITS )
+  if( blocked_dir < DIR_NORTH || blocked_dir >= NUM_EXITS )
   {
     logit(LOG_GUILDHALLS, "guildhall_golem() assigned to %s in %d has an invalid blocking direction (%d)!", GET_NAME(ch), world[ch->in_room].number, blocked_dir);
     REMOVE_BIT(ch->specials.act, ACT_SPEC);

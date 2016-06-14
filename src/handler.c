@@ -2095,7 +2095,7 @@ void obj_to_room(P_obj object, int room)
       (object->type != ITEM_BOAT) && (object->type != ITEM_SHIP) &&
       (world[room].sector_type != SECT_UNDERWATER_GR) &&
       /*(world[room].sector_type != SECT_WATER_PLANE) && */
-      ((VIRTUAL_EXIT(room, DOWN) != NULL) ||
+      ((VIRTUAL_EXIT(room, DIR_DOWN) != NULL) ||
        (world[room].sector_type != SECT_UNDERWATER)))
   {
     for (i = world[room].people; i; i = i->next_in_room)

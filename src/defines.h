@@ -405,16 +405,16 @@ typedef unsigned int uint;
 
 /* For 'dir_option' */
 
-#define NORTH          0
-#define EAST           1
-#define SOUTH          2
-#define WEST           3
-#define UP             4
-#define DOWN           5
-#define NORTHWEST      6
-#define SOUTHWEST      7
-#define NORTHEAST      8
-#define SOUTHEAST      9
+#define DIR_NORTH          0
+#define DIR_EAST           1
+#define DIR_SOUTH          2
+#define DIR_WEST           3
+#define DIR_UP             4
+#define DIR_DOWN           5
+#define DIR_NORTHWEST      6
+#define DIR_SOUTHWEST      7
+#define DIR_NORTHEAST      8
+#define DIR_SOUTHEAST      9
 
 #define NUM_EXITS     10
 
@@ -1310,7 +1310,7 @@ struct material_data {
 #define DWARVEN_ANCESTOR_VNUM             75
 
 #define SNEAK(ch) (IS_AFFECTED(ch, AFF_SNEAK) || UD_SNEAK(ch) || OUTDOOR_SNEAK(ch) || SWAMP_SNEAK(ch))
-#define LEVITATE(ch, dir) (IS_AFFECTED(ch, AFF_LEVITATE) && ((dir == UP) || (dir == DOWN)))
+#define LEVITATE(ch, dir) (IS_AFFECTED(ch, AFF_LEVITATE) && ((dir == DIR_UP) || (dir == DIR_DOWN)))
 
 // world_quest_.c
 #define FIND_AND_SOMETHING   0

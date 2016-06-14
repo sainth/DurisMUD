@@ -158,13 +158,13 @@ int order_maneuver(P_char ch, P_ship ship, char* arg)
 
     int dir;
     if (isname(arg, "n") || isname(arg, "north"))
-        dir = NORTH;
+        dir = DIR_NORTH;
     else if (isname(arg, "e") || isname(arg, "east")) 
-        dir = EAST;
+        dir = DIR_EAST;
     else if (isname(arg, "s") || isname(arg, "south")) 
-        dir = SOUTH;
+        dir = DIR_SOUTH;
     else if (isname(arg, "w") || isname(arg, "west"))
-        dir = WEST;
+        dir = DIR_WEST;
     else 
     {
         send_to_char_f(ch, "%s is not a valid direction try (north, east, south, west)\r\n", arg);

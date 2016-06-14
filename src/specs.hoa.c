@@ -328,11 +328,11 @@ int hoa_plat(P_obj obj, P_char ch, int cmd, char *arg)
   {
     act("&+LA large rumble of stones moving can be heard from the other room.&n", FALSE, ch, 0, 0, TO_ROOM);
     act("&+LA large rumble of stones moving can be heard from the other room.&n", FALSE, ch, 0, 0, TO_CHAR);
-    SET_BIT(world[real_room(77888)].dir_option[SOUTH]->exit_info, EX_BLOCKED);
-    REMOVE_BIT(world[real_room(77893)].dir_option[DOWN]->exit_info, EX_BLOCKED);
-    REMOVE_BIT(world[real_room(77893)].dir_option[DOWN]->exit_info, EX_CLOSED);
-    REMOVE_BIT(world[real_room(77944)].dir_option[UP]->exit_info, EX_BLOCKED);
-    REMOVE_BIT(world[real_room(77944)].dir_option[UP]->exit_info, EX_CLOSED);
+    SET_BIT(world[real_room(77888)].dir_option[DIR_SOUTH]->exit_info, EX_BLOCKED);
+    REMOVE_BIT(world[real_room(77893)].dir_option[DIR_DOWN]->exit_info, EX_BLOCKED);
+    REMOVE_BIT(world[real_room(77893)].dir_option[DIR_DOWN]->exit_info, EX_CLOSED);
+    REMOVE_BIT(world[real_room(77944)].dir_option[DIR_UP]->exit_info, EX_BLOCKED);
+    REMOVE_BIT(world[real_room(77944)].dir_option[DIR_UP]->exit_info, EX_CLOSED);
     return FALSE;
   }
   return FALSE;
@@ -353,7 +353,7 @@ int hoa_death(P_char ch, P_char vict, int cmd, char *arg)
   if (cmd == CMD_DEATH)
   {
     act("&+LDeath &+WSHRIEKS&+L as his power dissipates around this cathedral.&n", FALSE, ch, 0, 0, TO_ROOM);
-    REMOVE_BIT(world[real_room(77888)].dir_option[SOUTH]->exit_info, EX_BLOCKED);
+    REMOVE_BIT(world[real_room(77888)].dir_option[DIR_SOUTH]->exit_info, EX_BLOCKED);
     return FALSE;
   }
 

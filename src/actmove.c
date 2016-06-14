@@ -311,7 +311,7 @@ int leave_by_exit(P_char ch, int exitnumb)
       (world[t_ch->in_room].sector_type == SECT_AIR_PLANE))
   {
     if( !(IS_AFFECTED(t_ch, AFF_FLY) ||
-          (((exitnumb == UP) || (exitnumb == DOWN)) &&
+          (((exitnumb == DIR_UP) || (exitnumb == DIR_DOWN)) &&
            IS_AFFECTED(t_ch, AFF_LEVITATE))))
     {
       if( ch == t_ch)
@@ -351,7 +351,7 @@ int leave_by_exit(P_char ch, int exitnumb)
       (world[t_ch->in_room].sector_type == SECT_NO_GROUND))
   {
     if( !(IS_AFFECTED(t_ch, AFF_FLY) ||
-          (((exitnumb == UP) || (exitnumb == DOWN)) &&
+          (((exitnumb == DIR_UP) || (exitnumb == DIR_DOWN)) &&
            IS_AFFECTED(t_ch, AFF_LEVITATE))))
     {
       if( ch == t_ch)
@@ -373,7 +373,7 @@ int leave_by_exit(P_char ch, int exitnumb)
 
   if( (world[room_to].sector_type == SECT_NO_GROUND) && !IS_TRUSTED(t_ch))
   {
-    if( exitnumb == UP)
+    if( exitnumb == DIR_UP)
     {
       if( !IS_AFFECTED(t_ch, AFF_FLY) && !IS_AFFECTED(t_ch, AFF_LEVITATE))
       {
@@ -400,7 +400,7 @@ int leave_by_exit(P_char ch, int exitnumb)
                                                ((world[room_to].light == 0) &&
                                                 IS_AFFECTED2(ch,
                                                              AFF2_ULTRAVISION)))
-          && !IS_SET(world[room_to].dir_option[DOWN]->exit_info, EX_SECRET))
+          && !IS_SET(world[room_to].dir_option[DIR_DOWN]->exit_info, EX_SECRET))
       {
 
         /*
@@ -1181,34 +1181,34 @@ void blow_char_somewhere_else(P_char ch, int dir)
 
   switch (dir)
   {
-  case NORTH:
+  case DIR_NORTH:
     to_room = world[ch->in_room].number - (100 * distance);
     break;
-  case EAST:
+  case DIR_EAST:
     to_room = world[ch->in_room].number + (1 * distance);
     break;
-  case SOUTH:
+  case DIR_SOUTH:
     to_room = world[ch->in_room].number + (100 * distance);
     break;
-  case WEST:
+  case DIR_WEST:
     to_room = world[ch->in_room].number - (1 * distance);
     break;
-  case NORTHWEST:
+  case DIR_NORTHWEST:
     to_room =
       world[ch->in_room].number - ((100 * distance) / 2) -
       ((1 * distance) / 2);
     break;
-  case NORTHEAST:
+  case DIR_NORTHEAST:
     to_room =
       world[ch->in_room].number - ((100 * distance) / 2) +
       ((1 * distance) / 2);
     break;
-  case SOUTHWEST:
+  case DIR_SOUTHWEST:
     to_room =
       world[ch->in_room].number + ((100 * distance) / 2) -
       ((1 * distance) / 2);
     break;
-  case SOUTHEAST:
+  case DIR_SOUTHEAST:
     to_room =
       world[ch->in_room].number + ((100 * distance) / 2) +
       ((1 * distance) / 2);

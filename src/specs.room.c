@@ -1208,7 +1208,7 @@ int automaton_trapdoor(int room, P_char ch, int cmd, char *arg)
 
   if (cmd == CMD_DOWN)
   {
-    if (!world[real_room(12158)].dir_option[DOWN])
+    if (!world[real_room(12158)].dir_option[DIR_DOWN])
     {
       logit(LOG_EXIT,
             "Xexos room [%d] does not have down exit! Fix automaton_switch()",
@@ -1217,8 +1217,8 @@ int automaton_trapdoor(int room, P_char ch, int cmd, char *arg)
     }
     else
       if (IS_SET
-          (world[real_room(12158)].dir_option[DOWN]->exit_info, EX_CLOSED) ||
-          IS_SET(world[real_room(12158)].dir_option[DOWN]->exit_info,
+          (world[real_room(12158)].dir_option[DIR_DOWN]->exit_info, EX_CLOSED) ||
+          IS_SET(world[real_room(12158)].dir_option[DIR_DOWN]->exit_info,
                  EX_BLOCKED))
     {
       return FALSE;
@@ -1228,8 +1228,8 @@ int automaton_trapdoor(int room, P_char ch, int cmd, char *arg)
       /*
          slam the trapdoor
        */
-      SET_BIT(world[real_room(12158)].dir_option[DOWN]->exit_info, EX_CLOSED);
-      SET_BIT(world[real_room(12159)].dir_option[UP]->exit_info, EX_CLOSED);
+      SET_BIT(world[real_room(12158)].dir_option[DIR_DOWN]->exit_info, EX_CLOSED);
+      SET_BIT(world[real_room(12159)].dir_option[DIR_UP]->exit_info, EX_CLOSED);
 
       /*
          let players know what's happening
@@ -1254,9 +1254,9 @@ int automaton_trapdoor(int room, P_char ch, int cmd, char *arg)
       {
         if ((i->type == ITEM_SWITCH) && (i->value[1] == 12158))
         {
-          SET_BIT(world[real_room(12158)].dir_option[DOWN]->exit_info,
+          SET_BIT(world[real_room(12158)].dir_option[DIR_DOWN]->exit_info,
                   EX_BLOCKED);
-          SET_BIT(world[real_room(12159)].dir_option[UP]->exit_info,
+          SET_BIT(world[real_room(12159)].dir_option[DIR_UP]->exit_info,
                   EX_BLOCKED);
           act("You hear a metallic clunk from the trapdoor as it closes.",
               FALSE, ch, 0, 0, TO_CHAR);
@@ -1319,11 +1319,11 @@ int keyless_unlock(int room, P_char ch, int cmd, char *arg)
   if (!isname("door", arg))
     return FALSE;
 
-  if (IS_SET(world[room].dir_option[UP]->exit_info, EX_LOCKED))
+  if (IS_SET(world[room].dir_option[DIR_UP]->exit_info, EX_LOCKED))
   {
     send_to_char("You twist the bolt and unlock the door.\r\n", ch);
     act("$n unlocks the door.", TRUE, ch, 0, 0, TO_ROOM);
-    REMOVE_BIT(world[room].dir_option[UP]->exit_info, EX_LOCKED);
+    REMOVE_BIT(world[room].dir_option[DIR_UP]->exit_info, EX_LOCKED);
   }
   else
   {

@@ -846,24 +846,24 @@ bool mine_friendly(int to_room) {
   if (world[to_room].sector_type == SECT_HILLS)
     return true;
 
-  if (world[to_room].dir_option[NORTH] &&
-      (world[world[to_room].dir_option[NORTH]->to_room].sector_type == SECT_HILLS ||
-       world[world[to_room].dir_option[NORTH]->to_room].sector_type == SECT_MOUNTAIN))
+  if (world[to_room].dir_option[DIR_NORTH] &&
+      (world[world[to_room].dir_option[DIR_NORTH]->to_room].sector_type == SECT_HILLS ||
+       world[world[to_room].dir_option[DIR_NORTH]->to_room].sector_type == SECT_MOUNTAIN))
     return true;
   
-  if (world[to_room].dir_option[EAST] &&
-      (world[world[to_room].dir_option[EAST]->to_room].sector_type == SECT_HILLS ||
-       world[world[to_room].dir_option[EAST]->to_room].sector_type == SECT_MOUNTAIN))
+  if (world[to_room].dir_option[DIR_EAST] &&
+      (world[world[to_room].dir_option[DIR_EAST]->to_room].sector_type == SECT_HILLS ||
+       world[world[to_room].dir_option[DIR_EAST]->to_room].sector_type == SECT_MOUNTAIN))
     return true;
   
-  if (world[to_room].dir_option[SOUTH] &&
-      (world[world[to_room].dir_option[SOUTH]->to_room].sector_type == SECT_HILLS ||
-       world[world[to_room].dir_option[SOUTH]->to_room].sector_type == SECT_MOUNTAIN))
+  if (world[to_room].dir_option[DIR_SOUTH] &&
+      (world[world[to_room].dir_option[DIR_SOUTH]->to_room].sector_type == SECT_HILLS ||
+       world[world[to_room].dir_option[DIR_SOUTH]->to_room].sector_type == SECT_MOUNTAIN))
     return true;
 
-  if (world[to_room].dir_option[WEST] &&
-      (world[world[to_room].dir_option[WEST]->to_room].sector_type == SECT_HILLS ||
-       world[world[to_room].dir_option[WEST]->to_room].sector_type == SECT_MOUNTAIN))
+  if (world[to_room].dir_option[DIR_WEST] &&
+      (world[world[to_room].dir_option[DIR_WEST]->to_room].sector_type == SECT_HILLS ||
+       world[world[to_room].dir_option[DIR_WEST]->to_room].sector_type == SECT_MOUNTAIN))
     return true;
 
   return false;
@@ -2011,7 +2011,7 @@ bool invalid_mine_room(int rroom_id)
   if( IS_SET(world[rroom_id].room_flags, PRIVATE) || 
       IS_SET(world[rroom_id].room_flags, PRIV_ZONE) || 
       //IS_SET(world[rroom_id].room_flags, NO_TELEPORT) || 
-      world[rroom_id].dir_option[DOWN] || 
+      world[rroom_id].dir_option[DIR_DOWN] || 
       IS_WATER_ROOM(rroom_id) || 
       world[rroom_id].sector_type == SECT_MOUNTAIN || 
       world[rroom_id].sector_type == SECT_ROAD || 

@@ -1069,7 +1069,7 @@ bool construct_main_guildhall(P_Guild guild, int outside_vnum, int racewar)
   GuildhallRoom *entrance = new GuildhallRoom();
   entrance->id = next_guildhall_room_id();
   entrance->type = GH_ROOM_TYPE_ENTRANCE;
-  entrance->value[GH_VALUE_ENTRANCE_DIR] = SOUTH;
+  entrance->value[GH_VALUE_ENTRANCE_DIR] = DIR_SOUTH;
   entrance->vnum = next_guildhall_room_vnum();
   gh->add_room(entrance);
   
@@ -1091,12 +1091,12 @@ bool construct_main_guildhall(P_Guild guild, int outside_vnum, int racewar)
   inn->vnum = next_guildhall_room_vnum();
   gh->add_room(inn);
   
-  entrance->exits[NORTH] = heartstone->vnum;
-  heartstone->exits[SOUTH] = entrance->vnum;
-  heartstone->exits[WEST] = inn->vnum;
-  heartstone->exits[EAST] = portal->vnum;
-  inn->exits[EAST] = heartstone->vnum;
-  portal->exits[WEST] = heartstone->vnum;
+  entrance->exits[DIR_NORTH] = heartstone->vnum;
+  heartstone->exits[DIR_SOUTH] = entrance->vnum;
+  heartstone->exits[DIR_WEST] = inn->vnum;
+  heartstone->exits[DIR_EAST] = portal->vnum;
+  inn->exits[DIR_EAST] = heartstone->vnum;
+  portal->exits[DIR_WEST] = heartstone->vnum;
   
   if( !gh->save() )
   {

@@ -1351,7 +1351,7 @@ int door, target_room;
     if(takedown_chance > number(0, 100))
     {
       door = number(0, 9);
-      if ((door == UP) || (door == DOWN))
+      if ((door == DIR_UP) || (door == DIR_DOWN))
         door = number(0, 3);
         if ((CAN_GO(victim, door)) && (!check_wall(victim->in_room, door)))
         {

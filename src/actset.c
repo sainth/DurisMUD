@@ -975,36 +975,36 @@ static void setbit_dir(P_char ch, char *name, char *flag, char *value, int on_of
   /* Table */
 
   SetBitTable table[] = {
-    {"ninfo", DIR(NORTH, exit_info), exit_bits, ac_bitCopy, sizeof(char *)},
-    {"einfo", DIR(EAST, exit_info), exit_bits, ac_bitCopy, sizeof(char *)},
-    {"sinfo", DIR(SOUTH, exit_info), exit_bits, ac_bitCopy, sizeof(char *)},
-    {"winfo", DIR(WEST, exit_info), exit_bits, ac_bitCopy, sizeof(char *)},
-    {"uinfo", DIR(UP, exit_info), exit_bits, ac_bitCopy, sizeof(char *)},
-    {"dinfo", DIR(DOWN, exit_info), exit_bits, ac_bitCopy, sizeof(char *)},
-    {"nwinfo", DIR(NORTHWEST, exit_info), exit_bits, ac_bitCopy, sizeof(char *)},
-    {"neinfo", DIR(NORTHEAST, exit_info), exit_bits, ac_bitCopy, sizeof(char *)},
-    {"swinfo", DIR(SOUTHWEST, exit_info), exit_bits, ac_bitCopy, sizeof(char *)},
-    {"seinfo", DIR(SOUTHEAST, exit_info), exit_bits, ac_bitCopy, sizeof(char *)},
-    {"nkey", DIR(NORTH, key), NULL, ac_shintCopy},
-    {"ekey", DIR(EAST, key), NULL, ac_shintCopy},
-    {"skey", DIR(SOUTH, key), NULL, ac_shintCopy},
-    {"wkey", DIR(WEST, key), NULL, ac_shintCopy},
+    {"ninfo", DIR(DIR_NORTH, exit_info), exit_bits, ac_bitCopy, sizeof(char *)},
+    {"einfo", DIR(DIR_EAST, exit_info), exit_bits, ac_bitCopy, sizeof(char *)},
+    {"sinfo", DIR(DIR_SOUTH, exit_info), exit_bits, ac_bitCopy, sizeof(char *)},
+    {"winfo", DIR(DIR_WEST, exit_info), exit_bits, ac_bitCopy, sizeof(char *)},
+    {"uinfo", DIR(DIR_UP, exit_info), exit_bits, ac_bitCopy, sizeof(char *)},
+    {"dinfo", DIR(DIR_DOWN, exit_info), exit_bits, ac_bitCopy, sizeof(char *)},
+    {"nwinfo", DIR(DIR_NORTHWEST, exit_info), exit_bits, ac_bitCopy, sizeof(char *)},
+    {"neinfo", DIR(DIR_NORTHEAST, exit_info), exit_bits, ac_bitCopy, sizeof(char *)},
+    {"swinfo", DIR(DIR_SOUTHWEST, exit_info), exit_bits, ac_bitCopy, sizeof(char *)},
+    {"seinfo", DIR(DIR_SOUTHEAST, exit_info), exit_bits, ac_bitCopy, sizeof(char *)},
+    {"nkey", DIR(DIR_NORTH, key), NULL, ac_shintCopy},
+    {"ekey", DIR(DIR_EAST, key), NULL, ac_shintCopy},
+    {"skey", DIR(DIR_SOUTH, key), NULL, ac_shintCopy},
+    {"wkey", DIR(DIR_WEST, key), NULL, ac_shintCopy},
     {"ukey", DIR(UP, key), NULL, ac_shintCopy},
     {"dkey", DIR(DOWN, key), NULL, ac_shintCopy},
-    {"nwkey", DIR(NORTHWEST, key), NULL, ac_shintCopy},
-    {"nekey", DIR(NORTHEAST, key), NULL, ac_shintCopy},
-    {"swkey", DIR(SOUTHWEST, key), NULL, ac_shintCopy},
-    {"sekey", DIR(SOUTHEAST, key), NULL, ac_shintCopy},
-    {"nroom", DIR(NORTH, to_room), NULL, ac_intCopy},
-    {"eroom", DIR(EAST, to_room), NULL, ac_intCopy},
-    {"sroom", DIR(SOUTH, to_room), NULL, ac_intCopy},
-    {"wroom", DIR(WEST, to_room), NULL, ac_intCopy},
+    {"nwkey", DIR(DIR_NORTHWEST, key), NULL, ac_shintCopy},
+    {"nekey", DIR(DIR_NORTHEAST, key), NULL, ac_shintCopy},
+    {"swkey", DIR(DIR_SOUTHWEST, key), NULL, ac_shintCopy},
+    {"sekey", DIR(DIR_SOUTHEAST, key), NULL, ac_shintCopy},
+    {"nroom", DIR(DIR_NORTH, to_room), NULL, ac_intCopy},
+    {"eroom", DIR(DIR_EAST, to_room), NULL, ac_intCopy},
+    {"sroom", DIR(DIR_SOUTH, to_room), NULL, ac_intCopy},
+    {"wroom", DIR(DIR_WEST, to_room), NULL, ac_intCopy},
     {"uroom", DIR(UP, to_room), NULL, ac_intCopy},
     {"droom", DIR(DOWN, to_room), NULL, ac_intCopy},
-    {"nwroom", DIR(NORTHWEST, to_room), NULL, ac_intCopy},
-    {"neroom", DIR(NORTHEAST, to_room), NULL, ac_intCopy},
-    {"swroom", DIR(SOUTHWEST, to_room), NULL, ac_intCopy},
-    {"seroom", DIR(SOUTHEAST, to_room), NULL, ac_intCopy}
+    {"nwroom", DIR(DIR_NORTHWEST, to_room), NULL, ac_intCopy},
+    {"neroom", DIR(DIR_NORTHEAST, to_room), NULL, ac_intCopy},
+    {"swroom", DIR(DIR_SOUTHWEST, to_room), NULL, ac_intCopy},
+    {"seroom", DIR(DIR_SOUTHEAST, to_room), NULL, ac_intCopy}
   };
 
   /*
@@ -1059,23 +1059,23 @@ static void setbit_dir(P_char ch, char *name, char *flag, char *value, int on_of
       switch (toupper(flag[1]))
       {
         case 'W':
-          where = room->dir_option[NORTHWEST];
+          where = room->dir_option[DIR_NORTHWEST];
           if (toupper(flag[2]) == 'R') bIsSetRoom = true;
           break;
         case 'E':
-          where = room->dir_option[NORTHEAST];
+          where = room->dir_option[DIR_NORTHEAST];
           if (toupper(flag[2]) == 'R') bIsSetRoom = true;
           break;
         default:
           if (toupper(flag[1]) == 'R') bIsSetRoom = true;
-          where = room->dir_option[NORTH];
+          where = room->dir_option[DIR_NORTH];
           break;
       }
       break;
 
     case 'e':
     case 'E':
-      where = room->dir_option[EAST];
+      where = room->dir_option[DIR_EAST];
       if( toupper(flag[1]) == 'R' )
       {
         bIsSetRoom = true;
@@ -1084,7 +1084,7 @@ static void setbit_dir(P_char ch, char *name, char *flag, char *value, int on_of
 
     case 'w':
     case 'W':
-      where = room->dir_option[WEST];
+      where = room->dir_option[DIR_WEST];
       if (toupper(flag[1]) == 'R')
       {
         bIsSetRoom = true;
@@ -1096,14 +1096,14 @@ static void setbit_dir(P_char ch, char *name, char *flag, char *value, int on_of
       switch (toupper(flag[1]))
       {
         case 'W':
-          where = room->dir_option[SOUTHWEST];
+          where = room->dir_option[DIR_SOUTHWEST];
           if (toupper(flag[2]) == 'R')
           {
             bIsSetRoom = true;
           }
           break;
         case 'E':
-          where = room->dir_option[SOUTHEAST];
+          where = room->dir_option[DIR_SOUTHEAST];
           if (toupper(flag[2]) == 'R')
           {
             bIsSetRoom = true;
@@ -1114,20 +1114,20 @@ static void setbit_dir(P_char ch, char *name, char *flag, char *value, int on_of
           {
             bIsSetRoom = true;
           }
-          where = room->dir_option[SOUTH];
+          where = room->dir_option[DIR_SOUTH];
           break;
       }
       break;
 
     case 'u':
     case 'U':
-      where = room->dir_option[UP];
+      where = room->dir_option[DIR_UP];
       if (toupper(flag[1]) == 'R') bIsSetRoom = true;
       break;
 
     case 'd':
     case 'D':
-      where = room->dir_option[DOWN];
+      where = room->dir_option[DIR_DOWN];
       if (toupper(flag[1]) == 'R') bIsSetRoom = true;
       break;
 
