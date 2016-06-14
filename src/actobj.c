@@ -1441,7 +1441,7 @@ void do_drop(P_char ch, char *argument, int cmd)
   char     Gbuf1[MAX_STRING_LENGTH], Gbuf2[MAX_STRING_LENGTH],
     Gbuf3[MAX_STRING_LENGTH];
 
-  if (IS_ANIMAL(ch))
+  if( IS_ANIMAL(ch) && IS_NPC(ch) )
     return;
 
   argument = one_argument(argument, Gbuf1);
@@ -1730,7 +1730,7 @@ void do_put(P_char ch, char *argument, int cmd)
   char     obj_name[MAX_STRING_LENGTH];
   char     cont_name[MAX_STRING_LENGTH];
 
-  if( IS_ANIMAL(ch) )
+  if( IS_ANIMAL(ch) && IS_NPC(ch) )
   {
     return;
   }
