@@ -419,7 +419,7 @@ void do_get(P_char ch, char *argument, int cmd)
     return;
   }
 
-  if( IS_ANIMAL(ch) )
+  if( IS_ANIMAL(ch) && IS_NPC(ch) )
   {
     send_to_char("You are a beast!\r\n", ch);
     return;
@@ -4833,9 +4833,9 @@ void do_wear(P_char ch, char *argument, int cmd)
   int      loop = 0;
 
   // Letting dragons wear eq
-  if (IS_ANIMAL(ch))
+  if( IS_ANIMAL(ch) && IS_NPC(ch) )
   {
-    send_to_char("DUH!\r\n", ch);
+    send_to_char("Duh, how do you wear stuff?\r\n", ch);
     return;
   }
 

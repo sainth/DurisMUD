@@ -150,13 +150,11 @@ bool is_silent(P_char ch, bool showit)
 
 bool can_talk(P_char ch)
 {
-  if (CAN_SPEAK(ch))
-    return (TRUE);
-  act("$n makes an undiscernable attempt to communicate.", TRUE, ch, 0, 0,
-      TO_ROOM);
-  act("You motion your lips, attempting to communicate..", FALSE, ch, 0, 0,
-      TO_CHAR);
-  return (FALSE);
+  if( CAN_SPEAK(ch) )
+    return TRUE;
+  act("$n makes an undiscernable attempt to communicate.", TRUE, ch, 0, 0, TO_ROOM);
+  act("You motion your lips, attempting to communicate..", FALSE, ch, 0, 0, TO_CHAR);
+  return FALSE;
 }
 
 /*
@@ -280,7 +278,7 @@ void do_petition(P_char ch, char *argument, int cmd)
 
   if (!*argument)
     send_to_char("Petition what?\r\n", ch);
-  else if (can_talk(ch) /*|| IS_ILLITHID(ch) */ )
+  else if( IS_PC(ch) )
   {
     if (IS_SET(ch->specials.act, PLR_ECHO))
     {
@@ -291,11 +289,11 @@ void do_petition(P_char ch, char *argument, int cmd)
     }
     else
       send_to_char("Ok.\r\n", ch);
-    
+
     logit(LOG_PETITION, "(%s) petitioned (%s).", GET_NAME(ch), argument);
     if (get_property("logs.chat.status", 0.000) && IS_PC(ch))
       logit(LOG_CHAT, "%s petitioned '%s'", GET_NAME(ch), argument);
-    
+
     sprintf(Gbuf1, "&+r$n petitions '%s'&N", argument);
     sprintf(Gbuf2, "&+r%s petitions '%s'&N", GET_NAME(ch), argument);
 
@@ -310,8 +308,11 @@ void do_petition(P_char ch, char *argument, int cmd)
         else
           act(Gbuf2, 0, ch, 0, i->character, TO_VICT | ACT_PRIVATE);
       }
-      
    //CharWait(ch, PULSE_VIOLENCE);
+  }
+  else
+  {
+    send_to_char( "Only PCs can use petition.\n", ch );
   }
 }
 
