@@ -2515,7 +2515,7 @@ int devour(P_char ch, P_char pl, int cmd, char *arg)
       {
         logit(LOG_CORPSE, "%s devoured in room %d.", i->short_description, world[i->loc.room].number);
       }
-      act("$n savagely devours $o.", FALSE, ch, i, 0, TO_ROOM);
+      act("$n savagely devours $p.", FALSE, ch, i, 0, TO_ROOM);
       extract_obj(i, TRUE); // Just food/empty corpse, but 'in game.'
       return (TRUE);
     }
