@@ -1424,10 +1424,11 @@ void assign_objects(void)
   obj_index[real_object0(419)].func.obj = moonstone;
   obj_index[real_object0(433)].func.obj = moonstone;
 
+  obj_index[real_object0(139138)].func.obj =
   obj_index[real_object0(12410)].func.obj =
-    obj_index[real_object0(19916)].func.obj =
-    obj_index[real_object0(23809)].func.obj =
-    obj_index[real_object0(17)].func.obj = artifact_hide;
+  obj_index[real_object0(19916)].func.obj =
+  obj_index[real_object0(23809)].func.obj =
+  obj_index[real_object0(17)].func.obj = artifact_hide;
   obj_index[real_object0(97118)].func.obj = artifact_hide;
   obj_index[real_object0(44170)].func.obj = artifact_hide;
 

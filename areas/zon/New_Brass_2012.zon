@@ -2,7 +2,7 @@
 &+rPlane of Fire, &+RBr&+rass&n~
 139357 1 0 25 35 4
 *
-* Zone edited with durisEdit v3.00
+* Zone edited with durisEdit v3.02
 *
 *
 D 0 139000 0 1 100 0 0 0
@@ -536,7 +536,7 @@ G 1 139148 1 0 80 0 0 0            *    a tin toy box
 G 1 139155 1 0 40 0 0 0            *    a copper-plated mask
 G 1 139156 1 0 70 0 0 0            *    a fire hardened copper bracer
 G 1 139157 1 0 80 0 0 0            *    a multiple hoop earring made of copper
-G 1 139158 1 0 60 0 0 0            *    a pair of tin framed glasses with an emerald lens.
+G 1 139158 1 0 60 0 0 0            *    a pair of tin framed glasses with a emerald lenses
 M 0 139054 37 139027 100 0 0 0     * a guard member of the Illuminated
 M 0 139054 37 139027 100 0 0 0     * a guard member of the Illuminated
 M 0 139090 47 139027 100 0 0 0     * an efreeti commoner
