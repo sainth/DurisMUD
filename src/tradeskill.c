@@ -3376,11 +3376,20 @@ int itemvalue( P_obj obj )
     if( (obj->affected[i].location == APPLY_DAMROLL)
 	    || (obj->affected[i].location == APPLY_HITROLL) )
     {
-      // 1:1, 2:2, 3:6, 4:12, 5:20, 6:30, 7:42, 8:56, 9:72, 10:90, 11: 110..
-      workingvalue += (mod <= 2) ? mod : mod * (mod - 1);
+      if( obj->type == ITEM_WEAPON )
+      {
+        // 1:1, 2:2, 3:6, 4:12, 5:20, 6:30, 7:42, 8:56, 9:72, 10:90, 11: 110..
+        workingvalue += (mod <= 2) ? mod : mod * (mod - 1);
+      }
+      else
+      {
+        // 1:2, 2:5, 3:30, 4:51, 5:78, 6:111
+        // 1:2, 2:6, 3:37, 4:63, 5:97 after multiplier (note: wear flag will raise 5 over 100).
+        workingvalue += (mod <= 2) ? (3 * mod - 1) :  3 * mod * mod + 3;
+      }
       // Translates to 1:1, 2:2, 3:7, 4:15, 5:25, 6:37, 7:52, 8:70, 9:90, 10:112
       multiplier *= 1.25;
-      // So a 5/5 item is essentially 40 * 1.25 * 1.25 = 62.5 (before adding other stats).
+      // So a 5/5 weapon is essentially 40 * 1.25 * 1.25 = 62.5 (before adding other stats).
       // A 6/6 item (no other stats) is 93, a 2d2 6/6 sword would be 62 * 1.25^2 = 96, and 5d5 6/6 = 112.
     }
 
