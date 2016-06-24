@@ -7020,7 +7020,7 @@ P_char PickTarget(P_char ch)
       continue;
     }
 
-    //statupdate2013 - Drannak
+    // statupdate2013 - Drannak
     if( calmcheck(t_ch) )
     {
       continue;

@@ -3236,8 +3236,8 @@ void check_aggro_from_command( P_char exec_char )
       continue;
     }
 
-    // Check for calming.
-    if( calming_chance >= number(1, 100) )
+    // Check for calming & check to actually be aware of char.
+    if( calming_chance >= number(1, 100) || number(25, 225) > GET_C_INT(mob) )
     {
       continue;
     }

@@ -5883,8 +5883,12 @@ if((GET_RACE(victim) == RACE_OGRE) && ch_size < vict_size)
     percent_chance = (int) (percent_chance * 0.7);
   }
 
-  modifier = 1.0 + (GET_LEVEL(ch) - GET_LEVEL(victim)) / 100.0;
   modifier = (modifier < .80) ? .80 : (modifier < 1.1) ? modifier : 1.1;
+  modifier = 1.0 + (GET_LEVEL(ch) - GET_LEVEL(victim)) / 50.0;
+  if( modifier < .01 )
+  {
+    modifier = .01;
+  }
   percent_chance *= modifier;
 //  debug("bash: (%s) bashing (%s) lvl percentage (%d) mod (%f).", GET_NAME(ch), GET_NAME(victim), percent_chance, modifier);
 

@@ -1162,7 +1162,6 @@ char    *leave_message(P_char ch, P_char people, int exitnumb, char *amsg)
   return amsg;
 }
 
-#undef SNEAK
 #undef LEVITATE
 
 /* Used for high winds blowing flying chars */
@@ -1250,7 +1249,7 @@ int do_simple_move_skipping_procs(P_char ch, int exitnumb, unsigned int flags)
   P_char   tch, t_ch;
   char     amsg[MAX_STRING_LENGTH];
   int      need_movement, was_in, new_room, count, i, cmd, cmd2, current, following;
-  int      deceptnum, noise_var, calming = 0;
+  int      deceptnum, noise_var, calming;
   struct weather_data *cond;
   struct follow_type *k, *next_dude;
   P_char   mount, rider, moving;
@@ -1691,15 +1690,21 @@ int do_simple_move_skipping_procs(P_char ch, int exitnumb, unsigned int flags)
       amsg[0] = '\0';
       enter_message(ch, tch, exitnumb, amsg, was_in, new_room);
 
-      int nocalming = 0;
-      if( (IS_RACEWAR_EVIL(ch) && IS_SET(hometowns[VNUM2TOWN(world[ch->in_room].number)-1].flags, JUSTICE_GOODHOME)) ||
-          (IS_RACEWAR_GOOD(ch) && IS_SET(hometowns[VNUM2TOWN(world[ch->in_room].number)-1].flags, JUSTICE_EVILHOME)))
-      nocalming = 1;
-
-      if( !IS_ELITE(tch) && !nocalming && (((GET_LEVEL(tch) - GET_LEVEL(ch)) <= 5) || !number(0, 3))
+      calming = 0;
+      if( !IS_ELITE(tch) && !IS_INVADER(ch) && (((GET_LEVEL(tch) - GET_LEVEL(ch)) <= 5) || !number(0, 3))
         && has_innate(ch, INNATE_CALMING) )
       {
         calming = (int)get_property("innate.calming.delay", 10);
+      }
+
+      // A little randomness.
+      while( number(0, 1) != 0 )
+      {
+        calming++;
+      }
+      if( (calming == 0) && (number( 0, 2 ) != 0) )
+      {
+        calming++;
       }
 
       if( mount )
@@ -1709,13 +1714,13 @@ int do_simple_move_skipping_procs(P_char ch, int exitnumb, unsigned int flags)
         {
           add_event(event_agg_attack, number(1, MAX(1, (19 - STAT_INDEX(GET_C_AGI(tch))) / 2)) + calming, tch, ch, 0, 0, 0, 0);
         }
-        /* cackle   */
+        // cackle
         else if( is_aggr_to(tch, mount) )
         {
           add_event(event_agg_attack, number(1, MAX(1, (19 - STAT_INDEX(GET_C_AGI(tch))) / 2)), tch, mount, 0, 0, 0, 0);
         }
       }
-      else if( !IS_AFFECTED(ch, AFF_SNEAK) && !UD_SNEAK(ch) && !OUTDOOR_SNEAK(ch) && !SWAMP_SNEAK(ch))
+      else if( !SNEAK(ch) )
       {
         if( !(flags & MVFLG_NOMSG) )
         {
