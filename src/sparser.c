@@ -1311,9 +1311,8 @@ bool parse_spell_arguments(P_char ch, struct spell_target_data * data, char *arg
     {
       if( !target_ok && IS_SET(skills[spl].targets, TAR_SELF_ONLY) )
       {
-        if( str_cmp(GET_NAME(ch), Gbuf1) == 0 )
+        if( (vict = get_char_room_vis(ch, Gbuf1)) == ch)
         {
-          vict = ch;
           target_ok = TRUE;
         }
       }
