@@ -20271,7 +20271,7 @@ void spell_natures_calling(int level, P_char ch, char *arg, int type, P_char vic
 {
   int num, effectiveness;
 
-  if(!ch || !victim)
+  if( !IS_ALIVE(ch) )
   {
     return;
   }
@@ -20347,41 +20347,38 @@ void event_natures_call(P_char ch, P_char victim, P_obj obj, void *data)
   int      room = *((int*)data);
   struct group_list *gl;
 
-  if(!ch)
+  if( !IS_ALIVE(ch) )
   {
     return;
   }
-  if(ch)
+
+  level = GET_LEVEL(ch);
+
+  if(!number(0, 1))
   {
-    level = GET_LEVEL(ch);
+    send_to_room("&+gThe &+Gforces of nature&+g come into balance, filling the room with life...\n", room);
+    add_event(event_natures_call, PULSE_VIOLENCE, ch, 0, 0, 0, &room, sizeof(room));
+  }
 
-    if(!number(0, 1))
+  act("&+gThe &+ycreatures of nature&+g in this area &+Gfill with energy!&n",
+    FALSE, ch, 0, 0, TO_CHAR);
+
+  act("&+gThe &+ycreatures of nature&+g in this area &+Gfill with energy!&n",
+    FALSE, ch, 0, 0, TO_ROOM);
+
+  if( ch->group )
+  {
+    for( gl = ch->group; gl; gl = gl->next )
     {
-      send_to_room("&+gThe &+Gforces of nature&+g come into balance, filling the room with life...\n", room);
-      add_event(event_natures_call, PULSE_VIOLENCE, ch, 0, 0, 0, &room, sizeof(room));
-    }
-
-    act("&+gThe &+ycreatures of nature&+g in this area &+Gfill with energy!&n",
-        FALSE, ch, 0, 0, TO_CHAR);
-
-    act("&+gThe &+ycreatures of nature&+g in this area &+Gfill with energy!&n",
-        FALSE, ch, 0, 0, TO_ROOM);
-
-    if(ch && ch->group)
-    {
-      gl = ch->group;
-      if(gl->ch->in_room == ch->in_room)
+      if( gl->ch->in_room == ch->in_room )
       {
         spell_natures_calling(level, ch, NULL, SPELL_TYPE_SPELL, gl->ch, 0);
       }
-      for (gl = gl->next; gl; gl = gl->next)
-      {
-         if(gl->ch->in_room == ch->in_room)
-         {
-          spell_natures_calling(level, ch, NULL, SPELL_TYPE_SPELL, gl->ch, 0);
-         }
-      }
     }
+  }
+  else
+  {
+    spell_natures_calling(level, ch, NULL, SPELL_TYPE_SPELL, ch, 0);
   }
 }
 
