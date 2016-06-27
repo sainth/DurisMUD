@@ -162,7 +162,7 @@ void Guild::add_prestige_epics( P_char ch, int epics, int epic_type )
     debug("add_prestige_epics(): '%s' gaining: %d", get_name().c_str(), prest);
 
     send_to_char("&+bYour guild gained prestige!\n", ch);
-    add_prestige( prestige );
+    add_prestige( prest );
   }
 }
 
@@ -523,7 +523,7 @@ bool Guild::load_guild( int guild_num )
   // Then get the guild bits, prestige and construction.
   fgets( buf, MAX_STR_NORMAL, file );
 
-  sscanf( buf, "%lu %lu %lu", &new_guild->bits, &new_guild->prestige, &new_guild->construction );
+  sscanf( buf, "%lu %lu %lu\n", &new_guild->bits, &new_guild->prestige, &new_guild->construction );
 
   // Then get the money for the guild...
   fscanf( file, "%u %u %u %u\n", &(new_guild->platinum), &(new_guild->gold),
