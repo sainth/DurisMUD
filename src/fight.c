@@ -108,7 +108,6 @@ extern int top_of_zone_table;
 P_char   combat_list = 0;       /* head of l-list of fighting chars  */
 P_char   destroying_list = 0;   /* head of l-list of destroying chars  */
 P_char   combat_next_ch = 0;    /* Next in combat global trick    */
-int      damage_dealt;          /* needed by shield spells until I find a better solution */
 float    dam_factor[LAST_DF + 1];
 float    racial_spldam_offensive_factor[LAST_RACE + 1][LAST_SPLDAM_TYPE];
 float    racial_spldam_defensive_factor[LAST_RACE + 1][LAST_SPLDAM_TYPE];
@@ -4710,11 +4709,11 @@ if (get_linked_char(victim, LNK_ETHEREAL) || get_linking_char(victim, LNK_ETHERE
 int check_shields(P_char ch, P_char victim, int dam, int flags)
 {
   int result = DAM_NONEDEAD;
-  double soulshielddam = get_property("soul.shield.dam", 0.200);
-  double negshielddam = get_property("negative.shield.dam", 0.250);
-  double fshield = get_property("fire.shield.dam.prevention", 0.250);
-  double cshield = get_property("cold.shield.dam.prevention", 0.250);
-  double lshield = get_property("lightning.shield.dam.prevention", 0.250);
+  double soulshielddam = get_property("damage.shield.soulshield", 0.400);
+  double negshielddam = get_property("damage.shield.negativeshield", 0.450);
+  double fshield = get_property("damage.shield.fireshield", 0.750);
+  double cshield = get_property("damage.shield.coldshield", 0.750);
+  double lshield = get_property("damage.shield.lightningshield", 0.750);
 
   uint  sflags =
     SPLDAM_GLOBE | SPLDAM_NODEFLECT | RAWDAM_TRANCEVAMP;
@@ -5286,20 +5285,27 @@ int melee_damage(P_char ch, P_char victim, double dam, int flags, struct damage_
     return result;
   }
 
-  if(ilogb(dam) / 2 > number(1, 100))
+  if( ilogb(dam) / 2 > number(1, 100) )
   {
     DamageStuff(victim, SPLDAM_GENERIC);
   }
 
-  if(dam <= 5 || (flags & PHSDAM_NOSHIELDS))
+  if( dam <= 5 || (flags & PHSDAM_NOSHIELDS) )
   {
-    if(!(flags & PHSDAM_NOENGAGE))
+    if( !(flags & PHSDAM_NOENGAGE) )
       attack_back(ch, victim, TRUE);
     return result;
   }
 
-  /* shield checks below - damage_dealt set in raw_damage might be different from dam */
-  shld_result = check_shields(ch, victim, damage_dealt, flags);
+  // If they actually took damage, check for coldshield/fireshield/etc.
+  if( dam > 0 )
+  {
+    shld_result = check_shields(ch, victim, dam, flags);
+  }
+  else
+  {
+    shld_result = DAM_NONEDEAD;
+  }
 
   if(shld_result == DAM_CHARDEAD)
   {
@@ -5887,29 +5893,27 @@ int raw_damage(P_char ch, P_char victim, double dam, uint flags, struct damage_m
       }
     }
 
-
-    if(!IS_TRUSTED(victim))
+    if( !IS_TRUSTED(victim) )
     {
-      damage_dealt = (int) dam;
-      if(flags & RAWDAM_NOKILL)
+      if( flags & RAWDAM_NOKILL )
       {
-        if(GET_HIT(victim) > 1 )
+        if( GET_HIT(victim) > 1 )
         {
-          if( GET_HIT(victim) - damage_dealt < 1 )
+          if( GET_HIT(victim) - dam < 1 )
           {
-            damage_dealt = GET_HIT(victim) - 1;
+            dam = GET_HIT(victim) - 1;
           }
         }
         else
         {
-          damage_dealt = 0;
+          dam = 0;
         }
       }
-      else if( GET_HIT(victim) - damage_dealt < -11 )
+      else if( GET_HIT(victim) - dam < -11 )
       {
-        damage_dealt = GET_HIT(victim) + 11;
+        dam = GET_HIT(victim) + 11;
       }
-      GET_HIT(victim) -= damage_dealt;
+      GET_HIT(victim) -= dam;
     }
 
     if( IS_PC(victim) && victim->desc && (IS_SET(victim->specials.act, PLR_SMARTPROMPT)
@@ -6056,16 +6060,16 @@ int raw_damage(P_char ch, P_char victim, double dam, uint flags, struct damage_m
 
     /* make mirror images disappear */
     if( victim && IS_NPC(victim) && !(flags & RAWDAM_NOKILL)
-      && GET_VNUM(victim) == 250 && (GET_HIT(victim) < 15 || damage_dealt > 240) )
+      && GET_VNUM(victim) == 250 && (GET_HIT(victim) < 15) )
     {
       act("Upon being struck, $n disappears into thin air.", TRUE, victim, 0, 0, TO_ROOM);
       extract_char(victim);
       return DAM_VICTDEAD;
     }
 
-    if( ch != victim )
+    if( (ch != victim) )
     {
-      check_vamp(ch, victim, damage_dealt, flags);
+      check_vamp(ch, victim, dam, flags);
     }
 
     if( victim && IS_DISGUISE(victim) )
