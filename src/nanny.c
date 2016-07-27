@@ -1914,6 +1914,10 @@ void load_obj_to_newbies(P_char ch)
                                          1101, 1102, 1103, 1104, 1105, 1105,
                                          1106, 1107, 1108, 1108, 203, 204, -1}));
 
+   CREATE_KIT(RACE_ORC, CLASS_BERSERKER, ((int[])
+                                         {
+                                         1101, 1102, 1103, 1104, 1105, 1105,
+                                         1106, 1107, 1108, 1109, -1}));
 
 /*END Orc Classes*/
 
