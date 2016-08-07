@@ -16138,6 +16138,13 @@ int llyren(P_char ch, P_char pl, int cmd, char *arg)
   if( !transact(pl, NULL, ch, cost) )
     return TRUE;
 
+  // To prevent cheese of killing the mob to get coins back.
+  act("$N stores the cash in an alternate dimension.", FALSE, pl, NULL, ch, TO_CHAR);
+  GET_PLATINUM(ch) = 0;
+  GET_GOLD(ch) = 0;
+  GET_SILVER(ch) = 0;
+  GET_COPPER(ch) = 0;
+
   act("$N grins and forces your mind into $S &+Wgl&+Co&+Wbe&n, which scatters it across the ether..", FALSE, pl, NULL, ch, TO_CHAR);
   for( t_obj = object_list; t_obj; t_obj = t_obj->next )
   {
