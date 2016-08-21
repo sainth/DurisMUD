@@ -77,7 +77,11 @@
 #define DF_PALADINVAMP          61
 #define DF_RANGERVAMP           62
 #define DF_DLORDAVGRVAMP        63
-#define LAST_DF                 63
+#define DF_GOOD_MODIFIER        64
+#define DF_EVIL_MODIFIER        65
+#define DF_UNDEAD_MODIFIER      66
+#define DF_NEUTRAL_MODIFIER     67
+#define LAST_DF                 67
 
 #define SPLDAM_GENERIC   1
 #define SPLDAM_FIRE      2

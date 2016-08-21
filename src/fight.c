@@ -372,6 +372,11 @@ void update_dam_factors()
   dam_factor[DF_PALADINVAMP] = get_property("vamping.vampiricTouch.paladin", 0.100);
   dam_factor[DF_RANGERVAMP] = get_property("vamping.vampiricTouch.ranger", 0.100);
   dam_factor[DF_DLORDAVGRVAMP] = get_property("vamping.vampiricTouch.dreadlord.or.avenger", 0.100);
+  dam_factor[DF_GOOD_MODIFIER] = get_property("damage.modifier.good", 1.000);
+  dam_factor[DF_EVIL_MODIFIER] = get_property("damage.modifier.evil", 1.000);
+  dam_factor[DF_UNDEAD_MODIFIER] = get_property("damage.modifier.undead", 1.000);
+  dam_factor[DF_NEUTRAL_MODIFIER] = get_property("damage.modifier.neutral", 1.000);
+
 }
 
 // The swashbuckler is considered the victim. // May09 -Lucrot
@@ -4664,10 +4669,12 @@ if (get_linked_char(victim, LNK_ETHEREAL) || get_linking_char(victim, LNK_ETHERE
   result = raw_damage(ch, victim, dam, RAWDAM_DEFAULT ^ flags, messages);
 
   // Tether code here
-  if( FALSE )//GET_CLASS( ch, CLASS_CABALIST ) )
+/*
+  if( GET_CLASS( ch, CLASS_CABALIST ) )
   {
     tetherheal( ch, dam );
   }
+*/
 
   if(type == SPLDAM_ACID && !number(0, 3))
   {
@@ -5655,6 +5662,18 @@ int raw_damage(P_char ch, P_char victim, double dam, uint flags, struct damage_m
   if( !victim )
   {
     return DAM_NONEDEAD;
+  }
+
+  switch( GET_RACEWAR(ch) )
+  {
+    case RACEWAR_GOOD:
+      dam *= dam_factor[DF_GOOD_MODIFIER];
+    case RACEWAR_EVIL:
+      dam *= dam_factor[DF_EVIL_MODIFIER];
+    case RACEWAR_UNDEAD:
+      dam *= dam_factor[DF_UNDEAD_MODIFIER];
+    case RACEWAR_NEUTRAL:
+      dam *= dam_factor[DF_NEUTRAL_MODIFIER];
   }
 
   if(ch && victim) // Just making sure.
