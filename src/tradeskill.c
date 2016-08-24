@@ -3082,7 +3082,7 @@ int learn_tradeskill(P_char ch, P_char pl, int cmd, char *arg)
 
 int itemvalue( P_obj obj )
 {
-  long workingvalue = 0;
+  double workingvalue = 0;
   double multiplier = 1;
   double mod;
 
@@ -3149,7 +3149,10 @@ int itemvalue( P_obj obj )
   if (IS_SET(obj->bitvector, AFF_WATERBREATH))
 	  workingvalue += 45;
 
-  if (IS_SET(obj->bitvector, AFF_PROTECT_EVIL))
+  if( IS_SET(obj->bitvector, AFF_PROTECT_EVIL) )
+	  workingvalue += 35;
+
+  if( IS_SET(obj->bitvector, AFF_PROTECT_GOOD) )
 	  workingvalue += 35;
 
   if (IS_SET(obj->bitvector, AFF_SLOW_POISON))
@@ -3243,7 +3246,10 @@ int itemvalue( P_obj obj )
 	  workingvalue += 35;
 
   if (IS_SET(obj->bitvector3, AFF3_GR_SPIRIT_WARD))
-	  workingvalue += 55;
+  {
+	  workingvalue += 25;
+    multiplier += 1.20;
+  }
 
   if (IS_SET(obj->bitvector3, AFF3_ENLARGE))
 	  workingvalue += 120;
@@ -3523,7 +3529,7 @@ int itemvalue( P_obj obj )
       workingvalue += mod * -75;
     }
 
-    //max_stats double points
+    // Max_stats double points
     if( (obj->affected[i].location == APPLY_STR_MAX)
       || (obj->affected[i].location == APPLY_DEX_MAX)
       || (obj->affected[i].location == APPLY_INT_MAX)
@@ -3534,8 +3540,9 @@ int itemvalue( P_obj obj )
       || (obj->affected[i].location == APPLY_POW_MAX)
       || (obj->affected[i].location == APPLY_LUCK_MAX) )
     {
-      // 1:2, 2:6, 3:14, 4:25, 5:39, 6:56, 7:77, 8:100
-      workingvalue += (mod < 2) ? 2 * mod : 1.5625 * mod * mod;
+      // 1:3, 2:13, 3:24, 4:36, 5:51, 6:66, 7:83, 8:100
+      workingvalue += (mod < 2) ? 3.0 * mod : 3.52 * mod * sqrt(mod) + mod;
+      multiplier += .15;
     }
     i++;
   }
