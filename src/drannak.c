@@ -355,15 +355,14 @@ void vnum_from_inv(P_char ch, int item, int count)
   }
 }
 
-int vnum_in_inv(P_char ch, int cmd)
+int vnum_in_inv( P_char ch, int vnum )
 {
-  P_obj t_obj, nextobj;
-  int count = 0;
-  for (t_obj = ch->carrying; t_obj; t_obj = nextobj)
-  {
-    nextobj = t_obj->next_content;
+  P_obj t_obj;
+  int count;
 
-    if(OBJ_VNUM(t_obj) == cmd)
+  for( count = 0, t_obj = ch->carrying; t_obj; t_obj = t_obj->next_content )
+  {
+    if( OBJ_VNUM(t_obj) == vnum )
       count++;
   }
   return count;

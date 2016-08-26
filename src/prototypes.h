@@ -812,7 +812,7 @@ void loop_debug(void);
 
 /* drannak.c */
 bool quested_spell(P_char ch, int spl);
-int vnum_in_inv(P_char ch, int cmd);
+int vnum_in_inv(P_char ch, int vnum);
 void vnum_from_inv(P_char ch, int item, int count);
 void set_surname(P_char ch, int num);
 void clear_surname(P_char ch);

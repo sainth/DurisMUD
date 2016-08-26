@@ -126,6 +126,8 @@ void spell_faerie_sight(int level, P_char ch, char *arg, int type, P_char victim
   int count;
   P_obj    t_obj, next_obj;
   P_obj    used_obj[32];
+  bool refreshed;
+  struct affected_type *pAff;
 
   if( !(victim && ch) )
   {
@@ -135,13 +137,50 @@ void spell_faerie_sight(int level, P_char ch, char *arg, int type, P_char victim
 
   if( affected_by_spell(victim, SPELL_FAERIE_SIGHT) )
   {
-    send_to_char("Nothing new happens.\r\n", ch);
+    refreshed = FALSE;
+
+    for( pAff = victim->affected; pAff; pAff = pAff->next )
+    {
+      if( (pAff->type == SPELL_FAERIE_SIGHT) && (pAff->duration < ( level / 2 )) )
+      {
+        // Takes a faerie dust to refresh the detect magic/good/evil.
+        if( !IS_SET(pAff->bitvector2, AFF2_DETECT_MAGIC) || (vnum_in_inv(ch, VOBJ_FORAGE_FAERIE_DUST) > 0) )
+        {
+          if( IS_SET(pAff->bitvector2, AFF2_DETECT_MAGIC) )
+          {
+            vnum_from_inv( ch, VOBJ_FORAGE_FAERIE_DUST, 1 );
+          }
+          pAff->duration = level / 2;
+          refreshed = TRUE;
+        }
+      }
+    }
+
+    if( !IS_AFFECTED2(victim, AFF2_DETECT_MAGIC) && (vnum_in_inv(ch, VOBJ_FORAGE_FAERIE_DUST) > 0) )
+    {
+      vnum_from_inv( ch, VOBJ_FORAGE_FAERIE_DUST, 1 );
+      memset(&af, 0, sizeof(af));
+      af.type = SPELL_FAERIE_SIGHT;
+      af.duration = level / 2;
+      af.bitvector2 = AFF2_DETECT_MAGIC | AFF2_DETECT_GOOD | AFF2_DETECT_EVIL;
+      affect_to_char(victim, &af);
+      send_to_char("&+mYour eyes begin to twinkle even &+Mmore&+m.&n\r\n", victim);
+      refreshed = TRUE;
+    }
+    if( !refreshed )
+    {
+      send_to_char("Nothing happens.\n", victim);
+    }
+    else
+    {
+      send_to_char( "Your eyes feel &+mwonderful&n.\n", victim );
+    }
     return;
   }
 
   memset(&af, 0, sizeof(af));
   af.type = SPELL_FAERIE_SIGHT;
-  af.duration = 25;
+  af.duration = level / 2;
   af.bitvector = AFF_FARSEE;
 
   affect_to_char(victim, &af);
