@@ -85,7 +85,8 @@ extern Skill skills[];
 extern const int new_exp_table[];
 extern struct wis_app_type wis_app[];
 
-int      pv_common(P_char, P_char, const P_obj);
+int pv_common(P_char, P_char, const P_obj);
+bool monk_superhit(P_char, P_char);
 extern char *arena_death_msg(P_obj p_weapon);
 extern void send_to_arena(char *msg, int race);
 extern int get_numb_chars_in_group(struct group_list *group);
@@ -9038,10 +9039,11 @@ int calculate_attacks(P_char ch, int attacks[])
 
   if (GET_CLASS(ch, CLASS_MONK))
   {
+    bool fighting_pc = GET_OPPONENT(ch) ? IS_PC(GET_OPPONENT(ch)) : FALSE;
     int num_atts = MonkNumberOfAttacks(ch);
     int weight_threshold = GET_C_STR(ch) / 2;
 
-    if (IS_CARRYING_W(ch, rider) >= weight_threshold && IS_PC(ch))
+    if( !IS_TRUSTED(ch) && (IS_CARRYING_W(ch, rider) >= weight_threshold) && IS_PC(ch) )
     {
       // if (affected_by_spell(ch, SPELL_STONE_SKIN))
       // num_atts -=
@@ -9056,8 +9058,21 @@ int calculate_attacks(P_char ch, int attacks[])
     if (IS_AFFECTED2(ch, AFF2_SLOW) && num_atts > 1)
       num_atts /= 2;
 
-    while (num_atts--)
-      ADD_ATTACK(PRIMARY_WEAPON);
+    while( num_atts-- )
+    {
+      // We're not on the last attack and up to 25% chance at level 56 (% max health for 2 hits damage).
+      if( fighting_pc && (num_atts > 0) && (( (GET_LEVEL( ch ) / 4 + 11) ) >= number( 1, 100 )) )
+      {
+        // Costs 3 attacks worth.
+        num_atts--;
+        // Hack for %max health damage.
+        ADD_ATTACK(WEAR_NONE);
+      }
+      else
+      {
+        ADD_ATTACK(PRIMARY_WEAPON);
+      }
+    }
   }
   else
   {                           // not MONK
@@ -9701,7 +9716,13 @@ void perform_violence(void)
       {
         break;
       }
-      if(pv_common(ch, opponent, ch->equipment[attacks[i / div_attacks]]))
+      // Monk % maxhealth damage.
+      if( attacks[i / div_attacks] == WEAR_NONE )
+      {
+        if( monk_superhit( ch, opponent ) )
+          num_hits++;
+      }
+      else if(pv_common(ch, opponent, ch->equipment[attacks[i / div_attacks]]))
       {
         num_hits++;
       }
@@ -9819,6 +9840,75 @@ void double_strike(P_char ch, P_char victim, P_obj wpn)
   hit(ch, tch, wpn);
 }
 
+// This does % maxhealth damage, costs the monk 2 attacks and is not blockable.
+bool monk_superhit( P_char ch, P_char victim )
+{
+  static struct damage_messages monk_superhit_messages = {
+    "You hit a pressure point on $N with additional &+rforce&n.",
+    "$n's finger drives &+Rdeep&N into your flesh.",
+    "$n pokes $N &+Rreally&n hard, making you wince.",
+    "As you reach inside $N, you feel $S life force fade.",
+    "$n reaches inside you and things begin to &+wfade &+Rred &+rthen &+Lblack&+W.&N",
+    "As $n reaches inside $N, $N collapses."
+  };
+  double dam;
+  int mindam;
+
+  if( !IS_ALIVE(ch) || !IS_ALIVE(victim) )
+  {
+    return FALSE;
+  }
+
+  if( !SanityCheck(ch, "monk_superhit") || !SanityCheck(victim, "monk_superhit") )
+  {
+    return FALSE;
+  }
+
+  if( !can_hit_target(ch, victim) )
+  {
+    send_to_char("Seems that it's too crowded!\r\n", ch);
+    return FALSE;
+  }
+
+  if( (IS_PC(ch) || IS_PC_PET(ch)) && IS_PC(victim) && !IS_AFFECTED5(ch, AFF5_NOT_OFFENSIVE) )
+  {
+    if( on_front_line(ch) )
+    {
+      if( !on_front_line(victim) )
+      {
+        act("$N tries to attack $n but can't quite reach!", TRUE, victim, 0, ch, TO_NOTVICT);
+        act("You try to attack $n but can't quite reach!", TRUE, victim, 0, ch, TO_VICT);
+        act("$N tries to attack you but can't quite reach!", TRUE, victim, 0, ch, TO_CHAR);
+        return FALSE;
+      }
+    }
+    else
+    {
+      send_to_char("Sorry, you can't quite reach them!\r\n", ch);
+      return FALSE;
+    }
+  }
+
+  // 1/2% max health damage _squared_ (min 10 damage).
+  // This equates to 100 (5%) damage to a 2k hp target, or 25 dam (2.5%) to a 1000 hp target.
+  dam = GET_MAX_HIT(victim) * .005;
+  dam *= dam;
+  // We do at least the damage a regular hit would do.
+  // Note: This attack cost 2 attacks though, so they do less damage to low hp targets overall.
+  mindam = MonkDamage(ch);
+  if( dam < mindam )
+  {
+    dam = mindam;
+  }
+  // Caps at 225 on a 3k hps target (7.5% max health).
+  else if( dam > 225 )
+  {
+    dam = 225;
+  }
+  melee_damage( ch, victim, dam, PHSDAM_NOREDUCE, &monk_superhit_messages );
+
+  return TRUE;
+}
 
 //
 // called once per attack in perform_violence - returns false if the ch dies somehow or another
