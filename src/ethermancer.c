@@ -1637,7 +1637,7 @@ void spell_single_supernova(int level, P_char ch, char *arg, int type, P_char vi
     "&+LYou blast&n $N &+Lwith &+Yco&+Wsm&+Yic &+Lenergies!",
     "$n &+Lblasts you with &+Yco&+Wsm&+Yic &+Lenergies, stunning you!",
     "$n &+Rblasts&n $N&+w with &+Yco&+Wsm&+Yic&+L energies!",
-    "&$N is &+Rblasted&n by your focused energies!",
+    "$N is &+Rblasted&n by your focused energies!",
     "&+LYou are sent reeling by&n $n's &+Lcosmic energies!",
     "$n &+Gvaporizes&n $N to nothing with $s &+Yco&+Wsm&+Yic &+Lenergies!", 0
   };
