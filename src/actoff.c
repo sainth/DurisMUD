@@ -2733,11 +2733,11 @@ void event_combination(P_char ch, P_char victim, P_obj obj, void *data)
   struct damage_messages messages = {
     0, 0, 0,
     "...then you feign low and in a blur of speed leap into the air landing a swift roundkick to $S head.\n"
-      "$N topples to the ground, $s neck broken.",
+      "$N topples to the ground, $S neck broken.",
     "...then feigns low and in a blur of speed leaps into the air landing a swift roundkick to your head.\n"
       "Your visions blurs as you topple to the ground, your neck broken.",
     "...then feigns low and in a blur of speed leaps into the air and lands a swift roundkick to $S head.\n"
-      "$N topples to the ground, $s neck broken."
+      "$N topples to the ground, $S neck broken."
   };
 
   victim = GET_OPPONENT(ch);
@@ -2912,11 +2912,11 @@ void event_barrage(P_char ch, P_char victim, P_obj obj, void *data)
   struct damage_messages messages = {
     0, 0, 0,
     "...then you feign low and in a blur of speed leap into the air landing a swift roundkick to $S head.\n"
-      "$N topples to the ground, $s neck broken.",
+      "$N topples to the ground, $S neck broken.",
     "...then feigns low and in a blur of speed leaps into the air landing a swift roundkick to your head.\n"
       "Your visions blurs as you topple to the ground, your neck broken.",
     "...then feigns low and in a blur of speed leaps into the air and lands a swift roundkick to $S head.\n"
-      "$N topples to the ground, $s neck broken."
+      "$N topples to the ground, $S neck broken."
   };
 
   victim = GET_OPPONENT(ch);
