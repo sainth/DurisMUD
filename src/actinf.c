@@ -2223,6 +2223,7 @@ void new_look(P_char ch, char *argument, int cmd, int room_no)
     "u",
     "d",
     "inside",
+    "i"             // 25
     "\n"
   };
 
@@ -2292,7 +2293,7 @@ void new_look(P_char ch, char *argument, int cmd, int room_no)
   /* Partial Match */
   keyword_no = search_block(arg1, keywords, TRUE);
 
-  if( keyword_no == 24 )
+  if( keyword_no == 24 || keyword_no == 25 )
     keyword_no = 6;
 
   /* Let arg2 become the target object (arg1) */
