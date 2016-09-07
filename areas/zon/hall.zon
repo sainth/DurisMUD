@@ -2,7 +2,7 @@
 The Hall of the Ancients~
 77946 0 8 30 45 6
 *
-* Zone edited with durisEdit v3.00
+* Zone edited with durisEdit v3.02
 *
 *
 D 0 77721 3 9 100 0 0 0
@@ -221,7 +221,7 @@ O 0 77731 1 77881 100 0 0 0        * glyph trap 2
 O 0 77737 1 77887 100 0 0 0        * swirling vortex
 O 0 77752 1 77891 100 0 0 0        * a large pile of coins
 O 0 930 1 77894 100 0 0 0          * (object type not in this .obj file)
-O 0 77748 1 77928 50 0 0 0         * a tiny jagged ring
+O 0 77748 1 77928 10 0 0 0         * a tiny jagged ring
 *
 M 0 77701 32 77707 100 0 0 0       * the transparent cube
 M 0 77701 32 77707 100 0 0 0       * the transparent cube
