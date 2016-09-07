@@ -249,6 +249,9 @@ void do_order_target(P_char ch, P_char vict, char *arg, int cmd)
 void do_camp(P_char ch, char *arg, int cmd)
 {
   struct affected_type af;
+  time_t ct;
+  char timestr[1024];
+
   // old guildhalls (deprecated)
 //  P_house house;
   if (!SanityCheck(ch, "do_camp"))
@@ -316,8 +319,16 @@ void do_camp(P_char ch, char *arg, int cmd)
       ch->desc->snoop.snooping = 0;
     }
 
-    logit(LOG_COMM, "%s has quit in [%d].", GET_NAME(ch), world[ch->in_room].number);
-    loginlog( GET_LEVEL(ch), "%s has quit in [%d].", GET_NAME(ch), ROOM_VNUM(ch->in_room));
+    ct = time(NULL);
+    // Convert to EST.
+    ct -= 4*60*60;
+    sprintf(timestr, "%s", asctime( localtime(&ct) ));
+    *(timestr + strlen(timestr) - 1) = '\0';
+    strcat( timestr, " EST" );
+
+
+    logit(LOG_COMM, "%s has quit in [%d] @ %s.", GET_NAME(ch), world[ch->in_room].number, timestr);
+    loginlog( GET_LEVEL(ch), "%s has quit in [%d] @ %s.", GET_NAME(ch), ROOM_VNUM(ch->in_room), timestr);
     sql_log(ch, CONNECTLOG, "Quit Game");
     act("$n has left the game.", TRUE, ch, 0, 0, TO_ROOM);
 
