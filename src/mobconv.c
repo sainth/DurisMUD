@@ -200,6 +200,13 @@ void convertMob(P_char ch)
     gold = 0.0;
     plat = 0.0;
   }
+
+  if( IS_ACT(ch, ACT_BREATHES_FIRE | ACT_BREATHES_LIGHTNING | ACT_BREATHES_FROST
+    | ACT_BREATHES_ACID | ACT_BREATHES_GAS | ACT_BREATHES_SHADOW | ACT_BREATHES_BLIND_GAS) )
+  {
+    xp *= 2;
+  }
+
   /* apply multipliers */
   GET_EXP(ch) = (int) (level * xp);
   GET_PLATINUM(ch) = (int) (level * plat * number(75, 125) / 100);
