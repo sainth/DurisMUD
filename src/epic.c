@@ -1053,7 +1053,7 @@ void epic_zone_balance()
 {
   int i, alignment, delta, lt;
   vector<epic_zone_data> epic_zones = get_epic_zones();
-  
+
   for (i = 0; i <= epic_zones.size(); i++)
   {
     if(!qry("SELECT alignment, last_touch FROM zones WHERE number = %d", epic_zones[i].number))
@@ -1526,12 +1526,11 @@ bool epic_zone_done(int zone_number)
 int epic_zone_data::displayed_alignment() const 
 {
    int delta = 0;
-   for(vector<epic_zone_completion>::iterator it = epic_zone_completions.begin();
-            it != epic_zone_completions.end();
-            it++)
+
+   for(vector<epic_zone_completion>::iterator it = epic_zone_completions.begin(); it != epic_zone_completions.end(); it++)
    {
-      if((it->number == this->number) && 
-         (time(NULL) - it->done_at) < (int) get_property("epic.showCompleted.delaySecs", (15*60))) 
+      if( (it->number == this->number)
+        && (time(NULL) - it->done_at) < (int) get_property("epic.showCompleted.delaySecs", (15*60)) )
       {
          return this->alignment - it->delta;
       }
@@ -1710,47 +1709,52 @@ void do_epic_reset(P_char ch, char *arg, int cmd)
 
 void do_epic_zones(P_char ch, char *arg, int cmd)
 {
-  if(!ch || IS_NPC(ch))
+  char buff[MAX_STRING_LENGTH];
+	char done_char;
+  int  zone_align;
+
+  if( !ch || IS_NPC(ch) )
     return;
-  
+
 #ifdef __NO_MYSQL__
   send_to_char("This feature is disabled.\r\n", ch);
   return;
 #endif
-  
-  char buff[MAX_STRING_LENGTH];
-	char done_str[] = " ";
-  
+
   vector<epic_zone_data> epic_zones = get_epic_zones();
-  
+
   send_to_char("&+WEpic Zones &+G-----------------------------------------\n\n", ch);
-  
+
   // this array depends on the alignment max/min being +/-5
   const char *alignment_strs[] = {
-    "&n(&+Lpure evil&n)",
+    "&n(&+Lpure evil&n)     ",
     "&n(&+Lextremely evil&n)",
-    "&n(&+Lvery evil&n)",
-    "&n(&+Levil&n)",
-    "&n(&+Lslightly evil&n)",
-    "",
-    "&n(&+Wslightly good&n)",
-    "&n(&+Wgood&n)",
-    "&n(&+Wvery good&n)",
+    "&n(&+Lvery evil&n)     ",
+    "&n(&+Levil&n)          ",
+    "&n(&+Lslightly evil&n) ",
+    "&N(&+wneutral&N)       ",
+    "&n(&+Wslightly good&n) ",
+    "&n(&+Wgood&n)          ",
+    "&n(&+Wvery good&n)     ",
     "&n(&+Wextremely good&n)",
-    "&n(&+Wpure good&n)"
+    "&n(&+Wpure good&n)     "
   };
-  
+
   for(int i = 0; i < epic_zones.size(); i++)
-  {    
-		if(epic_zone_done(epic_zones[i].number)) done_str[0] = '*';
-		else done_str[0] = ' ';
-    
-    int alignment_str = BOUNDED(0, EPIC_ZONE_ALIGNMENT_MAX + epic_zones[i].displayed_alignment(), 10);
-    
-    sprintf(buff, "  %s%s %s\r\n", done_str, pad_ansi(epic_zones[i].name.c_str(), 45).c_str(), alignment_strs[alignment_str]);
+  {
+		if( epic_zone_done(epic_zones[i].number) )
+      done_char = '*';
+		else
+      done_char = ' ';
+
+    zone_align = BOUNDED(0, EPIC_ZONE_ALIGNMENT_MAX + epic_zones[i].displayed_alignment(), 10);
+
+    sprintf(buff, "  %c%s %s\r\n", done_char, pad_ansi(epic_zones[i].name.c_str(), 45).c_str(),
+      alignment_strs[zone_align] );
+
     send_to_char(buff, ch);
   }
-  
+
 	send_to_char("\n* = already completed this boot.\n", ch);  
 }
 
@@ -1852,8 +1856,9 @@ void update_epic_zone_alignment(int zone_number, int delta)
   qry("UPDATE zones SET alignment = alignment + (%d) WHERE number = %d AND epic_type > 0", delta, zone_number);
 
   // if alignment delta resulted in 0, add one more so that it doesn't stay on 0
+/* This is ruining the epic_zone_balance function causing it to go from good to evil instead of neutral.
   qry("UPDATE zones SET alignment = alignment + (%d) WHERE number = %d AND epic_type > 0 and alignment = 0", delta, zone_number);
-
+ */
   // min/max bounds on alignment
   qry("UPDATE zones SET alignment = %d WHERE alignment > %d", EPIC_ZONE_ALIGNMENT_MAX, EPIC_ZONE_ALIGNMENT_MAX);
   qry("UPDATE zones SET alignment = %d WHERE alignment < %d", EPIC_ZONE_ALIGNMENT_MIN, EPIC_ZONE_ALIGNMENT_MIN);
