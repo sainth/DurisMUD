@@ -9843,7 +9843,7 @@ bool monk_superhit( P_char ch, P_char victim )
 {
   static struct damage_messages monk_superhit_messages = {
     "You hit a pressure point on $N with additional &+rforce&n.",
-    "$n's finger drives &+Rdeep&N into your flesh.",
+    "$n's finger drives &+Rdeep&N inside you.",
     "$n pokes $N &+Rreally&n hard, making you wince.",
     "As you reach inside $N, you feel $S life force fade.",
     "$n reaches inside you and things begin to &+wfade &+Rred &+rthen &+Lblack&+W.&N",
