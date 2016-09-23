@@ -2837,9 +2837,10 @@ void spell_wall_of_air(int, P_char, char *, int, P_char, P_obj);
 
 void event_change_yzar_race(P_char ch, P_char victim, P_obj obj, void *data);
 
-/* sspells.c */
+/* spells.c */
 void spell_single_doom_aoe(int, P_char, char *, int, P_char, P_obj);
 void spell_curse_of_yzar(int, P_char, char *, int, P_char, P_obj);
+void spell_rest(int, P_char, char *, int, P_char, P_obj);
 
 void cast_restore_item(int, P_char, char *, int, P_char, P_obj);
 /* sillusionist.c */

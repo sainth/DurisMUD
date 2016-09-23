@@ -4413,6 +4413,10 @@ SPELL_ADD(CLASS_SUMMONER, 11);
                 TAR_CHAR_ROOM,
                 spell_curse_of_yzar, "You &+Wscream&n in &+Rpain&n as the &+Yflesh&n falls from your bones.");
 
+  SPELL_CREATE( "rested", SPELL_REST, PULSE_SPELLCAST,
+                TAR_CHAR_ROOM, spell_rest );
+  // Immortal only spell
+
   SPELL_CREATE("moonwell", SPELL_MOONWELL, PULSE_SPELLCAST * 7,
                 TAR_CHAR_WORLD | TAR_NOCOMBAT, spell_moonwell);
   SPELL_ADD(CLASS_DRUID, 10);

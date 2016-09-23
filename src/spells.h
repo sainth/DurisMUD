@@ -698,8 +698,9 @@
 #define SPELL_ICE_SPIKES             648
 #define SPELL_WALL_OF_AIR            649
 #define SPELL_COMPACT_CORPSE         650
+#define SPELL_REST                   651
 
-#define LAST_SPELL SPELL_COMPACT_CORPSE
+#define LAST_SPELL SPELL_REST
 
 #define FIRST_SKILL                  1000  /* should be a decent split point */
 #define SKILL_SNEAK                  1000

@@ -3096,3 +3096,49 @@ void spell_curse_of_yzar( int level, P_char ch, char *arg, int type, P_char vict
   send_to_char( "You feel absolutely exhausted all of a sudden.  You begin to sweat.\n", victim );
   send_to_char( "Your spell has taken hold of poor Yzar.\n", ch );
 }
+
+void spell_rest( int level, P_char ch, char *arg, int type, P_char victim, P_obj obj )
+{
+  struct affected_type af, *afp;
+
+  if( !IS_ALIVE(victim) )
+  {
+    send_to_char( "Your target seems to have died.\n", ch );
+    return;
+  }
+
+  if( (afp = get_spell_from_char( victim, TAG_WELLRESTED )) != NULL )
+  {
+    afp->duration = 150;
+    act( "You refresh $N's well-rested bonus.", FALSE, ch, NULL, victim, TO_CHAR );
+    debug( "%s refreshed %s's well-rested bonus!", J_NAME(ch), J_NAME(victim) );
+    return;
+  }
+
+  if( (afp = get_spell_from_char( victim, TAG_RESTED )) != NULL )
+  {
+    afp->duration = 150;
+    if( GET_LEVEL(ch) == OVERLORD )
+    {
+      afp->type = TAG_WELLRESTED;
+      act( "You refresh $N's rested bonus and upgrade it to well-rested.", FALSE, ch, NULL, victim, TO_CHAR );
+      debug( "%s refreshed %s's rested bonus and upgrades it to well-rested!", J_NAME(ch), J_NAME(victim) );
+    }
+    else
+    {
+      afp->duration = 150;
+      act( "You refresh $N's rested bonus.", FALSE, ch, NULL, victim, TO_CHAR );
+      debug( "%s refreshed %s's rested bonus!", J_NAME(ch), J_NAME(victim) );
+    }
+    return;
+  }
+
+  memset(&af, 0, sizeof(struct affected_type));
+  af.type = TAG_RESTED;
+  af.duration = 150;
+  af.flags = AFFTYPE_PERM | AFFTYPE_NODISPEL | AFFTYPE_OFFLINE;
+  affect_to_char(ch, &af);
+
+  act( "You give $N a rested bonus.", FALSE, ch, NULL, victim, TO_CHAR );
+  debug( "%s gives %s a rested bonus!", J_NAME(ch), J_NAME(victim) );
+}
