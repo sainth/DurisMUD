@@ -2507,7 +2507,7 @@ int revenant_helm(P_obj obj, P_char ch, int cmd, char *arg)
 
   memset(&af, 0, sizeof(af));
   af.type = TAG_RACE_CHANGE;
-  af.flags = AFFTYPE_NOSAVE | AFFTYPE_NODISPEL;
+  af.flags = AFFTYPE_NOSAVE | AFFTYPE_NODISPEL | AFFTYPE_NOAPPLY;
   af.duration = -1;
   af.modifier = GET_RACE(ch);
   affect_to_char(ch, &af);

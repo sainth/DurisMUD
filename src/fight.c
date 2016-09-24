@@ -2233,15 +2233,6 @@ void die(P_char ch, P_char killer)
   }
 #endif
 
-  for (af = ch->affected; af; af = af->next)
-  {
-    if(af->type == TAG_RACE_CHANGE)
-    {
-      ch->player.race = af->modifier;
-      affect_remove(ch, af);
-    }
-  }
-
   REMOVE_BIT(ch->specials.affected_by3, AFF3_PALADIN_AURA);
   clear_links(ch, LNK_PALADIN_AURA);
 

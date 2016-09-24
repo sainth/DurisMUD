@@ -1927,7 +1927,7 @@ struct affected_type *affect_to_char(P_char ch, struct affected_type *af)
 
   affected_alloc->next = ch->affected;
   ch->affected = affected_alloc;
-  if ((af->flags & AFFTYPE_NOAPPLY) == 0)
+  if( !IS_SET(af->flags, AFFTYPE_NOAPPLY) )
   {
     ch->specials.affected_by |= af->bitvector;
     ch->specials.affected_by2 |= af->bitvector2;
@@ -2107,6 +2107,12 @@ void affect_remove(P_char ch, struct affected_type *af)
     }
     // Remove af from the list.
     hjp->next = af->next;
+  }
+
+  // Handle race changes.
+  if( af->type == TAG_RACE_CHANGE )
+  {
+    ch->player.race = af->modifier;
   }
 
   // If it's a short affect.
