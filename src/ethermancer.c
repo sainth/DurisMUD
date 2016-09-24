@@ -629,8 +629,7 @@ void spell_windwalk(int level, P_char ch, char *arg, int type, P_char victim,
   }
 }
 
-void spell_frost_beacon(int level, P_char ch, char *arg, int type,
-                        P_char victim, P_obj tar_obj)
+void spell_frost_beacon(int level, P_char ch, char *arg, int type, P_char victim, P_obj tar_obj)
 {
   P_obj    beacon;
 
@@ -647,7 +646,8 @@ void spell_frost_beacon(int level, P_char ch, char *arg, int type,
   act("&+C$n conjures up a block of arcane ice and leaves it to melt.", FALSE,
       ch, beacon, 0, TO_ROOM);
 
-  set_obj_affected(beacon, dice(4, 2) * 120, TAG_OBJ_DECAY, 0);
+  // 8 to 16 minutes at lvl 56.  Get spell 6th circle, so level 26 / 7 = 3 to 6 minutes when you get it.
+  set_obj_affected(beacon, dice(level/7, 2) * SECS_PER_REAL_MIN, TAG_OBJ_DECAY, 0);
 
   beacon->value[0] = GET_PID(ch);
 
