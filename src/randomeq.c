@@ -683,8 +683,8 @@ bool check_random_drop(P_char ch, P_char mob, bool piece)
     return FALSE;
   }
 
-  // Yzar get's a 10% bonus chance for drops.
-  if( IS_PC(ch) && !strcmp(GET_NAME( ch ), "Yzar") && !number(0, 9) )
+  // Neutrals get a 10% bonus chance for drops.
+  if( IS_PC(ch) && (GET_RACEWAR( ch ) == RACEWAR_NEUTRAL) && !number(0, 9) )
     return TRUE;
 
 /* Not worth the time to calculate.
