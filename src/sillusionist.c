@@ -1348,7 +1348,7 @@ void spell_detect_illusion(int level, P_char ch, char *arg, int type,
 void spell_dream_travel(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
   int      location;
-  P_char   targ;
+  P_char   targ, mount;
   P_desc   i;
   struct group_list *group;
 
@@ -1392,6 +1392,12 @@ void spell_dream_travel(int level, P_char ch, char *arg, int type, P_char victim
           {
             send_to_char("You feel slightly drowsy, but it's too noisy to sleep!\r\n", targ);
             continue;
+          }
+
+          if( (mount = GET_MOUNT(targ)) != NULL )
+          {
+            act( "You feel really tired, and fall off $N.", FALSE, targ, 0, mount, TO_CHAR);
+            stop_riding(targ);
           }
 
           act("&+LYou &+Wblink&+L and $n &+Lis gone! &+CIt was just a &+Wdream&+C; $e &+Cwas never here to begin with.&N",
