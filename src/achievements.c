@@ -497,7 +497,7 @@ void do_addicted_blood(P_char ch, char *arg, int cmd)
   if( af )
   {
     time = af->duration * 60 + secs;
-    bonus = (af->modifier > 11) ? ( (af->modifier - 10) / 2 ) : 0;
+    bonus = (af->modifier > 6) ? ( (af->modifier - 5) / 2 ) : 0;
   }
   else
   {
@@ -547,9 +547,8 @@ void update_addicted_to_blood(P_char ch, P_char victim)
     if( af )
     {
       af->duration = 5;
-      if( (bonus = (af->modifier - 10) / 2) > 0 )
+      if( (bonus = (af->modifier - 5) / 2) > 0 )
       {
-
         allies = 1;
         for( tch = world[ch->in_room].people; tch; tch = tch->next_in_room )
         {
@@ -560,8 +559,8 @@ void update_addicted_to_blood(P_char ch, P_char victim)
         }
         gain_exp( ch, victim, GET_EXP(victim) * bonus / (allies * 100), EXP_KILL );
       }
-      // Cap at 50 kills and 20% bonus exp.
-      if( af->modifier < 50 )
+      // Cap at 45 kills and 20% bonus exp.
+      if( af->modifier < 45 )
       {
         af->modifier += 1;
       }
