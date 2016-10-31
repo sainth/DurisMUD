@@ -12404,34 +12404,32 @@ void spell_create_spring(int level, P_char ch, char *arg, int type,
   obj_to_room(spring, ch->in_room);
 }
 
-void spell_regeneration(int level, P_char ch, char *arg, int type,
-                        P_char victim, P_obj obj)
+void spell_regeneration(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
   struct affected_type af;
-  char     Gbuf1[100];
-  int      skl_lvl;
+  char Gbuf1[100];
+  int  skl_lvl;
 
-  if(!IS_ALIVE(ch) ||
-    !IS_ALIVE(victim))
-      return;
+  if( !IS_ALIVE(ch) || !IS_ALIVE(victim) )
+    return;
 
-  if(affected_by_spell(victim, SPELL_ACCEL_HEALING) ||
-    affected_by_spell(victim, SKILL_REGENERATE) ||
-    affected_by_spell(victim, SPELL_REGENERATION))
+  if( affected_by_spell(victim, SPELL_ACCEL_HEALING)
+    || affected_by_spell(victim, SKILL_REGENERATE)
+    || affected_by_spell(victim, SPELL_REGENERATION) )
   {
     send_to_char("You can't possibly heal any faster.\n", victim);
     return;
   }
-  
-  skl_lvl = MAX(3, ((level / 10) - 1));
+
+  skl_lvl = MAX( 4, (level / 10) );
 
   sprintf(Gbuf1, "You begin to regenerate rapidly.\n");
 
   bzero(&af, sizeof(af));
   af.type = SPELL_REGENERATION;
-  af.duration = skl_lvl + 1;
+  af.duration = skl_lvl;
   af.location = APPLY_HIT_REG;
-  af.modifier = 3 * level;
+  af.modifier = level * level * 2;
   send_to_char(Gbuf1, victim);
   affect_to_char(victim, &af);
 }
@@ -19043,8 +19041,7 @@ void spell_dazzle(int level, P_char ch, char *arg, int type, P_char victim,
   return;
 }
 
-void spell_accel_healing(int level, P_char ch, char *arg, int type,
-                         P_char victim, P_obj obj)
+void spell_accel_healing(int level, P_char ch, char *arg, int type, P_char victim, P_obj obj)
 {
   struct affected_type af;
   int skl_lvl = (int) (MAX(41, ((level / 2) - 1)));
@@ -19058,12 +19055,12 @@ void spell_accel_healing(int level, P_char ch, char *arg, int type,
     act("$N can't possibly heal any faster.", TRUE, ch, 0, victim, TO_CHAR);
     return;
   }
-  
+
   if(affected_by_spell(victim, SPELL_ACCEL_HEALING))
   {
     struct affected_type *af1;
     bool found;
-    
+
     for (af1 = victim->affected; af1; af1 = af1->next)
     {
       if(af1->type == SPELL_ACCEL_HEALING)
@@ -19072,17 +19069,17 @@ void spell_accel_healing(int level, P_char ch, char *arg, int type,
         found = true;
       }
     }
-    
+
     if(found)
       send_to_char("Your &+caccelerated healing&n magic is &+Yrefreshed!\r\n", victim);
     return;
   }
- 
+
   bzero(&af, sizeof(af));
   af.type = SPELL_ACCEL_HEALING;
   af.duration = skl_lvl + 1;
   af.location = APPLY_HIT_REG;
-  af.modifier = (int) (2.5 * level);
+  af.modifier = 5 * level;
   affect_to_char(victim, &af);
 
   send_to_char("You begin to heal faster.\r\n", victim);
