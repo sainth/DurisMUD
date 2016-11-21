@@ -647,7 +647,7 @@ void spell_frost_beacon(int level, P_char ch, char *arg, int type, P_char victim
       ch, beacon, 0, TO_ROOM);
 
   // 8 to 16 minutes at lvl 56.  Get spell 6th circle, so level 26 / 7 = 3 to 6 minutes when you get it.
-  set_obj_affected(beacon, dice(level/7, 2) * SECS_PER_REAL_MIN, TAG_OBJ_DECAY, 0);
+  set_obj_affected(beacon, dice(level/7, 2) * WAIT_MIN, TAG_OBJ_DECAY, 0);
 
   beacon->value[0] = GET_PID(ch);
 
