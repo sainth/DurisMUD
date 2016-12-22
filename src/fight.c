@@ -9577,10 +9577,11 @@ void perform_violence(void)
     {
       if( ch->in_room != NOWHERE )
       {
-        debug( "perform_violence%s fighting null opponent in %s (%d) perform_violence()!", GET_NAME(ch),
+        debug( "perform_violence: %s fighting null opponent in %s (%d)!", GET_NAME(ch),
           world[ch->in_room].name, world[ch->in_room].number);
-        logit(LOG_DEBUG, "perform_violence%s fighting null opponent in %s (%d) perform_violence()!", GET_NAME(ch),
+        logit(LOG_DEBUG, "perform_violence: %s fighting null opponent in %s (%d)!", GET_NAME(ch),
           world[ch->in_room].name, world[ch->in_room].number);
+        extract_char(ch);
         return;
       }
       else
