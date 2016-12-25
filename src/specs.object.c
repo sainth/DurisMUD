@@ -1312,7 +1312,7 @@ int jailtally(P_obj obj, P_char ch, int cmd, char *arg)
 // Allows holder to use decline/accept/ptell.
 int trustee_artifact(P_obj obj, P_char ch, int cmd, char *arg)
 {
-  int cmd_list[] = { CMD_DECLINE, CMD_ACCEPT, CMD_PTELL, 0 }, i;
+  int cmd_list[] = { CMD_DECLINE, CMD_APPROVE, CMD_PTELL, 0 }, i;
 
   if( !IS_ALIVE(ch) || IS_NPC(ch) || !OBJ_WORN_BY(obj, ch) )
   {

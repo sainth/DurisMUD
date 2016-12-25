@@ -713,7 +713,7 @@ const char *command[MAX_CMD] = {
                                  * 470
                                  */
   "finger",
-  "accept",
+  "approve",
   "decline",
   "summon",
   "clone",                      /*
@@ -2348,7 +2348,7 @@ void assign_command_pointers(void)
 
   /* wizcommands */
 
-  CMD_GRT(CMD_ACCEPT, STAT_DEAD + POS_PRONE, do_accept, AVATAR);
+  CMD_GRT(CMD_APPROVE, STAT_DEAD + POS_PRONE, do_approve, AVATAR);
   CMD_GRT(CMD_ADVANCE, STAT_DEAD + POS_PRONE, do_advance, GREATER_G);
   CMD_GRT(CMD_ALLOW, STAT_DEAD + POS_PRONE, do_allow, GREATER_G);
   CMD_GRT(CMD_AT, STAT_DEAD + POS_PRONE, do_at, AVATAR);

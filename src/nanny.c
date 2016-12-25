@@ -4022,7 +4022,7 @@ void create_denied_file(const char *dir, char *name)
   }
 }
 
-void accept_name(char *name)
+void approve_name(char *name)
 {
   create_denied_file("Players/Accepted", name);
 }
@@ -6322,7 +6322,7 @@ void init_char(P_char ch)
   ch->only.pc->skillpoints = 0;
 }
 
-int      accept_mode = 0;       /* whether to have need to accept new players or not */
+int      approve_mode = 0;       /* whether to have need to accept new players or not */
 
 void newby_announce(P_desc d)
 {
@@ -6356,7 +6356,7 @@ void newby_announce(P_desc d)
     d->character->only.pc->prestige++;
 }
 
-void wimps_in_accept_queue(void)
+void wimps_in_approve_queue(void)
 {
   P_desc   d;
 
@@ -6826,7 +6826,7 @@ void nanny(P_desc d, char *arg)
                 "%s auto-accepted due to having been accepted before.",
                 GET_NAME(d->character));
     }
-    else if (!IS_TRUSTED(d->character) && accept_mode)
+    else if (!IS_TRUSTED(d->character) && approve_mode)
     {
       SEND_TO_Q
         ("Now you have to wait for your character to be approved by a god.\r\nProcess should not take long.\r\nIf no god is on to approve you, you will be auto-approved in 5 mins.\r\n",
@@ -6849,7 +6849,7 @@ void nanny(P_desc d, char *arg)
     case 'y':
       SEND_TO_Q(
                  "\r\n\r\nYou have selected Yes, and hereby agree to all conditions in the disclaimer.\r\n", d);
-      if (!IS_TRUSTED(d->character) && accept_mode) {
+      if (!IS_TRUSTED(d->character) && approve_mode) {
                   writeCharacter(d->character, 2, NOWHERE);
         SEND_TO_Q("Now you have to wait for your character to be approved by a god.\r\nProcess should not take long.\r\n", d);
         STATE(d) = CON_ACCEPTWAIT;

@@ -7687,16 +7687,16 @@ void do_decline(P_char ch, char *arg, int cmd)
   send_to_char("Decline what new player's application?\n", ch);
 }
 
-extern int accept_mode;
+extern int approve_mode;
 
-#define ACCEPT_OFF 0
-#define ACCEPT_ON  1
-void do_accept(P_char ch, char *arg, int cmd)
+#define APPROVE_OFF 0
+#define APPROVE_ON  1
+void do_approve(P_char ch, char *arg, int cmd)
 {
   int    count;
   P_desc d1, d2;
   char   Gbuf2[MAX_STRING_LENGTH], Gbuf1[MAX_STRING_LENGTH];
-  const char *accept_modes[] = {
+  const char *approve_modes[] = {
     "off",
     "on",
     "\n"
@@ -7706,9 +7706,9 @@ void do_accept(P_char ch, char *arg, int cmd)
   {
     /* list characters needing approval:  */
     count = 0;
-    sprintf(Gbuf1, "&+cAC: Post-creation approval system is now %s.\n", accept_modes[accept_mode]);
+    sprintf(Gbuf1, "&+cAC: Post-creation approval system is now %s.\n", approve_modes[approve_mode]);
     send_to_char(Gbuf1, ch);
-    if( accept_mode == ACCEPT_ON )
+    if( approve_mode == APPROVE_ON )
     {
       send_to_char("List of characters needing approval:\n", ch);
       for( d1 = descriptor_list; d1; d1 = d1->next)
@@ -7725,11 +7725,11 @@ void do_accept(P_char ch, char *arg, int cmd)
         send_to_char("None.\n\n", ch);
       }
     }
-    send_to_char("Usage: accept <charname|on|off>\n", ch);
+    send_to_char("Usage: approve <charname|on|off>\n", ch);
     return;
   }
   arg = skip_spaces(arg);
-  switch( search_block(arg, accept_modes, FALSE) )
+  switch( search_block(arg, approve_modes, FALSE) )
   {
     case 0:
       if( GET_LEVEL(ch) < 62 )
@@ -7737,10 +7737,10 @@ void do_accept(P_char ch, char *arg, int cmd)
         send_to_char("Sorry, that option is overlord only.\n", ch);
         return;
       }
-      accept_mode = ACCEPT_OFF;
+      approve_mode = APPROVE_OFF;
 
-      sprintf(Gbuf1, "&+cAC: %s set newchar application system %s.\n", GET_NAME(ch), accept_modes[ACCEPT_OFF]);
-      sprintf(Gbuf2, "&+CAC: Someone set newchar application system %s.\n", accept_modes[ACCEPT_OFF]);
+      sprintf(Gbuf1, "&+cAC: %s set newchar application system %s.\n", GET_NAME(ch), approve_modes[APPROVE_OFF]);
+      sprintf(Gbuf2, "&+CAC: Someone set newchar application system %s.\n", approve_modes[APPROVE_OFF]);
       logit(LOG_WIZ, Gbuf1);
       for( d1 = descriptor_list; d1; d1 = d1->next )
       {
@@ -7760,11 +7760,11 @@ void do_accept(P_char ch, char *arg, int cmd)
         send_to_char("Sorry, that option is overlord only.\n", ch);
         return;
       }
-      accept_mode = ACCEPT_ON;
+      approve_mode = APPROVE_ON;
 
-      sprintf(Gbuf1, "&+cAC: %s set newchar application system %s.\n", GET_NAME(ch), accept_modes[ACCEPT_ON]);
+      sprintf(Gbuf1, "&+cAC: %s set newchar application system %s.\n", GET_NAME(ch), approve_modes[APPROVE_ON]);
       logit(LOG_WIZ, Gbuf1);
-      sprintf(Gbuf2, "&+cAC: Someone set newchar application system %s.\n", accept_modes[ACCEPT_ON]);
+      sprintf(Gbuf2, "&+cAC: Someone set newchar application system %s.\n", approve_modes[APPROVE_ON]);
       for( d1 = descriptor_list; d1; d1 = d1->next )
       {
         if( (d1->connected == CON_PLAYING) && d1->character && IS_SET(d1->character->specials.act, PLR_PETITION)
@@ -7782,11 +7782,11 @@ void do_accept(P_char ch, char *arg, int cmd)
       {
         if( STATE(d1) == CON_ACCEPTWAIT && d1->character && !str_cmp(GET_NAME(d1->character), arg) )
         {
-          logit(LOG_NEWCHAR, "%s accepted new char %s from %s.", GET_NAME(ch), GET_NAME(d1->character),
+          logit(LOG_NEWCHAR, "%s approved new char %s from %s.", GET_NAME(ch), GET_NAME(d1->character),
             (d1->host ? d1->host : "UNKNOWN"));
-          sprintf(Gbuf1, "&+c*** STATUS: %s accepted new player %s from %s.\n", GET_NAME(ch), GET_NAME(d1->character),
+          sprintf(Gbuf1, "&+c*** STATUS: %s approved new player %s from %s.\n", GET_NAME(ch), GET_NAME(d1->character),
             d1->host ? d1->host : "&+WUNKNOWN&n");
-          sprintf(Gbuf2, "&+c*** STATUS: Someone accepted new player %s from %s.\n", GET_NAME(d1->character),
+          sprintf(Gbuf2, "&+c*** STATUS: Someone approved new player %s from %s.\n", GET_NAME(d1->character),
             d1->host ? d1->host : "&+WUNKNOWN&n");
 
           for( d2 = descriptor_list; d2; d2 = d2->next )
@@ -7801,19 +7801,19 @@ void do_accept(P_char ch, char *arg, int cmd)
             }
           }
 
-          SEND_TO_Q("\nYour application for character has been accepted. Welcome into ranks of\nthe players of Duris!\n\n", d1);
+          SEND_TO_Q("\nYour application for character has been approved. Welcome into ranks of\nthe players of Duris!\n\n", d1);
           SEND_TO_Q("\n*** PRESS RETURN:\n", d1);
           STATE(d1) = CON_WELCOME;
-          accept_name(GET_NAME(d1->character));
+          approve_name(GET_NAME(d1->character));
 
           return;
         }
       }
 
-      if( accept_mode == ACCEPT_OFF )
+      if( approve_mode == APPROVE_OFF )
       {
-        accept_name(arg);
-        statuslog( GET_WIZINVIS(ch), "Name '%s' added to the accepted names list by %s", arg, GET_NAME(ch) );
+        approve_name(arg);
+        statuslog( GET_WIZINVIS(ch), "Name '%s' added to the approved names list by %s", arg, GET_NAME(ch) );
       }
       else
       {

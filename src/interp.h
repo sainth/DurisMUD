@@ -500,7 +500,7 @@ extern unsigned int game_locked_level;
 #define CMD_TEACH          469
 #define CMD_REINITPHYS     470
 #define CMD_FINGER         471
-#define CMD_ACCEPT         472
+#define CMD_APPROVE        472
 #define CMD_DECLINE        473
 #define CMD_SUMMON         474
 #define CMD_CLONE          475
