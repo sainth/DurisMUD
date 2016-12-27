@@ -17,6 +17,7 @@ extern P_char misfire_check(P_char ch, P_char spell_target, int flag);
 extern P_room world;
 extern const racewar_struct racewar_color[MAX_RACEWAR+2];
 
+extern void get_level_cap_info( long *max_frags, int *racewar, int *level, time_t *next_update );
 extern void get_level_cap( int *max_level, int *racewar );
 extern int sql_level_cap( int racewar_side );
 
@@ -182,6 +183,9 @@ void do_fraglist(P_char ch, char *arg, int cmd)
   float    fragnum = 0;
   char     filename[1024];
   int      cap_level, cap_racewar, cap_others;
+  long     cap_frags;
+  time_t   cap_timer;
+  int      days, hours, mins, secs;
 
   if( !IS_ALIVE(ch) )
     return;
@@ -514,10 +518,28 @@ void do_fraglist(P_char ch, char *arg, int cmd)
   }
 
 //  sprintf(buf, "\r\n&+WTop Fraggers\r\n\r\n");
-  get_level_cap( &cap_level, &cap_racewar );
+  get_level_cap_info( &cap_frags, &cap_racewar, &cap_level, &cap_timer );
   cap_others = sql_level_cap( (cap_racewar == RACEWAR_GOOD) ? RACEWAR_EVIL : RACEWAR_GOOD );
-  sprintf(buf, "Frag Level Cap: %d - &+%c%s&n, %d - Others\n\n&+WTop Fraggers\n\n",
-    cap_level, racewar_color[cap_racewar].color, racewar_color[cap_racewar].name, cap_others );
+  cap_timer -= time(NULL);
+
+  if( cap_timer <= 0 )
+  {
+    secs = mins = hours = days = 0;
+  }
+  else
+  {
+    secs = cap_timer % 60;
+    cap_timer /= 60;
+    mins = cap_timer % 60;
+    cap_timer /= 60;
+    hours = cap_timer % 24;
+    cap_timer /= 24;
+    days = cap_timer;
+  }
+
+  sprintf(buf, "Frag Level Cap: %d - &+%c%s&n, %d - Others, Timer: %02d:%02d:%02d:%02d\n\n&+WTop Fraggers\n\n",
+    cap_level, racewar_color[cap_racewar].color, racewar_color[cap_racewar].name, cap_others,
+    days, hours, mins, secs );
 
   for (i = 0; i < MAX_FRAG_SIZE; i++)
   {
