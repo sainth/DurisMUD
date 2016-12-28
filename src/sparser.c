@@ -464,6 +464,7 @@ P_char misfire_check(P_char ch, P_char victim, int flag)
   }
   else
   {
+/*
     if( continent_misfire.misfiring[CONTINENT(ch->in_room)][GET_RACEWAR(ch)] )
     {
       PvP_misfiring = TRUE;
@@ -473,6 +474,7 @@ P_char misfire_check(P_char ch, P_char victim, int flag)
       if( oversize < 1 )
         oversize = 1;
     }
+*/
   }
 
 
