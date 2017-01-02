@@ -177,6 +177,7 @@ void which_stat(P_char ch, char *argument);
 void which_spec(P_char ch, char *argument);
 void which_food(P_char ch, char *argument);
 void which_weapon(P_char ch, char *argument);
+void choronize(char *argument);
 
 /*
  * Macros
@@ -3662,9 +3663,11 @@ void do_nchat(P_char ch, char *argument, int cmd)
     send_to_char("Thats right nchat and then add something else, for example: \"nchat how do I kill things?\"\n", ch);
     return;
   }
-  else if( ch->desc )
-  {
 
+  choronize(argument);
+
+  if( ch->desc )
+  {
     if(IS_TRUSTED(ch))
     {
       if(((*argument == 'g') || (*argument == 'G')) &&
@@ -12917,4 +12920,22 @@ void stat_skill(P_char ch, char *arg)
       }
     }
   }
+}
+
+void choronize(char *argument)
+{
+  char *index;
+
+  while( (index = strcasestr( argument, "fucking" )) != NULL )
+  {
+    sprintf( index, "Choron" );
+    index += strlen("Choron");
+    *index = ' ';
+    while( *index != '\0' )
+    {
+      *index = index[1];
+      index++;
+    }
+  }
+  debug( "argument: %s", argument );
 }
