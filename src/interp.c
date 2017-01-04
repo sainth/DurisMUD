@@ -1838,7 +1838,6 @@ void command_interpreter(P_char ch, char *argument)
       }
       else if( cmd_info[cmd].req_confirm == 1 )
       {
-debug( "PENIS: %s", argument + begin + look_at );
         if( exec_char->desc )
         {
           exec_char->desc->confirm_state = CONFIRM_AWAIT;
