@@ -1408,10 +1408,10 @@ void chant_regenerate(P_char ch, char *argument, int cmd)
 
   send_to_char("You feel your body healing faster.\r\n", ch);
   bzero(&af, sizeof(af));
-  af.type = SPELL_REGENERATION;
-  af.duration = GET_LEVEL(ch) / 2;
+  af.type = SKILL_REGENERATE;
+  af.duration = GET_LEVEL(ch) / 7;
   af.location = APPLY_HIT_REG;
-  af.modifier = GET_CHAR_SKILL(ch, SKILL_REGENERATE);
+  af.modifier = GET_CHAR_SKILL(ch, SKILL_REGENERATE) * GET_LEVEL(ch);
   affect_to_char(ch, &af);
 
   notch_skill(ch, SKILL_REGENERATE, 35);

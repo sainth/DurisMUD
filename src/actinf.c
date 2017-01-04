@@ -5771,10 +5771,6 @@ void do_score(P_char ch, char *argument, int cmd)
     }
   }
 
-  if(affected_by_spell(ch, SKILL_REGENERATE))
-  {
-    send_to_char("regenerating\n", ch);
-  }
 
   send_to_char("\n", ch);
 }
