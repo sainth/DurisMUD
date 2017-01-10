@@ -8091,103 +8091,93 @@ void do_trample(P_char ch, char *argument, int cmd)
   if(!SanityCheck(ch, "trample"))
     return;
 
-  if(GET_CHAR_SKILL(ch, SKILL_MOUNTED_COMBAT) < 1)
+  if( GET_CHAR_SKILL(ch, SKILL_MOUNTED_COMBAT) < 1 )
   {
     send_to_char("Your skill with a mount is horrible.\r\n", ch);
     return;
   }
-  
+
   mount = get_linked_char(ch, LNK_RIDING);
-  
-  if(!(mount))
+  if( !mount )
   {
     send_to_char("You can do this only while riding a mount!\n", ch);
     return;
   }
-  
-  if(affected_by_spell(ch, SKILL_BASH))
+
+  if( affected_by_spell(ch, SKILL_BASH) )
   {
-    send_to_char
-      ("You haven't reoriented the mount yet enough for another trample!\n",
-       ch);
+    send_to_char("You haven't reoriented the mount yet enough for another trample!\n", ch);
     return;
   }
-  
+
   one_argument(argument, name);
-  
-  if (*name)
+  if( *name )
   {
     victim = get_char_room_vis(ch, name);
   }
 
-  if(victim &&
-     mount == victim)
+  if( victim && (mount == victim) )
   {
     send_to_char("&+LYour mount cannot trample itself!\r\n", ch);
     return;
   }
-  
-  if (!(victim) &&
-      IS_FIGHTING(ch))
+
+  if( (victim == NULL) && IS_FIGHTING(ch) )
   {
     victim = GET_OPPONENT(ch);
   }
-  else if(!(victim))
+
+  if( victim == NULL )
   {
     send_to_char("Trample who or what?\r\n", ch);
     return;
   }
 
-  if(!CanDoFightMove(ch, victim))
+  if( !CanDoFightMove(ch, victim) )
   {
     return;
   }
-  
-  if(IS_BLIND(ch))
+
+  if( IS_BLIND(ch) )
   {
     send_to_char("&+LDang... someone turned out the lights!\n", ch);
     return;
   }
-  
-  if(IS_RIDING(ch))
+
+  if( !IS_IMMOBILE(mount) && !IS_BLIND(mount) )
   {
-    if(!IS_IMMOBILE(get_linked_char(ch, LNK_RIDING)) &&
-       !IS_BLIND(get_linked_char(ch, LNK_RIDING)))
+    switch ( number(1, 3) )
     {
-      int rand = number(1, 3);
-      if(rand == 1)
+      case 1:
         send_to_char("You nudge your mount into &+RBATTLE!!!\n", ch);
-      if(rand == 2)
+      break;
+      case 2:
         send_to_char("You lean into your saddle for the engagement!!!\n", ch);
-      if(rand == 3)
+      break;
+      case 3:
         send_to_char("You direct your battle steed into action!!!\n", ch);
-    }
-    else
-    {
-      send_to_char("Your mount is afflicted and cannot heed your commands.\n\r", ch);
-      return;
+      break;
     }
   }
-  
+  else
+  {
+    send_to_char("Your mount is afflicted and cannot heed your commands.\n\r", ch);
+    return;
+  }
+
   victim = guard_check(ch, victim);
 
   is_knight = has_innate(ch, INNATE_KNIGHT);
 
-  percent_chance =
-    (int) (0.95 * MAX(20, GET_CHAR_SKILL(ch, SKILL_MOUNTED_COMBAT)));
+  percent_chance = ( 95 * GET_CHAR_SKILL(ch, SKILL_MOUNTED_COMBAT) ) / 100;
 
-  knockdown_chance = (int) (percent_chance *
-    get_property("skill.trample.knockdown", 0.750));
-  
+  knockdown_chance = (int) ( percent_chance * get_property("skill.trample.knockdown", 0.750) );
+
   vict_lag = 2;
 
-  knockdown_chance =
-    (int) (knockdown_chance *
-           ((double)
-            BOUNDED(8, 10 + (GET_LEVEL(ch) - GET_LEVEL(victim)) / 10,
-                    11)) / 10);
-  knockdown_chance =
-    (int) (knockdown_chance *
+  knockdown_chance = (int) (knockdown_chance *
+           ((double) BOUNDED(8, 10 + (GET_LEVEL(ch) - GET_LEVEL(victim)) / 10, 11)) / 10);
+  knockdown_chance = (int) (knockdown_chance *
            ((double) BOUNDED(83, 50 + GET_C_DEX(ch) / 2, 120)) / 100);
 
   if(IS_AFFECTED(victim, AFF_AWARE))
@@ -8205,42 +8195,45 @@ void do_trample(P_char ch, char *argument, int cmd)
     dam = (int) (dam * get_property("skill.trample.Knight.DamageMultiplier", 2.500));
   }
 
-  if(IS_NPC(victim) &&
-    (IS_SET(victim->specials.act, ACT_NO_BASH) ||
-     IS_ELITE(victim)))
+  if( IS_NPC(victim) && (IS_SET(victim->specials.act, ACT_NO_BASH) || IS_ELITE(victim)) )
   {
     knockdown_chance = 0;
   }
-  
-  if(vict_size > ch_size + 1)
+
+  // If ch is over 1 size smaller than vict.
+  if( ch_size < vict_size - 1 )
   {
-    knockdown_chance = (int) (knockdown_chance * 0.20);
+    knockdown_chance = 0;
     vict_lag = 1;
   }
-
-  if(vict_size < ch_size - 1 && !(is_knight && vict_size == ch_size - 2))
+  // If ch is one size smaller than vict.
+  else if( ch_size == vict_size - 1 )
+  {
+    if( IS_DRIDER(victim) || IS_CENTAUR(victim) )
+      knockdown_chance = 0;
+    else if( !is_knight )
+      knockdown_chance = (int) (knockdown_chance * 0.5);
+  }
+  else if( (ch_size <= vict_size) && (IS_DRIDER( victim ) || IS_CENTAUR( victim )) )
+  {
+    knockdown_chance = 0;
+  }
+  // If ch is over 1 size larger than vict.
+  if( (ch_size > vict_size + 1) && !(is_knight && ( vict_size == ch_size - 2 )) )
   {
     percent_chance = (int) (percent_chance * 0.9);
     knockdown_chance = (int) (knockdown_chance * 0.20);
     vict_lag = 1;
   }
 
-  if(GET_POS(victim) != POS_STANDING)
+  if( GET_POS(victim) != POS_STANDING )
   {
     knockdown_chance = 0;
   }
 
-  if(vict_size > ch_size && !is_knight)
-  {
-    knockdown_chance = (int) (knockdown_chance * 0.5);
-  }
-
-  // using SKILL_KICK cause it produces no messages just returns
-  // the right thing
-
   CharWait(ch, PULSE_VIOLENCE * 2);
-  
-  knockdown_chance = takedown_check(ch, victim, knockdown_chance, SKILL_KICK, TAKEDOWN_ALL);
+
+  knockdown_chance = takedown_check(ch, victim, knockdown_chance, SKILL_TRAMPLE, TAKEDOWN_ALL & !TAKEDOWN_AGI_CHECK);
 
   if(knockdown_chance == TAKEDOWN_CANCELLED)
   {
@@ -8260,7 +8253,7 @@ void do_trample(P_char ch, char *argument, int cmd)
     return;
   }
   
-  knockdown_chance = BOUNDED(1, knockdown_chance, 80);
+  knockdown_chance = BOUNDED(0, knockdown_chance, 80);
   
   act("You order your mount to trample $N.", FALSE, ch, 0, victim, TO_CHAR);
 
