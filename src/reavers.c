@@ -67,12 +67,15 @@ void spell_baladors_protection(int level, P_char ch, char *arg, int type, P_char
     affect_to_char(victim, &af);
   }
 
-  if( GET_LEVEL(ch) > 4 && !IS_AFFECTED(victim, AFF_ARMOR) )
+//  if( GET_LEVEL(ch) > 4 && !IS_AFFECTED(victim, AFF_ARMOR) )
+  // Taking the AFF_ARMOR part out of this so it'll give some ac regardless.
+  if( GET_LEVEL(ch) > 4 )
   {
     af.type = SPELL_BALADORS_PROTECTION;
     af.duration = 32;
-    af.modifier = -15;
-    af.bitvector = AFF_ARMOR;
+    af.modifier = -20;
+
+//    af.bitvector = AFF_ARMOR;
     af.location = APPLY_AC;
     affect_to_char(victim, &af);
   }
