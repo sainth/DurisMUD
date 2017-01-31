@@ -429,7 +429,7 @@ int get_number_allies_within_range(P_char ch)
 P_char misfire_check(P_char ch, P_char victim, int flag)
 {
   P_char new_target, tch;
-  int oversize = 0, chance;
+  int oversize, chance;
   bool PvP_misfiring;
 
   // Mobs by themselves do not trigger misfire.
@@ -454,6 +454,7 @@ P_char misfire_check(P_char ch, P_char victim, int flag)
   new_target = victim;
 
   PvP_misfiring = FALSE;
+  oversize = 0;
   // If we're not on a surface map continent.
   if( !CONTINENT(ch->in_room) )
   {
@@ -470,7 +471,6 @@ P_char misfire_check(P_char ch, P_char victim, int flag)
   }
   else
   {
-/*
     if( continent_misfire.misfiring[CONTINENT(ch->in_room)][GET_RACEWAR(ch)] )
     {
       PvP_misfiring = TRUE;
@@ -480,7 +480,6 @@ P_char misfire_check(P_char ch, P_char victim, int flag)
       if( oversize < 1 )
         oversize = 1;
     }
-*/
   }
 
 
@@ -521,7 +520,7 @@ P_char misfire_check(P_char ch, P_char victim, int flag)
 
     chance = MIN(chance, misfire_properties.pvp_maxChance);
 
-    if(chance > number(0,100))
+    if( number(1, 100) <= chance )
     { // Misfire!
       new_target = get_random_char_in_room(ch->in_room, ch, DISALLOW_SELF);
     }
