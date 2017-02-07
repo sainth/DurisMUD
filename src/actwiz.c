@@ -1607,7 +1607,7 @@ void do_stat(P_char ch, char *argument, int cmd)
   P_event  e1 = NULL;
   P_obj    j = 0, t_obj = 0;
   P_room   rm = 0;
-  char     arg1[MAX_STRING_LENGTH], arg2[MAX_STRING_LENGTH];
+  char     arg1[MAX_STRING_LENGTH], arg2[MAX_STRING_LENGTH], *rest;
   char     buf1[MAX_STRING_LENGTH], buf2[MAX_STRING_LENGTH];
   char     buf[MAX_STRING_LENGTH], o_buf[MAX_STRING_LENGTH];
   char    *timestr;
@@ -1643,8 +1643,10 @@ void do_stat(P_char ch, char *argument, int cmd)
        return;
     }
   }
-  
-  argument_interpreter(argument, arg1, arg2);
+
+//  argument_interpreter(argument, arg1, arg2);
+  rest = lohrr_chop( argument, arg1 );
+  rest = lohrr_chop( rest, arg2 );
 
   if(!*arg1)
   {
@@ -12922,7 +12924,7 @@ void which_weapon(P_char ch, char *argument)
 int lookup_skill( char *skill_name )
 {
   int skl;
-  for( skl = FIRST_SKILL; skl++; skl <= LAST_SKILL )
+  for( skl = FIRST_SKILL; skl <= LAST_SKILL; skl++ )
   {
     if( is_abbrev(skill_name, skills[skl].name) )
     {
@@ -12947,7 +12949,7 @@ void stat_skill(P_char ch, char *arg)
   }
   else if( (skl = lookup_skill( arg )) == SKILL_NONE )
   {
-    send_to_char_f( ch, "'%s' is not recognized as a skill.", arg );
+    send_to_char_f( ch, "'%s' is not recognized as a skill.\n", arg );
     return;
   }
 
