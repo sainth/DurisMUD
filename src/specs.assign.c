@@ -2426,6 +2426,7 @@ void assign_rooms(void)
   world[real_room0(43118)].funct = ship_shop_proc;
   world[real_room0(635260)].funct = ship_shop_proc;
   world[real_room0(584171)].funct = ship_shop_proc;
+  world[real_room0(55410)].funct = ship_shop_proc;
 
   world[real_room0(77)].funct = crew_shop_proc;     // whole-list room
   world[real_room0(1734)].funct = crew_shop_proc;   // Quietus
