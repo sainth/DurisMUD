@@ -6689,7 +6689,7 @@ void do_who(P_char ch, char *argument, int cmd)
       calculate_ac(tch), GET_HITROLL(tch) + str_app[STAT_INDEX(GET_C_STR(tch))].tohit,
       TRUE_DAMROLL(tch) );
 
-    snprintf(buf3, MAX_STRING_LENGTH, "      &+YExperience to next level = &n%d&+Y.\n",
+    snprintf(buf3, MAX_STRING_LENGTH, "      &+YExperience to next level = &n%ld&+Y.\n",
             (new_exp_table[GET_LEVEL(tch) + 1] - GET_EXP(tch)));
     strcat(buf, buf3);
 
@@ -7705,7 +7705,7 @@ void do_levels(P_char ch, char *argument, int cmd)
 
   for( i = 1; i < MAXLVLMORTAL; i++ )
   {
-    snprintf(buf + strlen(buf), MAX_STRING_LENGTH - strlen(buf), "[%2d %2s] %9d-%-9d\n",
+    snprintf(buf + strlen(buf), MAX_STRING_LENGTH - strlen(buf), "[%2d %2s] %9d-%-9ld\n",
       i, class_names_table[flag2idx(which)].ansi,
       0, new_exp_table[i + 1] - 1);
 //  Exp is subtracted upon level -> start of each level is 0 exp.

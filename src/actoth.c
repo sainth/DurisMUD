@@ -3365,7 +3365,7 @@ void do_explist(P_char ch, char *argument, int cmd)
 
   if (GET_LEVEL(ch) >= (int)get_property("exp.min.lvl.see.numbers", 51))
   {
-    snprintf(Gbuf1, MAX_STRING_LENGTH, "&+bExperience till level: &+W%d&n\r\n",
+    snprintf(Gbuf1, MAX_STRING_LENGTH, "&+bExperience till level: &+W%ld&n\r\n",
             (new_exp_table[GET_LEVEL(ch) + 1] - GET_EXP(ch)));
     send_to_char(Gbuf1, ch);
     return;
