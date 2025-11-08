@@ -8,6 +8,8 @@
 static gnutls_certificate_credentials_t x509_cred = 0;
 static gnutls_priority_t priority_cache = 0;
 
+#define YELL(msg, ...) do {printf(msg, __VA_ARGS__); logit(LOG_SYS, msg, __VA_ARGS__);} while(0)
+
 // read the cert, skipping if file date is the same.
 // Errors are ok if we already have one (assume the cert is being updated),
 // fatal on startup.
@@ -22,14 +24,13 @@ void ssl_read_cert(void)
   if (!priority_cache)
     if ((err = gnutls_priority_init(&priority_cache, NULL, NULL)) < 0)
     {
-      logit(LOG_SYS, "Can't allocate SSL priority cache: %s\n",
-            gnutls_strerror(err));
+      YELL("Can't allocate SSL priority cache: %s\n", gnutls_strerror(err));
       exit(1);
     }
 
   if ((err = stat(CERTFILE, &st)))
   {
-    logit(LOG_SYS, "Can't stat cert file %s: %s\n", CERTFILE, strerror(errno));
+    YELL("Can't stat cert file %s: %s\n", CERTFILE, strerror(errno));
     if (x509_cred)
       return;
     exit(1);
@@ -46,7 +47,7 @@ void ssl_read_cert(void)
   {
     if (cred)
       gnutls_certificate_free_credentials(cred);
-    logit(LOG_SYS, "Can't read cert file %s key file %s: %s\n", CERTFILE, KEYFILE,
+    YELL("Can't read cert file %s key file %s: %s\n", CERTFILE, KEYFILE,
           gnutls_strerror(err));
     if (x509_cred)
       return;
