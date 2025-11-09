@@ -592,12 +592,16 @@ void sql_update_account_character(P_char ch)
   mysql_str(ch->player.name, char_name_sql);
 
   // Insert or update account_characters mapping
-  // Using REPLACE to handle both insert and update cases
+  // Using INSERT...ON DUPLICATE KEY UPDATE to preserve created_at for existing records
   db_query(
-    "REPLACE INTO account_characters "
+    "INSERT INTO account_characters "
     "(account_name, pid, char_name, created_at, deleted_at) "
-    "VALUES('%s', %ld, '%s', COALESCE((SELECT created_at FROM account_characters WHERE pid = %ld), NOW()), NULL)",
-    account_name_sql, GET_PID(ch), char_name_sql, GET_PID(ch)
+    "VALUES('%s', %ld, '%s', NOW(), NULL) "
+    "ON DUPLICATE KEY UPDATE "
+    "account_name = VALUES(account_name), "
+    "char_name = VALUES(char_name), "
+    "deleted_at = NULL",
+    account_name_sql, GET_PID(ch), char_name_sql
   );
 }
 

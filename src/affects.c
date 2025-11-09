@@ -4130,12 +4130,12 @@ bool falling_obj(P_obj obj, int speed, bool caller_is_event)
       world[obj->loc.room].dir_option[DIR_DOWN] = exit = NULL;
     }
     // At this point, we know that, if exit exists, it doesn't lead to NOWHERE.
-    if(  ( world[obj->loc.room].sector_type == SECT_NO_GROUND )
-      || ( world[obj->loc.room].sector_type == SECT_UNDRWLD_NOGROUND ) && !exit )
+    if( ( ( world[obj->loc.room].sector_type == SECT_NO_GROUND )
+      || ( world[obj->loc.room].sector_type == SECT_UNDRWLD_NOGROUND ) ) && !exit )
     {
       logit(LOG_DEBUG, "Room (%d) has sector type NOGROUND but has no valid 'down' exit.",
         world[obj->loc.room].number, obj_index[obj->R_num].virtual_number);
-      world[obj->loc.room].sector_type == SECT_INSIDE;
+      world[obj->loc.room].sector_type = SECT_INSIDE;
     }
     // If we didn't pass the room-sector criteria to start falling.
     if( !sect_check )
