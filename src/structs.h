@@ -2447,6 +2447,7 @@ struct TimedShutdownData
   }
   eShutdownType;
   char IssuedBy[50];
+  char Reason[256];
 };
 
 #define REG_TROLL       0
