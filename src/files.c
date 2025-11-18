@@ -5135,12 +5135,12 @@ P_char restoreShopKeeper(int id)
 
 void restore_shopkeepers(void)
 {
-  FILE    *flist;
   char     Gbuf1[MAX_STRING_LENGTH], Gbuf2[MAX_STRING_LENGTH];
   char     Gbuf3[MAX_STRING_LENGTH];
   int      load_room;
   P_char   mob, keeper2;
   struct stat statbuf;
+  struct dirent *de;
 
   snprintf(Gbuf1, MAX_STRING_LENGTH, "%s/ShopKeepers", SAVE_DIR);
   if (stat(Gbuf1, &statbuf) == -1)
@@ -5148,25 +5148,17 @@ void restore_shopkeepers(void)
     perror("ShopKeepers dir");
     return;
   }
-  snprintf(Gbuf2, MAX_STRING_LENGTH, "%s/shop_list", SAVE_DIR);
-  if (stat(Gbuf2, &statbuf) == 0)
-  {
-    unlink(Gbuf2);
-  }
-  else if (errno != ENOENT)
-  {
-    perror("shop_list");
-    return;
-  }
-  snprintf(Gbuf3, MAX_STRING_LENGTH, "/bin/ls -1 %s > %s", Gbuf1, Gbuf2);
-  system(Gbuf3);
-  flist = fopen(Gbuf2, "r");
-  if (!flist)
-    return;
+  DIR *dir = opendir(Gbuf1);
+  if (!dir)
+    return perror("shop_list");
 
-  while (fscanf(flist, " %s \n", Gbuf2) != EOF)
+  while ((de = readdir(dir)))
   {
-    if ((mob = restoreShopKeeper(atoi(Gbuf2))))
+    if (de->d_name[0] == '.') // . .. .gitignore
+      continue;
+
+    int num = atoi(de->d_name);
+    if ((mob = restoreShopKeeper(num)))
     {
       load_room = real_room(GET_BIRTHPLACE(mob));
       if (load_room != NOWHERE)
@@ -5183,16 +5175,17 @@ void restore_shopkeepers(void)
       else
       {
         logit(LOG_DEBUG,
-              "Could not load ShopKeeper #%s due to bad load_room!", Gbuf2);
+              "Could not load ShopKeeper #%d due to bad load_room!", num);
       }
-      deleteShopKeeper(atoi(Gbuf2));
+      deleteShopKeeper(num);
     }
     else
     {
-      logit(LOG_DEBUG, "Could not load ShopKeeper #%s!", Gbuf2);
-      return;
+      logit(LOG_DEBUG, "Could not load ShopKeeper #%s!", de->d_name);
+      break;
     }
   }
+  closedir(dir);
 }
 
 void restore_allpets(void)
