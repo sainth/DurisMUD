@@ -2028,10 +2028,9 @@ int deleteCharacter(P_char ch, bool bDeleteLocker)
     remove_char_from_list(ch->desc->account, ch->player.name);
 #endif
 
-  snprintf(Gbuf1, MAX_STRING_LENGTH, "%s/%c/%s", SAVE_DIR, *name, name );
-  strcpy( Gbuf2, Gbuf1 );
-  snprintf(Gbuf2, MAX_STRING_LENGTH, "mv -f %s %s.old", Gbuf1, Gbuf1 );
-  system( Gbuf2 );
+  snprintf(Gbuf1, sizeof Gbuf1, "%s/%c/%s", SAVE_DIR, *name, name);
+  snprintf(Gbuf2, sizeof Gbuf2, "%s.old", Gbuf1);
+  rename(Gbuf1, Gbuf2);
   if ((f = fopen( Gbuf1, "r" )))
   {
     debug( "deleteCharacter: Error: pfile (%s) still exists.", Gbuf1 );
@@ -2043,31 +2042,19 @@ int deleteCharacter(P_char ch, bool bDeleteLocker)
   if( bDeleteLocker )
   {
     // delete the locker as well
-    snprintf(Gbuf1, MAX_STRING_LENGTH, "%s/%c/%s.locker", SAVE_DIR, LOWER(*ch->player.name), name );
-    snprintf(Gbuf2, MAX_STRING_LENGTH, "mv -f %s %s.bak", Gbuf1, Gbuf1 );
-    if ((f = fopen( Gbuf1, "r" )))
-    {
-      fclose( f );
-      system( Gbuf2 );
-    }
+    snprintf(Gbuf1, sizeof Gbuf1, "%s/%c/%s.locker", SAVE_DIR, LOWER(*ch->player.name), name);
+    snprintf(Gbuf2, sizeof Gbuf2, "%s.bak", Gbuf1);
+    rename(Gbuf1, Gbuf2);
   }
 
   // Delete file containing conjurable mobs.
-  snprintf(Gbuf1, MAX_STRING_LENGTH, "%s/%c/%s.spellbook", SAVE_DIR, LOWER(*ch->player.name), name);
-  if ((f = fopen( Gbuf1, "r" )))
-  {
-    fclose( f );
-    snprintf(Gbuf2, MAX_STRING_LENGTH, "mv -f %s %s.bak", Gbuf1, Gbuf1 );
-    system( Gbuf2 );
-  }
+  snprintf(Gbuf1, sizeof Gbuf1, "%s/%c/%s.spellbook", SAVE_DIR, LOWER(*ch->player.name), name);
+  snprintf(Gbuf2, sizeof Gbuf2, "%s.bak");
+  rename(Gbuf1, Gbuf2);
   // Delete file containing crafting/forging recipe list.
-  snprintf(Gbuf1, MAX_STRING_LENGTH, "%s/Tradeskills/%c/%s.crafting", SAVE_DIR, LOWER(*ch->player.name), name);
-  if ((f = fopen( Gbuf1, "r" )))
-  {
-    fclose( f );
-    snprintf(Gbuf2, MAX_STRING_LENGTH, "mv -f %s %s.bak", Gbuf1, Gbuf1 );
-    system( Gbuf2 );
-  }
+  snprintf(Gbuf1, sizeof Gbuf1, "%s/Tradeskills/%c/%s.crafting", SAVE_DIR, LOWER(*ch->player.name), name);
+  snprintf(Gbuf2, sizeof Gbuf2, "%s.bak");
+  rename(Gbuf1, Gbuf2);
 
   // Delete ship.
   delete_ship( GET_NAME(ch) );
@@ -5771,12 +5758,12 @@ void moveToBackup( char *name )
 {
   char lowername[20];
   char filename[512];
-  char command[1024];
+  char newname[1024];
 
   strcpy( lowername, name );
   lowername[0] = LOWER(name[0]);
 
-  snprintf(filename, 512, "%s/%c/%s", SAVE_DIR, lowername[0], lowername );
-  snprintf(command, 1024, "mv -f %s %s.bak", filename, filename );
-  system( command );
+  snprintf(filename, sizeof filename, "%s/%c/%s", SAVE_DIR, lowername[0], lowername );
+  snprintf(newname, sizeof newname, "%s.bak", filename);
+  rename(filename, newname);
 }
