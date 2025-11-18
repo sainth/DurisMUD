@@ -7646,7 +7646,7 @@ void spell_slow(int level, P_char ch, char *arg, int type, P_char victim,
   {
     bzero(&af, sizeof(af));
     af.type = SPELL_SLOW;
-    af.duration = (level >> 4 + 1);
+    af.duration = (level >> 4) + 1;
     af.modifier = 2;
     af.bitvector2 = AFF2_SLOW;
 
