@@ -1114,10 +1114,12 @@ void get_property_format(const char *input, char *formatted)
   {
     if (isspace(c))
       was_space = true;
-    else if (was_space) {
+    else if (was_space)
+    {
       *formatted++ = toupper(c);
       was_space = false;
-    } else
+    }
+    else
       *formatted++ = c;
   }
 
