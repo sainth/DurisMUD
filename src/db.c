@@ -1159,236 +1159,250 @@ P_index generate_indices(FILE * fl, int *top)
 /* load the rooms */
 void boot_world(int mini_mode)
 {
-  FILE    *fl;
-  int      num_rooms, room_nr = 0, zone = 0, virtual_nr, flag;
-  int      tmp = 0, tmp1 = 0, tmp2 = 0, tmp3 = 0, i, name_length, desc_length;
-  char     chk[MAX_STRING_LENGTH], tmp_buf[MAX_STRING_LENGTH];
-  char     buf[MAX_INPUT_LENGTH];
-  char     name_buf[MAX_STRING_LENGTH], desc_buf[MAX_STRING_LENGTH];
-  struct extra_descr_data *new_descr;
-  bool     found_name, found_desc;
+	FILE *fl;
+	int num_rooms, room_nr = 0, zone = 0, virtual_nr, flag;
+	int tmp = 0, tmp1 = 0, tmp2 = 0, tmp3 = 0, i, name_length, desc_length;
+	char chk[MAX_STRING_LENGTH], tmp_buf[MAX_STRING_LENGTH];
+	char buf[MAX_INPUT_LENGTH];
+	char name_buf[MAX_STRING_LENGTH], desc_buf[MAX_STRING_LENGTH];
+	struct extra_descr_data *new_descr;
+	bool found_name, found_desc;
 
-  world = 0;
-  character_list = 0;
-  object_list = 0;
+	world = 0;
+	character_list = 0;
+	object_list = 0;
 
-  if (mini_mode != 1)
-  {
-    if (!(fl = fopen(WORLD_FILE, "r")))
-    {
-      perror("fopen");
-      logit(LOG_FILE, "boot_world: could not open world file.");
-      logit(LOG_SYS, "boot_world: could not open world file.");
-      raise(SIGSEGV);
-    }
-  }
-  else if (mini_mode == 1)
-  {
-    if (!(fl = fopen("areas/mini.wld", "r")))
-    {
-      perror("fopen");
-      raise(SIGSEGV);
-    }
-  }
-  /* Count the number of rooms, to make allocation more efficient!! */
-  num_rooms = 0;
-  for (;;)
-  {
-    fgets(tmp_buf, MAX_STRING_LENGTH, fl);
-    if (tmp_buf[0] == '$')
-      break;
-    if (tmp_buf[0] == '#')
-      num_rooms++;
-  }
+	if (mini_mode != 1)
+	{
+		if (!(fl = fopen(WORLD_FILE, "r")))
+		{
+			perror("fopen");
+			logit(LOG_FILE, "boot_world: could not open world file.");
+			logit(LOG_SYS, "boot_world: could not open world file.");
+			raise(SIGSEGV);
+		}
+	}
+	else if (mini_mode == 1)
+	{
+		if (!(fl = fopen("areas/mini.wld", "r")))
+		{
+			perror("fopen");
+			raise(SIGSEGV);
+		}
+	}
 
-  logit(LOG_STATUS, "\t\t%d rooms allocated", num_rooms);
-  rewind(fl);
+	fseek(fl, 0, SEEK_END);
+	size_t fsize = ftell(fl);
 
-  /* Allocate array of room structures */
-  CREATE(world, room_data, (unsigned) num_rooms, MEM_TAG_ROOMDAT);
+	char *memBuf = (char *)malloc(fsize);
+	char *seekPtr = memBuf;
 
-  logit(LOG_STATUS, "\t\tMemory allocation complete");
+	fseek(fl, 0, SEEK_SET);
+	size_t bytesRead = fread(memBuf, sizeof(char), fsize, fl);
+	fclose(fl);
 
-  /*
-   * allocate array of pointers to pointers for list of unique room
-   * descs, this list will speed searching.  It is freed after all rooms
-   * are read into memory.  The point?  Duplicate room descs are only
-   * allocated once. All rooms with identical descs will all use the
-   * same desc (mainly oceans, but there are other duplications as
-   * well). JAB
-   */
+	fl = fmemopen(memBuf, fsize, "r");
 
-  do
-  {
-    fscanf(fl, " #%d\n", &virtual_nr);
-    if (mini_mode == 2)
-      fprintf(stderr, "#%d  ", virtual_nr);
+	/* Count the number of rooms, to make allocation more efficient!! */
+	num_rooms = 0;
+	for (;;)
+	{
+		fgets(tmp_buf, MAX_STRING_LENGTH, fl);
+		if (tmp_buf[0] == '$')
+			break;
+		if (tmp_buf[0] == '#')
+			num_rooms++;
+	}
 
-    name_length = fread_string_to_buffer(fl, name_buf);
-    if ((flag = (*name_buf != '$')))
-    {                           /* a new record to be read */
-      world[room_nr].number = virtual_nr;
-      desc_length = fread_string_to_buffer(fl, desc_buf);
-      found_name = FALSE;
-      found_desc = (desc_length == 0);
-      // code looking up duplicate room names and descriptions to save memory
-      for (i = room_nr - 1; i > (zone ? zone_table[zone - 1].real_top + 1 : 0)
-           && (!found_name || !found_desc) && room_nr - i < 102; i--)
-      {
-        if (!found_name && !strcmp(name_buf, world[i].name))
-        {
-          world[room_nr].name = world[i].name;
-          found_name = TRUE;
-        }
-        if (!found_desc && world[i].description &&
-            !strcmp(desc_buf, world[i].description))
-        {
-          world[room_nr].description = world[i].description;
-          found_desc = TRUE;
-        }
-      }
-      // end of memory preserving code
+	logit(LOG_STATUS, "\t\t%d rooms allocated", num_rooms);
+	rewind(fl);
 
-      if (!found_name)
-      {
-        CREATE(world[room_nr].name, char, (unsigned) name_length + 1, MEM_TAG_STRING);
-//        world[room_nr].name = (char *) calloc(name_length + 1, sizeof(char));
-        strcpy(world[room_nr].name, name_buf);
-      }
-      if (!found_desc)
-      {
-        CREATE(world[room_nr].description, char, (unsigned) desc_length + 1, MEM_TAG_STRING);
-//        world[room_nr].description =
-//          (char *) calloc(desc_length + 1, sizeof(char));
-        strcpy(world[room_nr].description, desc_buf);
-      }
+	/* Allocate array of room structures */
+	CREATE(world, room_data, (unsigned)num_rooms, MEM_TAG_ROOMDAT);
 
-      /* A few presets, may get changed further down */
+	logit(LOG_STATUS, "\t\tMemory allocation complete");
 
-/*      world[room_nr].resources = 0;
-      world[room_nr].kingdom_num = 0;
-      world[room_nr].kingdom_type = 0;*/
-      world[room_nr].continent = 0;
-      world[room_nr].funct = 0;
-      world[room_nr].contents = 0;
-      world[room_nr].people = 0;
-      world[room_nr].light = 0;
-      world[room_nr].justice_area = 0;
-      for (tmp = 0; tmp <= (NUM_EXITS - 1); tmp++)
-        world[room_nr].dir_option[tmp] = 0;
-      world[room_nr].ex_description = 0;
-      world[room_nr].chance_fall = 0;
-      world[room_nr].current_speed = 0;
-      world[room_nr].current_direction = -1;
-      if (top_of_zone_table >= 0)
-      {
-        if (world[room_nr].number <= (zone ? zone_table[zone - 1].top : -1))
-        {
-          logit(LOG_DEBUG, "Room nr %d (%d) is below zone %d.\n",
-                room_nr, world[room_nr].number, zone);
-          raise(SIGSEGV);
-        }
-        while (world[room_nr].number > zone_table[zone].top)
-          if (++zone > top_of_zone_table)
-          {
-            logit(LOG_DEBUG, "Room %d is outside of any zone.\n", virtual_nr);
-            raise(SIGSEGV);
-          }
-        world[room_nr].zone = zone;
-        if (zone_table[zone].real_bottom == -1)
-          zone_table[zone].real_bottom = room_nr;
-        zone_table[zone].real_top = room_nr;
-      }
+	/*
+	 * allocate array of pointers to pointers for list of unique room
+	 * descs, this list will speed searching.  It is freed after all rooms
+	 * are read into memory.  The point?  Duplicate room descs are only
+	 * allocated once. All rooms with identical descs will all use the
+	 * same desc (mainly oceans, but there are other duplications as
+	 * well). JAB
+	 */
 
-      /* tmp is the zone. Never used, and don't ask why :P */
+	do
+	{
+		fscanf(fl, " #%d\n", &virtual_nr);
+		if (mini_mode == 2)
+			fprintf(stderr, "#%d  ", virtual_nr);
 
-      fgets(buf, sizeof(buf) - 1, fl);
-      if (sscanf(buf, " %d %d %d %d\n", &tmp, &tmp1, &tmp2, &tmp3) == 4)
-      {
-        world[room_nr].room_flags = tmp1;
-        world[room_nr].sector_type = tmp2;
-//        world[room_nr].resources = tmp3;
-      }
-      else if (sscanf(buf, " %d %d %d\n", &tmp, &tmp1, &tmp2) == 3)
-      {
-        world[room_nr].room_flags = tmp1;
-        world[room_nr].sector_type = tmp2;
-      }
-      /* fix a few things */
+		name_length = fread_string_to_buffer(fl, name_buf);
+		if ((flag = (*name_buf != '$')))
+		{ /* a new record to be read */
+			world[room_nr].number = virtual_nr;
+			desc_length = fread_string_to_buffer(fl, desc_buf);
+			found_name = FALSE;
+			found_desc = (desc_length == 0);
+			// code looking up duplicate room names and descriptions to save memory
+			for (i = room_nr - 1; i > (zone ? zone_table[zone - 1].real_top + 1 : 0) && (!found_name || !found_desc) && room_nr - i < 102; i--)
+			{
+				if (!found_name && !strcmp(name_buf, world[i].name))
+				{
+					world[room_nr].name = world[i].name;
+					found_name = TRUE;
+				}
+				if (!found_desc && world[i].description &&
+					!strcmp(desc_buf, world[i].description))
+				{
+					world[room_nr].description = world[i].description;
+					found_desc = TRUE;
+				}
+			}
+			// end of memory preserving code
 
-      if (IS_ROOM(room_nr, ROOM_NO_MAGIC))
-        if (!IS_ROOM(room_nr, ROOM_NO_SUMMON))
-          SET_BIT(world[room_nr].room_flags, ROOM_NO_SUMMON);
-      if (IS_ROOM(room_nr, ROOM_JAIL))
-        if (!IS_ROOM(room_nr, ROOM_SAFE))
-          SET_BIT(world[room_nr].room_flags, ROOM_SAFE);
-      if ((zone_table[zone].flags & ZONE_MAP) && (SECT_CITY == world[room_nr].sector_type))
-        world[room_nr].sector_type = SECT_ROAD;
+			if (!found_name)
+			{
+				CREATE(world[room_nr].name, char, (unsigned)name_length + 1, MEM_TAG_STRING);
+				//        world[room_nr].name = (char *) calloc(name_length + 1, sizeof(char));
+				strcpy(world[room_nr].name, name_buf);
+			}
+			if (!found_desc)
+			{
+				CREATE(world[room_nr].description, char, (unsigned)desc_length + 1, MEM_TAG_STRING);
+				//        world[room_nr].description =
+				//          (char *) calloc(desc_length + 1, sizeof(char));
+				strcpy(world[room_nr].description, desc_buf);
+			}
 
-      //Make roads no gate..
-      if( world[room_nr].sector_type == SECT_ROAD){
-        SET_BIT(world[room_nr].room_flags, ROOM_NO_GATE);
-        SET_BIT(world[room_nr].room_flags, ROOM_NO_TELEPORT);
-      }
-        //ADD NO PORT
+			/* A few presets, may get changed further down */
 
-      for (;;)
-      {
-        fscanf(fl, " %s \n", chk);
+			/*      world[room_nr].resources = 0;
+				  world[room_nr].kingdom_num = 0;
+				  world[room_nr].kingdom_type = 0;*/
+			world[room_nr].continent = 0;
+			world[room_nr].funct = 0;
+			world[room_nr].contents = 0;
+			world[room_nr].people = 0;
+			world[room_nr].light = 0;
+			world[room_nr].justice_area = 0;
+			for (tmp = 0; tmp <= (NUM_EXITS - 1); tmp++)
+				world[room_nr].dir_option[tmp] = 0;
+			world[room_nr].ex_description = 0;
+			world[room_nr].chance_fall = 0;
+			world[room_nr].current_speed = 0;
+			world[room_nr].current_direction = -1;
+			if (top_of_zone_table >= 0)
+			{
+				if (world[room_nr].number <= (zone ? zone_table[zone - 1].top : -1))
+				{
+					logit(LOG_DEBUG, "Room nr %d (%d) is below zone %d.\n",
+						  room_nr, world[room_nr].number, zone);
+					raise(SIGSEGV);
+				}
+				while (world[room_nr].number > zone_table[zone].top)
+					if (++zone > top_of_zone_table)
+					{
+						logit(LOG_DEBUG, "Room %d is outside of any zone.\n", virtual_nr);
+						raise(SIGSEGV);
+					}
+				world[room_nr].zone = zone;
+				if (zone_table[zone].real_bottom == -1)
+					zone_table[zone].real_bottom = room_nr;
+				zone_table[zone].real_top = room_nr;
+			}
 
-        if (*chk == 'D')        /* direction field  */
-          setup_dir(fl, room_nr, atoi(chk + 1));
-        else if (*chk == 'E')
-        {                       /* extra description field */
-          CREATE(new_descr, struct extra_descr_data, 1, MEM_TAG_EXDESCD);
-          new_descr->keyword = fread_string(fl);
-          new_descr->description = fread_string(fl);
-          new_descr->next = world[room_nr].ex_description;
-          world[room_nr].ex_description = new_descr;
-        }
-        else if (*chk == 'F')
-        {
-          fscanf(fl, "%d ", &tmp);
-          world[room_nr].chance_fall = tmp;
-        }
-        else if (*chk == 'C')
-        {
-          fscanf(fl, "%d %d ", &tmp, &tmp2);
-          world[room_nr].current_speed = tmp;
-          world[room_nr].current_direction = tmp2;
-        }
-        else if (*chk == 'S')
-          break;
-      }
-      if (world[room_nr].sector_type == SECT_INSIDE)
-      {
-        SET_BIT(world[room_nr].room_flags, ROOM_INDOORS);
-        SET_BIT(world[room_nr].room_flags, ROOM_NO_PRECIP);
-      }
-      if ((world[room_nr].sector_type == SECT_NO_GROUND) &&
-          (!world[room_nr].dir_option[5] ||
-           (world[room_nr].dir_option[5]->to_room == room_nr)))
-      {
-        world[room_nr].sector_type = SECT_INSIDE;
-      }
-      if ((world[room_nr].chance_fall > 0) &&
-          (!world[room_nr].dir_option[5] ||
-           (world[room_nr].dir_option[5]->to_room == room_nr)))
-      {
-        world[room_nr].chance_fall = 0;
-      }
-      if (world[room_nr].room_flags & ROOM_INN)
-        world[room_nr].funct = inn;
+			/* tmp is the zone. Never used, and don't ask why :P */
 
-      room_nr++;
-    }
-  }
-  while (flag);
+			fgets(buf, sizeof(buf) - 1, fl);
+			if (sscanf(buf, " %d %d %d %d\n", &tmp, &tmp1, &tmp2, &tmp3) == 4)
+			{
+				world[room_nr].room_flags = tmp1;
+				world[room_nr].sector_type = tmp2;
+				//        world[room_nr].resources = tmp3;
+			}
+			else if (sscanf(buf, " %d %d %d\n", &tmp, &tmp1, &tmp2) == 3)
+			{
+				world[room_nr].room_flags = tmp1;
+				world[room_nr].sector_type = tmp2;
+			}
+			/* fix a few things */
 
-  fclose(fl);
-  top_of_world = --room_nr;
+			if (IS_ROOM(room_nr, ROOM_NO_MAGIC))
+				if (!IS_ROOM(room_nr, ROOM_NO_SUMMON))
+					SET_BIT(world[room_nr].room_flags, ROOM_NO_SUMMON);
+			if (IS_ROOM(room_nr, ROOM_JAIL))
+				if (!IS_ROOM(room_nr, ROOM_SAFE))
+					SET_BIT(world[room_nr].room_flags, ROOM_SAFE);
+			if ((zone_table[zone].flags & ZONE_MAP) && (SECT_CITY == world[room_nr].sector_type))
+				world[room_nr].sector_type = SECT_ROAD;
 
-  recalc_zone_numbers();
+			// Make roads no gate..
+			if (world[room_nr].sector_type == SECT_ROAD)
+			{
+				SET_BIT(world[room_nr].room_flags, ROOM_NO_GATE);
+				SET_BIT(world[room_nr].room_flags, ROOM_NO_TELEPORT);
+			}
+			// ADD NO PORT
+
+			for (;;)
+			{
+				fscanf(fl, " %s \n", chk);
+
+				if (*chk == 'D') /* direction field  */
+					setup_dir(fl, room_nr, atoi(chk + 1));
+				else if (*chk == 'E')
+				{ /* extra description field */
+					CREATE(new_descr, struct extra_descr_data, 1, MEM_TAG_EXDESCD);
+					new_descr->keyword = fread_string(fl);
+					new_descr->description = fread_string(fl);
+					new_descr->next = world[room_nr].ex_description;
+					world[room_nr].ex_description = new_descr;
+				}
+				else if (*chk == 'F')
+				{
+					fscanf(fl, "%d ", &tmp);
+					world[room_nr].chance_fall = tmp;
+				}
+				else if (*chk == 'C')
+				{
+					fscanf(fl, "%d %d ", &tmp, &tmp2);
+					world[room_nr].current_speed = tmp;
+					world[room_nr].current_direction = tmp2;
+				}
+				else if (*chk == 'S')
+					break;
+			}
+			if (world[room_nr].sector_type == SECT_INSIDE)
+			{
+				SET_BIT(world[room_nr].room_flags, ROOM_INDOORS);
+				SET_BIT(world[room_nr].room_flags, ROOM_NO_PRECIP);
+			}
+			if ((world[room_nr].sector_type == SECT_NO_GROUND) &&
+				(!world[room_nr].dir_option[5] ||
+				 (world[room_nr].dir_option[5]->to_room == room_nr)))
+			{
+				world[room_nr].sector_type = SECT_INSIDE;
+			}
+			if ((world[room_nr].chance_fall > 0) &&
+				(!world[room_nr].dir_option[5] ||
+				 (world[room_nr].dir_option[5]->to_room == room_nr)))
+			{
+				world[room_nr].chance_fall = 0;
+			}
+			if (world[room_nr].room_flags & ROOM_INN)
+				world[room_nr].funct = inn;
+
+			room_light(room_nr, REAL);
+			room_nr++;
+		}
+	} while (flag);
+
+	fclose(fl);
+	free(memBuf);
+	top_of_world = --room_nr;
+
+	recalc_zone_numbers();
 }
 
 void free_world()

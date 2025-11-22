@@ -752,7 +752,7 @@ void ne_init_events(void)
 
     if (zone_table[j].reset_mode)
     {
-      add_event(event_reset_zone, i, 0, 0, 0, 0, &j, sizeof(j));
+	add_event(event_reset_zone, i, 0, 0, 0, 0, &j, sizeof(j));
     }
 
     // The value 2 means that this is a boot-time initial zone reset.
@@ -792,14 +792,9 @@ void ne_init_events(void)
   add_event(event_write_statistic, 15 * WAIT_SEC, NULL, NULL, NULL, 0, NULL, 0);
   //AddEvent(EVENT_SPECIAL, 60, TRUE, write_statistic, NULL);
 
-
   /* miscellaneous character looping */
   add_event(generic_char_event, 20 * WAIT_SEC, NULL, NULL, NULL, 0, NULL, 0);
   //AddEvent(EVENT_SPECIAL, 20 * 4, FALSE, generic_char_event, 0);
-
-  /* rather than add a new function, set initial room light values here */
-  for( j = 0; j < top_of_world; j++ )
-    room_light(j, REAL);
 
   // Checks to see if artifact souls are ready to merge.
   add_event( event_artifact_check_bind_sql, 15 * WAIT_SEC, NULL, NULL, NULL, 0, NULL, 0 );

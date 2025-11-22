@@ -1086,23 +1086,23 @@ __attribute__((deprecated)) bool Schedule(int type, long pulses, int flag, void 
   return TRUE;
 }
 
-void event_reset_zone(P_char ch, P_char victim, P_obj obj, void *data) 
+void event_reset_zone(P_char ch, P_char victim, P_obj obj, void *data)
 {
-  int zone = *((int*)data);
-  zone_table[zone].age++;
+	int zone = *((int *)data);
+	zone_table[zone].age++;
 
-  if (zone_table[zone].age >= zone_table[zone].lifespan &&
-     (zone_table[zone].reset_mode == 2 || ::is_empty(zone)))
-  {
-    reset_zone(zone, 0);
-  }
-  else if(!zone_table[zone].reset_mode)
-  {
-    no_reset_zone_reset(zone);
-    return;
-  }
+        if (zone_table[zone].age >= zone_table[zone].lifespan &&
+		(zone_table[zone].reset_mode == 2 || ::is_empty(zone)))
+	{
+		reset_zone(zone, 0);
+	}
+	else if (!zone_table[zone].reset_mode)
+	{
+		no_reset_zone_reset(zone);
+		return;
+	}
 
-  add_event(event_reset_zone, PULSES_IN_TICK, 0, 0, 0, 0, &zone, sizeof(zone));
+	add_event(event_reset_zone, PULSES_IN_TICK, 0, 0, 0, 0, &zone, sizeof(zone));
 }
 
 /*
