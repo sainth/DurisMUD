@@ -2211,6 +2211,7 @@ int process_output(P_desc t)
   int      i, j, k, bg = 0;
   snoop_by_data *snoop_by_ptr;
   P_char   realChar = t->original ? t->original : t->character;
+  string   descbuf;
 
   bool text = t->output.head;
 
@@ -2219,10 +2220,7 @@ int process_output(P_desc t)
     || (t->prompt_mode != PLR_FLAGGED(realChar, PLR_OLDSMARTP)))) )
   {
     if( !t->snoop.snooping || !t->snoop.snooping->desc || !t->snoop.snooping->desc->prompt_mode)
-    if( write_to_descriptor(t, "\r\n") < 0 )
-    {
-      return (-1);
-    }
+      descbuf += "\r\n";
   }
 
   if (text && !t->connected && t->character &&
@@ -2387,10 +2385,11 @@ int process_output(P_desc t)
 
     buffer[j] = '\0';
 
-
-    if (write_to_descriptor(t, buffer) < 0)
-      return (-1);
+    descbuf += buffer;
   }
+
+  if (write_to_descriptor(t, descbuf.c_str()) < 0)
+      return (-1);
 
   return (1);
 }
