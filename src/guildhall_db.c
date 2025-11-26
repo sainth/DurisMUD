@@ -297,7 +297,7 @@ bool save_guildhall(Guildhall *gh)
   return TRUE;
 #else  
   if(!qry("replace into guildhalls (id, assoc_id, type, outside_vnum, racewar) values (%d, %d, %d, %d, %d)",
-          gh->id, gh->guild, gh->type, gh->outside_vnum, gh->racewar))
+          gh->id, gh->guild->get_id(), gh->type, gh->outside_vnum, gh->racewar))
   {
     logit(LOG_GUILDHALLS, "save_guildhall(): replace query failed!");
     return FALSE;
@@ -333,7 +333,7 @@ bool save_guildhall_room(GuildhallRoom *room)
   if(!qry("replace into guildhall_rooms (id, vnum, guildhall_id, name, type, value0, value1, value2, value3, value4, value5, value6, value7, exit0, exit1, exit2, exit3, exit4, exit5, exit6, exit7, exit8, exit9) values (%d, %d, %d, '%s', %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d)",
           room->id,
           room->vnum, 
-          room->guild->get_id(), 
+          room->guildhall->id, 
           escape_str(room->name.c_str()).c_str(), 
           room->type, 
           room->value[0], 

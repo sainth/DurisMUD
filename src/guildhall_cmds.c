@@ -1248,7 +1248,7 @@ void guildhall_info(Guildhall *gh, P_char ch)
   
   for( int i = 0; i < GH_GOLEM_NUM_SLOTS; i++ )
   {
-    if(gh->entrance_room->golems[i])
+    if(gh->entrance_room && gh->entrance_room->golems[i])
     {
       snprintf(buff, MAX_STRING_LENGTH, "&+W%d&n) %s &n(%s&n)\r\n", (i+1), pad_ansi(gh->entrance_room->golems[i]->player.short_descr, 30).c_str(), condition_str(gh->entrance_room->golems[i]));
       send_to_char(buff, ch);
