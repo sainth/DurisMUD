@@ -1530,15 +1530,7 @@ bool rename_spellbook( char *old_name, char *new_name )
   {
     fclose( file );
     // Move it to new_name.
-    snprintf(command, MAX_STRING_LENGTH, "mv -f %s %s", old_book, new_book );
-    if( system( command ) == 0 )
-    {
-      return TRUE;
-    }
-    else
-    {
-      return FALSE;
-    }
+    return !rename(old_book, new_book);
   }
 
   return TRUE;
@@ -1559,15 +1551,7 @@ bool rename_craftlist( char *old_name, char *new_name )
   {
     fclose( file );
     // Move it to new_name.
-    snprintf(command, MAX_STRING_LENGTH, "mv -f %s %s", old_book, new_book );
-    if( system( command ) == 0 )
-    {
-      return TRUE;
-    }
-    else
-    {
-      return FALSE;
-    }
+    return !rename(old_book, new_book);
   }
 
   return TRUE;
