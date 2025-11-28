@@ -2774,9 +2774,6 @@ int epic_store(P_char ch, P_char pl, int cmd, char *arg)
     // 6 - lantan tools
     else if(strstr(arg, "6"))
     {
-      // Gellz 08/02/2015 - Removed Lantan for now.
-      send_to_char("&+WKannard&+L &+wsays '&nI'm sorry, but due to such a high demand, those items seem to be temporarily out of stock.\r\n&n", pl);
-      return TRUE;
       // Check for the epics required for lantans..
       if( pl->only.pc->epics < COST_EPIC_LANTAN_TOOLS )
       {
