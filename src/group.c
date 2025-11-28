@@ -286,12 +286,13 @@ void do_group(P_char ch, char *argument, int cmd)
   argument_interpreter(argument, name, rank);
 
   /* display group list */
-
+  // Allow squids to group! --Eikel
+  /*
   if(ch && GET_RACE(ch) == RACE_ILLITHID)
   {
     send_to_char("You feel like being alone right now.\n", ch);
     return;
-  }
+  }*/
 
   if (!*name)
   {
@@ -309,11 +310,12 @@ void do_group(P_char ch, char *argument, int cmd)
     }
     else
     {
-      if (GET_RACE(ch) == RACE_ILLITHID)
+    // Allow Illithids to group!
+     /* if (GET_RACE(ch) == RACE_ILLITHID)
       {
         send_to_char("You feel like being alone right now.\n", ch);
         return;
-      }
+      }*/
 
       if (ch && ch->desc && ch->desc->term_type == TERM_MSP)
       {
