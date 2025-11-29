@@ -1333,7 +1333,7 @@ D4
 D5
 ~
 silt~
-7 38037 77262
+6 38037 77262
 S
 #77262
 &+yThe &+bOcean &+yFloor&n~
@@ -1345,6 +1345,10 @@ S
 &+bit and reaping its lost rewards.
 ~
 772 134250500 10
+D2
+~
+~
+0 0 420000
 D4
 ~
 silt~
