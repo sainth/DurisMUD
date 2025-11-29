@@ -347,6 +347,7 @@ mavulsk			  *1395
 hostel         		  *1400
 *surf                     *2000
 *underdark                *2100
+IC3			  *4200
 surface                   *5000
 underdark		  *7000
 *    end zone adds top_of_world marker
