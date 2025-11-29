@@ -125,7 +125,8 @@ void load_guildhalls(vector<Guildhall*>& guildhalls)
   {
     Guildhall *gh = new Guildhall();
     gh->id = atoi(row[0]);
-    gh->guild = get_guild_from_id(atoi(row[1]));
+	gh->assoc_id = atoi(row[1]);
+    gh->guild = get_guild_from_id(gh->assoc_id);
     gh->type = atoi(row[2]);
     gh->outside_vnum = atoi(row[3]);
     gh->racewar = atoi(row[4]);
@@ -170,7 +171,8 @@ void load_guildhall(int id, Guildhall *gh)
   }
 
   gh->id = atoi(row[0]);
-  gh->guild = get_guild_from_id(atoi(row[1]));
+  gh->assoc_id = atoi(row[1]);
+  gh->guild = get_guild_from_id(gh->assoc_id);
   gh->type = atoi(row[2]);
   gh->outside_vnum = atoi(row[3]);
   gh->racewar = atoi(row[4]);
@@ -252,6 +254,7 @@ void load_guildhall_rooms(Guildhall *guildhall)
 
     room->id = atoi(row[0]);
     room->vnum = atoi(row[1]);
+	room->assoc_id = guildhall->assoc_id;
     room->guild = guildhall->get_assoc();
     room->name = string(row[3]);
     room->type = atoi(row[4]);

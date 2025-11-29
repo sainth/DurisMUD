@@ -83,7 +83,7 @@ bool Guildhall::reload()
   clear_rooms();
   load_guildhall(id, this);
   load_guildhall_rooms(this);
-  guild = get_guild_from_id( id );
+  guild = get_guild_from_id( assoc_id );
 
   return this->init();
 }
@@ -324,6 +324,7 @@ void Guildhall::add_room(GuildhallRoom* room)
     return;
   }
 
+  room->assoc_id = this->assoc_id;
   room->guild = this->guild;
   room->guildhall = this;
   this->rooms.push_back(room);
@@ -337,6 +338,7 @@ bool Guildhall::init()
   // initialize rooms
   for( int i = 0; i < this->rooms.size(); i++ )
   {
+	this->rooms[i]->assoc_id = this->assoc_id;
     if( (this->rooms[i]->guild = this->guild) == NULL )
       raise(SIGSEGV);
 

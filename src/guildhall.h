@@ -135,6 +135,7 @@ Guildhall *find_gh_from_vnum( int room );
 struct GuildhallRoom {
   // fields stored in DB
   int id;
+  int assoc_id;
   int vnum;
   P_Guild guild;
   string name;
@@ -320,6 +321,7 @@ struct Guildhall {
 
   // fields stored in DB
   int id;
+  int assoc_id;
   P_Guild guild;
   int type;
   int outside_vnum;
