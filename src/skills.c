@@ -2734,6 +2734,7 @@ SPELL_ADD(CLASS_SUMMONER, 11);
                 spell_comprehend_languages, "You can no longer comprehend languages.");
 //   SPELL_ADD(CLASS_CLERIC, 4);
 //   SPELL_ADD(CLASS_WARLOCK, 4);
+     SPELL_ADD(CLASS_MINDFLAYER, 4);
 
 #if 0
   SPELL_ADD(CLASS_SORCERER, 5);

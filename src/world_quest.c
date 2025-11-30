@@ -405,11 +405,12 @@ void do_quest(P_char ch, char *args, int cmd)
     return;
   }
 
-  if( IS_ILLITHID(ch) )
+ // Allow Illithids to do bartender quests.
+ /* if( IS_ILLITHID(ch) )
   {
     send_to_char("No quests for you!", ch);
     return;
-  }
+  }*/
 
   half_chop(args, name, who);
   if( *name )
