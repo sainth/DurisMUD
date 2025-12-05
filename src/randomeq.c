@@ -1096,7 +1096,7 @@ P_obj create_random_eq_new( P_char killer, P_char mob, int object_type, int mate
   // Max: ((11 * 1.21 * 5.00) + (2 * 11)) / 3 = 88.55 / 3 = 29.
 
   int maxValue = GET_LEVEL(mob) > 60 ? 8 : GET_LEVEL(mob) > 49 ? 6
-									   : GET_LEVEL(mob) > 35   ? 5
+									     : GET_LEVEL(mob) > 35 ? 5
 															   : 4;
   // Item Attributes
   if( !number(0, 5) && (GET_LEVEL(mob) > 49) )
@@ -1105,17 +1105,17 @@ P_obj create_random_eq_new( P_char killer, P_char mob, int object_type, int mate
     // (10 * .5 * .2 + 0) to (65 * 1.5 * 1.7 + 20) = 1 to 185
     value = (int) (material_data[material].m_stat * prefix_data[prefix].m_stat * slot_data[slot].m_stat + number(0, 20));
     // 1 to 185. When we divide by 30, we get 0 to 6.
-    obj = setprefix_obj(obj, dice( value / 30, maxValue), 2);
+    obj = setprefix_obj(obj, number(value / 30, maxValue), 2);
   }
   if( !number(0, 2) && (GET_LEVEL(mob) > 20) )
   {
     value = (int) (material_data[material].m_stat * prefix_data[prefix].m_stat * slot_data[slot].m_stat + number(0, 20));
     // 1 to 185. When we divide by 36, we get 0 to 5.
-    obj = setprefix_obj(obj, dice( value / 36, maxValue), 1);
+    obj = setprefix_obj(obj, number(value / 36, maxValue), 1);
   }
   value = (int) (material_data[material].m_stat * prefix_data[prefix].m_stat * slot_data[slot].m_stat + number(0, 20));
   // 1 to 185. When we divide by 46, we get 0 to 4.
-  obj = setprefix_obj(obj, dice( value / 46, maxValue), 0);
+  obj = setprefix_obj(obj, number(value / 46, maxValue), 0);
 
 
   obj->material = material_data[material].m_number;
@@ -1389,135 +1389,165 @@ P_obj setsuffix_obj_new(P_obj obj)
 
 P_obj setprefix_obj(P_obj obj, float modifier, int affectnumber)
 {
+	if( (int)modifier == 0 )
+	{
+    	obj->affected[affectnumber].location = APPLY_NONE;
+	}
+	else
+	{
+		int inUse[ARRAY_SIZE(obj->affected)];
+		int i;
+		bool reroll = true;
+		float modOriginal = modifier;
 
-  switch( number(0, 30) )
-  {
-  case 0:
-    obj->affected[affectnumber].location = APPLY_HITROLL;
-    modifier = (int) (modifier * 1.2);
-    break;
-  case 1:
-    obj->affected[affectnumber].location = APPLY_STR;
-    modifier = (int) (modifier * 2);
-    break;
-  case 2:
-    obj->affected[affectnumber].location = APPLY_DEX;
-    modifier = (int) (modifier * 2);
-    break;
-  case 3:
-    obj->affected[affectnumber].location = APPLY_INT;
-    modifier = (int) (modifier * 2);
-    break;
-  case 4:
-    obj->affected[affectnumber].location = APPLY_WIS;
-    modifier = (int) (modifier * 2);
-    break;
-  case 5:
-    obj->affected[affectnumber].location = APPLY_CON;
-    modifier = (int) (modifier * 2);
-    break;
-  case 6:
-    obj->affected[affectnumber].location = APPLY_MANA;
-    modifier = (8 * modifier);
-    break;
-  case 7:
-    obj->affected[affectnumber].location = APPLY_HIT;
-    modifier = (8 * modifier);
-    break;
-  case 8:
-    obj->affected[affectnumber].location = APPLY_MOVE;
-    modifier = (11 * modifier);
-    break;
-  case 9:
-    obj->affected[affectnumber].location = APPLY_DAMROLL;
-    break;
-  case 10:
-    obj->affected[affectnumber].location = APPLY_HITROLL;
-    break;
-  case 11:
-    obj->affected[affectnumber].location = APPLY_DAMROLL;
-    break;
-  case 12:
-    obj->affected[affectnumber].location = APPLY_SAVING_PARA;
-    modifier = (0 - modifier);
-    break;
-  case 13:
-    obj->affected[affectnumber].location = APPLY_SAVING_FEAR;
-    modifier = (0 - modifier);
-    break;
-  case 14:
-    obj->affected[affectnumber].location = APPLY_SAVING_BREATH;
-    modifier = (0 - modifier);
-    break;
-  case 15:
-    obj->affected[affectnumber].location = APPLY_SAVING_SPELL;
-    modifier = (0 - modifier);
-    break;
-  case 16:
-    obj->affected[affectnumber].location = APPLY_AGI;
-    modifier = (int) (modifier * 2);
-    break;
-  case 17:
-    obj->affected[affectnumber].location = APPLY_POW;
-    modifier = (int) (modifier * 2);
-    break;
-  case 18:
-    obj->affected[affectnumber].location = APPLY_LUCK;
-    modifier = (int) (modifier * 2);
-    break;
-  case 19:
-    obj->affected[affectnumber].location = APPLY_STR_MAX;
-    modifier = (int) (modifier * 0.8);
-    break;
-  case 20:
-    obj->affected[affectnumber].location = APPLY_DEX_MAX;
-    break;
-  case 21:
-    obj->affected[affectnumber].location = APPLY_INT_MAX;
-    modifier = (int) (modifier * 0.8);
-    break;
-  case 22:
-    obj->affected[affectnumber].location = APPLY_WIS_MAX;
-    modifier = (int) (modifier * 0.8);
-    break;
-  case 23:
-    obj->affected[affectnumber].location = APPLY_CON_MAX;
-    break;
-  case 24:
-    obj->affected[affectnumber].location = APPLY_AGI_MAX;
-    break;
-  case 25:
-    obj->affected[affectnumber].location = APPLY_POW_MAX;
-    break;
-  case 26:
-    obj->affected[affectnumber].location = APPLY_LUCK_MAX;
-    break;
-  case 27:
-    obj->affected[affectnumber].location = APPLY_HIT;
-    modifier = (7 * modifier);
-    break;
-  case 28:
-    obj->affected[affectnumber].location = APPLY_HIT;
-    modifier = (6 * modifier);
-    break;
-  case 29:
-    obj->affected[affectnumber].location = APPLY_HIT;
-    modifier = (5 * modifier);
-    break;
-  case 30:
-    obj->affected[affectnumber].location = APPLY_HIT;
-    modifier = (4 * modifier);
-    break;
-  default:
-    obj->affected[affectnumber].location = APPLY_HIT;
-    modifier = (3 * modifier);
-    break;
-  }
-  if( modifier == 0 )
-    obj->affected[affectnumber].location = APPLY_NONE;
+		for(i = 0; i < ARRAY_SIZE(inUse);i++)
+		{
+			inUse[i] = obj->affected[i].location;
+		}
 
-  obj->affected[affectnumber].modifier = modifier;
-  return obj;
+		while(reroll)
+		{
+			switch( number(0, 30) )
+			{
+			case 0:
+				obj->affected[affectnumber].location = APPLY_HITROLL;
+				modifier = (int) (modifier * 1);
+				break;
+			case 1:
+				obj->affected[affectnumber].location = APPLY_STR;
+				modifier = (int) (modifier * 1.5);
+				break;
+			case 2:
+				obj->affected[affectnumber].location = APPLY_DEX;
+				modifier = (int) (modifier * 1.5);
+				break;
+			case 3:
+				obj->affected[affectnumber].location = APPLY_INT;
+				modifier = (int) (modifier * 1.5);
+				break;
+			case 4:
+				obj->affected[affectnumber].location = APPLY_WIS;
+				modifier = (int) (modifier * 1.5);
+				break;
+			case 5:
+				obj->affected[affectnumber].location = APPLY_CON;
+				modifier = (int) (modifier * 1.5);
+				break;
+			case 6:
+				obj->affected[affectnumber].location = APPLY_MANA;
+				modifier = (8 * modifier);
+				break;
+			case 7:
+				obj->affected[affectnumber].location = APPLY_HIT;
+				modifier = (8 * modifier);
+				break;
+			case 8:
+				obj->affected[affectnumber].location = APPLY_MOVE;
+				modifier = (8 * modifier);
+				break;
+			case 9:
+				obj->affected[affectnumber].location = APPLY_DAMROLL;
+				break;
+			case 10:
+				obj->affected[affectnumber].location = APPLY_HITROLL;
+				break;
+			case 11:
+				obj->affected[affectnumber].location = APPLY_DAMROLL;
+				break;
+			case 12:
+				obj->affected[affectnumber].location = APPLY_SAVING_PARA;
+				modifier = (0 - modifier);
+				break;
+			case 13:
+				obj->affected[affectnumber].location = APPLY_SAVING_FEAR;
+				modifier = (0 - modifier);
+				break;
+			case 14:
+				obj->affected[affectnumber].location = APPLY_SAVING_BREATH;
+				modifier = (0 - modifier);
+				break;
+			case 15:
+				obj->affected[affectnumber].location = APPLY_SAVING_SPELL;
+				modifier = (0 - modifier);
+				break;
+			case 16:
+				obj->affected[affectnumber].location = APPLY_AGI;
+				modifier = (int) (modifier * 1.5);
+				break;
+			case 17:
+				obj->affected[affectnumber].location = APPLY_POW;
+				modifier = (int) (modifier * 1.5);
+				break;
+			case 18:
+				obj->affected[affectnumber].location = APPLY_LUCK;
+				modifier = (int) (modifier * 1.5);
+				break;
+			case 19:
+				obj->affected[affectnumber].location = APPLY_STR_MAX;
+				break;
+			case 20:
+				obj->affected[affectnumber].location = APPLY_DEX_MAX;
+				break;
+			case 21:
+				obj->affected[affectnumber].location = APPLY_INT_MAX;
+				break;
+			case 22:
+				obj->affected[affectnumber].location = APPLY_WIS_MAX;
+				break;
+			case 23:
+				obj->affected[affectnumber].location = APPLY_CON_MAX;
+				break;
+			case 24:
+				obj->affected[affectnumber].location = APPLY_AGI_MAX;
+				break;
+			case 25:
+				obj->affected[affectnumber].location = APPLY_POW_MAX;
+				break;
+			case 26:
+				obj->affected[affectnumber].location = APPLY_LUCK_MAX;
+				break;
+			case 27:
+				obj->affected[affectnumber].location = APPLY_HIT;
+				modifier = (7 * modifier);
+				break;
+			case 28:
+				obj->affected[affectnumber].location = APPLY_HIT;
+				modifier = (6 * modifier);
+				break;
+			case 29:
+				obj->affected[affectnumber].location = APPLY_HIT;
+				modifier = (5 * modifier);
+				break;
+			case 30:
+				obj->affected[affectnumber].location = APPLY_HIT;
+				modifier = (4 * modifier);
+				break;
+			default:
+				obj->affected[affectnumber].location = APPLY_HIT;
+				modifier = (3 * modifier);
+				break;
+			}
+
+			for(i = 0; i < ARRAY_SIZE(inUse); i++)
+			{
+				if (i == affectnumber)
+				{
+					continue;
+				}
+
+				if(obj->affected[affectnumber].location == obj->affected[i].location)
+				{
+					// collision on an existing affect slot
+					modifier = modOriginal;
+					break;
+				}
+			}
+			reroll = (i < ARRAY_SIZE(inUse));
+		}
+	}
+
+	obj->affected[affectnumber].modifier = modifier;
+	return obj;
 }
 
 int random_eq_proc(P_obj obj, P_char ch, int cmd, char *argument)

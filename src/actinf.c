@@ -6338,7 +6338,7 @@ void do_who(P_char ch, char *argument, int cmd)
     max_level = MAXLVL;
   }
 
-  if (GET_RACE(ch) == RACE_ILLITHID )
+  /* if (GET_RACE(ch) == RACE_ILLITHID )
   {
     if( GET_LEVEL(ch) < 20 )
     {
@@ -6358,7 +6358,7 @@ void do_who(P_char ch, char *argument, int cmd)
       if (GET_MANA(ch) < GET_MAX_MANA(ch))
         StartRegen(ch, EVENT_MANA_REGEN);
     }
-  }
+  } */
 
   for( d = descriptor_list; d; d = d->next )
   {

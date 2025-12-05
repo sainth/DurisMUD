@@ -48,7 +48,7 @@ void Guildhall::initialize()
   for( int i = 0; i < guildhalls.size(); i++ )
   {
     load_guildhall_rooms(guildhalls[i]);
-    if( (guildhalls[i]->guild = get_guild_from_id( guildhalls[i]->id )) == NULL )
+    if( (guildhalls[i]->guild = get_guild_from_id( guildhalls[i]->assoc_id )) == NULL )
       raise(SIGSEGV);
     guildhalls[i]->init();
   }

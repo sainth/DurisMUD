@@ -3621,9 +3621,6 @@ bool racewar(P_char viewer, P_char viewee)
     return TRUE;
   }
 
-  // Illithids see everyone's true name.
-  if( IS_ILLITHID(viewer) )
-    return FALSE;
   if( GET_RACEWAR(viewer) != GET_RACEWAR(viewee) )
     return TRUE;
 
@@ -4732,18 +4729,15 @@ int GET_CHAR_SKILL_P(P_char ch, int skl)
       skllvl = BOUNDED(0, lvl << 1, highest);
   }
 
-  /*  af = ch->affected;
-
-     while (af)
-     {
-     if ((af->location == APPLY_SKILL_ADD) && (af->loc2 == skl) && skllvl)
-     mod += af->modifier;
-     else
-     if ((af->location == APPLY_SKILL_GRANT) && (af->loc2 == skl))
-     mod += af->modifier;
-
-     af = af->next;
-       } */
+  af = ch->affected;
+  while (af)
+  {
+    if ((af->location == APPLY_SKILL_ADD) && (af->loc2 == skl) && skllvl)
+      mod += af->modifier;
+    else if ((af->location == APPLY_SKILL_GRANT) && (af->loc2 == skl))
+      mod += af->modifier;
+    af = af->next;
+  }
 
 #ifdef STANCES_ALLOWED
   if(skllvl > 0 && IS_PC(ch) && (ch->only.pc->frags > 0))

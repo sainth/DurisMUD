@@ -12417,8 +12417,9 @@ void spell_regeneration(int level, P_char ch, char *arg, int type, P_char victim
   bzero(&af, sizeof(af));
   af.type = SPELL_REGENERATION;
   af.duration = skl_lvl;
-  af.location = APPLY_HIT_REG;
-  af.modifier = level * level * 2;
+  //af.location = APPLY_HIT_REG;
+  //af.modifier = level * level * 2;
+  af.bitvector4 = AFF4_REGENERATION;
   send_to_char(Gbuf1, victim);
   affect_to_char(victim, &af);
 }

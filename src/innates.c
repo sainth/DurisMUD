@@ -3916,6 +3916,8 @@ int get_innate_regeneration(P_char ch)
         mult += regen_factor[REG_REVENANT];
       break;
     default:
+	  if( affected_by_spell(ch, SPELL_REGENERATION) )
+    	mult += regen_factor[REG_SPELL];
       break;
   }
 
@@ -3927,7 +3929,7 @@ int get_innate_regeneration(P_char ch)
 
   mult += attuned_to_terrain(ch);
 
-  return GET_LEVEL(ch) * mult;
+  return GET_LEVEL(ch) * MAX(mult, 2);
 }
 
 int get_innate_resistance(P_char ch)
@@ -5117,10 +5119,11 @@ void do_squidrage(P_char ch, char *arg, int cmd)
 
 void update_regen_properties()
 {
-  regen_factor[REG_TROLL] = get_property("hit.regen.Troll", 8.000);
+  regen_factor[REG_TROLL] = get_property("hit.regen.Troll", 9.000);
   regen_factor[REG_REVENANT] = get_property("hit.regen.Revenant", 4.000);
   regen_factor[REG_HUNTSMAN] = get_property("hit.regen.Huntsman", 4.000);
   regen_factor[REG_WATERMAGUS] = get_property("hit.regen.WaterMagus", 4.000);
+  regen_factor[REG_SPELL] = get_property("hit.regen.Spell", 9.000);  
 }
 
 int get_innate_from_skill( int skill )

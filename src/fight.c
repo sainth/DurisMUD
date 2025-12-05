@@ -4546,7 +4546,7 @@ int spell_damage(P_char ch, P_char victim, double dam, int type, uint flags, str
     }
     else
     {
-      if (ELEMENTAL_DAM(type) == SPLDAM_EARTH)
+      if (type == SPLDAM_EARTH)
         snprintf(buf, 128, "You feel less vulnerable to &+%s!&n\n", colors[5]);
       else 
         snprintf(buf, 128, "You feel less vulnerable to &+%s!&n\n", colors[type - 2]);

@@ -13120,6 +13120,29 @@ void apply_zone_spell(P_char ch, int count, const char *zone_name, P_obj obj, in
 		  }
 	  }
 	  break;
+	case SKILL_EPIC_STRENGTH:
+	case SKILL_EPIC_POWER:
+	case SKILL_EPIC_AGILITY:
+	case SKILL_EPIC_INTELLIGENCE:
+	case SKILL_EPIC_DEXTERITY:
+	case SKILL_EPIC_WISDOM:
+	case SKILL_EPIC_CONSTITUTION:
+	case SKILL_EPIC_CHARISMA:
+	case SKILL_EPIC_LUCK:
+	  if ( !affected_by_skill(ch, spell) )
+	  {
+		int level = MIN(56, count * 10);
+		struct affected_type af;
+		memset(&af, 0, sizeof(af));
+		af.type = spell;
+		af.duration = level / 10;
+		af.location = APPLY_SKILL_GRANT;
+		af.loc2 = spell;
+		af.modifier = level;
+		affect_to_char(ch, &af);
+		message = SETMSG_STRENGTH;
+	  }
+	  break;
 	default:
 		if (!affected_by_spell(ch, spell))
 		{

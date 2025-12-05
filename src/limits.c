@@ -322,10 +322,10 @@ int hit_regen(P_char ch, bool display_only)
     switch( GET_STAT(ch) )
     {
       case STAT_SLEEPING:
-        gain += 2 * get_innate_regeneration(ch);
+        gain += 3 * get_innate_regeneration(ch);
         break;
       case STAT_RESTING:
-        gain += (3 * get_innate_regeneration(ch)) / 2;
+        gain += 2 * get_innate_regeneration(ch);
         break;
       default:
         gain += get_innate_regeneration(ch);

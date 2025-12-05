@@ -1177,6 +1177,7 @@ struct affected_type {
   uint flags;                                   /* flags describing affect behavior, see AFFTYPE_* defines */
   int modifier;                 /* This is added to apropriate ability     */
   ubyte location;               /* Tells which ability to change(APPLY_XXX)*/
+  ubyte loc2;
   void *context;
   unsigned short level;
   unsigned long bitvector;		 /* Tells which bits to set (AFF_XXX)       */
@@ -2457,7 +2458,8 @@ struct TimedShutdownData
 #define REG_REVENANT    1
 #define REG_HUNTSMAN    2
 #define REG_WATERMAGUS  3
-#define REG_MAX         3
+#define REG_SPELL       4
+#define REG_MAX         4
 
 typedef void cmd_func(P_char, char *, int);
 struct innate_data
