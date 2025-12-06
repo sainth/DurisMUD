@@ -616,10 +616,10 @@ bool holy_weapon_proc(P_char ch, P_char victim)
     spell_cure_serious, // 4
     spell_cure_critic,  // 5
     spell_cure_critic,  // 6
-    spell_heal,         // 7
+    spell_cure_critic,  // 7
     spell_heal,         // 8
-    spell_full_heal,    // 9
-    spell_full_heal     // 10
+    spell_heal,         // 9
+    spell_heal         // 10
   };
 
   // Ok, 4.5 hits/round for lvl 56 -> proc every 2.5 rounds or so
